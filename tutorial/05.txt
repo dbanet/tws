@@ -1,0 +1,23 @@
+here, you can see the chat view, this view is awesome in its functionality. as you can see i right clicked a texttype.
+the texttype was a nickname, i can now choose a font, a color and open a chatwindow with this user.
+if i choose another font, the next nicknames will appear in the new color. the same with fonts.
+i could also richtclick the time and change the font and color of the next timestamps.
+you see there are different texttypes let me list them:
+nicknames, timestamps, servermessages, chattext from normal users, chattext from a buddy, internet links which start with http://, 
+game links which start with wa://, notices, actions, private messages from normal users.
+
+all this texttypes can be settet with a rightclick to them.
+a gamelink will appear as GAMELINK, with a rightclick you can open a game information window, it shows you the whole gamelink.
+also a rightclick to a gamelink lets you join this game directly. if you host a game the snooper will write this gamelink to the channelwindow,
+so people can then join your game over this link and they must not wait until the game appears in the hostscreen.
+
+a internet link can be leftclicked and the snooper will then open your browser and show the website, note that website links
+must start with http:// and they cannot include whitespaces. a whitespace should appear as %20. for example:
+http://www.The Wheat Snooper.com is invalid, you must write http://www.The%20Wheat%20Snooper.com then the snooper will parse it right.
+
+you may wonder why the texttypes are already settet to different colors and fonts, this was done by me and the program safes this to the
+/snpini/snpini file. you allready have a default snpini file in your snooper, this file is responsible for almost all settings. 
+you can also delete this file, the snooper will generate a new one on next start.
+
+
+

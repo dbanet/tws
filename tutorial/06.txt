@@ -1,0 +1,30 @@
+here you see the user view, this view provides important functionalities to make your live easier in wormnet.
+it shows the channels in wormnet and some additional "channels". Buddylist Querys and Ignorelist, arent channels,
+they can be seen as (user) containers with special purposes.
+in the picture i rightclicked a user, i can now add this user to the buddylist or ignorelist. 
+if i add one to the ignorelist, he will appear there (online or offline).
+the buddylist will only show this user if he is online, and the snooper will also play sound when a buddy 
+connects to wormnet or disconnects. also he must not join a channel to appear in your list, the snooper will
+show him if he is connected to wormnet. with a doubleclick to a user you can start a chat with him.
+users from your buddylist will open a chatwindow when they send you a private message.
+users from ignorelist cannot send you private messages.
+users that are not in your buddylist and not in your ignorelist can send you private messages but the message will then
+appear in all channelchat windows.
+
+in settings you can also set that ignorelist users will not appear inside the chatwindows at all. but you can open a chatwindow
+with them and talk.
+
+if a user that is not in the buddylist nor in the ignorelist, sends you a private message, he will then appear in the query list
+and the snooper will also safe this query if you close it. so a look inside the query list will allways inform you about
+chat querys and you can allways read it, even the next day.
+
+a doubleclick to a channelname will open this channel if it is not opened allready.
+
+buddys appear with a green point on their names, and their hosts will appear with a green lamp instead of a white one.
+querys from users that are gone offline will appear with a gray point and ignorelist member with a transparent point.
+
+you can sort by flag rank nick clan and client with a click to the header buttons in the view. you can also drag and drop this buttons from the view to change the direction.
+the default direction is flag rank nick clan and client. so you can change it for example to:
+nick rank flag clan client.
+if you rightclick a clanname you can choose that this clanname should be hidden, that makes it possible to disable strings 
+that dont seem to be a clanname.
