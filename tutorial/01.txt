@@ -1,0 +1,30 @@
+Hello, we start this tutorial, with the root window of "The Wheat Snooper".
+you can see several textlines, groupboxes and comboboxes, 
+the editor groupbox is for advanced usage and you must not worrie about it.
+
+the nickname groupbox displays your nickname in wormnet, change this name to everything you want.
+it has a regular expression installed, so you cannot pick unsupported letters.
+
+the password groupbox, can be used for secure registration (if that will be implemented to wormnet one day). 
+to enable secure login you must go into the editor and clean the ip from [irc ip] section.
+if you do that nicknames cannot include ` signs anymore. but until wormnet secure login is not implemented we dont need it.
+
+the next are flags and ranks, the clan tag and the client from yourself, that others will see in wormnet. let me say some words to this.
+wormnet mods may argue about this propertys in future: that you must mark yourself as a snooper.
+in that case, to avoid trouble with this guys, you should change the rank to 12 and name the client with "snooper".
+these settings let you also hide your client to others, so you can appear exactly as a prosnooper2 client or the game itself.
+people are then only able to debunk your secret, if they send a versioning to you, because versioning is just not implemented.
+
+after setting all up, you click choose and the snooper will then connect to wormnet, if you ever come back to this settings tab,
+the snooper will automaticly disconnect you from wormnet.
+
+
+
+
+
+
+
+
+
+
+

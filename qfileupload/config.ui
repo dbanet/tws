@@ -1,0 +1,64 @@
+<ui version="4.0" >
+ <class>config</class>
+ <widget class="QWidget" name="config" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>426</width>
+    <height>359</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Einstellungen</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2" >
+   <item row="0" column="0" >
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="title" >
+      <string>Farben</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout" >
+      <item row="0" column="0" >
+       <widget class="QPushButton" name="logButton" >
+        <property name="text" >
+         <string>Log-Text</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QPushButton" name="errButton" >
+        <property name="text" >
+         <string>Error</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" >
+       <widget class="QPushButton" name="verlauf2Button" >
+        <property name="text" >
+         <string>Hystorie 2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" >
+       <widget class="QPushButton" name="verlauf1Button" >
+        <property name="text" >
+         <string>Hystorie 1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QPushButton" name="linkButton" >
+        <property name="text" >
+         <string>Link</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
