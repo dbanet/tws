@@ -1,3 +1,0 @@
-ok, here you see a part of a channelwindow, its the host view. 
-you can rightclick the channel to host a public or private game. a doubleclick to a channel
-will open a public game window.
