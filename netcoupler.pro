@@ -14,8 +14,10 @@ INCLUDEPATH += . \
     qfileupload
 MOC_DIR = ./moc
 UI_DIR = ./UIC
-unix: TARGET = "./The Wheat Snooper/The Wheat Snooper"
-win32: TARGET = "./The Wheat Snooper/The Wheat Snooper.exe"
+OBJECTS_DIR = ./O
+unix:TARGET = "./The Wheat Snooper/The Wheat Snooper"
+win32:TARGET = "./The Wheat Snooper/The Wheat Snooper.exe"
+
 # Input
 HEADERS += about.h \
     awaybox.h \
@@ -48,8 +50,6 @@ HEADERS += about.h \
     snoppanet.h \
     snpsettings.h \
     textschemehandler.h \
-    ui_debugmessage.h \
-    ui_mmwindow.h \
     uihelper.h \
     uploadedfileatomic.h \
     usermodel.h \
