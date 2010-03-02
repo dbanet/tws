@@ -15,7 +15,6 @@ INCLUDEPATH += . \
 MOC_DIR = .moc
 UI_DIR = .ui
 OBJECTS_DIR= .lib
-OBJECTS_DIR = ./O
 unix:TARGET = "./The Wheat Snooper/The Wheat Snooper"
 win32:TARGET = "./The Wheat Snooper/The Wheat Snooper.exe"
 
