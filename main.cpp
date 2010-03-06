@@ -36,9 +36,9 @@ int main(int argc, char *argv[]) {
     qInstallMsgHandler(myMessageOutput);
     QApplication a(argc, argv);    
     a.setApplicationName("The Wheat Snooper");
-//#if defined QT_WS_X11
+#if defined QT_WS_X11
     chdir(qPrintable(QApplication::applicationDirPath()));
-//#endif
+#endif
     singleton<snpsettings>().load();
     singleton<charformatsettings>().load();
     QTranslator trans;

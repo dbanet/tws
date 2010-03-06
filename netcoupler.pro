@@ -16,7 +16,7 @@ MOC_DIR = .moc
 UI_DIR = .ui
 OBJECTS_DIR= .lib
 unix:TARGET = "./The Wheat Snooper/The Wheat Snooper"
-win32:TARGET = "./The Wheat Snooper/The Wheat Snooper.exe"
+win32:TARGET = "../Snooper"
 
 # Input
 HEADERS += about.h \
