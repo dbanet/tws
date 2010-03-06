@@ -15,8 +15,8 @@ INCLUDEPATH += . \
 MOC_DIR = .moc
 UI_DIR = .ui
 OBJECTS_DIR= .lib
-unix:TARGET = "./The Wheat Snooper/The Wheat Snooper"
-win32:TARGET = "../Snooper"
+unix: TARGET = "./TheWheatSnooper/TheWheatSnooper"
+win32: TARGET = "../TheWheatSnooper/TheWheatSnooper"
 
 # Input
 HEADERS += src/about.h \
