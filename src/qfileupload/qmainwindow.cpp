@@ -1,4 +1,4 @@
-#include "qfileupload/qmainwindow.h"
+#include "qmainwindow.h"
 
 //General file-upload Data
 #define WWW		"www"

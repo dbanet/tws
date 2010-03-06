@@ -8,7 +8,7 @@
 #include<QDebug>
 #include<QMessageBox>
 #include<QPicture>
-#include<buddylist.h>
+#include"buddylist.h"
 #include<QTime>
 #include"ctcphandler.h"
 #include"chathandler.h"

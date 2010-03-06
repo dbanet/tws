@@ -10,7 +10,7 @@
 #include<QObject>
 #include<QStringList>
 #include<QMap>
-#include<global_macros.h>
+#include"global_macros.h"
 class ctcphandler:public QObject {
     Q_OBJECT
     DECLARE_SINGLETON(ctcphandler);
