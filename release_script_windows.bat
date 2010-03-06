@@ -10,4 +10,3 @@ copy %QTDIR%\bin\QtNetwork4.dll "The Wheat Snooper"
 copy %QTDIR%\bin\phonon4.dll "The Wheat Snooper"
 lrelease netcoupler.pro
 copy /Y translations\*.qm "The Wheat Snooper\translations"
-del Snooper.exe
