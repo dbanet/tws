@@ -17,6 +17,7 @@ UI_DIR = .ui
 OBJECTS_DIR= .lib
 unix: TARGET = "./TheWheatSnooper/TheWheatSnooper"
 win32: TARGET = "../TheWheatSnooper/TheWheatSnooper"
+unix: DEFINES+=QT_WS_X11
 
 # Input
 HEADERS += src/about.h \
