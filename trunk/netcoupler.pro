@@ -15,6 +15,7 @@ INCLUDEPATH += . \
 MOC_DIR = .moc
 UI_DIR = .ui
 OBJECTS_DIR= .lib
+RCC_DIR = .rcc
 unix: TARGET = "./TheWheatSnooper/TheWheatSnooper"
 win32: TARGET = "../TheWheatSnooper/TheWheatSnooper"
 unix: DEFINES+=QT_WS_X11
