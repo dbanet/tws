@@ -14,6 +14,4 @@ now go in the subfolder "The Wheat Snooper" and execute the program.
 
 hf :)
 
-If you want to work with the source, just use the QtCreator. Open the netcoupler.pro file with 
-
-it, but first execute the script.
+If you want to work with the source, just use the QtCreator. Open the netcoupler.pro file with it, but first execute the script.
