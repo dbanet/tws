@@ -1,6 +1,6 @@
 WINDOWS:
 
-Download the Qt SDK from:
+Download the Qt SDK from
 
 http://qt.nokia.com/downloads
 
