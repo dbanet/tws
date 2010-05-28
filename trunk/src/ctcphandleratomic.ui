@@ -99,6 +99,16 @@
            <number>0</number>
           </property>
           <item>
+           <widget class="QCheckBox" name="cbenable">
+            <property name="text">
+             <string>Enable</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
            <spacer name="horizontalSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>

@@ -16,7 +16,7 @@ public:
 
 private:
 	void addcommand(QString);
-	void addsalary(QString,QString);
+        void addsalary(QString,QString,bool);
     Ui::ctctphandlerwidgetClass ui;
 private slots:
 	void safeandclose();
