@@ -1,0 +1,98 @@
+//wormnet has 2 different parts, a http server which handles the host informations and a irc server 
+//which handles the irc chat in wormnet
+//lines which begin with  // will be ignored by the program, they are written only for you, lines wich begins with [ should 
+//not be touched. if a line starts with //img://foobar.png the program will search foobar.png (in snppictures path) and display it.
+
+[http wormnet server]
+//the wormnet http-server
+http://wormnet1.team17.com
+
+[http login header]
+//the http header used when logging in to wormnet http server, i think it will never be necessary to change it
+User-Agent: T17Client/1.2
+Pragma: No-Cache
+Cookie: snooper=true; snooper=true; snooper=true; snooper=true; snooper=true
+UserLevel: 0
+UserServerIdent: 2
+
+[http get host header]
+//the http header used when asking for the host list, i think it will never be necessary to change it
+User-Agent T17Client/1.2
+Pragma No-Cache
+Cookie snooper=true; snooper=true; snooper=true; snooper=true; snooper=true
+UserLevel 0
+UserServerIdent 2
+
+[irc password]
+//this can be usefull in case someone opens an own wormnet with another password.
+PASS standard
+
+[irc register]
+USER noclan hostname servername :15 3 ?? snopperfromhell
+//this string will be send to register the client to the irc server: note: dont add additional whitespaces to this line, this is only allowed in the last string.
+//				-noclan can be everything, this tool uses this string to present a clan tag 
+//				-first number stands for the flag
+//				-second number stands for a wormnet rank
+//				-the last string represents the name of your client, you can type
+//				 for example prosnooper
+//img://flags-overview.png
+//img://ranks-overview.png
+
+[allowed identifiers for whois]
+//if the string (snopperfromhell in the example above) contains one of this, your program will send and accept extendend features like "extendend WHOIS"
+hell
+snopper
+
+[irc servernick]
+//if no servernick (e.g. wormnet1.team17.com) is given, [http wormnet server] minus "http:" will be used, as the nick
+
+[irc ip]
+//ip address of the irc-server from wormnet
+195.89.193.89
+
+[who repeat delay]
+//the milliseconds it takes to refresh the userlist
+3000
+
+[host repeat delay]
+//the milliseconds it takes to refresh the hostlist
+15000
+
+[host timeout delay]
+//how many seconds to wait for the own host to appear, until a host request becomes invalid
+60
+
+[maximum of textblocks in a chat]
+//set the maximum number of messages a chattext widget can display
+150
+
+[alert me on a notice]
+//if its true the channelwindows will blink when a notice arrives, on false they wont
+//false
+true
+
+[alert me on a privmsg from normal user]
+//if its true the channelwindows will blink when a privmsg from user not in your buddylist arrives, on false they wont
+//false
+true
+
+[user from ignorelist on appear channels]
+//if true you will see channel messages from users isnide your ignorelist, if false not
+//false
+true
+
+[safe querys and logs]
+//if true it will safe the querys and logs, if false not
+//false
+true
+
+[set away while gaming]
+//if true the program will send away status to the irc server, if false it wont
+//false
+true
+
+[awaystring while hosting]
+//the away string that is send while playing a game with the snooper (hosting or joining)
+//this string should not include whitespaces
+im_in_a_game
+[]

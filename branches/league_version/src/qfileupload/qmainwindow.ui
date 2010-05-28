@@ -1,0 +1,327 @@
+<ui version="4.0" >
+ <class>MainWindow</class>
+ <widget class="QWidget" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>538</width>
+    <height>598</height>
+   </rect>
+  </property>
+  <property name="sizePolicy" >
+   <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize" >
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="windowTitle" >
+   <string>QFileUpload</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout" >
+   <item>
+    <widget class="QListWidget" name="widgetList" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Expanding" hsizetype="Fixed" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize" >
+      <size>
+       <width>150</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize" >
+      <size>
+       <width>150</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="iconSize" >
+      <size>
+       <width>64</width>
+       <height>64</height>
+      </size>
+     </property>
+     <item>
+      <property name="text" >
+       <string>Upload</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="qfileupload.qrc" >
+        <normaloff>:/images/upload.png</normaloff>:/images/upload.png</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Log</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="qfileupload.qrc" >
+        <normaloff>:/images/diag.png</normaloff>:/images/diag.png</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Hystorie</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="qfileupload.qrc" >
+        <normaloff>:/images/verlauf.png</normaloff>:/images/verlauf.png</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>About</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="qfileupload.qrc" >
+        <normaloff>:/images/about.png</normaloff>:/images/about.png</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Settings</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="qfileupload.qrc" >
+        <normaloff>:/images/settings.png</normaloff>:/images/settings.png</iconset>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="container" >
+     <property name="frameShape" >
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QWidget" native="1" name="uploadWidget" >
+        <layout class="QGridLayout" name="gridLayout_2" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <item row="0" column="0" colspan="2" >
+          <widget class="QLabel" name="label" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Maximum" hsizetype="Preferred" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text" >
+            <string>File</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0" colspan="2" >
+          <widget class="QPushButton" name="buttonStart" >
+           <property name="text" >
+            <string>Send</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="qfileupload.qrc" >
+             <normaloff>:/images/send.png</normaloff>:/images/send.png</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0" colspan="2" >
+          <widget class="QLabel" name="label_2" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Maximum" hsizetype="Preferred" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text" >
+            <string>Progress</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0" colspan="2" >
+          <widget class="QProgressBar" name="pBar" >
+           <property name="maximum" >
+            <number>1</number>
+           </property>
+           <property name="value" >
+            <number>0</number>
+           </property>
+           <property name="invertedAppearance" >
+            <bool>false</bool>
+           </property>
+           <property name="format" >
+            <string>%v Byte</string>
+           </property>
+          </widget>
+         </item>
+         <item rowspan="3" row="2" column="0" >
+          <widget class="QListWidget" name="fileWidget" />
+         </item>
+         <item row="2" column="1" >
+          <widget class="QPushButton" name="addButton" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text" >
+            <string>Add</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="qfileupload.qrc" >
+             <normaloff>:/images/file-add.png</normaloff>:/images/file-add.png</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1" >
+          <widget class="QPushButton" name="delButton" >
+           <property name="text" >
+            <string>Delete</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="qfileupload.qrc" >
+             <normaloff>:/images/file-remove.png</normaloff>:/images/file-remove.png</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1" >
+          <spacer name="verticalSpacer" >
+           <property name="orientation" >
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0" >
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" native="1" name="logWidget" >
+        <layout class="QGridLayout" name="gridLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <item row="0" column="0" >
+          <widget class="QTextBrowser" name="logNew" >
+           <property name="openExternalLinks" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" native="1" name="verlaufWidget" >
+        <layout class="QGridLayout" name="gridLayout_3" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <item row="0" column="0" >
+          <widget class="QTextBrowser" name="logOld" >
+           <property name="openExternalLinks" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" >
+          <widget class="QPushButton" name="delHistoryButton" >
+           <property name="text" >
+            <string>Delete history</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="qfileupload.qrc" >
+             <normaloff>:/images/exit.png</normaloff>:/images/exit.png</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" native="1" name="aboutWidget" >
+        <layout class="QGridLayout" name="gridLayout_4" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <item row="0" column="0" >
+          <widget class="QTextBrowser" name="aboutBrowser" >
+           <property name="html" >
+            <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;">&lt;span style=" font-family:'Sans Serif'; font-size:11pt; font-weight:600;">QFileUploader&lt;/span>&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt; font-weight:600;">&lt;span style=" font-size:9pt;">Uploader for &lt;/span>&lt;a href="http://www.file-upload.net">&lt;span style=" text-decoration: underline; color:#0000ff;">file-upload.net&lt;/span>&lt;/a>&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;a href="mailto:markus.kuenkler@gmx.de">&lt;span style=" font-family:'MS Shell Dlg 2'; font-size:8pt; text-decoration: underline; color:#0000ff;">markus.kuenkler@gmx.de&lt;/span>&lt;/a>&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt; text-decoration: underline; color:#0000ff;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt; text-decoration: underline; color:#0000ff;">&lt;span style=" font-family:'Sans Serif'; font-size:9pt; font-weight:600; text-decoration:none; color:#000000;">Credits&lt;/span>&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt; text-decoration: underline; color:#0000ff;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt; text-decoration: underline; color:#0000ff;">&lt;span style=" text-decoration:none; color:#000000;">Icons from Oxygen Project&lt;/span>&lt;br />&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;">&lt;span style=" font-size:x-large;">About Qt&lt;/span>&lt;/p>
+&lt;p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;"> Qt is a C++ toolkit for cross-platform application development.Qt provides single-source portability across MS Windows, Mac OS X,Linux and all major commercial Unix variants. Qt is also available forembedded devices as Qtopia Core.The Qt Open Source Edition is available to the Open Source communityunder Trolltech's Dual Licensing Model. The Open Source Edition of Qtis freely available for the development of Open Source softwaregoverned by the GNU General Public License (GPL).See http://www.trolltech.com/qt/ for more information.&lt;/p>&lt;/body>&lt;/html></string>
+           </property>
+           <property name="openExternalLinks" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="qfileupload.qrc" />
+ </resources>
+ <connections/>
+</ui>
