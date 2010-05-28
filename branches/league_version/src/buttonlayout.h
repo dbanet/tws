@@ -3,7 +3,7 @@
 
 #include <QtGui/QWidget>
 #include "ui_buttonlayout.h"
-
+class QTimer;
 class buttonlayout : public QWidget
 {
     Q_OBJECT
@@ -15,7 +15,9 @@ public:
     void showbuttons();
 private:
     Ui::buttonlayoutClass ui;
+    QTimer *postTimer;
 private slots:
+    void on_pbposter_clicked();
     void on_pbsort_clicked();
     void on_pbballoon_clicked();
     void on_pbsound_clicked();
@@ -27,6 +29,7 @@ signals:
     void sigchangealpha(int);
     void sigshowme();
     void sighideme();
+    void sigposteractivated();
 protected:
     bool eventFilter(QObject *obj, QEvent *event);
 };

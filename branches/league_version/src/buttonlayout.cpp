@@ -2,18 +2,23 @@
 #include"netcoupler.h"
 #include"snpsettings.h"
 #include"settingswindow.h"
+#include "automatic_posts_dialog.h"
 #include<QDebug>
 #include<QPointer>
+#include<QTimer>
+
 extern QPointer<netcoupler> net;;
 buttonlayout::buttonlayout(QWidget *parent) :
 	QWidget(parent) {
     ui.setupUi(this);
+    postTimer=new QTimer;
     ui.horizontalLayout->setAlignment(Qt::AlignLeft);
     this->setObjectName("buttoenlayout");
     connect(ui.pbrefresh, SIGNAL(clicked()),net, SLOT(refreshhostlist()));
     connect(ui.pbhost, SIGNAL(clicked()),this, SIGNAL(pbhostclicked()));
     connect(ui.pbminimize, SIGNAL(clicked()),this, SIGNAL(pbminimizedclicked()));
     connect(ui.slideralpha,SIGNAL(valueChanged ( int )),this,SIGNAL(sigchangealpha(int)));
+    connect(postTimer,SIGNAL(timeout()),this,SIGNAL(sigposteractivated()));
     if(singleton<snpsettings>().map["channeltransparency"].toInt()>=20){
         ui.slideralpha->setValue(singleton<snpsettings>().map["channeltransparency"].toInt());
     }
@@ -45,7 +50,7 @@ bool buttonlayout::eventFilter(QObject *obj, QEvent *event) {
     if (qobject_cast<QScrollArea*> (obj) != 0 && qobject_cast<QScrollArea*> (
             obj)->objectName() == "chatwindowbuttonscrollArea") {
         if (event->type() == QEvent::Enter) {            
-            if(ui.chatwindowbuttonscrollArea->width()<941){
+            if(ui.chatwindowbuttonscrollArea->width()<1020){
                 ui.chatwindowbuttonscrollArea->setMaximumHeight(50);
                 this->setMaximumHeight(50);
                 ui.chatwindowbuttonscrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -109,4 +114,15 @@ void buttonlayout::on_pbsort_clicked()
         ui.pbsort->setText(tr("Sorting off"));
     else
         ui.pbsort->setText(tr("Sorting on"));
+}
+
+void buttonlayout::on_pbposter_clicked()
+{
+    automatic_posts_dialog dia;
+    if(!dia.exec())
+    {
+        postTimer->stop();
+        return;
+    }
+    postTimer->start(10000*singleton<snpsettings>().map["automatic_posts_delay"].toInt());
 }

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>941</width>
+    <width>1020</width>
     <height>23</height>
    </rect>
   </property>
@@ -139,11 +139,11 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>989</width>
+        <width>1026</width>
         <height>23</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0,0,0,0,0,0,0,0,1">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0,0,0,0,0,0,0,0,0,1">
        <property name="margin">
         <number>0</number>
        </property>
@@ -300,6 +300,22 @@
          </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pbposter">
+         <property name="minimumSize">
+          <size>
+           <width>75</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Use this Button to set automatic messages, that will arrive in this channel.</string>
+         </property>
+         <property name="text">
+          <string>Poster</string>
          </property>
         </widget>
        </item>

@@ -310,9 +310,7 @@ void mainwindow::snpsetcontains(const QString &s) {
                 singleton<snpsettings>().map[s].value<QString> ()));
     else if (s == "rank" && singleton<snpsettings>().map.contains(s))
         ui.rank->setCurrentIndex(ui.rank->findText(
-                singleton<snpsettings>().map[s].value<QString> ()));
-    else if (s == "client" && singleton<snpsettings>().map.contains(s))
-        ui.client->setText(singleton<snpsettings>().map[s].value<QString> ());
+                singleton<snpsettings>().map[s].value<QString> ()));    
     else if (s == "clan" && singleton<snpsettings>().map.contains(s))
         ui.clan->setText(singleton<snpsettings>().map[s].value<QString> ());
     else if (s == "whichuitype" && singleton<snpsettings>().map.contains(s))

@@ -43,6 +43,7 @@ window::window(netcoupler *n, QString s, int i) :
     connect(buttons, SIGNAL(pbminimizedclicked()),this, SLOT(minimize()));
     connect(buttons, SIGNAL(sigchangealpha(int)),this, SLOT(changealpha(int)));
     connect(buttons, SIGNAL(sigshowme()),this, SLOT(showbuttons()));
+    connect(buttons, SIGNAL(sigposteractivated()),this, SLOT(poster_activated()));
     ui.getchilds(this);
     QWidget *tempwidgetusers=new QWidget;
     QWidget *tempwidgethosts=new QWidget;
@@ -289,8 +290,12 @@ void window::gotgarbagepart(const QString &user, const QString &msg) {
 void window::gotgarbagequit(const QString &user, const QString &msg) {
     chat->appendquitgarbage(user + "> " + msg);
 }
-void window::sendmsg() {
-    QString s = ui.msg->text();
+void window::sendmsg(QString msg){
+    QString s;
+    if(msg==QString())
+        s = ui.msg->text();
+    else
+        s=msg;
     linedittextlist << s;
     linedittextlistcounter = linedittextlist.size();
     if (s != "") {
@@ -655,6 +660,9 @@ void window::getuserscount(QStringList sl) {
         this->windowtitletime = sl[1];
     }
     this->mysetwindowtitle();
+}
+void window::poster_activated(){
+    sendmsg(singleton<snpsettings>().map["automatic_posts"].toString());
 }
 window::~window() {
     ui.buttonlayout->removeWidget(buttons);

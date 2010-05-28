@@ -40,7 +40,7 @@ private slots:
 	void gotgarbagejoin(const QString&,const QString&);
 	void gotgarbagepart(const QString&,const QString&);
 	void gotgarbagequit(const QString&,const QString&);
-	void sendmsg();
+        void sendmsg(QString msg=QString());
 	void sendnotice();
 	void useritempressed(const QModelIndex&);
 	void useritemdblclicked(const QModelIndex&);
@@ -67,6 +67,7 @@ private slots:
 	void changealpha(int);
 	void showbuttons();
 	void getuserscount(QStringList);
+        void poster_activated();
 private:
 	netcoupler *net;
 	uihelper ui;
