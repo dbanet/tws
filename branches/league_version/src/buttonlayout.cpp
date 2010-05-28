@@ -124,5 +124,6 @@ void buttonlayout::on_pbposter_clicked()
         postTimer->stop();
         return;
     }
+    emit sigposteractivated();
     postTimer->start(10000*singleton<snpsettings>().map["automatic_posts_delay"].toInt());
 }
