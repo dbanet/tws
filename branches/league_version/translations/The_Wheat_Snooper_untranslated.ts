@@ -282,7 +282,7 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
     <name>about</name>
     <message>
         <location filename="../src/about.cpp" line="10"/>
-        <source>&lt;p&gt;Version %1&lt;br&gt;This Program was completely written by Lookias.&lt;br&gt;It was written in C++, with the eclipse ide.&lt;br&gt;The framework in use was Qt.&lt;br&gt;The license of the program is GPLv2.&lt;br&gt;The translation was made by Lookias.&lt;br&gt;&lt;br&gt;Lookias`s Homepage: &lt;a href=&quot;http://lookias.lo.funpic.de/page/index.htm&quot;&gt;lookias.lo.funpic.de/page&lt;/a&gt;&lt;br&gt;This programs livingplace &lt;a href=&quot;:http://lookias.inventforum.com/viewforum.php?f=9&quot;&gt;lookias.inventforum.com&lt;<byte value="x7"/>&gt;&lt;/p&gt;</source>
+        <source>&lt;p&gt;Version %1&lt;br&gt;This Program was completely written by Lookias.&lt;br&gt;It was written in C++, with the eclipse ide.&lt;br&gt;The framework in use was Qt.&lt;br&gt;The license of the program is GPLv2.&lt;br&gt;The translation was made by Lookias.&lt;br&gt;&lt;br&gt;Lookias`s Homepage: &lt;a href=&quot;http://lookias.lo.funpic.de/page/index.htm&quot;&gt;lookias.lo.funpic.de/page&lt;/a&gt;&lt;br&gt;This programs livingplace &lt;a href=&quot;http://lookias.inventforum.com/viewforum.php?f=9&quot;&gt;lookias.inventforum.com&lt;<byte value="x7"/>&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -291,6 +291,34 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
     <message>
         <location filename="../src/about.ui" line="13"/>
         <source>about</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>automatic_posts_dialog</name>
+    <message>
+        <location filename="../src/automatic_posts_dialog.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/automatic_posts_dialog.ui" line="20"/>
+        <source>The automatic message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/automatic_posts_dialog.ui" line="41"/>
+        <source>Time in 10 seconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/automatic_posts_dialog.ui" line="79"/>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/automatic_posts_dialog.ui" line="92"/>
+        <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -380,50 +408,50 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
 <context>
     <name>buttonlayout</name>
     <message>
-        <location filename="../src/buttonlayout.cpp" line="25"/>
-        <location filename="../src/buttonlayout.cpp" line="77"/>
+        <location filename="../src/buttonlayout.cpp" line="30"/>
+        <location filename="../src/buttonlayout.cpp" line="82"/>
         <source>Costum words on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/buttonlayout.cpp" line="27"/>
-        <location filename="../src/buttonlayout.cpp" line="79"/>
+        <location filename="../src/buttonlayout.cpp" line="32"/>
+        <location filename="../src/buttonlayout.cpp" line="84"/>
         <source>Costum words off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/buttonlayout.cpp" line="30"/>
-        <location filename="../src/buttonlayout.cpp" line="87"/>
+        <location filename="../src/buttonlayout.cpp" line="35"/>
+        <location filename="../src/buttonlayout.cpp" line="92"/>
         <source>Sound off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/buttonlayout.cpp" line="32"/>
-        <location filename="../src/buttonlayout.cpp" line="89"/>
+        <location filename="../src/buttonlayout.cpp" line="37"/>
+        <location filename="../src/buttonlayout.cpp" line="94"/>
         <source>Sound on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/buttonlayout.cpp" line="35"/>
-        <location filename="../src/buttonlayout.cpp" line="98"/>
+        <location filename="../src/buttonlayout.cpp" line="40"/>
+        <location filename="../src/buttonlayout.cpp" line="103"/>
         <source>Balloons off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/buttonlayout.cpp" line="37"/>
-        <location filename="../src/buttonlayout.cpp" line="100"/>
+        <location filename="../src/buttonlayout.cpp" line="42"/>
+        <location filename="../src/buttonlayout.cpp" line="105"/>
         <source>Balloons on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/buttonlayout.cpp" line="40"/>
-        <location filename="../src/buttonlayout.cpp" line="109"/>
+        <location filename="../src/buttonlayout.cpp" line="45"/>
+        <location filename="../src/buttonlayout.cpp" line="114"/>
         <source>Sorting off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/buttonlayout.cpp" line="42"/>
-        <location filename="../src/buttonlayout.cpp" line="111"/>
+        <location filename="../src/buttonlayout.cpp" line="47"/>
+        <location filename="../src/buttonlayout.cpp" line="116"/>
         <source>Sorting on</source>
         <translation type="unfinished"></translation>
     </message>
@@ -483,6 +511,16 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
     <message>
         <location filename="../src/buttonlayout.ui" line="267"/>
         <source>Minimize to tray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/buttonlayout.ui" line="315"/>
+        <source>Use this Button to set automatic messages, that will arrive in this channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/buttonlayout.ui" line="318"/>
+        <source>Poster</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -568,29 +606,29 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
     </message>
     <message>
         <location filename="../src/chatwindow.cpp" line="108"/>
-        <location filename="../src/chatwindow.cpp" line="170"/>
-        <location filename="../src/chatwindow.cpp" line="344"/>
+        <location filename="../src/chatwindow.cpp" line="171"/>
+        <location filename="../src/chatwindow.cpp" line="345"/>
         <source>Online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/chatwindow.cpp" line="112"/>
-        <location filename="../src/chatwindow.cpp" line="168"/>
+        <location filename="../src/chatwindow.cpp" line="169"/>
         <source>Was offline when this window opened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="286"/>
+        <location filename="../src/chatwindow.cpp" line="287"/>
         <source>Choose a file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="307"/>
+        <location filename="../src/chatwindow.cpp" line="308"/>
         <source>&lt;This users idle time: %1&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="313"/>
+        <location filename="../src/chatwindow.cpp" line="314"/>
         <source>This user is currently offline</source>
         <translation type="unfinished"></translation>
     </message>
@@ -752,7 +790,12 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ctcphandleratomic.ui" line="123"/>
+        <location filename="../src/ctcphandleratomic.ui" line="104"/>
+        <source>Enable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ctcphandleratomic.ui" line="133"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
@@ -765,7 +808,7 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ctctphandlerwidget.cpp" line="74"/>
+        <location filename="../src/ctctphandlerwidget.cpp" line="82"/>
         <source>CTCP commands are simple messages, that are bounded with ACII 0x01 signs.
 These signs cannot be written directly into a textline.
 If you want to send a ctcp command you must prefix the message with &gt;!
@@ -1198,141 +1241,141 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="352"/>
+        <location filename="../src/mainwindow.cpp" line="350"/>
         <source>Restart the application?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="353"/>
+        <location filename="../src/mainwindow.cpp" line="351"/>
         <source>Changing the translation requires a program restart.
 To restart now click Ok, otherwise cancel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="376"/>
-        <location filename="../src/mainwindow.cpp" line="385"/>
+        <location filename="../src/mainwindow.cpp" line="374"/>
+        <location filename="../src/mainwindow.cpp" line="383"/>
         <source>&lt;away&gt;:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="406"/>
+        <location filename="../src/mainwindow.cpp" line="404"/>
         <source>trying to apply new textscheme: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="507"/>
+        <location filename="../src/mainwindow.cpp" line="505"/>
         <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="511"/>
+        <location filename="../src/mainwindow.cpp" line="509"/>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="544"/>
+        <location filename="../src/mainwindow.cpp" line="542"/>
         <source>Stuff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="546"/>
-        <location filename="../src/mainwindow.cpp" line="727"/>
+        <location filename="../src/mainwindow.cpp" line="544"/>
+        <location filename="../src/mainwindow.cpp" line="725"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="547"/>
-        <location filename="../src/mainwindow.cpp" line="731"/>
+        <location filename="../src/mainwindow.cpp" line="545"/>
+        <location filename="../src/mainwindow.cpp" line="729"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="548"/>
-        <location filename="../src/mainwindow.cpp" line="746"/>
+        <location filename="../src/mainwindow.cpp" line="546"/>
+        <location filename="../src/mainwindow.cpp" line="744"/>
         <source>Volume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="549"/>
-        <location filename="../src/mainwindow.cpp" line="751"/>
+        <location filename="../src/mainwindow.cpp" line="547"/>
+        <location filename="../src/mainwindow.cpp" line="749"/>
         <source>Open Log Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="551"/>
-        <location filename="../src/mainwindow.cpp" line="769"/>
+        <location filename="../src/mainwindow.cpp" line="549"/>
+        <location filename="../src/mainwindow.cpp" line="767"/>
         <source>Scheme maker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="553"/>
-        <location filename="../src/mainwindow.cpp" line="772"/>
+        <location filename="../src/mainwindow.cpp" line="551"/>
+        <location filename="../src/mainwindow.cpp" line="770"/>
         <source>Playername</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="555"/>
+        <location filename="../src/mainwindow.cpp" line="553"/>
         <source>Skins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="556"/>
+        <location filename="../src/mainwindow.cpp" line="554"/>
         <source>Text Schemes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="564"/>
-        <location filename="../src/mainwindow.cpp" line="757"/>
+        <location filename="../src/mainwindow.cpp" line="562"/>
+        <location filename="../src/mainwindow.cpp" line="755"/>
         <source>Save current textscheme to file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="574"/>
+        <location filename="../src/mainwindow.cpp" line="572"/>
         <source>Layouts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="585"/>
+        <location filename="../src/mainwindow.cpp" line="583"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="592"/>
+        <location filename="../src/mainwindow.cpp" line="590"/>
         <source>Join</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="595"/>
-        <location filename="../src/mainwindow.cpp" line="682"/>
+        <location filename="../src/mainwindow.cpp" line="593"/>
+        <location filename="../src/mainwindow.cpp" line="680"/>
         <source>Away mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="599"/>
-        <location filename="../src/mainwindow.cpp" line="734"/>
+        <location filename="../src/mainwindow.cpp" line="597"/>
+        <location filename="../src/mainwindow.cpp" line="732"/>
         <source>Reconnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="601"/>
-        <location filename="../src/mainwindow.cpp" line="632"/>
+        <location filename="../src/mainwindow.cpp" line="599"/>
+        <location filename="../src/mainwindow.cpp" line="630"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="658"/>
+        <location filename="../src/mainwindow.cpp" line="656"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="659"/>
+        <location filename="../src/mainwindow.cpp" line="657"/>
         <source>Changing the skin crashes sometimes, but The Wheat Snooper
 will keep the settings for the next Start.
 Do you want to proceed?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="758"/>
+        <location filename="../src/mainwindow.cpp" line="756"/>
         <source>Save textscheme to.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1395,8 +1438,8 @@ Do you want to proceed?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="182"/>
-        <source>noclan</source>
+        <location filename="../src/mainwindow.ui" line="198"/>
+        <source>TheWheatSnooper_LeagueEdition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1405,42 +1448,37 @@ Do you want to proceed?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="198"/>
-        <source>The Wheat Snooper</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.ui" line="208"/>
+        <location filename="../src/mainwindow.ui" line="211"/>
         <source>Remember these settings and dont show this field on next start.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="215"/>
+        <location filename="../src/mainwindow.ui" line="218"/>
         <source>choose</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="225"/>
+        <location filename="../src/mainwindow.ui" line="228"/>
         <source>Join channels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="233"/>
+        <location filename="../src/mainwindow.ui" line="236"/>
         <source>Start minimized to tray.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="240"/>
+        <location filename="../src/mainwindow.ui" line="243"/>
         <source>Join a channel on startup.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="273"/>
+        <location filename="../src/mainwindow.ui" line="276"/>
         <source>Join this channel on every startup.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="290"/>
+        <location filename="../src/mainwindow.ui" line="293"/>
         <source>join</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1852,31 +1890,31 @@ Note: A reconnect is required to apply these settings.</source>
 <context>
     <name>usermodel</name>
     <message>
-        <location filename="../src/chatwindow.cpp" line="175"/>
-        <location filename="../src/mainwindow.cpp" line="472"/>
-        <location filename="../src/mainwindow.cpp" line="550"/>
-        <location filename="../src/mainwindow.cpp" line="742"/>
+        <location filename="../src/chatwindow.cpp" line="176"/>
+        <location filename="../src/mainwindow.cpp" line="470"/>
+        <location filename="../src/mainwindow.cpp" line="548"/>
+        <location filename="../src/mainwindow.cpp" line="740"/>
         <location filename="../src/usermodel.cpp" line="85"/>
         <location filename="../src/usermodel.cpp" line="113"/>
         <location filename="../src/usermodel.cpp" line="121"/>
         <location filename="../src/usermodel.cpp" line="288"/>
-        <location filename="../src/window.cpp" line="159"/>
-        <location filename="../src/window.cpp" line="267"/>
-        <location filename="../src/window.cpp" line="393"/>
-        <location filename="../src/window.cpp" line="430"/>
+        <location filename="../src/window.cpp" line="160"/>
+        <location filename="../src/window.cpp" line="268"/>
+        <location filename="../src/window.cpp" line="398"/>
+        <location filename="../src/window.cpp" line="435"/>
         <source>Buddylist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="465"/>
-        <location filename="../src/mainwindow.cpp" line="475"/>
+        <location filename="../src/mainwindow.cpp" line="463"/>
+        <location filename="../src/mainwindow.cpp" line="473"/>
         <location filename="../src/usermodel.cpp" line="115"/>
         <location filename="../src/usermodel.cpp" line="117"/>
         <location filename="../src/usermodel.cpp" line="197"/>
-        <location filename="../src/window.cpp" line="266"/>
-        <location filename="../src/window.cpp" line="395"/>
-        <location filename="../src/window.cpp" line="440"/>
-        <location filename="../src/window.cpp" line="455"/>
+        <location filename="../src/window.cpp" line="267"/>
+        <location filename="../src/window.cpp" line="400"/>
+        <location filename="../src/window.cpp" line="445"/>
+        <location filename="../src/window.cpp" line="460"/>
         <source>Ignorelist</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1916,9 +1954,9 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/usermodel.cpp" line="114"/>
         <location filename="../src/usermodel.cpp" line="122"/>
         <location filename="../src/usermodel.cpp" line="247"/>
-        <location filename="../src/window.cpp" line="157"/>
-        <location filename="../src/window.cpp" line="350"/>
-        <location filename="../src/window.cpp" line="377"/>
+        <location filename="../src/window.cpp" line="158"/>
+        <location filename="../src/window.cpp" line="355"/>
+        <location filename="../src/window.cpp" line="382"/>
         <source>Querys</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1942,106 +1980,106 @@ Note: A reconnect is required to apply these settings.</source>
 <context>
     <name>window</name>
     <message>
-        <location filename="../src/window.cpp" line="102"/>
+        <location filename="../src/window.cpp" line="103"/>
         <source>Join</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="103"/>
+        <location filename="../src/window.cpp" line="104"/>
         <source>Host a game in </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="104"/>
-        <location filename="../src/window.cpp" line="519"/>
+        <location filename="../src/window.cpp" line="105"/>
+        <location filename="../src/window.cpp" line="524"/>
         <source>Host a private game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="106"/>
-        <location filename="../src/window.cpp" line="415"/>
+        <location filename="../src/window.cpp" line="107"/>
+        <location filename="../src/window.cpp" line="420"/>
         <source>Add this user to Buddylist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="107"/>
-        <location filename="../src/window.cpp" line="417"/>
+        <location filename="../src/window.cpp" line="108"/>
+        <location filename="../src/window.cpp" line="422"/>
         <source>Add this user to Ignorelist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="109"/>
-        <location filename="../src/window.cpp" line="111"/>
-        <location filename="../src/window.cpp" line="383"/>
-        <location filename="../src/window.cpp" line="389"/>
-        <location filename="../src/window.cpp" line="402"/>
-        <location filename="../src/window.cpp" line="409"/>
-        <location filename="../src/window.cpp" line="419"/>
-        <location filename="../src/window.cpp" line="436"/>
-        <location filename="../src/window.cpp" line="446"/>
+        <location filename="../src/window.cpp" line="110"/>
+        <location filename="../src/window.cpp" line="112"/>
+        <location filename="../src/window.cpp" line="388"/>
+        <location filename="../src/window.cpp" line="394"/>
+        <location filename="../src/window.cpp" line="407"/>
+        <location filename="../src/window.cpp" line="414"/>
+        <location filename="../src/window.cpp" line="424"/>
+        <location filename="../src/window.cpp" line="441"/>
+        <location filename="../src/window.cpp" line="451"/>
         <source>Show info about this user.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="110"/>
-        <location filename="../src/window.cpp" line="434"/>
-        <location filename="../src/window.cpp" line="444"/>
+        <location filename="../src/window.cpp" line="111"/>
+        <location filename="../src/window.cpp" line="439"/>
+        <location filename="../src/window.cpp" line="449"/>
         <source>Remove this user from the list.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="351"/>
+        <location filename="../src/window.cpp" line="356"/>
         <source>Remove Querys</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="361"/>
         <location filename="../src/window.cpp" line="366"/>
+        <location filename="../src/window.cpp" line="371"/>
         <source>Allow this clanname.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="363"/>
+        <location filename="../src/window.cpp" line="368"/>
         <source>Dissallow this clanname.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="381"/>
-        <location filename="../src/window.cpp" line="387"/>
+        <location filename="../src/window.cpp" line="386"/>
+        <location filename="../src/window.cpp" line="392"/>
         <source>Remove this Query.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="400"/>
-        <location filename="../src/window.cpp" line="421"/>
+        <location filename="../src/window.cpp" line="405"/>
+        <location filename="../src/window.cpp" line="426"/>
         <source>Remove this user from Buddylist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="407"/>
-        <location filename="../src/window.cpp" line="424"/>
+        <location filename="../src/window.cpp" line="412"/>
+        <location filename="../src/window.cpp" line="429"/>
         <source>Remove this user from Ignorelist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="531"/>
-        <location filename="../src/window.cpp" line="548"/>
-        <location filename="../src/window.cpp" line="620"/>
+        <location filename="../src/window.cpp" line="536"/>
+        <location filename="../src/window.cpp" line="553"/>
+        <location filename="../src/window.cpp" line="625"/>
         <source>Choose a Program to join this game.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="535"/>
+        <location filename="../src/window.cpp" line="540"/>
         <source>Choose a Program.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="538"/>
+        <location filename="../src/window.cpp" line="543"/>
         <source>Choose a Desktopicon.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="644"/>
+        <location filename="../src/window.cpp" line="649"/>
         <source>Users online</source>
         <translation type="unfinished"></translation>
     </message>
