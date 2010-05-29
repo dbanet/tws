@@ -14,11 +14,11 @@ INCLUDEPATH += . \
     qfileupload
 MOC_DIR = .moc
 UI_DIR = .ui
-OBJECTS_DIR= .lib
+OBJECTS_DIR = .lib
 RCC_DIR = .rcc
-unix: TARGET = "./TheWheatSnooper/TheWheatSnooper"
-win32: TARGET = "../TheWheatSnooper/TheWheatSnooper"
-unix: DEFINES+=QT_WS_X11
+unix:TARGET = "./TheWheatSnooper/TheWheatSnooper"
+win32:TARGET = "../TheWheatSnooper/TheWheatSnooper"
+unix:DEFINES += QT_WS_X11
 
 # Input
 HEADERS += src/about.h \
@@ -66,7 +66,8 @@ HEADERS += src/about.h \
     src/sound_handler.h \
     src/global_functions.h \
     src/combobox_wrapper.h \
-    src/balloon_handler.h
+    src/balloon_handler.h \
+    src/usersearchwidget.h
 FORMS += src/about.ui \
     src/awaybox.ui \
     src/buddylist.ui \
@@ -93,7 +94,8 @@ FORMS += src/about.ui \
     src/window3.ui \
     src/qfileupload/config.ui \
     src/qfileupload/qmainwindow.ui \
-    src/combobox_wrapper.ui
+    src/combobox_wrapper.ui \
+    src/usersearchwidget.ui
 SOURCES += src/about.cpp \
     src/awaybox.cpp \
     src/buddylist.cpp \
@@ -137,9 +139,10 @@ SOURCES += src/about.cpp \
     src/qfileupload/qmainwindow.cpp \
     src/sound_handler.cpp \
     src/combobox_wrapper.cpp \
-    src/balloon_handler.cpp
+    src/balloon_handler.cpp \
+    src/usersearchwidget.cpp
 RESOURCES += src/qfileupload/qfileupload.qrc
-RC_FILE =   src/myapp.rc
+RC_FILE = src/myapp.rc
 TRANSLATIONS += translations/Romanian_translation_The_Wheat_Snooper_by_MihaiS.ts \
     translations/The_Wheat_Snooper_danish.ts \
     translations/The_Wheat_Snooper_german_by_lookias.ts \

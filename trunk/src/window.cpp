@@ -16,6 +16,8 @@
 #include"buttonlayout.h"
 #include "sound_handler.h"
 #include"global_functions.h"
+#include"usersearchwidget.h"
+#include<QMessageBox>
 #include<QDate>
 #include<QScrollBar>
 #include<QDebug>
@@ -225,8 +227,12 @@ bool window::eventFilter(QObject *obj, QEvent *event) {
                 ui.msg->setFocus(Qt::MouseFocusReason);
                 return true;
             }
-
-        }
+            if(keyEvent->key()==Qt::Key_F && keyEvent->modifiers()==Qt::ControlModifier)
+            {
+                usersearchwidget *s=new usersearchwidget;   //extendent search for users
+                //s->show();                                //stays unfinisched
+            }
+        }        
     }
     return QObject::eventFilter(obj, event);
 }
@@ -502,8 +508,8 @@ void window::openchatwindow(const QString &s) {
         }
         return;
     }emit sigopenchatwindow(s);
-QApplication::processEvents();
-/*chatwindowstringlist << s;
+    QApplication::processEvents();
+    /*chatwindowstringlist << s;
 	 chatwindows.push_back(new chatwindow(net, s));
 	 connect(chatwindows.last(), SIGNAL(closed()),this, SLOT(chatwinowclosed()));
 	 chatwindows.last()->show();*/
