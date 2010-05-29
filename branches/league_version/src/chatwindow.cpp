@@ -57,6 +57,7 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     foreach(QString s,usergarbagemap[chatpartner.toLower()]) {
         chat->appendgarbage(s);
     }
+    chat->slideratmaximum = 1;
     ui.lineEdit->setFocus(Qt::MouseFocusReason);
 
     if (containsCI(querylist, chatpartner)) { //best place to clean the querylist
@@ -65,8 +66,7 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     usesettingswindow();
     connect(net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
 
-    singleton<sound_handler>().play_chatwindowopensound();
-    chat->slideratmaximum = 1;
+    singleton<sound_handler>().play_chatwindowopensound();    
     if (net->mutedusers.contains(this->chatpartner, Qt::CaseInsensitive))
         ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
     else
@@ -112,7 +112,8 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
         statusbar->showMessage(tr("Was offline when this window opened."));
         userisoffline=1;
     }
-    connect(net, SIGNAL(siggotmsg(const QString&,const QString&,const QString&)),this, SLOT(channelmsg(const QString&,const QString&,const QString&)));
+    connect(net, SIGNAL(siggotmsg(const QString&,const QString&,const QString&)),this, SLOT(channelmsg(const QString&,const QString&,const QString&)));    
+    chat->slideratmaximum = 1;
 }
 bool chatwindow::eventFilter(QObject *obj, QEvent *event) {
     if (obj == ui.lineEdit) {
