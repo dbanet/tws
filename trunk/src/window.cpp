@@ -16,7 +16,6 @@
 #include"buttonlayout.h"
 #include "sound_handler.h"
 #include"global_functions.h"
-#include"usersearchwidget.h"
 #include<QMessageBox>
 #include<QDate>
 #include<QScrollBar>
@@ -229,7 +228,7 @@ bool window::eventFilter(QObject *obj, QEvent *event) {
             }
             if(keyEvent->key()==Qt::Key_F && keyEvent->modifiers()==Qt::ControlModifier)
             {
-                usersearchwidget *s=new usersearchwidget;   //extendent search for users
+                //usersearchwidget *s=new usersearchwidget; //extendent search for users
                 //s->show();                                //stays unfinisched
             }
         }        

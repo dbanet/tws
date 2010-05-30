@@ -66,8 +66,7 @@ HEADERS += src/about.h \
     src/sound_handler.h \
     src/global_functions.h \
     src/combobox_wrapper.h \
-    src/balloon_handler.h \
-    src/usersearchwidget.h
+    src/balloon_handler.h
 FORMS += src/about.ui \
     src/awaybox.ui \
     src/buddylist.ui \
@@ -94,8 +93,7 @@ FORMS += src/about.ui \
     src/window3.ui \
     src/qfileupload/config.ui \
     src/qfileupload/qmainwindow.ui \
-    src/combobox_wrapper.ui \
-    src/usersearchwidget.ui
+    src/combobox_wrapper.ui
 SOURCES += src/about.cpp \
     src/awaybox.cpp \
     src/buddylist.cpp \
@@ -139,8 +137,7 @@ SOURCES += src/about.cpp \
     src/qfileupload/qmainwindow.cpp \
     src/sound_handler.cpp \
     src/combobox_wrapper.cpp \
-    src/balloon_handler.cpp \
-    src/usersearchwidget.cpp
+    src/balloon_handler.cpp
 RESOURCES += src/qfileupload/qfileupload.qrc
 RC_FILE = src/myapp.rc
 TRANSLATIONS += translations/Romanian_translation_The_Wheat_Snooper_by_MihaiS.ts \
