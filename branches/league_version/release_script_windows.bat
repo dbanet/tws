@@ -1,5 +1,5 @@
 lupdate netcoupler.pro
-qmake
+qmake -config release
 mingw32-make release
 copy %QTDIR%\bin\mingwm10.dll "TheWheatSnooper"
 copy %QTDIR%\bin\libgcc* "TheWheatSnooper"

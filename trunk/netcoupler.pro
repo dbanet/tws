@@ -19,6 +19,7 @@ RCC_DIR = .rcc
 unix:TARGET = "./TheWheatSnooper/TheWheatSnooper"
 win32:TARGET = "../TheWheatSnooper/TheWheatSnooper"
 unix:DEFINES += QT_WS_X11
+CONFIG += debug_and_release
 
 # Input
 HEADERS += src/about.h \
