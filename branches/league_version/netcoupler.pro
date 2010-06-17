@@ -151,4 +151,5 @@ TRANSLATIONS += translations/Romanian_translation_The_Wheat_Snooper_by_MihaiS.ts
     translations/The_Wheat_Snooper_portugues.ts \
     translations/The_Wheat_Snooper_spanish-(of_spain)_by_kosmos.ts \
     translations/The_Wheat_Snooper_untranslated.ts \
-    translations/The_Wheat_Snooper_spanish-(of_spain)_by_kosmos.ts
+    translations/The_Wheat_Snooper_spanish-(of_spain)_by_kosmos.ts \
+    translations/Russian_translation_by_StepS.ts
