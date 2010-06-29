@@ -536,6 +536,10 @@ void window::hostitempressed(const QModelIndex &index) {
                 if (a->text() == tr("Choose a Program to join this game.")) {
                     QStringList sl = singleton<snpsettings>().map.value("joinstrings").value<
                                      QStringList> ();
+#ifdef Q_WS_MAC
+                    QString file = QFileDialog::getOpenFileName(this, tr(
+                            "Choose a Program."), "/home", "*.*");
+#endif
 #ifdef Q_WS_WIN
                     QString file = QFileDialog::getOpenFileName(this, tr("Choose a Program."), "c:/", "*.exe *.com");
 #endif

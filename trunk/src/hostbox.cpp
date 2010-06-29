@@ -27,7 +27,7 @@ channel(c) {
     QRegExp regexp;
     regexp.setPattern(
             "([A-Z]|[a-z]| |[0-9]|\\-|`|!|\\$|%|\\(|\\)|\\*|,|\\-|\\.|/|:|;|=|\\?|\\@|\\[|\\]|\\^|_|\\{|\\|\\}|\\~|£|À|Á|Â|Ã|Ä|Å|Æ|Ç|È"
-            "|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|Ö|×|Ø|Ù|Ú|Û|Ü|Ý|Þ|Ÿ|ß|à|á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|ð|ñ"
+            "|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|Ö|×|Ø|Ù|Ú|Û|Ü|Ý|Þ|Ÿ|ß|� |á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|ð|ñ"
             "|ò|ó|ô|õ|ö|÷|ø|ù|ú|û|ü|ý|þ|ÿ|¿|¡){30}");
     validator = new QRegExpValidator(regexp, 0);
     ui.gamename->setValidator(validator);
@@ -54,14 +54,18 @@ bool hostbox::eventFilter(QObject *obj, QEvent *event){
     QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
     if(keyEvent && keyEvent->type()==QEvent::KeyPress)
         if(keyEvent->key()==Qt::Key_Enter || keyEvent->key()==Qt::Key_Return){
-            this->okclicked();
-            return true;
-        }
+        this->okclicked();
+        return true;
+    }
     return QWidget::eventFilter(obj, event);
 }
 void hostbox::showEvent(QShowEvent * /*event*/) {
 }
 void hostbox::addclicked() {
+#ifdef Q_WS_MAC
+    QString file = QFileDialog::getOpenFileName(this, tr(
+            "Choose a file."), "/home", "*.*");
+#endif
 #ifdef Q_WS_X11
     QString file = QFileDialog::getOpenFileName(this, tr(
             "Choose a desktop icon."), "/home", "*.desktop");
