@@ -538,7 +538,7 @@ void window::hostitempressed(const QModelIndex &index) {
                                      QStringList> ();
 #ifdef Q_WS_MAC
                     QString file = QFileDialog::getOpenFileName(this, tr(
-                            "Choose a Program."), "/home", "*.*");
+                            "Choose a desktop icon."), "/home", "*.desktop");
 #endif
 #ifdef Q_WS_WIN
                     QString file = QFileDialog::getOpenFileName(this, tr("Choose a Program."), "c:/", "*.exe *.com");

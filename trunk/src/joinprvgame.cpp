@@ -19,7 +19,7 @@ joinprvgame::joinprvgame(const QString &a,const QString &b)
 void joinprvgame::addclicked() {
 #ifdef Q_WS_MAC
     QString file = QFileDialog::getOpenFileName(this, tr(
-            "Choose a Program."), "/home", "*.*");
+            "Choose a desktop icon."), "/home", "*.desktop");
 #endif
 #ifdef Q_WS_X11
     QString file = QFileDialog::getOpenFileName(this, tr(

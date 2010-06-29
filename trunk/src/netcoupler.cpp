@@ -426,6 +426,26 @@ QString netcoupler::getprocessstring() {
                                        "if you dont know what this means,\n"
                                        "please read the tutorial.pdf inside the snooper folder."),
                              QMessageBox::Ok);
+#ifdef Q_WS_MAC
+    if (!sl.isEmpty()) {
+        QString file = sl.first();
+        QFile f(file);
+        if (f.open(QFile::ReadOnly)) {
+            QTextStream ts(&f);
+            QString s = ts.readLine();
+            int i = 0;
+            while (!s.startsWith("Exec=") && !ts.atEnd() && i < 50) {
+                i++;
+                s = ts.readLine();
+            }
+            if (!ts.atEnd() && i < 50) {
+                QString temp = s;
+                temp.remove("Exec=");
+                return temp;
+            }
+        }
+    }
+#endif
 #ifdef Q_WS_X11
     if (!sl.isEmpty()) {
         QString file = sl.first();

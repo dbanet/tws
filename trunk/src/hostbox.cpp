@@ -64,7 +64,7 @@ void hostbox::showEvent(QShowEvent * /*event*/) {
 void hostbox::addclicked() {
 #ifdef Q_WS_MAC
     QString file = QFileDialog::getOpenFileName(this, tr(
-            "Choose a file."), "/home", "*.*");
+            "Choose a desktop icon."), "/home", "*.desktop");
 #endif
 #ifdef Q_WS_X11
     QString file = QFileDialog::getOpenFileName(this, tr(
