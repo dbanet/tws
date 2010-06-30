@@ -3,8 +3,6 @@
 #include "snpsettings.h"
 #include"settingswindow.h"
 #include"chathandlerprv.h"
-#include"qfileupload/qmainwindow.h"
-#include "filehistorylister.h"
 #include"ctcphandler.h"
 #include"mainwindow.h"
 #include "sound_handler.h"
@@ -13,6 +11,7 @@
 #include<QDir>
 #include<QTime>
 #include<QFileDialog>
+#include<QStatusBar>
 #include<QDebug>
 extern QStringList querylist;
 extern QMap<QString, QStringList> usergarbagemap;
@@ -20,21 +19,21 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
 	QWidget(parent), chatpartner(s), net(n) {
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setObjectName("chatwindow");
-    ui.setupUi(this);
+    ui.setupUi(this);    
     ui.pbbuddy->setObjectName("chatwindowbutton");
     ui.pbctcp->setObjectName("chatwindowbutton");
-    ui.pbfilehistory->setObjectName("chatwindowbutton");
     ui.pbidle->setObjectName("chatwindowbutton");
     ui.pblog->setObjectName("chatwindowbutton");
     ui.pbmute->setObjectName("chatwindowbutton");
-    ui.pbsendfilehistorie->setObjectName("chatwindowbutton");
     ui.pbstatus->setObjectName("chatwindowbutton");
-    ui.pbupload->setObjectName("chatwindowbutton");
     ui.pbfilter->setObjectName("chatwindowbutton");
     ui.lineEdit->installEventFilter(this);
     ui.chatwindowbuttonscrollArea->installEventFilter(this);
     this->update();
     chat = new chathandlerprv(this, ui.chat, chatpartner);
+    foreach(QString s,usergarbagemap[chatpartner.toLower()]) {
+        chat->appendgarbage(s);
+    }
     this->setWindowTitle(tr("Chat with") + " " + s);
 
     if (containsCI(singleton<snpsettings>().map["buddylist"].value<QStringList> (), chatpartner))
@@ -53,11 +52,7 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
 
     connect(ui.send, SIGNAL(clicked()),ui.lineEdit, SIGNAL(returnPressed()));
     connect(ui.lineEdit, SIGNAL(returnPressed()),this, SLOT(sendmsg()));
-    connect(net, SIGNAL(sigusergarbage(const QString&,const QString&)),this, SLOT(garbagemapchanged(const QString&,const QString&)));
-    foreach(QString s,usergarbagemap[chatpartner.toLower()]) {
-        chat->appendgarbage(s);
-    }
-    chat->slideratmaximum = 1;
+    connect(net, SIGNAL(sigusergarbage(const QString&,const QString&)),this, SLOT(garbagemapchanged(const QString&,const QString&)));    
     ui.lineEdit->setFocus(Qt::MouseFocusReason);
 
     if (containsCI(querylist, chatpartner)) { //best place to clean the querylist
@@ -79,9 +74,6 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
 
     ui.pblog->setIcon(QIcon("snppictures/buttons/log.png"));
     ui.pbidle->setIcon(QIcon("snppictures/buttons/idle.png"));
-    ui.pbupload->setIcon(QIcon("snppictures/buttons/upload.png"));
-    ui.pbsendfilehistorie->setIcon(QIcon("snppictures/buttons/history.png"));
-    ui.pbfilehistory->setIcon(QIcon("snppictures/buttons/filehistory.png"));
     ui.pbctcp->setIcon(QIcon("snppictures/buttons/ctcp.png"));
     ui.pbstatus->setIcon(QIcon("snppictures/buttons/status.png"));
     ui.pbfilter->setIcon(QIcon("snppictures/buttons/filter.png"));
@@ -91,9 +83,6 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     connect(ui.pbbuddy, SIGNAL(clicked()),this, SLOT(pbbuddyclicked()));
     connect(ui.pblog, SIGNAL(clicked()),this, SLOT(pblogclicked()));
     connect(ui.pbidle, SIGNAL(clicked()),this, SLOT(pbidleclicked()));
-    connect(ui.pbupload, SIGNAL(clicked()),this, SLOT(pbuploadclicked()));
-    connect(ui.pbfilehistory, SIGNAL(clicked()),this, SLOT(pbpbfilehistory()));
-    connect(ui.pbsendfilehistorie, SIGNAL(clicked()),this, SLOT(pbpbsendfilehistorieclicked()));
     connect(ui.pbstatus, SIGNAL(clicked()),this, SLOT(pbstatusclicked()));
     connect(ui.pbctcp, SIGNAL(clicked()),this, SLOT(pbctcpclicked()));
     connect(ui.pbfilter, SIGNAL(clicked()),this, SLOT(filtergarbage()));
@@ -112,8 +101,7 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
         statusbar->showMessage(tr("Was offline when this window opened."));
         userisoffline=1;
     }
-    connect(net, SIGNAL(siggotmsg(const QString&,const QString&,const QString&)),this, SLOT(channelmsg(const QString&,const QString&,const QString&)));    
-    chat->slideratmaximum = 1;
+    connect(net, SIGNAL(siggotmsg(const QString&,const QString&,const QString&)),this, SLOT(channelmsg(const QString&,const QString&,const QString&)));
 }
 bool chatwindow::eventFilter(QObject *obj, QEvent *event) {
     if (obj == ui.lineEdit) {
@@ -145,7 +133,7 @@ bool chatwindow::eventFilter(QObject *obj, QEvent *event) {
     if (qobject_cast<QScrollArea*> (obj) != 0 && qobject_cast<QScrollArea*> (
             obj)->objectName() == "chatwindowbuttonscrollArea") {
         if (event->type() == QEvent::Enter) {
-            if(ui.chatwindowbuttonscrollArea->width()<490){
+            if(ui.chatwindowbuttonscrollArea->width()<340){
                 ui.chatwindowbuttonscrollArea->setMaximumHeight(70);
                 ui.chatwindowbuttonscrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
             }
@@ -295,12 +283,6 @@ void chatwindow::pblogclicked() {
 void chatwindow::pbidleclicked() {
     net->sendrawcommand("whois " + this->chatpartner);
 }
-void chatwindow::pbuploadclicked() {
-    if (MainWindow::counter == 0) {
-        MainWindow *w = new MainWindow;
-        w->show();
-    }
-}
 void chatwindow::gotidletime(const QString &user, int i) {
     QTime time(0, 0, 0);
     time = time.addSecs(i);
@@ -315,25 +297,8 @@ void chatwindow::gotnosuchnick(const QString &s){
         userisoffline=1;
     }
 }
-void chatwindow::pbpbsendfilehistorieclicked() {
-    QFile file(QApplication::applicationDirPath() + "/uploads.dat");
-    if (file.open(QIODevice::ReadOnly)) {
-        QString s;
-        while (!file.atEnd()) {
-            s = QString(file.readLine());
-            s = s + " -> " + QString(file.readLine());
-            this->sendmsg(s);
-            file.readLine();
-            file.readLine();
-        }
-    }
-}
 void chatwindow::pbstatusclicked() {
     net->sendrawcommand("PRIVMSG " + this->chatpartner + " :\001status\001");
-}
-void chatwindow::pbpbfilehistory() {
-    filehistorylister *f = new filehistorylister;
-    f->show();
 }
 void chatwindow::pbctcpclicked() {
     singleton<ctctphandlerwidget>().show();

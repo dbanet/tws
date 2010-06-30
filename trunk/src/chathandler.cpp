@@ -45,7 +45,7 @@ QTextCharFormat chathandler::garbageformat;
 QTextCharFormat chathandler::myselfformat;
 extern bool fontorcolorchanged;
 chathandler::chathandler(QObject *parent, QTextBrowser *t, QString chan) :
-	QObject(parent), channel(chan), tb(t) {
+        QObject(parent), channel(chan), tb(t),slideratmaximum(true),gotFirstMessage(false) {
     tb->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     tb->setContextMenuPolicy(Qt::CustomContextMenu);
     tb->setOpenLinks(0);
@@ -84,7 +84,6 @@ chathandler::chathandler(QObject *parent, QTextBrowser *t, QString chan) :
     debugmenu.addAction(tr("Set the font for this texttype"));
     debugmenu.addAction(tr("Set the color for this texttype"));
 
-    slideratmaximum = 1;
     connect(tb->verticalScrollBar(), SIGNAL(valueChanged(int)),this, SLOT(slidermoved(int)));
 //    connect(tb->verticalScrollBar(), SIGNAL(sliderMoved ( int ) ),this, SLOT(slidermoved(int)));
 //    connect(tb->verticalScrollBar(), SIGNAL(actionTriggered ( int ) ),this, SLOT(slidermovedbyaction(int)));
@@ -277,9 +276,15 @@ void chathandler::insertText(const QString &s, QTextCharFormat &t,QString user) 
         tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
 }
 void chathandler::slidermoved(int i) {
+    if(!gotFirstMessage)
+    {
+        i == tb->verticalScrollBar()->maximum();
+        gotFirstMessage=true;
+        return;
+    }
     if (i == tb->verticalScrollBar()->maximum())
         slideratmaximum = 1;
-    else {
+    else {        
         slideratmaximum = 0;
     }
 }

@@ -13,47 +13,44 @@ class chatwindow : public QWidget
     Q_OBJECT
 
 public:
-	chatwindow(netcoupler*, const QString&, QWidget *parent = 0);
+    chatwindow(netcoupler*, const QString&, QWidget *parent = 0);
     QString chatpartner;
     void getgamerwho();
     ~chatwindow();
-	void gotmsg(const QString&,const QString&,const QString&);
-	void setaway(bool,const QString &msg="");
+    void gotmsg(const QString&,const QString&,const QString&);
+    void setaway(bool,const QString &msg="");
 private slots:
-	 void sendmsg(QString s="");
-	 void sendnotice();
-	 void sendnoticeaction();
-	 void garbagemapchanged(const QString&,const QString&);
-	 void usesettingswindow(const QString &s="");
-	 void pbmuteclicked();
-	 void pbbuddyclicked();
-	 void pblogclicked();
-	 void pbidleclicked();
-	 void pbuploadclicked();
-	 void pbpbsendfilehistorieclicked();
-	 void pbpbfilehistory();
-	 void pbctcpclicked();
-	 void pbstatusclicked();
-	 void gotidletime(const QString&,int);
-	 void gotnosuchnick(const QString&);
-	 void channelmsg(const QString&,const QString&,const QString&);
-	 void filtergarbage();
+    void sendmsg(QString s="");
+    void sendnotice();
+    void sendnoticeaction();
+    void garbagemapchanged(const QString&,const QString&);
+    void usesettingswindow(const QString &s="");
+    void pbmuteclicked();
+    void pbbuddyclicked();
+    void pblogclicked();
+    void pbidleclicked();
+    void pbctcpclicked();
+    void pbstatusclicked();
+    void gotidletime(const QString&,int);
+    void gotnosuchnick(const QString&);
+    void channelmsg(const QString&,const QString&,const QString&);
+    void filtergarbage();
 private:
-	QPointer<chathandlerprv> chat;		//handles the whole textbrowser
-	netcoupler *net;
-	Ui::chatwindowClass ui;
+    QPointer<chathandlerprv> chat;		//handles the whole textbrowser
+    netcoupler *net;
+    Ui::chatwindowClass ui;
 
-	QStringList linedittextlist;
-	int linedittextlistcounter;
-	QStatusBar *statusbar;
-	bool mouseisinbuttonscrollarea;
-	bool userisoffline;
+    QStringList linedittextlist;
+    int linedittextlistcounter;
+    QStatusBar *statusbar;
+    //bool mouseisinbuttonscrollarea;
+    bool userisoffline;
 protected:
-	void closeEvent ( QCloseEvent *);
-	bool eventFilter(QObject *obj, QEvent *event);		//for the linedit in ui
+    void closeEvent ( QCloseEvent *);
+    bool eventFilter(QObject *obj, QEvent *event);		//for the linedit in ui
 signals:
-	void sigalert(QWidget*);
-	void closed();
+    void sigalert(QWidget*);
+    void closed();
 };
 
 #endif // CHATWINDOW_H

@@ -25,7 +25,8 @@ public:
 	chathandlerprv(QObject*,QTextBrowser*,QString);
 	virtual ~chathandlerprv();
 	void append(const QString&,const QString&,const QString&);
-	void appendgarbage(const QString&);
+        void appendgarbage(const QString&);
+        void appendhistory(const QString&);
 	static QPointer<emoticonhandler> emot;
 private:
 private slots:

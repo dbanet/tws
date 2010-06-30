@@ -31,7 +31,8 @@ public:
 	static void initialformatstarter();
         void insertText(const QString&,QTextCharFormat&,QString user=QString());
 
-	bool slideratmaximum;
+	bool slideratmaximum;     
+        bool gotFirstMessage;
 	static QTextCharFormat timeformat;
 	static QTextCharFormat nickformat;
 	static QTextCharFormat chatformat;

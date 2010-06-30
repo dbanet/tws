@@ -28,7 +28,6 @@ chathandlerprv::chathandlerprv(QObject *parent, QTextBrowser *t, QString chan) :
 	if (emot == 0)
 		emot = new emoticonhandler;
 	initialformatstarter();
-	slideratmaximum = 1;
 }
 void chathandlerprv::append(const QString &user, const QString &/*receiver*/,
 		const QString &msg) {
