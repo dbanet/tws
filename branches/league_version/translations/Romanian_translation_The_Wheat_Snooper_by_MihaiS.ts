@@ -1890,28 +1890,17 @@ Note: A reconnect is required to apply these settings.</source>
 <context>
     <name>usermodel</name>
     <message>
-        <location filename="../src/chatwindow.cpp" line="176"/>
-        <location filename="../src/mainwindow.cpp" line="470"/>
         <location filename="../src/mainwindow.cpp" line="548"/>
         <location filename="../src/mainwindow.cpp" line="740"/>
-        <location filename="../src/usermodel.cpp" line="85"/>
-        <location filename="../src/usermodel.cpp" line="113"/>
         <location filename="../src/usermodel.cpp" line="121"/>
         <location filename="../src/usermodel.cpp" line="288"/>
         <location filename="../src/window.cpp" line="160"/>
-        <location filename="../src/window.cpp" line="268"/>
         <location filename="../src/window.cpp" line="398"/>
         <location filename="../src/window.cpp" line="435"/>
         <source>Buddylist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="463"/>
-        <location filename="../src/mainwindow.cpp" line="473"/>
-        <location filename="../src/usermodel.cpp" line="115"/>
-        <location filename="../src/usermodel.cpp" line="117"/>
-        <location filename="../src/usermodel.cpp" line="197"/>
-        <location filename="../src/window.cpp" line="267"/>
         <location filename="../src/window.cpp" line="400"/>
         <location filename="../src/window.cpp" line="445"/>
         <location filename="../src/window.cpp" line="460"/>
@@ -1949,9 +1938,6 @@ Note: A reconnect is required to apply these settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/usermodel.cpp" line="107"/>
-        <location filename="../src/usermodel.cpp" line="110"/>
-        <location filename="../src/usermodel.cpp" line="114"/>
         <location filename="../src/usermodel.cpp" line="122"/>
         <location filename="../src/usermodel.cpp" line="247"/>
         <location filename="../src/window.cpp" line="158"/>

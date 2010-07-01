@@ -573,9 +573,3 @@ QToolTip{
 	color:yellow;
 	background-color:black;
 }
-#chatwindow QDialog{
-	background-color:white;
-}
-#channelwindow QDialog{
-	background-color:white;
-}
