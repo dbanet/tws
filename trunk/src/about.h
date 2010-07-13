@@ -12,6 +12,7 @@ public:
     about(QFrame *parent = 0);
     ~about();
 
+    static QString version;
 private:
     Ui::aboutClass ui;
 };

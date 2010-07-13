@@ -38,7 +38,7 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>932</width>
+                <width>931</width>
                 <height>474</height>
                </rect>
               </property>
@@ -294,6 +294,13 @@
                 </widget>
                </item>
                <item>
+                <widget class="QCheckBox" name="chbhidechannelwindowsongame">
+                 <property name="text">
+                  <string>Hide all channelwindows to tray when starting a game.</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
                 <widget class="QCheckBox" name="chballwaysopenchatwindows">
                  <property name="text">
                   <string>Open a chatwindow for everyone.</string>
@@ -503,7 +510,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>934</width>
+              <width>933</width>
               <height>660</height>
              </rect>
             </property>

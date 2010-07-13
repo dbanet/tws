@@ -25,7 +25,7 @@ public:
     static QList< ::window * > windowlist;
     static QList< ::chatwindow*> hiddenchatwindowshelper;
 private:
-	typedef ::window channelwindow;
+    typedef ::window channelwindow;
     Ui::mainwindowClass ui;
     //QList<chatwindow* > chatwindows;
     QStringList currentchannellist;	//TODO: dont forget to clear this lists on ------void returntotabsettings(int);
@@ -50,44 +50,46 @@ private:
     void setlanguage(const QString&);
     void init_menus();
 private slots:
-	void getchannellist(const QStringList &);
-	void joinclicked();
-	void joinslot(const QString&);
-	void chooseclicked();
-	void onquit();
-	void returntotabsettings(int);
-	void trayactivation(QSystemTrayIcon::ActivationReason);
-	void traymenutriggered(QAction *);
-	void pbrememberjoinclicked();
+    void on_pbabout_clicked();
+    void on_pbsettings_clicked();
+    void getchannellist(const QStringList &);
+    void joinclicked();
+    void joinslot(const QString&);
+    void chooseclicked();
+    void onquit();
+    void returntotabsettings(int);
+    void trayactivation(QSystemTrayIcon::ActivationReason);
+    void traymenutriggered(QAction *);
+    void pbrememberjoinclicked();
 
-	void snpsetcontains(const QString&);
-	void pbeditorclicked();
+    void snpsetcontains(const QString&);
+    void pbeditorclicked();
 
-	void windowremoved(const QString&);
-	void usesettingswindow(const QString &s="");
+    void windowremoved(const QString&);
+    void usesettingswindow(const QString &s="");
 
-	void chatwinowclosed();
+    void chatwinowclosed();
 
-	void quitslot();
+    void quitslot();
 
-	void awayboxok();
-	void awaymessagechanged();
+    void awayboxok();
+    void awaymessagechanged();
 
-	void gotctcpsignal(const QString&,const QString&);
+    void gotctcpsignal(const QString&,const QString&);
 
-	void settextscheme(const QString&);	
+    void settextscheme(const QString&);
 
-        void openchatwindow(const QString &);
-        void openchatwindowhidden(const QString &);
-        void gotprvmsg(const QString &user, const QString &receiver,
-                       const QString &msg);
-        void connected();
-        void disconnected();
+    void openchatwindow(const QString &);
+    void openchatwindowhidden(const QString &);
+    void gotprvmsg(const QString &user, const QString &receiver,
+                   const QString &msg);
+    void connected();
+    void disconnected();
 protected:
-	void changeEvent (QEvent*);
-	void closeEvent ( QCloseEvent * event );
+    void changeEvent (QEvent*);
+    void closeEvent ( QCloseEvent * event );
 signals:
-	void sigopenchatwindow(const QString&);
+    void sigopenchatwindow(const QString&);
 };
 
 #endif // MAINWINDOW_H

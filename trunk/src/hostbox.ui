@@ -70,7 +70,7 @@
           </size>
          </property>
          <property name="text">
-          <string>O</string>
+          <string>+</string>
          </property>
         </widget>
        </item>
@@ -221,6 +221,9 @@
       <widget class="QCheckBox" name="chbsendhostinfotochan">
        <property name="text">
         <string>Send a hostinfo to the channel.</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
        </property>
       </widget>
      </item>

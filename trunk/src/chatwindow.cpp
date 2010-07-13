@@ -148,6 +148,7 @@ void chatwindow::garbagemapchanged(const QString &user, const QString &s) {
 
     if (compareCI(user, chatpartner)) {
         bool b = usergarbagemap.contains(user.toLower());
+        Q_UNUSED(b);
         Q_ASSERT(b==1);
         chat->appendgarbage(s);
     }

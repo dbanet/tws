@@ -2,10 +2,10 @@
 #include<QClipboard>
 #include<QTime>
 #include<QMessageBox>
-#include "netcoupler.h"
-#include "ircnet.h"
-#include "snoppanet.h"
-#include "inihandlerclass.h"
+#include"netcoupler.h"
+#include"ircnet.h"
+#include"snoppanet.h"
+#include"inihandlerclass.h"
 #include"snpsettings.h"
 #include"window.h"
 #include"joinprvgame.h"
@@ -13,8 +13,8 @@
 #include"volumeslider.h"
 #include"mainwindow.h"
 #include"playername.h"
-#include "sound_handler.h"
-#include "sound_handler.h"
+#include"sound_handler.h"
+#include"sound_handler.h"
 #include"global_functions.h"
 #include"global_functions.h"
 #include"balloon_handler.h"
@@ -115,6 +115,7 @@ void netcoupler::getmsg(const QString &user, const QString &receiver,
         emit siggotmsg(user, receiver, msg);
     } else {
         bool b = compareCI(receiver, nick);
+        Q_UNUSED(b);
         Q_ASSERT_X(b==1,"getmsg netcoupler",qPrintable(receiver));
         emit siggotprivmsg(user, receiver, msg);
         QApplication::processEvents();
@@ -395,7 +396,7 @@ void netcoupler::processfinished(int , QProcess::ExitStatus e) {
                     sendrawcommand("PRIVMSG " + s + " :\001back\001");
                 } else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
                     if (singleton<snpsettings>().map["buddylist"].toStringList().contains(s,
-                                                                        Qt::CaseInsensitive))
+                                                                                          Qt::CaseInsensitive))
                         this->sendnotice(
                                 s,
                                 singleton<settingswindow>().from_map("lebackmessage").toString());
@@ -524,6 +525,12 @@ void netcoupler::setaway() {
 void netcoupler::refreshhostlist() {
     http->refreshhostlist();
 }
-void netcoupler::startprocess(const QString &s){
+void netcoupler::startprocess(const QString &s){    
+    if(singleton<settingswindow>().from_map("chbhidechannelwindowsongame").toBool()){
+        foreach(window *w,mainwindow::windowlist)
+        {
+            w->minimize();
+        }
+    }
     p->start(s);
 }

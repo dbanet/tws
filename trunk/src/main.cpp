@@ -32,10 +32,10 @@ void handle_wini_ini();
 void myMessageOutput(QtMsgType, const char *);
 
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {    
     qInstallMsgHandler(myMessageOutput);
-    QApplication a(argc, argv);    
-    a.setApplicationName("The Wheat Snooper");
+    QApplication a(argc, argv);
+    a.setApplicationName("The Wheat Snooper");    
 #if defined QT_WS_X11
     chdir(qPrintable(QApplication::applicationDirPath()));
 #endif
@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
                    + singleton<snpsettings>().map["language file"].value<QString> ().remove(".qm"))) {
         a.installTranslator(&trans);
     } else
-        qDebug() << "The translationfile cannot be loaded! it may be corrupt.";
+        qDebug() << "The translationfile cannot be loaded! it might be corrupt.";
     //QTextCodec::setCodecForTr(QTextCodec::codecForName("EUC-JP"));
     volume = new volumeslider;
     a.addLibraryPath(QApplication::applicationDirPath());
@@ -98,7 +98,7 @@ int main(int argc, char *argv[]) {
     if (singleton<snpsettings>().map.contains("chbminimized")
         && !singleton<snpsettings>().map["chbminimized"].value<bool> ())
         w->show();
-    singleton<sound_handler>().play_startupsound();
+    singleton<sound_handler>().play_startupsound();    
     return a.exec();
 }
 void myMessageOutput(QtMsgType type, const char *msg) {

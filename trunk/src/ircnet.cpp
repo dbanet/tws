@@ -6,10 +6,12 @@
 #include<QApplication>
 #include<QDir>
 #include<QTime>
+#include<QMessageBox>
 #include<QDebug>
 #include"inihandlerclass.h"
 #include"snpsettings.h"
 #include"settingswindow.h"
+#include "about.h"
 extern inihandlerclass inihandler;
 extern QMap<QString, QStringList> usergarbagemap;
 int i1 = 0;
@@ -300,8 +302,11 @@ void ircnet::who() {
 	}
 }
 void ircnet::quit() {
-	tcp->write("QUIT \n");
-	emit sigdisconnected();
+    tcp->write(QString("QUIT : The Wheat Snooper "
+                       + about::version +
+                       +" \n").toAscii());
+    tcp->waitForDisconnected(5000);
+    emit sigdisconnected();
 }
 ircnet::~ircnet() {
 }

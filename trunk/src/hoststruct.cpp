@@ -16,7 +16,6 @@ extern int ranklistsize;
 extern int flaglistsize;
 hoststruct::hoststruct() {
 	// TODO Auto-generated constructor stub
-
 }
 
 hoststruct::~hoststruct() {
@@ -31,7 +30,7 @@ void hoststruct::sethost(QStringList &sl) {
 		gameip = sl.takeFirst();
 		flag = sl.takeFirst().toInt(boolhelper);
 		if (!(*boolhelper && flag < flaglistsize && flag >= 0))
-			flag = 49;
+			flag = 49;                
 		sl.takeFirst();
 		withkey = sl.takeFirst().toInt();
 		gameid = sl.takeFirst();
@@ -59,6 +58,5 @@ void hoststruct::sethost(QStringList &sl) {
 		joinstring = "wa://" + gameip + "?gameid=" + gameid;
 		hoststring = QString("wa://") + "?gameid=" + gameid;
 		rest = sl.join(" ");
-
-	}
+	}        
 }

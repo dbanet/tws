@@ -48,6 +48,7 @@ mainwindow::mainwindow(QWidget *parent) :
     net = NULL;
     whichuitype = 1;
     ui.setupUi(this);    
+    ui.pbabout->setText(tr("About"));
     ui.tabWidget->setTabEnabled(1, 0);
 
     init_menus();
@@ -629,12 +630,14 @@ void mainwindow::trayactivation(QSystemTrayIcon::ActivationReason reason) {
     }
 }
 void mainwindow::traymenutriggered(QAction *a) {
-    if (a->text() == tr("Close")) {
+    if (a->text() == tr("Close")) {        
         foreach(chatwindow *w,::window::chatwindows) {
             Q_ASSERT(w!=0);
+            w->close();
             w->deleteLater();
         }
         foreach(::window *w,this->windowlist) {
+            w->close();
             w->deleteLater();
         }
         singleton<balloon_handler>().hide_tray();
@@ -774,4 +777,15 @@ void mainwindow::traymenutriggered(QAction *a) {
         pl->show();
     }
     singleton<snpsettings>().safe();
+}
+
+void mainwindow::on_pbsettings_clicked()
+{
+    singleton<settingswindow>().show();
+}
+
+void mainwindow::on_pbabout_clicked()
+{
+    about *ab = new about;
+    ab->show();
 }

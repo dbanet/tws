@@ -682,6 +682,7 @@ window::~window() {
         net->partchannel(currentchannel);
     QString s = currentchannel;
     bool b = containsCI(net->hosts.hostmap.keys(), s);
+    Q_UNUSED(b);
     if(net!=0)
         net->hosts.sethoststruct(QList<hoststruct> (), s);emit
                 sigwindowclosed(currentchannel);

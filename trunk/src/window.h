@@ -33,7 +33,9 @@ public:
 	static QList< ::window*> hiddenchannelwindowshelper;
 	QPointer<chathandler> chat;		//handles the whole textbrowser
 	QString windowtitleaway;
-	void mysetwindowtitle();
+        void mysetwindowtitle();
+public slots:
+        void minimize();
 private slots:
 	void gotmsg(const QString&,const QString&,const QString&);
 	void gotnotice(const QString&,const QString&,const QString&);
@@ -62,8 +64,7 @@ private slots:
 	void expandchannels(QStringList sl);	//expand on startup
 	void expandchannels();
 	void getjoinmenu();
-	void openhbox();
-	void minimize();
+	void openhbox();	
 	void changealpha(int);
 	void showbuttons();
 	void getuserscount(QStringList);

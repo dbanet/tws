@@ -25,6 +25,7 @@ public slots:
     void hide_tray();
     void set_normal_tray_icon();
     void set_away_tray_icon();
+
 private:
     QStringList balloonhelper;
     void showballoon();

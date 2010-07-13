@@ -1,5 +1,6 @@
 #include "balloon_handler.h"
 #include "settingswindow.h"
+#include"about.h"
 #include"usermodel.h"
 #include<QTime>
 #include<QSystemTrayIcon>
@@ -8,10 +9,15 @@
 balloon_handler::balloon_handler()
 {
     tray=new QSystemTrayIcon;
+    tray->setToolTip(tr("The Wheat Snooper version ")+about::version);
     tray->setIcon(QIcon(QApplication::applicationDirPath() + QDir::separator()
                         + "snppictures" + QDir::separator() + "tray.png"));
     tray->setObjectName("normalwidget");
     tray->show();
+    balloonhelper << QTime::currentTime().toString("hh:mm") + ":"
+            + "The Wheat Snooper version "+about::version+" started!";
+    if(!singleton<settingswindow>().from_map("cbdontshowballoons").toBool())
+        tray->showMessage(tr("Notifications."), balloonhelper.join("\n"));
 }
 balloon_handler::~balloon_handler()
 {

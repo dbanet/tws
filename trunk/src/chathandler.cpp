@@ -45,7 +45,7 @@ QTextCharFormat chathandler::garbageformat;
 QTextCharFormat chathandler::myselfformat;
 extern bool fontorcolorchanged;
 chathandler::chathandler(QObject *parent, QTextBrowser *t, QString chan) :
-        QObject(parent), channel(chan), tb(t),slideratmaximum(true),gotFirstMessage(false) {
+        QObject(parent), channel(chan), slideratmaximum(true),gotFirstMessage(false), tb(t) {
     tb->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     tb->setContextMenuPolicy(Qt::CustomContextMenu);
     tb->setOpenLinks(0);
@@ -277,8 +277,7 @@ void chathandler::insertText(const QString &s, QTextCharFormat &t,QString user) 
 }
 void chathandler::slidermoved(int i) {
     if(!gotFirstMessage)
-    {
-        i == tb->verticalScrollBar()->maximum();
+    {        
         gotFirstMessage=true;
         return;
     }
