@@ -263,6 +263,9 @@ void ircnet::readservermassege(QString s) {
 	case 412: //No text to send
 	case 462: //You may not reregister
 	case 433: //nickname allready in use
+            QMessageBox::information(0,tr("Nickname collision!"),
+                                     tr("The server things that your nickname is allready in use. This is usually caused by a uncomplete logout at the last session. If its like that you have to wait a few seconds or change your nickname! \n\nIf your nick got faked... bl :)"),
+                                     QMessageBox::Ok);
 	case 421: //unknown command
 	case 409: //No origin specified
 	case 403: //No such channel
