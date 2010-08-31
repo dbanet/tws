@@ -86,7 +86,7 @@ FORMS += src/about.ui \
     src/window2.ui \
     src/window3.ui \
     src/combobox_wrapper.ui
-SOURCES += src/about.cpp \
+SOURCES +=   src/about.cpp \
     src/awaybox.cpp \
     src/buddylist.cpp \
     src/buttonlayout.cpp \
