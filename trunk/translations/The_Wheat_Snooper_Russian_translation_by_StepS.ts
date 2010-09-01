@@ -1240,64 +1240,64 @@ If your nick got faked... bl :)</source>
 <context>
     <name>mainwindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="545"/>
+        <location filename="../src/mainwindow.cpp" line="550"/>
         <source>Stuff</source>
         <translation>Главное</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="51"/>
-        <location filename="../src/mainwindow.cpp" line="547"/>
-        <location filename="../src/mainwindow.cpp" line="730"/>
+        <location filename="../src/mainwindow.cpp" line="552"/>
+        <location filename="../src/mainwindow.cpp" line="735"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="548"/>
-        <location filename="../src/mainwindow.cpp" line="734"/>
+        <location filename="../src/mainwindow.cpp" line="553"/>
+        <location filename="../src/mainwindow.cpp" line="739"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="549"/>
-        <location filename="../src/mainwindow.cpp" line="749"/>
+        <location filename="../src/mainwindow.cpp" line="554"/>
+        <location filename="../src/mainwindow.cpp" line="754"/>
         <source>Volume</source>
         <translation>Громкость</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="556"/>
+        <location filename="../src/mainwindow.cpp" line="561"/>
         <source>Skins</source>
         <translation>Цветовые таблицы</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="575"/>
+        <location filename="../src/mainwindow.cpp" line="580"/>
         <source>Layouts</source>
         <translation>Форматы</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="593"/>
+        <location filename="../src/mainwindow.cpp" line="598"/>
         <source>Join</source>
         <translation>Канал</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="586"/>
+        <location filename="../src/mainwindow.cpp" line="591"/>
         <source>Language</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="596"/>
-        <location filename="../src/mainwindow.cpp" line="685"/>
+        <location filename="../src/mainwindow.cpp" line="601"/>
+        <location filename="../src/mainwindow.cpp" line="690"/>
         <source>Away mode</source>
         <translation>Отошел</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="600"/>
-        <location filename="../src/mainwindow.cpp" line="737"/>
+        <location filename="../src/mainwindow.cpp" line="605"/>
+        <location filename="../src/mainwindow.cpp" line="742"/>
         <source>Reconnect</source>
         <translation>Переподключиться</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="602"/>
-        <location filename="../src/mainwindow.cpp" line="633"/>
+        <location filename="../src/mainwindow.cpp" line="607"/>
+        <location filename="../src/mainwindow.cpp" line="638"/>
         <source>Close</source>
         <translation>Закрыть</translation>
     </message>
@@ -1307,68 +1307,68 @@ If your nick got faked... bl :)</source>
         <translation>Главное окно Wheat Snooper</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="153"/>
+        <location filename="../src/mainwindow.cpp" line="154"/>
         <source>warning</source>
         <translation>Предупреждение</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="154"/>
+        <location filename="../src/mainwindow.cpp" line="155"/>
         <source>you are still editing the ini file. please close it bevor joining wormnet.</source>
         <translation>Вы все еще редактируете файл настроек. Пожалуйста закройте его перед входом на WormNET.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="353"/>
+        <location filename="../src/mainwindow.cpp" line="358"/>
         <source>Restart the application?</source>
         <translation>Перезагрузить приложение?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="354"/>
+        <location filename="../src/mainwindow.cpp" line="359"/>
         <source>Changing the translation requires a program restart.
 To restart now click Ok, otherwise cancel.</source>
         <translation>Изменение языка отображения требует перезагрузки программы. Чтобы перезагрузить сейчас, нажмите ОК, для возврата нажмите Отмена.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="550"/>
-        <location filename="../src/mainwindow.cpp" line="754"/>
+        <location filename="../src/mainwindow.cpp" line="555"/>
+        <location filename="../src/mainwindow.cpp" line="759"/>
         <source>Open Log Browser</source>
         <translation>Открыть навигатор по отчетам</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="557"/>
+        <location filename="../src/mainwindow.cpp" line="562"/>
         <source>Text Schemes</source>
         <translation>Текстовые таблицы</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="565"/>
-        <location filename="../src/mainwindow.cpp" line="760"/>
+        <location filename="../src/mainwindow.cpp" line="570"/>
+        <location filename="../src/mainwindow.cpp" line="765"/>
         <source>Save current textscheme to file</source>
         <translation>Сохранить текущую текстовую таблицу</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="761"/>
+        <location filename="../src/mainwindow.cpp" line="766"/>
         <source>Save textscheme to.</source>
         <translation>Сохранить текстовую таблицу как...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="407"/>
+        <location filename="../src/mainwindow.cpp" line="412"/>
         <source>trying to apply new textscheme: </source>
         <translation>Попытка изменить текстовую таблицу:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="552"/>
-        <location filename="../src/mainwindow.cpp" line="772"/>
+        <location filename="../src/mainwindow.cpp" line="557"/>
+        <location filename="../src/mainwindow.cpp" line="777"/>
         <source>Scheme maker</source>
         <translation>Создатель таблиц</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="554"/>
-        <location filename="../src/mainwindow.cpp" line="775"/>
+        <location filename="../src/mainwindow.cpp" line="559"/>
+        <location filename="../src/mainwindow.cpp" line="780"/>
         <source>Playername</source>
         <translation>Ник игрока</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="377"/>
-        <location filename="../src/mainwindow.cpp" line="386"/>
+        <location filename="../src/mainwindow.cpp" line="382"/>
+        <location filename="../src/mainwindow.cpp" line="391"/>
         <source>&lt;away&gt;:</source>
         <translation>&lt;отошел&gt;:</translation>
     </message>
@@ -1380,12 +1380,12 @@ To restart now click Ok, otherwise cancel.</source>
         <translation>&lt;Чтобы скрыть или показать это окно, вы можете нажать левой кнопкой на иконку в треею Правый клик на иконке открывает Меню. Используйте меню для входа на каналы, изменения оформления или изменения вида каналов WormNET&apos;a. Изменение вида не будет применено к уже открытым окнам с каналами. В меню &quot;Главное&quot; вы можете найти несколько настроек для звука, оповещения и др.&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="661"/>
+        <location filename="../src/mainwindow.cpp" line="666"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="662"/>
+        <location filename="../src/mainwindow.cpp" line="667"/>
         <source>Changing the skin crashes sometimes, but The Wheat Snooper
 will keep the settings for the next Start.
 Do you want to proceed?</source>
@@ -1394,12 +1394,12 @@ The Wheat Snooper сохранит настройки на следующий з
 Хотите продолжить?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="508"/>
+        <location filename="../src/mainwindow.cpp" line="513"/>
         <source>Connected</source>
         <translation>Подключено</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="512"/>
+        <location filename="../src/mainwindow.cpp" line="517"/>
         <source>Disconnected</source>
         <translation>Отключено</translation>
     </message>
@@ -1650,77 +1650,82 @@ If this string is empty, worms will probably not host or join a game.</source>
         <translation>I&apos;m in a Game!</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="536"/>
+        <location filename="../src/settingswindow.ui" line="306"/>
+        <source>Disconnect from network when a game starts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="543"/>
         <source>Sound on startup.</source>
         <translation>Мелодия при подключении</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="550"/>
-        <location filename="../src/settingswindow.ui" line="597"/>
-        <location filename="../src/settingswindow.ui" line="643"/>
-        <location filename="../src/settingswindow.ui" line="691"/>
-        <location filename="../src/settingswindow.ui" line="733"/>
-        <location filename="../src/settingswindow.ui" line="775"/>
-        <location filename="../src/settingswindow.ui" line="817"/>
-        <location filename="../src/settingswindow.ui" line="859"/>
-        <location filename="../src/settingswindow.ui" line="901"/>
+        <location filename="../src/settingswindow.ui" line="557"/>
+        <location filename="../src/settingswindow.ui" line="604"/>
+        <location filename="../src/settingswindow.ui" line="650"/>
+        <location filename="../src/settingswindow.ui" line="698"/>
+        <location filename="../src/settingswindow.ui" line="740"/>
+        <location filename="../src/settingswindow.ui" line="782"/>
+        <location filename="../src/settingswindow.ui" line="824"/>
+        <location filename="../src/settingswindow.ui" line="866"/>
+        <location filename="../src/settingswindow.ui" line="908"/>
         <source>Choose a file</source>
         <translation>Выберите файл</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="564"/>
-        <location filename="../src/settingswindow.ui" line="611"/>
-        <location filename="../src/settingswindow.ui" line="657"/>
+        <location filename="../src/settingswindow.ui" line="571"/>
+        <location filename="../src/settingswindow.ui" line="618"/>
+        <location filename="../src/settingswindow.ui" line="664"/>
         <source>Play this sound</source>
         <translation>Играть этот звук</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="583"/>
+        <location filename="../src/settingswindow.ui" line="590"/>
         <source>Sound when buddy arrives.</source>
         <translation>Звуковое оповещение, когда приходит друг</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="629"/>
+        <location filename="../src/settingswindow.ui" line="636"/>
         <source>Sound when buddy leaves.</source>
         <translation>Звуковое оповещение, когда уходит друг</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="677"/>
+        <location filename="../src/settingswindow.ui" line="684"/>
         <source>Sound when a buddy sends a message.</source>
         <translation>Звуковое оповещение, когда друг посылает сообщение</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="701"/>
-        <location filename="../src/settingswindow.ui" line="743"/>
-        <location filename="../src/settingswindow.ui" line="785"/>
-        <location filename="../src/settingswindow.ui" line="827"/>
-        <location filename="../src/settingswindow.ui" line="869"/>
-        <location filename="../src/settingswindow.ui" line="911"/>
+        <location filename="../src/settingswindow.ui" line="708"/>
+        <location filename="../src/settingswindow.ui" line="750"/>
+        <location filename="../src/settingswindow.ui" line="792"/>
+        <location filename="../src/settingswindow.ui" line="834"/>
+        <location filename="../src/settingswindow.ui" line="876"/>
+        <location filename="../src/settingswindow.ui" line="918"/>
         <source>Play this sound.</source>
         <translation>Играть этот звук</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="719"/>
+        <location filename="../src/settingswindow.ui" line="726"/>
         <source>Sound when a chatwindow opens.</source>
         <translation>Звуковое оповещение, когда открывается окно чата</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="761"/>
+        <location filename="../src/settingswindow.ui" line="768"/>
         <source>Sound when a normal user sends a message.</source>
         <translation>Звуковое оповещение, когда обычный игрок посылает сообщение</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="962"/>
+        <location filename="../src/settingswindow.ui" line="969"/>
         <source>Who repeat delay (ms).</source>
         <translation>Задержка повторов запросов &quot;who&quot; (мсек)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="990"/>
+        <location filename="../src/settingswindow.ui" line="997"/>
         <source>Host repeat delay.(ms)</source>
         <translation>Частота обновления списка хостов (мсек)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="362"/>
+        <location filename="../src/settingswindow.ui" line="369"/>
         <source>Join,Part,Quit</source>
         <translation>Приходы и уходы</translation>
     </message>
@@ -1730,32 +1735,32 @@ If this string is empty, worms will probably not host or join a game.</source>
         <translation>Скрывать все окна при старте игры</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="368"/>
+        <location filename="../src/settingswindow.ui" line="375"/>
         <source>Join Part Quit information in channelchats.</source>
         <translation>Показывать сообщения (уходы, приходы_</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="376"/>
+        <location filename="../src/settingswindow.ui" line="383"/>
         <source>Show joininfos in channelchats.</source>
         <translation>Показывать приходы</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="383"/>
+        <location filename="../src/settingswindow.ui" line="390"/>
         <source>Show partinfos in channelchats.</source>
         <translation>Показывать уходы с каналов</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="390"/>
+        <location filename="../src/settingswindow.ui" line="397"/>
         <source>Show quitinfos in channelchats.</source>
         <translation>Показывать уходы с сервера</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="932"/>
+        <location filename="../src/settingswindow.ui" line="939"/>
         <source>Advanced</source>
         <translation>Расширенное</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="944"/>
+        <location filename="../src/settingswindow.ui" line="951"/>
         <source>Better dont touch anything else then &quot;Maximum of textblocks in a chat&quot;.
 Note: A reconnect is required to apply these settings.</source>
         <translation>Лучше не трогать что-то еще типа &quot;Максимум текстовых блоков в окне чата&quot;
@@ -1770,22 +1775,22 @@ Note: A reconnect is required to apply these settings.</source>
         <translation type="obsolete">Задержка повторов &quot;host&quot; (мсек)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1018"/>
+        <location filename="../src/settingswindow.ui" line="1025"/>
         <source>Host timeout delay.(s)</source>
         <translation>Задержка таймаута &quot;host&quot; (сек)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1043"/>
+        <location filename="../src/settingswindow.ui" line="1050"/>
         <source>Maximum of textblocks in a chat.</source>
         <translation>Максимум текстовых блоков в чате</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1075"/>
+        <location filename="../src/settingswindow.ui" line="1082"/>
         <source>Ok</source>
         <translation>ОК</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1082"/>
+        <location filename="../src/settingswindow.ui" line="1089"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
@@ -1815,27 +1820,27 @@ Note: A reconnect is required to apply these settings.</source>
         <translation>I&apos;m back.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="803"/>
+        <location filename="../src/settingswindow.ui" line="810"/>
         <source>Sound when someone writes your name into the chat.</source>
         <translation>Звук, когда кто-то пишет твое имя в окне чата</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="416"/>
+        <location filename="../src/settingswindow.ui" line="423"/>
         <source>Show a balloon message when a buddy arrvies.</source>
         <translation>Показывать сообщение оповещения, когда приходит друг</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="423"/>
+        <location filename="../src/settingswindow.ui" line="430"/>
         <source>Show a balloon message when a buddy leaves.</source>
         <translation>Показывать сообщение оповещения, когда уходит друг</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="485"/>
+        <location filename="../src/settingswindow.ui" line="492"/>
         <source>Show a balloon message when someone sends you a privmsg.</source>
         <translation>Показывать сообщение оповещения, когда кто-то отправляет тебе личное сообщение</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="442"/>
+        <location filename="../src/settingswindow.ui" line="449"/>
         <source>Maximum count of messages in a balloon.</source>
         <translation>Максимальное количество сообщений в &quot;оповещениях&quot;</translation>
     </message>
@@ -1845,7 +1850,7 @@ Note: A reconnect is required to apply these settings.</source>
         <translation>Показывать сообщения игрока каналу в личном окне чата</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="333"/>
+        <location filename="../src/settingswindow.ui" line="340"/>
         <source>Maximum of messages for a user inside the log.</source>
         <translation>Максимум сообщений для игрока внутри отчета</translation>
     </message>
@@ -1856,17 +1861,17 @@ Note: A reconnect is required to apply these settings.</source>
         <translation>Не открывать окна чатов сразу, вместо этого скрыть их в трей</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="492"/>
+        <location filename="../src/settingswindow.ui" line="499"/>
         <source>Show a balloon message when a buddy hosts a game.</source>
         <translation>Показывать сообщение оповещения, когда друг создает игру</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="887"/>
+        <location filename="../src/settingswindow.ui" line="894"/>
         <source>Sound when a buddy hosts a game.</source>
         <translation>Звуковое оповещение, когда друг создает игру</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="306"/>
+        <location filename="../src/settingswindow.ui" line="313"/>
         <source>Open a chatwindow for everyone.</source>
         <translation>Открывать окно чата для всех</translation>
     </message>
@@ -1876,17 +1881,17 @@ Note: A reconnect is required to apply these settings.</source>
         <translation>Каналы и чат</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="313"/>
+        <location filename="../src/settingswindow.ui" line="320"/>
         <source>Dont show smileys.</source>
         <translation>Не показывать смайлики</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="403"/>
+        <location filename="../src/settingswindow.ui" line="410"/>
         <source>Balloon Messages</source>
         <translation>Сообщения оповещения</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="500"/>
+        <location filename="../src/settingswindow.ui" line="507"/>
         <source>Sound notifications</source>
         <translation>Звуковые оповещения</translation>
     </message>
@@ -1896,22 +1901,22 @@ Note: A reconnect is required to apply these settings.</source>
         <translation>Контр. слова, снупер будет играть звук, когда одно из них появится на канале</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="320"/>
+        <location filename="../src/settingswindow.ui" line="327"/>
         <source>Dont use Sorting for the userlist in channels. Most recents become first.</source>
         <translation>Не использовать сортировку для списка пользователей на каналах. Недавно зашедшие помещаются наверх</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="409"/>
+        <location filename="../src/settingswindow.ui" line="416"/>
         <source>Dont show balloons.</source>
         <translation>Не показывать сообщения оповещения</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="523"/>
+        <location filename="../src/settingswindow.ui" line="530"/>
         <source>Dont play sound.</source>
         <translation>Не играть звук</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="845"/>
+        <location filename="../src/settingswindow.ui" line="852"/>
         <source>Sound when a costum word appears in the chat.</source>
         <translation>Звуковое оповещение, когда контр. слово появляется на канале</translation>
     </message>
@@ -1979,9 +1984,9 @@ Note: A reconnect is required to apply these settings.</source>
     <name>usermodel</name>
     <message>
         <location filename="../src/chatwindow.cpp" line="162"/>
-        <location filename="../src/mainwindow.cpp" line="473"/>
-        <location filename="../src/mainwindow.cpp" line="551"/>
-        <location filename="../src/mainwindow.cpp" line="745"/>
+        <location filename="../src/mainwindow.cpp" line="478"/>
+        <location filename="../src/mainwindow.cpp" line="556"/>
+        <location filename="../src/mainwindow.cpp" line="750"/>
         <location filename="../src/usermodel.cpp" line="85"/>
         <location filename="../src/usermodel.cpp" line="113"/>
         <location filename="../src/usermodel.cpp" line="121"/>
@@ -1994,8 +1999,8 @@ Note: A reconnect is required to apply these settings.</source>
         <translation>Список друзей</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="466"/>
-        <location filename="../src/mainwindow.cpp" line="476"/>
+        <location filename="../src/mainwindow.cpp" line="471"/>
+        <location filename="../src/mainwindow.cpp" line="481"/>
         <location filename="../src/usermodel.cpp" line="115"/>
         <location filename="../src/usermodel.cpp" line="117"/>
         <location filename="../src/usermodel.cpp" line="197"/>

@@ -531,6 +531,8 @@ void netcoupler::startprocess(const QString &s){
         {
             w->minimize();
         }
+    } if(singleton<settingswindow>().from_map("chbdisconnectongame").toBool()){
+        emit sigdisconnect();
     }
     p->start(s);
 }

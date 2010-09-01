@@ -57,6 +57,7 @@ private slots:
     void joinslot(const QString&);
     void chooseclicked();
     void onquit();
+    void disconnect_netcoupler();
     void returntotabsettings(int);
     void trayactivation(QSystemTrayIcon::ActivationReason);
     void traymenutriggered(QAction *);

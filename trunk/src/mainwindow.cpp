@@ -147,6 +147,7 @@ void mainwindow::chooseclicked() {
         connect(ui.pbjoin, SIGNAL(clicked()),this, SLOT(joinclicked()));
         connect(net,SIGNAL(sigconnected()),this,SLOT(connected()));
         connect(net,SIGNAL(sigdisconnected()),this,SLOT(disconnected()));
+        connect(net,SIGNAL(sigdisconnect()),this,SLOT(disconnect_netcoupler()));
     } else
         QMessageBox::warning(
                 this,
@@ -233,6 +234,10 @@ void mainwindow::onquit() {
 }
 void mainwindow::closeEvent(QCloseEvent *) {
 }
+void mainwindow::disconnect_netcoupler(){
+    returntotabsettings(0);
+}
+
 void mainwindow::returntotabsettings(int i) {
     if (i == 0) {
         joinonstartup = 0;

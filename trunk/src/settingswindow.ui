@@ -19,7 +19,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -219,8 +219,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>387</width>
-              <height>378</height>
+              <width>950</width>
+              <height>471</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -297,6 +297,13 @@
                 <widget class="QCheckBox" name="chbhidechannelwindowsongame">
                  <property name="text">
                   <string>Hide all channelwindows to tray when starting a game.</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="chbdisconnectongame">
+                 <property name="text">
+                  <string>Disconnect from network when a game starts.</string>
                  </property>
                 </widget>
                </item>

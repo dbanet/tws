@@ -197,7 +197,7 @@ void ircnet::disconnected() {
 	reconnecttimer.singleShot(300 * 1000, this, SLOT(start()));
 	tcp->disconnectFromHost();
 	qDebug() << "disconnected from irc server.";
-	emit sigdisconnected();
+        //emit sigdisconnected();
 }
 void ircnet::readservermassege(QString s) {
 	QStringList sl = s.split(" ");

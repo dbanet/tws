@@ -62,6 +62,7 @@ signals:
     void signosuchnick(const QString&);
     void sigconnected();
     void sigdisconnected();
+    void sigdisconnect();
     //void siggethostlist(QList<hoststruct>,QString);
 
 private:
