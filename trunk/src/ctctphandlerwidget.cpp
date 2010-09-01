@@ -79,7 +79,7 @@ void ctctphandlerwidget::pbhowtoclicked(){
     QTextEdit *te=new QTextEdit;
     te->setObjectName("ctcphowto");
     te->setAttribute(Qt::WA_DeleteOnClose);
-    QString s=tr("CTCP commands are simple messages, that are bounded with ACII 0x01 signs.\n"
+    QString s=tr("CTCP commands are simple messages, that are bounded with ASCII 0x01 signs.\n"
                  "These signs cannot be written directly into a textline.\n"
                  "If you want to send a ctcp command you must prefix the message with >!\n"
                  "for example '>!VERSION' or '>!command'.\n"
