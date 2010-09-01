@@ -30,7 +30,6 @@ private slots:
     void pblogclicked();
     void pbidleclicked();
     void pbctcpclicked();
-    void pbstatusclicked();
     void gotidletime(const QString&,int);
     void gotnosuchnick(const QString&);
     void channelmsg(const QString&,const QString&,const QString&);

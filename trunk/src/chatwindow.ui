@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>344</width>
+    <width>305</width>
     <height>328</height>
    </rect>
   </property>
@@ -85,7 +85,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>336</width>
+               <width>297</width>
                <height>41</height>
               </rect>
              </property>
@@ -254,34 +254,6 @@
                   </property>
                   <property name="toolTip">
                    <string>Use this button to handle your ctcp commands.</string>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>30</width>
-                    <height>30</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pbstatus">
-                  <property name="minimumSize">
-                   <size>
-                    <width>35</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>35</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="toolTip">
-                   <string>Use this button to see the status of this user.</string>
                   </property>
                   <property name="text">
                    <string/>

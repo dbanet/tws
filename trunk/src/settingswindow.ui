@@ -219,8 +219,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>950</width>
-              <height>471</height>
+              <width>387</width>
+              <height>378</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -510,7 +510,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>933</width>
+              <width>304</width>
               <height>660</height>
              </rect>
             </property>
@@ -959,7 +959,7 @@ Note: A reconnect is required to apply these settings.</string>
                 </size>
                </property>
                <property name="title">
-                <string>Who repead delay (ms).</string>
+                <string>Who repeat delay (ms).</string>
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout">
                 <item>
@@ -987,7 +987,7 @@ Note: A reconnect is required to apply these settings.</string>
                 </size>
                </property>
                <property name="title">
-                <string>Host repead delay.(ms)</string>
+                <string>Host repeat delay.(ms)</string>
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>

@@ -25,7 +25,6 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     ui.pbidle->setObjectName("chatwindowbutton");
     ui.pblog->setObjectName("chatwindowbutton");
     ui.pbmute->setObjectName("chatwindowbutton");
-    ui.pbstatus->setObjectName("chatwindowbutton");
     ui.pbfilter->setObjectName("chatwindowbutton");
     ui.lineEdit->installEventFilter(this);
     ui.chatwindowbuttonscrollArea->installEventFilter(this);
@@ -75,7 +74,6 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     ui.pblog->setIcon(QIcon("snppictures/buttons/log.png"));
     ui.pbidle->setIcon(QIcon("snppictures/buttons/idle.png"));
     ui.pbctcp->setIcon(QIcon("snppictures/buttons/ctcp.png"));
-    ui.pbstatus->setIcon(QIcon("snppictures/buttons/status.png"));
     ui.pbfilter->setIcon(QIcon("snppictures/buttons/filter.png"));
     ui.pbsmileys->setIcon(QIcon("snppictures/buttons/smileys.png"));
     ui.buttonlayout->setAlignment(Qt::AlignLeft);
@@ -83,7 +81,6 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     connect(ui.pbbuddy, SIGNAL(clicked()),this, SLOT(pbbuddyclicked()));
     connect(ui.pblog, SIGNAL(clicked()),this, SLOT(pblogclicked()));
     connect(ui.pbidle, SIGNAL(clicked()),this, SLOT(pbidleclicked()));
-    connect(ui.pbstatus, SIGNAL(clicked()),this, SLOT(pbstatusclicked()));
     connect(ui.pbctcp, SIGNAL(clicked()),this, SLOT(pbctcpclicked()));
     connect(ui.pbfilter, SIGNAL(clicked()),this, SLOT(filtergarbage()));
     connect(ui.pbsmileys, SIGNAL(clicked()),chat->emot, SLOT(show()));
@@ -133,7 +130,7 @@ bool chatwindow::eventFilter(QObject *obj, QEvent *event) {
     if (qobject_cast<QScrollArea*> (obj) != 0 && qobject_cast<QScrollArea*> (
             obj)->objectName() == "chatwindowbuttonscrollArea") {
         if (event->type() == QEvent::Enter) {
-            if(ui.chatwindowbuttonscrollArea->width()<340){
+            if(ui.chatwindowbuttonscrollArea->width()<305){
                 ui.chatwindowbuttonscrollArea->setMaximumHeight(70);
                 ui.chatwindowbuttonscrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
             }
@@ -297,9 +294,6 @@ void chatwindow::gotnosuchnick(const QString &s){
         chat->appenddebug(tr("This user is currently offline"));
         userisoffline=1;
     }
-}
-void chatwindow::pbstatusclicked() {
-    net->sendrawcommand("PRIVMSG " + this->chatpartner + " :\001status\001");
 }
 void chatwindow::pbctcpclicked() {
     singleton<ctctphandlerwidget>().show();
