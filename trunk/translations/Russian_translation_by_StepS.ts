@@ -540,35 +540,35 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
 <context>
     <name>chatwindow</name>
     <message>
-        <location filename="../src/chatwindow.cpp" line="37"/>
+        <location filename="../src/chatwindow.cpp" line="36"/>
         <source>Chat with</source>
         <translation>Разговор с</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="276"/>
+        <location filename="../src/chatwindow.cpp" line="273"/>
         <source>Choose a file.</source>
         <translation>Выбрать файл.</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="291"/>
+        <location filename="../src/chatwindow.cpp" line="288"/>
         <source>&lt;This users idle time: %1&gt;</source>
         <translation>&lt;Время отсутствия этого игрока: %1&gt;</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="97"/>
-        <location filename="../src/chatwindow.cpp" line="160"/>
-        <location filename="../src/chatwindow.cpp" line="311"/>
+        <location filename="../src/chatwindow.cpp" line="94"/>
+        <location filename="../src/chatwindow.cpp" line="157"/>
+        <location filename="../src/chatwindow.cpp" line="305"/>
         <source>Online</source>
         <translation>В сети</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="101"/>
-        <location filename="../src/chatwindow.cpp" line="158"/>
+        <location filename="../src/chatwindow.cpp" line="98"/>
+        <location filename="../src/chatwindow.cpp" line="155"/>
         <source>Was offline when this window opened.</source>
         <translation>Был не в сети, когда это окно открылось.</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="297"/>
+        <location filename="../src/chatwindow.cpp" line="294"/>
         <source>This user is currently offline</source>
         <translation>Этот игрок не в сети</translation>
     </message>
@@ -581,7 +581,7 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
         <translation>Окно сообщений</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.ui" line="362"/>
+        <location filename="../src/chatwindow.ui" line="334"/>
         <source>Send</source>
         <translation>Отправить</translation>
     </message>
@@ -623,12 +623,11 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
         <translation>Используйте эту кнопку, чтобы управлять вашими CTCP командами</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.ui" line="284"/>
         <source>Use this button to see the status of this user.</source>
-        <translation>Используйте эту кнопку, чтобы увидеть статус этого игрока</translation>
+        <translation type="obsolete">Используйте эту кнопку, чтобы увидеть статус этого игрока</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.ui" line="312"/>
+        <location filename="../src/chatwindow.ui" line="284"/>
         <source>Use this button to filter join,part,quit information.</source>
         <translation>Используйте эту кнопку, чтобы фильтровать информацию о приходах, и уходах на WormNET и каналы</translation>
     </message>
@@ -1100,6 +1099,21 @@ CTCP означает &quot;Протокол от Клиента К Клиент
         <location filename="../src/initextbrowser.ui" line="55"/>
         <source>Quit without saving</source>
         <translation>Выйти без сохранения</translation>
+    </message>
+</context>
+<context>
+    <name>ircnet</name>
+    <message>
+        <location filename="../src/ircnet.cpp" line="266"/>
+        <source>Nickname collision!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ircnet.cpp" line="267"/>
+        <source>The server things that your nickname is allready in use. This is usually caused by a uncomplete logout at the last session. If its like that you have to wait a few seconds or change your nickname! 
+
+If your nick got faked... bl :)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1660,6 +1674,16 @@ If this string is empty, worms will probably not host or join a game.</source>
         <translation>Звуковое оповещение, когда обычный игрок посылает сообщение</translation>
     </message>
     <message>
+        <location filename="../src/settingswindow.ui" line="962"/>
+        <source>Who repeat delay (ms).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="990"/>
+        <source>Host repeat delay.(ms)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/settingswindow.ui" line="362"/>
         <source>Join,Part,Quit</source>
         <translation>Приходы и уходы</translation>
@@ -1702,14 +1726,12 @@ Note: A reconnect is required to apply these settings.</source>
 Примечание: для применения настроек потребуется переподключение.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="962"/>
         <source>Who repead delay (ms).</source>
-        <translation>Задержка повторов &quot;who&quot; (мсек)</translation>
+        <translation type="obsolete">Задержка повторов &quot;who&quot; (мсек)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="990"/>
         <source>Host repead delay.(ms)</source>
-        <translation>Задержка повторов &quot;host&quot; (мсек)</translation>
+        <translation type="obsolete">Задержка повторов &quot;host&quot; (мсек)</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1018"/>
@@ -1920,7 +1942,7 @@ Note: A reconnect is required to apply these settings.</source>
 <context>
     <name>usermodel</name>
     <message>
-        <location filename="../src/chatwindow.cpp" line="165"/>
+        <location filename="../src/chatwindow.cpp" line="162"/>
         <location filename="../src/mainwindow.cpp" line="473"/>
         <location filename="../src/mainwindow.cpp" line="551"/>
         <location filename="../src/mainwindow.cpp" line="745"/>

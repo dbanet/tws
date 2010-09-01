@@ -30,21 +30,6 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/charformatsettings.cpp" line="29"/>
-        <source>cannot load textscheme file. I apply a random textscheme.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/charformatsettings.cpp" line="42"/>
-        <source>There is no textscheme file available.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/global_functions.h" line="120"/>
-        <source>is missing or locked, please run worms, one time, without the snooper. it will then create the file!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/main.cpp" line="202"/>
         <source>Question about host/join programs.</source>
         <translation type="unfinished"></translation>
@@ -57,6 +42,21 @@ Do you want to add them to the programslist?
 You can then just double click a game to join it with the wa.exe.
 Or you right click a game to choose another program or to add one.
 Hosting is done, by double- or right- clicking a channel name inside the hostview (where the hosts appear).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/global_functions.h" line="120"/>
+        <source>is missing or locked, please run worms, one time, without the snooper. it will then create the file!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/charformatsettings.cpp" line="29"/>
+        <source>cannot load textscheme file. I apply a random textscheme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/charformatsettings.cpp" line="42"/>
+        <source>There is no textscheme file available.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -234,6 +234,16 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/buttonlayout.ui" line="264"/>
+        <source>To raise the window again, leftclick the trayicon.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/buttonlayout.ui" line="267"/>
+        <source>Minimize to tray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/buttonlayout.ui" line="211"/>
         <source>If Sorting is off, users will appear in the direction in that they came into wormnet.</source>
         <translation type="unfinished"></translation>
@@ -261,16 +271,6 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
     <message>
         <location filename="../src/buttonlayout.ui" line="238"/>
         <source>Balloons</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/buttonlayout.ui" line="264"/>
-        <source>To raise the window again, leftclick the trayicon.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/buttonlayout.ui" line="267"/>
-        <source>Minimize to tray</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -350,35 +350,35 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
 <context>
     <name>chatwindow</name>
     <message>
-        <location filename="../src/chatwindow.cpp" line="37"/>
+        <location filename="../src/chatwindow.cpp" line="36"/>
         <source>Chat with</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="97"/>
-        <location filename="../src/chatwindow.cpp" line="160"/>
-        <location filename="../src/chatwindow.cpp" line="311"/>
+        <location filename="../src/chatwindow.cpp" line="94"/>
+        <location filename="../src/chatwindow.cpp" line="157"/>
+        <location filename="../src/chatwindow.cpp" line="305"/>
         <source>Online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="101"/>
-        <location filename="../src/chatwindow.cpp" line="158"/>
-        <source>Was offline when this window opened.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/chatwindow.cpp" line="276"/>
+        <location filename="../src/chatwindow.cpp" line="273"/>
         <source>Choose a file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="291"/>
+        <location filename="../src/chatwindow.cpp" line="288"/>
         <source>&lt;This users idle time: %1&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="297"/>
+        <location filename="../src/chatwindow.cpp" line="98"/>
+        <location filename="../src/chatwindow.cpp" line="155"/>
+        <source>Was offline when this window opened.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/chatwindow.cpp" line="294"/>
         <source>This user is currently offline</source>
         <translation type="unfinished"></translation>
     </message>
@@ -416,18 +416,13 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.ui" line="284"/>
-        <source>Use this button to see the status of this user.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/chatwindow.ui" line="312"/>
-        <source>Use this button to filter join,part,quit information.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/chatwindow.ui" line="362"/>
+        <location filename="../src/chatwindow.ui" line="334"/>
         <source>Send</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/chatwindow.ui" line="284"/>
+        <source>Use this button to filter join,part,quit information.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -660,11 +655,6 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/hostbox.ui" line="54"/>
-        <source>Show this game as a private game.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/hostbox.ui" line="73"/>
         <source>+</source>
         <translation type="unfinished"></translation>
@@ -680,8 +670,33 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/hostbox.ui" line="213"/>
+        <source>The Snooper should wait starting worms, until the host appears.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/hostbox.ui" line="235"/>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/hostbox.ui" line="242"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/hostbox.ui" line="154"/>
         <source>Playername for this Host (leave this empty to use your wormnet nick.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/hostbox.ui" line="223"/>
+        <source>Send a hostinfo to the channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/hostbox.ui" line="201"/>
+        <source>Host port.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -695,28 +710,8 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/hostbox.ui" line="201"/>
-        <source>Host port.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/hostbox.ui" line="213"/>
-        <source>The Snooper should wait starting worms, until the host appears.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/hostbox.ui" line="223"/>
-        <source>Send a hostinfo to the channel.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/hostbox.ui" line="235"/>
-        <source>Ok</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/hostbox.ui" line="242"/>
-        <source>Cancel</source>
+        <location filename="../src/hostbox.ui" line="54"/>
+        <source>Show this game as a private game.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -776,21 +771,6 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/hostprvbox.ui" line="57"/>
-        <source>Host port.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/hostprvbox.ui" line="75"/>
-        <source>Use this ip for hosting. (This is normally not necessary.)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/hostprvbox.ui" line="81"/>
-        <source>Enable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/hostprvbox.ui" line="100"/>
         <source>Chose a program.</source>
         <translation type="unfinished"></translation>
@@ -820,6 +800,21 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../src/hostprvbox.ui" line="57"/>
+        <source>Host port.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/hostprvbox.ui" line="75"/>
+        <source>Use this ip for hosting. (This is normally not necessary.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/hostprvbox.ui" line="81"/>
+        <source>Enable</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>initextbrowserClass</name>
@@ -836,6 +831,21 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
     <message>
         <location filename="../src/initextbrowser.ui" line="55"/>
         <source>Quit without saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ircnet</name>
+    <message>
+        <location filename="../src/ircnet.cpp" line="266"/>
+        <source>Nickname collision!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ircnet.cpp" line="267"/>
+        <source>The server things that your nickname is allready in use. This is usually caused by a uncomplete logout at the last session. If its like that you have to wait a few seconds or change your nickname! 
+
+If your nick got faked... bl :)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -923,60 +933,6 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
 <context>
     <name>mainwindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="84"/>
-        <source>Wheat Snoopers root window.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="111"/>
-        <source>&lt;To hide or show this window,you can leftclick the tray icon. A right click to the tray opens a set of menues. Use this menues to join channels, to change the skin or to change the layout of the Wormnet channels. Changing the layout will not be applied to existing channelwindows. Under stuff you can find some handy settings for sound, alerts and others.&gt;
-
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="153"/>
-        <source>warning</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="154"/>
-        <source>you are still editing the ini file. please close it bevor joining wormnet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="353"/>
-        <source>Restart the application?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="354"/>
-        <source>Changing the translation requires a program restart.
-To restart now click Ok, otherwise cancel.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="377"/>
-        <location filename="../src/mainwindow.cpp" line="386"/>
-        <source>&lt;away&gt;:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="407"/>
-        <source>trying to apply new textscheme: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="508"/>
-        <source>Connected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="512"/>
-        <source>Disconnected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="545"/>
         <source>Stuff</source>
         <translation type="unfinished"></translation>
@@ -1010,12 +966,6 @@ To restart now click Ok, otherwise cancel.</source>
         <location filename="../src/mainwindow.cpp" line="552"/>
         <location filename="../src/mainwindow.cpp" line="772"/>
         <source>Scheme maker</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="554"/>
-        <location filename="../src/mainwindow.cpp" line="775"/>
-        <source>Playername</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1068,6 +1018,61 @@ To restart now click Ok, otherwise cancel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/mainwindow.cpp" line="84"/>
+        <source>Wheat Snoopers root window.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="153"/>
+        <source>warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="154"/>
+        <source>you are still editing the ini file. please close it bevor joining wormnet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="761"/>
+        <source>Save textscheme to.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="353"/>
+        <source>Restart the application?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="354"/>
+        <source>Changing the translation requires a program restart.
+To restart now click Ok, otherwise cancel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="407"/>
+        <source>trying to apply new textscheme: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="554"/>
+        <location filename="../src/mainwindow.cpp" line="775"/>
+        <source>Playername</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="377"/>
+        <location filename="../src/mainwindow.cpp" line="386"/>
+        <source>&lt;away&gt;:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="111"/>
+        <source>&lt;To hide or show this window,you can leftclick the tray icon. A right click to the tray opens a set of menues. Use this menues to join channels, to change the skin or to change the layout of the Wormnet channels. Changing the layout will not be applied to existing channelwindows. Under stuff you can find some handy settings for sound, alerts and others.&gt;
+
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow.cpp" line="661"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
@@ -1080,8 +1085,13 @@ Do you want to proceed?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="761"/>
-        <source>Save textscheme to.</source>
+        <location filename="../src/mainwindow.cpp" line="508"/>
+        <source>Connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="512"/>
+        <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1090,11 +1100,6 @@ Do you want to proceed?</source>
     <message>
         <location filename="../src/mainwindow.ui" line="32"/>
         <source>mainwindow</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.ui" line="84"/>
-        <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1198,6 +1203,11 @@ Do you want to proceed?</source>
         <source>join</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../src/mainwindow.ui" line="84"/>
+        <source>Disconnected</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>netcoupler</name>
@@ -1262,8 +1272,48 @@ If this string is empty, worms will probably not host or join a game.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/settingswindow.ui" line="238"/>
+        <source>Users from ingorelist appear in channelchat windows.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="251"/>
+        <source>Save querys and logs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/settingswindow.ui" line="96"/>
         <source>Set automaticly away while gaming.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="264"/>
+        <source>Open the buddylist on startup.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="284"/>
+        <source>Server messages appear in channelwindows.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="416"/>
+        <source>Show a balloon message when a buddy arrvies.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="423"/>
+        <source>Show a balloon message when a buddy leaves.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="485"/>
+        <source>Show a balloon message when someone sends you a privmsg.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="442"/>
+        <source>Maximum count of messages in a balloon.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1274,11 +1324,6 @@ If this string is empty, worms will probably not host or join a game.</source>
     <message>
         <location filename="../src/settingswindow.ui" line="121"/>
         <source>Im in a Game!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="137"/>
-        <source>Costum words, the snooper will play a sound when one of them appears in a channel chat.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1302,39 +1347,8 @@ If this string is empty, worms will probably not host or join a game.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="209"/>
-        <source>Channels and chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="238"/>
-        <source>Users from ingorelist appear in channelchat windows.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="251"/>
-        <source>Save querys and logs.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="264"/>
-        <source>Open the buddylist on startup.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/settingswindow.ui" line="271"/>
         <source>Show the channelchat of a user in chatwindows.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="284"/>
-        <source>Server messages appear in channelwindows.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="291"/>
-        <source>Dont open Chatwindows automaticly. Hide them to tray instead.
- (use this only when your game minimizes when chatwindows open)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1343,93 +1357,8 @@ If this string is empty, worms will probably not host or join a game.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="306"/>
-        <source>Open a chatwindow for everyone.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="313"/>
-        <source>Dont show smileys.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="320"/>
-        <source>Dont use Sorting for the userlist in channels. Most recents become first.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/settingswindow.ui" line="333"/>
         <source>Maximum of messages for a user inside the log.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="362"/>
-        <source>Join,Part,Quit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="368"/>
-        <source>Join Part Quit information in channelchats.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="376"/>
-        <source>Show joininfos in channelchats.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="383"/>
-        <source>Show partinfos in channelchats.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="390"/>
-        <source>Show quitinfos in channelchats.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="403"/>
-        <source>Balloon Messages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="409"/>
-        <source>Dont show balloons.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="416"/>
-        <source>Show a balloon message when a buddy arrvies.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="423"/>
-        <source>Show a balloon message when a buddy leaves.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="442"/>
-        <source>Maximum count of messages in a balloon.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="485"/>
-        <source>Show a balloon message when someone sends you a privmsg.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="492"/>
-        <source>Show a balloon message when a buddy hosts a game.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="500"/>
-        <source>Sound notifications</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="523"/>
-        <source>Dont play sound.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1498,13 +1427,38 @@ If this string is empty, worms will probably not host or join a game.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="845"/>
-        <source>Sound when a costum word appears in the chat.</source>
+        <location filename="../src/settingswindow.ui" line="962"/>
+        <source>Who repeat delay (ms).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="887"/>
-        <source>Sound when a buddy hosts a game.</source>
+        <location filename="../src/settingswindow.ui" line="990"/>
+        <source>Host repeat delay.(ms)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="362"/>
+        <source>Join,Part,Quit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="368"/>
+        <source>Join Part Quit information in channelchats.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="376"/>
+        <source>Show joininfos in channelchats.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="383"/>
+        <source>Show partinfos in channelchats.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="390"/>
+        <source>Show quitinfos in channelchats.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1516,16 +1470,6 @@ If this string is empty, worms will probably not host or join a game.</source>
         <location filename="../src/settingswindow.ui" line="944"/>
         <source>Better dont touch anything else then &quot;Maximum of textblocks in a chat&quot;.
 Note: A reconnect is required to apply these settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="962"/>
-        <source>Who repead delay (ms).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="990"/>
-        <source>Host repead delay.(ms)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1546,6 +1490,72 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/settingswindow.ui" line="1082"/>
         <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="291"/>
+        <source>Dont open Chatwindows automaticly. Hide them to tray instead.
+ (use this only when your game minimizes when chatwindows open)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="492"/>
+        <source>Show a balloon message when a buddy hosts a game.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="887"/>
+        <source>Sound when a buddy hosts a game.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="306"/>
+        <source>Open a chatwindow for everyone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="209"/>
+        <source>Channels and chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="313"/>
+        <source>Dont show smileys.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="403"/>
+        <source>Balloon Messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="500"/>
+        <source>Sound notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="137"/>
+        <source>Costum words, the snooper will play a sound when one of them appears in a channel chat.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="320"/>
+        <source>Dont use Sorting for the userlist in channels. Most recents become first.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="409"/>
+        <source>Dont show balloons.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="523"/>
+        <source>Dont play sound.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="845"/>
+        <source>Sound when a costum word appears in the chat.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1611,7 +1621,7 @@ Note: A reconnect is required to apply these settings.</source>
 <context>
     <name>usermodel</name>
     <message>
-        <location filename="../src/chatwindow.cpp" line="165"/>
+        <location filename="../src/chatwindow.cpp" line="162"/>
         <location filename="../src/mainwindow.cpp" line="473"/>
         <location filename="../src/mainwindow.cpp" line="551"/>
         <location filename="../src/mainwindow.cpp" line="745"/>
@@ -1749,11 +1759,6 @@ Note: A reconnect is required to apply these settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="356"/>
-        <source>Remove Querys</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/window.cpp" line="366"/>
         <location filename="../src/window.cpp" line="371"/>
         <source>Allow this clanname.</source>
@@ -1807,6 +1812,11 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/window.cpp" line="653"/>
         <source>Users online</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/window.cpp" line="356"/>
+        <source>Remove Querys</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
