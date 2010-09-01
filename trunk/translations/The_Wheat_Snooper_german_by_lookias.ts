@@ -719,7 +719,7 @@ Spiele erstellen kannst du indem du einen Kanal in der Spieleanzeige doppelklick
     </message>
     <message>
         <location filename="../src/ctctphandlerwidget.cpp" line="82"/>
-        <source>CTCP commands are simple messages, that are bounded with ACII 0x01 signs.
+        <source>CTCP commands are simple messages, that are bounded with ASCII 0x01 signs.
 These signs cannot be written directly into a textline.
 If you want to send a ctcp command you must prefix the message with &gt;!
 for example &apos;&gt;!VERSION&apos; or &apos;&gt;!command&apos;.
@@ -736,6 +736,37 @@ CTCP commands.
 
 use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source>
         <translation>CTCP Kommandos sind einfache nachrichten, die mit dem ASCII 0x01 Zeichen umschlossen wurden.
+Diese Nachrichten kann man nicht direkt in eine Textzeile eingeben.
+Wenn du ein CTCP Kommando schreiben willst, musst du vor das Kommando &gt;! schreiben.
+Zum Beispiel &apos;&gt;!VERSION&apos; oder &apos;&gt;!command&apos; .
+CTCP heisst Client to Client Protocoll (Klient zu Klient Protokoll).
+Die CTCP Kommandos stellen Nachrichten dar die dir ein anderer senden kann.
+Es ist eine gute Idee ein Standard Kommando bereitzustellen.
+&gt;!default 
+Dieses Kommando sollte anderen erklähren welche Kommandos du zur verfuegungstellst.
+Der andere kann dann ganz einfach &gt;!default als Nachsicht an dich senden und sieht dann gleich,
+was er bei dir finden kann. Um so mehr sich an diese kleine Regel halten um so besser funktioniert CTCP.
+
+CTCP kannst du für Clanseiten-Links, Witze, Bilder-Links, QFileUpload-Links und vieles mehr benutzen.</translation>
+    </message>
+    <message>
+        <source>CTCP commands are simple messages, that are bounded with ACII 0x01 signs.
+These signs cannot be written directly into a textline.
+If you want to send a ctcp command you must prefix the message with &gt;!
+for example &apos;&gt;!VERSION&apos; or &apos;&gt;!command&apos;.
+
+CTCP means Client to Client Protocoll.
+The commands representing messages that another can send you.
+He will then receive the the text under the command.
+It is a good idea to provide a deafult command,
+this command should send a message that explains which commands
+are available for the public.
+For example the user writes &apos;&gt;!default&apos; to you in a private message
+he will then see your other commands and can simply browse your
+CTCP commands.
+
+use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source>
+        <translation type="obsolete">CTCP Kommandos sind einfache nachrichten, die mit dem ASCII 0x01 Zeichen umschlossen wurden.
 Diese Nachrichten kann man nicht direkt in eine Textzeile eingeben.
 Wenn du ein CTCP Kommando schreiben willst, musst du vor das Kommando &gt;! schreiben.
 Zum Beispiel &apos;&gt;!VERSION&apos; oder &apos;&gt;!command&apos; .

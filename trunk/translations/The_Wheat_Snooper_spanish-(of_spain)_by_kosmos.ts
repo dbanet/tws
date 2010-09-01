@@ -760,6 +760,25 @@ Mensaje del traductor: Sin duda el mejor snooper para WA, me gustó desde que lo
     </message>
     <message>
         <location filename="../src/ctctphandlerwidget.cpp" line="82"/>
+        <source>CTCP commands are simple messages, that are bounded with ASCII 0x01 signs.
+These signs cannot be written directly into a textline.
+If you want to send a ctcp command you must prefix the message with &gt;!
+for example &apos;&gt;!VERSION&apos; or &apos;&gt;!command&apos;.
+
+CTCP means Client to Client Protocoll.
+The commands representing messages that another can send you.
+He will then receive the the text under the command.
+It is a good idea to provide a deafult command,
+this command should send a message that explains which commands
+are available for the public.
+For example the user writes &apos;&gt;!default&apos; to you in a private message
+he will then see your other commands and can simply browse your
+CTCP commands.
+
+use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>CTCP commands are simple messages, that are bounded with ACII 0x01 signs.
 These signs cannot be written directly into a textline.
 If you want to send a ctcp command you must prefix the message with &gt;!
@@ -776,7 +795,7 @@ he will then see your other commands and can simply browse your
 CTCP commands.
 
 use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source>
-        <translation>Los comandos CTCP son simples mensajes, los cuales estan delimitados con signos ASCII 0x01.
+        <translation type="obsolete">Los comandos CTCP son simples mensajes, los cuales estan delimitados con signos ASCII 0x01.
 Estos signos no se pueden escribir directamente en una línea de texto.
 Si quires enviar un comando ctcp debes utilizar el prefijo &gt;! antes del mensaje
 por ejemplo &lt;i&gt;&quot;&gt;VERSION&quot;&lt;/i&gt; o &lt;i&gt;&quot;&gt;!commando&quot;&lt;/i&gt;.

@@ -559,7 +559,7 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
     </message>
     <message>
         <location filename="../src/ctctphandlerwidget.cpp" line="82"/>
-        <source>CTCP commands are simple messages, that are bounded with ACII 0x01 signs.
+        <source>CTCP commands are simple messages, that are bounded with ASCII 0x01 signs.
 These signs cannot be written directly into a textline.
 If you want to send a ctcp command you must prefix the message with &gt;!
 for example &apos;&gt;!VERSION&apos; or &apos;&gt;!command&apos;.

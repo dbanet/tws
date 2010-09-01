@@ -127,7 +127,7 @@ SOURCES +=   src/about.cpp \
     src/combobox_wrapper.cpp \
     src/balloon_handler.cpp
 RC_FILE = src/myapp.rc
-TRANSLATIONS += translations/Romanian_translation_The_Wheat_Snooper_by_MihaiS.ts \
+TRANSLATIONS += translations/The_Wheat_Snooper_Romanian_by_MihaiS \
     translations/The_Wheat_Snooper_danish.ts \
     translations/The_Wheat_Snooper_german_by_lookias.ts \
     translations/The_Wheat_Snooper_international_spanish.ts \
@@ -135,4 +135,5 @@ TRANSLATIONS += translations/Romanian_translation_The_Wheat_Snooper_by_MihaiS.ts
     translations/The_Wheat_Snooper_spanish-(of_spain)_by_kosmos.ts \
     translations/The_Wheat_Snooper_untranslated.ts \
     translations/The_Wheat_Snooper_spanish-(of_spain)_by_kosmos.ts \
-    translations/Russian_translation_by_StepS.ts
+    translations/The_Wheat_Snooper_Russian_translation_by_StepS.ts \
+    translations/The_Wheat_Snooper_french_by_LeTotalKiller.ts
