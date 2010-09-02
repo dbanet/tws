@@ -1,0 +1,50 @@
+//when you just join the official wormnet, you dont need to touch this file.
+//wormnet has 2 different parts, a http server which handles the host informations and a irc server 
+//which handles the irc chat in wormnet
+//lines which begin with  // will be ignored by the program, they are written only for you, lines wich begins with [ should 
+//not be touched. if a line starts with //img://foobar.png the program will search foobar.png (in snppictures path) and display it.
+
+[http wormnet server]
+//the wormnet http-server
+http://wormnet1.team17.com
+
+[http login header]
+//the http header used when logging in to wormnet http server, i think it will never be necessary to change it
+User-Agent T17Client/1.2
+Pragma No-Cache
+Cookie test=ok; test2=ok
+UserServerIdent 2
+
+[http get host header]
+//the http header used when asking for the host list, i think it will never be necessary to change it
+User-Agent T17Client/1.2
+Pragma No-Cache
+Cookie snooper=true; snooper=true; snooper=true; snooper=true; snooper=true
+UserLevel 0
+UserServerIdent 2
+
+[irc password]
+//this can be usefull in case someone opens an own wormnet with another password. standard just marks the ``secret`` wormnet password, 
+//other strings will apear as written
+PASS standard
+
+[irc register]
+//this irc command is:
+//USER clan hostname servername: flag rank ?? client
+//?? can be UK for united kingdom, only the client string can have whitespaces.
+USER hostname servername ??
+
+
+[allowed identifiers for whois]
+//if the string (snopperfromhell in the example above) contains one of this, your program will send and accept extendend features like "extendend WHOIS" (just not implemented)
+hell
+snopper
+
+[irc servernick]
+//if no servernick (e.g. wormnet1.team17.com) is given, [http wormnet server] minus "http:" will be used, as the nick
+
+[irc ip]
+//ip address of the irc-server from wormnet, if this stays empty the snooper will ask the http server for the irc ip
+212.240.191.125
+
+[]
