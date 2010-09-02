@@ -179,13 +179,14 @@
     <message>
         <location filename="../src/snpsettings.cpp" line="19"/>
         <source>Question</source>
-        <translation type="unfinished"></translation>
+        <translation>Frage</translation>
     </message>
     <message>
         <location filename="../src/snpsettings.cpp" line="20"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Snooper kann die Einstellungen von einer alten version übernehmen. Wenn du das möchtest klicke Yes.
+Wenn du das erste mal den Wheat Snooper benutzt das klicke auf No.</translation>
     </message>
 </context>
 <context>
@@ -1278,18 +1279,18 @@ If your nick got faked... bl :)</source>
     <message>
         <location filename="../src/mainwindow.cpp" line="126"/>
         <source>Nickname field is empty</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Nickname Feld ist leer.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="126"/>
         <source>Please choose a nickname.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte wähle einen Nickname.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="288"/>
         <source>Cant read the Skinfile:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Die Datei welche den Skin beinhalten soll, kann nicht gelesen werden.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="594"/>
@@ -1476,43 +1477,44 @@ Willst du fortfahren?</translation>
     <message>
         <location filename="../src/mainwindow.ui" line="155"/>
         <source>Nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Nickname</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="174"/>
         <source>Password (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Passwort (optional)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="193"/>
         <source>Flag</source>
-        <translation type="unfinished"></translation>
+        <translation>Flagge</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="209"/>
         <source>Rank</source>
-        <translation type="unfinished">Rank</translation>
+        <translation>Rang</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="238"/>
         <source>Clanstring (optional).</source>
-        <translation type="unfinished"></translation>
+        <translation>Clan (optional)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="257"/>
         <source>Clientstring</source>
-        <translation type="unfinished"></translation>
+        <translation>Programmname</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="277"/>
         <source>Remember these settings and 
 dont show this field on next start.</source>
-        <translation type="unfinished"></translation>
+        <translation>Behalte diese Einstellungen beim nächsten Start bei 
+und übergehe diese Fenster.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="285"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Akzeptieren</translation>
     </message>
     <message>
         <source>Choose a nickname.</source>
@@ -1789,7 +1791,7 @@ Channelchats.</translation>
     <message>
         <location filename="../src/settingswindow.ui" line="339"/>
         <source>Disconnect from network when a game starts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterbreche die Verbindung zum Wormnet wenn ein Spiel startet.</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="408"/>
@@ -1814,47 +1816,47 @@ Channelchats.</translation>
     <message>
         <location filename="../src/settingswindow.ui" line="618"/>
         <source>wav/startup.wav.mp3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="668"/>
         <source>wav/buddyarrives.wav.mp3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="717"/>
         <source>wav/buddyleaves.wav.mp3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="768"/>
         <source>wav/buddymessage.wav.mp3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="817"/>
         <source>wav/buddychatwindowopened.wav.mp3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="866"/>
         <source>wav/normalprivmsg.wav.mp3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="915"/>
         <source>wav/highlightningsound.mp3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="964"/>
         <source>wav/costumword.mp3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1013"/>
         <source>wav/buddyhosts.wav.mp3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1044"/>
@@ -2020,7 +2022,7 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
     <message>
         <location filename="../src/snpsettings.cpp" line="24"/>
         <source>Please choose the folder from the old Snooper.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte wähle das Verzeichnis wo der alte Wheat Snooper zu finden ist.</translation>
     </message>
 </context>
 <context>
