@@ -197,6 +197,20 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>QApplication</name>
+    <message>
+        <location filename="../src/snpsettings.cpp" line="19"/>
+        <source>Question</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/snpsettings.cpp" line="20"/>
+        <source>If you like to keep the settings from an older Snooper installation click yes.
+If you use The Wheat Snooper at the first time just click No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <location filename="../src/main.cpp" line="202"/>
@@ -1243,69 +1257,85 @@ If your nick got faked... bl :)</source>
 <context>
     <name>mainwindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="550"/>
+        <location filename="../src/mainwindow.cpp" line="543"/>
         <source>Stuff</source>
         <translation>Stuff</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="51"/>
-        <location filename="../src/mainwindow.cpp" line="552"/>
-        <location filename="../src/mainwindow.cpp" line="735"/>
+        <location filename="../src/mainwindow.cpp" line="545"/>
+        <location filename="../src/mainwindow.cpp" line="720"/>
         <source>About</source>
         <translation>Acerca de</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="553"/>
-        <location filename="../src/mainwindow.cpp" line="739"/>
+        <location filename="../src/mainwindow.cpp" line="126"/>
+        <source>Nickname field is empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="126"/>
+        <source>Please choose a nickname.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="288"/>
+        <source>Cant read the Skinfile:
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="546"/>
+        <location filename="../src/mainwindow.cpp" line="724"/>
         <source>Settings</source>
         <translation>Opciones</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="554"/>
-        <location filename="../src/mainwindow.cpp" line="754"/>
+        <location filename="../src/mainwindow.cpp" line="547"/>
+        <location filename="../src/mainwindow.cpp" line="739"/>
         <source>Volume</source>
         <translation>Volumen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="561"/>
+        <location filename="../src/mainwindow.cpp" line="554"/>
         <source>Skins</source>
         <translation>Skins</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="580"/>
+        <location filename="../src/mainwindow.cpp" line="573"/>
         <source>Layouts</source>
         <translation>Ventanas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="598"/>
+        <location filename="../src/mainwindow.cpp" line="591"/>
         <source>Join</source>
         <translation>Entrar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="591"/>
+        <location filename="../src/mainwindow.cpp" line="584"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="601"/>
-        <location filename="../src/mainwindow.cpp" line="690"/>
+        <location filename="../src/mainwindow.cpp" line="594"/>
+        <location filename="../src/mainwindow.cpp" line="675"/>
         <source>Away mode</source>
         <translation>Modo away</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="605"/>
-        <location filename="../src/mainwindow.cpp" line="742"/>
+        <location filename="../src/mainwindow.cpp" line="598"/>
+        <location filename="../src/mainwindow.cpp" line="727"/>
         <source>Reconnect</source>
         <translation>Reconectar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="607"/>
-        <location filename="../src/mainwindow.cpp" line="638"/>
+        <location filename="../src/mainwindow.cpp" line="600"/>
+        <location filename="../src/mainwindow.cpp" line="623"/>
         <source>Close</source>
         <translation>Salir</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="84"/>
+        <location filename="../src/mainwindow.cpp" line="82"/>
         <source>Wheat Snoopers root window.</source>
         <translation>The Wheat Snooper - Principal.</translation>
     </message>
@@ -1318,12 +1348,12 @@ If your nick got faked... bl :)</source>
 </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="154"/>
+        <location filename="../src/mainwindow.cpp" line="156"/>
         <source>warning</source>
         <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="155"/>
+        <location filename="../src/mainwindow.cpp" line="157"/>
         <source>you are still editing the ini file. please close it bevor joining wormnet.</source>
         <translation>Todavia estás editando el archivo .ini. Por favor, ciérralo antes de entrar en Wormnet.</translation>
     </message>
@@ -1340,12 +1370,12 @@ If your nick got faked... bl :)</source>
         <translation type="obsolete">Ordenar en un tabwidget.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="358"/>
+        <location filename="../src/mainwindow.cpp" line="368"/>
         <source>Restart the application?</source>
         <translation>¿Reiniciar la aplicación?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="359"/>
+        <location filename="../src/mainwindow.cpp" line="369"/>
         <source>Changing the translation requires a program restart.
 To restart now click Ok, otherwise cancel.</source>
         <translation>Cambiar el idioma requiere un reinicio del programa.
@@ -1368,76 +1398,77 @@ Para reiniciarlo ahora haz click en Aceptar, sinó en Cancelar.</translation>
         <translation type="obsolete">Notificaciones.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="555"/>
-        <location filename="../src/mainwindow.cpp" line="759"/>
+        <location filename="../src/mainwindow.cpp" line="548"/>
+        <location filename="../src/mainwindow.cpp" line="744"/>
         <source>Open Log Browser</source>
         <translation>Abrir Buscador de Logs</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="562"/>
+        <location filename="../src/mainwindow.cpp" line="555"/>
         <source>Text Schemes</source>
         <translation>Esquemas de Texto</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="570"/>
-        <location filename="../src/mainwindow.cpp" line="765"/>
+        <location filename="../src/mainwindow.cpp" line="563"/>
+        <location filename="../src/mainwindow.cpp" line="750"/>
         <source>Save current textscheme to file</source>
         <translation>Guardar este esquema de texto en un archivo</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="766"/>
+        <location filename="../src/mainwindow.cpp" line="751"/>
         <source>Save textscheme to.</source>
         <translation>Guardar esquema de texto en.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="412"/>
+        <location filename="../src/mainwindow.cpp" line="421"/>
         <source>trying to apply new textscheme: </source>
         <translation>Intentando aplicar nuevo esquema de texto:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="557"/>
-        <location filename="../src/mainwindow.cpp" line="777"/>
+        <location filename="../src/mainwindow.cpp" line="550"/>
+        <location filename="../src/mainwindow.cpp" line="762"/>
         <source>Scheme maker</source>
         <translation>Creador de Esquemas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="559"/>
-        <location filename="../src/mainwindow.cpp" line="780"/>
+        <location filename="../src/mainwindow.cpp" line="552"/>
+        <location filename="../src/mainwindow.cpp" line="765"/>
         <source>Playername</source>
         <translation>Nombre del jugador</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="382"/>
         <location filename="../src/mainwindow.cpp" line="391"/>
+        <location filename="../src/mainwindow.cpp" line="400"/>
         <source>&lt;away&gt;:</source>
         <translation>&lt;away&gt;:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="111"/>
+        <location filename="../src/mainwindow.cpp" line="109"/>
         <source>&lt;To hide or show this window,you can leftclick the tray icon. A right click to the tray opens a set of menues. Use this menues to join channels, to change the skin or to change the layout of the Wormnet channels. Changing the layout will not be applied to existing channelwindows. Under stuff you can find some handy settings for sound, alerts and others.&gt;
 
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="666"/>
+        <location filename="../src/mainwindow.cpp" line="288"/>
+        <location filename="../src/mainwindow.cpp" line="651"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="667"/>
+        <location filename="../src/mainwindow.cpp" line="652"/>
         <source>Changing the skin crashes sometimes, but The Wheat Snooper
 will keep the settings for the next Start.
 Do you want to proceed?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="513"/>
+        <location filename="../src/mainwindow.cpp" line="506"/>
         <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="517"/>
+        <location filename="../src/mainwindow.cpp" line="510"/>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1475,82 +1506,113 @@ Do you want to proceed?</source>
         <translation>Abrir Editor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="152"/>
+        <location filename="../src/mainwindow.ui" line="155"/>
+        <source>Nickname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.ui" line="174"/>
+        <source>Password (optional)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.ui" line="193"/>
+        <source>Flag</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.ui" line="209"/>
+        <source>Rank</source>
+        <translation type="unfinished">Rango</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.ui" line="238"/>
+        <source>Clanstring (optional).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.ui" line="257"/>
+        <source>Clientstring</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.ui" line="277"/>
+        <source>Remember these settings and 
+dont show this field on next start.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.ui" line="285"/>
+        <source>Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Choose a nickname.</source>
-        <translation>Elige un nick.</translation>
+        <translation type="obsolete">Elige un nick.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="161"/>
         <source>nick</source>
-        <translation>nick</translation>
+        <translation type="obsolete">nick</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="173"/>
         <source>Choose your password.</source>
-        <translation>Elige tu contraseña.</translation>
+        <translation type="obsolete">Elige tu contraseña.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="185"/>
         <source>Choose a Flag.</source>
-        <translation>Escoge una Bandera.</translation>
+        <translation type="obsolete">Escoge una Bandera.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="201"/>
         <source>Choose a Rank.</source>
-        <translation>Selecciona tu Rango.</translation>
+        <translation type="obsolete">Selecciona tu Rango.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="220"/>
         <source>Choose a Clan.</source>
-        <translation>Indica tu Clan.</translation>
+        <translation type="obsolete">Indica tu Clan.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="229"/>
         <source>noclan</source>
-        <translation>noclan</translation>
+        <translation type="obsolete">noclan</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="239"/>
         <source>Choose a Client.</source>
-        <translation>Selecciona un Cliente.</translation>
+        <translation type="obsolete">Selecciona un Cliente.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="245"/>
+        <location filename="../src/mainwindow.ui" line="263"/>
         <source>The Wheat Snooper</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="255"/>
         <source>Remember these settings and dont show this field on next start.</source>
-        <translation>Recordar estas opciones y no volver a mostrar esta ventana al inicio.</translation>
+        <translation type="obsolete">Recordar estas opciones y no volver a mostrar esta ventana al inicio.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="262"/>
         <source>choose</source>
-        <translation>Seleccionar</translation>
+        <translation type="obsolete">Seleccionar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="272"/>
+        <location filename="../src/mainwindow.ui" line="297"/>
         <source>Join channels</source>
         <translation>Canales</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="280"/>
+        <location filename="../src/mainwindow.ui" line="305"/>
         <source>Start minimized to tray.</source>
         <translation>Empezar minimizado en el tray.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="287"/>
+        <location filename="../src/mainwindow.ui" line="312"/>
         <source>Join a channel on startup.</source>
         <translation>Entrar en un canal al iniciar.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="320"/>
+        <location filename="../src/mainwindow.ui" line="348"/>
         <source>Join this channel on every startup.</source>
         <translation>Entrar siempre en este canal al iniciar.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="337"/>
+        <location filename="../src/mainwindow.ui" line="336"/>
         <source>join</source>
         <translation>Entrar</translation>
     </message>
@@ -1630,42 +1692,42 @@ Si esta cadena está vacía, es probable que el juego no cree o entre en partida
         <translation>Avisarme al recibir un notice.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="70"/>
+        <location filename="../src/settingswindow.ui" line="73"/>
         <source>Alert me on prvmsg from normal user.</source>
         <translation>Avisarme si un usuario envía un mensaje privado.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="238"/>
+        <location filename="../src/settingswindow.ui" line="256"/>
         <source>Users from ingorelist appear in channelchat windows.</source>
         <translation>Mostar usuarios de la lista de Ignorados en el canal.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="251"/>
+        <location filename="../src/settingswindow.ui" line="272"/>
         <source>Save querys and logs.</source>
         <translation>Guardar privados y logs.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="96"/>
+        <location filename="../src/settingswindow.ui" line="105"/>
         <source>Set automaticly away while gaming.</source>
         <translation>Modo away automático durante el juego.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="264"/>
+        <location filename="../src/settingswindow.ui" line="288"/>
         <source>Open the buddylist on startup.</source>
         <translation>Abrir lista de amigos en canal al inicio.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="284"/>
+        <location filename="../src/settingswindow.ui" line="314"/>
         <source>Server messages appear in channelwindows.</source>
         <translation>Mostar mensajes del servidor en el canal.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="115"/>
+        <location filename="../src/settingswindow.ui" line="127"/>
         <source>Away String while gaming.</source>
         <translation>Msj de Away durante el juego.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="121"/>
+        <location filename="../src/settingswindow.ui" line="133"/>
         <source>Im in a Game!</source>
         <translation>Estoy jugando en este momento!</translation>
     </message>
@@ -1674,117 +1736,162 @@ Si esta cadena está vacía, es probable que el juego no cree o entre en partida
         <translation type="obsolete">Sonido</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="543"/>
+        <location filename="../src/settingswindow.ui" line="597"/>
         <source>Sound on startup.</source>
         <translation>Sonido de inicio.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="557"/>
-        <location filename="../src/settingswindow.ui" line="604"/>
-        <location filename="../src/settingswindow.ui" line="650"/>
-        <location filename="../src/settingswindow.ui" line="698"/>
-        <location filename="../src/settingswindow.ui" line="740"/>
-        <location filename="../src/settingswindow.ui" line="782"/>
-        <location filename="../src/settingswindow.ui" line="824"/>
-        <location filename="../src/settingswindow.ui" line="866"/>
+        <location filename="../src/settingswindow.ui" line="611"/>
+        <location filename="../src/settingswindow.ui" line="661"/>
+        <location filename="../src/settingswindow.ui" line="710"/>
+        <location filename="../src/settingswindow.ui" line="761"/>
+        <location filename="../src/settingswindow.ui" line="810"/>
+        <location filename="../src/settingswindow.ui" line="859"/>
         <location filename="../src/settingswindow.ui" line="908"/>
+        <location filename="../src/settingswindow.ui" line="957"/>
+        <location filename="../src/settingswindow.ui" line="1006"/>
         <source>Choose a file</source>
         <translation>Seleccionar un archivo</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="571"/>
         <location filename="../src/settingswindow.ui" line="618"/>
-        <location filename="../src/settingswindow.ui" line="664"/>
+        <source>wav/startup.wav.mp3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="625"/>
+        <location filename="../src/settingswindow.ui" line="675"/>
+        <location filename="../src/settingswindow.ui" line="724"/>
         <source>Play this sound</source>
         <translation>Reproducir este sonido</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="590"/>
+        <location filename="../src/settingswindow.ui" line="647"/>
         <source>Sound when buddy arrives.</source>
         <translation>Reproducir sonido cuando entra un amigo.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="636"/>
+        <location filename="../src/settingswindow.ui" line="668"/>
+        <source>wav/buddyarrives.wav.mp3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="696"/>
         <source>Sound when buddy leaves.</source>
         <translation>Reproducir sonido cuando sale un amigo.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="684"/>
+        <location filename="../src/settingswindow.ui" line="717"/>
+        <source>wav/buddyleaves.wav.mp3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="747"/>
         <source>Sound when a buddy sends a message.</source>
         <translation>Reproducir sonido cuando un amigo envía un mensaje.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="708"/>
-        <location filename="../src/settingswindow.ui" line="750"/>
-        <location filename="../src/settingswindow.ui" line="792"/>
-        <location filename="../src/settingswindow.ui" line="834"/>
-        <location filename="../src/settingswindow.ui" line="876"/>
-        <location filename="../src/settingswindow.ui" line="918"/>
+        <location filename="../src/settingswindow.ui" line="768"/>
+        <source>wav/buddymessage.wav.mp3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="775"/>
+        <location filename="../src/settingswindow.ui" line="824"/>
+        <location filename="../src/settingswindow.ui" line="873"/>
+        <location filename="../src/settingswindow.ui" line="922"/>
+        <location filename="../src/settingswindow.ui" line="971"/>
+        <location filename="../src/settingswindow.ui" line="1020"/>
         <source>Play this sound.</source>
         <translation>Reproducir este sonido.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="726"/>
+        <location filename="../src/settingswindow.ui" line="796"/>
         <source>Sound when a chatwindow opens.</source>
         <translation>Reproducir sonido al abrir una ventana de chat.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="768"/>
+        <location filename="../src/settingswindow.ui" line="817"/>
+        <source>wav/buddychatwindowopened.wav.mp3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="845"/>
         <source>Sound when a normal user sends a message.</source>
         <translation>Reproducir sonido cuando un usuario envía un mensaje.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="969"/>
+        <location filename="../src/settingswindow.ui" line="866"/>
+        <source>wav/normalprivmsg.wav.mp3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="915"/>
+        <source>wav/highlightningsound.mp3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="964"/>
+        <source>wav/costumword.mp3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="1013"/>
+        <source>wav/buddyhosts.wav.mp3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settingswindow.ui" line="1074"/>
         <source>Who repeat delay (ms).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="997"/>
+        <location filename="../src/settingswindow.ui" line="1102"/>
         <source>Host repeat delay.(ms)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="369"/>
+        <location filename="../src/settingswindow.ui" line="402"/>
         <source>Join,Part,Quit</source>
         <translation>Entrar, Salir, Cerrar</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="299"/>
+        <location filename="../src/settingswindow.ui" line="332"/>
         <source>Hide all channelwindows to tray when starting a game.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="306"/>
+        <location filename="../src/settingswindow.ui" line="339"/>
         <source>Disconnect from network when a game starts.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="375"/>
+        <location filename="../src/settingswindow.ui" line="408"/>
         <source>Join Part Quit information in channelchats.</source>
         <translation>Informacion Entrar, Salir, Cerrar en canales.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="383"/>
+        <location filename="../src/settingswindow.ui" line="416"/>
         <source>Show joininfos in channelchats.</source>
         <translation>Mostrar entradas al canal.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="390"/>
+        <location filename="../src/settingswindow.ui" line="426"/>
         <source>Show partinfos in channelchats.</source>
         <translation>Mostrar salidas del canal.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="397"/>
+        <location filename="../src/settingswindow.ui" line="436"/>
         <source>Show quitinfos in channelchats.</source>
         <translation>Mostrar cierres (quits).</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="939"/>
+        <location filename="../src/settingswindow.ui" line="1044"/>
         <source>Advanced</source>
         <translation>Avanzado</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="951"/>
+        <location filename="../src/settingswindow.ui" line="1056"/>
         <source>Better dont touch anything else then &quot;Maximum of textblocks in a chat&quot;.
 Note: A reconnect is required to apply these settings.</source>
         <translation>Mejor no tocar nada mas después de &quot;Máximo de bloques de texto en el chat&quot;.
@@ -1799,150 +1906,158 @@ Nota: Es necesario reconectar para aplicar estos cambios.</translation>
         <translation type="obsolete">Intervalo de refresco de partidas.(ms)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1025"/>
+        <location filename="../src/settingswindow.ui" line="1130"/>
         <source>Host timeout delay.(s)</source>
         <translation>Intervalo de tiempo de partidas creadas.(s)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1050"/>
+        <location filename="../src/settingswindow.ui" line="1155"/>
         <source>Maximum of textblocks in a chat.</source>
         <translation>Máximo de bloques de texto en el chat.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1082"/>
+        <location filename="../src/settingswindow.ui" line="1187"/>
         <source>Ok</source>
         <translation>Aceptar</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="1089"/>
+        <location filename="../src/settingswindow.ui" line="1194"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="83"/>
+        <location filename="../src/settingswindow.ui" line="89"/>
         <source>Send action to channel when i join a game.</source>
         <translation>Enviar información al canal cuando entro en una partida.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="158"/>
+        <location filename="../src/settingswindow.ui" line="170"/>
         <source>Send back message to normal users.</source>
         <translation>Enviar mensaje de regreso a usuarios.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="171"/>
+        <location filename="../src/settingswindow.ui" line="186"/>
         <source>Send back message to buddys.</source>
         <translation>Enviar mensaje de regreso a amigos.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="184"/>
+        <location filename="../src/settingswindow.ui" line="202"/>
         <source>Message when im back.</source>
         <translation>Mensaje cuando estoy de vuelta.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="190"/>
+        <location filename="../src/settingswindow.ui" line="208"/>
         <source>Im back.</source>
         <translation>Ya estoy aquí.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="810"/>
+        <location filename="../src/settingswindow.ui" line="894"/>
         <source>Sound when someone writes your name into the chat.</source>
         <translation>Sonido cuando alguien escribe tu nombre en el canal.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="423"/>
+        <location filename="../src/settingswindow.ui" line="465"/>
         <source>Show a balloon message when a buddy arrvies.</source>
         <translation>Mostrar un mensaje en globo cuando llega un amigo.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="430"/>
+        <location filename="../src/settingswindow.ui" line="475"/>
         <source>Show a balloon message when a buddy leaves.</source>
         <translation>Mostrar un mensaje en globo cuando un amigo se marcha.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="492"/>
+        <location filename="../src/settingswindow.ui" line="540"/>
         <source>Show a balloon message when someone sends you a privmsg.</source>
         <translation>Mostrar un mensaje en globo cuando alguien te envía un mensaje privado.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="271"/>
+        <location filename="../src/settingswindow.ui" line="298"/>
         <source>Show the channelchat of a user in chatwindows.</source>
         <translation>Mostrar el canal de conversación de un usuario en ventanas de conversación.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="449"/>
+        <location filename="../src/settingswindow.ui" line="497"/>
         <source>Maximum count of messages in a balloon.</source>
         <translation>Número de mensajes máximo para mostrar en un globo.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="340"/>
+        <location filename="../src/settingswindow.ui" line="373"/>
         <source>Maximum of messages for a user inside the log.</source>
         <translation>Mensajes máximos en log por usuario.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="291"/>
+        <location filename="../src/settingswindow.ui" line="324"/>
         <source>Dont open Chatwindows automaticly. Hide them to tray instead.
  (use this only when your game minimizes when chatwindows open)</source>
         <translation>No abrir ventanas de chat automáticamente. Esconderlas en el tray.
 (usa esto sólo si el juego se minimiza cuando una ventana de chat se abre automáticamente)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="499"/>
+        <location filename="../src/settingswindow.ui" line="550"/>
         <source>Show a balloon message when a buddy hosts a game.</source>
         <translation>Mostrar globo de texto cuando un amigo crea una partida.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="894"/>
+        <location filename="../src/settingswindow.ui" line="992"/>
         <source>Sound when a buddy hosts a game.</source>
         <translation>Reproducir sonido cuando un amigo crea una partida.</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="313"/>
+        <location filename="../src/settingswindow.ui" line="346"/>
         <source>Open a chatwindow for everyone.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="209"/>
+        <location filename="../src/settingswindow.ui" line="227"/>
         <source>Channels and chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="320"/>
+        <location filename="../src/settingswindow.ui" line="353"/>
         <source>Dont show smileys.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="410"/>
+        <location filename="../src/settingswindow.ui" line="452"/>
         <source>Balloon Messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="507"/>
+        <location filename="../src/settingswindow.ui" line="561"/>
         <source>Sound notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="137"/>
+        <location filename="../src/settingswindow.ui" line="149"/>
         <source>Costum words, the snooper will play a sound when one of them appears in a channel chat.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="327"/>
+        <location filename="../src/settingswindow.ui" line="360"/>
         <source>Dont use Sorting for the userlist in channels. Most recents become first.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="416"/>
+        <location filename="../src/settingswindow.ui" line="458"/>
         <source>Dont show balloons.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="530"/>
+        <location filename="../src/settingswindow.ui" line="584"/>
         <source>Dont play sound.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="852"/>
+        <location filename="../src/settingswindow.ui" line="943"/>
         <source>Sound when a costum word appears in the chat.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>snpsettings</name>
+    <message>
+        <location filename="../src/snpsettings.cpp" line="24"/>
+        <source>Please choose the folder from the old Snooper.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2009,9 +2124,9 @@ Nota: Es necesario reconectar para aplicar estos cambios.</translation>
     <name>usermodel</name>
     <message>
         <location filename="../src/chatwindow.cpp" line="162"/>
-        <location filename="../src/mainwindow.cpp" line="478"/>
-        <location filename="../src/mainwindow.cpp" line="556"/>
-        <location filename="../src/mainwindow.cpp" line="750"/>
+        <location filename="../src/mainwindow.cpp" line="471"/>
+        <location filename="../src/mainwindow.cpp" line="549"/>
+        <location filename="../src/mainwindow.cpp" line="735"/>
         <location filename="../src/usermodel.cpp" line="85"/>
         <location filename="../src/usermodel.cpp" line="113"/>
         <location filename="../src/usermodel.cpp" line="121"/>
@@ -2024,8 +2139,8 @@ Nota: Es necesario reconectar para aplicar estos cambios.</translation>
         <translation>Lista de Amigos</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="471"/>
-        <location filename="../src/mainwindow.cpp" line="481"/>
+        <location filename="../src/mainwindow.cpp" line="464"/>
+        <location filename="../src/mainwindow.cpp" line="474"/>
         <location filename="../src/usermodel.cpp" line="115"/>
         <location filename="../src/usermodel.cpp" line="117"/>
         <location filename="../src/usermodel.cpp" line="197"/>
