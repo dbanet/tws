@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>405</width>
-    <height>704</height>
+    <height>524</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -145,11 +145,14 @@
               </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <layout class="QHBoxLayout" name="horizontalLayout_15">
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
                <item>
                 <widget class="QGroupBox" name="groupBox_3">
                  <property name="title">
-                  <string>Choose a nickname.</string>
+                  <string>Nickname</string>
                  </property>
                  <property name="flat">
                   <bool>false</bool>
@@ -158,7 +161,61 @@
                   <item>
                    <widget class="QLineEdit" name="lenick">
                     <property name="text">
-                     <string>nick</string>
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QGroupBox" name="groupBox_8">
+                 <property name="title">
+                  <string>Password (optional)</string>
+                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_14">
+                  <item>
+                   <widget class="QLineEdit" name="lepassword"/>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_16">
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QGroupBox" name="groupBox_4">
+                 <property name="title">
+                  <string>Flag</string>
+                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                  <item>
+                   <widget class="QComboBox" name="flag">
+                    <property name="currentIndex">
+                     <number>-1</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QGroupBox" name="groupBox_5">
+                 <property name="title">
+                  <string>Rank</string>
+                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_8">
+                  <item>
+                   <widget class="QComboBox" name="rank">
+                    <property name="iconSize">
+                     <size>
+                      <width>25</width>
+                      <height>16</height>
+                     </size>
                     </property>
                    </widget>
                   </item>
@@ -168,100 +225,68 @@
               </layout>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_8">
-               <property name="title">
-                <string>Choose your password.</string>
+              <layout class="QHBoxLayout" name="horizontalLayout_17">
+               <property name="topMargin">
+                <number>0</number>
                </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_14">
-                <item>
-                 <widget class="QLineEdit" name="lepassword"/>
-                </item>
-               </layout>
-              </widget>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QGroupBox" name="groupBox_6">
+                 <property name="title">
+                  <string>Clanstring (optional).</string>
+                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_9">
+                  <item>
+                   <widget class="QLineEdit" name="clan">
+                    <property name="inputMask">
+                     <string/>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QGroupBox" name="groupBox_7">
+                 <property name="title">
+                  <string>Clientstring</string>
+                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_10">
+                  <item>
+                   <widget class="QLineEdit" name="client">
+                    <property name="text">
+                     <string>The Wheat Snooper</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_4">
-               <property name="title">
-                <string>Choose a Flag.</string>
-               </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_7">
-                <item>
-                 <widget class="QComboBox" name="flag">
-                  <property name="currentIndex">
-                   <number>-1</number>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="groupBox_5">
-               <property name="title">
-                <string>Choose a Rank.</string>
-               </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_8">
-                <item>
-                 <widget class="QComboBox" name="rank">
-                  <property name="iconSize">
-                   <size>
-                    <width>25</width>
-                    <height>16</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="groupBox_6">
-               <property name="title">
-                <string>Choose a Clan.</string>
-               </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_9">
-                <item>
-                 <widget class="QLineEdit" name="clan">
-                  <property name="inputMask">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string>noclan</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="groupBox_7">
-               <property name="title">
-                <string>Choose a Client.</string>
-               </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_10">
-                <item>
-                 <widget class="QLineEdit" name="client">
-                  <property name="text">
-                   <string>The Wheat Snooper</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="cbremember">
-               <property name="text">
-                <string>Remember these settings and dont show this field on next start.</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="start">
-               <property name="text">
-                <string>choose</string>
-               </property>
-              </widget>
+              <layout class="QHBoxLayout" name="horizontalLayout_18">
+               <item>
+                <widget class="QCheckBox" name="cbremember">
+                 <property name="text">
+                  <string>Remember these settings and 
+dont show this field on next start.</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="start">
+                 <property name="text">
+                  <string>Apply</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
             </layout>
            </item>
@@ -297,15 +322,18 @@
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_12">
                   <item>
-                   <widget class="QLabel" name="label">
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="scaledContents">
+                   <widget class="QPushButton" name="pbjoin">
+                    <property name="enabled">
                      <bool>false</bool>
                     </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>join</string>
                     </property>
                    </widget>
                   </item>
@@ -328,36 +356,7 @@
                </layout>
               </widget>
              </item>
-             <item>
-              <widget class="QPushButton" name="pbjoin">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>join</string>
-               </property>
-              </widget>
-             </item>
             </layout>
-           </item>
-           <item>
-            <widget class="QPushButton" name="labelButton">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>45</height>
-              </size>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>191</width>
-               <height>39</height>
-              </size>
-             </property>
-            </widget>
            </item>
            <item>
             <widget class="QPlainTextEdit" name="labeltraydescription1">

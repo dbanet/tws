@@ -1,4 +1,3 @@
-//#define QT_NO_CAST_FROM_ASCII
 #include "netcoupler.h"
 #include "window.h"
 #include "mainwindow.h"
@@ -83,9 +82,7 @@ int main(int argc, char *argv[]) {
     a.setQuitOnLastWindowClosed(0);
 
     loadusergarbage();
-    loadquerylist();
-
-    singleton<sound_handler>().init();
+    loadquerylist();    
 
 #ifdef Q_WS_WIN
     search_for_game_executables();
@@ -93,11 +90,14 @@ int main(int argc, char *argv[]) {
     handle_wini_ini();
 #endif
     w = new mainwindow();
-    if (singleton<snpsettings>().map.contains("volumeslidervalue"))
-        volume->setvalue(singleton<snpsettings>().map["volumeslidervalue"].value<int> ());
-    if (singleton<snpsettings>().map.contains("chbminimized")
-        && !singleton<snpsettings>().map["chbminimized"].value<bool> ())
-        w->show();
+    if (!singleton<snpsettings>().map.contains("volumeslidervalue"))
+        singleton<snpsettings>().map["chbminimized"].setValue<int>(5);
+    volume->setvalue(singleton<snpsettings>().map["volumeslidervalue"].value<int> ());
+    if (!singleton<snpsettings>().map["chbminimized"].value<bool> ()){
+        w->move(0,0);
+        w->show();        
+    }
+    singleton<sound_handler>().init();
     singleton<sound_handler>().play_startupsound();    
     return a.exec();
 }

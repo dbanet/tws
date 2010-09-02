@@ -5,6 +5,7 @@
 #include"netcoupler.h"
 #include<phonon/phonon>
 #include<QPointer>
+#include<QMessageBox>
 extern QPointer<netcoupler> net;
 sound_handler::sound_handler(){
     startupsound = new Phonon::MediaObject(this);
@@ -37,9 +38,9 @@ sound_handler::sound_handler(){
     Phonon::createPath(buddyhostedsound, buddyhostedsoundoutput);
     Phonon::createPath(costumwordsound, costumwordsoundsoundoutput);
 }
-void sound_handler::init(){
+void sound_handler::init(){   
     startupsound->setCurrentSource(
-            singleton<settingswindow>().from_map("lestartup").value<QString> ());
+            singleton<settingswindow>().from_map("lestartup").value<QString> ());    
     normalmsgsound->setCurrentSource(
             singleton<settingswindow>().from_map("lenormalchatmessage").value<QString> ());
     buddymsgsound->setCurrentSource(
@@ -70,7 +71,7 @@ void sound_handler::volumechange(int i) {
     singleton<snpsettings>().map["volumeslidervalue"].setValue<int> (i);
 }
 
-void sound_handler::play_startupsound(){
+void sound_handler::play_startupsound(){    
     if (!singleton<settingswindow>().from_map("cbstartup").value<bool> ())
         return;
     try{
@@ -79,7 +80,7 @@ void sound_handler::play_startupsound(){
         return;
     }
     startupsound->stop();
-    startupsound->play();
+    startupsound->play();   
 }
 
 void sound_handler::play_normalmsgsound(const QString user){

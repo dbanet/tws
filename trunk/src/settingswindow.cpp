@@ -25,7 +25,7 @@ settingswindow::settingswindow(){
     ui.lenormalchatmessage->setText(QApplication::applicationDirPath()
                                     + "/wav/normalprivmsg.wav");
     ui.lecostumword->setText(QApplication::applicationDirPath()
-                                    + "/wav/costumword.mp3");
+                             + "/wav/costumword.mp3");
     combobox_wrapper *cw=new combobox_wrapper(this);
     cw->setObjectName("combobox_wrapper");
     ui.costum_combobox_layout->addWidget(cw);
@@ -65,31 +65,32 @@ settingswindow::settingswindow(){
 void settingswindow::load() {
     QFile f(QApplication::applicationDirPath() + QDir::separator() + "snpini"
             + QDir::separator() + "settingswindowini");
-    if (f.open(QFile::ReadOnly)) {
-        QDataStream ds(&f);
-        ds.setVersion(QDataStream::Qt_4_3);
-        ds >> map;
-        QObject *o;
-        foreach(QString s,objectnames) {
-            o = this->findChild<QObject*> (s);
-            Q_ASSERT(o!=0);
-            if (qobject_cast<QLineEdit*> (o) != 0) {
-                qobject_cast<QLineEdit*> (o)->setText(
-                        map[s].value<QString> ());
-            } else if (qobject_cast<QCheckBox*> (o) != 0) {
-                qobject_cast<QCheckBox*> (o)->setChecked(
-                        map[s].value<bool> ());
-            } else if (qobject_cast<QSpinBox*> (o)) {
-                qobject_cast<QSpinBox*> (o)->setValue(map[s].value<int> ());
-            }   else if (qobject_cast<combobox_wrapper*> (o)) {
-                qobject_cast<combobox_wrapper*> (o)->set(map[s].value<QStringList> ());
-            }
+    if (!f.open(QFile::ReadOnly)){
+        ok();
+        return;
+    }
+    QDataStream ds(&f);
+    ds.setVersion(QDataStream::Qt_4_3);
+    ds >> map;
+    QObject *o;
+    foreach(QString s,objectnames) {
+        o = this->findChild<QObject*> (s);
+        Q_ASSERT(o!=0);
+        if (qobject_cast<QLineEdit*> (o) != 0) {
+            qobject_cast<QLineEdit*> (o)->setText(
+                    map[s].value<QString> ());
+        } else if (qobject_cast<QCheckBox*> (o) != 0) {
+            qobject_cast<QCheckBox*> (o)->setChecked(
+                    map[s].value<bool> ());
+        } else if (qobject_cast<QSpinBox*> (o)) {
+            qobject_cast<QSpinBox*> (o)->setValue(map[s].value<int> ());
+        }   else if (qobject_cast<combobox_wrapper*> (o)) {
+            qobject_cast<combobox_wrapper*> (o)->set(map[s].value<QStringList> ());
         }
     }
 }
 void settingswindow::safe() {
-    QFile f(QApplication::applicationDirPath() + QDir::separator() + "snpini"
-            + QDir::separator() + "settingswindowini");
+    QFile f(QApplication::applicationDirPath() + "/snpini/settingswindowini");
     if (f.open(QFile::WriteOnly | QFile::Truncate)) {
         QDataStream ds(&f);
         ds.setVersion(QDataStream::Qt_4_3);
@@ -144,7 +145,7 @@ void settingswindow::soundoptionbuttonslot() {
         ui.lehighlightning->setText(file);
     } else if (pb->objectName() == "pbbuddyhosts")
         ui.lehostsound->setText(file);
-     else if (pb->objectName() == "pbcostumword")
+    else if (pb->objectName() == "pbcostumword")
         ui.lecostumword->setText(file);
     else
         throw std::runtime_error("settingswindow::soundoptionbuttonslot()");

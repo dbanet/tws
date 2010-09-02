@@ -1,36 +1,36 @@
 #include "mainwindow.h"
-#include"window.h"
-#include"netcoupler.h"
-#include<QDir>
-#include<QStringList>
-#include<QSystemTrayIcon>
-#include<QMenu>
-#include<QDebug>
-#include<QMessageBox>
-#include<QPicture>
-#include"buddylist.h"
-#include<QTime>
-#include"ctcphandler.h"
-#include"chathandler.h"
-#include<QFileDialog>
-#include"buttonlayout.h"
-#include"awaybox.h"
-#include"inihandlerclass.h"
-#include"chatwindow.h"
-#include"about.h"
-#include"snpsettings.h"
-#include"charformatsettings.h"
+#include "window.h"
+#include "netcoupler.h"
+#include <QDir>
+#include <QStringList>
+#include <QSystemTrayIcon>
+#include <QMenu>
+#include <QDebug>
+#include <QMessageBox>
+#include <QPicture>
+#include "buddylist.h"
+#include <QTime>
+#include "ctcphandler.h"
+#include "chathandler.h"
+#include <QFileDialog>
+#include "buttonlayout.h"
+#include "awaybox.h"
+#include "inihandlerclass.h"
+#include "chatwindow.h"
+#include "about.h"
+#include "snpsettings.h"
+#include "charformatsettings.h"
 #include "ui_window.h"
 #include "ui_window2.h"
 #include "ui_window3.h"
-#include"settingswindow.h"
-#include"volumeslider.h"
+#include "settingswindow.h"
+#include "volumeslider.h"
 #include "logbrowser.h"
 #include "textschemehandler.h"
-#include"playername.h"
+#include "playername.h"
 #include "singleton.h"
 #include "sound_handler.h"
-#include"global_functions.h"
+#include "global_functions.h"
 #include "balloon_handler.h"
 inihandlerclass inihandler;
 QPointer<netcoupler> net;
@@ -53,9 +53,7 @@ mainwindow::mainwindow(QWidget *parent) :
 
     init_menus();
 
-    connect(singleton<balloon_handler>().tray, SIGNAL(activated ( QSystemTrayIcon::ActivationReason)),this, SLOT(trayactivation(QSystemTrayIcon::ActivationReason)));
-    ui.label->setPixmap(QApplication::applicationDirPath() + QDir::separator()
-                        + "snppictures" + QDir::separator() + "mainwindowlabel.png");
+    connect(singleton<balloon_handler>().tray, SIGNAL(activated ( QSystemTrayIcon::ActivationReason)),this, SLOT(trayactivation(QSystemTrayIcon::ActivationReason)));    
     QDir dir(QApplication::applicationDirPath() + QDir::separator() + "snpini");
     QStringList sl = dir.entryList(QStringList() << "*.net", QDir::Files);
     ui.cbini->addItems(sl);
@@ -124,17 +122,21 @@ mainwindow::mainwindow(QWidget *parent) :
     connect(&singleton<ctcphandler>(), SIGNAL(sigctcpcommand(const QString&,const QString&)),this, SLOT(gotctcpsignal(const QString&,const QString&)));
 }
 void mainwindow::chooseclicked() {
-    if (ui.lenick->text().isEmpty())
-        ui.lenick->setText("tempnick");
+    if (ui.lenick->text().isEmpty()){
+        QMessageBox::warning(this,tr("Nickname field is empty"),tr("Please choose a nickname."),QMessageBox::Ok);
+        return;
+    }
     if (ui.clan->text().isEmpty())
-        ui.clan->setText("Username");
+        singleton<snpsettings>().map["clan"]="Username";
+    else
+        singleton<snpsettings>().map["clan"] = ui.clan->text();
+
     singleton<snpsettings>().map["nickname"] = ui.lenick->text();
     singleton<snpsettings>().map["password"] = ui.lepassword->text();
     singleton<snpsettings>().map["inifilename"] = ui.cbini->currentText();
     singleton<snpsettings>().map["flag"] = ui.flag->currentText();
     singleton<snpsettings>().map["rank"] = ui.rank->currentText();
-    singleton<snpsettings>().map["client"] = ui.client->text();
-    singleton<snpsettings>().map["clan"] = ui.clan->text();
+    singleton<snpsettings>().map["client"] = ui.client->text();    
     singleton<snpsettings>().safe();
     if (editor->isHidden()) {
         ui.tabWidget->setCurrentIndex(1);
@@ -187,12 +189,6 @@ void mainwindow::joinclicked() {
             windowlist.last()->setObjectName("channelwindow");
         } else
             qDebug() << "joinclicked in mainwindow assert";
-        /*if(singleton<snpsettings>().map["isarrangedbyonetab"].value<bool>() == 1){
-                 this->tabbox.addwidget(windowlist.last());
-                 tabbox.show();
-                 }else if(singleton<snpsettings>().map["isarrangedbytwotabs"].value<bool>() == 1){
-                 this->tabwindowbox.addwidget(windowlist.last());
-                 tabwindowbox.show();*/
         windowlist.last()->show();
         if (net->isaway) {
             windowlist.last()->windowtitleaway = net->awaymessage;
@@ -283,10 +279,13 @@ void mainwindow::snpsetcontains(const QString &s) {
     if (s == "chbautojoin" && singleton<snpsettings>().map.contains(s))
         ui.chbautojoin->setChecked(singleton<snpsettings>().map["chbautojoin"].value<bool> ());
 
-    else if (s == "qss file" && singleton<snpsettings>().map.contains(s)) {
-        QFile f(QApplication::applicationDirPath() + QDir::separator() + "qss"
-                + QDir::separator() + singleton<snpsettings>().map["qss file"].value<QString> ());
-        f.open(QFile::ReadOnly);
+    else if (s == "qss file") {
+        QString skinFile=singleton<snpsettings>().map["qss file"].value<QString> ();
+        if(skinFile.isEmpty())
+            skinFile="black by lookias.qss";
+        QFile f(QApplication::applicationDirPath() + "/qss/" + skinFile);
+        if(!f.open(QFile::ReadOnly))
+            QMessageBox::warning(this,tr("Warning"),tr("Cant read the Skinfile:\n")+skinFile);
         QString stylesheet = QLatin1String(f.readAll());
         qApp->setStyleSheet(stylesheet);
     } else if (s == "joinonstartup" && singleton<snpsettings>().map.contains(s)
@@ -300,7 +299,7 @@ void mainwindow::snpsetcontains(const QString &s) {
             joinclicked();
         }
 
-    } else if (s == "chbminimized" && singleton<snpsettings>().map.contains(s))
+    } else if (s == "chbminimized")
         ui.chbminimized->setChecked(singleton<snpsettings>().map["chbminimized"].value<bool> ());
 
     else if (s == "inifilename" && singleton<snpsettings>().map.contains(s)
@@ -311,16 +310,27 @@ void mainwindow::snpsetcontains(const QString &s) {
         ui.lenick->setText(singleton<snpsettings>().map["nickname"].value<QString> ());
     else if (s == "password" && singleton<snpsettings>().map.contains("password"))
         ui.lepassword->setText(singleton<snpsettings>().map["password"].value<QString> ());
-    else if (s == "flag" && singleton<snpsettings>().map.contains(s))
-        ui.flag->setCurrentIndex(ui.flag->findText(
-                singleton<snpsettings>().map[s].value<QString> ()));
-    else if (s == "rank" && singleton<snpsettings>().map.contains(s))
-        ui.rank->setCurrentIndex(ui.rank->findText(
-                singleton<snpsettings>().map[s].value<QString> ()));
+    else if (s == "flag"){
+        QString flagText=singleton<snpsettings>().map[s].value<QString> ();
+        if(flagText.isEmpty())
+            flagText="49";
+        ui.flag->setCurrentIndex(ui.flag->findText(flagText));
+    }
+    else if (s == "rank"){
+        QString rankText=singleton<snpsettings>().map[s].value<QString> ();
+        if(rankText.isEmpty())
+            rankText="13";
+        ui.rank->setCurrentIndex(ui.rank->findText(rankText));
+    }
     else if (s == "client" && singleton<snpsettings>().map.contains(s))
         ui.client->setText(singleton<snpsettings>().map[s].value<QString> ());
-    else if (s == "clan" && singleton<snpsettings>().map.contains(s))
-        ui.clan->setText(singleton<snpsettings>().map[s].value<QString> ());
+    else if (s == "clan" && singleton<snpsettings>().map.contains(s)){
+        QString clanstring=singleton<snpsettings>().map[s].value<QString> ();
+        if(clanstring.toLower()=="username")
+            ui.clan->setText("");
+        else
+            ui.clan->setText(clanstring);
+    }
     else if (s == "whichuitype" && singleton<snpsettings>().map.contains(s))
         whichuitype = singleton<snpsettings>().map["whichuitype"].value<int> ();
 }
@@ -369,7 +379,6 @@ void mainwindow::setlanguage(const QString &langfile) {
             w->close();
         }
         singleton<balloon_handler>().tray->hide();
-        //this->deleteLater();
         QTimer::singleShot(100, qApp,SLOT(quit()));
     }
 }
@@ -419,28 +428,12 @@ mainwindow::~mainwindow() {
 void mainwindow::openchatwindow(const QString &s) {
     window::chatwindowstringlist << s;
     window::chatwindows.push_back(new chatwindow(net, s));
-    /*if (singleton<snpsettings>().map["isarrangedbyonetab"].value<bool> () == true) {
-         tabbox.addwidget(window::chatwindows.last());
-         } else if (singleton<snpsettings>().map["isarrangedbytwotabs"].value<bool> () == true) {
-         tabchatwindowbox.addwidget(window::chatwindows.last());
-         if (tabchatwindowbox.isHidden()) {
-         tabchatwindowbox.show();
-         };
-         } else*/
     window::chatwindows.last()->show();
     connect(window::chatwindows.last(), SIGNAL(closed()),this, SLOT(chatwinowclosed()));
 }
 void mainwindow::openchatwindowhidden(const QString &s) {
     window::chatwindowstringlist << s;
     window::chatwindows.push_back(new chatwindow(net, s));
-    /*if (singleton<snpsettings>().map["isarrangedbyonetab"].value<bool> () == true) {
-         tabbox.addwidget(window::chatwindows.last());
-         } else if (singleton<snpsettings>().map["isarrangedbytwotabs"].value<bool> () == true) {
-         tabchatwindowbox.addwidget(window::chatwindows.last());
-         if (tabchatwindowbox.isHidden()) {
-         tabchatwindowbox.show();
-         };
-         } else*/
     mainwindow::hiddenchatwindowshelper << window::chatwindows.last();
     connect(window::chatwindows.last(), SIGNAL(closed()),this, SLOT(chatwinowclosed()));
 }
@@ -605,15 +598,7 @@ void mainwindow::init_menus(){
     a0 = traymenu->addAction(tr("Reconnect"));
     a0->setIcon(QIcon("snppictures/reconnect.png"));
     a0 = traymenu->addAction(tr("Close"));
-    a0->setIcon(QIcon("snppictures/closeicon.png"));
-    ui.labelButton->setIcon(QIcon(QApplication::applicationDirPath()
-                                  + "/snppictures/trayiconpicture.png"));
-    ui.labelButton->setMenu(traymenu);
-    ui.labelButton->setFlat(1);
-    singleton<balloon_handler>().tray->setContextMenu(traymenu);
-    //connect(stylemenu, SIGNAL(triggered ( QAction *)),this, SLOT(traymenutriggered(QAction *)));
-    connect(traymenu, SIGNAL(triggered ( QAction *)),this, SLOT(traymenutriggered(QAction *)));
-    //connect(joinmenu, SIGNAL(triggered ( QAction *)),this, SLOT(traymenutriggered(QAction *)));
+    a0->setIcon(QIcon("snppictures/closeicon.png"));        
 }
 
 void mainwindow::trayactivation(QSystemTrayIcon::ActivationReason reason) {
