@@ -539,6 +539,8 @@ void mainwindow::disconnected(){
 //************************************************************************************************************************
 void mainwindow::init_menus(){
     traymenu = new QMenu(this);
+    connect(traymenu,SIGNAL(triggered(QAction*)),this,SLOT(traymenutriggered(QAction*)));
+    singleton<balloon_handler>().tray->setContextMenu(traymenu);
     QAction *a0;
     stuffmenu = traymenu->addMenu(tr("Stuff"));
     stuffmenu->setIcon(QIcon("snppictures/stufficon.png"));
