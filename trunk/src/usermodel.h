@@ -9,7 +9,7 @@ class usermodel: public QAbstractItemModel {
 public:
 
     enum {
-        e_Nick=0,e_Flag,e_Rank,e_Clan,e_Client, e_Channel
+        e_Nick=0,e_Flag,e_Rank,e_Clan,e_Client, e_Channel=999
     };
     usermodel(QObject * parent = 0);
     ~usermodel();

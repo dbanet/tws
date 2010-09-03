@@ -440,15 +440,13 @@ void window::useritempressed(const QModelIndex &index) {
 }
 void window::useritemdblclicked(const QModelIndex &index) {
 
-    if (index.internalId() != 999 && net->users.classes[index.internalId()]
-        != usermodel::tr("Ignorelist")) {
+    if (index.internalId() != usermodel::e_Channel
+        && net->users.classes[index.internalId()]!= usermodel::tr("Ignorelist")) {
         QString s = net->users.data(index.sibling(index.row(), 0),
                                     Qt::DisplayRole).value<QString> ();
         openchatwindow(s);
-    } else if (index.internalId() == 999) {
-        emit sigjoinchannel(
-                net->users.data(index.sibling(index.row(), 0)).value<QString> ());
-    }
+    } else if (index.internalId() == usermodel::e_Channel)
+        emit sigjoinchannel(net->users.data(index.sibling(index.row(), 0)).value<QString> ());
 }
 void window::hostitemdblclicked(const QModelIndex &index) {
     if (index.internalId() != 999) {
