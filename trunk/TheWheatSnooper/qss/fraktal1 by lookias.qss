@@ -685,7 +685,7 @@ border-image:url(qss/opencoffee/awaybox.png);
 	color:yellow;
 	background-color:black;
 }
-QToolTip{
+#channelwindow QToolTip{
 	color:yellow;
 	background-color:black;
 }

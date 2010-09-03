@@ -569,7 +569,7 @@ background:rgb(57,65,21);
 	color:yellow;
 	background-color:black;
 }
-QToolTip{
+#channelwindow QToolTip{
 	color:yellow;
 	background-color:black;
 }

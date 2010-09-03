@@ -440,7 +440,7 @@ background:white;
 #scrollareacorner3{
 background:white;
 }
-QToolTip{
+#channelwindow QToolTip{
 	color:yellow;
 	background-color:black;
 }

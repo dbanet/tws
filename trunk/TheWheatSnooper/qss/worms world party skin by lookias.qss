@@ -708,7 +708,7 @@ border-image:none;
 	color:yellow;
 	background-color:black;
 }
-QToolTip{
+#channelwindow QToolTip{
 	color:yellow;
 	background-color:black;
 }

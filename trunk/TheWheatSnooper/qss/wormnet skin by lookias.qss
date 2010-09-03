@@ -648,9 +648,9 @@ background-image:none;
 }
 #chatwindow QToolTip{
 	color:yellow;
-	background-color:black;
+	background:blue;
 }
-QToolTip{
-	color:yellow;
-	background-color:black;
+#channelwindow QToolTip{
+	color:red;
+	background:blue;
 }
