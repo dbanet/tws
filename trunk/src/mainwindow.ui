@@ -254,7 +254,7 @@
                <item>
                 <widget class="QGroupBox" name="groupBox_7">
                  <property name="title">
-                  <string>Clientstring</string>
+                  <string>Information</string>
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_10">
                   <item>

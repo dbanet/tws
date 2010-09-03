@@ -212,12 +212,12 @@ If you use The Wheat Snooper at the first time just click No.</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="202"/>
+        <location filename="../src/main.cpp" line="201"/>
         <source>Question about host/join programs.</source>
         <translation>Programas para unirse/crear partidas</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="203"/>
+        <location filename="../src/main.cpp" line="202"/>
         <source>I found %1 
 This programs can be used to host or join games. 
 Do you want to add them to the programslist?
@@ -572,35 +572,35 @@ Puedes crear partidas haciendo doble clic (o clic derecho) en el nombre de un ca
 <context>
     <name>chatwindow</name>
     <message>
-        <location filename="../src/chatwindow.cpp" line="36"/>
+        <location filename="../src/chatwindow.cpp" line="37"/>
         <source>Chat with</source>
         <translation>Charla con</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="273"/>
+        <location filename="../src/chatwindow.cpp" line="256"/>
         <source>Choose a file.</source>
         <translation>Selecciona un archivo</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="288"/>
+        <location filename="../src/chatwindow.cpp" line="271"/>
         <source>&lt;This users idle time: %1&gt;</source>
         <translation>&lt;Tiempo de inactividad de este usuario: %1&gt;</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="94"/>
-        <location filename="../src/chatwindow.cpp" line="157"/>
-        <location filename="../src/chatwindow.cpp" line="305"/>
+        <location filename="../src/chatwindow.cpp" line="95"/>
+        <location filename="../src/chatwindow.cpp" line="142"/>
+        <location filename="../src/chatwindow.cpp" line="288"/>
         <source>Online</source>
         <translation>En línea</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="98"/>
-        <location filename="../src/chatwindow.cpp" line="155"/>
+        <location filename="../src/chatwindow.cpp" line="99"/>
+        <location filename="../src/chatwindow.cpp" line="140"/>
         <source>Was offline when this window opened.</source>
         <translation>Estuvo desconectado cuando se abrió esta ventana.</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="294"/>
+        <location filename="../src/chatwindow.cpp" line="277"/>
         <source>This user is currently offline</source>
         <translation type="unfinished"></translation>
     </message>
@@ -933,13 +933,13 @@ Usa los comandos CTCP para sitios de clanes, bromas, fotos, enlaces de qfileuplo
         <translation>Crear una partida pública en </translation>
     </message>
     <message>
-        <location filename="../src/hostbox.cpp" line="66"/>
-        <location filename="../src/hostbox.cpp" line="70"/>
+        <location filename="../src/hostbox.cpp" line="63"/>
+        <location filename="../src/hostbox.cpp" line="67"/>
         <source>Choose a desktop icon.</source>
         <translation>Escoge un icono del escritorio</translation>
     </message>
     <message>
-        <location filename="../src/hostbox.cpp" line="74"/>
+        <location filename="../src/hostbox.cpp" line="71"/>
         <source>Choose a Program.</source>
         <translation>Escoge un programa</translation>
     </message>
@@ -1261,7 +1261,7 @@ If your nick got faked... bl :)</source>
     <message>
         <location filename="../src/mainwindow.cpp" line="51"/>
         <location filename="../src/mainwindow.cpp" line="547"/>
-        <location filename="../src/mainwindow.cpp" line="722"/>
+        <location filename="../src/mainwindow.cpp" line="723"/>
         <source>About</source>
         <translation>Acerca de</translation>
     </message>
@@ -1283,13 +1283,13 @@ If your nick got faked... bl :)</source>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="548"/>
-        <location filename="../src/mainwindow.cpp" line="726"/>
+        <location filename="../src/mainwindow.cpp" line="727"/>
         <source>Settings</source>
         <translation>Configuración</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="549"/>
-        <location filename="../src/mainwindow.cpp" line="741"/>
+        <location filename="../src/mainwindow.cpp" line="742"/>
         <source>Volume</source>
         <translation>Volumen</translation>
     </message>
@@ -1315,19 +1315,19 @@ If your nick got faked... bl :)</source>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="596"/>
-        <location filename="../src/mainwindow.cpp" line="677"/>
+        <location filename="../src/mainwindow.cpp" line="678"/>
         <source>Away mode</source>
         <translation>Modo ausente</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="600"/>
-        <location filename="../src/mainwindow.cpp" line="729"/>
+        <location filename="../src/mainwindow.cpp" line="730"/>
         <source>Reconnect</source>
         <translation>Reconectar</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="602"/>
-        <location filename="../src/mainwindow.cpp" line="625"/>
+        <location filename="../src/mainwindow.cpp" line="626"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
@@ -1397,7 +1397,7 @@ Para reiniciar ahora haz clic en Aceptar, de lo contrario, haz clic en Cancelar.
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="550"/>
-        <location filename="../src/mainwindow.cpp" line="746"/>
+        <location filename="../src/mainwindow.cpp" line="747"/>
         <source>Open Log Browser</source>
         <translation>Abrir Visor de Registros</translation>
     </message>
@@ -1408,12 +1408,12 @@ Para reiniciar ahora haz clic en Aceptar, de lo contrario, haz clic en Cancelar.
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="565"/>
-        <location filename="../src/mainwindow.cpp" line="752"/>
+        <location filename="../src/mainwindow.cpp" line="753"/>
         <source>Save current textscheme to file</source>
         <translation>Guardar estilo de texto actual</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="753"/>
+        <location filename="../src/mainwindow.cpp" line="754"/>
         <source>Save textscheme to.</source>
         <translation>Guardar estilo de texto</translation>
     </message>
@@ -1424,13 +1424,13 @@ Para reiniciar ahora haz clic en Aceptar, de lo contrario, haz clic en Cancelar.
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="552"/>
-        <location filename="../src/mainwindow.cpp" line="764"/>
+        <location filename="../src/mainwindow.cpp" line="765"/>
         <source>Scheme maker</source>
         <translation>Generador de estilos</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="554"/>
-        <location filename="../src/mainwindow.cpp" line="767"/>
+        <location filename="../src/mainwindow.cpp" line="768"/>
         <source>Playername</source>
         <translation>Nombre de jugador</translation>
     </message>
@@ -1449,12 +1449,12 @@ Para reiniciar ahora haz clic en Aceptar, de lo contrario, haz clic en Cancelar.
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="288"/>
-        <location filename="../src/mainwindow.cpp" line="653"/>
+        <location filename="../src/mainwindow.cpp" line="654"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="654"/>
+        <location filename="../src/mainwindow.cpp" line="655"/>
         <source>Changing the skin crashes sometimes, but The Wheat Snooper
 will keep the settings for the next Start.
 Do you want to proceed?</source>
@@ -1530,7 +1530,7 @@ Do you want to proceed?</source>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="257"/>
-        <source>Clientstring</source>
+        <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1721,9 +1721,8 @@ Si lo dejas en blanco, probablemente no puedas crear o unirte a partidas.</trans
         <translation>Mensaje de Ausencia al jugar (sin espacios)</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="133"/>
         <source>Im in a Game!</source>
-        <translation>Estoy en una partida</translation>
+        <translation type="obsolete">Estoy en una partida</translation>
     </message>
     <message>
         <source>Sound</source>
@@ -1748,11 +1747,6 @@ Si lo dejas en blanco, probablemente no puedas crear o unirte a partidas.</trans
         <translation>Examinar...</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="618"/>
-        <source>wav/startup.wav.mp3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/settingswindow.ui" line="625"/>
         <location filename="../src/settingswindow.ui" line="675"/>
         <location filename="../src/settingswindow.ui" line="724"/>
@@ -1765,29 +1759,14 @@ Si lo dejas en blanco, probablemente no puedas crear o unirte a partidas.</trans
         <translation>Sonido cuando se conecta un amigo</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="668"/>
-        <source>wav/buddyarrives.wav.mp3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/settingswindow.ui" line="696"/>
         <source>Sound when buddy leaves.</source>
         <translation>Sonido cuando se desconecta un amigo</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="717"/>
-        <source>wav/buddyleaves.wav.mp3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/settingswindow.ui" line="747"/>
         <source>Sound when a buddy sends a message.</source>
         <translation>Sonido cuando un amigo envía un mensaje</translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="768"/>
-        <source>wav/buddymessage.wav.mp3</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="775"/>
@@ -1805,34 +1784,9 @@ Si lo dejas en blanco, probablemente no puedas crear o unirte a partidas.</trans
         <translation>Sonido al abrir una ventana de charla</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="817"/>
-        <source>wav/buddychatwindowopened.wav.mp3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/settingswindow.ui" line="845"/>
         <source>Sound when a normal user sends a message.</source>
         <translation>Sonido cuando un usuario envía un mensaje</translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="866"/>
-        <source>wav/normalprivmsg.wav.mp3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="915"/>
-        <source>wav/highlightningsound.mp3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="964"/>
-        <source>wav/costumword.mp3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/settingswindow.ui" line="1013"/>
-        <source>wav/buddyhosts.wav.mp3</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="1074"/>
@@ -1940,9 +1894,8 @@ Nota: Es necesario reconectar para que se apliquen los cambios.</translation>
         <translation>Mensaje cuando regreso</translation>
     </message>
     <message>
-        <location filename="../src/settingswindow.ui" line="208"/>
         <source>Im back.</source>
-        <translation>Regresé</translation>
+        <translation type="obsolete">Regresé</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="894"/>
@@ -2118,19 +2071,19 @@ Nota: Es necesario reconectar para que se apliquen los cambios.</translation>
     <name>usermodel</name>
     <message>
         <location filename="../src/mainwindow.cpp" line="551"/>
-        <location filename="../src/mainwindow.cpp" line="737"/>
-        <location filename="../src/usermodel.cpp" line="121"/>
-        <location filename="../src/usermodel.cpp" line="288"/>
-        <location filename="../src/window.cpp" line="160"/>
-        <location filename="../src/window.cpp" line="398"/>
-        <location filename="../src/window.cpp" line="435"/>
+        <location filename="../src/mainwindow.cpp" line="738"/>
+        <location filename="../src/usermodel.cpp" line="120"/>
+        <location filename="../src/usermodel.cpp" line="286"/>
+        <location filename="../src/window.cpp" line="158"/>
+        <location filename="../src/window.cpp" line="385"/>
+        <location filename="../src/window.cpp" line="421"/>
         <source>Buddylist</source>
         <translation>Lista de Amigos</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="400"/>
-        <location filename="../src/window.cpp" line="445"/>
-        <location filename="../src/window.cpp" line="460"/>
+        <location filename="../src/window.cpp" line="387"/>
+        <location filename="../src/window.cpp" line="430"/>
+        <location filename="../src/window.cpp" line="444"/>
         <source>Ignorelist</source>
         <translation>Lista de Ignorados</translation>
     </message>
@@ -2150,26 +2103,30 @@ Nota: Es necesario reconectar para que se apliquen los cambios.</translation>
         <translation>Clan</translation>
     </message>
     <message>
-        <location filename="../src/usermodel.cpp" line="18"/>
         <source>Client</source>
-        <translation>Cliente</translation>
+        <translation type="obsolete">Cliente</translation>
     </message>
     <message>
-        <location filename="../src/usermodel.cpp" line="122"/>
-        <location filename="../src/usermodel.cpp" line="247"/>
-        <location filename="../src/window.cpp" line="158"/>
-        <location filename="../src/window.cpp" line="355"/>
-        <location filename="../src/window.cpp" line="382"/>
+        <location filename="../src/usermodel.cpp" line="121"/>
+        <location filename="../src/usermodel.cpp" line="248"/>
+        <location filename="../src/window.cpp" line="156"/>
+        <location filename="../src/window.cpp" line="347"/>
+        <location filename="../src/window.cpp" line="371"/>
         <source>Querys</source>
         <translation>Consultas</translation>
     </message>
     <message>
-        <location filename="../src/usermodel.cpp" line="90"/>
+        <location filename="../src/usermodel.cpp" line="89"/>
         <source> connected to wormnet.</source>
         <translation>se ha conectado a Wormnet.</translation>
     </message>
     <message>
-        <location filename="../src/usermodel.cpp" line="97"/>
+        <location filename="../src/usermodel.cpp" line="18"/>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/usermodel.cpp" line="96"/>
         <source> left wormnet.</source>
         <translation>abandonó Wormnet.</translation>
     </message>
@@ -2193,111 +2150,112 @@ Nota: Es necesario reconectar para que se apliquen los cambios.</translation>
 <context>
     <name>window</name>
     <message>
-        <location filename="../src/window.cpp" line="103"/>
+        <location filename="../src/window.cpp" line="102"/>
         <source>Join</source>
         <translation>Unirse a la partida</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="104"/>
+        <location filename="../src/window.cpp" line="103"/>
         <source>Host a game in </source>
         <translation>Crear una partida en </translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="105"/>
-        <location filename="../src/window.cpp" line="524"/>
+        <location filename="../src/window.cpp" line="104"/>
+        <location filename="../src/window.cpp" line="508"/>
         <source>Host a private game</source>
         <translation>Crear una partida privada</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="536"/>
-        <location filename="../src/window.cpp" line="557"/>
-        <location filename="../src/window.cpp" line="629"/>
+        <location filename="../src/window.cpp" line="520"/>
+        <location filename="../src/window.cpp" line="541"/>
+        <location filename="../src/window.cpp" line="613"/>
         <source>Choose a Program to join this game.</source>
         <translation>Escoge un programa para unirte a esta partida</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="107"/>
-        <location filename="../src/window.cpp" line="420"/>
+        <location filename="../src/window.cpp" line="106"/>
+        <location filename="../src/window.cpp" line="406"/>
         <source>Add this user to Buddylist.</source>
         <translation>Agregar este usuario a la Lista de Amigos</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="108"/>
-        <location filename="../src/window.cpp" line="422"/>
+        <location filename="../src/window.cpp" line="107"/>
+        <location filename="../src/window.cpp" line="408"/>
         <source>Add this user to Ignorelist.</source>
         <translation>Agregar este usuario a la Lista de Ignorados</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="110"/>
-        <location filename="../src/window.cpp" line="112"/>
-        <location filename="../src/window.cpp" line="388"/>
-        <location filename="../src/window.cpp" line="394"/>
-        <location filename="../src/window.cpp" line="407"/>
-        <location filename="../src/window.cpp" line="414"/>
-        <location filename="../src/window.cpp" line="424"/>
-        <location filename="../src/window.cpp" line="441"/>
-        <location filename="../src/window.cpp" line="451"/>
+        <location filename="../src/window.cpp" line="109"/>
+        <location filename="../src/window.cpp" line="111"/>
+        <location filename="../src/window.cpp" line="375"/>
+        <location filename="../src/window.cpp" line="381"/>
+        <location filename="../src/window.cpp" line="393"/>
+        <location filename="../src/window.cpp" line="400"/>
+        <location filename="../src/window.cpp" line="410"/>
+        <location filename="../src/window.cpp" line="426"/>
+        <location filename="../src/window.cpp" line="435"/>
         <source>Show info about this user.</source>
         <translation>Mostrar información de este usuario</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="111"/>
-        <location filename="../src/window.cpp" line="439"/>
-        <location filename="../src/window.cpp" line="449"/>
+        <location filename="../src/window.cpp" line="110"/>
+        <location filename="../src/window.cpp" line="424"/>
+        <location filename="../src/window.cpp" line="433"/>
         <source>Remove this user from the list.</source>
         <translation>Quitar este usuario de la lista</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="366"/>
-        <location filename="../src/window.cpp" line="371"/>
+        <location filename="../src/window.cpp" line="358"/>
+        <location filename="../src/window.cpp" line="363"/>
         <source>Allow this clanname.</source>
         <translation>Permitir este nombre de clan</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="368"/>
+        <location filename="../src/window.cpp" line="360"/>
+        <location filename="../src/window.cpp" line="365"/>
         <source>Dissallow this clanname.</source>
         <translation>No permitir este nombre de clan</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="386"/>
-        <location filename="../src/window.cpp" line="392"/>
+        <location filename="../src/window.cpp" line="373"/>
+        <location filename="../src/window.cpp" line="379"/>
         <source>Remove this Query.</source>
         <translation>Quitar esta Consulta</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="405"/>
-        <location filename="../src/window.cpp" line="426"/>
+        <location filename="../src/window.cpp" line="391"/>
+        <location filename="../src/window.cpp" line="412"/>
         <source>Remove this user from Buddylist.</source>
         <translation>Quitar este usuario de la Lista de Amigos</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="412"/>
-        <location filename="../src/window.cpp" line="429"/>
+        <location filename="../src/window.cpp" line="398"/>
+        <location filename="../src/window.cpp" line="415"/>
         <source>Remove this user from Ignorelist.</source>
         <translation>Quitar este usuario de la Lista de Ignorados</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="540"/>
+        <location filename="../src/window.cpp" line="524"/>
         <source>Choose a desktop icon.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="544"/>
+        <location filename="../src/window.cpp" line="528"/>
         <source>Choose a Program.</source>
         <translation>Escoge un programa</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="547"/>
+        <location filename="../src/window.cpp" line="531"/>
         <source>Choose a Desktopicon.</source>
         <translation>Escoge un icono del escritorio</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="653"/>
+        <location filename="../src/window.cpp" line="637"/>
         <source>Users online</source>
         <translation>Usuarios conectados</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="356"/>
+        <location filename="../src/window.cpp" line="348"/>
         <source>Remove Querys</source>
         <translation type="unfinished"></translation>
     </message>

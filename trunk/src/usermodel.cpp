@@ -15,8 +15,7 @@ QStringList usermodel::buddyarrivedhelper;
 QStringList usermodel::buddylefthelper;
 usermodel::usermodel(QObject * parent) :
 	QAbstractItemModel(parent) {
-    stringnamelist << tr("Nick") << "" << tr("Rank") << tr("Clan") << tr(
-            "Client");
+    stringnamelist << tr("Nick") << "" << tr("Rank") << tr("Clan") << tr("Information");
 
     sortorder = Qt::AscendingOrder;
     sortsection = 0;
