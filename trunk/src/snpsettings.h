@@ -17,6 +17,7 @@ public:
 	void load();
 	void safe();
         void safeonquit();
+        void loadDefaults();
 	QMap<QString,QVariant> map;
 
         DECLARE_SINGLETON(snpsettings);

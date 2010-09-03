@@ -33,6 +33,12 @@ void snpsettings::load(){
             if(QFile::exists(folder+"settingswindowini")){
                 QFile::copy(folder+"settingswindowini",QApplication::applicationDirPath()+"/snpini/settingswindowini");
             }
+            if(QFile::exists(folder+"ctcp.ini")){
+                QFile::copy(folder+"ctcp.ini",QApplication::applicationDirPath()+"/snpini/ctcp.ini");
+            }
+        } else{
+            loadDefaults();
+            return;
         }
     }
     QDataStream ds(&f);
@@ -60,4 +66,12 @@ void snpsettings::safeonquit(){
     QDataStream ds(&f);
     ds.setVersion(QDataStream::Qt_4_3);
     ds<<map;
+}
+void snpsettings::loadDefaults(){
+    singleton<snpsettings>().map["volumeslidervalue"].setValue<int>(5);
+    singleton<snpsettings>().map["chbminimized"].setValue<bool>(0);
+    singleton<snpsettings>().map["dissallowedclannames"].setValue<QStringList>(QStringList()<<"Username");
+    singleton<snpsettings>().map["language file"].setValue<QString> ("The_Wheat_Snooper_untranslated");
+    singleton<snpsettings>().map["charformatfile"].setValue<QString>("comic by lookias.textscheme");
+    singleton<snpsettings>().map["chbsendhostinfotochan"].setValue<bool>(true);
 }

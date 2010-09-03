@@ -34,12 +34,9 @@ channel(c) {
     ui.leplayername->setValidator(validator);
     singleton<snpsettings>().map["waitforhostappearsinwormnet"];
     ui.chbwaitforhost->setChecked(
-            singleton<snpsettings>().map["waitforhostappearsinwormnet"].value<bool> ());
-    singleton<snpsettings>().map["chbsendhostinfotochan"];
-    if (singleton<snpsettings>().map["chbsendhostinfotochan"].toBool())
-        ui.chbsendhostinfotochan->setChecked(1);
-    else
-        ui.chbsendhostinfotochan->setChecked(0);
+            singleton<snpsettings>().map["waitforhostappearsinwormnet"].value<bool> ());   
+    ui.chbsendhostinfotochan->setChecked(
+            singleton<snpsettings>().map["chbsendhostinfotochan"].toBool());
     singleton<snpsettings>().map["leplayername"];
     ui.leplayername->setText(singleton<snpsettings>().map["leplayername"].toString());
     ui.lehostport->setText(gethostport());

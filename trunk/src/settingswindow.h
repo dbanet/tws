@@ -17,6 +17,7 @@ private:
     Ui::settingswindowClass ui;
     void load();
     QMap<QString,QVariant> map;
+    void loadDefaults();
 private slots:
     void ok();
     void cancel();

@@ -19,7 +19,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>4</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -57,7 +57,7 @@
                     <string>Alert me on notice.</string>
                    </property>
                    <property name="checked">
-                    <bool>true</bool>
+                    <bool>false</bool>
                    </property>
                   </widget>
                  </item>
@@ -73,7 +73,7 @@
                     <string>Alert me on prvmsg from normal user.</string>
                    </property>
                    <property name="checked">
-                    <bool>true</bool>
+                    <bool>false</bool>
                    </property>
                   </widget>
                  </item>
@@ -89,7 +89,7 @@
                     <string>Send action to channel when i join a game.</string>
                    </property>
                    <property name="checked">
-                    <bool>true</bool>
+                    <bool>false</bool>
                    </property>
                   </widget>
                  </item>
@@ -105,7 +105,7 @@
                     <string>Set automaticly away while gaming.</string>
                    </property>
                    <property name="checked">
-                    <bool>true</bool>
+                    <bool>false</bool>
                    </property>
                   </widget>
                  </item>
@@ -130,7 +130,7 @@
                     <item>
                      <widget class="QLineEdit" name="leawaystring">
                       <property name="text">
-                       <string>Im in a Game!</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>
@@ -170,7 +170,7 @@
                     <string>Send back message to normal users.</string>
                    </property>
                    <property name="checked">
-                    <bool>true</bool>
+                    <bool>false</bool>
                    </property>
                   </widget>
                  </item>
@@ -186,7 +186,7 @@
                     <string>Send back message to buddys.</string>
                    </property>
                    <property name="checked">
-                    <bool>true</bool>
+                    <bool>false</bool>
                    </property>
                   </widget>
                  </item>
@@ -205,7 +205,7 @@
                     <item>
                      <widget class="QLineEdit" name="lebackmessage">
                       <property name="text">
-                       <string>Im back.</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>
@@ -237,8 +237,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>950</width>
-              <height>471</height>
+              <width>387</width>
+              <height>401</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -256,7 +256,7 @@
                   <string>Users from ingorelist appear in channelchat windows.</string>
                  </property>
                  <property name="checked">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -272,7 +272,7 @@
                   <string>Save querys and logs.</string>
                  </property>
                  <property name="checked">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -288,7 +288,7 @@
                   <string>Open the buddylist on startup.</string>
                  </property>
                  <property name="checked">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -298,7 +298,7 @@
                   <string>Show the channelchat of a user in chatwindows.</string>
                  </property>
                  <property name="checked">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -314,7 +314,7 @@
                   <string>Server messages appear in channelwindows.</string>
                  </property>
                  <property name="checked">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -416,7 +416,7 @@
                  <string>Show joininfos in channelchats.</string>
                 </property>
                 <property name="checked">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -426,7 +426,7 @@
                  <string>Show partinfos in channelchats.</string>
                 </property>
                 <property name="checked">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -436,7 +436,7 @@
                  <string>Show quitinfos in channelchats.</string>
                 </property>
                 <property name="checked">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -465,7 +465,7 @@
             <string>Show a balloon message when a buddy arrvies.</string>
            </property>
            <property name="checked">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -475,7 +475,7 @@
             <string>Show a balloon message when a buddy leaves.</string>
            </property>
            <property name="checked">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -540,7 +540,7 @@
             <string>Show a balloon message when someone sends you a privmsg.</string>
            </property>
            <property name="checked">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -550,7 +550,7 @@
             <string>Show a balloon message when a buddy hosts a game.</string>
            </property>
            <property name="checked">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -615,7 +615,7 @@
                     <item>
                      <widget class="QLineEdit" name="lestartup">
                       <property name="text">
-                       <string>wav/startup.wav.mp3</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>
@@ -625,7 +625,7 @@
                        <string>Play this sound</string>
                       </property>
                       <property name="checked">
-                       <bool>true</bool>
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
@@ -665,7 +665,7 @@
                     <item>
                      <widget class="QLineEdit" name="lebuddyarrives">
                       <property name="text">
-                       <string>wav/buddyarrives.wav.mp3</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>
@@ -675,7 +675,7 @@
                        <string>Play this sound</string>
                       </property>
                       <property name="checked">
-                       <bool>true</bool>
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
@@ -714,7 +714,7 @@
                     <item>
                      <widget class="QLineEdit" name="lebuddyleaves">
                       <property name="text">
-                       <string>wav/buddyleaves.wav.mp3</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>
@@ -724,7 +724,7 @@
                        <string>Play this sound</string>
                       </property>
                       <property name="checked">
-                       <bool>true</bool>
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
@@ -765,7 +765,7 @@
                       <item>
                        <widget class="QLineEdit" name="lebuddychatmessage">
                         <property name="text">
-                         <string>wav/buddymessage.wav.mp3</string>
+                         <string/>
                         </property>
                        </widget>
                       </item>
@@ -775,7 +775,7 @@
                          <string>Play this sound.</string>
                         </property>
                         <property name="checked">
-                         <bool>true</bool>
+                         <bool>false</bool>
                         </property>
                        </widget>
                       </item>
@@ -814,7 +814,7 @@
                       <item>
                        <widget class="QLineEdit" name="lebuddychatwindowsopened">
                         <property name="text">
-                         <string>wav/buddychatwindowopened.wav.mp3</string>
+                         <string/>
                         </property>
                        </widget>
                       </item>
@@ -824,7 +824,7 @@
                          <string>Play this sound.</string>
                         </property>
                         <property name="checked">
-                         <bool>true</bool>
+                         <bool>false</bool>
                         </property>
                        </widget>
                       </item>
@@ -863,7 +863,7 @@
                       <item>
                        <widget class="QLineEdit" name="lenormalchatmessage">
                         <property name="text">
-                         <string>wav/normalprivmsg.wav.mp3</string>
+                         <string/>
                         </property>
                        </widget>
                       </item>
@@ -873,7 +873,7 @@
                          <string>Play this sound.</string>
                         </property>
                         <property name="checked">
-                         <bool>true</bool>
+                         <bool>false</bool>
                         </property>
                        </widget>
                       </item>
@@ -912,7 +912,7 @@
                       <item>
                        <widget class="QLineEdit" name="lehighlightning">
                         <property name="text">
-                         <string>wav/highlightningsound.mp3</string>
+                         <string/>
                         </property>
                        </widget>
                       </item>
@@ -922,7 +922,7 @@
                          <string>Play this sound.</string>
                         </property>
                         <property name="checked">
-                         <bool>true</bool>
+                         <bool>false</bool>
                         </property>
                        </widget>
                       </item>
@@ -961,7 +961,7 @@
                       <item>
                        <widget class="QLineEdit" name="lecostumword">
                         <property name="text">
-                         <string>wav/costumword.mp3</string>
+                         <string/>
                         </property>
                        </widget>
                       </item>
@@ -971,7 +971,7 @@
                          <string>Play this sound.</string>
                         </property>
                         <property name="checked">
-                         <bool>true</bool>
+                         <bool>false</bool>
                         </property>
                        </widget>
                       </item>
@@ -1010,7 +1010,7 @@
                       <item>
                        <widget class="QLineEdit" name="lehostsound">
                         <property name="text">
-                         <string>wav/buddyhosts.wav.mp3</string>
+                         <string/>
                         </property>
                        </widget>
                       </item>
@@ -1020,7 +1020,7 @@
                          <string>Play this sound.</string>
                         </property>
                         <property name="checked">
-                         <bool>true</bool>
+                         <bool>false</bool>
                         </property>
                        </widget>
                       </item>

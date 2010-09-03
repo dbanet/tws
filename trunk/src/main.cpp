@@ -89,9 +89,8 @@ int main(int argc, char *argv[]) {
     handle_prosnooper_buddys();
     handle_wini_ini();
 #endif
-    w = new mainwindow();
-    if (!singleton<snpsettings>().map.contains("volumeslidervalue"))
-        singleton<snpsettings>().map["chbminimized"].setValue<int>(5);
+    singleton<snpsettings>();
+    w = new mainwindow();                
     volume->setvalue(singleton<snpsettings>().map["volumeslidervalue"].value<int> ());
     if (!singleton<snpsettings>().map["chbminimized"].value<bool> ()){
         w->move(0,0);

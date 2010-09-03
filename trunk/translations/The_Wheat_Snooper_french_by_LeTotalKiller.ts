@@ -1214,64 +1214,64 @@ Si votre pseudo est &quot;maudit&quot;... pas de bol :)</translation>
 <context>
     <name>mainwindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="543"/>
+        <location filename="../src/mainwindow.cpp" line="545"/>
         <source>Stuff</source>
         <translation>Autres</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="51"/>
-        <location filename="../src/mainwindow.cpp" line="545"/>
-        <location filename="../src/mainwindow.cpp" line="720"/>
+        <location filename="../src/mainwindow.cpp" line="547"/>
+        <location filename="../src/mainwindow.cpp" line="722"/>
         <source>About</source>
         <translation>À propos</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="546"/>
-        <location filename="../src/mainwindow.cpp" line="724"/>
+        <location filename="../src/mainwindow.cpp" line="548"/>
+        <location filename="../src/mainwindow.cpp" line="726"/>
         <source>Settings</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="547"/>
-        <location filename="../src/mainwindow.cpp" line="739"/>
+        <location filename="../src/mainwindow.cpp" line="549"/>
+        <location filename="../src/mainwindow.cpp" line="741"/>
         <source>Volume</source>
         <translation>Volume</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="554"/>
+        <location filename="../src/mainwindow.cpp" line="556"/>
         <source>Skins</source>
         <translation>Skins</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="573"/>
+        <location filename="../src/mainwindow.cpp" line="575"/>
         <source>Layouts</source>
         <translation>Disposition fenêtre canal</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="591"/>
+        <location filename="../src/mainwindow.cpp" line="593"/>
         <source>Join</source>
         <translation>Rejoindre</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="584"/>
+        <location filename="../src/mainwindow.cpp" line="586"/>
         <source>Language</source>
         <translation>Langue</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="594"/>
-        <location filename="../src/mainwindow.cpp" line="675"/>
+        <location filename="../src/mainwindow.cpp" line="596"/>
+        <location filename="../src/mainwindow.cpp" line="677"/>
         <source>Away mode</source>
         <translation>Mode away</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="598"/>
-        <location filename="../src/mainwindow.cpp" line="727"/>
+        <location filename="../src/mainwindow.cpp" line="600"/>
+        <location filename="../src/mainwindow.cpp" line="729"/>
         <source>Reconnect</source>
         <translation>Reconnecter</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="600"/>
-        <location filename="../src/mainwindow.cpp" line="623"/>
+        <location filename="../src/mainwindow.cpp" line="602"/>
+        <location filename="../src/mainwindow.cpp" line="625"/>
         <source>Close</source>
         <translation>Fermer</translation>
     </message>
@@ -1319,24 +1319,24 @@ To restart now click Ok, otherwise cancel.</source>
 Pour redémarrer maintenant appuyez sur OK, sinon appuyez sur Annuler.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="548"/>
-        <location filename="../src/mainwindow.cpp" line="744"/>
+        <location filename="../src/mainwindow.cpp" line="550"/>
+        <location filename="../src/mainwindow.cpp" line="746"/>
         <source>Open Log Browser</source>
         <translation>Ouvrir le chercheur de rapports</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="555"/>
+        <location filename="../src/mainwindow.cpp" line="557"/>
         <source>Text Schemes</source>
         <translation>Décoration du texte</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="563"/>
-        <location filename="../src/mainwindow.cpp" line="750"/>
+        <location filename="../src/mainwindow.cpp" line="565"/>
+        <location filename="../src/mainwindow.cpp" line="752"/>
         <source>Save current textscheme to file</source>
         <translation>Sauver les réglages de décoration de texte dans un fichier</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="751"/>
+        <location filename="../src/mainwindow.cpp" line="753"/>
         <source>Save textscheme to.</source>
         <translation>Sauver décoration de texte sous.</translation>
     </message>
@@ -1346,14 +1346,14 @@ Pour redémarrer maintenant appuyez sur OK, sinon appuyez sur Annuler.</translat
         <translation>Essayons d&apos;appliquer la nouvelle décorztion du texte :</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="550"/>
-        <location filename="../src/mainwindow.cpp" line="762"/>
+        <location filename="../src/mainwindow.cpp" line="552"/>
+        <location filename="../src/mainwindow.cpp" line="764"/>
         <source>Scheme maker</source>
         <translation>Fabriqueur de schemes</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="552"/>
-        <location filename="../src/mainwindow.cpp" line="765"/>
+        <location filename="../src/mainwindow.cpp" line="554"/>
+        <location filename="../src/mainwindow.cpp" line="767"/>
         <source>Playername</source>
         <translation>Nom du joueur</translation>
     </message>
@@ -1372,12 +1372,12 @@ Pour redémarrer maintenant appuyez sur OK, sinon appuyez sur Annuler.</translat
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="288"/>
-        <location filename="../src/mainwindow.cpp" line="651"/>
+        <location filename="../src/mainwindow.cpp" line="653"/>
         <source>Warning</source>
         <translation>Attention</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="652"/>
+        <location filename="../src/mainwindow.cpp" line="654"/>
         <source>Changing the skin crashes sometimes, but The Wheat Snooper
 will keep the settings for the next Start.
 Do you want to proceed?</source>
@@ -2056,28 +2056,17 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
 <context>
     <name>usermodel</name>
     <message>
-        <location filename="../src/chatwindow.cpp" line="162"/>
-        <location filename="../src/mainwindow.cpp" line="471"/>
-        <location filename="../src/mainwindow.cpp" line="549"/>
-        <location filename="../src/mainwindow.cpp" line="735"/>
-        <location filename="../src/usermodel.cpp" line="85"/>
-        <location filename="../src/usermodel.cpp" line="113"/>
+        <location filename="../src/mainwindow.cpp" line="551"/>
+        <location filename="../src/mainwindow.cpp" line="737"/>
         <location filename="../src/usermodel.cpp" line="121"/>
         <location filename="../src/usermodel.cpp" line="288"/>
         <location filename="../src/window.cpp" line="160"/>
-        <location filename="../src/window.cpp" line="272"/>
         <location filename="../src/window.cpp" line="398"/>
         <location filename="../src/window.cpp" line="435"/>
         <source>Buddylist</source>
         <translation>Liste d&apos;amis</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="464"/>
-        <location filename="../src/mainwindow.cpp" line="474"/>
-        <location filename="../src/usermodel.cpp" line="115"/>
-        <location filename="../src/usermodel.cpp" line="117"/>
-        <location filename="../src/usermodel.cpp" line="197"/>
-        <location filename="../src/window.cpp" line="271"/>
         <location filename="../src/window.cpp" line="400"/>
         <location filename="../src/window.cpp" line="445"/>
         <location filename="../src/window.cpp" line="460"/>
@@ -2105,9 +2094,6 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
         <translation>Client</translation>
     </message>
     <message>
-        <location filename="../src/usermodel.cpp" line="107"/>
-        <location filename="../src/usermodel.cpp" line="110"/>
-        <location filename="../src/usermodel.cpp" line="114"/>
         <location filename="../src/usermodel.cpp" line="122"/>
         <location filename="../src/usermodel.cpp" line="247"/>
         <location filename="../src/window.cpp" line="158"/>

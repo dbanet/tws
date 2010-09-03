@@ -63,15 +63,14 @@ settingswindow::settingswindow(){
     ui.tabWidget->setCurrentIndex(0);
 }
 void settingswindow::load() {
-    QFile f(QApplication::applicationDirPath() + QDir::separator() + "snpini"
-            + QDir::separator() + "settingswindowini");
-    if (!f.open(QFile::ReadOnly)){
-        ok();
-        return;
+    QFile f(QApplication::applicationDirPath() + "/snpini/settingswindowini");
+    if (!f.open(QFile::ReadOnly))
+        loadDefaults();
+    else {
+        QDataStream ds(&f);
+        ds.setVersion(QDataStream::Qt_4_3);
+        ds >> map;
     }
-    QDataStream ds(&f);
-    ds.setVersion(QDataStream::Qt_4_3);
-    ds >> map;
     QObject *o;
     foreach(QString s,objectnames) {
         o = this->findChild<QObject*> (s);
@@ -171,4 +170,52 @@ void settingswindow::to_map(const QString &s, const QVariant &v){
     else
         throw std::runtime_error("\nvoid settingswindow::to_map(const QString &s, const QVariant &v)\n");
     safe();
+}
+void settingswindow::loadDefaults(){
+    map["leawaystring"].setValue<QString>("Im in a Game!");
+    map["lebackmessage"].setValue<QString>("Im back.");
+    map["lestartup"].setValue<QString>("wav/startup.wav.mp3");
+    map["lebuddyarrives"].setValue<QString>("wav/buddyarrives.wav.mp3");
+    map["lebuddyleaves"].setValue<QString>("wav/buddyleaves.wav.mp3");
+    map["lebuddychatmessage"].setValue<QString>("wav/buddymessage.wav.mp3");
+    map["lebuddychatwindowsopened"].setValue<QString>("wav/buddychatwindowopened.wav.mp3");
+    map["lebuddychatwindowsopened"].setValue<QString>("wav/normalprivmsg.wav.mp3");
+    map["lehighlightning"].setValue<QString>("wav/highlightningsound.mp3");
+    map["lecostumword"].setValue<QString>("wav/costumword.mp3");
+    map["lehostsound"].setValue<QString>("wav/buddyhosts.wav.mp3");
+
+    map["cbalertmeonnotice"].setValue<bool>(true);
+    map["cbalertfromnormal"].setValue<bool>(true);
+    map["chbactionwhenjoining"].setValue<bool>(true);
+    map["cbsetawaywhilegaming"].setValue<bool>(true);
+    map["chbbacktonormals"].setValue<bool>(true);
+    map["chbbacktobuddys"].setValue<bool>(true);
+    map["cbignorysappearinchannel"].setValue<bool>(true);
+    map["cbsafequerys"].setValue<bool>(true);
+    map["cbopenbuddylistonstartup"].setValue<bool>(true);
+    map["chbshowchannelchatinchatwindows"].setValue<bool>(true);
+    map["cbservermessageinchannelwindows"].setValue<bool>(true);
+    map["chbjoininfo"].setValue<bool>(true);
+    map["chbpartinfo"].setValue<bool>(true);
+    map["chbquitinfo"].setValue<bool>(true);
+    map["chbbuddyballoonarives"].setValue<bool>(true);
+    map["chbbuddyballoonleaves"].setValue<bool>(true);
+    map["chbballoonprivmsg"].setValue<bool>(true);
+    map["chbshowbaloonwhenbuddyhosts"].setValue<bool>(true);
+    map["cbstartup"].setValue<bool>(true);
+    map["cbbuddyarrives"].setValue<bool>(true);
+    map["cbbuddyleaves"].setValue<bool>(true);
+    map["cbplaybuddychatmessage"].setValue<bool>(true);
+    map["cbplaybuddychatwindowopened"].setValue<bool>(true);
+    map["cbplaynormalchatmessage"].setValue<bool>(true);
+    map["cbhighlightning"].setValue<bool>(true);
+    map["cbcostumword"].setValue<bool>(true);
+    map["chbhostsound"].setValue<bool>(true);
+
+    map["sbmaximumoftextblocksinlog"].setValue<int>(60);
+    map["sbmaximumballonmessages"].setValue<int>(3);
+    map["sbwhorepead"].setValue<int>(3000);
+    map["sbhostrepead"].setValue<int>(15000);
+    map["sbhosttimeout"].setValue<int>(60);
+    map["sbmaximumoftextblocks"].setValue<int>(150);
 }
