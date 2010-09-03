@@ -5,68 +5,72 @@
 #include<QSet>
 #include"userstruct.h"
 class usermodel: public QAbstractItemModel {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	usermodel(QObject * parent = 0);
-	~usermodel();
 
-	void setuserstruct(const QList<userstruct>&, QMap<QString,QStringList>);
-	int columnCount(const QModelIndex & parent = QModelIndex()) const;
-	int rowCount(const QModelIndex & parent = QModelIndex()) const;
-	QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
-	QVariant headerData(int section, Qt::Orientation orientation, int role =
-			Qt::DisplayRole) const;
-	QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
-	QModelIndex parent ( const QModelIndex & index ) const;
-	Qt::ItemFlags flags ( const QModelIndex & index ) const;
-	void sort ( int column, Qt::SortOrder order = Qt::AscendingOrder );
+    enum {
+        e_Nick=0,e_Flag,e_Rank,e_Clan,e_Client, e_Channel
+    };
+    usermodel(QObject * parent = 0);
+    ~usermodel();
 
-	void addbuddy(const QString&);
-	void deletebuddy(const QString&);
-	void addignore(const QString&);
-	void deleteignore(const QString&);
+    void setuserstruct(const QList<userstruct>&, QMap<QString,QStringList>);
+    int columnCount(const QModelIndex & parent = QModelIndex()) const;
+    int rowCount(const QModelIndex & parent = QModelIndex()) const;
+    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role =
+                        Qt::DisplayRole) const;
+    QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
+    QModelIndex parent ( const QModelIndex & index ) const;
+    Qt::ItemFlags flags ( const QModelIndex & index ) const;
+    void sort ( int column, Qt::SortOrder order = Qt::AscendingOrder );
 
-	void selectionchanged(const QModelIndex &,const QWidget*);
+    void addbuddy(const QString&);
+    void deletebuddy(const QString&);
+    void addignore(const QString&);
+    void deleteignore(const QString&);
 
-	userstruct getuserstructbyindex(const QModelIndex&);
+    void selectionchanged(const QModelIndex &,const QWidget*);
 
-	QModelIndex indexbychannelname(QString);
-	QStringList classes;
-        QList<QString> usermap_channellist_helper;
-        QMap<QString,QList<userstruct> > usermap;
-	QList<userstruct> users;
-	static QStringList buddyarrivedhelper;
-	static QStringList buddylefthelper;
+    userstruct getuserstructbyindex(const QModelIndex&);
+
+    QModelIndex indexbychannelname(QString);
+    QStringList classes;
+    QList<QString> usermap_channellist_helper;
+    QMap<QString,QList<userstruct> > usermap;
+    QList<userstruct> users;
+    static QStringList buddyarrivedhelper;
+    static QStringList buddylefthelper;
 private:
-	QString currentselecteduser;
-	int currentselectedchannel;
-	QMap<QString,const QWidget*> selectionwidgetmap;
+    QString currentselecteduser;
+    int currentselectedchannel;
+    QMap<QString,const QWidget*> selectionwidgetmap;
 
-	QStringList stringnamelist;
-	bool *boolean;
+    QStringList stringnamelist;
+    bool *boolean;
 
-	Qt::SortOrder sortorder;
-	int sortsection;
+    Qt::SortOrder sortorder;
+    int sortsection;
 
-	QPixmap channelicon;
-	QPixmap usericon;
-	QPixmap buddyicon;
-	QPixmap ignoreicon;
-	QPixmap offlineicon;
-	QPixmap awayusericon;
-	QPixmap awaybuddyicon;
-	QPixmap awayignoreicon;
+    QPixmap channelicon;
+    QPixmap usericon;
+    QPixmap buddyicon;
+    QPixmap ignoreicon;
+    QPixmap offlineicon;
+    QPixmap awayusericon;
+    QPixmap awaybuddyicon;
+    QPixmap awayignoreicon;
 
-	QStringList currentbuddylist;
+    QStringList currentbuddylist;
 private slots:
-	void buddyarrived();
-	void buddyleft();
+    void buddyarrived();
+    void buddyleft();
 public slots:
-	void sortslot(int, Qt::SortOrder);
-	void usesettingswindow(const QString &s="");
+    void sortslot(int, Qt::SortOrder);
+    void usesettingswindow(const QString &s="");
 signals:
-	void sigselectitem(const QModelIndex&,const QWidget*);
-	void sigbuddyleft();
-	void sigbuddyarrived();
+    void sigselectitem(const QModelIndex&,const QWidget*);
+    void sigbuddyleft();
+    void sigbuddyarrived();
 };
 #endif // USERMODEL_H

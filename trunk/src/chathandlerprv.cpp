@@ -39,7 +39,7 @@ void chathandlerprv::append(const QString &user, const QString &/*receiver*/,
                         insertText("<" + user + " " + msgtemp + ">", actionformat,user);
 		} else {
                         cursor->insertText(user + "> ", nickformat);
-                        if (singleton<settingswindow>().from_map("chbsmileys").toBool() || containsCI(msg, "http://") || containsCI(msg, "wa://")) {
+                        if (singleton<settingswindow>().from_map("chbsmileys").toBool() || containsCI(msg, "http://") || containsCI(msg, "wa://") || containsCI(msg, "www.")) {
                                 insertText(msgtemp, chatformat,user);
 			} else {
 				foreach(QVariant v,emot->preparemsg(msgtemp)) {
@@ -59,7 +59,7 @@ void chathandlerprv::append(const QString &user, const QString &/*receiver*/,
                         insertText("<" + user + " " + msgtemp + ">", buddyformat,user);
 		} else {
                         cursor->insertText(user + "> ", nickformat);
-                        if (singleton<settingswindow>().from_map("chbsmileys").toBool() || containsCI(msg, "http://") || containsCI(msg, "wa://")) {
+                        if (singleton<settingswindow>().from_map("chbsmileys").toBool() || containsCI(msg, "http://") || containsCI(msg, "wa://") || containsCI(msg, "www.")) {
                                 insertText(msgtemp, buddyformat,user);
 			} else {
 				foreach(QVariant v,emot->preparemsg(msgtemp)) {

@@ -615,6 +615,7 @@ void mainwindow::trayactivation(QSystemTrayIcon::ActivationReason reason) {
         } else {
             if (this->isHidden()) {
                 this->show();
+                this->activateWindow();
                 this->raise();
             } else if (this->isVisible())
                 this->close();

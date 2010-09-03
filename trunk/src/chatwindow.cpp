@@ -12,6 +12,7 @@
 #include<QTime>
 #include<QFileDialog>
 #include<QStatusBar>
+#include<QMessageBox>
 #include<QDebug>
 extern QStringList querylist;
 extern QMap<QString, QStringList> usergarbagemap;
@@ -103,29 +104,13 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
 bool chatwindow::eventFilter(QObject *obj, QEvent *event) {
     if (obj == ui.lineEdit) {
         if (event->type() == QEvent::KeyPress) {
-            QKeyEvent *keyEvent = static_cast<QKeyEvent*> (event);
-            Q_ASSERT(keyEvent!=0);
-            if (keyEvent->key() == Qt::Key_Up) {
-                if (linedittextlistcounter > 0) {
-                    if (linedittextlistcounter == linedittextlist.size()
-                        && ui.lineEdit->text() != "") {
-                        linedittextlist << ui.lineEdit->text();
-                    }
-                    ui.lineEdit->setText(
-                            linedittextlist[--linedittextlistcounter]);
-                }
-                return true;
-            } else if (keyEvent->key() == Qt::Key_Down) {
-                if (linedittextlistcounter < linedittextlist.size() - 1)
-                    ui.lineEdit->setText(
-                            linedittextlist[++linedittextlistcounter]);
-                else if (linedittextlistcounter == linedittextlist.size() - 1) {
-                    ui.lineEdit->setText("");
-                    linedittextlistcounter = linedittextlist.size();
-                }
-                return true;
-            }
+            QKeyEvent *keyEvent = static_cast<QKeyEvent*> (event);            
+            if (keyEvent->key() == Qt::Key_Up)
+                qApp->postEvent(ui.lineEdit,new QKeyEvent(QEvent::KeyPress,Qt::Key_Z,Qt::ControlModifier));
+            else if (keyEvent->key() == Qt::Key_Down)
+                qApp->postEvent(ui.lineEdit,new QKeyEvent(QEvent::KeyPress,Qt::Key_Z,Qt::ShiftModifier | Qt::ControlModifier));
         }
+        return false;
     }
     if (qobject_cast<QScrollArea*> (obj) != 0 && qobject_cast<QScrollArea*> (
             obj)->objectName() == "chatwindowbuttonscrollArea") {
@@ -158,7 +143,7 @@ void chatwindow::gotmsg(const QString &user, const QString &receiver,
     if (compareCI(user, chatpartner)) {
         chat->append(user, receiver, msg);
         QApplication::alert(this);emit
-		sigalert(this);
+                sigalert(this);
         if (net->users.usermap[usermodel::tr("Buddylist")].count(
                 userstruct::whoami(user))) {
             singleton<sound_handler>().play_buddymsgsound(user);
@@ -174,8 +159,6 @@ void chatwindow::sendmsg(QString str) {
         s = ui.lineEdit->text();
     else
         s = str;
-    linedittextlist << s;
-    linedittextlistcounter = linedittextlist.size();
     if (s != "") {
         if (s.startsWith(">!")) {
             net->sendrawcommand(QString("PRIVMSG ") + chatpartner + " :\001"

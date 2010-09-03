@@ -39,8 +39,6 @@ private:
     netcoupler *net;
     Ui::chatwindowClass ui;
 
-    QStringList linedittextlist;
-    int linedittextlistcounter;
     QStatusBar *statusbar;
     //bool mouseisinbuttonscrollarea;
     bool userisoffline;

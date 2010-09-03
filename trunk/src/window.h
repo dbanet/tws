@@ -73,9 +73,7 @@ private:
 	uihelper ui;
 	Ui::windowClass ui1;
 	Ui::Form ui2;
-	Ui::Form3 ui3;
-	QStringList linedittextlist;
-	int linedittextlistcounter;
+	Ui::Form3 ui3;	
 
 	QMenu joinmenu;
 	QMenu joinmenu2;
@@ -87,6 +85,7 @@ private:
 	QPointer<hostprvbox> hprvbox;
 
 	void sendnoticeaction();
+        void showInformationAboutClan(QString);
 
 	bool alertonnotice;
 	bool alertonprivmsg;

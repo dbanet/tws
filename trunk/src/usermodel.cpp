@@ -207,7 +207,7 @@ int usermodel::rowCount(const QModelIndex & parent) const {
 
     if (!parent.isValid())
         return classes.count();
-    if (parent.internalId() == 999) {
+    if (parent.internalId() == e_Channel) {
         return usermap[classes[parent.row()]].count();
     }
     return 0;
@@ -217,9 +217,9 @@ QModelIndex usermodel::index(int row, int column, const QModelIndex & parent) co
     if (users.isEmpty())
         return QModelIndex();
     if (!parent.isValid()) {
-        return createIndex(row, column, 999);
+        return createIndex(row, column, e_Channel);
     }
-    if (parent.internalId() == 999) {
+    if (parent.internalId() == e_Channel) {
         return createIndex(row, column, parent.row());
     }
     return QModelIndex();
@@ -228,22 +228,24 @@ QModelIndex usermodel::parent(const QModelIndex & index) const {
 
     if (!index.isValid())
         return QModelIndex();
-    if (index.internalId() == 999)
+    if (index.internalId() == e_Channel)
         return QModelIndex();
-    return createIndex(index.internalId(), 0, 999);
+    return createIndex(index.internalId(), 0, e_Channel);
 }
 QVariant usermodel::data(const QModelIndex & index, int role) const {
 
     if (!index.isValid())
         return QVariant();
+
     if (role == Qt::TextAlignmentRole)
         return int(Qt::AlignLeft | Qt::AlignVCenter);
+
     if (role == Qt::DecorationRole) {
-        if (index.internalId() == 999 && index.column() == 0) {
+        if (index.internalId() == e_Channel && index.column() == e_Nick) {
             return channelicon;
-        } else if (index.column() == 0) {
-            QString nick =
-                    usermap[classes[index.internalId()]][index.row()].nick;
+        } else if (index.column() == e_Nick) {
+            QString nick =usermap[classes[index.internalId()]][index.row()].nick;
+
             if (classes[index.internalId()] == tr("Querys") && !users.contains(
                     userstruct::whoami(nick)))
                 return offlineicon;
@@ -268,86 +270,107 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
         } else
             return QVariant();
     }
-    if (role == Qt::DisplayRole && index.internalId() != 999 && index.column()
-        == 3) {
-        QString
-                s =
-                usermap[classes[index.internalId()]][index.row()].nickfromclient;
-        if (singleton<snpsettings>().map["dissallowedclannames"].value<QStringList> ().contains(s)) {
+
+    if (role == Qt::DisplayRole && index.internalId() != e_Channel && index.column() == e_Clan) {
+        QString s = usermap[classes[index.internalId()]][index.row()].nickfromclient;
+        if (singleton<snpsettings>().map["dissallowedclannames"].value<QStringList> ().contains(s))
             return "";
-        } else {
-            return s;
-        }
+        else
+            return s;        
     }
     if (role == Qt::DisplayRole || role == Qt::BackgroundRole) {
-        if (index.internalId() == 999) {
-            if (index.column() == 0) {
+        if (index.internalId() == e_Channel) {
+            if (index.column() == e_Nick) {
                 return classes[index.row()];
             } else
                 return "";
         } else if (classes[index.internalId()] != tr("Buddylist")) {
             switch (index.column()) {
-            case 0:
-                if (role == Qt::DisplayRole)
-                    return usermap[classes[index.internalId()]][index.row()].nick;
-                break;
-			case 1:
-                if (role == Qt::BackgroundRole) {
-                    return *flaglist[usermap[classes[index.internalId()]][index.row()].flag];
+            case e_Nick:
+                {
+                    if (role == Qt::DisplayRole)
+                        return usermap[classes[index.internalId()]][index.row()].nick;
+                    break;
                 }
-                break;
-			case 2:
-                if (role == Qt::BackgroundRole) {
-                    return *ranklist[usermap[classes[index.internalId()]][index.row()].rank];
+            case e_Flag:
+                {
+                    if (role == Qt::BackgroundRole) {
+                        return *flaglist[usermap[classes[index.internalId()]][index.row()].flag];
+                    }
+                    break;
                 }
-                break;
-			case 3:
-                if (role == Qt::DisplayRole)
-                    return usermap[classes[index.internalId()]][index.row()].nickfromclient;
-                break;
-			case 4:
-                if (role == Qt::DisplayRole)
-                    return usermap[classes[index.internalId()]][index.row()].client;
-                break;
+            case e_Rank:
+                {
+                    if (role == Qt::BackgroundRole) {
+                        return *ranklist[usermap[classes[index.internalId()]][index.row()].rank];
+                    }
+                    break;
+                }
+            case e_Clan:
+                {
+                    if (role == Qt::DisplayRole)
+                        return usermap[classes[index.internalId()]][index.row()].nickfromclient;
+                    break;
+                }
+            case e_Client:
+                {
+                    if (role == Qt::DisplayRole)
+                        return usermap[classes[index.internalId()]][index.row()].client;
+                    break;
+                }
             }
         }//the buddylist may contain offline and online contacts... lets see
         else {
             switch (index.column()) {
-            case 0:
-                if (role == Qt::DisplayRole)
-                    return usermap[classes[index.internalId()]][index.row()].nick;
-                break;
-			case 1:
-                if (role == Qt::BackgroundRole) {
-                    return *flaglist[usermap[classes[index.internalId()]][index.row()].flag];
+            case e_Nick:
+                {
+                    if (role == Qt::DisplayRole)
+                        return usermap[classes[index.internalId()]][index.row()].nick;
+                    break;
                 }
-                break;
-			case 2:
-                if (role == Qt::BackgroundRole) {
-                    return *ranklist[usermap[classes[index.internalId()]][index.row()].rank];
+            case e_Flag:
+                {
+                    if (role == Qt::BackgroundRole) {
+                        return *flaglist[usermap[classes[index.internalId()]][index.row()].flag];
+                    }
+                    break;
                 }
-                break;
-			case 3:
-                if (role == Qt::DisplayRole) {
-                    /*QString
-					 s =
-					 usermap[classes[index.internalId()]][index.row()].nickfromclient;
-					 qDebug() << s;
-                                         if (singleton<snpsettings>().map["dissallowedclannames"].value<QStringList> ().contains(
-					 s)) {
-					 return "";
-					 } else {
-					 return s;
-					 }*/
+            case e_Rank:
+                {
+                    if (role == Qt::BackgroundRole) {
+                        return *ranklist[usermap[classes[index.internalId()]][index.row()].rank];
+                    }
+                    break;
                 }
-                break;
-			case 4:
-                if (role == Qt::DisplayRole)
-                    return usermap[classes[index.internalId()]][index.row()].client;
-                break;
+            case e_Clan:
+                {
+                    break;
+                }
+            case e_Client:
+                {
+                    if (role == Qt::DisplayRole)
+                        return usermap[classes[index.internalId()]][index.row()].client;
+                    break;
+                }
             }
         }
     }
+    if(role==Qt::FontRole && index.column()==e_Client && index.internalId() != e_Channel){
+        QString s=usermap[classes[index.internalId()]][index.row()].client;
+        if(s.startsWith("www.",Qt::CaseInsensitive) || s.startsWith("http://",Qt::CaseInsensitive)){
+            QFont f;
+            f.setUnderline(true);
+            return f;
+        }
+    }
+//    if(role==Qt::ToolTipRole && index.internalId() != e_Channel){
+//        if(index.column()==e_Clan) {
+//            QString s=tr("The clan of this gamer is: ") + "\n" \
+//                         + usermap[classes[index.internalId()]][index.row()].nickfromclient  \
+//                         + "\n"+tr("You can rightclick his clan\n to get further inforations about this clan.");
+//            return s;
+//        }
+//    }
     return QVariant();
 }
 QVariant usermodel::headerData(int section, Qt::Orientation orientation,
@@ -366,9 +389,9 @@ QVariant usermodel::headerData(int section, Qt::Orientation orientation,
 Qt::ItemFlags usermodel::flags(const QModelIndex & index) const {
 
     Qt::ItemFlags f = QAbstractItemModel::flags(index);
-    if (index.internalId() == 999)
+    if (index.internalId() == e_Channel)
         return f ^= Qt::ItemIsSelectable;
-    else if (index.column() == 1 || index.column() == 2) {
+    else if (index.column() == e_Flag || index.column() == e_Rank) {
         return f ^= Qt::ItemIsSelectable;
     } else
         return f;
@@ -415,13 +438,13 @@ void usermodel::sort(int column, Qt::SortOrder order) {
         }
     }
     emit layoutChanged();
-    emit dataChanged(createIndex(0, 0, 999), createIndex(classes.count() - 1, 4, 999));
+    emit dataChanged(createIndex(0, 0, e_Channel), createIndex(classes.count() - 1, 4, e_Channel));
 }
 //*************************sorting end*******************************
 
 QModelIndex usermodel::indexbychannelname(QString s) {
 
-    return createIndex(classes.indexOf(s), 0, 999);
+    return createIndex(classes.indexOf(s), 0, e_Channel);
 }
 void usermodel::buddyarrived() {
     if (buddyarrivedhelper.size() > 3)

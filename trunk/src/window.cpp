@@ -19,6 +19,7 @@
 #include<QMessageBox>
 #include<QDate>
 #include<QScrollBar>
+#include<QDesktopServices>
 #include<QDebug>
 QList<chatwindow*> window::chatwindows;
 QStringList window::chatwindowstringlist;
@@ -67,7 +68,6 @@ window::window(netcoupler *n, QString s, int i) :
     ui.users->setModel(&net->users);
     connect(ui.users->selectionModel(), SIGNAL(selectionChanged ( const QItemSelection&,const QItemSelection&)),this, SLOT(userselectionchanged(const QItemSelection&,const QItemSelection&)));
     ui.users->setEnabled(1);
-    //ui.users->setSelectionMode(QAbstractItemView::NoSelection);
     ui.users->header()->swapSections(0, 1);
     ui.users->header()->swapSections(1, 2);
     ui.users->setColumnWidth(0, 180);
@@ -88,7 +88,6 @@ window::window(netcoupler *n, QString s, int i) :
 
     ui.hosts->setModel(&net->hosts);
     ui.hosts->setEnabled(1);
-    //ui.hosts->setSelectionMode(QAbstractItemView::NoSelection);
     ui.hosts->setSortingEnabled(1);
     ui.hosts->header()->swapSections(1, 3);
     ui.hosts->header()->swapSections(0, 2);
@@ -126,7 +125,6 @@ window::window(netcoupler *n, QString s, int i) :
 
     connect(net, SIGNAL(siggotchanellist(QStringList)),this, SLOT(expandchannels(QStringList)));
     connect(net, SIGNAL(siggotchanellist(QStringList)),this, SLOT(getuserscount(QStringList)));
-    linedittextlistcounter = 0;
     ui.msg->setFocus(Qt::MouseFocusReason);
 
     QVariantList windowstates = singleton<snpsettings>().map[this->currentchannel + ":"
@@ -188,26 +186,12 @@ bool window::eventFilter(QObject *obj, QEvent *event) {
     if (obj == ui.msg) {
         if (event->type() == QEvent::KeyPress) {
             QKeyEvent *keyEvent = static_cast<QKeyEvent*> (event);
-            Q_ASSERT(keyEvent!=0);
-            if (keyEvent->key() == Qt::Key_Up) {
-                if (linedittextlistcounter > 0) {
-                    if (linedittextlistcounter == linedittextlist.size()
-                        && ui.msg->text() != "") {
-                        linedittextlist << ui.msg->text();
-                    }
-                    ui.msg->setText(linedittextlist[--linedittextlistcounter]);
-                }
-                return true;
-            } else if (keyEvent->key() == Qt::Key_Down) {
-                if (linedittextlistcounter < linedittextlist.size() - 1)
-                    ui.msg->setText(linedittextlist[++linedittextlistcounter]);
-                else if (linedittextlistcounter == linedittextlist.size() - 1) {
-                    ui.msg->setText("");
-                    linedittextlistcounter = linedittextlist.size();
-                }
-                return true;
-            }
+            if (keyEvent->key() == Qt::Key_Up)
+                qApp->postEvent(ui.msg,new QKeyEvent(QEvent::KeyPress,Qt::Key_Z,Qt::ControlModifier));
+            else if (keyEvent->key() == Qt::Key_Down)
+                qApp->postEvent(ui.msg,new QKeyEvent(QEvent::KeyPress,Qt::Key_Z,Qt::ShiftModifier | Qt::ControlModifier));
         }
+        return false;
     }
     if (obj == ui.users) {
         if (event->type() == QEvent::KeyPress) {
@@ -295,9 +279,7 @@ void window::gotgarbagequit(const QString &user, const QString &msg) {
     chat->appendquitgarbage(user + "> " + msg);
 }
 void window::sendmsg() {
-    QString s = ui.msg->text();
-    linedittextlist << s;
-    linedittextlistcounter = linedittextlist.size();
+    QString s = ui.msg->text();    
     if (s != "") {
         if (s.startsWith(">!")) {
             net->sendrawcommand(QString("PRIVMSG ") + currentchannel + " :\001"
@@ -345,43 +327,48 @@ void window::closeEvent(QCloseEvent * /*event*/) {
 void window::useritempressed(const QModelIndex &index) {
     if (!index.isValid())
         return;
+    if (QApplication::mouseButtons() == Qt::LeftButton && index.column()==usermodel::e_Client){
+        QString s=net->users.data(index.sibling(index.row(), usermodel::e_Client)).toString();
+        if(s.startsWith("www.",Qt::CaseInsensitive) || s.startsWith("http://",Qt::CaseInsensitive)){
+            s=s.trimmed();
+            QUrl u1;
+            u1.setUrl(s);
+            QDesktopServices::openUrl(u1);
+        }
+        return;
+    }
     if (QApplication::mouseButtons() != Qt::RightButton)
         return;
     QAction *a;
     QMenu menu;
     QString user = net->users.data(index.sibling(index.row(), 0),
                                    Qt::DisplayRole).value<QString> ();
-    if (index.internalId() == 999) {
+    if (index.internalId() == usermodel::e_Channel) {
         if(net->users.data(index.sibling(index.row(), 0)).value<QString> ()==usermodel::tr("Querys")){
             menu.addAction(tr("Remove Querys"));
             a = menu.exec(QCursor::pos());
             if(a)
                 querylist.clear();
         }
-    } else if (index.column() == 3) {
-        QStringList sl = singleton<snpsettings>().map["dissallowedclannames"].value<
-                         QStringList> ();
-        if (sl.contains(
-                net->users.getuserstructbyindex(index).nickfromclient))
+    } else if (index.column() == usermodel::e_Clan) {
+        QStringList sl = singleton<snpsettings>().map["dissallowedclannames"].value<QStringList>();
+//        menu.addAction(tr("Get Information about this clan."));
+//        menu.addSeparator();
+        if (sl.contains(net->users.getuserstructbyindex(index).nickfromclient))
             menu.addAction(tr("Allow this clanname."));
         else
-            menu.addAction(tr("Dissallow this clanname."));
+            menu.addAction(tr("Dissallow this clanname."));        
         a = menu.exec(QCursor::pos());
-        if (a) {
-            if (a->text() == tr("Allow this clanname.")) {
-                sl.removeAll(
-                        net->users.getuserstructbyindex(index).nickfromclient);
-            } else {
-                sl
-                        << net->users.getuserstructbyindex(index).nickfromclient;
-            }
-            singleton<snpsettings>().map["dissallowedclannames"].setValue<QStringList> (
-                    sl);
-            singleton<snpsettings>().safe();
-        }
-    } else if (net->users.classes[index.internalId()] == usermodel::tr(
-            "Querys")) {
-        QAction *a;
+        if (!a) return;
+        if (a->text() == tr("Allow this clanname."))
+            sl.removeAll(net->users.getuserstructbyindex(index).nickfromclient);
+        else if(a->text() == tr("Dissallow this clanname."))
+            sl<< net->users.getuserstructbyindex(index).nickfromclient;
+        else
+            showInformationAboutClan(net->users.getuserstructbyindex(index).nickfromclient);
+        singleton<snpsettings>().map["dissallowedclannames"].setValue<QStringList> (sl);
+        singleton<snpsettings>().safe();
+    } else if (net->users.classes[index.internalId()] == usermodel::tr("Querys")) {
         QMenu menu;
         menu.addAction(tr("Remove this Query."));
         menu.addSeparator();
@@ -398,7 +385,6 @@ void window::useritempressed(const QModelIndex &index) {
     } else if (net->users.classes[index.internalId()] != usermodel::tr(
             "Buddylist") && net->users.classes[index.internalId()]
                != usermodel::tr("Ignorelist")) {
-        QAction *a;
         QMenu menu;
         if (containsCI(singleton<snpsettings>().map["buddylist"].value<QStringList> (),
                        user)) {
@@ -432,8 +418,7 @@ void window::useritempressed(const QModelIndex &index) {
             }
         } else
             return;
-    } else if (net->users.classes[index.internalId()] == usermodel::tr(
-            "Buddylist")) {
+    } else if (net->users.classes[index.internalId()] == usermodel::tr("Buddylist")) {
         QAction *a = costumlistmenu.exec(QCursor::pos());
         if (a) {
             if (a->text() == tr("Remove this user from the list.")) {
@@ -442,9 +427,8 @@ void window::useritempressed(const QModelIndex &index) {
                 getuserinfo(user);
             }
         }
-    } else if (net->users.classes[index.internalId()] == usermodel::tr(
-            "Ignorelist")) {
-        QAction *a = costumlistmenu.exec(QCursor::pos());
+    } else if (net->users.classes[index.internalId()] == usermodel::tr("Ignorelist")) {
+        a = costumlistmenu.exec(QCursor::pos());
         if (a) {
             if (a->text() == tr("Remove this user from the list.")) {
                 net->users.deleteignore(user);
@@ -688,4 +672,8 @@ window::~window() {
                 sigwindowclosed(currentchannel);
     disconnect();
     hiddenchannelwindowshelper.removeAll(this);
+}
+void window::showInformationAboutClan(QString clan){
+    clan=clan.toLower();
+
 }
