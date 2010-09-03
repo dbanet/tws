@@ -8,4 +8,4 @@ copy %QTDIR%\bin\QtGui4.dll "TheWheatSnooper"
 copy %QTDIR%\bin\QtNetwork4.dll "TheWheatSnooper"
 copy %QTDIR%\bin\phonon4.dll "TheWheatSnooper"
 lrelease netcoupler.pro
-copy /Y translations\*.qm "TheWheatSnooper\translations"
+copy /Y translations\* "TheWheatSnooper\translations"
