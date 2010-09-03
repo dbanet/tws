@@ -11,11 +11,11 @@ balloon_handler::balloon_handler()
     tray=new QSystemTrayIcon;
     tray->setToolTip(tr("The Wheat Snooper version ")+about::version);
     tray->setIcon(QIcon(QApplication::applicationDirPath() + QDir::separator()
-                        + "snppictures" + QDir::separator() + "tray.png"));
+                        + "snppictures/tray.png"));
     tray->setObjectName("normalwidget");
     tray->show();
     balloonhelper << QTime::currentTime().toString("hh:mm") + ":"
-            + "The Wheat Snooper version "+about::version+" started!";
+            + tr("The Wheat Snooper version ")+about::version+tr(" started!");
     if(!singleton<settingswindow>().from_map("cbdontshowballoons").toBool())
         tray->showMessage(tr("Notifications."), balloonhelper.join("\n"));
 }
@@ -34,12 +34,12 @@ void balloon_handler::showballoon(){
 }
 void balloon_handler::disconnected(){
     this->balloonhelper << QTime::currentTime().toString("hh:mm") + ":"
-            + "disconnected from Network";
+            + tr("disconnected from Network");
     showballoon();
 }
 void balloon_handler::connected(){
     balloonhelper << QTime::currentTime().toString("hh:mm") + ":"
-            + "connected to Network";
+            + tr("connected to Network");
     showballoon();
 }
 void balloon_handler::buddyleft() {
@@ -67,14 +67,12 @@ void balloon_handler::got_game(const QString playername, const QString gamename)
     if (gamename.size() > 5) {
         balloonhelper
                 << QTime::currentTime().toString("hh:mm") + ":"
-                + playername + " " + tr(
-                        "is Hosting: ") + gamename.left(5)
+                + playername + " " + tr("is Hosting: ") + gamename.left(5)
                 + "...";
     } else
         balloonhelper
                 << QTime::currentTime().toString("hh:mm") + ":"
-                + playername + " " + tr(
-                        "is Hosting: ") + gamename.left(5);
+                + playername + " " + tr("is Hosting: ") + gamename.left(5);
     showballoon();
 }
 void balloon_handler::got_costum_word(const QString word, const QString user){
