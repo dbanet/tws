@@ -36,7 +36,6 @@ HEADERS += src/about.h \
     src/hostprvbox.h \
     src/hoststruct.h \
     src/inihandlerclass.h \
-    src/initextbrowser.h \
     src/ircnet.h \
     src/joinprvgame.h \
     src/logbrowser.h \
@@ -72,7 +71,6 @@ FORMS += src/about.ui \
     src/filehistorylister.ui \
     src/hostbox.ui \
     src/hostprvbox.ui \
-    src/initextbrowser.ui \
     src/joinprvgame.ui \
     src/logbrowser.ui \
     src/maintoolbox.ui \
@@ -103,7 +101,6 @@ SOURCES +=  src/about.cpp \
     src/hostprvbox.cpp \
     src/hoststruct.cpp \
     src/inihandlerclass.cpp \
-    src/initextbrowser.cpp \
     src/ircnet.cpp \
     src/joinprvgame.cpp \
     src/logbrowser.cpp \

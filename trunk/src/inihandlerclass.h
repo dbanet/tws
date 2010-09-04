@@ -13,7 +13,6 @@
 class inihandlerclass {
 public:
 	inihandlerclass();
-	inihandlerclass(const QString &);
 	virtual ~inihandlerclass();
 	void tcpwrite(const QString&,QTcpSocket&);
 	QStringList stringlistfromini(const QString&);

@@ -44,7 +44,7 @@ extern QStringList querylist;
 QList< ::window *> mainwindow::windowlist;
 QList< ::chatwindow*> mainwindow::hiddenchatwindowshelper;
 mainwindow::mainwindow(QWidget *parent) :
-        QWidget(parent), editor(new initextbrowser) {
+        QWidget(parent){
     net = NULL;
     whichuitype = 1;
     ui.setupUi(this);    
@@ -53,19 +53,12 @@ mainwindow::mainwindow(QWidget *parent) :
 
     init_menus();
 
-    connect(singleton<balloon_handler>().tray, SIGNAL(activated ( QSystemTrayIcon::ActivationReason)),this, SLOT(trayactivation(QSystemTrayIcon::ActivationReason)));    
-    QDir dir(QApplication::applicationDirPath() + QDir::separator() + "snpini");
-    QStringList sl = dir.entryList(QStringList() << "*.net", QDir::Files);
-    ui.cbini->addItems(sl);
-    if (ui.cbini->findText(singleton<snpsettings>().map["netinifile"].toString()) != -1)
-        ui.cbini->setCurrentIndex(ui.cbini->findText(
-                singleton<snpsettings>().map["netinifile"].toString()));
+    connect(singleton<balloon_handler>().tray, SIGNAL(activated ( QSystemTrayIcon::ActivationReason)),this, SLOT(trayactivation(QSystemTrayIcon::ActivationReason)));        
     for (int i = 0; i < flaglist.size(); ++i)
         ui.flag->addItem(*(flaglist[i]), QString::number(i));
     for (int i = 0; i < ranklist.size(); ++i)
         ui.rank->addItem(*(ranklist[i]), QString::number(i));
     snpsetcontains("chbminimized");
-    snpsetcontains("inifilename");
     snpsetcontains("nickname");
     snpsetcontains("password");
     snpsetcontains("whichuitype");
@@ -83,7 +76,6 @@ mainwindow::mainwindow(QWidget *parent) :
     joinonstartup = 0;
     connect(ui.tabWidget, SIGNAL(currentChanged (int) ),this, SLOT(returntotabsettings(int)));
     connect(ui.start, SIGNAL(clicked()),this, SLOT(chooseclicked()));
-    connect(ui.pbeditor, SIGNAL(clicked()),this, SLOT(pbeditorclicked()));
     connect(ui.pbrememberjoin, SIGNAL(clicked()),this, SLOT(pbrememberjoinclicked()));
     connect(QApplication::instance(), SIGNAL(aboutToQuit()),this, SLOT(onquit()));
     connect(ui.tabWidget, SIGNAL(currentChanged ( int )),this, SLOT(returntotabsettings(int)));
@@ -102,21 +94,6 @@ mainwindow::mainwindow(QWidget *parent) :
     singleton<snpsettings>().map["isarrangedbyonetab"] = false;
     singleton<snpsettings>().map["isarrangedbytwotabs"] = false;
 
-    QFont f;
-    f.setWeight(QFont::Bold);
-    ui.labeltraydescription1->setFont(f);
-    ui.labeltraydescription1->insertPlainText(
-            tr(
-                    "<To hide or show this window,"
-                    "you can leftclick the tray icon. "
-                    "A right click to the tray opens a set of menues. "
-                    "Use this menues to join channels, to change the skin "
-                    "or to change the layout of the Wormnet channels. "
-                    "Changing the layout will not be applied to existing channelwindows. "
-                    "Under stuff you can find some handy settings for sound, alerts and others.>\n\n"));
-    f.setWeight(QFont::Normal);
-    ui.labeltraydescription->setFont(f);
-    ui.labeltraydescription->insertPlainText(QString("\n\n") + debugmsg);
     debugmsg.clear();
 
     connect(&singleton<ctcphandler>(), SIGNAL(sigctcpcommand(const QString&,const QString&)),this, SLOT(gotctcpsignal(const QString&,const QString&)));
@@ -133,29 +110,20 @@ void mainwindow::chooseclicked() {
 
     singleton<snpsettings>().map["nickname"] = ui.lenick->text();
     singleton<snpsettings>().map["password"] = ui.lepassword->text();
-    singleton<snpsettings>().map["inifilename"] = ui.cbini->currentText();
     singleton<snpsettings>().map["flag"] = ui.flag->currentText();
     singleton<snpsettings>().map["rank"] = ui.rank->currentText();
     singleton<snpsettings>().map["client"] = ui.client->text();    
-    singleton<snpsettings>().safe();
-    if (editor->isHidden()) {
-        ui.tabWidget->setCurrentIndex(1);
-        inihandler = inihandlerclass(ui.cbini->currentText());
-        net = new netcoupler(ui.lenick->text(), this);    
-        connect(net, SIGNAL(siggotchanellist(const QStringList &)),this, SLOT(getchannellist(const QStringList &)));
-        connect(net, SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));
-        connect(net, SIGNAL(siggotprivmsg(const QString&,const QString&,const QString&)),this,
-                SLOT(gotprvmsg(const QString&,const QString&,const QString&)));
-        connect(ui.pbjoin, SIGNAL(clicked()),this, SLOT(joinclicked()));
-        connect(net,SIGNAL(sigconnected()),this,SLOT(connected()));
-        connect(net,SIGNAL(sigdisconnected()),this,SLOT(disconnected()));
-        connect(net,SIGNAL(sigdisconnect()),this,SLOT(disconnect_netcoupler()));
-    } else
-        QMessageBox::warning(
-                this,
-                tr("warning"),
-                tr("you are still editing the ini file. please close it bevor joining wormnet."),
-                QMessageBox::Ok);
+    singleton<snpsettings>().safe();   
+    ui.tabWidget->setCurrentIndex(1);
+    net = new netcoupler(ui.lenick->text(), this);
+    connect(net, SIGNAL(siggotchanellist(const QStringList &)),this, SLOT(getchannellist(const QStringList &)));
+    connect(net, SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));
+    connect(net, SIGNAL(siggotprivmsg(const QString&,const QString&,const QString&)),this,
+            SLOT(gotprvmsg(const QString&,const QString&,const QString&)));
+    connect(ui.pbjoin, SIGNAL(clicked()),this, SLOT(joinclicked()));
+    connect(net,SIGNAL(sigconnected()),this,SLOT(connected()));
+    connect(net,SIGNAL(sigdisconnected()),this,SLOT(disconnected()));
+    connect(net,SIGNAL(sigdisconnect()),this,SLOT(disconnect_netcoupler()));
 }
 void mainwindow::getchannellist(const QStringList &sl) {
     ui.cbchannels->clear();
@@ -209,13 +177,11 @@ void mainwindow::joinslot(const QString &s) {
     }
 }
 void mainwindow::onquit() {
-    singleton<snpsettings>().map["inifilename"] = ui.cbini->currentText();
     singleton<snpsettings>().map["chbremember"] = ui.cbremember->isChecked();
     singleton<snpsettings>().map["nickname"] = ui.lenick->text();
     singleton<snpsettings>().map["chbminimized"] = ui.chbminimized->isChecked();
     singleton<snpsettings>().map["chbautojoin"] = ui.chbautojoin->isChecked();
     singleton<snpsettings>().map["whichuitype"] = whichuitype;
-    singleton<snpsettings>().map["netinifile"] = ui.cbini->currentText();
     if (fontorcolorchanged == 1) {
         singleton<snpsettings>().map["charformatfile"] = "lastedited.textscheme";
         singleton<charformatsettings>().safe();
@@ -300,12 +266,7 @@ void mainwindow::snpsetcontains(const QString &s) {
         }
 
     } else if (s == "chbminimized")
-        ui.chbminimized->setChecked(singleton<snpsettings>().map["chbminimized"].value<bool> ());
-
-    else if (s == "inifilename" && singleton<snpsettings>().map.contains(s)
-        && singleton<snpsettings>().map["chbiniischecked"].value<bool> ())
-        ui.cbini->setCurrentIndex(ui.cbini->findText(
-                singleton<snpsettings>().map["inifilename"].value<QString> ()));
+        ui.chbminimized->setChecked(singleton<snpsettings>().map["chbminimized"].value<bool> ());   
     else if (s == "nickname" && singleton<snpsettings>().map.contains(s))
         ui.lenick->setText(singleton<snpsettings>().map["nickname"].value<QString> ());
     else if (s == "password" && singleton<snpsettings>().map.contains("password"))
@@ -333,10 +294,6 @@ void mainwindow::snpsetcontains(const QString &s) {
     }
     else if (s == "whichuitype" && singleton<snpsettings>().map.contains(s))
         whichuitype = singleton<snpsettings>().map["whichuitype"].value<int> ();
-}
-void mainwindow::pbeditorclicked() {
-    editor->show();
-    editor->start(ui.cbini->currentText());
 }
 void mainwindow::windowremoved(const QString &s) {
     this->currentchannellist.removeAll(s);

@@ -10,11 +10,8 @@
 #include<QApplication>
 #include<QDir>
 #include<QDebug>
-inihandlerclass::inihandlerclass(){
-
-}
-inihandlerclass::inihandlerclass(const QString &s) {
-	file=s;
+inihandlerclass::inihandlerclass() {
+        file="wormnet.net";
 
 	// TODO Auto-generated constructor stub
 }

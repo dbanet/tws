@@ -314,7 +314,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
             case e_Client:
                 {
                     if (role == Qt::DisplayRole)
-                        return usermap[classes[index.internalId()]][index.row()].client;
+                        return usermap[classes[index.internalId()]][index.row()].client.trimmed();
                     break;
                 }
             }

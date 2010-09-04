@@ -287,28 +287,44 @@ Spiele erstellen kannst du indem du einen Kanal in der Spieleanzeige doppelklick
     <name>balloon_handler</name>
     <message>
         <location filename="../src/balloon_handler.cpp" line="12"/>
+        <location filename="../src/balloon_handler.cpp" line="17"/>
         <source>The Wheat Snooper version </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/balloon_handler.cpp" line="20"/>
-        <location filename="../src/balloon_handler.cpp" line="28"/>
+        <location filename="../src/balloon_handler.cpp" line="17"/>
+        <source> started!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/balloon_handler.cpp" line="19"/>
+        <location filename="../src/balloon_handler.cpp" line="27"/>
         <source>Notifications.</source>
         <translation>Meldungen</translation>
     </message>
     <message>
-        <location filename="../src/balloon_handler.cpp" line="63"/>
+        <location filename="../src/balloon_handler.cpp" line="34"/>
+        <source>disconnected from Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/balloon_handler.cpp" line="38"/>
+        <source>connected to Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/balloon_handler.cpp" line="58"/>
         <source> said: </source>
         <translation>sagte:</translation>
     </message>
     <message>
-        <location filename="../src/balloon_handler.cpp" line="70"/>
-        <location filename="../src/balloon_handler.cpp" line="76"/>
+        <location filename="../src/balloon_handler.cpp" line="65"/>
+        <location filename="../src/balloon_handler.cpp" line="68"/>
         <source>is Hosting: </source>
         <translation>started ein Spiel:</translation>
     </message>
     <message>
-        <location filename="../src/balloon_handler.cpp" line="85"/>
+        <location filename="../src/balloon_handler.cpp" line="75"/>
         <source>was highlighted by </source>
         <translation>Wurde hervorgehoben von </translation>
     </message>
@@ -2126,14 +2142,14 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
     </message>
     <message>
         <location filename="../src/window.cpp" line="104"/>
-        <location filename="../src/window.cpp" line="508"/>
+        <location filename="../src/window.cpp" line="506"/>
         <source>Host a private game</source>
         <translation>Starte ein privates Spiel</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="520"/>
-        <location filename="../src/window.cpp" line="541"/>
-        <location filename="../src/window.cpp" line="613"/>
+        <location filename="../src/window.cpp" line="518"/>
+        <location filename="../src/window.cpp" line="539"/>
+        <location filename="../src/window.cpp" line="611"/>
         <source>Choose a Program to join this game.</source>
         <translation>Wähle ein Program um diesem Spiel beizutreten.</translation>
     </message>
@@ -2208,17 +2224,17 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
         <translation>Entferne diesen Tilnehmer von der Ignorierten Liste.</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="524"/>
+        <location filename="../src/window.cpp" line="522"/>
         <source>Choose a desktop icon.</source>
         <translation>Wähle ein Desktop Icon</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="528"/>
+        <location filename="../src/window.cpp" line="526"/>
         <source>Choose a Program.</source>
         <translation>Wähle ein Program.</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="531"/>
+        <location filename="../src/window.cpp" line="529"/>
         <source>Choose a Desktopicon.</source>
         <translation>Wähle einen Desktop Icon.</translation>
     </message>
@@ -2228,7 +2244,7 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
         <translation>Beitreten</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="637"/>
+        <location filename="../src/window.cpp" line="635"/>
         <source>Users online</source>
         <translation> Benutzer online </translation>
     </message>

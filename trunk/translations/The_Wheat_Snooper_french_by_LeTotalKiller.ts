@@ -285,28 +285,44 @@ Forum du traducteur : &lt;a href=&quot;http://wormsuniver.forumactif.net/&quot;&
     <name>balloon_handler</name>
     <message>
         <location filename="../src/balloon_handler.cpp" line="12"/>
+        <location filename="../src/balloon_handler.cpp" line="17"/>
         <source>The Wheat Snooper version </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/balloon_handler.cpp" line="20"/>
-        <location filename="../src/balloon_handler.cpp" line="28"/>
+        <location filename="../src/balloon_handler.cpp" line="17"/>
+        <source> started!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/balloon_handler.cpp" line="19"/>
+        <location filename="../src/balloon_handler.cpp" line="27"/>
         <source>Notifications.</source>
         <translation>Notifications.</translation>
     </message>
     <message>
-        <location filename="../src/balloon_handler.cpp" line="63"/>
+        <location filename="../src/balloon_handler.cpp" line="34"/>
+        <source>disconnected from Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/balloon_handler.cpp" line="38"/>
+        <source>connected to Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/balloon_handler.cpp" line="58"/>
         <source> said: </source>
         <translation> a dit : </translation>
     </message>
     <message>
-        <location filename="../src/balloon_handler.cpp" line="70"/>
-        <location filename="../src/balloon_handler.cpp" line="76"/>
+        <location filename="../src/balloon_handler.cpp" line="65"/>
+        <location filename="../src/balloon_handler.cpp" line="68"/>
         <source>is Hosting: </source>
         <translation> héberge : </translation>
     </message>
     <message>
-        <location filename="../src/balloon_handler.cpp" line="85"/>
+        <location filename="../src/balloon_handler.cpp" line="75"/>
         <source>was highlighted by </source>
         <translation>a été dit par </translation>
     </message>
@@ -2100,14 +2116,14 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="104"/>
-        <location filename="../src/window.cpp" line="508"/>
+        <location filename="../src/window.cpp" line="506"/>
         <source>Host a private game</source>
         <translation>Héberger une partie privée</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="520"/>
-        <location filename="../src/window.cpp" line="541"/>
-        <location filename="../src/window.cpp" line="613"/>
+        <location filename="../src/window.cpp" line="518"/>
+        <location filename="../src/window.cpp" line="539"/>
+        <location filename="../src/window.cpp" line="611"/>
         <source>Choose a Program to join this game.</source>
         <translation>Choisir un programme pour rejoindre cette partie.</translation>
     </message>
@@ -2174,22 +2190,22 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
         <translation>Retirer cet utilisateur de la liste d&apos;ignorés.</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="524"/>
+        <location filename="../src/window.cpp" line="522"/>
         <source>Choose a desktop icon.</source>
         <translation>Choisir une icône de raccourci bureau.</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="528"/>
+        <location filename="../src/window.cpp" line="526"/>
         <source>Choose a Program.</source>
         <translation>Choisir une application.</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="531"/>
+        <location filename="../src/window.cpp" line="529"/>
         <source>Choose a Desktopicon.</source>
         <translation>Choisir l&apos;icône de raccourci bureau.</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="637"/>
+        <location filename="../src/window.cpp" line="635"/>
         <source>Users online</source>
         <translation>utilisateurs connectés</translation>
     </message>

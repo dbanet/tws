@@ -5,7 +5,6 @@
 #include "ui_mainwindow.h"
 #include<QList>
 #include <QSystemTrayIcon>
-#include"initextbrowser.h"
 #include"maintoolbox.h"
 class window;
 class netcoupler;
@@ -39,7 +38,6 @@ private:
     QMenu *textschememenu;
     QMenu *languagemenu;
     QMenu *arrangementmenu;
-    initextbrowser *editor;
 
     int whichuitype;
     bool joinonstartup;
@@ -64,7 +62,6 @@ private slots:
     void pbrememberjoinclicked();
 
     void snpsetcontains(const QString&);
-    void pbeditorclicked();
 
     void windowremoved(const QString&);
     void usesettingswindow(const QString &s="");
