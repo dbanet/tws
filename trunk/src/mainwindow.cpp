@@ -48,6 +48,7 @@ mainwindow::mainwindow(QWidget *parent) :
     net = NULL;
     whichuitype = 1;
     ui.setupUi(this);    
+    ui.pbrememberjoin->setText(tr("Autostart:"));
     ui.pbabout->setText(tr("About"));
     ui.tabWidget->setTabEnabled(1, 0);
 
@@ -237,7 +238,7 @@ void mainwindow::changeEvent(QEvent * event) {
 }
 void mainwindow::pbrememberjoinclicked() {
     singleton<snpsettings>().map["joinonstartup"] = ui.cbchannels->currentText();
-    ui.pbrememberjoin->setText(ui.pbrememberjoin->text().split("\n").first()
+    ui.pbrememberjoin->setText(tr("Autostart:")
                                + "\n" + singleton<snpsettings>().map["joinonstartup"].value<QString> ());
     singleton<snpsettings>().safe();
 }
