@@ -174,8 +174,7 @@ QCheckBox::indicator:checked {
 QCheckBox::indicator:checked:hover { 
 	image: url(qss/opencoffee/checkBox_checked_hover.png);
 } 
-QMenu { 
-	background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 white, stop: 1 rgb(72,56,112));
+QMenu { 	
 	padding: 2px 2px 2px 2px;
 	border-color: #646464; 
 	border-style: solid; 
@@ -186,7 +185,6 @@ QMenu::item {
 	background-color: transparent;
 } 
 QMenu::item:selected { 
-	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(62,56,102), stop: 1 rgb(142,136,212)); 
 	border-color: white; 
 	border-style: solid; 
 	border-radius: 3px; 

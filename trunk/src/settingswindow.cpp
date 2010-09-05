@@ -17,15 +17,7 @@ settingswindow::settingswindow(){
     ui.tabWidget->setObjectName("bgchatwindowwidget");
     ui.tab->setObjectName("bgchatwindowwidget");
     ui.tab_2->setObjectName("bgchatwindowwidget");
-    ui.tab_3->setObjectName("bgchatwindowwidget");
-    ui.lebuddychatmessage->setText(QApplication::applicationDirPath()
-                                   + "/wav/buddymessage.wav");
-    ui.lebuddychatwindowsopened->setText(QApplication::applicationDirPath()
-                                         + "/wav/buddychatwindowopened.wav");
-    ui.lenormalchatmessage->setText(QApplication::applicationDirPath()
-                                    + "/wav/normalprivmsg.wav");
-    ui.lecostumword->setText(QApplication::applicationDirPath()
-                             + "/wav/costumword.mp3");
+    ui.tab_3->setObjectName("bgchatwindowwidget");   
     combobox_wrapper *cw=new combobox_wrapper(this);
     cw->setObjectName("combobox_wrapper");
     ui.costum_combobox_layout->addWidget(cw);
@@ -179,7 +171,7 @@ void settingswindow::loadDefaults(){
     map["lebuddyleaves"].setValue<QString>("wav/buddyleaves.wav.mp3");
     map["lebuddychatmessage"].setValue<QString>("wav/buddymessage.wav.mp3");
     map["lebuddychatwindowsopened"].setValue<QString>("wav/buddychatwindowopened.wav.mp3");
-    map["lebuddychatwindowsopened"].setValue<QString>("wav/normalprivmsg.wav.mp3");
+    map["lenormalchatmessage"].setValue<QString>("wav/normalprivmsg.wav.mp3");
     map["lehighlightning"].setValue<QString>("wav/highlightningsound.mp3");
     map["lecostumword"].setValue<QString>("wav/costumword.mp3");
     map["lehostsound"].setValue<QString>("wav/buddyhosts.wav.mp3");

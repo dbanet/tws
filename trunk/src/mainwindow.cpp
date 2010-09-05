@@ -41,6 +41,7 @@ QString mainwindow::debugmsg;
 QMap<QString, QString> mainwindow::rememberwhogotaway;
 bool fontorcolorchanged = 0;
 extern QStringList querylist;
+extern QStringList defaultServerList;
 QList< ::window *> mainwindow::windowlist;
 QList< ::chatwindow*> mainwindow::hiddenchatwindowshelper;
 mainwindow::mainwindow(QWidget *parent) :
@@ -68,6 +69,7 @@ mainwindow::mainwindow(QWidget *parent) :
     snpsetcontains("rank");
     snpsetcontains("client");
     snpsetcontains("clan");
+    snpsetcontains("wormnetserverlist");
 
     ui.cbremember->setChecked(singleton<snpsettings>().map["chbremember"].value<bool> ());
     if (ui.cbremember->isChecked() && ui.lenick->text() != "") {
@@ -120,7 +122,14 @@ void mainwindow::chooseclicked() {
     singleton<snpsettings>().map["password"] = ui.lepassword->text();
     singleton<snpsettings>().map["flag"] = ui.flag->currentText();
     singleton<snpsettings>().map["rank"] = ui.rank->currentText();
-    singleton<snpsettings>().map["client"] = ui.client->text();    
+    singleton<snpsettings>().map["client"] = ui.client->text();
+    QStringList sl;
+    for(int i=0 ; i<ui.cbServerList->count() ; i++)
+        sl<<ui.cbServerList->itemText(i);
+    if(ui.cbServerList->currentIndex()!=-1)
+        sl.swap(ui.cbServerList->currentIndex(),0);
+    singleton<snpsettings>().map["wormnetserverlist"] = sl;
+
     singleton<snpsettings>().safe();   
     ui.tabWidget->setCurrentIndex(1);
     net = new netcoupler(ui.lenick->text(), this);
@@ -190,6 +199,12 @@ void mainwindow::onquit() {
     singleton<snpsettings>().map["chbminimized"] = ui.chbminimized->isChecked();
     singleton<snpsettings>().map["chbautojoin"] = ui.chbautojoin->isChecked();
     singleton<snpsettings>().map["whichuitype"] = whichuitype;
+    QStringList sl;
+    for(int i=0 ; i<ui.cbServerList->count() ; i++)
+        sl<<ui.cbServerList->itemText(i);
+    if(ui.cbServerList->currentIndex()!=-1)
+        sl.swap(ui.cbServerList->currentIndex(),0);
+    singleton<snpsettings>().map["wormnetserverlist"] = sl;
     if (fontorcolorchanged == 1) {
         singleton<snpsettings>().map["charformatfile"] = "lastedited.textscheme";
         singleton<charformatsettings>().safe();
@@ -302,6 +317,12 @@ void mainwindow::snpsetcontains(const QString &s) {
     }
     else if (s == "whichuitype" && singleton<snpsettings>().map.contains(s))
         whichuitype = singleton<snpsettings>().map["whichuitype"].value<int> ();
+    else if (s == "wormnetserverlist"){
+        if(singleton<snpsettings>().map["wormnetserverlist"].value<QStringList>().isEmpty()){
+            ui.cbServerList->addItems(defaultServerList);
+        } else
+            ui.cbServerList->addItems(singleton<snpsettings>().map["wormnetserverlist"].value<QStringList> ());
+    }
 }
 void mainwindow::windowremoved(const QString &s) {
     this->currentchannellist.removeAll(s);
@@ -469,11 +490,9 @@ void mainwindow::gotprvmsg(const QString &user, const QString &receiver,
 }
 void mainwindow::connected(){
     ui.connectlabel->setText(tr("Connected"));
-    qDebug()<<"connected";
 }
 void mainwindow::disconnected(){
     ui.connectlabel->setText(tr("Disconnected"));
-    qDebug()<<"disconnected";
 }
 //************************************************************************************************************************
 //************************************************************************************************************************

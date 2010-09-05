@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>317</width>
-    <height>411</height>
+    <height>437</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -87,7 +87,7 @@
         <widget class="QLabel" name="connectlabel">
          <property name="minimumSize">
           <size>
-           <width>90</width>
+           <width>100</width>
            <height>0</height>
           </size>
          </property>
@@ -165,7 +165,7 @@
                   <property name="horizontalSpacing">
                    <number>0</number>
                   </property>
-                  <item row="0" column="0">
+                  <item row="1" column="0">
                    <widget class="QLabel" name="label_3">
                     <property name="minimumSize">
                      <size>
@@ -178,10 +178,27 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="1">
+                  <item row="1" column="1">
                    <widget class="QLineEdit" name="lenick">
                     <property name="text">
                      <string/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_5">
+                    <property name="text">
+                     <string>Server</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QComboBox" name="cbServerList">
+                    <property name="toolTip">
+                     <string>To apply a server to this list press enter.</string>
+                    </property>
+                    <property name="editable">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>
@@ -321,14 +338,6 @@
                  </widget>
                 </item>
                </layout>
-               <zorder>label_2</zorder>
-               <zorder>client</zorder>
-               <zorder>line</zorder>
-               <zorder>lepassword</zorder>
-               <zorder>label_4</zorder>
-               <zorder>line_2</zorder>
-               <zorder>label</zorder>
-               <zorder>clan</zorder>
               </widget>
              </item>
              <item>

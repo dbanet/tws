@@ -27,15 +27,15 @@ public:
     QMap<QString,QStringList> joinlist;
     QString nick;
 public slots:
-	void start();
-	void connected();
-	void disconnected();
-	void tcpread();
+    void start();
+    void connected();
+    void disconnected();
+    void tcpread();
 signals: //public signals:
     void sigmsg(const QString&,const QString&,const QString&);
     void signotice(const QString&,const QString&,const QString&);
     void siggetlist(QStringList);
-		//private signals:
+    //private signals:
     void sigconnected();
     void sigdisconnected();
     void sigusergarbage(const QString&,const QString&);
@@ -46,24 +46,25 @@ signals: //public signals:
     void signosuchnick(const QString&);
 
 private:
-	bool justgetlist;
+    bool justgetlist;
 
-	QList<userstruct> templist;
+    QList<userstruct> templist;
 
-	QStringList channellist;
-	QStringList tempchannellist;
-	QString ircreadstring;
-	QString wnip;
-	QString servernick;
-	QString servermessageindicator;
-	QTcpSocket *tcp;
-	QTimer reconnecttimer;
-	void readservermassege(QString);
-	void readusermessage(QString &);
-	void gotusergarbage(QString&,QString&);
+    QStringList channellist;
+    QStringList tempchannellist;
+    QString ircreadstring;
+    QString wnip;
+    QString servermessageindicator;
+    QTcpSocket *tcp;
+    QTimer reconnecttimer;
+    void readservermassege(QString);
+    void readusermessage(QString &);
+    void gotusergarbage(QString&,QString&);
 
-	QMap<QString,int> mapusercommand;
-	bool whoreceivedcompletely;
+    QMap<QString,int> mapusercommand;
+    bool whoreceivedcompletely;
+private slots:
+    void tcpError(QAbstractSocket::SocketError);
 };
 
 #endif // IRCNET_H

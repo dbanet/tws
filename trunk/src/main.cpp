@@ -23,6 +23,7 @@ QPixmap *unlocked;
 QStringList querylist;
 QMap<QString, QStringList> usergarbagemap;
 static mainwindow *w = 0;
+QStringList defaultServerList(QStringList()<<"http://wormnet1.team17.com"<<"http://itakagames.spb.ru"<<"http://212.240.191.125"<<"http://worms.tom.ru");
 
 void search_for_game_executables();
 void handle_prosnooper_buddys();
@@ -98,7 +99,7 @@ int main(int argc, char *argv[]) {
         w->show();        
     }
     singleton<sound_handler>().init();
-    singleton<sound_handler>().play_startupsound();    
+    singleton<sound_handler>().play_startupsound();        
     return a.exec();
 }
 void myMessageOutput(QtMsgType type, const char *msg) {

@@ -11,6 +11,7 @@
 #include<QApplication>
 #include<QMessageBox>
 #include<QFileDialog>
+extern QStringList defaultServerList;
 snpsettings::snpsettings(){}
 snpsettings::~snpsettings(){}
 void snpsettings::load(){
@@ -73,5 +74,6 @@ void snpsettings::loadDefaults(){
     singleton<snpsettings>().map["dissallowedclannames"].setValue<QStringList>(QStringList()<<"Username");
     singleton<snpsettings>().map["language file"].setValue<QString> ("The_Wheat_Snooper_untranslated");
     singleton<snpsettings>().map["charformatfile"].setValue<QString>("comic by lookias.textscheme");
-    singleton<snpsettings>().map["chbsendhostinfotochan"].setValue<bool>(true);
+    singleton<snpsettings>().map["chbsendhostinfotochan"].setValue<bool>(true);  
+    singleton<snpsettings>().map["wormnetserverlist"].setValue<QStringList>(defaultServerList);
 }

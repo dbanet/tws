@@ -4,9 +4,6 @@
 //lines which begin with  // will be ignored by the program, they are written only for you, lines wich begins with [ should 
 //not be touched. if a line starts with //img://foobar.png the program will search foobar.png (in snppictures path) and display it.
 
-[http wormnet server]
-//the wormnet http-server
-http://wormnet1.team17.com
 
 [http login header]
 //the http header used when logging in to wormnet http server, i think it will never be necessary to change it
@@ -45,6 +42,6 @@ snopper
 
 [irc ip]
 //ip address of the irc-server from wormnet, if this stays empty the snooper will ask the http server for the irc ip
-212.240.191.125
+//212.240.191.125
 
 []
