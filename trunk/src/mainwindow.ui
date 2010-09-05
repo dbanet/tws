@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>317</width>
-    <height>432</height>
+    <height>411</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -134,7 +134,7 @@
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
-           <string>Settings</string>
+           <string>Login</string>
           </attribute>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
@@ -244,6 +244,39 @@
                 <property name="spacing">
                  <number>0</number>
                 </property>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_2">
+                  <property name="minimumSize">
+                   <size>
+                    <width>80</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Information</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QLineEdit" name="client">
+                  <property name="text">
+                   <string>The Wheat Snooper</string>
+                  </property>
+                  <property name="maxLength">
+                   <number>41</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0" colspan="2">
+                 <widget class="Line" name="line">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="lepassword"/>
+                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_4">
                   <property name="minimumSize">
@@ -256,9 +289,6 @@
                    <string>Password</string>
                   </property>
                  </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QLineEdit" name="lepassword"/>
                 </item>
                 <item row="1" column="0" colspan="2">
                  <widget class="Line" name="line_2">
@@ -290,47 +320,15 @@
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0" colspan="2">
-                 <widget class="Line" name="line">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="label_2">
-                  <property name="minimumSize">
-                   <size>
-                    <width>80</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>Information</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="QLineEdit" name="client">
-                  <property name="text">
-                   <string>The Wheat Snooper</string>
-                  </property>
-                  <property name="maxLength">
-                   <number>41</number>
-                  </property>
-                 </widget>
-                </item>
                </layout>
-               <zorder>label</zorder>
-               <zorder>clan</zorder>
                <zorder>label_2</zorder>
                <zorder>client</zorder>
                <zorder>line</zorder>
                <zorder>lepassword</zorder>
                <zorder>label_4</zorder>
                <zorder>line_2</zorder>
-               <zorder></zorder>
-               <zorder></zorder>
+               <zorder>label</zorder>
+               <zorder>clan</zorder>
               </widget>
              </item>
              <item>
@@ -343,12 +341,11 @@
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
-                   <height>60</height>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="text">
-                  <string>Remember these settings and 
-dont show this field on next start.</string>
+                  <string>Autologin </string>
                  </property>
                 </widget>
                </item>
@@ -356,7 +353,7 @@ dont show this field on next start.</string>
                 <widget class="QPushButton" name="start">
                  <property name="maximumSize">
                   <size>
-                   <width>90</width>
+                   <width>100</width>
                    <height>16777215</height>
                   </size>
                  </property>

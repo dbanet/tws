@@ -33,7 +33,8 @@ void myMessageOutput(QtMsgType, const char *);
 
 int main(int argc, char *argv[]) {    
     qInstallMsgHandler(myMessageOutput);
-    QApplication a(argc, argv);
+    QApplication a(argc, argv);    
+
     a.setApplicationName("The Wheat Snooper");    
 #if defined QT_WS_X11
     chdir(qPrintable(QApplication::applicationDirPath()));
@@ -90,7 +91,7 @@ int main(int argc, char *argv[]) {
     handle_wini_ini();
 #endif
     singleton<snpsettings>();
-    w = new mainwindow();                
+    w = new mainwindow;
     volume->setvalue(singleton<snpsettings>().map["volumeslidervalue"].value<int> ());
     if (!singleton<snpsettings>().map["chbminimized"].value<bool> ()){
         w->move(0,0);

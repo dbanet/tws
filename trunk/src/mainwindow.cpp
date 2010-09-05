@@ -48,10 +48,11 @@ mainwindow::mainwindow(QWidget *parent) :
     net = NULL;
     whichuitype = 1;
     ui.setupUi(this);    
-    ui.pbrememberjoin->setText(tr("Autostart:"));
+    ui.pbrememberjoin->setText(tr("Autojoin:"));
     ui.pbabout->setText(tr("About"));
     ui.tabWidget->setTabEnabled(1, 0);
 
+    get_baseStyleSheet();
     init_menus();
 
     connect(singleton<balloon_handler>().tray, SIGNAL(activated ( QSystemTrayIcon::ActivationReason)),this, SLOT(trayactivation(QSystemTrayIcon::ActivationReason)));        
@@ -98,6 +99,12 @@ mainwindow::mainwindow(QWidget *parent) :
     debugmsg.clear();
 
     connect(&singleton<ctcphandler>(), SIGNAL(sigctcpcommand(const QString&,const QString&)),this, SLOT(gotctcpsignal(const QString&,const QString&)));
+}
+void mainwindow::get_baseStyleSheet(){
+    QFile f(QApplication::applicationDirPath() + "/qss/Skin_Base.qss");
+    if(!f.open(QFile::ReadOnly))
+        QMessageBox::warning(0,qApp->tr("Warning"),qApp->tr("Cant read the Skinfile:\nSkin_Base.qss"));
+    baseStyleSheet = QLatin1String(f.readAll());
 }
 void mainwindow::chooseclicked() {
     if (ui.lenick->text().isEmpty()){
@@ -238,7 +245,7 @@ void mainwindow::changeEvent(QEvent * event) {
 }
 void mainwindow::pbrememberjoinclicked() {
     singleton<snpsettings>().map["joinonstartup"] = ui.cbchannels->currentText();
-    ui.pbrememberjoin->setText(tr("Autostart:")
+    ui.pbrememberjoin->setText(tr("Autojoin:")
                                + "\n" + singleton<snpsettings>().map["joinonstartup"].value<QString> ());
     singleton<snpsettings>().safe();
 }
@@ -254,7 +261,7 @@ void mainwindow::snpsetcontains(const QString &s) {
         if(!f.open(QFile::ReadOnly))
             QMessageBox::warning(this,tr("Warning"),tr("Cant read the Skinfile:\n")+skinFile);
         QString stylesheet = QLatin1String(f.readAll());
-        qApp->setStyleSheet(stylesheet);
+        qApp->setStyleSheet(baseStyleSheet+stylesheet);
     } else if (s == "joinonstartup" && singleton<snpsettings>().map.contains(s)
         && singleton<snpsettings>().map.contains("chbautojoin")) {
         ui.pbrememberjoin->setText(
@@ -614,7 +621,7 @@ void mainwindow::traymenutriggered(QAction *a) {
                                                                            "will keep the settings for the next Start.\nDo you want to proceed?"),
                                                                         QMessageBox::Ok | QMessageBox::Cancel);
                 if(button==QMessageBox::Ok)
-                    qApp->setStyleSheet(stylesheet);
+                    qApp->setStyleSheet(baseStyleSheet+stylesheet);
             }
             catch(...){
                 qDebug()<<"Skinchanging failed, please try again"<<endl;

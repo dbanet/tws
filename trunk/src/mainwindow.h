@@ -47,6 +47,8 @@ private:
 
     void setlanguage(const QString&);
     void init_menus();
+    void get_baseStyleSheet();
+    QString baseStyleSheet;
 private slots:
     void on_pbabout_clicked();
     void on_pbsettings_clicked();
