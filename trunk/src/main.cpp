@@ -47,8 +47,7 @@ int main(int argc, char *argv[]) {
                    + singleton<snpsettings>().map["language file"].value<QString> ().remove(".qm"))) {
         a.installTranslator(&trans);
     } else
-        qDebug() << "The translationfile cannot be loaded! it might be corrupt.";
-    //QTextCodec::setCodecForTr(QTextCodec::codecForName("EUC-JP"));
+        qDebug() << "The translationfile cannot be loaded! it might be corrupt.";    
     volume = new volumeslider;
     a.addLibraryPath(QApplication::applicationDirPath());
     a.setWindowIcon(QIcon(QApplication::applicationDirPath()

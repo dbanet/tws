@@ -185,7 +185,7 @@ QMenu::item {
 	background-color: transparent;
 } 
 QMenu::item:selected { 
-	border-color: white; 
+	border-color: blue; 
 	border-style: solid; 
 	border-radius: 3px; 
 	border-width: 1px 1px 1px 1px;

@@ -13,6 +13,9 @@ class ircnet : public QObject
 public:
     ircnet(QString s, QObject *parent = 0);
     ~ircnet();
+//    enum {
+//        QUIT=1,PRIVMSG,PART,JOIN,NOTICE
+//    };
 
     void joinchannel(const QString&);
     void sendmessage(const QString&, const QString&);

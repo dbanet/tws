@@ -283,11 +283,12 @@ void mainwindow::snpsetcontains(const QString &s) {
                 ui.pbrememberjoin->text().split("\n").first() + "\n"
                 + singleton<snpsettings>().map["joinonstartup"].value<QString> ());
         if (singleton<snpsettings>().map["chbautojoin"].value<bool> ()) {
-            ui.cbchannels->setCurrentIndex(ui.cbchannels->findText(
-                    singleton<snpsettings>().map["joinonstartup"].value<QString> ()));
+            int index=ui.cbchannels->findText(singleton<snpsettings>().map["joinonstartup"].value<QString> ());
+            if(index==-1)
+                return;
+            ui.cbchannels->setCurrentIndex(index);
             joinclicked();
         }
-
     } else if (s == "chbminimized")
         ui.chbminimized->setChecked(singleton<snpsettings>().map["chbminimized"].value<bool> ());   
     else if (s == "nickname" && singleton<snpsettings>().map.contains(s))

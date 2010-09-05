@@ -25,7 +25,6 @@ snoppanet::snoppanet(QObject *parent) :
     hosttimer = new QTimer(this);
     signalmapper = new QSignalMapper(this);
     url = singleton<snpsettings>().map["wormnetserverlist"].value<QStringList>().first();
-    qDebug()<<url;
     gameliststarts = 0;
     int delay = singleton<settingswindow>().from_map("sbhostrepead").value<int> ();
     hosttimer->start(delay);
@@ -38,9 +37,7 @@ snoppanet::~snoppanet() {
 }
 void snoppanet::start() {
     request = inihandler.requestfromini("[http login header]");
-    request.setUrl(url + "/wormageddonweb/Login.asp?UserName="
-                   + singleton<snpsettings>().map["nickname"].value<QString> () + "&Password="
-                   + singleton<snpsettings>().map["password"].value<QString> () + "&IPAddress=");
+    request.setUrl(url + "/wormageddonweb/Login.asp?UserName=&Password=&IPAddress=");
     reply = manager->get(request);
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
             this, SLOT(httpError(QNetworkReply::NetworkError)));

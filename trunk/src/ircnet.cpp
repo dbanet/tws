@@ -31,7 +31,9 @@ ircnet::ircnet(QString s, QObject *parent) :
 void ircnet::setip(const QString &ip) {
     wnip = ip;
 }
+bool firstMessageArrived=false;
 void ircnet::start() {
+    firstMessageArrived=false;
     connect(tcp, SIGNAL(connected()),this, SLOT(connected()));
     connect(tcp, SIGNAL(disconnected()),this, SLOT(disconnected()));
     connect(tcp,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(tcpError(QAbstractSocket::SocketError)));
@@ -115,7 +117,6 @@ void ircnet::connected() {
     emit sigconnected();
 }
 void ircnet::tcpread() {
-    static bool firstMessageArrived=false;
     ircreadstring.append(tcp->readAll());
     QStringList sl = ircreadstring.split("\n");
     ircreadstring = sl.takeLast(); //is "" or incomplete
