@@ -103,9 +103,9 @@ mainwindow::mainwindow(QWidget *parent) :
     connect(&singleton<ctcphandler>(), SIGNAL(sigctcpcommand(const QString&,const QString&)),this, SLOT(gotctcpsignal(const QString&,const QString&)));
 }
 void mainwindow::get_baseStyleSheet(){
-    QFile f(QApplication::applicationDirPath() + "/qss/Skin_Base.qss");
+    QFile f(QApplication::applicationDirPath() + "/qss/Skin_Base");
     if(!f.open(QFile::ReadOnly))
-        QMessageBox::warning(0,qApp->tr("Warning"),qApp->tr("Cant read the Skinfile:\nSkin_Base.qss"));
+        QMessageBox::warning(0,qApp->tr("Warning"),qApp->tr("Cant read the Skinfile:\nSkin_Base"));
     baseStyleSheet = QLatin1String(f.readAll());
 }
 void mainwindow::chooseclicked() {

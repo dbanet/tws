@@ -27,7 +27,7 @@ QList< ::window*> window::hiddenchannelwindowshelper;
 extern QStringList querylist;
 window::window(netcoupler *n, QString s, int i) :
 	currentchannel(s), chaticon("snppictures/Chat_Icon.png") {
-    buttons = new buttonlayout;
+    buttons = new buttonlayout(this);
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setAttribute(Qt::WA_TranslucentBackground);
     this->setObjectName("channelwindow");
