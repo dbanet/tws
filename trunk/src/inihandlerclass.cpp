@@ -20,16 +20,15 @@ inihandlerclass::~inihandlerclass() {
     // TODO Auto-generated destructor stub
 }
 void inihandlerclass::tcpwrite(const QString &inistring, QTcpSocket& tcp) {
-    QFile f(QApplication::applicationDirPath() + QDir::separator() + "snpini"
-            + QDir::separator() + file);
+    QFile f(QApplication::applicationDirPath() + "/network/" + file);
     if (!f.open(QFile::ReadOnly)) {
-        qDebug() << "the file snpini/netini is missing!";
+        qDebug() << "the file network/wormnet.net is missing!";
     }
     QTextStream ts(&f);
     while (ts.readLine() != inistring && !ts.atEnd())
         ;
     if (ts.atEnd()) {
-        qDebug() << "your netini file is corrupt! " << inistring
+        qDebug() << "your network/wormnet.net file is corrupt! " << inistring
                 << " can not be found, but is important.";
         return;
     }
@@ -45,16 +44,15 @@ void inihandlerclass::tcpwrite(const QString &inistring, QTcpSocket& tcp) {
 }
 QStringList inihandlerclass::stringlistfromini(const QString &inistring) {    
     QFile f;
-    f.setFileName(QApplication::applicationDirPath() + QDir::separator()
-                  + "snpini" + QDir::separator() + file);
+    f.setFileName(QApplication::applicationDirPath() + "/network/" + file);
     if (!f.open(QIODevice::ReadOnly)) {
-        qDebug() << "snpini/netini is missing!";
+        qDebug() << "network/wormnet.net is missing!";
     }
     QTextStream ts(&f);
     while (ts.readLine() != inistring && !ts.atEnd())
         ;
     if (ts.atEnd()) {
-        qDebug() << "your netini file is corrupt! " << inistring
+        qDebug() << "your wormnet.net file is corrupt! " << inistring
                 << " can not be found, but is important.";
         return QStringList("");
     }
@@ -70,16 +68,15 @@ QStringList inihandlerclass::stringlistfromini(const QString &inistring) {
 }
 QNetworkRequest inihandlerclass::requestfromini(const QString &inistring) {
     QFile f;
-    f.setFileName(QApplication::applicationDirPath() + QDir::separator()
-                  + "snpini" + QDir::separator() + file);
+    f.setFileName(QApplication::applicationDirPath() + "/network/" + file);
     if (!f.open(QIODevice::ReadOnly)) {
-        qDebug() << "snpini/netini is missing!";
+        qDebug() << "network/wormnet.net is missing!";
     }
     QTextStream ts(&f);
     while (ts.readLine() != inistring && !ts.atEnd())
         ;
     if (ts.atEnd()) {
-        qDebug() << "your netini file is corrupt! " << inistring
+        qDebug() << "your network/wormnet.net file is corrupt! " << inistring
                 << " can not be found, but is important.";
     }
 

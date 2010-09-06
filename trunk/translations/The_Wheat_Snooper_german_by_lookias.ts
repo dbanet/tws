@@ -1142,22 +1142,26 @@ bis das Spiel im Wormnet erscheint.</translation>
 <context>
     <name>ircnet</name>
     <message>
-        <location filename="../src/ircnet.cpp" line="43"/>
         <source>There was an error while connecting to Wormnet: </source>
-        <translation>Es gab einen fehler bei der verbindungsherstellung: </translation>
+        <translation type="obsolete">Es gab einen fehler bei der verbindungsherstellung: </translation>
     </message>
     <message>
-        <location filename="../src/ircnet.cpp" line="202"/>
+        <location filename="../src/ircnet.cpp" line="45"/>
+        <source>There was an error with the connection to Wormnet: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ircnet.cpp" line="204"/>
         <source>disconnected from irc server.</source>
         <translation>Vom IRC Server getrennt</translation>
     </message>
     <message>
-        <location filename="../src/ircnet.cpp" line="268"/>
+        <location filename="../src/ircnet.cpp" line="270"/>
         <source>Nickname collision!</source>
         <translation>Namens Kollision</translation>
     </message>
     <message>
-        <location filename="../src/ircnet.cpp" line="269"/>
+        <location filename="../src/ircnet.cpp" line="271"/>
         <source>The server things that your nickname is allready in use. This is usually caused by a uncomplete logout at the last session. If its like that you have to wait a few seconds or change your nickname! 
 
 If your nick got faked... bl :)</source>

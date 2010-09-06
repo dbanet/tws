@@ -40,7 +40,9 @@ void ircnet::start() {
     tcp->connectToHost(wnip, 6667, QIODevice::ReadWrite);
 }
 void ircnet::tcpError(QAbstractSocket::SocketError s){
-    qDebug()<<tr("There was an error while connecting to Wormnet: ")<<s;
+    if(s==QAbstractSocket::RemoteHostClosedError)
+        return;
+    qDebug()<<tr("There was an error with the connection to Wormnet: ")<<s;
 }
 void ircnet::connected() {
     QStringList sl = inihandler.stringlistfromini("[irc password]");

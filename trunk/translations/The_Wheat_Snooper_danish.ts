@@ -849,22 +849,22 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
 <context>
     <name>ircnet</name>
     <message>
-        <location filename="../src/ircnet.cpp" line="43"/>
-        <source>There was an error while connecting to Wormnet: </source>
+        <location filename="../src/ircnet.cpp" line="45"/>
+        <source>There was an error with the connection to Wormnet: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ircnet.cpp" line="202"/>
+        <location filename="../src/ircnet.cpp" line="204"/>
         <source>disconnected from irc server.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ircnet.cpp" line="268"/>
+        <location filename="../src/ircnet.cpp" line="270"/>
         <source>Nickname collision!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ircnet.cpp" line="269"/>
+        <location filename="../src/ircnet.cpp" line="271"/>
         <source>The server things that your nickname is allready in use. This is usually caused by a uncomplete logout at the last session. If its like that you have to wait a few seconds or change your nickname! 
 
 If your nick got faked... bl :)</source>

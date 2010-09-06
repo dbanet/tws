@@ -38,6 +38,7 @@ void snpsettings::load(){
                 QFile::copy(folder+"ctcp.ini",QApplication::applicationDirPath()+"/snpini/ctcp.ini");
             }
         } else{
+            QDir().mkdir("snpini");
             loadDefaults();
             return;
         }

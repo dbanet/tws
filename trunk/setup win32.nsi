@@ -48,10 +48,9 @@ InstallDirRegKey HKLM "${REGKEY}" Path
 UninstallIcon "${NSISDIR}\Contrib\Graphics\Icons\classic-uninstall.ico"
 ShowUninstDetails show
 
-DirText "Choose the Directory Where The Wheat Snooper should be installed to.&\n If you allready have an installation of this programm" \
-        "you can simply overwrite it with the new Snooper, your settings inside the snpini will be kept.&\n" \
-        "Note: only the files inside the snpini folder will be kept, the rest will be overwritten, this can cause problems if you have" \
-        "modified common textscheme files or smiley themes!"      
+DirText "If you allready have an installation of this programm, \ 
+        you can simply overwrite it with the new Snooper, your settings inside the snpini will be kept. $\n\
+        Note: Only the existing files inside the snpini folder will be kept."
 
 # Installer sections
 !macro CREATE_SMGROUP_SHORTCUT NAME PATH
@@ -63,7 +62,7 @@ DirText "Choose the Directory Where The Wheat Snooper should be installed to.&\n
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File /r /x .svn TheWheatSnooper\* 
+    File /r /x snpini /x .svn TheWheatSnooper\*
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
 SectionEnd
 
@@ -83,7 +82,8 @@ Section -post SEC0001
     WriteRegDWORD HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoRepair 1
     
     !insertmacro CREATE_SMGROUP_SHORTCUT "$(^Name)" $INSTDIR\TheWheatSnooper.exe
-    !insertmacro CREATE_SMGROUP_SHORTCUT "Homepage of $(^Name)" http://lookias.inventforum.com/viewforum.php?f=9    
+    !insertmacro CREATE_SMGROUP_SHORTCUT "Homepage of $(^Name)" http://lookias.inventforum.com/viewforum.php?f=9
+    !insertmacro CREATE_SMGROUP_SHORTCUT "Tutorial of $(^Name)" $INSTDIR\tutorial.pdf    
              
 SectionEnd
 
