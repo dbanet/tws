@@ -48,6 +48,11 @@ InstallDirRegKey HKLM "${REGKEY}" Path
 UninstallIcon "${NSISDIR}\Contrib\Graphics\Icons\classic-uninstall.ico"
 ShowUninstDetails show
 
+DirText "Choose the Directory Where The Wheat Snooper should be installed to.&\n If you allready have an installation of this programm" \
+        "you can simply overwrite it with the new Snooper, your settings inside the snpini will be kept.&\n" \
+        "Note: only the files inside the snpini folder will be kept, the rest will be overwritten, this can cause problems if you have" \
+        "modified common textscheme files or smiley themes!"      
+
 # Installer sections
 !macro CREATE_SMGROUP_SHORTCUT NAME PATH
     Push "${NAME}"
@@ -58,7 +63,7 @@ ShowUninstDetails show
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File /r TheWheatSnooper\*
+    File /r /x .svn TheWheatSnooper\* 
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
 SectionEnd
 
@@ -67,7 +72,7 @@ Section -post SEC0001
     WriteRegStr HKLM "${REGKEY}" StartMenuGroup $StartMenuGroup
     SetOutPath $INSTDIR
     WriteUninstaller $INSTDIR\uninstall.exe
-    !insertmacro CREATE_SMGROUP_SHORTCUT "Uninstall $(^Name)" $INSTDIR\uninstall.exe
+    !insertmacro CREATE_SMGROUP_SHORTCUT "Uninstall $(^Name)" $INSTDIR\uninstall.exe       
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayVersion "${VERSION}"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" Publisher "${COMPANY}"
@@ -76,6 +81,10 @@ Section -post SEC0001
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" UninstallString $INSTDIR\uninstall.exe
     WriteRegDWORD HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoModify 1
     WriteRegDWORD HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoRepair 1
+    
+    !insertmacro CREATE_SMGROUP_SHORTCUT "$(^Name)" $INSTDIR\TheWheatSnooper.exe
+    !insertmacro CREATE_SMGROUP_SHORTCUT "Homepage of $(^Name)" http://lookias.inventforum.com/viewforum.php?f=9    
+             
 SectionEnd
 
 # Macro for selecting uninstaller sections
