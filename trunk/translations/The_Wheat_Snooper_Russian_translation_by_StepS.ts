@@ -213,13 +213,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/snpsettings.cpp" line="20"/>
         <source>Question</source>
-        <translation type="unfinished"></translation>
+        <translation>Вопрос</translation>
     </message>
     <message>
         <location filename="../src/snpsettings.cpp" line="21"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
-        <translation type="unfinished"></translation>
+        <translation>Если вы хотите сохранить настройки из старой программы, нажмите Да.
+Если вы используете программу в первый раз, просто нажмите Нет.</translation>
     </message>
 </context>
 <context>
@@ -322,12 +323,12 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
         <location filename="../src/balloon_handler.cpp" line="12"/>
         <location filename="../src/balloon_handler.cpp" line="17"/>
         <source>The Wheat Snooper version </source>
-        <translation>Версия программы </translation>
+        <translation>The Wheat Snooper </translation>
     </message>
     <message>
         <location filename="../src/balloon_handler.cpp" line="17"/>
         <source> started!</source>
-        <translation type="unfinished"></translation>
+        <translation> запущен!</translation>
     </message>
     <message>
         <location filename="../src/balloon_handler.cpp" line="19"/>
@@ -338,12 +339,12 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
     <message>
         <location filename="../src/balloon_handler.cpp" line="34"/>
         <source>disconnected from Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Отключено</translation>
     </message>
     <message>
         <location filename="../src/balloon_handler.cpp" line="38"/>
         <source>connected to Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключено</translation>
     </message>
     <message>
         <location filename="../src/balloon_handler.cpp" line="58"/>
@@ -1168,12 +1169,12 @@ CTCP означает &quot;Протокол от Клиента К Клиент
     <message>
         <location filename="../src/ircnet.cpp" line="45"/>
         <source>There was an error with the connection to Wormnet: </source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка при входе в сеть: </translation>
     </message>
     <message>
         <location filename="../src/ircnet.cpp" line="204"/>
         <source>disconnected from irc server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Отключено от IRC</translation>
     </message>
     <message>
         <location filename="../src/ircnet.cpp" line="270"/>
@@ -1277,76 +1278,77 @@ If your nick got faked... bl :)</source>
 <context>
     <name>mainwindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="530"/>
+        <location filename="../src/mainwindow.cpp" line="529"/>
         <source>Stuff</source>
         <translation>Главное</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="53"/>
-        <location filename="../src/mainwindow.cpp" line="532"/>
-        <location filename="../src/mainwindow.cpp" line="708"/>
+        <location filename="../src/mainwindow.cpp" line="531"/>
+        <location filename="../src/mainwindow.cpp" line="707"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="52"/>
-        <location filename="../src/mainwindow.cpp" line="263"/>
+        <location filename="../src/mainwindow.cpp" line="262"/>
         <source>Autojoin:</source>
-        <translation type="unfinished"></translation>
+        <translation>Автовход</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="108"/>
         <source>Cant read the Skinfile:
 Skin_Base.qss</source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно прочитать цветовую схему:
+Skin_Base.qss</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="533"/>
-        <location filename="../src/mainwindow.cpp" line="712"/>
+        <location filename="../src/mainwindow.cpp" line="532"/>
+        <location filename="../src/mainwindow.cpp" line="711"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="534"/>
-        <location filename="../src/mainwindow.cpp" line="727"/>
+        <location filename="../src/mainwindow.cpp" line="533"/>
+        <location filename="../src/mainwindow.cpp" line="726"/>
         <source>Volume</source>
         <translation>Громкость</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="541"/>
+        <location filename="../src/mainwindow.cpp" line="540"/>
         <source>Skins</source>
         <translation>Цветовые таблицы</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="560"/>
+        <location filename="../src/mainwindow.cpp" line="559"/>
         <source>Layouts</source>
         <translation>Форматы</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="578"/>
+        <location filename="../src/mainwindow.cpp" line="577"/>
         <source>Join</source>
         <translation>Канал</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="571"/>
+        <location filename="../src/mainwindow.cpp" line="570"/>
         <source>Language</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="581"/>
-        <location filename="../src/mainwindow.cpp" line="663"/>
+        <location filename="../src/mainwindow.cpp" line="580"/>
+        <location filename="../src/mainwindow.cpp" line="662"/>
         <source>Away mode</source>
         <translation>Отошел</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="585"/>
-        <location filename="../src/mainwindow.cpp" line="715"/>
+        <location filename="../src/mainwindow.cpp" line="584"/>
+        <location filename="../src/mainwindow.cpp" line="714"/>
         <source>Reconnect</source>
         <translation>Переподключиться</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="587"/>
-        <location filename="../src/mainwindow.cpp" line="611"/>
+        <location filename="../src/mainwindow.cpp" line="586"/>
+        <location filename="../src/mainwindow.cpp" line="610"/>
         <source>Close</source>
         <translation>Закрыть</translation>
     </message>
@@ -1358,12 +1360,12 @@ Skin_Base.qss</source>
     <message>
         <location filename="../src/mainwindow.cpp" line="113"/>
         <source>Nickname field is empty</source>
-        <translation type="unfinished"></translation>
+        <translation>Поле &quot;ник&quot; не может быть пустым</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="113"/>
         <source>Please choose a nickname.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пожалуйста, выберите ник</translation>
     </message>
     <message>
         <source>warning</source>
@@ -1374,64 +1376,65 @@ Skin_Base.qss</source>
         <translation type="obsolete">Вы все еще редактируете файл настроек. Пожалуйста закройте его перед входом на WormNET.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="277"/>
+        <location filename="../src/mainwindow.cpp" line="276"/>
         <source>Cant read the Skinfile:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно прочесть цветовую схему:
+</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="355"/>
+        <location filename="../src/mainwindow.cpp" line="354"/>
         <source>Restart the application?</source>
         <translation>Перезагрузить приложение?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="356"/>
+        <location filename="../src/mainwindow.cpp" line="355"/>
         <source>Changing the translation requires a program restart.
 To restart now click Ok, otherwise cancel.</source>
         <translation>Изменение языка отображения требует перезагрузки программы. Чтобы перезагрузить сейчас, нажмите ОК, для возврата нажмите Отмена.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="535"/>
-        <location filename="../src/mainwindow.cpp" line="732"/>
+        <location filename="../src/mainwindow.cpp" line="534"/>
+        <location filename="../src/mainwindow.cpp" line="731"/>
         <source>Open Log Browser</source>
         <translation>Открыть навигатор по отчетам</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="542"/>
+        <location filename="../src/mainwindow.cpp" line="541"/>
         <source>Text Schemes</source>
         <translation>Текстовые таблицы</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="550"/>
-        <location filename="../src/mainwindow.cpp" line="738"/>
+        <location filename="../src/mainwindow.cpp" line="549"/>
+        <location filename="../src/mainwindow.cpp" line="737"/>
         <source>Save current textscheme to file</source>
         <translation>Сохранить текущую текстовую таблицу</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="739"/>
+        <location filename="../src/mainwindow.cpp" line="738"/>
         <source>Save textscheme to.</source>
         <translation>Сохранить текстовую таблицу как...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="408"/>
+        <location filename="../src/mainwindow.cpp" line="407"/>
         <source>trying to apply new textscheme: </source>
         <translation>Попытка изменить текстовую таблицу:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="537"/>
-        <location filename="../src/mainwindow.cpp" line="750"/>
+        <location filename="../src/mainwindow.cpp" line="536"/>
+        <location filename="../src/mainwindow.cpp" line="749"/>
         <source>Scheme maker</source>
         <translation>Создатель таблиц</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="539"/>
-        <location filename="../src/mainwindow.cpp" line="753"/>
+        <location filename="../src/mainwindow.cpp" line="538"/>
+        <location filename="../src/mainwindow.cpp" line="752"/>
         <source>Playername</source>
         <translation>Ник игрока</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="378"/>
-        <location filename="../src/mainwindow.cpp" line="387"/>
+        <location filename="../src/mainwindow.cpp" line="377"/>
+        <location filename="../src/mainwindow.cpp" line="386"/>
         <source>&lt;away&gt;:</source>
         <translation>&lt;отошел&gt;:</translation>
     </message>
@@ -1443,13 +1446,13 @@ To restart now click Ok, otherwise cancel.</source>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="108"/>
-        <location filename="../src/mainwindow.cpp" line="277"/>
-        <location filename="../src/mainwindow.cpp" line="639"/>
+        <location filename="../src/mainwindow.cpp" line="276"/>
+        <location filename="../src/mainwindow.cpp" line="638"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="640"/>
+        <location filename="../src/mainwindow.cpp" line="639"/>
         <source>Changing the skin crashes sometimes, but The Wheat Snooper
 will keep the settings for the next Start.
 Do you want to proceed?</source>
@@ -1458,12 +1461,12 @@ The Wheat Snooper сохранит настройки на следующий з
 Хотите продолжить?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="493"/>
+        <location filename="../src/mainwindow.cpp" line="492"/>
         <source>Connected</source>
         <translation>Подключено</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="496"/>
+        <location filename="../src/mainwindow.cpp" line="495"/>
         <source>Disconnected</source>
         <translation>Отключено</translation>
     </message>
@@ -1488,32 +1491,32 @@ The Wheat Snooper сохранит настройки на следующий з
     <message>
         <location filename="../src/mainwindow.ui" line="137"/>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>Вход</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="191"/>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="198"/>
         <source>To apply a server to this list press enter.</source>
-        <translation type="unfinished"></translation>
+        <translation>Чтобы добавить сервер в этот лист, нажмите Enter</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="240"/>
         <source>Optional</source>
-        <translation type="unfinished"></translation>
+        <translation>Необязательные поля:</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="326"/>
         <source>Clanstring</source>
-        <translation type="unfinished"></translation>
+        <translation>Клан</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="357"/>
         <source>Autologin </source>
-        <translation type="unfinished"></translation>
+        <translation>Авто-логин</translation>
     </message>
     <message>
         <source>Choose an existing ini file. (better dont touch this.)</source>
@@ -1526,7 +1529,7 @@ The Wheat Snooper сохранит настройки на следующий з
     <message>
         <location filename="../src/mainwindow.ui" line="177"/>
         <source>Nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Ник</translation>
     </message>
     <message>
         <source>Rank</source>
@@ -1535,17 +1538,17 @@ The Wheat Snooper сохранит настройки на следующий з
     <message>
         <location filename="../src/mainwindow.ui" line="273"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Строка клиента</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="306"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="370"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключиться</translation>
     </message>
     <message>
         <source>Choose a nickname.</source>
@@ -1755,7 +1758,7 @@ If this string is empty, worms will probably not host or join a game.</source>
     <message>
         <location filename="../src/settingswindow.ui" line="339"/>
         <source>Disconnect from network when a game starts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Отключаться от сети, когда стартует игра</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="597"/>
@@ -2028,7 +2031,7 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/snpsettings.cpp" line="25"/>
         <source>Please choose the folder from the old Snooper.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пожалуйста, выберите старую папку программы</translation>
     </message>
 </context>
 <context>
@@ -2093,8 +2096,8 @@ Note: A reconnect is required to apply these settings.</source>
 <context>
     <name>usermodel</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="536"/>
-        <location filename="../src/mainwindow.cpp" line="723"/>
+        <location filename="../src/mainwindow.cpp" line="535"/>
+        <location filename="../src/mainwindow.cpp" line="722"/>
         <location filename="../src/usermodel.cpp" line="120"/>
         <location filename="../src/usermodel.cpp" line="286"/>
         <location filename="../src/window.cpp" line="158"/>
@@ -2146,7 +2149,7 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/usermodel.cpp" line="18"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Информация</translation>
     </message>
     <message>
         <location filename="../src/usermodel.cpp" line="96"/>

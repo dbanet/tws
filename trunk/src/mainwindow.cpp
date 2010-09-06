@@ -244,7 +244,6 @@ void mainwindow::returntotabsettings(int i) {
             Q_ASSERT(w!=0);
             w->deleteLater();
         }
-        QApplication::processEvents();
         windowlist.clear();
         net->deleteLater();
     }
