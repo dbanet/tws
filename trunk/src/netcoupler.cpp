@@ -27,6 +27,7 @@ netcoupler::netcoupler(QString s, QObject *parent) :
     connect(volume, SIGNAL(valueChanged (int)),&singleton<sound_handler>(), SLOT(volumechange(int)));
 
     irc = new ircnet(nick, this);
+    connect(irc,SIGNAL(sigreconnect()),this,SIGNAL(sigreconnect()));
     connect(irc, SIGNAL(sigusergarbage(const QString&,const QString&)),this, SIGNAL(sigusergarbage(const QString&,const QString&)));
     connect(irc, SIGNAL(sigusergarbagejoin(const QString&,const QString&)),this, SIGNAL(sigusergarbagejoin(const QString&,const QString&)));
     connect(irc, SIGNAL(sigusergarbagepart(const QString&,const QString&)),this, SIGNAL(sigusergarbagepart(const QString&,const QString&)));

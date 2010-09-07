@@ -109,6 +109,8 @@ void mainwindow::get_baseStyleSheet(){
     baseStyleSheet = QLatin1String(f.readAll());
 }
 void mainwindow::chooseclicked() {
+    if(ui.tabWidget->currentIndex()!=0)
+        return;
     if (ui.lenick->text().isEmpty()){
         QMessageBox::warning(this,tr("Nickname field is empty"),tr("Please choose a nickname."),QMessageBox::Ok);
         return;
@@ -133,6 +135,7 @@ void mainwindow::chooseclicked() {
     singleton<snpsettings>().safe();   
     ui.tabWidget->setCurrentIndex(1);
     net = new netcoupler(ui.lenick->text(), this);
+    connect(net,SIGNAL(sigreconnect()),this,SLOT(reconnect()));
     connect(net, SIGNAL(siggotchanellist(const QStringList &)),this, SLOT(getchannellist(const QStringList &)));
     connect(net, SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));
     connect(net, SIGNAL(siggotprivmsg(const QString&,const QString&,const QString&)),this,
@@ -141,7 +144,18 @@ void mainwindow::chooseclicked() {
     connect(net,SIGNAL(sigconnected()),this,SLOT(connected()));
     connect(net,SIGNAL(sigdisconnected()),this,SLOT(disconnected()));
     connect(net,SIGNAL(sigdisconnect()),this,SLOT(disconnect_netcoupler()));
+
+    QTimer::singleShot(7000,this,SLOT(reopenChatWindowsAndChannelWindows()));
 }
+void mainwindow::reopenChatWindowsAndChannelWindows(){
+    foreach(QString s,lastOpenedChatWindows)
+        openchatwindow(s);
+    lastOpenedChatWindows.clear();
+    foreach(QString s,lastOpenedWindows)
+        join(s);
+    lastOpenedWindows.clear();
+}
+
 void mainwindow::getchannellist(const QStringList &sl) {
     ui.cbchannels->clear();
     foreach(QString s,sl) {
@@ -160,38 +174,35 @@ void mainwindow::getchannellist(const QStringList &sl) {
 }
 void mainwindow::joinclicked() {
     QString s = ui.cbchannels->currentText();
-    if (ui.pbjoin->text() != "" && !currentchannellist.contains(s)) {
-        net->joinchannel(s);
-        currentchannellist << s;
-        if (whichuitype == 1) {
-            windowlist.push_back(new ::window(net, s, whichuitype));
-            windowlist.last()->setObjectName("channelwindow");
-        } else if (whichuitype == 2) {
-            windowlist.push_back(new ::window(net, s, whichuitype));
-            windowlist.last()->setObjectName("channelwindow");
-        } else if (whichuitype == 3) {
-            windowlist.push_back(new ::window(net, s, whichuitype));
-            windowlist.last()->setObjectName("channelwindow");
-        } else
-            qDebug() << "joinclicked in mainwindow assert";
-        windowlist.last()->show();
-        if (net->isaway) {
-            windowlist.last()->windowtitleaway = net->awaymessage;
-            windowlist.last()->mysetwindowtitle();
-        }
-        connect(windowlist.last(), SIGNAL(sigjoinchannel(const QString&)),this, SLOT(joinslot(const QString&)));
-        connect(windowlist.last(), SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindow(const QString &)));
-        connect(this, SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindow(const QString &)));
-        connect(windowlist.last(), SIGNAL(sigwindowclosed(const QString&)),this, SLOT(windowremoved(const QString&)));
-        singleton<snpsettings>().safe();
-    }
+    join(s);
 }
-void mainwindow::joinslot(const QString &s) {
-    int i = ui.cbchannels->findText(s);
-    if (i != -1) {
-        ui.cbchannels->setCurrentIndex(i);
-        this->joinclicked();
+void mainwindow::join(const QString channel){
+    if (ui.pbjoin->text() == "" || currentchannellist.contains(channel))
+        return;
+    net->joinchannel(channel);
+    currentchannellist << channel;
+    if (whichuitype == 1) {
+        windowlist.push_back(new ::window(net, channel, whichuitype));
+        windowlist.last()->setObjectName("channelwindow");
+    } else if (whichuitype == 2) {
+        windowlist.push_back(new ::window(net, channel, whichuitype));
+        windowlist.last()->setObjectName("channelwindow");
+    } else if (whichuitype == 3) {
+        windowlist.push_back(new ::window(net, channel, whichuitype));
+        windowlist.last()->setObjectName("channelwindow");
+    } else
+        qDebug() << "joinclicked in mainwindow assert";
+    windowlist.last()->show();
+    windowlist.last()->raise();
+    if (net->isaway) {
+        windowlist.last()->windowtitleaway = net->awaymessage;
+        windowlist.last()->mysetwindowtitle();
     }
+    connect(windowlist.last(), SIGNAL(sigjoinchannel(const QString&)),this, SLOT(join(const QString&)));
+    connect(windowlist.last(), SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindow(const QString &)));
+    connect(this, SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindow(const QString &)));
+    connect(windowlist.last(), SIGNAL(sigwindowclosed(const QString&)),this, SLOT(windowremoved(const QString&)));
+    singleton<snpsettings>().safe();
 }
 void mainwindow::onquit() {
     singleton<snpsettings>().map["chbremember"] = ui.cbremember->isChecked();
@@ -712,12 +723,7 @@ void mainwindow::traymenutriggered(QAction *a) {
         singleton<settingswindow>().show();
         return;
     } else if (a->text() == tr("Reconnect")) {
-        if (net != 0)
-            net->isaway = 0;
-        singleton<balloon_handler>().set_normal_tray_icon();
-        int i = 0;
-        this->returntotabsettings(i);
-        QTimer::singleShot(2000, this, SLOT(chooseclicked()));
+        reconnect();
         return;
     } else if (a->text() == usermodel::tr("Buddylist")) {
         buddylist *buddy = new buddylist;
@@ -754,6 +760,19 @@ void mainwindow::traymenutriggered(QAction *a) {
         pl->show();
     }
     singleton<snpsettings>().safe();
+}
+void mainwindow::reconnect(){
+    foreach(::window *w,this->windowlist) {
+        lastOpenedWindows<<w->currentchannel;
+    }
+    foreach(chatwindow *w,::window::chatwindows) {
+        lastOpenedChatWindows<<w->chatpartner;
+    }
+    if (net != 0)
+        net->isaway = 0;
+    singleton<balloon_handler>().set_normal_tray_icon();
+    this->returntotabsettings(0);
+    QTimer::singleShot(2000, this, SLOT(chooseclicked()));
 }
 
 void mainwindow::on_pbsettings_clicked()

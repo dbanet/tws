@@ -63,6 +63,7 @@ signals:
     void sigconnected();
     void sigdisconnected();
     void sigdisconnect();
+    void sigreconnect();
     //void siggethostlist(QList<hoststruct>,QString);
 
 private:

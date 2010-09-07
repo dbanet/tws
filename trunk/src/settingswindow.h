@@ -11,11 +11,11 @@ class settingswindow : public QWidget
 public:
     QStringList objectnames;
     void safe();
+    void load();
     const QVariant from_map(const QString&) const;
     void to_map(const QString&, const QVariant&);
 private:
-    Ui::settingswindowClass ui;
-    void load();
+    Ui::settingswindowClass ui;    
     QMap<QString,QVariant> map;
     void loadDefaults();
 private slots:

@@ -6,6 +6,7 @@
  */
 
 #include "snpsettings.h"
+#include"settingswindow.h"
 #include<QFile>
 #include<QDir>
 #include<QApplication>
@@ -15,6 +16,8 @@ extern QStringList defaultServerList;
 snpsettings::snpsettings(){}
 snpsettings::~snpsettings(){}
 void snpsettings::load(){
+    if(!QDir().exists("snpini"))
+        QDir().mkdir("snpini");
     QFile f(QApplication::applicationDirPath()+"/snpini/snpini");
     if(!f.open(QFile::ReadOnly)){
         int button=QMessageBox::question(0,QApplication::tr("Question")
@@ -22,29 +25,34 @@ void snpsettings::load(){
                                                            "If you use The Wheat Snooper at the first time just click No.")
                                          ,QMessageBox::Yes | QMessageBox::No);
         if(button==QMessageBox::Yes){
-            QString folder=QFileDialog::getExistingDirectory(0,qApp->tr("Please choose the folder from the old Snooper.")
-                                                             ,qApp->applicationDirPath());            
-            folder=folder+"/snpini/";
-            if(QFile::exists(folder+"snpini")){
-                QFile::copy(folder+"snpini",QApplication::applicationDirPath()+"/snpini/snpini");
-            } else{
-                int button=QMessageBox::warning(0,qApp->tr("Warning!"),qApp->tr("This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?"),QMessageBox::Yes | QMessageBox::No);
-                if(button==QMessageBox::Yes)
-                    load();
-                return;
+            QString folder;
+            while(true){
+                folder=QFileDialog::getExistingDirectory(0,qApp->tr("Please choose the folder from the old Snooper.")
+                                                         ,qApp->applicationDirPath());
+                folder=folder+"/snpini/";
+                if(QFile::exists(folder+"snpini")){
+                    QFile::copy(folder+"snpini",QApplication::applicationDirPath()+"/snpini/snpini");
+                    break;
+                } else{
+                    int button=QMessageBox::warning(0,qApp->tr("Warning!"),qApp->tr("This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?"),QMessageBox::Yes | QMessageBox::No);
+                    if(button==QMessageBox::Yes)
+                        continue;
+                    else return;
+                }
             }
             if(QFile::exists(folder+"settingswindowini")){
                 QFile::copy(folder+"settingswindowini",QApplication::applicationDirPath()+"/snpini/settingswindowini");
+                singleton<settingswindow>().load();
             }
             if(QFile::exists(folder+"ctcp.ini")){
                 QFile::copy(folder+"ctcp.ini",QApplication::applicationDirPath()+"/snpini/ctcp.ini");
             }
         } else{
-            QDir().mkdir("snpini");
             loadDefaults();
             return;
         }
     }
+    f.open(QFile::ReadOnly);
     QDataStream ds(&f);
     ds.setVersion(QDataStream::Qt_4_3);
     ds>>map;
@@ -77,6 +85,6 @@ void snpsettings::loadDefaults(){
     singleton<snpsettings>().map["dissallowedclannames"].setValue<QStringList>(QStringList()<<"Username");
     singleton<snpsettings>().map["language file"].setValue<QString> ("The_Wheat_Snooper_untranslated");
     singleton<snpsettings>().map["charformatfile"].setValue<QString>("comic by lookias.textscheme");
-    singleton<snpsettings>().map["chbsendhostinfotochan"].setValue<bool>(true);  
+    singleton<snpsettings>().map["chbsendhostinfotochan"].setValue<bool>(true);
     singleton<snpsettings>().map["wormnetserverlist"].setValue<QStringList>(defaultServerList);
 }

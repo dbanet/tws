@@ -362,14 +362,14 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
             return f;
         }
     }
-//    if(role==Qt::ToolTipRole && index.internalId() != e_Channel){
-//        if(index.column()==e_Clan) {
-//            QString s=tr("The clan of this gamer is: ") + "\n" \
-//                         + usermap[classes[index.internalId()]][index.row()].nickfromclient  \
-//                         + "\n"+tr("You can rightclick his clan\n to get further inforations about this clan.");
-//            return s;
-//        }
-//    }
+    /*if(role==Qt::ToolTipRole && index.internalId() != e_Channel){
+        if(index.column()==e_Clan) {
+            QString s=tr("The clan of this gamer is: ") + "\n" \
+                         + usermap[classes[index.internalId()]][index.row()].nickfromclient  \
+                         + "\n"+tr("You can rightclick his clan\n to get further inforations about this clan.");
+            return s;
+        }
+    }*/
     return QVariant();
 }
 QVariant usermodel::headerData(int section, Qt::Orientation orientation,

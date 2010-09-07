@@ -39,6 +39,10 @@ void ircnet::start() {
     connect(tcp,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(tcpError(QAbstractSocket::SocketError)));
     tcp->connectToHost(wnip, 6667, QIODevice::ReadWrite);
 }
+void ircnet::reconnect(){
+    qDebug()<<tr("Reconnecting");
+    tcp->connectToHost(wnip, 6667, QIODevice::ReadWrite);
+}
 void ircnet::tcpError(QAbstractSocket::SocketError s){
     if(s==QAbstractSocket::RemoteHostClosedError)
         return;
@@ -196,11 +200,8 @@ void ircnet::gotusergarbage(QString &user, QString &s) {
     }
     emit sigusergarbage(user, usergarbagemap[user.toLower()].last());
 }
-void ircnet::disconnected() {
-    wholist.clear();
-    channellist.clear();
-    reconnecttimer.singleShot(300 * 1000, this, SLOT(start()));
-    tcp->disconnectFromHost();
+void ircnet::disconnected() {    
+    reconnecttimer.singleShot(200 *1000, this, SIGNAL(sigreconnect()));
     qDebug() << tr("disconnected from irc server.");
 }
 void ircnet::readservermassege(QString s) {
@@ -276,6 +277,7 @@ void ircnet::readservermassege(QString s) {
 	case 421: //unknown command
 	case 409: //No origin specified
 	case 403: //No such channel
+        case 404: //Cannot send to channel
 	default:
             qDebug() << s;
 	}
@@ -305,7 +307,7 @@ void ircnet::refreshlist() {
         justgetlist = true;
     }
 }
-void ircnet::who() {
+void ircnet::who() {    
     if (whoreceivedcompletely) {
         tcp->write("who\n");
         whoreceivedcompletely = 0;

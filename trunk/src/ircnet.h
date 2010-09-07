@@ -31,6 +31,7 @@ public:
     QString nick;
 public slots:
     void start();
+    void reconnect();
     void connected();
     void disconnected();
     void tcpread();
@@ -47,6 +48,7 @@ signals: //public signals:
     void sigusergarbagequit(const QString&,const QString&);
     void siggotidletime(const QString&, int);
     void signosuchnick(const QString&);
+    void sigreconnect();
 
 private:
     bool justgetlist;

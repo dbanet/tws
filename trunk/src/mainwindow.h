@@ -47,17 +47,20 @@ private:
 
     void setlanguage(const QString&);
     void init_menus();
-    void get_baseStyleSheet();
+    void get_baseStyleSheet();       
     QString baseStyleSheet;
+
+    QStringList lastOpenedWindows;
+    QStringList lastOpenedChatWindows;
 private slots:
+    void join(const QString channel);
+    void openchatwindow(const QString &);
     void on_pbabout_clicked();
     void on_pbsettings_clicked();
     void getchannellist(const QStringList &);
-    void joinclicked();
-    void joinslot(const QString&);
+    void joinclicked();    
     void chooseclicked();
-    void onquit();
-    void disconnect_netcoupler();
+    void onquit();    
     void returntotabsettings(int);
     void trayactivation(QSystemTrayIcon::ActivationReason);
     void traymenutriggered(QAction *);
@@ -79,12 +82,15 @@ private slots:
 
     void settextscheme(const QString&);
 
-    void openchatwindow(const QString &);
     void openchatwindowhidden(const QString &);
     void gotprvmsg(const QString &user, const QString &receiver,
                    const QString &msg);
     void connected();
     void disconnected();
+    void reconnect();
+    void disconnect_netcoupler();
+
+    void reopenChatWindowsAndChannelWindows();
 protected:
     void changeEvent (QEvent*);
     void closeEvent ( QCloseEvent * event );
