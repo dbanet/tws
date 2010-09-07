@@ -197,22 +197,8 @@ void search_for_game_executables(){
         if (wormkit.exists()) {
             text = text + "\n" + wormkit.fileName();
         }
-        if (test) {
-            QMessageBox::StandardButton button = QMessageBox::question(0,
-                                                                       QObject::tr("Question about host/join programs."),
-                                                                       QObject::tr("I found %1 \nThis programs can be used"
-                                                                                   " to host or join games. \n"
-                                                                                   "Do you want to add them to the programslist?\n"
-                                                                                   "You can then just double click a game to join it with the wa.exe.\n"
-                                                                                   "Or you right click a game to choose another program or to add one.\n"
-                                                                                   "Hosting is done, by double- or right- clicking a channel name "
-                                                                                   "inside the hostview (where the hosts appear).").arg(
-                                                                                           text), QMessageBox::Yes | QMessageBox::No);
-            if (button == QMessageBox::Yes) {
-                singleton<snpsettings>().map["joinstrings"] = text.split("\n",
-                                                                         QString::SkipEmptyParts);
-            }
-        }
+        if (test)
+            singleton<snpsettings>().map["joinstrings"] = text.split("\n",QString::SkipEmptyParts);
     }
     singleton<snpsettings>().safe();
 }
