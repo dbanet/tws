@@ -60,12 +60,12 @@
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="../src/snpsettings.cpp" line="20"/>
+        <location filename="../src/snpsettings.cpp" line="23"/>
         <source>Question</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/snpsettings.cpp" line="21"/>
+        <location filename="../src/snpsettings.cpp" line="24"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
         <translation type="unfinished"></translation>
@@ -73,21 +73,6 @@ If you use The Wheat Snooper at the first time just click No.</source>
 </context>
 <context>
     <name>QObject</name>
-    <message>
-        <location filename="../src/main.cpp" line="202"/>
-        <source>Question about host/join programs.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="203"/>
-        <source>I found %1 
-This programs can be used to host or join games. 
-Do you want to add them to the programslist?
-You can then just double click a game to join it with the wa.exe.
-Or you right click a game to choose another program or to add one.
-Hosting is done, by double- or right- clicking a channel name inside the hostview (where the hosts appear).</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../src/global_functions.h" line="120"/>
         <source>is missing or locked, please run worms, one time, without the snooper. it will then create the file!</source>
@@ -933,22 +918,27 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
 <context>
     <name>ircnet</name>
     <message>
-        <location filename="../src/ircnet.cpp" line="45"/>
+        <location filename="../src/ircnet.cpp" line="43"/>
+        <source>Reconnecting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ircnet.cpp" line="49"/>
         <source>There was an error with the connection to Wormnet: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ircnet.cpp" line="204"/>
+        <location filename="../src/ircnet.cpp" line="205"/>
         <source>disconnected from irc server.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ircnet.cpp" line="270"/>
+        <location filename="../src/ircnet.cpp" line="271"/>
         <source>Nickname collision!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ircnet.cpp" line="271"/>
+        <location filename="../src/ircnet.cpp" line="272"/>
         <source>The server things that your nickname is allready in use. This is usually caused by a uncomplete logout at the last session. If its like that you have to wait a few seconds or change your nickname! 
 
 If your nick got faked... bl :)</source>
@@ -1043,92 +1033,92 @@ If your nick got faked... bl :)</source>
 <context>
     <name>mainwindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="529"/>
+        <location filename="../src/mainwindow.cpp" line="540"/>
         <source>Stuff</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="53"/>
-        <location filename="../src/mainwindow.cpp" line="531"/>
-        <location filename="../src/mainwindow.cpp" line="707"/>
+        <location filename="../src/mainwindow.cpp" line="542"/>
+        <location filename="../src/mainwindow.cpp" line="718"/>
         <source>About</source>
         <translation>Sobre o Tws</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="52"/>
-        <location filename="../src/mainwindow.cpp" line="262"/>
+        <location filename="../src/mainwindow.cpp" line="273"/>
         <source>Autojoin:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="108"/>
-        <source>Cant read the Skinfile:
-Skin_Base.qss</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="113"/>
+        <location filename="../src/mainwindow.cpp" line="115"/>
         <source>Nickname field is empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="113"/>
+        <location filename="../src/mainwindow.cpp" line="115"/>
         <source>Please choose a nickname.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="276"/>
+        <location filename="../src/mainwindow.cpp" line="287"/>
         <source>Cant read the Skinfile:
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="532"/>
-        <location filename="../src/mainwindow.cpp" line="711"/>
+        <location filename="../src/mainwindow.cpp" line="543"/>
+        <location filename="../src/mainwindow.cpp" line="722"/>
         <source>Settings</source>
         <translation>Opções</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="533"/>
-        <location filename="../src/mainwindow.cpp" line="726"/>
+        <location filename="../src/mainwindow.cpp" line="544"/>
+        <location filename="../src/mainwindow.cpp" line="732"/>
         <source>Volume</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="540"/>
+        <location filename="../src/mainwindow.cpp" line="551"/>
         <source>Skins</source>
         <translation>Estilos (skins)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="559"/>
+        <location filename="../src/mainwindow.cpp" line="570"/>
         <source>Layouts</source>
         <translation>Disposição das grelhas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="577"/>
+        <location filename="../src/mainwindow.cpp" line="588"/>
         <source>Join</source>
         <translation>Entrar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="570"/>
+        <location filename="../src/mainwindow.cpp" line="581"/>
         <source>Language</source>
         <translation>Idiomas</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="580"/>
-        <location filename="../src/mainwindow.cpp" line="662"/>
+        <location filename="../src/mainwindow.cpp" line="108"/>
+        <source>Cant read the Skinfile:
+Skin_Base</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="591"/>
+        <location filename="../src/mainwindow.cpp" line="673"/>
         <source>Away mode</source>
         <translation>Modo ausente</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="584"/>
-        <location filename="../src/mainwindow.cpp" line="714"/>
+        <location filename="../src/mainwindow.cpp" line="595"/>
+        <location filename="../src/mainwindow.cpp" line="725"/>
         <source>Reconnect</source>
         <translation>Reconectar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="586"/>
-        <location filename="../src/mainwindow.cpp" line="610"/>
+        <location filename="../src/mainwindow.cpp" line="597"/>
+        <location filename="../src/mainwindow.cpp" line="621"/>
         <source>Close</source>
         <translation>Fechar</translation>
     </message>
@@ -1164,83 +1154,83 @@ Skin_Base.qss</source>
         <translation type="obsolete">Dispor com uma janelas pegadas.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="354"/>
+        <location filename="../src/mainwindow.cpp" line="365"/>
         <source>Restart the application?</source>
         <translation>Reinicar a aplicação?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="355"/>
+        <location filename="../src/mainwindow.cpp" line="366"/>
         <source>Changing the translation requires a program restart.
 To restart now click Ok, otherwise cancel.</source>
         <translation>Mudar o idioma necessita que o programa seja reiniciado.
 Para reiniciar agora carrega Ok, se nao carrega em cancelar.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="534"/>
-        <location filename="../src/mainwindow.cpp" line="731"/>
+        <location filename="../src/mainwindow.cpp" line="545"/>
+        <location filename="../src/mainwindow.cpp" line="737"/>
         <source>Open Log Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="541"/>
+        <location filename="../src/mainwindow.cpp" line="552"/>
         <source>Text Schemes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="549"/>
-        <location filename="../src/mainwindow.cpp" line="737"/>
+        <location filename="../src/mainwindow.cpp" line="560"/>
+        <location filename="../src/mainwindow.cpp" line="743"/>
         <source>Save current textscheme to file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="738"/>
+        <location filename="../src/mainwindow.cpp" line="744"/>
         <source>Save textscheme to.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="407"/>
+        <location filename="../src/mainwindow.cpp" line="418"/>
         <source>trying to apply new textscheme: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="536"/>
-        <location filename="../src/mainwindow.cpp" line="749"/>
+        <location filename="../src/mainwindow.cpp" line="547"/>
+        <location filename="../src/mainwindow.cpp" line="755"/>
         <source>Scheme maker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="538"/>
-        <location filename="../src/mainwindow.cpp" line="752"/>
+        <location filename="../src/mainwindow.cpp" line="549"/>
+        <location filename="../src/mainwindow.cpp" line="758"/>
         <source>Playername</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="377"/>
-        <location filename="../src/mainwindow.cpp" line="386"/>
+        <location filename="../src/mainwindow.cpp" line="388"/>
+        <location filename="../src/mainwindow.cpp" line="397"/>
         <source>&lt;away&gt;:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="108"/>
-        <location filename="../src/mainwindow.cpp" line="276"/>
-        <location filename="../src/mainwindow.cpp" line="638"/>
+        <location filename="../src/mainwindow.cpp" line="287"/>
+        <location filename="../src/mainwindow.cpp" line="649"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="639"/>
+        <location filename="../src/mainwindow.cpp" line="650"/>
         <source>Changing the skin crashes sometimes, but The Wheat Snooper
 will keep the settings for the next Start.
 Do you want to proceed?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="492"/>
+        <location filename="../src/mainwindow.cpp" line="503"/>
         <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="495"/>
+        <location filename="../src/mainwindow.cpp" line="506"/>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1405,7 +1395,7 @@ Do you want to proceed?</source>
 <context>
     <name>netcoupler</name>
     <message>
-        <location filename="../src/netcoupler.cpp" line="424"/>
+        <location filename="../src/netcoupler.cpp" line="425"/>
         <source>No executables are given.
 you must choose a game executable,
 for example wa.exe, to join a game.
@@ -1765,8 +1755,18 @@ Note: A reconnect is required to apply these settings.</source>
 <context>
     <name>snpsettings</name>
     <message>
-        <location filename="../src/snpsettings.cpp" line="25"/>
+        <location filename="../src/snpsettings.cpp" line="30"/>
         <source>Please choose the folder from the old Snooper.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/snpsettings.cpp" line="37"/>
+        <source>Warning!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/snpsettings.cpp" line="37"/>
+        <source>This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1832,8 +1832,8 @@ Note: A reconnect is required to apply these settings.</source>
 <context>
     <name>usermodel</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="535"/>
-        <location filename="../src/mainwindow.cpp" line="722"/>
+        <location filename="../src/mainwindow.cpp" line="546"/>
+        <location filename="../src/mainwindow.cpp" line="728"/>
         <location filename="../src/usermodel.cpp" line="120"/>
         <location filename="../src/usermodel.cpp" line="286"/>
         <location filename="../src/window.cpp" line="158"/>
