@@ -31,7 +31,7 @@ OutFile "The Wheat Snooper win32.exe"
 InstallDir "$PROGRAMFILES\The Wheat Snooper"
 CRCCheck on
 XPStyle on
-Icon pictures\tray.ico
+Icon TheWheatSnooper\pictures\tray.ico
 ShowInstDetails show
 AutoCloseWindow false
 LicenseForceSelection radiobuttons
@@ -79,11 +79,7 @@ Section -post SEC0001
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayIcon $INSTDIR\uninstall.exe
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" UninstallString $INSTDIR\uninstall.exe
     WriteRegDWORD HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoModify 1
-    WriteRegDWORD HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoRepair 1
-    
-    !insertmacro CREATE_SMGROUP_SHORTCUT "$(^Name)" $INSTDIR\TheWheatSnooper.exe
-    !insertmacro CREATE_SMGROUP_SHORTCUT "Homepage of $(^Name)" http://lookias.inventforum.com/viewforum.php?f=9
-    !insertmacro CREATE_SMGROUP_SHORTCUT "Tutorial of $(^Name)" $INSTDIR\tutorial.pdf    
+    WriteRegDWORD HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoRepair 1     
              
 SectionEnd
 
@@ -114,12 +110,13 @@ SectionEnd
 Section -un.post UNSEC0001
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     !insertmacro DELETE_SMGROUP_SHORTCUT "Uninstall $(^Name)"
-    Delete /REBOOTOK $INSTDIR\uninstall.exe
+    Delete /REBOOTOK "$INSTDIR\uninstall.exe"
+    RmDir /REBOOTOK "$SMPROGRAMS\$StartMenuGroup"
+    Delete /REBOOTOK "$DESKTOP\The Wheat Snooper.lnk"        
     DeleteRegValue HKLM "${REGKEY}" StartMenuGroup
     DeleteRegValue HKLM "${REGKEY}" Path
     DeleteRegKey /IfEmpty HKLM "${REGKEY}\Components"
-    DeleteRegKey /IfEmpty HKLM "${REGKEY}"
-    RmDir /REBOOTOK $SMPROGRAMS\$StartMenuGroup
+    DeleteRegKey /IfEmpty HKLM "${REGKEY}"    
     RmDir /REBOOTOK $INSTDIR
     Push $R0
     StrCpy $R0 $StartMenuGroup 1
@@ -127,9 +124,9 @@ Section -un.post UNSEC0001
 no_smgroup:
     Pop $R0
 SectionEnd
-
+  
 # Installer functions
-Function StartMenuGroupSelect
+Function StartMenuGroupSelect    
     Push $R1
     StartMenu::Select /checknoshortcuts "Do not create shortcuts" /autoadd /text "Select the Start Menu folder in which to create the program's shortcuts:" /lastused $StartMenuGroup "The Wheat Snooper"
     Pop $R1
@@ -154,8 +151,12 @@ Function CreateSMGroupShortcut
     Push $R2
     StrCpy $R2 $StartMenuGroup 1
     StrCmp $R2 ">" no_smgroup
-    SetOutPath $SMPROGRAMS\$StartMenuGroup
+    SetOutPath $INSTDIR
+    CreateShortCut "$DESKTOP\The Wheat Snooper.lnk" "$INSTDIR\TheWheatSnooper.exe" "" "$INSTDIR\pictures\tray.ico"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$R1.lnk" $R0
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\The Wheat Snooper.lnk" $INSTDIR\TheWheatSnooper.exe "" "$INSTDIR\pictures\tray.ico"
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Homepage of $(^Name).lnk" http://lookias.inventforum.com/viewforum.php?f=9
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Tutorial of $(^Name).lnk" $INSTDIR\tutorial.pdf    
 no_smgroup:
     Pop $R2
     Pop $R1
@@ -166,15 +167,14 @@ FunctionEnd
 Function un.onInit
     ReadRegStr $INSTDIR HKLM "${REGKEY}" Path
     ReadRegStr $StartMenuGroup HKLM "${REGKEY}" StartMenuGroup
-    !insertmacro SELECT_UNSECTION Main ${UNSEC0000}
+    !insertmacro SELECT_UNSECTION Main ${UNSEC0000}   
 FunctionEnd
 
 Function un.DeleteSMGroupShortcut
     Exch $R1 ;NAME
     Push $R2
     StrCpy $R2 $StartMenuGroup 1
-    StrCmp $R2 ">" no_smgroup
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\$R1.lnk"
+    StrCmp $R2 ">" no_smgroup    
 no_smgroup:
     Pop $R2
     Pop $R1
