@@ -12,6 +12,9 @@
 #include"playername.h"
 #include "sound_handler.h"
 #include"global_functions.h"
+#ifdef Q_WS_WIN
+    #include <dir.h>
+#endif
 volumeslider *volume;
 
 QList<QPixmap*> flaglist;
@@ -37,9 +40,7 @@ int main(int argc, char *argv[]) {
     QApplication a(argc, argv);    
 
     a.setApplicationName("The Wheat Snooper");    
-#if defined QT_WS_X11
     chdir(qPrintable(QApplication::applicationDirPath()));
-#endif
     singleton<snpsettings>().load();
     singleton<charformatsettings>().load();
     QTranslator trans;
