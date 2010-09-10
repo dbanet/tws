@@ -347,13 +347,15 @@ void window::useritempressed(const QModelIndex &index) {
         if(net->users.data(index.sibling(index.row(), 0)).value<QString> ()==usermodel::tr("Querys")){
             menu.addAction(tr("Remove Querys"));
             a = menu.exec(QCursor::pos());
-            if(a)
+            if(a && a->text()==tr("Remove Querys")){
                 querylist.clear();
+                safequerylist();
+            }
         }
     } else if (index.column() == usermodel::e_Clan) {
         QStringList sl = singleton<snpsettings>().map["dissallowedclannames"].value<QStringList>();
-//        menu.addAction(tr("Get Information about this clan."));
-//        menu.addSeparator();
+        //        menu.addAction(tr("Get Information about this clan."));
+        //        menu.addSeparator();
         if (sl.contains(net->users.getuserstructbyindex(index).nickfromclient))
             menu.addAction(tr("Allow this clanname."));
         else

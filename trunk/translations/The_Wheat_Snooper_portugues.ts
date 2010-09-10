@@ -1837,15 +1837,15 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/usermodel.cpp" line="120"/>
         <location filename="../src/usermodel.cpp" line="286"/>
         <location filename="../src/window.cpp" line="158"/>
-        <location filename="../src/window.cpp" line="385"/>
-        <location filename="../src/window.cpp" line="421"/>
+        <location filename="../src/window.cpp" line="387"/>
+        <location filename="../src/window.cpp" line="423"/>
         <source>Buddylist</source>
         <translation>Lista dos buddys</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="387"/>
-        <location filename="../src/window.cpp" line="430"/>
-        <location filename="../src/window.cpp" line="444"/>
+        <location filename="../src/window.cpp" line="389"/>
+        <location filename="../src/window.cpp" line="432"/>
+        <location filename="../src/window.cpp" line="446"/>
         <source>Ignorelist</source>
         <translation>Lista de ignores</translation>
     </message>
@@ -1873,7 +1873,7 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/usermodel.cpp" line="248"/>
         <location filename="../src/window.cpp" line="156"/>
         <location filename="../src/window.cpp" line="347"/>
-        <location filename="../src/window.cpp" line="371"/>
+        <location filename="../src/window.cpp" line="373"/>
         <source>Querys</source>
         <translation>Consultas</translation>
     </message>
@@ -1923,101 +1923,102 @@ Note: A reconnect is required to apply these settings.</source>
     </message>
     <message>
         <location filename="../src/window.cpp" line="104"/>
-        <location filename="../src/window.cpp" line="506"/>
+        <location filename="../src/window.cpp" line="508"/>
         <source>Host a private game</source>
         <translation>Criar uma sala privada</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="518"/>
-        <location filename="../src/window.cpp" line="539"/>
-        <location filename="../src/window.cpp" line="611"/>
+        <location filename="../src/window.cpp" line="520"/>
+        <location filename="../src/window.cpp" line="541"/>
+        <location filename="../src/window.cpp" line="613"/>
         <source>Choose a Program to join this game.</source>
         <translation>Escolha um programa para entrar neste jogo.</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="106"/>
-        <location filename="../src/window.cpp" line="406"/>
+        <location filename="../src/window.cpp" line="408"/>
         <source>Add this user to Buddylist.</source>
         <translation>Adicionar este utilizador a lista de Buddys.</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="107"/>
-        <location filename="../src/window.cpp" line="408"/>
+        <location filename="../src/window.cpp" line="410"/>
         <source>Add this user to Ignorelist.</source>
         <translation>Adicionar este utilizador a lista de ignorados.</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="109"/>
         <location filename="../src/window.cpp" line="111"/>
-        <location filename="../src/window.cpp" line="375"/>
-        <location filename="../src/window.cpp" line="381"/>
-        <location filename="../src/window.cpp" line="393"/>
-        <location filename="../src/window.cpp" line="400"/>
-        <location filename="../src/window.cpp" line="410"/>
-        <location filename="../src/window.cpp" line="426"/>
-        <location filename="../src/window.cpp" line="435"/>
+        <location filename="../src/window.cpp" line="377"/>
+        <location filename="../src/window.cpp" line="383"/>
+        <location filename="../src/window.cpp" line="395"/>
+        <location filename="../src/window.cpp" line="402"/>
+        <location filename="../src/window.cpp" line="412"/>
+        <location filename="../src/window.cpp" line="428"/>
+        <location filename="../src/window.cpp" line="437"/>
         <source>Show info about this user.</source>
         <translation>Mostrar informação deste jogador.</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="110"/>
-        <location filename="../src/window.cpp" line="424"/>
-        <location filename="../src/window.cpp" line="433"/>
+        <location filename="../src/window.cpp" line="426"/>
+        <location filename="../src/window.cpp" line="435"/>
         <source>Remove this user from the list.</source>
         <translation>Remover este utilizador da lista.</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="358"/>
-        <location filename="../src/window.cpp" line="363"/>
+        <location filename="../src/window.cpp" line="360"/>
+        <location filename="../src/window.cpp" line="365"/>
         <source>Allow this clanname.</source>
         <translation>Reservar este nome de cla.</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="360"/>
-        <location filename="../src/window.cpp" line="365"/>
+        <location filename="../src/window.cpp" line="362"/>
+        <location filename="../src/window.cpp" line="367"/>
         <source>Dissallow this clanname.</source>
         <translation>Desativar a reserva do nome deste cla.</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="373"/>
-        <location filename="../src/window.cpp" line="379"/>
+        <location filename="../src/window.cpp" line="375"/>
+        <location filename="../src/window.cpp" line="381"/>
         <source>Remove this Query.</source>
         <translation>Remover esta consulta.</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="391"/>
-        <location filename="../src/window.cpp" line="412"/>
+        <location filename="../src/window.cpp" line="393"/>
+        <location filename="../src/window.cpp" line="414"/>
         <source>Remove this user from Buddylist.</source>
         <translation>Remover da lista dos Buddys.</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="398"/>
-        <location filename="../src/window.cpp" line="415"/>
+        <location filename="../src/window.cpp" line="400"/>
+        <location filename="../src/window.cpp" line="417"/>
         <source>Remove this user from Ignorelist.</source>
         <translation>Remover da lista dos ignorados.</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="522"/>
+        <location filename="../src/window.cpp" line="524"/>
         <source>Choose a desktop icon.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="526"/>
+        <location filename="../src/window.cpp" line="528"/>
         <source>Choose a Program.</source>
         <translation>Escolha o programa.</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="529"/>
+        <location filename="../src/window.cpp" line="531"/>
         <source>Choose a Desktopicon.</source>
         <translation>Escolha o icon do ambiente de trabalho.</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="635"/>
+        <location filename="../src/window.cpp" line="637"/>
         <source>Users online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="348"/>
+        <location filename="../src/window.cpp" line="350"/>
         <source>Remove Querys</source>
         <translation type="unfinished"></translation>
     </message>
