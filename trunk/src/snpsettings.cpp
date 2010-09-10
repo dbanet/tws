@@ -16,6 +16,8 @@ extern QStringList defaultServerList;
 snpsettings::snpsettings(){}
 snpsettings::~snpsettings(){}
 void snpsettings::load(){
+    if(!QDir().exists("query"))
+        QDir().mkdir("query");
     if(!QDir().exists("snpini"))
         QDir().mkdir("snpini");
     QFile f(QApplication::applicationDirPath()+"/snpini/snpini");
@@ -29,9 +31,8 @@ void snpsettings::load(){
             while(true){
                 folder=QFileDialog::getExistingDirectory(0,qApp->tr("Please choose the folder from the old Snooper.")
                                                          ,qApp->applicationDirPath());
-                folder=folder+"/snpini/";
-                if(QFile::exists(folder+"snpini")){
-                    QFile::copy(folder+"snpini",QApplication::applicationDirPath()+"/snpini/snpini");
+                if(QFile::exists(folder+"/snpini/"+"snpini")){
+                    QFile::copy(folder+"/snpini/",QApplication::applicationDirPath()+"/snpini/snpini");
                     break;
                 } else{
                     int button=QMessageBox::warning(0,qApp->tr("Warning!"),qApp->tr("This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?"),QMessageBox::Yes | QMessageBox::No);
@@ -40,13 +41,12 @@ void snpsettings::load(){
                     else return;
                 }
             }
-            if(QFile::exists(folder+"settingswindowini")){
-                QFile::copy(folder+"settingswindowini",QApplication::applicationDirPath()+"/snpini/settingswindowini");
-                singleton<settingswindow>().load();
-            }
-            if(QFile::exists(folder+"ctcp.ini")){
-                QFile::copy(folder+"ctcp.ini",QApplication::applicationDirPath()+"/snpini/ctcp.ini");
-            }
+            QFile::copy(folder+"/snpini/"+"settingswindowini",QApplication::applicationDirPath()+"/snpini/settingswindowini");
+            QFile::copy(folder+"/snpini/"+"ctcp.ini",QApplication::applicationDirPath()+"/snpini/ctcp.ini");
+
+            QFile::copy(folder+"/query/"+"log",QApplication::applicationDirPath()+"/query/log");
+            QFile::copy(folder+"/query/"+"querylist",QApplication::applicationDirPath()+"/query/querylist");
+            singleton<settingswindow>().load();
         } else{
             loadDefaults();
             return;

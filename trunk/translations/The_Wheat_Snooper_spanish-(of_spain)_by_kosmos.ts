@@ -199,12 +199,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="../src/snpsettings.cpp" line="23"/>
+        <location filename="../src/snpsettings.cpp" line="25"/>
         <source>Question</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/snpsettings.cpp" line="24"/>
+        <location filename="../src/snpsettings.cpp" line="26"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
         <translation type="unfinished"></translation>
@@ -2048,17 +2048,17 @@ Nota: Es necesario reconectar para aplicar estos cambios.</translation>
 <context>
     <name>snpsettings</name>
     <message>
-        <location filename="../src/snpsettings.cpp" line="30"/>
+        <location filename="../src/snpsettings.cpp" line="32"/>
         <source>Please choose the folder from the old Snooper.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/snpsettings.cpp" line="37"/>
+        <location filename="../src/snpsettings.cpp" line="38"/>
         <source>Warning!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/snpsettings.cpp" line="37"/>
+        <location filename="../src/snpsettings.cpp" line="38"/>
         <source>This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?</source>
         <translation type="unfinished"></translation>
     </message>

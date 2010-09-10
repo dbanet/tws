@@ -48,13 +48,13 @@ namespace {
     //----------------------------------------------------------------------------------------------
     void safeusergarbage() {
         QFile f(QApplication::applicationDirPath() + "/query/log");
-        if (f.open(QFile::WriteOnly | QFile::Truncate)) {
-            QDataStream ds(&f);
-            ds.setVersion(QDataStream::Qt_4_3);
-            QMap<QString, QStringList>::iterator i;
-            for (i = usergarbagemap.begin(); i != usergarbagemap.end(); ++i) {
-                ds << i.key() << i.value();
-            }
+        if (!f.open(QFile::WriteOnly | QFile::Truncate))
+            return;
+        QDataStream ds(&f);
+        ds.setVersion(QDataStream::Qt_4_3);
+        QMap<QString, QStringList>::iterator i;
+        for (i = usergarbagemap.begin(); i != usergarbagemap.end(); ++i) {
+            ds << i.key() << i.value();
         }
     }
     //----------------------------------------------------------------------------------------------
@@ -62,32 +62,32 @@ namespace {
         QFile f(QApplication::applicationDirPath() + "/query/log");
         QString s;
         QStringList sl;
-        if (f.open(QFile::ReadOnly)) {
-            QDataStream ds(&f);
-            ds.setVersion(QDataStream::Qt_4_3);
-            while (!ds.atEnd()) {
-                ds >> s >> sl;
-                usergarbagemap[s] = sl;
-            }
+        if (!f.open(QFile::ReadOnly))
+            return;
+        QDataStream ds(&f);
+        ds.setVersion(QDataStream::Qt_4_3);
+        while (!ds.atEnd()) {
+            ds >> s >> sl;
+            usergarbagemap[s] = sl;
         }
     }
     //----------------------------------------------------------------------------------------------
     void safequerylist() {
         QFile f(QApplication::applicationDirPath() + "/query/querylist");
-        if (f.open(QFile::WriteOnly | QFile::Truncate)) {
-            QDataStream ds(&f);
-            ds.setVersion(QDataStream::Qt_4_3);
-            ds << querylist;
-        }
+        if (!f.open(QFile::WriteOnly | QFile::Truncate))
+            return;
+        QDataStream ds(&f);
+        ds.setVersion(QDataStream::Qt_4_3);
+        ds << querylist;
     }
     //----------------------------------------------------------------------------------------------
     void loadquerylist() {
         QFile f(QApplication::applicationDirPath() + "/query/querylist");
-        if (f.open(QFile::ReadOnly)) {
-            QDataStream ds(&f);
-            ds.setVersion(QDataStream::Qt_4_3);
-            ds >> querylist;
-        }
+        if (!f.open(QFile::ReadOnly))
+            return;
+        QDataStream ds(&f);
+        ds.setVersion(QDataStream::Qt_4_3);
+        ds >> querylist;
     }
     //----------------------------------------------------------------------------------------------
     QString globalport;
@@ -155,7 +155,7 @@ namespace {
         }
         winini.close();
         if(!winini.open(QFile::WriteOnly | QFile::Truncate))
-            ;
+            return;
         QTextStream ts(&winini);
         ts << sl.join("\n");
         winini.close();

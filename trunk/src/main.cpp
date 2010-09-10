@@ -55,8 +55,7 @@ int main(int argc, char *argv[]) {
                           + QDir::separator() + "snppictures" + QDir::separator()
                           + "tray.png"));
     QString sep = QDir::separator();
-    QDir dir(QApplication::applicationDirPath() + sep + "snppictures" + sep
-             + "flags");
+    QDir dir(QApplication::applicationDirPath() + "/snppictures/" + "flags");
     if (!dir.exists())
         qDebug() << "the flags in snppictures/flags are missing!";
     foreach(QString f,dir.entryList(QStringList()<<"*.png",QDir::Files,QDir::Name)) {
@@ -81,10 +80,7 @@ int main(int argc, char *argv[]) {
     ranklistsize = ranklist.size();
     flaglistsize = flaglist.size();
     a.setStyle(new QPlastiqueStyle);
-    a.setQuitOnLastWindowClosed(0);
-
-    loadusergarbage();
-    loadquerylist();    
+    a.setQuitOnLastWindowClosed(0);    
 
 #ifdef Q_WS_WIN
     search_for_game_executables();
@@ -100,6 +96,9 @@ int main(int argc, char *argv[]) {
     }
     singleton<sound_handler>().init();
     singleton<sound_handler>().play_startupsound();        
+
+    loadusergarbage();
+    loadquerylist();
     return a.exec();
 }
 void myMessageOutput(QtMsgType type, const char *msg) {

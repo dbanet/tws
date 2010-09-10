@@ -62,7 +62,7 @@ DirText "If you allready have an installation of this programm, \
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File /r /x snpini /x .svn TheWheatSnooper\*
+    File /r /x snpini /x query /x .svn TheWheatSnooper\*
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
 SectionEnd
 

@@ -177,12 +177,12 @@
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="../src/snpsettings.cpp" line="23"/>
+        <location filename="../src/snpsettings.cpp" line="25"/>
         <source>Question</source>
         <translation>Frage</translation>
     </message>
     <message>
-        <location filename="../src/snpsettings.cpp" line="24"/>
+        <location filename="../src/snpsettings.cpp" line="26"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
         <translation>Der Snooper kann die Einstellungen von einer alten version übernehmen. Wenn du das möchtest klicke Yes.
@@ -1146,12 +1146,12 @@ bis das Spiel im Wormnet erscheint.</translation>
     <message>
         <location filename="../src/ircnet.cpp" line="43"/>
         <source>Reconnecting</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiederverbinden</translation>
     </message>
     <message>
         <location filename="../src/ircnet.cpp" line="49"/>
         <source>There was an error with the connection to Wormnet: </source>
-        <translation type="unfinished"></translation>
+        <translation>Es gab einen Fehler mit der Verbindung zum Wormnet.</translation>
     </message>
     <message>
         <location filename="../src/ircnet.cpp" line="205"/>
@@ -1274,7 +1274,8 @@ If your nick got faked... bl :)</source>
         <location filename="../src/mainwindow.cpp" line="108"/>
         <source>Cant read the Skinfile:
 Skin_Base</source>
-        <translation type="unfinished"></translation>
+        <translation>Kann die Skin-Datei nich lesen:
+Skin_base</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="543"/>
@@ -2058,19 +2059,19 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
 <context>
     <name>snpsettings</name>
     <message>
-        <location filename="../src/snpsettings.cpp" line="30"/>
+        <location filename="../src/snpsettings.cpp" line="32"/>
         <source>Please choose the folder from the old Snooper.</source>
         <translation>Bitte wähle das Verzeichnis wo der alte Wheat Snooper zu finden ist.</translation>
     </message>
     <message>
-        <location filename="../src/snpsettings.cpp" line="37"/>
+        <location filename="../src/snpsettings.cpp" line="38"/>
         <source>Warning!</source>
-        <translation type="unfinished"></translation>
+        <translation>Warnung!</translation>
     </message>
     <message>
-        <location filename="../src/snpsettings.cpp" line="37"/>
+        <location filename="../src/snpsettings.cpp" line="38"/>
         <source>This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Verszeichnis enthält keine korrekte Installation des Wheat Snoopers. Willst du weitere Orte durchsuchen?</translation>
     </message>
 </context>
 <context>
