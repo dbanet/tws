@@ -1154,17 +1154,17 @@ bis das Spiel im Wormnet erscheint.</translation>
         <translation>Es gab einen Fehler mit der Verbindung zum Wormnet.</translation>
     </message>
     <message>
-        <location filename="../src/ircnet.cpp" line="205"/>
+        <location filename="../src/ircnet.cpp" line="209"/>
         <source>disconnected from irc server.</source>
         <translation>Vom IRC Server getrennt</translation>
     </message>
     <message>
-        <location filename="../src/ircnet.cpp" line="271"/>
+        <location filename="../src/ircnet.cpp" line="275"/>
         <source>Nickname collision!</source>
         <translation>Namens Kollision</translation>
     </message>
     <message>
-        <location filename="../src/ircnet.cpp" line="272"/>
+        <location filename="../src/ircnet.cpp" line="276"/>
         <source>The server things that your nickname is allready in use. This is usually caused by a uncomplete logout at the last session. If its like that you have to wait a few seconds or change your nickname! 
 
 If your nick got faked... bl :)</source>

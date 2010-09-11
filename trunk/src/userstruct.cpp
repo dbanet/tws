@@ -68,6 +68,40 @@ userstruct::userstruct(QStringList sl) {
             flag = 66;
         else if (country == "VE")
             flag = 67;
+        //written by steps
+        else if (country == "LT")
+            flag = 68;
+        else if (country == "BG")
+            flag = 69;
+        else if (country == "EG")
+            flag = 70;
+        else if (country == "SA")
+            flag = 71;
+        else if (country == "KR")
+            flag = 72;
+        else if (country == "BY")
+            flag = 73;
+        else if (country == "PE")
+            flag = 74;
+        else if (country == "DZ")
+            flag = 75;
+        else if (country == "KZ")
+            flag = 76;
+        else if (country == "SV")
+            flag = 77;
+        else if (country == "TW")
+            flag = 78;
+        else if (country == "JM")
+            flag = 79;
+        else if (country == "GT")
+            flag = 80;
+        else if (country == "MH")
+            flag = 81;
+        else if (country == "MK")
+            flag = 82;
+        else if (country == "AE")
+            flag = 83;
+        //*******
     }
     client = sl.join(" ").remove("\r");
     if(addressischecked==0 && nick==net->nick){
