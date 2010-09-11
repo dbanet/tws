@@ -52,15 +52,18 @@ void ircnet::connected() {
     QStringList sl = inihandler.stringlistfromini("[irc password]");
     if (!sl.isEmpty()) {
         if (sl.first() == "PASS standard") {
-            this->sendrawcommand("PASS ELSILRACLIHP ");
+            if(wnip == "itakagames.spb.ru")
+                sendrawcommand("PASS ELSILRACLIHP ");
+            else
+                sendrawcommand("PASS ELSILRACLIHP");
         } else {
             this->sendrawcommand(sl.first());
         }
     }
-    tcp->write(qPrintable(QString("NICK ") + nick + "\r\n"));
+    tcp->write(qPrintable("NICK " + nick + "\n"));
     QString s = inihandler.stringlistfromini("[irc register]").first();
     sl = s.split(" ", QString::SkipEmptyParts);
-    s = sl.takeFirst() + " ";
+    s = sl.takeFirst() + "  ";
     s.append(singleton<snpsettings>().map["clan"].value<QString> () + " ");
     s.append(sl.takeFirst() + " ");
     s.append(sl.takeFirst() + " :");
@@ -69,7 +72,7 @@ void ircnet::connected() {
     switch (singleton<snpsettings>().map["flag"].value<QString> ().toInt()) {
         //written by steps
     case 0:
-        s.append("UK ");
+                s.append("UK ");
         break;
     case 1:
         s.append("AR ");
@@ -327,8 +330,8 @@ void ircnet::connected() {
     }
     s.append(singleton<snpsettings>().map["client"].value<QString> ());
     tcp->write(qPrintable(s));
-    tcp->write("\r\n");
-    tcp->write("list\r\n");
+    tcp->write("\n");
+    tcp->write("list\n");
     emit sigconnected();
 }
 void ircnet::tcpread() {
@@ -505,10 +508,10 @@ void ircnet::sendmessage(const QString &msg, const QString &receiver) {
 void ircnet::sendnotice(const QString &msg, const QString &receiver) {
     QString s = msg;
     s.replace("\n", " ");
-    tcp->write(QString("NOTICE " + receiver + " :" + s + "\n").toAscii());
+    tcp->write(qPrintable("NOTICE " + receiver + " :" + s + "\n"));
 }
 void ircnet::sendrawcommand(const QString &raw) {
-    tcp->write(QString(raw + "\n").toAscii());
+    tcp->write(qPrintable(raw + "\n"));
 }
 void ircnet::refreshlist() {
     if (justgetlist == false) {

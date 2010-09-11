@@ -125,11 +125,15 @@ void mainwindow::chooseclicked() {
     singleton<snpsettings>().map["flag"] = ui.flag->currentText();
     singleton<snpsettings>().map["rank"] = ui.rank->currentText();
     singleton<snpsettings>().map["client"] = ui.client->text();
-    QStringList sl;
-    for(int i=0 ; i<ui.cbServerList->count() ; i++)
-        sl<<ui.cbServerList->itemText(i);
-    if(ui.cbServerList->currentIndex()!=-1)
-        sl.swap(ui.cbServerList->currentIndex(),0);
+    QStringList sl;        
+    sl<<ui.cbServerList->currentText();
+    for(int i=0 ; i<ui.cbServerList->count() ; i++){
+        if(!sl.contains(ui.cbServerList->itemText(i)))
+            sl<<ui.cbServerList->itemText(i);
+    }
+    ui.cbServerList->clear();
+    ui.cbServerList->addItems(sl);
+
     singleton<snpsettings>().map["wormnetserverlist"] = sl;
 
     singleton<snpsettings>().safe();   

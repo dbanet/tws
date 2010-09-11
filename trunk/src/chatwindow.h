@@ -20,6 +20,7 @@ public:
     void gotmsg(const QString&,const QString&,const QString&);
     void setaway(bool,const QString &msg="");
 private slots:
+    void on_pbresize_clicked();
     void sendmsg(QString s="");
     void sendnotice();
     void sendnoticeaction();

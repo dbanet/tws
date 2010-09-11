@@ -13,6 +13,7 @@
 #include<QFileDialog>
 #include<QStatusBar>
 #include<QMessageBox>
+#include<QDesktopWidget>
 #include<QDebug>
 extern QStringList querylist;
 extern QMap<QString, QStringList> usergarbagemap;
@@ -77,6 +78,7 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     ui.pbctcp->setIcon(QIcon("snppictures/buttons/ctcp.png"));
     ui.pbfilter->setIcon(QIcon("snppictures/buttons/filter.png"));
     ui.pbsmileys->setIcon(QIcon("snppictures/buttons/smileys.png"));
+    ui.pbresize->setIcon(QIcon("snppictures/buttons/resize.png"));
     ui.buttonlayout->setAlignment(Qt::AlignLeft);
     connect(ui.pbmute, SIGNAL(clicked()),this, SLOT(pbmuteclicked()));
     connect(ui.pbbuddy, SIGNAL(clicked()),this, SLOT(pbbuddyclicked()));
@@ -317,4 +319,28 @@ chatwindow::~chatwindow() {
     chat->deleteLater();
     emit
             closed();
+}
+
+void chatwindow::on_pbresize_clicked()
+{
+    static int clickCounter=0;
+    static int oldwidth;
+    static int screenCount=qApp->desktop()->screenCount();
+    static int desktopWidth=qApp->desktop()->size().width();
+
+    if(clickCounter==0)
+        oldwidth=size().width();
+
+    clickCounter=(clickCounter+1)%3;
+    switch(clickCounter){
+    case 0:
+        resize(oldwidth,height());
+        break;
+    case 1:
+        resize((desktopWidth/2)/screenCount,height());
+        break;
+    case 2:
+        resize((3*desktopWidth/4)/screenCount,height());
+        break;
+    }
 }
