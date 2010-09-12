@@ -31,6 +31,8 @@ public:
 	static void initialformatstarter();
         void insertText(const QString&,QTextCharFormat&,QString user=QString());
 
+        void moveSliderToMaximum();
+
 	bool slideratmaximum;     
         bool gotFirstMessage;
 	static QTextCharFormat timeformat;
@@ -69,7 +71,9 @@ protected slots:
 //	void slidermovedbyaction(int);
 	void usesettingswindow(const QString &s="");
 	void setschememap(QTextCharFormat*,QFont font);
-	void setschememap(QTextCharFormat*,QColor color);
+        void setschememap(QTextCharFormat*,QColor color);
+
+        void selectionChanged();
 signals:
 	void sigopenchatwindow(const QString&);
 private:

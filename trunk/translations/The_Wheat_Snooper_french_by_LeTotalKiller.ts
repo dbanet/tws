@@ -176,13 +176,14 @@ Annulé</translation>
     <message>
         <location filename="../src/snpsettings.cpp" line="25"/>
         <source>Question</source>
-        <translation type="unfinished"></translation>
+        <translation>Question</translation>
     </message>
     <message>
         <location filename="../src/snpsettings.cpp" line="26"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si vous voulez garder vos préférences de l&apos;autre Wheat, cliquez &quot;Oui&quot;.
+Si vous utilisez The Wheat Snooper pour la première fois, cliquez &quot;Non&quot;.</translation>
     </message>
 </context>
 <context>
@@ -290,7 +291,7 @@ Forum du traducteur : &lt;a href=&quot;http://wormsuniver.forumactif.net/&quot;&
     <message>
         <location filename="../src/balloon_handler.cpp" line="17"/>
         <source> started!</source>
-        <translation type="unfinished"></translation>
+        <translation> est commencé!</translation>
     </message>
     <message>
         <location filename="../src/balloon_handler.cpp" line="19"/>
@@ -301,12 +302,12 @@ Forum du traducteur : &lt;a href=&quot;http://wormsuniver.forumactif.net/&quot;&
     <message>
         <location filename="../src/balloon_handler.cpp" line="34"/>
         <source>disconnected from Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Connecté</translation>
     </message>
     <message>
         <location filename="../src/balloon_handler.cpp" line="38"/>
         <source>connected to Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Déconnecté</translation>
     </message>
     <message>
         <location filename="../src/balloon_handler.cpp" line="58"/>
@@ -466,11 +467,11 @@ Forum du traducteur : &lt;a href=&quot;http://wormsuniver.forumactif.net/&quot;&
         <location filename="../src/chathandler.cpp" line="77"/>
         <location filename="../src/chathandler.cpp" line="82"/>
         <location filename="../src/chathandler.cpp" line="84"/>
-        <location filename="../src/chathandler.cpp" line="313"/>
-        <location filename="../src/chathandler.cpp" line="358"/>
-        <location filename="../src/chathandler.cpp" line="382"/>
-        <location filename="../src/chathandler.cpp" line="401"/>
-        <location filename="../src/chathandler.cpp" line="420"/>
+        <location filename="../src/chathandler.cpp" line="333"/>
+        <location filename="../src/chathandler.cpp" line="378"/>
+        <location filename="../src/chathandler.cpp" line="402"/>
+        <location filename="../src/chathandler.cpp" line="421"/>
+        <location filename="../src/chathandler.cpp" line="440"/>
         <source>Set the font for this texttype</source>
         <translation>Définir la police pour ce type de message</translation>
     </message>
@@ -481,11 +482,11 @@ Forum du traducteur : &lt;a href=&quot;http://wormsuniver.forumactif.net/&quot;&
         <location filename="../src/chathandler.cpp" line="78"/>
         <location filename="../src/chathandler.cpp" line="83"/>
         <location filename="../src/chathandler.cpp" line="85"/>
-        <location filename="../src/chathandler.cpp" line="319"/>
-        <location filename="../src/chathandler.cpp" line="365"/>
-        <location filename="../src/chathandler.cpp" line="389"/>
-        <location filename="../src/chathandler.cpp" line="408"/>
-        <location filename="../src/chathandler.cpp" line="427"/>
+        <location filename="../src/chathandler.cpp" line="339"/>
+        <location filename="../src/chathandler.cpp" line="385"/>
+        <location filename="../src/chathandler.cpp" line="409"/>
+        <location filename="../src/chathandler.cpp" line="428"/>
+        <location filename="../src/chathandler.cpp" line="447"/>
         <source>Set the color for this texttype</source>
         <translation>Définir la couleur pour ce type de message</translation>
     </message>
@@ -503,29 +504,29 @@ Forum du traducteur : &lt;a href=&quot;http://wormsuniver.forumactif.net/&quot;&
     </message>
     <message>
         <location filename="../src/chathandler.cpp" line="75"/>
-        <location filename="../src/chathandler.cpp" line="370"/>
+        <location filename="../src/chathandler.cpp" line="390"/>
         <source>Show game info.</source>
         <translation>Afficher des infos sur la partie.</translation>
     </message>
     <message>
-        <location filename="../src/chathandler.cpp" line="218"/>
-        <location filename="../src/chathandler.cpp" line="221"/>
+        <location filename="../src/chathandler.cpp" line="238"/>
+        <location filename="../src/chathandler.cpp" line="241"/>
         <source>Notice from</source>
         <translation>Note de</translation>
     </message>
     <message>
-        <location filename="../src/chathandler.cpp" line="218"/>
-        <location filename="../src/chathandler.cpp" line="221"/>
+        <location filename="../src/chathandler.cpp" line="238"/>
+        <location filename="../src/chathandler.cpp" line="241"/>
         <source>to</source>
         <translation>à</translation>
     </message>
     <message>
-        <location filename="../src/chathandler.cpp" line="372"/>
+        <location filename="../src/chathandler.cpp" line="392"/>
         <source>Info about this gamelink.</source>
         <translation>Informations à propos de ce lien.</translation>
     </message>
     <message>
-        <location filename="../src/chathandler.cpp" line="260"/>
+        <location filename="../src/chathandler.cpp" line="280"/>
         <source>GAMELINK</source>
         <translation>LIEN VERS LA PARTIE</translation>
     </message>
@@ -533,35 +534,35 @@ Forum du traducteur : &lt;a href=&quot;http://wormsuniver.forumactif.net/&quot;&
 <context>
     <name>chatwindow</name>
     <message>
-        <location filename="../src/chatwindow.cpp" line="37"/>
+        <location filename="../src/chatwindow.cpp" line="38"/>
         <source>Chat with</source>
         <translation>Chat avec</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="256"/>
+        <location filename="../src/chatwindow.cpp" line="258"/>
         <source>Choose a file.</source>
         <translation>Chisissez un fichier.</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="271"/>
+        <location filename="../src/chatwindow.cpp" line="273"/>
         <source>&lt;This users idle time: %1&gt;</source>
         <translation>&lt;Temps depuis la dernière action dans le chat avec cet utilisateur: %1&gt;</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="95"/>
-        <location filename="../src/chatwindow.cpp" line="142"/>
-        <location filename="../src/chatwindow.cpp" line="288"/>
+        <location filename="../src/chatwindow.cpp" line="97"/>
+        <location filename="../src/chatwindow.cpp" line="144"/>
+        <location filename="../src/chatwindow.cpp" line="290"/>
         <source>Online</source>
         <translation>En ligne</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="99"/>
-        <location filename="../src/chatwindow.cpp" line="140"/>
+        <location filename="../src/chatwindow.cpp" line="101"/>
+        <location filename="../src/chatwindow.cpp" line="142"/>
         <source>Was offline when this window opened.</source>
         <translation>Était hors ligne quand cette fenêtre a été ouverte.</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="277"/>
+        <location filename="../src/chatwindow.cpp" line="279"/>
         <source>This user is currently offline</source>
         <translation>Cet utilisateur est actuellement hors ligne</translation>
     </message>
@@ -574,7 +575,7 @@ Forum du traducteur : &lt;a href=&quot;http://wormsuniver.forumactif.net/&quot;&
         <translation>Fenêtre de chat</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.ui" line="334"/>
+        <location filename="../src/chatwindow.ui" line="375"/>
         <source>Send</source>
         <translation>Envoyer</translation>
     </message>
@@ -1121,17 +1122,17 @@ Vous pouvez utiliser les commandes CTCP pour des sites de clan, des plaisanterie
     <message>
         <location filename="../src/ircnet.cpp" line="43"/>
         <source>Reconnecting</source>
-        <translation type="unfinished"></translation>
+        <translation>Reconnexion...</translation>
     </message>
     <message>
         <location filename="../src/ircnet.cpp" line="49"/>
         <source>There was an error with the connection to Wormnet: </source>
-        <translation type="unfinished"></translation>
+        <translation>Il y avait eu un erreur la pendant la connexion: </translation>
     </message>
     <message>
         <location filename="../src/ircnet.cpp" line="417"/>
         <source>disconnected from irc server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Déconnecté d&apos;IRC.</translation>
     </message>
     <message>
         <location filename="../src/ircnet.cpp" line="483"/>
@@ -1251,7 +1252,7 @@ Si votre pseudo est &quot;maudit&quot;... pas de bol :)</translation>
         <location filename="../src/mainwindow.cpp" line="52"/>
         <location filename="../src/mainwindow.cpp" line="277"/>
         <source>Autojoin:</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto-join:</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="547"/>
@@ -1289,7 +1290,8 @@ Si votre pseudo est &quot;maudit&quot;... pas de bol :)</translation>
         <location filename="../src/mainwindow.cpp" line="108"/>
         <source>Cant read the Skinfile:
 Skin_Base</source>
-        <translation type="unfinished"></translation>
+        <translation>Je peux pas lire le Skin:
+Skin_Base</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="595"/>
@@ -1317,12 +1319,12 @@ Skin_Base</source>
     <message>
         <location filename="../src/mainwindow.cpp" line="115"/>
         <source>Nickname field is empty</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous avez oublié d&apos;indiquer votre pseudo</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="115"/>
         <source>Please choose a nickname.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir le pseudo.</translation>
     </message>
     <message>
         <source>warning</source>
@@ -1336,7 +1338,8 @@ Skin_Base</source>
         <location filename="../src/mainwindow.cpp" line="291"/>
         <source>Cant read the Skinfile:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Je peux pas lire le Skin:
+</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="369"/>
@@ -1448,32 +1451,32 @@ Voulez-vous continuer ?</translation>
     <message>
         <location filename="../src/mainwindow.ui" line="137"/>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>Se connecter</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="191"/>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveur</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="198"/>
         <source>To apply a server to this list press enter.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pour ajouter ce serveur, cliquez Enter.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="240"/>
         <source>Optional</source>
-        <translation type="unfinished"></translation>
+        <translation>Optionnel</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="326"/>
         <source>Clanstring</source>
-        <translation type="unfinished"></translation>
+        <translation>Clan</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="357"/>
         <source>Autologin </source>
-        <translation type="unfinished"></translation>
+        <translation>Auto-login </translation>
     </message>
     <message>
         <source>Choose an existing ini file. (better dont touch this.)</source>
@@ -1487,7 +1490,7 @@ Voulez-vous continuer ?</translation>
     <message>
         <location filename="../src/mainwindow.ui" line="177"/>
         <source>Nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Pseudo</translation>
     </message>
     <message>
         <source>Rank</source>
@@ -1496,17 +1499,17 @@ Voulez-vous continuer ?</translation>
     <message>
         <location filename="../src/mainwindow.ui" line="273"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Information</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="306"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Mot de passe</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="370"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Se connecter</translation>
     </message>
     <message>
         <source>Choose a nickname.</source>
@@ -1715,7 +1718,7 @@ Si cette zone de texte est vide, Worms refusera probablement d&apos;héberger ou
     <message>
         <location filename="../src/settingswindow.ui" line="339"/>
         <source>Disconnect from network when a game starts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se déconnecter quand un jeu commence.</translation>
     </message>
     <message>
         <location filename="../src/settingswindow.ui" line="597"/>
@@ -1985,17 +1988,17 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
     <message>
         <location filename="../src/snpsettings.cpp" line="32"/>
         <source>Please choose the folder from the old Snooper.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez le dossier de votre Snooper précédent.</translation>
     </message>
     <message>
         <location filename="../src/snpsettings.cpp" line="38"/>
         <source>Warning!</source>
-        <translation type="unfinished"></translation>
+        <translation>Attention!</translation>
     </message>
     <message>
         <location filename="../src/snpsettings.cpp" line="38"/>
         <source>This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?</source>
-        <translation type="unfinished"></translation>
+        <translation>Peut être, ce dossier n&apos;est pas un valide dossier de The Wheat Snooper. Continuer?</translation>
     </message>
 </context>
 <context>
@@ -2113,7 +2116,7 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
     <message>
         <location filename="../src/usermodel.cpp" line="18"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Information</translation>
     </message>
     <message>
         <location filename="../src/usermodel.cpp" line="96"/>

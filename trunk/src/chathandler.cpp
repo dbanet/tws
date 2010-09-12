@@ -53,7 +53,7 @@ chathandler::chathandler(QObject *parent, QTextBrowser *t, QString chan) :
     tb->installEventFilter(this);
     doc = tb->document();
     usesettingswindow("sbmaximumoftextblocks");
-    cursor = new QTextCursor(doc);
+    cursor = new QTextCursor(doc);   
     initialformatstarter();
     connect(tb, SIGNAL(customContextMenuRequested ( const QPoint &)),this, SLOT(contextrequest(const QPoint&)));
     connect(tb, SIGNAL(anchorClicked (const QUrl&)),this, SLOT(anchorclicked(const QUrl&)));
@@ -85,17 +85,18 @@ chathandler::chathandler(QObject *parent, QTextBrowser *t, QString chan) :
     debugmenu.addAction(tr("Set the color for this texttype"));
 
     connect(tb->verticalScrollBar(), SIGNAL(valueChanged(int)),this, SLOT(slidermoved(int)));
-//    connect(tb->verticalScrollBar(), SIGNAL(sliderMoved ( int ) ),this, SLOT(slidermoved(int)));
-//    connect(tb->verticalScrollBar(), SIGNAL(actionTriggered ( int ) ),this, SLOT(slidermovedbyaction(int)));
     connect(net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
+    connect(tb,SIGNAL(selectionChanged()),this,SLOT(selectionChanged()));
 }
-bool chathandler::eventFilter(QObject *obj, QEvent *event){
+bool chathandler::eventFilter(QObject *obj, QEvent *event){    
+    static bool isDown=false;
     if(obj!=tb)
-        return false;
-    if(event->type()!=QEvent::Wheel)
-        return false;
-    slidermoved(tb->verticalScrollBar()->value());
-    return true;
+        return false;    
+    if(event->type()==QEvent::Wheel){
+        slidermoved(tb->verticalScrollBar()->value());
+        return true;
+    }
+    return false;
 }
 
 void chathandler::initialformatstarter() {
@@ -448,4 +449,11 @@ void chathandler::usesettingswindow(const QString &s) {
 }
 chathandler::~chathandler() {
     // TODO Auto-generated destructor stub
+}
+void chathandler::selectionChanged(){
+    tb->copy();
+}
+void chathandler::moveSliderToMaximum(){
+    tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
+    slideratmaximum=true;
 }

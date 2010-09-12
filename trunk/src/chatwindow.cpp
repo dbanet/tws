@@ -187,6 +187,7 @@ void chatwindow::sendmsg(QString str) {
                 "dd.MM") + " " + QTime::currentTime().toString("hh:mm") + " "
                 + net->nick + ">" + s;
         ui.lineEdit->clear();
+        chat->moveSliderToMaximum();
     }
 }
 void chatwindow::sendnotice() {

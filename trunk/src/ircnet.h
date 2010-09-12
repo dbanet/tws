@@ -68,6 +68,7 @@ private:
 
     QMap<QString,int> mapusercommand;
     bool whoreceivedcompletely;
+
 private slots:
     void tcpError(QAbstractSocket::SocketError);
 };

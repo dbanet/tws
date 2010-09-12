@@ -502,11 +502,11 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
         <location filename="../src/chathandler.cpp" line="77"/>
         <location filename="../src/chathandler.cpp" line="82"/>
         <location filename="../src/chathandler.cpp" line="84"/>
-        <location filename="../src/chathandler.cpp" line="313"/>
-        <location filename="../src/chathandler.cpp" line="358"/>
-        <location filename="../src/chathandler.cpp" line="382"/>
-        <location filename="../src/chathandler.cpp" line="401"/>
-        <location filename="../src/chathandler.cpp" line="420"/>
+        <location filename="../src/chathandler.cpp" line="333"/>
+        <location filename="../src/chathandler.cpp" line="378"/>
+        <location filename="../src/chathandler.cpp" line="402"/>
+        <location filename="../src/chathandler.cpp" line="421"/>
+        <location filename="../src/chathandler.cpp" line="440"/>
         <source>Set the font for this texttype</source>
         <translation>Задать шрифт для этого текста</translation>
     </message>
@@ -517,11 +517,11 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
         <location filename="../src/chathandler.cpp" line="78"/>
         <location filename="../src/chathandler.cpp" line="83"/>
         <location filename="../src/chathandler.cpp" line="85"/>
-        <location filename="../src/chathandler.cpp" line="319"/>
-        <location filename="../src/chathandler.cpp" line="365"/>
-        <location filename="../src/chathandler.cpp" line="389"/>
-        <location filename="../src/chathandler.cpp" line="408"/>
-        <location filename="../src/chathandler.cpp" line="427"/>
+        <location filename="../src/chathandler.cpp" line="339"/>
+        <location filename="../src/chathandler.cpp" line="385"/>
+        <location filename="../src/chathandler.cpp" line="409"/>
+        <location filename="../src/chathandler.cpp" line="428"/>
+        <location filename="../src/chathandler.cpp" line="447"/>
         <source>Set the color for this texttype</source>
         <translation>Задать цвет для этого текста</translation>
     </message>
@@ -539,29 +539,29 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
     </message>
     <message>
         <location filename="../src/chathandler.cpp" line="75"/>
-        <location filename="../src/chathandler.cpp" line="370"/>
+        <location filename="../src/chathandler.cpp" line="390"/>
         <source>Show game info.</source>
         <translation>Показать ссылку игры</translation>
     </message>
     <message>
-        <location filename="../src/chathandler.cpp" line="218"/>
-        <location filename="../src/chathandler.cpp" line="221"/>
+        <location filename="../src/chathandler.cpp" line="238"/>
+        <location filename="../src/chathandler.cpp" line="241"/>
         <source>Notice from</source>
         <translation>Оповещение от</translation>
     </message>
     <message>
-        <location filename="../src/chathandler.cpp" line="218"/>
-        <location filename="../src/chathandler.cpp" line="221"/>
+        <location filename="../src/chathandler.cpp" line="238"/>
+        <location filename="../src/chathandler.cpp" line="241"/>
         <source>to</source>
         <translation>для</translation>
     </message>
     <message>
-        <location filename="../src/chathandler.cpp" line="372"/>
+        <location filename="../src/chathandler.cpp" line="392"/>
         <source>Info about this gamelink.</source>
         <translation>Информация об этой ссылке</translation>
     </message>
     <message>
-        <location filename="../src/chathandler.cpp" line="260"/>
+        <location filename="../src/chathandler.cpp" line="280"/>
         <source>GAMELINK</source>
         <translation>ссылка на игру</translation>
     </message>
@@ -569,35 +569,35 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
 <context>
     <name>chatwindow</name>
     <message>
-        <location filename="../src/chatwindow.cpp" line="37"/>
+        <location filename="../src/chatwindow.cpp" line="38"/>
         <source>Chat with</source>
         <translation>Разговор с</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="256"/>
+        <location filename="../src/chatwindow.cpp" line="258"/>
         <source>Choose a file.</source>
         <translation>Выбрать файл.</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="271"/>
+        <location filename="../src/chatwindow.cpp" line="273"/>
         <source>&lt;This users idle time: %1&gt;</source>
         <translation>&lt;Время отсутствия этого игрока: %1&gt;</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="95"/>
-        <location filename="../src/chatwindow.cpp" line="142"/>
-        <location filename="../src/chatwindow.cpp" line="288"/>
+        <location filename="../src/chatwindow.cpp" line="97"/>
+        <location filename="../src/chatwindow.cpp" line="144"/>
+        <location filename="../src/chatwindow.cpp" line="290"/>
         <source>Online</source>
         <translation>В сети</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="99"/>
-        <location filename="../src/chatwindow.cpp" line="140"/>
+        <location filename="../src/chatwindow.cpp" line="101"/>
+        <location filename="../src/chatwindow.cpp" line="142"/>
         <source>Was offline when this window opened.</source>
         <translation>Был не в сети, когда это окно открылось.</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="277"/>
+        <location filename="../src/chatwindow.cpp" line="279"/>
         <source>This user is currently offline</source>
         <translation>Этот игрок не в сети</translation>
     </message>
@@ -610,7 +610,7 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
         <translation>Окно сообщений</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.ui" line="334"/>
+        <location filename="../src/chatwindow.ui" line="375"/>
         <source>Send</source>
         <translation>Отправить</translation>
     </message>
@@ -1167,7 +1167,7 @@ CTCP означает &quot;Протокол от Клиента К Клиент
     <message>
         <location filename="../src/ircnet.cpp" line="43"/>
         <source>Reconnecting</source>
-        <translation type="unfinished"></translation>
+        <translation>Переподключение...</translation>
     </message>
     <message>
         <location filename="../src/ircnet.cpp" line="49"/>
@@ -1340,7 +1340,8 @@ Skin_Base.qss</translation>
         <location filename="../src/mainwindow.cpp" line="108"/>
         <source>Cant read the Skinfile:
 Skin_Base</source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно прочесть цветовую схему:
+Skin_Base</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="595"/>
@@ -2044,12 +2045,12 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/snpsettings.cpp" line="38"/>
         <source>Warning!</source>
-        <translation type="unfinished"></translation>
+        <translation>Внимание!</translation>
     </message>
     <message>
         <location filename="../src/snpsettings.cpp" line="38"/>
         <source>This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?</source>
-        <translation type="unfinished"></translation>
+        <translation>Эта папка, возможно, не является правильной папкой установки The Wheat Snooper. Продолжить?</translation>
     </message>
 </context>
 <context>

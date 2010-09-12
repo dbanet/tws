@@ -496,11 +496,11 @@ Puedes crear partidas haciendo doble clic (o clic derecho) en el nombre de un ca
         <location filename="../src/chathandler.cpp" line="77"/>
         <location filename="../src/chathandler.cpp" line="82"/>
         <location filename="../src/chathandler.cpp" line="84"/>
-        <location filename="../src/chathandler.cpp" line="313"/>
-        <location filename="../src/chathandler.cpp" line="358"/>
-        <location filename="../src/chathandler.cpp" line="382"/>
-        <location filename="../src/chathandler.cpp" line="401"/>
-        <location filename="../src/chathandler.cpp" line="420"/>
+        <location filename="../src/chathandler.cpp" line="333"/>
+        <location filename="../src/chathandler.cpp" line="378"/>
+        <location filename="../src/chathandler.cpp" line="402"/>
+        <location filename="../src/chathandler.cpp" line="421"/>
+        <location filename="../src/chathandler.cpp" line="440"/>
         <source>Set the font for this texttype</source>
         <translation>Cambiar la fuente de este tipo de texto</translation>
     </message>
@@ -511,11 +511,11 @@ Puedes crear partidas haciendo doble clic (o clic derecho) en el nombre de un ca
         <location filename="../src/chathandler.cpp" line="78"/>
         <location filename="../src/chathandler.cpp" line="83"/>
         <location filename="../src/chathandler.cpp" line="85"/>
-        <location filename="../src/chathandler.cpp" line="319"/>
-        <location filename="../src/chathandler.cpp" line="365"/>
-        <location filename="../src/chathandler.cpp" line="389"/>
-        <location filename="../src/chathandler.cpp" line="408"/>
-        <location filename="../src/chathandler.cpp" line="427"/>
+        <location filename="../src/chathandler.cpp" line="339"/>
+        <location filename="../src/chathandler.cpp" line="385"/>
+        <location filename="../src/chathandler.cpp" line="409"/>
+        <location filename="../src/chathandler.cpp" line="428"/>
+        <location filename="../src/chathandler.cpp" line="447"/>
         <source>Set the color for this texttype</source>
         <translation>Cambiar el color de este tipo de texto</translation>
     </message>
@@ -533,29 +533,29 @@ Puedes crear partidas haciendo doble clic (o clic derecho) en el nombre de un ca
     </message>
     <message>
         <location filename="../src/chathandler.cpp" line="75"/>
-        <location filename="../src/chathandler.cpp" line="370"/>
+        <location filename="../src/chathandler.cpp" line="390"/>
         <source>Show game info.</source>
         <translation>Mostrar información del juego</translation>
     </message>
     <message>
-        <location filename="../src/chathandler.cpp" line="218"/>
-        <location filename="../src/chathandler.cpp" line="221"/>
+        <location filename="../src/chathandler.cpp" line="238"/>
+        <location filename="../src/chathandler.cpp" line="241"/>
         <source>Notice from</source>
         <translation>Aviso de</translation>
     </message>
     <message>
-        <location filename="../src/chathandler.cpp" line="218"/>
-        <location filename="../src/chathandler.cpp" line="221"/>
+        <location filename="../src/chathandler.cpp" line="238"/>
+        <location filename="../src/chathandler.cpp" line="241"/>
         <source>to</source>
         <translation>a</translation>
     </message>
     <message>
-        <location filename="../src/chathandler.cpp" line="372"/>
+        <location filename="../src/chathandler.cpp" line="392"/>
         <source>Info about this gamelink.</source>
         <translation>Información del juego</translation>
     </message>
     <message>
-        <location filename="../src/chathandler.cpp" line="260"/>
+        <location filename="../src/chathandler.cpp" line="280"/>
         <source>GAMELINK</source>
         <translation>PARTIDA</translation>
     </message>
@@ -586,35 +586,35 @@ Puedes crear partidas haciendo doble clic (o clic derecho) en el nombre de un ca
 <context>
     <name>chatwindow</name>
     <message>
-        <location filename="../src/chatwindow.cpp" line="37"/>
+        <location filename="../src/chatwindow.cpp" line="38"/>
         <source>Chat with</source>
         <translation>Charla con</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="256"/>
+        <location filename="../src/chatwindow.cpp" line="258"/>
         <source>Choose a file.</source>
         <translation>Selecciona un archivo</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="271"/>
+        <location filename="../src/chatwindow.cpp" line="273"/>
         <source>&lt;This users idle time: %1&gt;</source>
         <translation>&lt;Tiempo de inactividad de este usuario: %1&gt;</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="95"/>
-        <location filename="../src/chatwindow.cpp" line="142"/>
-        <location filename="../src/chatwindow.cpp" line="288"/>
+        <location filename="../src/chatwindow.cpp" line="97"/>
+        <location filename="../src/chatwindow.cpp" line="144"/>
+        <location filename="../src/chatwindow.cpp" line="290"/>
         <source>Online</source>
         <translation>En línea</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="99"/>
-        <location filename="../src/chatwindow.cpp" line="140"/>
+        <location filename="../src/chatwindow.cpp" line="101"/>
+        <location filename="../src/chatwindow.cpp" line="142"/>
         <source>Was offline when this window opened.</source>
         <translation>Estuvo desconectado cuando se abrió esta ventana.</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.cpp" line="277"/>
+        <location filename="../src/chatwindow.cpp" line="279"/>
         <source>This user is currently offline</source>
         <translation type="unfinished"></translation>
     </message>
@@ -627,7 +627,7 @@ Puedes crear partidas haciendo doble clic (o clic derecho) en el nombre de un ca
         <translation>Ventana de charla</translation>
     </message>
     <message>
-        <location filename="../src/chatwindow.ui" line="334"/>
+        <location filename="../src/chatwindow.ui" line="375"/>
         <source>Send</source>
         <translation>Enviar</translation>
     </message>

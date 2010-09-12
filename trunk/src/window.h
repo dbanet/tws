@@ -68,6 +68,7 @@ private slots:
 	void changealpha(int);
 	void showbuttons();
 	void getuserscount(QStringList);
+
 private:
 	netcoupler *net;
 	uihelper ui;

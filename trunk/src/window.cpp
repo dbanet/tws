@@ -119,7 +119,7 @@ window::window(netcoupler *n, QString s, int i) :
     connect(ui.msg, SIGNAL(returnPressed()),this, SLOT(sendmsg()));
     connect(net, SIGNAL(siggotmsg(const QString&,const QString&,const QString&)),this, SLOT(gotmsg(const QString&,const QString&,const QString&)));
     connect(net, SIGNAL(siggotnotice(const QString&,const QString&,const QString&)),this, SLOT(gotnotice(const QString&,const QString&,const QString&)));
-    connect(net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
+    connect(net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));    
 
     net->refreshwho();
 
@@ -303,7 +303,8 @@ void window::sendmsg() {
             chat->append(net->nick, currentchannel, s);
         }
         ui.msg->clear();
-    }
+        chat->moveSliderToMaximum();
+    }    
 }
 void window::sendnotice() {
     const QString s = ui.msg->text().remove(0, 2);
@@ -311,6 +312,7 @@ void window::sendnotice() {
         net->sendnotice(currentchannel, s);
         gotnotice(net->nick, this->currentchannel, s);
         ui.msg->clear();
+        chat->moveSliderToMaximum();
     }
 }
 void window::sendnoticeaction() {
@@ -320,6 +322,7 @@ void window::sendnoticeaction() {
                             + " :\001ACTION " + s + " \001");
         gotnotice(net->nick, currentchannel, "<" + s + ">");
         ui.msg->clear();
+        chat->moveSliderToMaximum();
     }
 }
 void window::closeEvent(QCloseEvent * /*event*/) {
@@ -675,5 +678,4 @@ window::~window() {
 }
 void window::showInformationAboutClan(QString clan){
     clan=clan.toLower();
-
 }
