@@ -149,7 +149,6 @@ RC_FILE = src/wormnet/myapp.rc
 TRANSLATIONS += translations/The_Wheat_Snooper_Romanian_by_MihaiS \
     translations/The_Wheat_Snooper_danish.ts \
     translations/The_Wheat_Snooper_german_by_lookias.ts \
-    translations/The_Wheat_Snooper_international_spanish.ts \
     translations/The_Wheat_Snooper_portugues.ts \
     translations/The_Wheat_Snooper_spanish-(of_spain)_by_kosmos.ts \
     translations/The_Wheat_Snooper_untranslated.ts \

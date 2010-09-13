@@ -1175,7 +1175,7 @@ CTCP означает &quot;Протокол от Клиента К Клиент
     <message>
         <location filename="../src/irc/ircjoindia.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Диалоговое окно</translation>
     </message>
     <message>
         <location filename="../src/irc/ircjoindia.ui" line="20"/>
@@ -1184,17 +1184,21 @@ CTCP означает &quot;Протокол от Клиента К Клиент
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Join a channel on irc.gamesurge.net&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Войти на канал в сети GameSurge&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/irc/ircjoindia.ui" line="34"/>
         <source>Channel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал:</translation>
     </message>
     <message>
         <location filename="../src/irc/ircjoindia.ui" line="41"/>
         <source>#joe.to</source>
-        <translation type="unfinished"></translation>
+        <translation>#joe.to</translation>
     </message>
 </context>
 <context>
@@ -1202,35 +1206,35 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="37"/>
         <source>Chat with</source>
-        <translation type="unfinished">Разговор с</translation>
+        <translation>Разговор с</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="96"/>
         <location filename="../src/irc/irc_chatwindow.cpp" line="142"/>
         <location filename="../src/irc/irc_chatwindow.cpp" line="284"/>
         <source>Online</source>
-        <translation type="unfinished">В сети</translation>
+        <translation>В сети</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="100"/>
         <location filename="../src/irc/irc_chatwindow.cpp" line="141"/>
         <source>Was offline when this window opened.</source>
-        <translation type="unfinished">Был не в сети, когда это окно открылось.</translation>
+        <translation>Был не в сети, когда это окно открылось.</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="252"/>
         <source>Choose a file.</source>
-        <translation type="unfinished">Выбрать файл.</translation>
+        <translation>Выбрать файл.</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="267"/>
         <source>&lt;This users idle time: %1&gt;</source>
-        <translation type="unfinished">&lt;Время отсутствия этого игрока: %1&gt;</translation>
+        <translation>&lt;Время отсутствия этого игрока: %1&gt;</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="273"/>
         <source>This user is currently offline</source>
-        <translation type="unfinished">Этот игрок не в сети</translation>
+        <translation>Этот игрок не в сети</translation>
     </message>
 </context>
 <context>
@@ -1238,14 +1242,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/irc/irc_ircnet.cpp" line="192"/>
         <source>Nickname collision!</source>
-        <translation type="unfinished">Никнейм уже занят!</translation>
+        <translation>Никнейм уже занят!</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_ircnet.cpp" line="193"/>
         <source>The server things that your nickname is allready in use. This is usually caused by a uncomplete logout at the last session. If its like that you have to wait a few seconds or change your nickname! 
 
 If your nick got faked... bl :)</source>
-        <translation type="unfinished">Сервер ответил, что ваш ник уже используется. Это обычно провоцируется неаккуратным выходом из программы за последние 3 минуты. Если это так, вам придется подождать 3 минуты либо поменять свой ник.
+        <translation>Сервер ответил, что ваш ник уже используется. Это обычно провоцируется неаккуратным выходом из программы за последние 3 минуты. Если это так, вам придется подождать 3 минуты либо поменять свой ник.
 Если ваш ник занят каким-то обидчиком... Увы :(</translation>
     </message>
 </context>
@@ -1254,12 +1258,12 @@ If your nick got faked... bl :)</source>
     <message>
         <location filename="../src/irc/irc_window.ui" line="14"/>
         <source>window</source>
-        <translation type="unfinished">Главный канал</translation>
+        <translation>Главный канал</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.ui" line="60"/>
         <source>Send</source>
-        <translation type="unfinished">Отправить</translation>
+        <translation>Отправить</translation>
     </message>
 </context>
 <context>
@@ -1383,7 +1387,7 @@ If your nick got faked... bl :)</source>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="556"/>
         <source>Stuff</source>
-        <translation>Главное</translation>
+        <translation>Главное меню</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="57"/>
@@ -1424,17 +1428,17 @@ Skin_Base.qss</translation>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="586"/>
         <source>Layouts</source>
-        <translation>Форматы</translation>
+        <translation>Форматы окна</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="604"/>
         <source>Join</source>
-        <translation>Канал</translation>
+        <translation>Войти на каналы</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="597"/>
         <source>Language</source>
-        <translation>Язык</translation>
+        <translation>Язык интерфейса</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="116"/>
@@ -1447,7 +1451,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/mainwindow.cpp" line="610"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="690"/>
         <source>Away mode</source>
-        <translation>Отошел</translation>
+        <translation>Режим &quot;отошел&quot;</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="614"/>
@@ -1459,7 +1463,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/mainwindow.cpp" line="616"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="640"/>
         <source>Close</source>
-        <translation>Закрыть</translation>
+        <translation>Выход</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="83"/>
@@ -1506,7 +1510,7 @@ To restart now click Ok, otherwise cancel.</source>
         <location filename="../src/wormnet/mainwindow.cpp" line="561"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="754"/>
         <source>Open Log Browser</source>
-        <translation>Открыть навигатор по отчетам</translation>
+        <translation>Просмотр отчетов</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="568"/>
@@ -1533,13 +1537,13 @@ To restart now click Ok, otherwise cancel.</source>
         <location filename="../src/wormnet/mainwindow.cpp" line="563"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="772"/>
         <source>Scheme maker</source>
-        <translation>Создатель таблиц</translation>
+        <translation>Редактор таблиц</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="565"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="775"/>
         <source>Playername</source>
-        <translation>Ник игрока</translation>
+        <translation>Игровой ник</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="404"/>

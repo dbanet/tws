@@ -302,12 +302,12 @@ Forum du traducteur : &lt;a href=&quot;http://wormsuniver.forumactif.net/&quot;&
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="34"/>
         <source>disconnected from Network</source>
-        <translation>Connecté</translation>
+        <translation>Déconnecté</translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="38"/>
         <source>connected to Network</source>
-        <translation>Déconnecté</translation>
+        <translation>Connecté</translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="58"/>
@@ -541,7 +541,7 @@ Forum du traducteur : &lt;a href=&quot;http://wormsuniver.forumactif.net/&quot;&
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="259"/>
         <source>Choose a file.</source>
-        <translation>Chisissez un fichier.</translation>
+        <translation>Choisissez un fichier.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="274"/>
@@ -1130,7 +1130,7 @@ Vous pouvez utiliser les commandes CTCP pour des sites de clan, des plaisanterie
     <message>
         <location filename="../src/irc/ircjoindia.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialogue</translation>
     </message>
     <message>
         <location filename="../src/irc/ircjoindia.ui" line="20"/>
@@ -1139,17 +1139,21 @@ Vous pouvez utiliser les commandes CTCP pour des sites de clan, des plaisanterie
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Join a channel on irc.gamesurge.net&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Rejoindre une chaîne sur GameSurge&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/irc/ircjoindia.ui" line="34"/>
         <source>Channel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaîne:</translation>
     </message>
     <message>
         <location filename="../src/irc/ircjoindia.ui" line="41"/>
         <source>#joe.to</source>
-        <translation type="unfinished"></translation>
+        <translation>#joe.to</translation>
     </message>
 </context>
 <context>
@@ -1157,35 +1161,35 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="37"/>
         <source>Chat with</source>
-        <translation type="unfinished">Chat avec</translation>
+        <translation>Chat avec</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="96"/>
         <location filename="../src/irc/irc_chatwindow.cpp" line="142"/>
         <location filename="../src/irc/irc_chatwindow.cpp" line="284"/>
         <source>Online</source>
-        <translation type="unfinished">En ligne</translation>
+        <translation>En ligne</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="100"/>
         <location filename="../src/irc/irc_chatwindow.cpp" line="141"/>
         <source>Was offline when this window opened.</source>
-        <translation type="unfinished">Était hors ligne quand cette fenêtre a été ouverte.</translation>
+        <translation>Était hors ligne quand cette fenêtre a été ouverte.</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="252"/>
         <source>Choose a file.</source>
-        <translation type="unfinished">Chisissez un fichier.</translation>
+        <translation>Choisissez un fichier.</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="267"/>
         <source>&lt;This users idle time: %1&gt;</source>
-        <translation type="unfinished">&lt;Temps depuis la dernière action dans le chat avec cet utilisateur: %1&gt;</translation>
+        <translation>&lt;Temps depuis la dernière action dans le chat avec cet utilisateur: %1&gt;</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="273"/>
         <source>This user is currently offline</source>
-        <translation type="unfinished">Cet utilisateur est actuellement hors ligne</translation>
+        <translation>Cet utilisateur est actuellement hors ligne</translation>
     </message>
 </context>
 <context>
@@ -1193,14 +1197,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/irc/irc_ircnet.cpp" line="192"/>
         <source>Nickname collision!</source>
-        <translation type="unfinished">Conflit entre pseudos !</translation>
+        <translation>Conflit entre pseudos!</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_ircnet.cpp" line="193"/>
         <source>The server things that your nickname is allready in use. This is usually caused by a uncomplete logout at the last session. If its like that you have to wait a few seconds or change your nickname! 
 
 If your nick got faked... bl :)</source>
-        <translation type="unfinished">Le serveur pense que votre pseudo est déjà utilisé. Il s&apos;agit peut-être d&apos;un problème à la dernière déconnexion. Si c&apos;est cela, attendez un peu avant de réessayer ou changez de pseudo en attendant !
+        <translation>Le serveur pense que votre pseudo est déjà utilisé. Il s&apos;agit peut-être d&apos;un problème à la dernière déconnexion. Si c&apos;est cela, attendez un peu avant de réessayer ou changez de pseudo en attendant !
 
 Si votre pseudo est &quot;maudit&quot;... pas de bol :)</translation>
     </message>
@@ -1210,12 +1214,12 @@ Si votre pseudo est &quot;maudit&quot;... pas de bol :)</translation>
     <message>
         <location filename="../src/irc/irc_window.ui" line="14"/>
         <source>window</source>
-        <translation type="unfinished">Fenêtre</translation>
+        <translation>Fenêtre</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.ui" line="60"/>
         <source>Send</source>
-        <translation type="unfinished">Envoyer</translation>
+        <translation>Envoyer</translation>
     </message>
 </context>
 <context>

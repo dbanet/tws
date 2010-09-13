@@ -7,6 +7,7 @@
 #include <QApplication>
 #include<QPlastiqueStyle>
 #include<QTextStream>
+#include<QTextCodec>
 #include"settingswindow.h"
 #include"volumeslider.h"
 #include"playername.h"
@@ -37,8 +38,14 @@ void myMessageOutput(QtMsgType, const char *);
 
 int main(int argc, char *argv[]) {    
     qInstallMsgHandler(myMessageOutput);
-    QApplication a(argc, argv);    
-
+    QApplication a(argc, argv);
+    QStringList sl;
+    foreach(QByteArray b,QTextCodec::availableCodecs())
+        sl<<b;
+    QMessageBox::information(0,"",sl.join(" "));
+    if(c==0)
+        QMessageBox::warning(0,"","Codec Windows-1251 is not available!");
+    QTextCodec::setCodecForCStrings(c);
     a.setApplicationName("The Wheat Snooper");    
     chdir(qPrintable(QApplication::applicationDirPath()));
     singleton<snpsettings>().load();
