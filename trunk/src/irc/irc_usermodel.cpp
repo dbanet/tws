@@ -1,22 +1,21 @@
-#include "usermodel.h"
-#include"snpsettings.h"
-#include"settingswindow.h"
+#include "irc_usermodel.h"
+#include"src/wormnet/snpsettings.h"
+#include"src/wormnet/settingswindow.h"
 #include<QtGui>
 #include<QDebug>
-#include"netcoupler.h"
-#include"ctcphandler.h"
-#include "sound_handler.h"
-#include"global_functions.h"
-extern QPointer<netcoupler> net;
+#include"src/irc/irc_netcoupler.h"
+#include"src/wormnet/ctcphandler.h"
+#include"src/wormnet/sound_handler.h"
+#include"src/wormnet/global_functions.h"
+#include"src/wormnet/usermodel.h"
+#include "src/irc/irc_netcoupler.h"
 extern QList<QPixmap*> flaglist; //declared in main.cpp
 extern QList<QPixmap*> ranklist; //declared in main.cpp
 extern QStringList querylist;
-extern QString GamesourgeChannelName;
-QStringList usermodel::buddyarrivedhelper;
-QStringList usermodel::buddylefthelper;
-usermodel::usermodel(QObject * parent) :
-	QAbstractItemModel(parent) {
-    stringnamelist << tr("Nick") << "" << tr("Rank") << tr("Clan") << tr("Information");
+irc_usermodel::irc_usermodel(irc_netcoupler *net) :
+        irc_net(net) {
+    whichorder=0;
+    stringnamelist << usermodel::tr("Nick") << "" << usermodel::tr("Rank") << usermodel::tr("Clan") << usermodel::tr("Information");
 
     sortorder = Qt::AscendingOrder;
     sortsection = 0;
@@ -47,53 +46,40 @@ usermodel::usermodel(QObject * parent) :
         qDebug() << "/snppictures/awayignoreicon.png is missing.";
     currentselectedchannel = -1;
     usesettingswindow();
-    //connect(net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow())); ********in netcoupler
+    //connect(irc_net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow())); ********in netcoupler
     connect(this, SIGNAL(sigbuddyleft()),this, SLOT(buddyleft()));
     connect(this, SIGNAL(sigbuddyarrived()),this, SLOT(buddyarrived()));
 }
-void usermodel::selectionchanged(const QModelIndex &index, const QWidget *w) {
+void irc_usermodel::selectionchanged(const QModelIndex &index, const QWidget *w) {
 
     selectionwidgetmap.remove(currentselecteduser);
     currentselecteduser = data(index.sibling(index.row(), 0)).value<QString> ();
     this->currentselectedchannel = index.internalId();
     selectionwidgetmap[currentselecteduser] = w;
 }
-void usermodel::setuserstruct(const QList<userstruct> &upar, QMap<QString,
-                              QStringList> joinlist) {
+void irc_usermodel::setuserstruct(QMap<QString,QList<userstruct> > joinlist) {
 
     emit layoutAboutToBeChanged();
-    users = upar;
+
     usermap.clear();
-    foreach(QString s,usermap_channellist_helper){
-        usermap[s];
-    }
-    foreach(userstruct u,users) {
-        joinlist[u.chan].removeAll(u.nick);
-        usermap[u.chan].push_back(u);
-    }
-    int i;
-    foreach(QString channel,joinlist.keys()) {
-        foreach(QString s,joinlist[channel]) {
-            i = users.indexOf(userstruct::whoami(s));
-            if (i > -1)
-                usermap[channel].push_back(users[i]);
-        }
+    foreach(QString s,joinlist.keys()){
+        usermap[s]=joinlist[s];
     }
     QStringList sl;
     foreach(QString s,singleton<snpsettings>().map["buddylist"].value<QStringList>()) {
-        if (users.contains(userstruct(userstruct::whoami(s)))) {
-            usermap[tr("Buddylist")].push_back(users[users.indexOf(
-                    userstruct::whoami(s))]);
+        if (irc_net->joinListContains(s)) {
+            usermap[usermodel::tr("Buddylist")].push_back(userstruct::whoami(s));
             sl << s;
             if (currentbuddylist.removeAll(s) == 0) { //a buddy arrived
-                buddyarrivedhelper<< QTime::currentTime().toString("hh:mm") + ":" + s+tr(" connected to wormnet.");
+                usermodel::buddyarrivedhelper
+                        << QTime::currentTime().toString("hh:mm") + ":" + s+usermodel::tr(" connected to wormnet.");
                 emit sigbuddyarrived();
             }
         }
     }
     if (currentbuddylist.size() != 0){ //buddy left
         foreach(QString s,currentbuddylist){
-            buddylefthelper<< QTime::currentTime().toString("hh:mm") + ":" + s+tr(" left wormnet.");
+            usermodel::buddylefthelper<< QTime::currentTime().toString("hh:mm") + ":" + s+usermodel::tr(" left wormnet.");
         }
         emit sigbuddyleft();
         foreach(QString s,currentbuddylist){
@@ -102,29 +88,21 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QMap<QString,
     }
     currentbuddylist = sl;
     foreach(QString s,querylist) {
-        if ( users.contains(userstruct(userstruct::whoami(s))) )
-            usermap[tr("Querys")].push_back(users[users.indexOf(
-                    userstruct::whoami(s))]);
+        if (irc_net->joinListContains(s))
+            usermap[usermodel::tr("Querys")].push_back(userstruct::whoami(s));
         else
-            usermap[tr("Querys")].push_back(userstruct(QStringList() << ""
+            usermap[usermodel::tr("Querys")].push_back(userstruct(QStringList() << ""
                                                        << "" << "" << "" << s));
     }
-    usermap[tr("Buddylist")];
-    usermap[tr("Querys")];
-#ifdef WITH_GAMESURGE_SUPPORT
-    usermap[GamesourgeChannelName];
-#endif
+    usermap[usermodel::tr("Buddylist")];
+    usermap[usermodel::tr("Querys")];
     usermap[usermodel::tr("Ignorelist")];
     foreach(QString s,singleton<snpsettings>().map["ignorelist"].value<QStringList>()) {
-        usermap[usermodel::tr("Ignorelist")].push_back(userstruct(
-                QStringList() << "" << "" << "" << "" << s));
+        usermap[usermodel::tr("Ignorelist")].push_back(userstruct::whoami(s));
     }
     classes = usermap.keys();
-    classes.move(classes.indexOf(tr("Buddylist")), 0);
-    classes.move(classes.indexOf(tr("Querys")), 1);
-#ifdef WITH_GAMESURGE_SUPPORT
-    classes.move(classes.indexOf(GamesourgeChannelName), classes.length()-1);
-#endif
+    classes.move(classes.indexOf(usermodel::tr("Buddylist")), 0);
+    classes.move(classes.indexOf(usermodel::tr("Querys")), 1);
     sort(sortsection, sortorder);
     if (currentselectedchannel > -1 && currentselectedchannel < classes.size()) {
         int row = usermap[classes[currentselectedchannel]].indexOf(
@@ -139,10 +117,9 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QMap<QString,
         }
     }
 }
-void usermodel::addbuddy(const QString &user) {
+void irc_usermodel::addbuddy(const QString &user) {
 
-    emit
-            layoutAboutToBeChanged();
+    emit layoutAboutToBeChanged();
     if (!singleton<snpsettings>().map["buddylist"].value<QStringList> ().contains(user,
                                                                                   Qt::CaseInsensitive)
         && !singleton<snpsettings>().map["ignorelist"].value<QStringList> ().contains(user,
@@ -154,10 +131,9 @@ void usermodel::addbuddy(const QString &user) {
             layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
-void usermodel::deletebuddy(const QString &s) {
+void irc_usermodel::deletebuddy(const QString &s) {
 
-    emit
-            layoutAboutToBeChanged();
+    emit layoutAboutToBeChanged();
     QStringList sl = singleton<snpsettings>().map["buddylist"].value<QStringList> ();
     QStringList::iterator i = sl.begin();
     QStringList temp;
@@ -175,7 +151,7 @@ void usermodel::deletebuddy(const QString &s) {
             layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
-void usermodel::addignore(const QString &s) {
+void irc_usermodel::addignore(const QString &s) {
 
     emit
             layoutAboutToBeChanged();
@@ -190,7 +166,7 @@ void usermodel::addignore(const QString &s) {
             layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
-void usermodel::deleteignore(const QString &s) {
+void irc_usermodel::deleteignore(const QString &s) {
 
     emit
             layoutAboutToBeChanged();
@@ -204,11 +180,11 @@ void usermodel::deleteignore(const QString &s) {
             layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
-int usermodel::columnCount(const QModelIndex & /*parent*/) const {
+int irc_usermodel::columnCount(const QModelIndex & /*parent*/) const {
 
     return 5;
 }
-int usermodel::rowCount(const QModelIndex & parent) const {
+int irc_usermodel::rowCount(const QModelIndex & parent) const {
 
     if (!parent.isValid())
         return classes.count();
@@ -217,9 +193,9 @@ int usermodel::rowCount(const QModelIndex & parent) const {
     }
     return 0;
 }
-QModelIndex usermodel::index(int row, int column, const QModelIndex & parent) const {
+QModelIndex irc_usermodel::index(int row, int column, const QModelIndex & parent) const {
 
-    if (users.isEmpty())
+    if (irc_net->countUsers()==0)
         return QModelIndex();
     if (!parent.isValid()) {
         return createIndex(row, column, e_Channel);
@@ -229,7 +205,7 @@ QModelIndex usermodel::index(int row, int column, const QModelIndex & parent) co
     }
     return QModelIndex();
 }
-QModelIndex usermodel::parent(const QModelIndex & index) const {
+QModelIndex irc_usermodel::parent(const QModelIndex & index) const {
 
     if (!index.isValid())
         return QModelIndex();
@@ -237,8 +213,7 @@ QModelIndex usermodel::parent(const QModelIndex & index) const {
         return QModelIndex();
     return createIndex(index.internalId(), 0, e_Channel);
 }
-QVariant usermodel::data(const QModelIndex & index, int role) const {
-
+QVariant irc_usermodel::data(const QModelIndex & index, int role) const {    
     if (!index.isValid())
         return QVariant();
 
@@ -250,9 +225,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
             return channelicon;
         } else if (index.column() == e_Nick) {
             QString nick =usermap[classes[index.internalId()]][index.row()].nick;
-
-            if (classes[index.internalId()] == tr("Querys") && !users.contains(
-                    userstruct::whoami(nick)))
+            if (classes[index.internalId()] == usermodel::tr("Querys") && !irc_net->joinListContains(nick))
                 return offlineicon;
             else if (singleton<snpsettings>().map["buddylist"].value<QStringList> ().contains(
                     nick, Qt::CaseInsensitive)) {
@@ -282,14 +255,14 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
             return "";
         else
             return s;        
-    }
+    }    
     if (role == Qt::DisplayRole || role == Qt::BackgroundRole) {
         if (index.internalId() == e_Channel) {
             if (index.column() == e_Nick) {
                 return classes[index.row()];
             } else
                 return "";
-        } else if (classes[index.internalId()] != tr("Buddylist")) {
+        } else if (classes[index.internalId()] != usermodel::tr("Buddylist")) {
             switch (index.column()) {
             case e_Nick:
                 {
@@ -370,15 +343,15 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
     }
     /*if(role==Qt::ToolTipRole && index.internalId() != e_Channel){
         if(index.column()==e_Clan) {
-            QString s=tr("The clan of this gamer is: ") + "\n" \
+            QString s=usermodel::tr("The clan of this gamer is: ") + "\n" \
                          + usermap[classes[index.internalId()]][index.row()].nickfromclient  \
-                         + "\n"+tr("You can rightclick his clan\n to get further inforations about this clan.");
+                         + "\n"+usermodel::tr("You can rightclick his clan\n to get further inforations about this clan.");
             return s;
         }
     }*/
     return QVariant();
 }
-QVariant usermodel::headerData(int section, Qt::Orientation orientation,
+QVariant irc_usermodel::headerData(int section, Qt::Orientation orientation,
                                int role) const {
 
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole && section < 5) {
@@ -391,7 +364,7 @@ QVariant usermodel::headerData(int section, Qt::Orientation orientation,
 
     return QVariant();
 }
-Qt::ItemFlags usermodel::flags(const QModelIndex & index) const {
+Qt::ItemFlags irc_usermodel::flags(const QModelIndex & index) const {
 
     Qt::ItemFlags f = QAbstractItemModel::flags(index);
     if (index.internalId() == e_Channel)
@@ -402,29 +375,13 @@ Qt::ItemFlags usermodel::flags(const QModelIndex & index) const {
         return f;
 }
 //******************************for sorting**********************************
-void usermodel::sortslot(int i, Qt::SortOrder s) {
+void irc_usermodel::sortslot(int i, Qt::SortOrder s) {
 
     sortsection = i;
     sortorder = s;
 }
-unsigned int whichorder = 0;
-bool operator<(const userstruct &u1, const userstruct &u2) {
-    Q_ASSERT_X(whichorder<5,"whichorder","whichorder is greater then 4");
-    switch (whichorder) {
-    case 0:
-        return u1.nick.toLower() < u2.nick.toLower();
-    case 1:
-        return u1.flag < u2.flag;
-    case 2:
-        return u1.rank < u2.rank;
-    case 3:
-        return u1.nickfromclient.toLower() < u2.nickfromclient.toLower();
-    case 4:
-        return u1.client.toLower() < u2.client.toLower();
-    }
-    return 0;
-}
-void usermodel::sort(int column, Qt::SortOrder order) {
+extern bool operator<(const userstruct &u1, const userstruct &u2);
+void irc_usermodel::sort(int column, Qt::SortOrder order) {
 
     whichorder = column;
     if(!singleton<settingswindow>().from_map("cbdontsortinchannels").toBool()){
@@ -447,25 +404,25 @@ void usermodel::sort(int column, Qt::SortOrder order) {
 }
 //*************************sorting end*******************************
 
-QModelIndex usermodel::indexbychannelname(QString s) {
+QModelIndex irc_usermodel::indexbychannelname(QString s) {
 
     return createIndex(classes.indexOf(s), 0, e_Channel);
 }
-void usermodel::buddyarrived() {
-    if (buddyarrivedhelper.size() > 3)
-        buddyarrivedhelper.takeFirst();
+void irc_usermodel::buddyarrived() {
+    if (usermodel::buddyarrivedhelper.size() > 3)
+        usermodel::buddyarrivedhelper.takeFirst();
     singleton<sound_handler>().play_buddyarrivedsound();
 }
-void usermodel::buddyleft() {    
+void irc_usermodel::buddyleft() {
     singleton<sound_handler>().play_buddyleftsound();
 }
-void usermodel::usesettingswindow(const QString&) {
+void irc_usermodel::usesettingswindow(const QString&) {
 }
-userstruct usermodel::getuserstructbyindex(const QModelIndex &index) {
+userstruct irc_usermodel::getuserstructbyindex(const QModelIndex &index) {
     userstruct u;
-    u = users[users.indexOf(userstruct::whoami(data(index.sibling(index.row(),
-                                                                  0), Qt::DisplayRole).value<QString> ()))];
+//    u = users[users.indexOf(userstruct::whoami(data(index.sibling(index.row(),
+//                                                                  0), Qt::DisplayRole).value<QString> ()))];
     return u;
 }
-usermodel::~usermodel() {
+irc_usermodel::~irc_usermodel() {
 }

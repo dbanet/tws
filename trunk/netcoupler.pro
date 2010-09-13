@@ -16,6 +16,7 @@ RCC_DIR = .rcc
 unix:TARGET = "./TheWheatSnooper/TheWheatSnooper"
 win32:TARGET = "../TheWheatSnooper/TheWheatSnooper"
 unix:DEFINES += QT_WS_X11
+        #DEFINES +=WITH_GAMESURGE_SUPPORT
 CONFIG += debug_and_release
 
 # Input
@@ -59,7 +60,15 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/sound_handler.h \
     src/wormnet/global_functions.h \
     src/wormnet/combobox_wrapper.h \
-    src/wormnet/balloon_handler.h
+    src/wormnet/balloon_handler.h \
+    \
+    src/irc/irc_ircnet.h \
+    src/irc/irc_netcoupler.h \
+    src/irc/irc_window.h \
+    src/irc/irc_usermodel.h \
+    src/irc/ircjoindia.h \
+    src/irc/irc_chatwindow.h \
+
 FORMS += src/wormnet/about.ui \
     src/wormnet/awaybox.ui \
     src/wormnet/buddylist.ui \
@@ -83,7 +92,12 @@ FORMS += src/wormnet/about.ui \
     src/wormnet/window.ui \
     src/wormnet/window2.ui \
     src/wormnet/window3.ui \
-    src/wormnet/combobox_wrapper.ui
+    src/wormnet/combobox_wrapper.ui \
+    \
+    src/irc/irc_window.ui \
+    src/irc/ircjoindia.ui \
+    src/irc/irc_chatwindow.ui
+
 SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/awaybox.cpp \
     src/wormnet/buddylist.cpp \
@@ -122,7 +136,15 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/window.cpp \   
     src/wormnet/sound_handler.cpp \
     src/wormnet/combobox_wrapper.cpp \
-    src/wormnet/balloon_handler.cpp
+    src/wormnet/balloon_handler.cpp \
+    \
+    src/irc/irc_ircnet.cpp \
+    src/irc/irc_netcoupler.cpp \
+    src/irc/irc_window.cpp \
+    src/irc/irc_usermodel.cpp \
+    src/irc/ircjoindia.cpp \
+    src/irc/irc_chatwindow.cpp
+
 RC_FILE = src/wormnet/myapp.rc
 TRANSLATIONS += translations/The_Wheat_Snooper_Romanian_by_MihaiS \
     translations/The_Wheat_Snooper_danish.ts \
@@ -133,4 +155,5 @@ TRANSLATIONS += translations/The_Wheat_Snooper_Romanian_by_MihaiS \
     translations/The_Wheat_Snooper_untranslated.ts \
     translations/The_Wheat_Snooper_spanish-(of_spain)_by_kosmos.ts \
     translations/The_Wheat_Snooper_Russian_translation_by_StepS.ts \
-    translations/The_Wheat_Snooper_french_by_LeTotalKiller.ts
+    translations/The_Wheat_Snooper_french_by_LeTotalKiller.ts \
+    translations/The_Wheat_Snooper_Spanish_by_eViL.ts

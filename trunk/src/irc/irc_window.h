@@ -1,43 +1,35 @@
-#ifndef WINDOW_H
-#define WINDOW_H
+#ifndef irc_WINDOW_H
+#define irc_WINDOW_H
 
 #include <QtGui/QWidget>
 #include<QMenu>
 #include<QPointer>
-#include"ui_window.h"
-#include"ui_window2.h"
-#include"ui_window3.h"
-#include"netcoupler.h"
-#include"userstruct.h"
-#include"hoststruct.h"
-#include"uihelper.h"
+#include"ui_irc_window.h"
+#include"irc_netcoupler.h"
+#include"src/wormnet/userstruct.h"
 class buttonlayout;
-class hostbox;
-class hostprvbox;
 class chathandler;
-class chatwindow;
-class window : public QWidget
+class irc_chatwindow;
+class irc_window : public QWidget
 {
     Q_OBJECT
 
 public:
-    window(netcoupler*,QString s,int i=1);
-    ~window();
+    irc_window(irc_netcoupler*,QString s,int i=1);
+    ~irc_window();
     const QString currentchannel;
-    static QList<chatwindow*> chatwindows;
+    static QList<irc_chatwindow*> chatwindows;
     static QStringList chatwindowstringlist;
-    void gotdebugmsg(const QString&);
-    void gotprvmsg(const QString&,const QString&,const QString&);
-
+    void gotdebugmsg(const QString&);   
     buttonlayout *buttons;
-    static QList< ::window*> hiddenchannelwindowshelper;
+    static QList< ::irc_window*> hiddenchannelwindowshelper;
     QPointer<chathandler> chat;		//handles the whole textbrowser
     QString windowtitleaway;
     void mysetwindowtitle();
 public slots:
     void minimize();
 private slots:
-    void gotmsg(const QString&,const QString&,const QString&);
+    void gotmsg(const QString&,const QString&,const QString&);    
     void gotnotice(const QString&,const QString&,const QString&);
     void gotgarbagejoin(const QString&,const QString&);
     void gotgarbagepart(const QString&,const QString&);
@@ -47,43 +39,25 @@ private slots:
     void useritempressed(const QModelIndex&);
     void useritemdblclicked(const QModelIndex&);
     void getuserinfo(const QString&);
-    void openchatwindow(const QString&);
-
-    void hostitempressed(const QModelIndex&);
-    void hostitemdblclicked(const QModelIndex&);
-
-
-    void hboxok();
-    void hboxprvok(const QString&);
+    void openchatwindow(const QString&);     
 
     void userselectionchanged(const QItemSelection&,const QItemSelection&);
     void setselection(const QModelIndex&,const QWidget*);
 
     void usesettingswindow(const QString &s="");
 
-    void expandchannels(QStringList sl);	//expand on startup
-    void expandchannels();
-    void getjoinmenu();
-    void openhbox();
+    void expandchannels(QStringList sl);	//expand on startup   
     void changealpha(int);
-    void showbuttons();
-    void getuserscount(QStringList);
+    void getuserscount(QStringList);    
+    void openchatwindowhidden(const QString &);
 
 private:
-    netcoupler *net;
-    uihelper ui;
-    Ui::windowClass ui1;
-    Ui::Form ui2;
-    Ui::Form3 ui3;
+    void gotprvmsg(const QString&,const QString&,const QString&);
+    irc_netcoupler *net;
+    Ui::irc_windowClass ui;
 
-    QMenu joinmenu;
-    QMenu joinmenu2;
-    QMenu hostmenu;
     QMenu usermenu;
     QMenu costumlistmenu;
-
-    QPointer<hostbox> hbox;
-    QPointer<hostprvbox> hprvbox;
 
     void sendnoticeaction();
     void showInformationAboutClan(QString);
@@ -93,10 +67,10 @@ private:
     bool acceptignorys;
 
     QIcon chaticon;
-    int whichuiison;
 
     QString windowtitletime;
     QString windowtitlechannel;
+    QList< irc_chatwindow*> hiddenchatwindowshelper;
 signals:
     void sigwindowclosed(const QString&);
     void sigalert(QWidget*);
@@ -107,4 +81,4 @@ protected:
     void closeEvent ( QCloseEvent * event );
     bool eventFilter(QObject *obj, QEvent *event);		//for the linedit in ui
 };
-#endif // WINDOW_H
+#endif // irc_WINDOW_H

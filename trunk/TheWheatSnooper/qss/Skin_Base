@@ -331,3 +331,13 @@ QListWidget {
 	border:2px solid black;
 	border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
 } 
+QTreeView::branch:has-children:!has-siblings:closed,
+ QTreeView::branch:closed:has-children:has-siblings {
+         border-image: none;
+         image: url(qss/opencoffee/scrollbar_h_rightArrow_pressed.png);
+ }
+QTreeView::branch:open:has-children:!has-siblings,
+ QTreeView::branch:open:has-children:has-siblings  {
+         border-image: none;
+         image: url(qss/opencoffee/scrollbar_downArrow_pressed.png);
+ }

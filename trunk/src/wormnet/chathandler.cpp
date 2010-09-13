@@ -88,8 +88,7 @@ chathandler::chathandler(QObject *parent, QTextBrowser *t, QString chan) :
     connect(net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
     connect(tb,SIGNAL(selectionChanged()),this,SLOT(selectionChanged()));
 }
-bool chathandler::eventFilter(QObject *obj, QEvent *event){    
-    static bool isDown=false;
+bool chathandler::eventFilter(QObject *obj, QEvent *event){       
     if(obj!=tb)
         return false;    
     if(event->type()==QEvent::Wheel){

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>317</width>
+    <width>334</width>
     <height>437</height>
    </rect>
   </property>
@@ -65,7 +65,7 @@
         <widget class="QCommandLinkButton" name="pbabout">
          <property name="maximumSize">
           <size>
-           <width>80</width>
+           <width>110</width>
            <height>16777215</height>
           </size>
          </property>

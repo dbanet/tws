@@ -32,6 +32,9 @@
 #include "sound_handler.h"
 #include "global_functions.h"
 #include "balloon_handler.h"
+#include"src/irc/irc_netcoupler.h"
+#include"src/irc/irc_window.h"
+#include "src/irc/ircjoindia.h"
 inihandlerclass inihandler;
 QPointer<netcoupler> net;
 extern volumeslider *volume;
@@ -44,6 +47,7 @@ extern QStringList querylist;
 extern QStringList defaultServerList;
 QList< ::window *> mainwindow::windowlist;
 QList< ::chatwindow*> mainwindow::hiddenchatwindowshelper;
+QString GamesourgeChannelName="#GameSourgeWorms";
 mainwindow::mainwindow(QWidget *parent) :
         QWidget(parent){
     net = NULL;
@@ -101,6 +105,10 @@ mainwindow::mainwindow(QWidget *parent) :
     debugmsg.clear();
 
     connect(&singleton<ctcphandler>(), SIGNAL(sigctcpcommand(const QString&,const QString&)),this, SLOT(gotctcpsignal(const QString&,const QString&)));
+
+    QVariantList windowstates = singleton<snpsettings>().map["MainWindow"].toList();
+    if (!windowstates.isEmpty())
+        this->restoreGeometry(windowstates.takeFirst().toByteArray());
 }
 void mainwindow::get_baseStyleSheet(){
     QFile f(QApplication::applicationDirPath() + "/qss/Skin_Base");
@@ -171,20 +179,24 @@ void mainwindow::getchannellist(const QStringList &sl) {
     foreach(QString s,channellist) {
         joinmenu->addAction(s);
     }
+#ifdef WITH_GAMESURGE_SUPPORT
+    joinmenu->addAction(GamesourgeChannelName);
+#endif
     if (joinonstartup == 0) {
         snpsetcontains("joinonstartup");
         joinonstartup = 1;
     }
 }
-void mainwindow::joinclicked() {
-    QString s = ui.cbchannels->currentText();
-    join(s);
-}
 void mainwindow::join(const QString channel){
-    if (ui.pbjoin->text() == "" || currentchannellist.contains(channel))
+
+    if(channel==GamesourgeChannelName){
+        joinGameSourge();
         return;
-    net->joinchannel(channel);
+    }   
+    if(currentchannellist.contains(channel))
+        return;
     currentchannellist << channel;
+    net->joinchannel(channel);    
     if (whichuitype == 1) {
         windowlist.push_back(new ::window(net, channel, whichuitype));
         windowlist.last()->setObjectName("channelwindow");
@@ -230,7 +242,11 @@ void mainwindow::onquit() {
     if (b) {
         safeusergarbage();
         safequerylist();
-    }
+    }    
+    QVariantList windowstates;
+    windowstates << this->saveGeometry();
+    singleton<snpsettings>().map["MainWindow"]=windowstates;
+    singleton<snpsettings>().safe();
 }
 void mainwindow::closeEvent(QCloseEvent *) {
 }
@@ -297,11 +313,7 @@ void mainwindow::snpsetcontains(const QString &s) {
                 ui.pbrememberjoin->text().split("\n").first() + "\n"
                 + singleton<snpsettings>().map["joinonstartup"].value<QString> ());
         if (singleton<snpsettings>().map["chbautojoin"].value<bool> ()) {
-            int index=ui.cbchannels->findText(singleton<snpsettings>().map["joinonstartup"].value<QString> ());
-            if(index==-1)
-                return;
-            ui.cbchannels->setCurrentIndex(index);
-            joinclicked();
+            join(singleton<snpsettings>().map["joinonstartup"].value<QString> ());
         }
     } else if (s == "chbminimized")
         ui.chbminimized->setChecked(singleton<snpsettings>().map["chbminimized"].value<bool> ());   
@@ -590,6 +602,9 @@ void mainwindow::init_menus(){
         languagemenu->addAction(s);
     }
     joinmenu = traymenu->addMenu(tr("Join"));
+#ifdef WITH_GAMESURGE_SUPPORT
+    joinmenu->addAction(GamesourgeChannelName);
+#endif
     joinmenu->setIcon(QIcon("snppictures/joinicon.png"));
     QAction *a = new QAction(this);
     a->setText(tr("Away mode"));
@@ -634,11 +649,9 @@ void mainwindow::traymenutriggered(QAction *a) {
         }
         singleton<balloon_handler>().hide_tray();
         qApp->quit();
-        return;
+        return;    
     } else if (a->text().startsWith("#")) {
-        ui.cbchannels->setCurrentIndex(ui.cbchannels->findText(a->text().split(
-                " ").first()));
-        this->joinclicked();
+        join(a->text());
         return;
     } else if (a->text().contains(".qss")) {
         QFile f(QApplication::applicationDirPath() + "/qss/" + a->text());
@@ -788,4 +801,13 @@ void mainwindow::on_pbabout_clicked()
 {
     about *ab = new about;
     ab->show();
+}
+void mainwindow::joinGameSourge(){
+    ircJoinDia dia;
+    if(!dia.exec())
+        return;
+    static irc_netcoupler *net=new irc_netcoupler(ui.lenick->text(), this, dia.getChannel());
+    static irc_window *window=new irc_window(net,GamesourgeChannelName);
+    window->show();
+    window->raise();
 }

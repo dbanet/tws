@@ -24,7 +24,7 @@ uihelper::uihelper() {
 void uihelper::getchilds(QObject *w) {
 	int i = 0;
 	foreach(QString s,sl) {
-			*wl[i] = w->findChild<QObject*> (s);
+			*wl[i] = w->findChild<QObject*> (s);                       
 			Q_CHECK_PTR(*wl[i]);
 			i++;
 		}

@@ -10,7 +10,6 @@ class window;
 class netcoupler;
 class chatwindow;
 class QMenu;
-class ctcphandler;
 class mainwindow : public QWidget
 {
     Q_OBJECT
@@ -47,8 +46,10 @@ private:
 
     void setlanguage(const QString&);
     void init_menus();
-    void get_baseStyleSheet();       
+    void get_baseStyleSheet();           
     QString baseStyleSheet;
+
+    void joinGameSourge();
 
     QStringList lastOpenedWindows;
     QStringList lastOpenedChatWindows;
@@ -57,8 +58,7 @@ private slots:
     void openchatwindow(const QString &);
     void on_pbabout_clicked();
     void on_pbsettings_clicked();
-    void getchannellist(const QStringList &);
-    void joinclicked();    
+    void getchannellist(const QStringList &);   
     void chooseclicked();
     void onquit();    
     void returntotabsettings(int);
@@ -83,8 +83,7 @@ private slots:
     void settextscheme(const QString&);
 
     void openchatwindowhidden(const QString &);
-    void gotprvmsg(const QString &user, const QString &receiver,
-                   const QString &msg);
+    void gotprvmsg(const QString &user, const QString &receiver,const QString &msg);
     void connected();
     void disconnected();
     void reconnect();

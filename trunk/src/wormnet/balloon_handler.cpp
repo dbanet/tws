@@ -10,7 +10,7 @@ balloon_handler::balloon_handler()
 {
     tray=new QSystemTrayIcon;
     tray->setToolTip(tr("The Wheat Snooper version ")+about::version);
-    tray->setIcon(QIcon(QApplication::applicationDirPath() + QDir::separator() + "snppictures/tray.png"));
+    tray->setIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/tray.png"));
     tray->setObjectName("normalwidget");
     tray->show();
     balloonhelper << QTime::currentTime().toString("hh:mm") + ":"

@@ -14,8 +14,6 @@
 #include "about.h"
 extern inihandlerclass inihandler;
 extern QMap<QString, QStringList> usergarbagemap;
-int i1 = 0;
-int i2 = 0;
 ircnet::ircnet(QString s, QObject *parent) :
 	QObject(parent), tcp(new QTcpSocket(this)) {
     mapusercommand["QUIT"] = 1;
@@ -419,7 +417,7 @@ void ircnet::disconnected() {
 void ircnet::readservermassege(QString s) {
     static bool b=false;
     QStringList sl = s.split(" ");
-    Q_ASSERT(sl.size()>=4);
+    Q_ASSERT_X(sl.size()>=3,"420",sl.join("\n").toAscii());
     int command = sl.takeFirst().toInt(&b);
     Q_ASSERT(b);
     sl.takeFirst();
@@ -490,6 +488,7 @@ void ircnet::readservermassege(QString s) {
 	case 409: //No origin specified
 	case 403: //No such channel
         case 404: //Cannot send to channel
+        case 372: //:- info
 	default:
             qDebug() << s;
 	}

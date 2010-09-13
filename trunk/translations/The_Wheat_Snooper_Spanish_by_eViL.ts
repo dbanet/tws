@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="es_CO">
+<context>
+    <name>DropWidget</name>
+    <message>
+        <source>Drop widget</source>
+        <translation type="obsolete">Quitar Widget</translation>
+    </message>
+    <message>
+        <source>Upload</source>
+        <translation type="obsolete">Cargar</translation>
+    </message>
+    <message>
+        <source>Aniate</source>
+        <translation type="obsolete">Animar</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="obsolete">Cerrar</translation>
+    </message>
+</context>
 <context>
     <name>Form</name>
     <message>
         <location filename="../src/wormnet/window2.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Ventana</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window2.ui" line="72"/>
         <source>Send</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar</translation>
     </message>
 </context>
 <context>
@@ -19,12 +38,161 @@
     <message>
         <location filename="../src/wormnet/window3.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Ventana</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window3.ui" line="73"/>
         <source>Send</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar</translation>
+    </message>
+</context>
+<context>
+    <name>MainWindow</name>
+    <message>
+        <source>Mainwindow</source>
+        <translation type="obsolete">Ventana principal</translation>
+    </message>
+    <message>
+        <source>Drop widget</source>
+        <translation type="obsolete">Quitar Widget</translation>
+    </message>
+    <message>
+        <source>Upload</source>
+        <translation type="obsolete">Cargar</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="obsolete">Cerrar</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="obsolete">Enlace</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation type="obsolete">Registro</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="obsolete">Error</translation>
+    </message>
+    <message>
+        <source>History1</source>
+        <translation type="obsolete">Historial1</translation>
+    </message>
+    <message>
+        <source>History2</source>
+        <translation type="obsolete">Historial2</translation>
+    </message>
+    <message>
+        <source>Hystorie</source>
+        <translation type="obsolete">Historial</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation type="obsolete">Acerca de</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="obsolete">Configuración</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="obsolete">Cancelar</translation>
+    </message>
+    <message>
+        <source>No files to upload.</source>
+        <translation type="obsolete">No hay archivos para cargar</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="obsolete">Enviar</translation>
+    </message>
+    <message>
+        <source>Start Upload</source>
+        <translation type="obsolete">Iniciar Carga</translation>
+    </message>
+    <message>
+        <source>Upload file  	: </source>
+        <translation type="obsolete">Cargar archivo 	:</translation>
+    </message>
+    <message>
+        <source>Finish upload 	: </source>
+        <translation type="obsolete">Carga finalizada 	:</translation>
+    </message>
+    <message>
+        <source>Links for 	: </source>
+        <translation type="obsolete">Enlaces para 	:</translation>
+    </message>
+    <message>
+        <source>&gt;DeleteLink.&lt;/a&gt;&lt;br&gt;</source>
+        <translation type="obsolete">&gt;BorrarEnlace&lt;/a&gt;&lt;br&gt;</translation>
+    </message>
+    <message>
+        <source>Upload canceled</source>
+        <translation type="obsolete">Carga cancelada</translation>
+    </message>
+    <message>
+        <source>One transmission was erronius
+ Cancel</source>
+        <translation type="obsolete">Una transmisión fue cancelada erróneamente</translation>
+    </message>
+    <message>
+        <source>Error : </source>
+        <translation type="obsolete">Error :</translation>
+    </message>
+    <message>
+        <source>&gt;DownloadLink.&lt;/a&gt;&lt;br&gt;</source>
+        <translation type="obsolete">&gt;Descarga&lt;/a&gt;&lt;br&gt;</translation>
+    </message>
+    <message>
+        <source>QFileUpload</source>
+        <translation type="obsolete">QFileUpload</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="obsolete">Archivo</translation>
+    </message>
+    <message>
+        <source>Progress</source>
+        <translation type="obsolete">Progreso</translation>
+    </message>
+    <message>
+        <source>%v Byte</source>
+        <translation type="obsolete">%v Bytes</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="obsolete">Agregar</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="obsolete">Borrar</translation>
+    </message>
+    <message>
+        <source>Delete history</source>
+        <translation type="obsolete">Borrar historial</translation>
+    </message>
+    <message>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans Serif&apos;; font-size:11pt; font-weight:600;&quot;&gt;QFileUploader&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt; font-weight:600;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Uploader for &lt;/span&gt;&lt;a href=&quot;http://www.file-upload.net&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;file-upload.net&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;mailto:markus.kuenkler@gmx.de&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;markus.kuenkler@gmx.de&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:600; text-decoration:none; color:#000000;&quot;&gt;Credits&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;span style=&quot; text-decoration:none; color:#000000;&quot;&gt;Icons from Oxygen Project&lt;/span&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;&lt;span style=&quot; font-size:x-large;&quot;&gt;About Qt&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt; Qt is a C++ toolkit for cross-platform application development.Qt provides single-source portability across MS Windows, Mac OS X,Linux and all major commercial Unix variants. Qt is also available forembedded devices as Qtopia Core.The Qt Open Source Edition is available to the Open Source communityunder Trolltech&apos;s Dual Licensing Model. The Open Source Edition of Qtis freely available for the development of Open Source softwaregoverned by the GNU General Public License (GPL).See http://www.trolltech.com/qt/ for more information.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="obsolete">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans Serif&apos;; font-size:11pt; font-weight:600;&quot;&gt;QFileUploader&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt; font-weight:600;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Cargador de archivos para &lt;/span&gt;&lt;a href=&quot;http://www.file-upload.net&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;file-upload.net&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;mailto:markus.kuenkler@gmx.de&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;markus.kuenkler@gmx.de&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:600; text-decoration:none; color:#000000;&quot;&gt;Créditos&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;span style=&quot; text-decoration:none; color:#000000;&quot;&gt;Iconos de Oxygen Project&lt;/span&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;&lt;span style=&quot; font-size:x-large;&quot;&gt;Acerca de Qt&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt; Qt es una herramienta de C++ para desarrollo de aplicaciones multiplataforma. Qt provee portabilidad de código fuente único entre Windows, Mac OS X, Linux y todas las variantes comerciales de Unix más populares. Qt también está disponible para dispositivos embebidos como Qtopia Core. Qt Open Source Edition está disponible para la comunidad Open Source bajo la licensia Trolltech&apos;s Dual Licensing Model. la edición Open Source de Qt está disponible de forma gratuita para el desarrollo de software Open Source regido por la GNU General Public License (GPL). Visita http://www.trolltech.com/qt/ para más información.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>Load File (maximum 100mb)</source>
+        <translation type="obsolete">Cargar archivo (Máximo 100 MB)</translation>
     </message>
 </context>
 <context>
@@ -32,39 +200,62 @@
     <message>
         <location filename="../src/wormnet/snpsettings.cpp" line="25"/>
         <source>Question</source>
-        <translation type="unfinished"></translation>
+        <translation>Pregunta</translation>
     </message>
     <message>
         <location filename="../src/wormnet/snpsettings.cpp" line="26"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si quieres mantener la configuración de una instalación anterior del snooper haz clic en Sí.
+Si vas a usar The Wheat Snooper por primera vez haz clic en No.</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
+        <source>Question about host/join programs.</source>
+        <translation type="obsolete">Programas para unirse/crear partidas</translation>
+    </message>
+    <message>
+        <source>I found %1 
+This programs can be used to host or join games. 
+Do you want to add them to the programslist?
+You can then just double click a game to join it with the wa.exe.
+Or you right click a game to choose another program or to add one.
+Hosting is done, by double- or right- clicking a channel name inside the hostview (where the hosts appear).</source>
+        <translation type="obsolete">Programas encontrados: %1 
+Estos programas se pueden usar para crear partidas o unirse a ellas.
+¿Quieres agregarlos a la lista de programas?
+Luego podrás unirte a las partidas haciendo doble clic en ellas usando el wa.exe
+O puedes hacer clic derecho para escoger otro programa existente o agregar uno nuevo.
+Puedes crear partidas haciendo doble clic (o clic derecho) en el nombre de un canal en la lista de partidas.</translation>
+    </message>
+    <message>
         <location filename="../src/wormnet/global_functions.h" line="120"/>
         <source>is missing or locked, please run worms, one time, without the snooper. it will then create the file!</source>
-        <translation type="unfinished"></translation>
+        <translation>no existe o está bloqueado. Por favor ejecuta Worms una vez, sin el snooper. El archivo se creará automáticamente.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/charformatsettings.cpp" line="29"/>
         <source>cannot load textscheme file. I apply a random textscheme.</source>
-        <translation type="unfinished"></translation>
+        <translation>no se pudo cargar el archivo de estilo de texto. Se aplicó uno al azar.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/charformatsettings.cpp" line="42"/>
         <source>There is no textscheme file available.</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay ningún archivo de estilo de texto disponible.</translation>
     </message>
 </context>
 <context>
     <name>about</name>
     <message>
+        <source>&lt;p&gt;Version %1&lt;br&gt;This Program was completely written by Lookias.&lt;br&gt;It was written in C++, with the eclipse ide.&lt;br&gt;The framework in use was Qt.&lt;br&gt;The license of the program is GPLv2.&lt;br&gt;The translation was made by Lookias.&lt;br&gt;&lt;br&gt;Lookias`s Homepage: &lt;a href=&quot;http://lookias.lo.funpic.de/page/index.htm&quot;&gt;lookias.lo.funpic.de/page&lt;/a&gt;&lt;br&gt;This programs livingplace &lt;a href=&quot;:http://lookias.inventforum.com/viewforum.php?f=9&quot;&gt;lookias.inventforum.com&lt;<byte value="x7"/>&gt;&lt;/p&gt;</source>
+        <translation type="obsolete">&lt;p&gt;The Wheat Snooper&lt;br&gt;Versión %1&lt;br&gt;&lt;br&gt;Este programa fue desarrollado por Lookias.&lt;br&gt;Fue desarrollado en C++, con el IDE de Eclipse.&lt;br&gt;El framework usado fue Qt.&lt;br&gt;La licencia del programa es GPLv2.&lt;br&gt;&lt;br&gt;Página de Lookias: &lt;a href=&quot;http://lookias.lo.funpic.de/page/index.htm&quot;&gt;lookias.lo.funpic.de/page&lt;/a&gt;&lt;br&gt;Página de este programa: &lt;a href=&quot;:http://lookias.inventforum.com/viewforum.php?f=9&quot;&gt;lookias.inventforum.com&lt;/a&gt;&lt;br&gt;&lt;br&gt;Traducido al Español por: &lt;a href=&quot;http://www.clanuis.net&quot;&gt;EviL&lt;/a&gt;&lt;/p&gt;</translation>
+    </message>
+    <message>
         <location filename="../src/wormnet/about.cpp" line="10"/>
         <source>&lt;p&gt;Version %1&lt;br&gt;This Program was completely written by Lookias.&lt;br&gt;It was written in C++, with the eclipse ide.&lt;br&gt;The framework in use was Qt.&lt;br&gt;The license of the program is GPLv2.&lt;br&gt;The translation was made by Lookias.&lt;br&gt;&lt;br&gt;Lookias`s Homepage: &lt;a href=&quot;http://lookias.lo.funpic.de/page/index.htm&quot;&gt;lookias.lo.funpic.de/page&lt;/a&gt;&lt;br&gt;This programs livingplace &lt;a href=&quot;http://lookias.inventforum.com/viewforum.php?f=9&quot;&gt;lookias.inventforum.com&lt;<byte value="x7"/>&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;The Wheat Snooper&lt;br&gt;Versión %1&lt;br&gt;&lt;br&gt;Este programa fue desarrollado por Lookias.&lt;br&gt;Fue desarrollado en C++, con el IDE de Eclipse.&lt;br&gt;El framework usado fue Qt.&lt;br&gt;La licencia del programa es GPLv2.&lt;br&gt;&lt;br&gt;Página de Lookias: &lt;a href=&quot;http://lookias.lo.funpic.de/page/index.htm&quot;&gt;lookias.lo.funpic.de/page&lt;/a&gt;&lt;br&gt;Página de este programa: &lt;a href=&quot;http://lookias.inventforum.com/viewforum.php?f=9&quot;&gt;lookias.inventforum.com&lt;/a&gt;&lt;br&gt;&lt;br&gt;Traducción al Español realizada por &lt;a href=&quot;http://clanuis.net/&quot;&gt;&lt;font color=&quot;#029A57&quot;&gt;&lt;u&gt;eViL&lt;/u&gt;&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -72,7 +263,7 @@ If you use The Wheat Snooper at the first time just click No.</source>
     <message>
         <location filename="../src/wormnet/about.ui" line="13"/>
         <source>about</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de The Wheat Snooper</translation>
     </message>
 </context>
 <context>
@@ -80,7 +271,7 @@ If you use The Wheat Snooper at the first time just click No.</source>
     <message>
         <location filename="../src/wormnet/awaybox.cpp" line="12"/>
         <source>Type in your awaymessage.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mensaje de ausencia</translation>
     </message>
 </context>
 <context>
@@ -88,27 +279,27 @@ If you use The Wheat Snooper at the first time just click No.</source>
     <message>
         <location filename="../src/wormnet/awaybox.ui" line="13"/>
         <source>awaybox</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausencia</translation>
     </message>
     <message>
         <location filename="../src/wormnet/awaybox.ui" line="42"/>
         <source>&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;</translation>
     </message>
     <message>
         <location filename="../src/wormnet/awaybox.ui" line="55"/>
         <source>&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;</translation>
     </message>
     <message>
         <location filename="../src/wormnet/awaybox.ui" line="64"/>
         <source>Set your away message</source>
-        <translation type="unfinished"></translation>
+        <translation>Escribe tu mensaje de ausencia</translation>
     </message>
     <message>
         <location filename="../src/wormnet/awaybox.ui" line="93"/>
         <source>ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Aceptar</translation>
     </message>
 </context>
 <context>
@@ -117,44 +308,44 @@ If you use The Wheat Snooper at the first time just click No.</source>
         <location filename="../src/wormnet/balloon_handler.cpp" line="12"/>
         <location filename="../src/wormnet/balloon_handler.cpp" line="17"/>
         <source>The Wheat Snooper version </source>
-        <translation type="unfinished"></translation>
+        <translation>The Wheat Snooper versión </translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="17"/>
         <source> started!</source>
-        <translation type="unfinished"></translation>
+        <translation> ha iniciado.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="19"/>
         <location filename="../src/wormnet/balloon_handler.cpp" line="27"/>
         <source>Notifications.</source>
-        <translation type="unfinished"></translation>
+        <translation>Notificaciones</translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="34"/>
         <source>disconnected from Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconectado de la red</translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="38"/>
         <source>connected to Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectado a la red</translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="58"/>
         <source> said: </source>
-        <translation type="unfinished"></translation>
+        <translation> dijo: </translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="65"/>
         <location filename="../src/wormnet/balloon_handler.cpp" line="68"/>
         <source>is Hosting: </source>
-        <translation type="unfinished"></translation>
+        <translation>ha hosteado: </translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="75"/>
         <source>was highlighted by </source>
-        <translation type="unfinished"></translation>
+        <translation>fue escrito por </translation>
     </message>
 </context>
 <context>
@@ -162,22 +353,22 @@ If you use The Wheat Snooper at the first time just click No.</source>
     <message>
         <location filename="../src/wormnet/buddylist.ui" line="13"/>
         <source>Buddylist handler.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de amigos</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buddylist.ui" line="24"/>
         <source>Add this user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar este usuario</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buddylist.ui" line="34"/>
         <source>Remove this user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitar este usuario</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buddylist.ui" line="54"/>
         <source>close</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar</translation>
     </message>
 </context>
 <context>
@@ -186,49 +377,49 @@ If you use The Wheat Snooper at the first time just click No.</source>
         <location filename="../src/wormnet/buttonlayout.cpp" line="25"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="77"/>
         <source>Costum words on</source>
-        <translation type="unfinished"></translation>
+        <translation>Seg. palabras ON</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="27"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="79"/>
         <source>Costum words off</source>
-        <translation type="unfinished"></translation>
+        <translation>Seg. palabras OFF</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="30"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="87"/>
         <source>Sound off</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonidos OFF</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="32"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="89"/>
         <source>Sound on</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonidos OFF</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="35"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="98"/>
         <source>Balloons off</source>
-        <translation type="unfinished"></translation>
+        <translation>Avisos emergentes OFF</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="37"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="100"/>
         <source>Balloons on</source>
-        <translation type="unfinished"></translation>
+        <translation>Avisos emergentes ON</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="40"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="109"/>
         <source>Sorting off</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordenamiento OFF</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="42"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="111"/>
         <source>Sorting on</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordenamiento ON</translation>
     </message>
 </context>
 <context>
@@ -236,57 +427,65 @@ If you use The Wheat Snooper at the first time just click No.</source>
     <message>
         <location filename="../src/wormnet/buttonlayout.ui" line="32"/>
         <source>buttonlayout</source>
-        <translation type="unfinished"></translation>
+        <translation>botones</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.ui" line="165"/>
         <source>Refresh the Hostlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar lista de partidas</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.ui" line="184"/>
         <source>Host</source>
-        <translation type="unfinished"></translation>
+        <translation>Crear partida</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.ui" line="264"/>
         <source>To raise the window again, leftclick the trayicon.</source>
-        <translation type="unfinished"></translation>
+        <translation>Para mostrar la ventana de nuevo, haz clic en el icono del área de notificación.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.ui" line="267"/>
         <source>Minimize to tray</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocultar ventana</translation>
+    </message>
+    <message>
+        <source>To show this buttons again, look into stuff in the traymenu.</source>
+        <translation type="obsolete">Para mostrar estos botones de nuevo, revisa el menú de Opciones en el ícono del área de notificación.</translation>
+    </message>
+    <message>
+        <source>Hide these buttons</source>
+        <translation type="obsolete">Ocultar estos botones</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.ui" line="211"/>
         <source>If Sorting is off, users will appear in the direction in that they came into wormnet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si el ordenamiento está desactivado, los usuarios aparecerán en el orden en que llegaron a WormNET.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.ui" line="214"/>
         <source>Sort</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordenar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.ui" line="221"/>
         <source>Go to Settings Alert and Away tab to set costum words.</source>
-        <translation type="unfinished"></translation>
+        <translation>El seguimiento de palabras se puede ajustar en Opciones&gt;Configuración&gt;Alertas y Ausencias.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.ui" line="224"/>
         <source>Costum words</source>
-        <translation type="unfinished"></translation>
+        <translation>Seguimiento de palabras</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.ui" line="231"/>
         <source>Sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonidos</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.ui" line="238"/>
         <source>Balloons</source>
-        <translation type="unfinished"></translation>
+        <translation>Avisos emergentes</translation>
     </message>
 </context>
 <context>
@@ -304,7 +503,7 @@ If you use The Wheat Snooper at the first time just click No.</source>
         <location filename="../src/wormnet/chathandler.cpp" line="401"/>
         <location filename="../src/wormnet/chathandler.cpp" line="420"/>
         <source>Set the font for this texttype</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiar la fuente de este tipo de texto</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="63"/>
@@ -319,47 +518,70 @@ If you use The Wheat Snooper at the first time just click No.</source>
         <location filename="../src/wormnet/chathandler.cpp" line="408"/>
         <location filename="../src/wormnet/chathandler.cpp" line="427"/>
         <source>Set the color for this texttype</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiar el color de este tipo de texto</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="64"/>
         <location filename="../src/wormnet/chathandler.cpp" line="69"/>
         <location filename="../src/wormnet/chathandler.cpp" line="79"/>
         <source>Chat with this user</source>
-        <translation type="unfinished"></translation>
+        <translation>Charlar con este usuario</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="74"/>
         <source>Play this game.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unirse a esta partida</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="75"/>
         <location filename="../src/wormnet/chathandler.cpp" line="370"/>
         <source>Show game info.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar información del juego</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="218"/>
         <location filename="../src/wormnet/chathandler.cpp" line="221"/>
         <source>Notice from</source>
-        <translation type="unfinished"></translation>
+        <translation>Aviso de</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="218"/>
         <location filename="../src/wormnet/chathandler.cpp" line="221"/>
         <source>to</source>
-        <translation type="unfinished"></translation>
+        <translation>a</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="372"/>
         <source>Info about this gamelink.</source>
-        <translation type="unfinished"></translation>
+        <translation>Información del juego</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="260"/>
         <source>GAMELINK</source>
-        <translation type="unfinished"></translation>
+        <translation>PARTIDA</translation>
+    </message>
+</context>
+<context>
+    <name>chathandlerprv</name>
+    <message>
+        <source>Set the font for this texttype</source>
+        <translation type="obsolete">Cambiar la fuente de este tipo de texto</translation>
+    </message>
+    <message>
+        <source>Set the color for this texttype</source>
+        <translation type="obsolete">Cambiar el color de este tipo de texto</translation>
+    </message>
+    <message>
+        <source>Show game info.</source>
+        <translation type="obsolete">Mostrar información del juego</translation>
+    </message>
+    <message>
+        <source>Info about this gamelink.</source>
+        <translation type="obsolete">Información del juego</translation>
+    </message>
+    <message>
+        <source>Play this game.</source>
+        <translation type="obsolete">Unirse a esta partida</translation>
     </message>
 </context>
 <context>
@@ -367,35 +589,35 @@ If you use The Wheat Snooper at the first time just click No.</source>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="38"/>
         <source>Chat with</source>
-        <translation type="unfinished"></translation>
+        <translation>Charla con</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="259"/>
         <source>Choose a file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona un archivo</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="274"/>
         <source>&lt;This users idle time: %1&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Tiempo de inactividad de este usuario: %1&gt;</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="97"/>
         <location filename="../src/wormnet/chatwindow.cpp" line="144"/>
         <location filename="../src/wormnet/chatwindow.cpp" line="291"/>
         <source>Online</source>
-        <translation type="unfinished"></translation>
+        <translation>En línea</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="101"/>
         <location filename="../src/wormnet/chatwindow.cpp" line="142"/>
         <source>Was offline when this window opened.</source>
-        <translation type="unfinished"></translation>
+        <translation>Estuvo desconectado cuando se abrió esta ventana.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="280"/>
         <source>This user is currently offline</source>
-        <translation type="unfinished"></translation>
+        <translation>Este usuario está desconectado</translation>
     </message>
 </context>
 <context>
@@ -404,49 +626,65 @@ If you use The Wheat Snooper at the first time just click No.</source>
         <location filename="../src/irc/irc_chatwindow.ui" line="14"/>
         <location filename="../src/wormnet/chatwindow.ui" line="14"/>
         <source>chatwindow</source>
-        <translation type="unfinished"></translation>
+        <translation>Ventana de charla</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.ui" line="375"/>
         <location filename="../src/wormnet/chatwindow.ui" line="375"/>
         <source>Send</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.ui" line="128"/>
         <location filename="../src/wormnet/chatwindow.ui" line="128"/>
         <source>Use this button to mute or unmute this user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enmudecer este usuario</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.ui" line="156"/>
         <location filename="../src/wormnet/chatwindow.ui" line="156"/>
         <source>Use this button to add this user to buddies or normals.</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar/quitar este usuario de la lista de amigos</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.ui" line="184"/>
         <location filename="../src/wormnet/chatwindow.ui" line="184"/>
         <source>Use this button to extract a logfile of the chat with htis user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar esta conversación</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.ui" line="212"/>
         <location filename="../src/wormnet/chatwindow.ui" line="212"/>
         <source>Use this button to see the idle time of this user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver tiempo de inactividad de este usuario</translation>
+    </message>
+    <message>
+        <source>Use this button to open QFileUpload.</source>
+        <translation type="obsolete">Carga de archivos</translation>
+    </message>
+    <message>
+        <source>Use this button to handle the qfileupload files.</source>
+        <translation type="obsolete">Ver enlaces de archivos cargados</translation>
+    </message>
+    <message>
+        <source>Use this button to send this user your qfileupload history.</source>
+        <translation type="obsolete">Enviar enlaces de archivos cargados a este usuario</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.ui" line="256"/>
         <location filename="../src/wormnet/chatwindow.ui" line="256"/>
         <source>Use this button to handle your ctcp commands.</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar comandos ctcp</translation>
+    </message>
+    <message>
+        <source>Use this button to see the status of this user.</source>
+        <translation type="obsolete">Usa este botón para ver el estado de este usuario.</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.ui" line="284"/>
         <location filename="../src/wormnet/chatwindow.ui" line="284"/>
         <source>Use this button to filter join,part,quit information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Usa este botón para filtrar información de llegadas, salidas y desconexiones.</translation>
     </message>
 </context>
 <context>
@@ -454,42 +692,73 @@ If you use The Wheat Snooper at the first time just click No.</source>
     <message>
         <location filename="../src/wormnet/combobox_wrapper.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Ventana</translation>
     </message>
     <message>
         <location filename="../src/wormnet/combobox_wrapper.ui" line="47"/>
         <source>Move down</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover hacia abajo</translation>
     </message>
     <message>
         <location filename="../src/wormnet/combobox_wrapper.ui" line="73"/>
         <source>Move up</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover hacia arriba</translation>
     </message>
     <message>
         <location filename="../src/wormnet/combobox_wrapper.ui" line="125"/>
         <source>To finish editing, you must press enter.</source>
-        <translation type="unfinished"></translation>
+        <translation>Para terminar de editar, presiona Enter.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/combobox_wrapper.ui" line="157"/>
         <source>Insert a word</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar esta palabra</translation>
     </message>
     <message>
         <location filename="../src/wormnet/combobox_wrapper.ui" line="160"/>
         <source>+</source>
-        <translation type="unfinished"></translation>
+        <translation>+</translation>
     </message>
     <message>
         <location filename="../src/wormnet/combobox_wrapper.ui" line="179"/>
         <source>remove this word</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar esta palabra</translation>
     </message>
     <message>
         <location filename="../src/wormnet/combobox_wrapper.ui" line="182"/>
         <source>-</source>
-        <translation type="unfinished"></translation>
+        <translation>-</translation>
+    </message>
+</context>
+<context>
+    <name>config</name>
+    <message>
+        <source>Einstellungen</source>
+        <translation type="obsolete">Opciones</translation>
+    </message>
+    <message>
+        <source>Farben</source>
+        <translation type="obsolete">Colores</translation>
+    </message>
+    <message>
+        <source>Log-Text</source>
+        <translation type="obsolete">Registros</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="obsolete">Error</translation>
+    </message>
+    <message>
+        <source>Hystorie 2</source>
+        <translation type="obsolete">Historial 2</translation>
+    </message>
+    <message>
+        <source>Hystorie 1</source>
+        <translation type="obsolete">Historial 1</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="obsolete">Enlace</translation>
     </message>
 </context>
 <context>
@@ -497,22 +766,22 @@ If you use The Wheat Snooper at the first time just click No.</source>
     <message>
         <location filename="../src/wormnet/ctcphandleratomic.ui" line="26"/>
         <source>ctcphandleratomic</source>
-        <translation type="unfinished"></translation>
+        <translation>ctcphandleratomic</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ctcphandleratomic.ui" line="56"/>
         <source>Command:</source>
-        <translation type="unfinished"></translation>
+        <translation>Comando:</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ctcphandleratomic.ui" line="104"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ctcphandleratomic.ui" line="133"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar</translation>
     </message>
 </context>
 <context>
@@ -520,7 +789,7 @@ If you use The Wheat Snooper at the first time just click No.</source>
     <message>
         <location filename="../src/wormnet/ctctphandlerwidget.cpp" line="9"/>
         <source>ctcp handler.</source>
-        <translation type="unfinished"></translation>
+        <translation>ctcp handler.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ctctphandlerwidget.cpp" line="82"/>
@@ -540,7 +809,54 @@ he will then see your other commands and can simply browse your
 CTCP commands.
 
 use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Los comandos CTCP son mensajes simples que están limitados a signos ASCII 0x01.
+Esos signos no pueden escribirse directamente en una línea de texto.
+Si quieres enviar un comando CTCP debes anteponer &gt;! al mensaje.
+Por ejemplo &apos;&gt;!VERSION&apos; o &apos;&gt;!comando&apos;.
+
+CTCP significa Client To Client Protocol.
+Los comandos representan los mensajes que los demás te pueden enviar.
+Entonces los demás recibirán el texto asociado al comando.
+Es una buena idea configurar un comando predeterminado.
+Este comando debería enviar un mensaje qué comandos
+están disponibles al público.
+Por ejemplo si usuario te escribe &apos;&gt;!default&apos; en un mensaje privado,
+vería los demás comandos CTCP que te puede enviar.
+
+Usa los comandos CTCP para sitios de clanes, bromas, fotos, enlaces de qfileupload, etc.</translation>
+    </message>
+    <message>
+        <source>CTCP commands are simple messages, that are bounded with ACII 0x01 signs.
+These signs cannot be written directly into a textline.
+If you want to send a ctcp command you must prefix the message with &gt;!
+for example &apos;&gt;!VERSION&apos; or &apos;&gt;!command&apos;.
+
+CTCP means Client to Client Protocoll.
+The commands representing messages that another can send you.
+He will then receive the the text under the command.
+It is a good idea to provide a deafult command,
+this command should send a message that explains which commands
+are available for the public.
+For example the user writes &apos;&gt;!default&apos; to you in a private message
+he will then see your other commands and can simply browse your
+CTCP commands.
+
+use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source>
+        <translation type="obsolete">Los comandos CTCP son mensajes simples, que están limitados a signos ASCII 0x01.
+Esos signos no pueden escribirse directamente en una línea de texto.
+Si quieres enviar un comando CTCP debes anteponer &gt;! al mensaje.
+Por ejemplo &apos;&gt;!VERSION&apos; o &apos;&gt;!comando&apos;.
+
+CTCP significa Client To Client Protocol.
+Los comandos representan los mensajes que los demás te pueden enviar.
+Entonces los demás recibirán el texto asociado al comando.
+Es una buena idea configurar un comando predeterminado.
+Este comando debería enviar un mensaje qué comandos
+están disponibles al público.
+Por ejemplo si usuario te escribe &apos;&gt;!default&apos; en un mensaje privado,
+vería los demás comandos CTCP que te puede enviar.
+
+Usa los comandos CTCP para sitios de clanes, bromas, fotos, enlaces de qfileupload, etc.</translation>
     </message>
 </context>
 <context>
@@ -548,27 +864,27 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
     <message>
         <location filename="../src/wormnet/ctctphandlerwidget.ui" line="13"/>
         <source>ctctphandlerwidget</source>
-        <translation type="unfinished"></translation>
+        <translation>ctctphandlerwidget</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ctctphandlerwidget.ui" line="54"/>
         <source>Add a command</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar un comando</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ctctphandlerwidget.ui" line="61"/>
         <source>Save and Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar y cerrar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ctctphandlerwidget.ui" line="68"/>
         <source>Close without saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar sin guardar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ctctphandlerwidget.ui" line="21"/>
         <source>Show a how to for CTCP</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar información sobre CTCP</translation>
     </message>
 </context>
 <context>
@@ -576,23 +892,23 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
     <message>
         <location filename="../src/wormnet/emoticonhandler.cpp" line="85"/>
         <source>Choose a Smiley icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona un emoticon</translation>
     </message>
     <message>
         <location filename="../src/wormnet/emoticonhandler.cpp" line="95"/>
         <location filename="../src/wormnet/emoticonhandler.cpp" line="100"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Advertencia</translation>
     </message>
     <message>
         <location filename="../src/wormnet/emoticonhandler.cpp" line="95"/>
         <source>This shortcut is allready reserved.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este acceso directo ya está reservado.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/emoticonhandler.cpp" line="101"/>
         <source>Bevor you can choose a smiley, you must declare a smiley shortcut.</source>
-        <translation type="unfinished"></translation>
+        <translation>Para agregar un emoticon debes definir su acceso directo primero.</translation>
     </message>
 </context>
 <context>
@@ -600,37 +916,37 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
     <message>
         <location filename="../src/wormnet/emoticonhandler.ui" line="13"/>
         <source>emoticonhandler</source>
-        <translation type="unfinished"></translation>
+        <translation>Emoticones</translation>
     </message>
     <message>
         <location filename="../src/wormnet/emoticonhandler.ui" line="21"/>
         <source>Select a Scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona un scheme</translation>
     </message>
     <message>
         <location filename="../src/wormnet/emoticonhandler.ui" line="47"/>
         <source>Dont show smileys.</source>
-        <translation type="unfinished"></translation>
+        <translation>No mostrar emoticones</translation>
     </message>
     <message>
         <location filename="../src/wormnet/emoticonhandler.ui" line="77"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/emoticonhandler.ui" line="88"/>
         <source>Remove this item</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar este emoticon</translation>
     </message>
     <message>
         <location filename="../src/wormnet/emoticonhandler.ui" line="95"/>
         <source>Add a smiley.</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar emoticon</translation>
     </message>
     <message>
         <location filename="../src/wormnet/emoticonhandler.ui" line="108"/>
         <source>First set a Shortcut.</source>
-        <translation type="unfinished"></translation>
+        <translation>Acceso directo</translation>
     </message>
 </context>
 <context>
@@ -638,12 +954,12 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
     <message>
         <location filename="../src/wormnet/filehistorylister.ui" line="13"/>
         <source>filehistorylister</source>
-        <translation type="unfinished"></translation>
+        <translation>Enlaces de archivos cargados</translation>
     </message>
     <message>
         <location filename="../src/wormnet/filehistorylister.ui" line="43"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar</translation>
     </message>
 </context>
 <context>
@@ -651,18 +967,18 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="21"/>
         <source>Create a public game in </source>
-        <translation type="unfinished"></translation>
+        <translation>Crear una partida pública en </translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="63"/>
         <location filename="../src/wormnet/hostbox.cpp" line="67"/>
         <source>Choose a desktop icon.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona un programa</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="71"/>
         <source>Choose a Program.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona un programa</translation>
     </message>
 </context>
 <context>
@@ -670,72 +986,76 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
     <message>
         <location filename="../src/wormnet/hostbox.ui" line="20"/>
         <source>Set up your host and click ok.</source>
-        <translation type="unfinished"></translation>
+        <translation>Configura tu partida y haz clic en Aceptar.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.ui" line="34"/>
         <source>Gamename</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de la partida</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.ui" line="73"/>
-        <source>+</source>
-        <translation type="unfinished"></translation>
+        <source>Password</source>
+        <translation type="obsolete">Clave</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.ui" line="88"/>
         <source>Chose a program.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona un programa</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.ui" line="99"/>
         <source>Add a Program.</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar programa</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.ui" line="235"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Aceptar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.ui" line="242"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.ui" line="213"/>
         <source>The Snooper should wait starting worms, until the host appears.</source>
-        <translation type="unfinished"></translation>
+        <translation>No mostrar la partida hasta que inicie Worms</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/hostbox.ui" line="73"/>
+        <source>+</source>
+        <translation>+</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.ui" line="154"/>
         <source>Playername for this Host (leave this empty to use your wormnet nick.)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de jugador para esta partida (dejar en blanco para usar tu nick de WormNET)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.ui" line="223"/>
         <source>Send a hostinfo to the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar información de la partida al canal</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.ui" line="201"/>
         <source>Host port.</source>
-        <translation type="unfinished"></translation>
+        <translation>Puerto host</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.ui" line="166"/>
         <source>Use this ip for hosting. (This is normally not necessary.)</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar esta IP para crear la partida (esto normalmente no es necesario)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.ui" line="180"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.ui" line="54"/>
         <source>Show this game as a private game.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar esta partida como privada</translation>
     </message>
 </context>
 <context>
@@ -743,17 +1063,21 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
     <message>
         <location filename="../src/wormnet/hostmodel.cpp" line="20"/>
         <source>Gamename</source>
-        <translation type="unfinished"></translation>
+        <translation>Partida</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostmodel.cpp" line="20"/>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugador</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostmodel.cpp" line="20"/>
         <source>GameIp</source>
-        <translation type="unfinished"></translation>
+        <translation>IP</translation>
+    </message>
+    <message>
+        <source>is Hosting: </source>
+        <translation type="obsolete">está hosteando: </translation>
     </message>
 </context>
 <context>
@@ -761,19 +1085,19 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
     <message>
         <location filename="../src/wormnet/hostprvbox.cpp" line="18"/>
         <source>Create a private game.</source>
-        <translation type="unfinished"></translation>
+        <translation>Crear una partida privada</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostprvbox.cpp" line="31"/>
         <location filename="../src/wormnet/hostprvbox.cpp" line="35"/>
         <location filename="../src/wormnet/hostprvbox.cpp" line="39"/>
         <source>Choose a desktop icon.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona un programa</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostprvbox.cpp" line="96"/>
         <source>A description about the channel schemes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Descripción de los schemes de canales</translation>
     </message>
 </context>
 <context>
@@ -781,62 +1105,84 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
     <message>
         <location filename="../src/wormnet/hostprvbox.ui" line="14"/>
         <source>hostprvbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Ventana de Host Privado</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostprvbox.ui" line="28"/>
         <source>Set a scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Configura un scheme</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostprvbox.ui" line="39"/>
         <source>Schow how to</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver instrucciones</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostprvbox.ui" line="100"/>
         <source>Chose a program.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona un programa</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostprvbox.ui" line="111"/>
         <source>Add a Program.</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar programa</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostprvbox.ui" line="123"/>
         <source>Copy the gamelink to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar el enlace de la partida al portapapeles</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostprvbox.ui" line="145"/>
         <source>Host and send a link to all my buddys</source>
-        <translation type="unfinished"></translation>
+        <translation>Crear partida y enviar un enlace a todos mis amigos</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostprvbox.ui" line="152"/>
         <source>Just host</source>
-        <translation type="unfinished"></translation>
+        <translation>Crear partida</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostprvbox.ui" line="159"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostprvbox.ui" line="57"/>
         <source>Host port.</source>
-        <translation type="unfinished"></translation>
+        <translation>Puerto host</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostprvbox.ui" line="75"/>
         <source>Use this ip for hosting. (This is normally not necessary.)</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar esta IP para crear la partida (esto normalmente no es necesario)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostprvbox.ui" line="81"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar</translation>
+    </message>
+</context>
+<context>
+    <name>initextbrowser</name>
+    <message>
+        <source>Edit your ini file.</source>
+        <translation type="obsolete">Editor de archivo ini</translation>
+    </message>
+</context>
+<context>
+    <name>initextbrowserClass</name>
+    <message>
+        <source>initextbrowser</source>
+        <translation type="obsolete">Editor de archivo ini</translation>
+    </message>
+    <message>
+        <source>Save and quit</source>
+        <translation type="obsolete">Guardar y cerrar</translation>
+    </message>
+    <message>
+        <source>Quit without saving</source>
+        <translation type="obsolete">Cerrar sin guardar</translation>
     </message>
 </context>
 <context>
@@ -871,35 +1217,35 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="37"/>
         <source>Chat with</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Charla con</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="96"/>
         <location filename="../src/irc/irc_chatwindow.cpp" line="142"/>
         <location filename="../src/irc/irc_chatwindow.cpp" line="284"/>
         <source>Online</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">En línea</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="100"/>
         <location filename="../src/irc/irc_chatwindow.cpp" line="141"/>
         <source>Was offline when this window opened.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Estuvo desconectado cuando se abrió esta ventana.</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="252"/>
         <source>Choose a file.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Selecciona un archivo</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="267"/>
         <source>&lt;This users idle time: %1&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;Tiempo de inactividad de este usuario: %1&gt;</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="273"/>
         <source>This user is currently offline</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Este usuario está desconectado</translation>
     </message>
 </context>
 <context>
@@ -907,14 +1253,15 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/irc/irc_ircnet.cpp" line="192"/>
         <source>Nickname collision!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nombre de usuario en uso</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_ircnet.cpp" line="193"/>
         <source>The server things that your nickname is allready in use. This is usually caused by a uncomplete logout at the last session. If its like that you have to wait a few seconds or change your nickname! 
 
 If your nick got faked... bl :)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">El servidor informa que tu nombre de usuario se encuentra en uso actualmente. Por lo general, esto es causado por una desconexión incompleta en la sesión anterior, en cuyo caso deberás esperar algunos segundos o cambiar tu nombre de usuario.
+Si alguien más está usando tu nombre de usuario... mala suerte :)</translation>
     </message>
 </context>
 <context>
@@ -922,12 +1269,12 @@ If your nick got faked... bl :)</source>
     <message>
         <location filename="../src/irc/irc_window.ui" line="14"/>
         <source>window</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ventana</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.ui" line="60"/>
         <source>Send</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Enviar</translation>
     </message>
 </context>
 <context>
@@ -935,43 +1282,48 @@ If your nick got faked... bl :)</source>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="41"/>
         <source>Reconnecting</source>
-        <translation type="unfinished"></translation>
+        <translation>Reconectando</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="47"/>
         <source>There was an error with the connection to Wormnet: </source>
-        <translation type="unfinished"></translation>
+        <translation>Hubo un error en la conexión a WormNET: </translation>
     </message>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="415"/>
         <source>disconnected from irc server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconectado del servidor IRC.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="481"/>
         <source>Nickname collision!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de usuario en uso</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="482"/>
         <source>The server things that your nickname is allready in use. This is usually caused by a uncomplete logout at the last session. If its like that you have to wait a few seconds or change your nickname! 
 
 If your nick got faked... bl :)</source>
-        <translation type="unfinished"></translation>
+        <translation>El servidor informa que tu nombre de usuario se encuentra en uso actualmente. Por lo general, esto es causado por una desconexión incompleta en la sesión anterior, en cuyo caso deberás esperar algunos segundos o cambiar tu nombre de usuario.
+Si alguien más está usando tu nombre de usuario... mala suerte :)</translation>
     </message>
 </context>
 <context>
     <name>joinprvgame</name>
     <message>
+        <source>Join game with.</source>
+        <translation type="obsolete">Unirse a la partida con: </translation>
+    </message>
+    <message>
         <location filename="../src/wormnet/joinprvgame.cpp" line="21"/>
         <location filename="../src/wormnet/joinprvgame.cpp" line="25"/>
         <source>Choose a desktop icon.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona un programa</translation>
     </message>
     <message>
         <location filename="../src/wormnet/joinprvgame.cpp" line="29"/>
         <source>Choose a Program.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona un programa</translation>
     </message>
 </context>
 <context>
@@ -979,22 +1331,22 @@ If your nick got faked... bl :)</source>
     <message>
         <location filename="../src/wormnet/joinprvgame.ui" line="13"/>
         <source>joinprvgame</source>
-        <translation type="unfinished"></translation>
+        <translation>Unirse a una partida privada</translation>
     </message>
     <message>
         <location filename="../src/wormnet/joinprvgame.ui" line="24"/>
         <source>Add icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar icono</translation>
     </message>
     <message>
         <location filename="../src/wormnet/joinprvgame.ui" line="31"/>
         <source>ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Aceptar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/joinprvgame.ui" line="38"/>
         <source>cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
@@ -1002,7 +1354,7 @@ If your nick got faked... bl :)</source>
     <message>
         <location filename="../src/wormnet/logbrowser.cpp" line="11"/>
         <source>Log Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Visor de registros</translation>
     </message>
 </context>
 <context>
@@ -1010,17 +1362,17 @@ If your nick got faked... bl :)</source>
     <message>
         <location filename="../src/wormnet/logbrowser.ui" line="13"/>
         <source>logbrowser</source>
-        <translation type="unfinished"></translation>
+        <translation>Visor de registros</translation>
     </message>
     <message>
         <location filename="../src/wormnet/logbrowser.ui" line="26"/>
         <source>Open a chatwindow.</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir una ventana de charla</translation>
     </message>
     <message>
         <location filename="../src/wormnet/logbrowser.ui" line="33"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar</translation>
     </message>
 </context>
 <context>
@@ -1028,17 +1380,17 @@ If your nick got faked... bl :)</source>
     <message>
         <location filename="../src/wormnet/maintoolbox.ui" line="13"/>
         <source>maintoolbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra de herramientas principal</translation>
     </message>
     <message>
         <location filename="../src/wormnet/maintoolbox.ui" line="23"/>
         <source>Tab 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Pestaña 1</translation>
     </message>
     <message>
         <location filename="../src/wormnet/maintoolbox.ui" line="28"/>
         <source>Tab 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Pestaña 2</translation>
     </message>
 </context>
 <context>
@@ -1046,177 +1398,227 @@ If your nick got faked... bl :)</source>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="556"/>
         <source>Stuff</source>
-        <translation type="unfinished"></translation>
+        <translation>Opciones</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="57"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="558"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="735"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="116"/>
-        <source>Cant read the Skinfile:
-Skin_Base</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="559"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="739"/>
-        <source>Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="560"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="749"/>
-        <source>Volume</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="567"/>
-        <source>Skins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="586"/>
-        <source>Layouts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="604"/>
-        <source>Join</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="597"/>
-        <source>Language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="610"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="690"/>
-        <source>Away mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="614"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="742"/>
-        <source>Reconnect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="616"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="640"/>
-        <source>Close</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="83"/>
-        <source>Wheat Snoopers root window.</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="56"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="293"/>
         <source>Autojoin:</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto-entrar:</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="123"/>
         <source>Nickname field is empty</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de usuario vacío</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="123"/>
         <source>Please choose a nickname.</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor selecciona un nombre de usuario.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="307"/>
         <source>Cant read the Skinfile:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo leer el archivo de estilo:
+</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.cpp" line="559"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="739"/>
+        <source>Settings</source>
+        <translation>Configuración</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.cpp" line="560"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="749"/>
+        <source>Volume</source>
+        <translation>Volumen</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.cpp" line="567"/>
+        <source>Skins</source>
+        <translation>Estilos</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.cpp" line="586"/>
+        <source>Layouts</source>
+        <translation>Diseños</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.cpp" line="604"/>
+        <source>Join</source>
+        <translation>Ir al canal</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.cpp" line="597"/>
+        <source>Language</source>
+        <translation>Idioma</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.cpp" line="116"/>
+        <source>Cant read the Skinfile:
+Skin_Base</source>
+        <translation>No se pudo leer el archivo de estilo:
+Skin_Base</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.cpp" line="610"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="690"/>
+        <source>Away mode</source>
+        <translation>Modo ausente</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.cpp" line="614"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="742"/>
+        <source>Reconnect</source>
+        <translation>Reconectar</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.cpp" line="616"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="640"/>
+        <source>Close</source>
+        <translation>Cerrar</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.cpp" line="83"/>
+        <source>Wheat Snoopers root window.</source>
+        <translation>The Wheat Snooper</translation>
+    </message>
+    <message>
+        <source>&lt;To hide or show this window,you can leftclick the tray icon. A right click to this icon opens a set of menues. Use this menues to join channels, to change the skin or to change the layout of the Wormnet channels. Changing the layout will not be applied to existing channelwindows. Under stuff you can find some handy settings for sound, alerts and others.&gt;
+
+</source>
+        <translation type="obsolete">&lt;Para mostrar u ocultar esta ventana, puedes hacer click en el ícono del área de notificación. Al hacer click derecho en ese icono se muestra una serie de menús, que puedes usar para unirte a los canales, cambiar el estilo o cambiar el diseño de los canales de Wormnet. El cambio de diseño no se aplicará a las ventanas existentes. En Opciones puedes encontrar algunas configuraciones útiles de sonidos, alertas y otros.
+
+</translation>
+    </message>
+    <message>
+        <source>warning</source>
+        <translation type="obsolete">Advertencia</translation>
+    </message>
+    <message>
+        <source>you are still editing the ini file. please close it bevor joining wormnet.</source>
+        <translation type="obsolete">Aún estás editando el archivo ini. Por favor ciérralo antes de conectarte a Wormnet.</translation>
+    </message>
+    <message>
+        <source>Arrange everything seperately.</source>
+        <translation type="obsolete">Ordenar de forma separada</translation>
+    </message>
+    <message>
+        <source>Arrange in two tabwidgets.</source>
+        <translation type="obsolete">Ordenar en 2 paneles</translation>
+    </message>
+    <message>
+        <source>Arrange in one tabwidget.</source>
+        <translation type="obsolete">Ordenar en un panel</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="381"/>
         <source>Restart the application?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Reiniciar el programa?</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="382"/>
         <source>Changing the translation requires a program restart.
 To restart now click Ok, otherwise cancel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Es necesario reiniciar el programa para cambiar el idioma.
+
+Para reiniciar ahora haz clic en Aceptar, de lo contrario, haz clic en Cancelar.</translation>
+    </message>
+    <message>
+        <source> &lt;away&gt;: </source>
+        <translation type="obsolete">&lt;ausente&gt;: </translation>
+    </message>
+    <message>
+        <source>Show/Hide buttuns in channelwindows.</source>
+        <translation type="obsolete">Mostrar/Ocultar botones en la ventana de canal</translation>
+    </message>
+    <message>
+        <source> said: </source>
+        <translation type="obsolete">dijo: </translation>
+    </message>
+    <message>
+        <source>Notifications.</source>
+        <translation type="obsolete">Notificaciones</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="561"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="754"/>
         <source>Open Log Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir visor de registros</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="568"/>
         <source>Text Schemes</source>
-        <translation type="unfinished"></translation>
+        <translation>Estilos de texto</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="576"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="760"/>
         <source>Save current textscheme to file</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar estilo de texto actual como...</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="761"/>
         <source>Save textscheme to.</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar estilo de texto</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="434"/>
         <source>trying to apply new textscheme: </source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicando nuevo estilo de texto: </translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="563"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="772"/>
         <source>Scheme maker</source>
-        <translation type="unfinished"></translation>
+        <translation>Generador de estilos</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="565"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="775"/>
         <source>Playername</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de jugador</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="404"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="413"/>
         <source>&lt;away&gt;:</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;ausente&gt;:</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="116"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="307"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="666"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Advertencia</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="667"/>
         <source>Changing the skin crashes sometimes, but The Wheat Snooper
 will keep the settings for the next Start.
 Do you want to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>A veces al cambiar el estilo se cierra el programa inesperadamente.
+Aún así, The Wheat Snooper conservará la configuración para el siguiente inicio.
+¿Deseas continuar?</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="519"/>
         <source>Connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectado</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="522"/>
         <source>Disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconectado</translation>
     </message>
 </context>
 <context>
@@ -1224,97 +1626,160 @@ Do you want to proceed?</source>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="32"/>
         <source>mainwindow</source>
-        <translation type="unfinished"></translation>
+        <translation>Ventana principal</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation type="obsolete">Etiqueta de texto</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="60"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="73"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de</translation>
+    </message>
+    <message>
+        <source>Choose an existing ini file. (better dont touch this.)</source>
+        <translation type="obsolete">Escoge un archivo ini (mejor no tocar esto)</translation>
+    </message>
+    <message>
+        <source>Open Editor</source>
+        <translation type="obsolete">Abrir Editor</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="177"/>
         <source>Nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugador:</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="370"/>
-        <source>Apply</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="280"/>
-        <source>The Wheat Snooper</source>
-        <translation type="unfinished"></translation>
+        <source>Rank</source>
+        <translation type="obsolete">Rango</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="240"/>
         <source>Optional</source>
-        <translation type="unfinished"></translation>
+        <translation>Opcional</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="326"/>
         <source>Clanstring</source>
-        <translation type="unfinished"></translation>
+        <translation>Clan:</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="273"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Información:</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="137"/>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>Conexión</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="191"/>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor:</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="198"/>
         <source>To apply a server to this list press enter.</source>
-        <translation type="unfinished"></translation>
+        <translation>Para agregar un servidor a esta lista, escribe su dirección y presiona Enter.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="306"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña:</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="357"/>
         <source>Autologin </source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar automáticamente</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.ui" line="370"/>
+        <source>Apply</source>
+        <translation>Conectar</translation>
+    </message>
+    <message>
+        <source>Choose a nickname.</source>
+        <translation type="obsolete">Nombre de usuario</translation>
+    </message>
+    <message>
+        <source>nick</source>
+        <translation type="obsolete">Nombre</translation>
+    </message>
+    <message>
+        <source>Choose your password.</source>
+        <translation type="obsolete">Clave</translation>
+    </message>
+    <message>
+        <source>Choose a Flag.</source>
+        <translation type="obsolete">Bandera</translation>
+    </message>
+    <message>
+        <source>Choose a Rank.</source>
+        <translation type="obsolete">Rango</translation>
+    </message>
+    <message>
+        <source>Choose a Clan.</source>
+        <translation type="obsolete">Clan</translation>
+    </message>
+    <message>
+        <source>Choose a Client.</source>
+        <translation type="obsolete">Cliente</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.ui" line="280"/>
+        <source>The Wheat Snooper</source>
+        <translation>The Wheat Snooper</translation>
+    </message>
+    <message>
+        <source>Remember these settings and dont show this field on next start.</source>
+        <translation type="obsolete">Recordar y no mostrar esta pestaña en el futuro</translation>
+    </message>
+    <message>
+        <source>choose</source>
+        <translation type="obsolete">Conectar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="382"/>
         <source>Join channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canales</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="390"/>
         <source>Start minimized to tray.</source>
-        <translation type="unfinished"></translation>
+        <translation>Iniciar minimizado</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="397"/>
         <source>Join a channel on startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unirse a un canal al iniciar</translation>
+    </message>
+    <message>
+        <source>Join this channel on every startup.</source>
+        <translation type="obsolete">Unirse a este canal al iniciar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="425"/>
         <source>join</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="110"/>
         <source>Disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconectado</translation>
+    </message>
+</context>
+<context>
+    <name>mytabwidget</name>
+    <message>
+        <source>Close</source>
+        <translation type="obsolete">Cerrar</translation>
     </message>
 </context>
 <context>
@@ -1326,7 +1791,11 @@ you must choose a game executable,
 for example wa.exe, to join a game.
 if you dont know what this means,
 please read the tutorial.pdf inside the snooper folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se han definido ejecutables.
+Debes seleccionar un ejecutable del juego,
+por ejemplo wa.exe, para unirte a una partida.
+Si no sabes lo que esto significa, por favor lee el archivo
+tutorial.pdf que está adentro de la carpeta del snooper.</translation>
     </message>
 </context>
 <context>
@@ -1336,7 +1805,9 @@ please read the tutorial.pdf inside the snooper folder.</source>
         <source>This is your Playername in a game.
 This name supports more letters then the wormnet name.
 If this string is empty, worms will probably not host or join a game.</source>
-        <translation type="unfinished"></translation>
+        <translation>Es tu nombre de jugador en el juego.
+Este nombre soporta más letras que el nombre de WormNET.
+Si lo dejas en blanco, probablemente no puedas crear o unirte a partidas.</translation>
     </message>
 </context>
 <context>
@@ -1344,12 +1815,12 @@ If this string is empty, worms will probably not host or join a game.</source>
     <message>
         <location filename="../src/wormnet/playername.ui" line="13"/>
         <source>playername</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de jugador</translation>
     </message>
     <message>
         <location filename="../src/wormnet/playername.ui" line="31"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Aceptar</translation>
     </message>
 </context>
 <context>
@@ -1357,67 +1828,69 @@ If this string is empty, worms will probably not host or join a game.</source>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="14"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="26"/>
         <source>Alert, Away.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alertas y ausencias</translation>
+    </message>
+    <message>
+        <source>Alert and away.</source>
+        <translation type="obsolete">Alertas y Ausencia</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="57"/>
         <source>Alert me on notice.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alertarme cuando hayan avisos</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="73"/>
         <source>Alert me on prvmsg from normal user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alertarme cuando reciba mensajes privados</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="256"/>
         <source>Users from ingorelist appear in channelchat windows.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar usuarios de la lista de ignorados</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="272"/>
         <source>Save querys and logs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar consultas e historiales</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="105"/>
         <source>Set automaticly away while gaming.</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar automáticamente el modo ausente al jugar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="288"/>
         <source>Open the buddylist on startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir la lista de amigos al iniciar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="314"/>
         <source>Server messages appear in channelwindows.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar mensajes del servidor en la ventana del canal</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="127"/>
         <source>Away String while gaming.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mensaje de ausencia al jugar</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="332"/>
-        <source>Hide all channelwindows to tray when starting a game.</source>
-        <translation type="unfinished"></translation>
+        <source>Im in a Game!</source>
+        <translation type="obsolete">Estoy en una partida</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="339"/>
-        <source>Disconnect from network when a game starts.</source>
-        <translation type="unfinished"></translation>
+        <source>Sound</source>
+        <translation type="obsolete">Sonidos</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="597"/>
         <source>Sound on startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonido al iniciar el programa</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="611"/>
@@ -1430,29 +1903,29 @@ If this string is empty, worms will probably not host or join a game.</source>
         <location filename="../src/wormnet/settingswindow.ui" line="957"/>
         <location filename="../src/wormnet/settingswindow.ui" line="1006"/>
         <source>Choose a file</source>
-        <translation type="unfinished"></translation>
+        <translation>Examinar...</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="625"/>
         <location filename="../src/wormnet/settingswindow.ui" line="675"/>
         <location filename="../src/wormnet/settingswindow.ui" line="724"/>
         <source>Play this sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Reproducir este sonido</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="647"/>
         <source>Sound when buddy arrives.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonido cuando se conecta un amigo</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="696"/>
         <source>Sound when buddy leaves.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonido cuando se desconecta un amigo</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="747"/>
         <source>Sound when a buddy sends a message.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonido cuando un amigo envía un mensaje</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="775"/>
@@ -1462,204 +1935,228 @@ If this string is empty, worms will probably not host or join a game.</source>
         <location filename="../src/wormnet/settingswindow.ui" line="971"/>
         <location filename="../src/wormnet/settingswindow.ui" line="1020"/>
         <source>Play this sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>Reproducir este sonido</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="796"/>
         <source>Sound when a chatwindow opens.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonido al abrir una ventana de charla</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="845"/>
         <source>Sound when a normal user sends a message.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonido cuando un usuario envía un mensaje</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="1074"/>
         <source>Who repeat delay (ms).</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualización de usuarios (ms)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="1102"/>
         <source>Host repeat delay.(ms)</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualización de partidas (ms)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="402"/>
         <source>Join,Part,Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Llegadas, salidas y desconexiones</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/settingswindow.ui" line="332"/>
+        <source>Hide all channelwindows to tray when starting a game.</source>
+        <translation>Ocultar todas las ventanas de canales al iniciar una partida</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/settingswindow.ui" line="339"/>
+        <source>Disconnect from network when a game starts.</source>
+        <translation>Desconectar de la red cuando inicie una partida</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="408"/>
         <source>Join Part Quit information in channelchats.</source>
-        <translation type="unfinished"></translation>
+        <translation>Información de los canales de chat</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="416"/>
         <source>Show joininfos in channelchats.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar llegadas de usuarios en los canales</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="426"/>
         <source>Show partinfos in channelchats.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar salidas de usuarios en los canales</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="436"/>
         <source>Show quitinfos in channelchats.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar desconexiones de usuarios en los canales</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="1044"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Avanzado</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="1056"/>
         <source>Better dont touch anything else then &quot;Maximum of textblocks in a chat&quot;.
 Note: A reconnect is required to apply these settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mejor no tocar nada más que &quot;Líneas máximas en chat&quot;.
+Nota: Es necesario reconectar para que se apliquen los cambios.</translation>
+    </message>
+    <message>
+        <source>Who repead delay (ms).</source>
+        <translation type="obsolete">Actualización de la lista de usuarios (ms)</translation>
+    </message>
+    <message>
+        <source>Host repead delay.(ms)</source>
+        <translation type="obsolete">Actualización de la lista de partidas (ms)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="1130"/>
         <source>Host timeout delay.(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Vencimiento de host (s)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="1155"/>
         <source>Maximum of textblocks in a chat.</source>
-        <translation type="unfinished"></translation>
+        <translation>Líneas máximas en chat</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="1200"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Aceptar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="1207"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="89"/>
         <source>Send action to channel when i join a game.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar aviso al canal cuando me una a una partida</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="170"/>
         <source>Send back message to normal users.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar un mensaje a los usuarios normales cuando regrese</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="186"/>
         <source>Send back message to buddys.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar un mensaje a los amigos cuando regrese</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="202"/>
         <source>Message when im back.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mensaje cuando regreso de jugar</translation>
+    </message>
+    <message>
+        <source>Im back.</source>
+        <translation type="obsolete">Regresé</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="894"/>
         <source>Sound when someone writes your name into the chat.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonido cuando alguien escribe tu nombre en el chat</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="465"/>
         <source>Show a balloon message when a buddy arrvies.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar aviso emergente cuando se conecte un amigo</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="475"/>
         <source>Show a balloon message when a buddy leaves.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar aviso emergente cuando se desconecte un amigo</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="540"/>
         <source>Show a balloon message when someone sends you a privmsg.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="497"/>
-        <source>Maximum count of messages in a balloon.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar aviso emergente cuando recibas un mensaje privado</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="298"/>
         <source>Show the channelchat of a user in chatwindows.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar el chat público de un usuario en la ventana de charla</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/settingswindow.ui" line="497"/>
+        <source>Maximum count of messages in a balloon.</source>
+        <translation>Mensajes máximos en un aviso emergente</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="373"/>
         <source>Maximum of messages for a user inside the log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mensajes máximos para un usuario en el registro</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="324"/>
         <source>Dont open Chatwindows automaticly. Hide them to tray instead.
  (use this only when your game minimizes when chatwindows open)</source>
-        <translation type="unfinished"></translation>
+        <translation>No abrir ventanas de charla automáticamente. Ocultarlas en el área de notificación del sistema.
+(Activa esto sólo si el juego se minimiza cuando se abren ventanas de charla)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="550"/>
         <source>Show a balloon message when a buddy hosts a game.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar aviso emergente cuando un amigo cree una partida</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="992"/>
         <source>Sound when a buddy hosts a game.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonido cuando un amigo crea una partida</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="346"/>
         <source>Open a chatwindow for everyone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir una ventana de charla para todos los usuarios</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="227"/>
         <source>Channels and chat</source>
-        <translation type="unfinished"></translation>
+        <translation>Canales y chat</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="353"/>
         <source>Dont show smileys.</source>
-        <translation type="unfinished"></translation>
+        <translation>No mostrar emoticones</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="452"/>
         <source>Balloon Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Avisos emergentes</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="561"/>
         <source>Sound notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Notificaciones de sonido</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="149"/>
         <source>Costum words, the snooper will play a sound when one of them appears in a channel chat.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seguimiento de palabras: se reproducirá un sonido cuando alguna de ellas aparezca en el canal.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="360"/>
         <source>Dont use Sorting for the userlist in channels. Most recents become first.</source>
-        <translation type="unfinished"></translation>
+        <translation>No usar ordenamiento en las listas de usuario de los canales. Los más recientes aparecerán primero.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="458"/>
         <source>Dont show balloons.</source>
-        <translation type="unfinished"></translation>
+        <translation>No mostrar avisos emergentes</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="584"/>
         <source>Dont play sound.</source>
-        <translation type="unfinished"></translation>
+        <translation>No reproducir sonidos</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="943"/>
         <source>Sound when a costum word appears in the chat.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonido cuando una palabra en seguimiento aparece en el chat</translation>
     </message>
 </context>
 <context>
@@ -1667,17 +2164,17 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/snpsettings.cpp" line="32"/>
         <source>Please choose the folder from the old Snooper.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona la carpeta de la instalación anterior del snooper.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/snpsettings.cpp" line="38"/>
         <source>Warning!</source>
-        <translation type="unfinished"></translation>
+        <translation>Advertencia</translation>
     </message>
     <message>
         <location filename="../src/wormnet/snpsettings.cpp" line="38"/>
         <source>This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?</source>
-        <translation type="unfinished"></translation>
+        <translation>En esta carpeta no parece haber una instalación válida de The Wheat Snooper. ¿Quieres seleccionar otra carpeta?</translation>
     </message>
 </context>
 <context>
@@ -1685,12 +2182,12 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/textschemehandler.cpp" line="14"/>
         <source>Textscheme helper</source>
-        <translation type="unfinished"></translation>
+        <translation>Ayuda de los estilos de texto</translation>
     </message>
     <message>
         <location filename="../src/wormnet/textschemehandler.cpp" line="72"/>
         <source>This is a teststring &gt; ? ! &lt; @ THIS IS A TESTSTRING! 0123456789 xD ,) :) ;P :P :E :D :C ;o :o o0 o_0 ,0.0,</source>
-        <translation type="unfinished"></translation>
+        <translation>Probando  &gt; ? ! &lt; @ THIS IS SPARTA! 0123456789 xD X5D X12D X21D X35D @_@ o.0</translation>
     </message>
 </context>
 <context>
@@ -1698,27 +2195,27 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/textschemehandler.ui" line="13"/>
         <source>textschemehandler</source>
-        <translation type="unfinished"></translation>
+        <translation>Generador de estilos</translation>
     </message>
     <message>
         <location filename="../src/wormnet/textschemehandler.ui" line="24"/>
         <source>Show this texttype in channelwindows.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar este estilo de texto en los canales</translation>
     </message>
     <message>
         <location filename="../src/wormnet/textschemehandler.ui" line="35"/>
         <source>Set Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Establecer color</translation>
     </message>
     <message>
         <location filename="../src/wormnet/textschemehandler.ui" line="42"/>
         <source>Set font</source>
-        <translation type="unfinished"></translation>
+        <translation>Establecer fuente</translation>
     </message>
     <message>
         <location filename="../src/wormnet/textschemehandler.ui" line="53"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar</translation>
     </message>
 </context>
 <context>
@@ -1726,17 +2223,17 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/uploadedfileatomic.ui" line="25"/>
         <source>uploadedfileatomic</source>
-        <translation type="unfinished"></translation>
+        <translation>archivoatomicocargado</translation>
     </message>
     <message>
         <location filename="../src/wormnet/uploadedfileatomic.ui" line="60"/>
         <source>Copy this link to clipboard.</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar este enlace al portapapeles</translation>
     </message>
     <message>
         <location filename="../src/wormnet/uploadedfileatomic.ui" line="73"/>
         <source>Delete this link.</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar este enlace</translation>
     </message>
 </context>
 <context>
@@ -1757,7 +2254,7 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/window.cpp" line="417"/>
         <location filename="../src/wormnet/window.cpp" line="446"/>
         <source>Buddylist</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de amigos</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="171"/>
@@ -1769,25 +2266,29 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/window.cpp" line="440"/>
         <location filename="../src/wormnet/window.cpp" line="446"/>
         <source>Ignorelist</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de ignorados</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_usermodel.cpp" line="18"/>
         <location filename="../src/wormnet/usermodel.cpp" line="19"/>
         <source>Nick</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugador</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_usermodel.cpp" line="18"/>
         <location filename="../src/wormnet/usermodel.cpp" line="19"/>
         <source>Rank</source>
-        <translation type="unfinished"></translation>
+        <translation>Rango</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_usermodel.cpp" line="18"/>
         <location filename="../src/wormnet/usermodel.cpp" line="19"/>
         <source>Clan</source>
-        <translation type="unfinished"></translation>
+        <translation>Clan</translation>
+    </message>
+    <message>
+        <source>Client</source>
+        <translation type="obsolete">Cliente</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_usermodel.cpp" line="105"/>
@@ -1801,25 +2302,25 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/window.cpp" line="341"/>
         <location filename="../src/wormnet/window.cpp" line="367"/>
         <source>Querys</source>
-        <translation type="unfinished"></translation>
+        <translation>Consultas</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_usermodel.cpp" line="75"/>
         <location filename="../src/wormnet/usermodel.cpp" line="89"/>
         <source> connected to wormnet.</source>
-        <translation type="unfinished"></translation>
+        <translation> se ha conectado a WormNET.</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_usermodel.cpp" line="18"/>
         <location filename="../src/wormnet/usermodel.cpp" line="19"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Información</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_usermodel.cpp" line="82"/>
         <location filename="../src/wormnet/usermodel.cpp" line="96"/>
         <source> left wormnet.</source>
-        <translation type="unfinished"></translation>
+        <translation> abandonó WormNET.</translation>
     </message>
 </context>
 <context>
@@ -1827,7 +2328,7 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/volumeslider.cpp" line="7"/>
         <source>Set the global volume.</source>
-        <translation type="unfinished"></translation>
+        <translation>Control de volumen global</translation>
     </message>
 </context>
 <context>
@@ -1835,7 +2336,7 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/volumeslider.ui" line="13"/>
         <source>volumeslider</source>
-        <translation type="unfinished"></translation>
+        <translation>Control de volumen</translation>
     </message>
 </context>
 <context>
@@ -1843,25 +2344,25 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/window.cpp" line="91"/>
         <source>Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Unirse a la partida</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="92"/>
         <source>Host a game in </source>
-        <translation type="unfinished"></translation>
+        <translation>Crear una partida en </translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="93"/>
         <location filename="../src/wormnet/window.cpp" line="506"/>
         <source>Host a private game</source>
-        <translation type="unfinished"></translation>
+        <translation>Crear una partida privada</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="518"/>
         <location filename="../src/wormnet/window.cpp" line="539"/>
         <location filename="../src/wormnet/window.cpp" line="611"/>
         <source>Choose a Program to join this game.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona un programa para unirte a esta partida</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="68"/>
@@ -1869,7 +2370,7 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/window.cpp" line="95"/>
         <location filename="../src/wormnet/window.cpp" line="402"/>
         <source>Add this user to Buddylist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar este usuario a la lista de amigos</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="69"/>
@@ -1877,7 +2378,7 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/window.cpp" line="96"/>
         <location filename="../src/wormnet/window.cpp" line="404"/>
         <source>Add this user to Ignorelist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar este usuario a la lista de ignorados</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="71"/>
@@ -1899,7 +2400,7 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/window.cpp" line="422"/>
         <location filename="../src/wormnet/window.cpp" line="431"/>
         <source>Show info about this user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar información de este usuario</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="72"/>
@@ -1909,7 +2410,7 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/window.cpp" line="420"/>
         <location filename="../src/wormnet/window.cpp" line="429"/>
         <source>Remove this user from the list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitar este usuario de la lista</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="331"/>
@@ -1917,7 +2418,7 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/window.cpp" line="354"/>
         <location filename="../src/wormnet/window.cpp" line="359"/>
         <source>Allow this clanname.</source>
-        <translation type="unfinished"></translation>
+        <translation>Permitir este nombre de clan</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="333"/>
@@ -1925,7 +2426,7 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/window.cpp" line="356"/>
         <location filename="../src/wormnet/window.cpp" line="361"/>
         <source>Dissallow this clanname.</source>
-        <translation type="unfinished"></translation>
+        <translation>No permitir este nombre de clan</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="346"/>
@@ -1933,7 +2434,7 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/window.cpp" line="369"/>
         <location filename="../src/wormnet/window.cpp" line="375"/>
         <source>Remove this Query.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitar esta consulta</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="364"/>
@@ -1941,7 +2442,7 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/window.cpp" line="387"/>
         <location filename="../src/wormnet/window.cpp" line="408"/>
         <source>Remove this user from Buddylist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitar este usuario de la lista de amigos</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="371"/>
@@ -1949,28 +2450,28 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/window.cpp" line="394"/>
         <location filename="../src/wormnet/window.cpp" line="411"/>
         <source>Remove this user from Ignorelist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitar este usuario de la lista de ignorados</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="522"/>
         <source>Choose a desktop icon.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona un programa</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="526"/>
         <source>Choose a Program.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona un programa</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="529"/>
         <source>Choose a Desktopicon.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona un programa</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="498"/>
         <location filename="../src/wormnet/window.cpp" line="635"/>
         <source>Users online</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuarios conectados</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="319"/>
@@ -1978,7 +2479,7 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/window.cpp" line="342"/>
         <location filename="../src/wormnet/window.cpp" line="344"/>
         <source>Remove Querys</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar consultas</translation>
     </message>
 </context>
 <context>
@@ -1986,12 +2487,12 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/window.ui" line="14"/>
         <source>window</source>
-        <translation type="unfinished"></translation>
+        <translation>Ventana</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.ui" line="65"/>
         <source>Send</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar</translation>
     </message>
 </context>
 </TS>

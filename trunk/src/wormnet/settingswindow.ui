@@ -571,7 +571,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>933</width>
+              <width>306</width>
               <height>660</height>
              </rect>
             </property>
@@ -1182,6 +1182,19 @@ Note: A reconnect is required to apply these settings.</string>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
        <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QPushButton" name="ok">
          <property name="text">
           <string>Ok</string>
@@ -1194,19 +1207,6 @@ Note: A reconnect is required to apply these settings.</string>
           <string>Cancel</string>
          </property>
         </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </item>
