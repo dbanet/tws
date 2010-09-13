@@ -40,7 +40,10 @@ void chathandlerprv::append(const QString &user, const QString &/*receiver*/,
         } else {
             cursor->insertText(user + "> ", nickformat);
             if (singleton<settingswindow>().from_map("chbsmileys").toBool() || containsCI(msg, "http://") || containsCI(msg, "wa://") || containsCI(msg, "www.")) {
-                insertText(msgtemp, chatformat,user);
+                if(user==net->nick)
+                    insertText(msgtemp, myselfformat,user);
+                else
+                    insertText(msgtemp, chatformat,user);
             } else {
                 foreach(QVariant v,emot->preparemsg(msgtemp)) {
                     if (v.canConvert(QVariant::Image))
