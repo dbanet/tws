@@ -31,7 +31,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;To change the Codec at later time you can find this dialog in the Stuff menu.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="textFormat">
-        <enum>Qt::AutoText</enum>
+        <enum>Qt::RichText</enum>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
