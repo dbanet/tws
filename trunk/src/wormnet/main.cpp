@@ -13,6 +13,7 @@
 #include"playername.h"
 #include "sound_handler.h"
 #include"global_functions.h"
+#include"codecselectdia.h"
 #ifdef Q_WS_WIN
     #include <dir.h>
 #endif
@@ -39,16 +40,13 @@ void myMessageOutput(QtMsgType, const char *);
 int main(int argc, char *argv[]) {    
     qInstallMsgHandler(myMessageOutput);
     QApplication a(argc, argv);
-    QStringList sl;
-    foreach(QByteArray b,QTextCodec::availableCodecs())
-        sl<<b;
-    QMessageBox::information(0,"",sl.join(" "));
-    if(c==0)
-        QMessageBox::warning(0,"","Codec Windows-1251 is not available!");
-    QTextCodec::setCodecForCStrings(c);
     a.setApplicationName("The Wheat Snooper");    
     chdir(qPrintable(QApplication::applicationDirPath()));
     singleton<snpsettings>().load();
+    if(singleton<snpsettings>().map["textcodec"].toString().isEmpty())
+        CodecSelectDia().exec();
+    else
+        QTextCodec::setCodecForCStrings(QTextCodec::codecForName(singleton<snpsettings>().map["textcodec"].toByteArray()));
     singleton<charformatsettings>().load();
     QTranslator trans;
     if (trans.load(QApplication::applicationDirPath() + "/translations/"

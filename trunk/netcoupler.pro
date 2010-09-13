@@ -68,6 +68,7 @@ HEADERS += src/wormnet/about.h \
     src/irc/irc_usermodel.h \
     src/irc/ircjoindia.h \
     src/irc/irc_chatwindow.h \
+    src/wormnet/codecselectdia.h
 
 FORMS += src/wormnet/about.ui \
     src/wormnet/awaybox.ui \
@@ -96,7 +97,8 @@ FORMS += src/wormnet/about.ui \
     \
     src/irc/irc_window.ui \
     src/irc/ircjoindia.ui \
-    src/irc/irc_chatwindow.ui
+    src/irc/irc_chatwindow.ui \
+    src/wormnet/codecselectdia.ui
 
 SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/awaybox.cpp \
@@ -143,7 +145,8 @@ SOURCES +=  src/wormnet/about.cpp \
     src/irc/irc_window.cpp \
     src/irc/irc_usermodel.cpp \
     src/irc/ircjoindia.cpp \
-    src/irc/irc_chatwindow.cpp
+    src/irc/irc_chatwindow.cpp \
+    src/wormnet/codecselectdia.cpp
 
 RC_FILE = src/wormnet/myapp.rc
 TRANSLATIONS += translations/The_Wheat_Snooper_Romanian_by_MihaiS \

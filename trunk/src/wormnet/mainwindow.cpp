@@ -35,6 +35,7 @@
 #include"src/irc/irc_netcoupler.h"
 #include"src/irc/irc_window.h"
 #include "src/irc/ircjoindia.h"
+#include"codecselectdia.h"
 inihandlerclass inihandler;
 QPointer<netcoupler> net;
 extern volumeslider *volume;
@@ -561,6 +562,7 @@ void mainwindow::init_menus(){
     stuffmenu->addAction(tr("Open Log Browser"));
     stuffmenu->addAction(usermodel::tr("Buddylist"));
     stuffmenu->addAction(tr("Scheme maker"));
+    stuffmenu->addAction(tr("Select another Textcodec"));
 #ifdef Q_WS_WIN
     stuffmenu->addAction(tr("Playername"));
 #endif
@@ -650,6 +652,8 @@ void mainwindow::traymenutriggered(QAction *a) {
         singleton<balloon_handler>().hide_tray();
         qApp->quit();
         return;    
+    } else if (a->text() ==  tr("Select another Textcodec")){
+        CodecSelectDia().exec();
     } else if (a->text().startsWith("#")) {
         join(a->text());
         return;
