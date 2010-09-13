@@ -31,8 +31,8 @@ void snpsettings::load(){
             while(true){
                 folder=QFileDialog::getExistingDirectory(0,qApp->tr("Please choose the folder from the old Snooper.")
                                                          ,qApp->applicationDirPath());
-                if(QFile::exists(folder+"/snpini/"+"snpini")){
-                    QFile::copy(folder+"/snpini/",QApplication::applicationDirPath()+"/snpini/snpini");
+                if(QFile::exists(folder+"/snpini/snpini")){
+                    QFile::copy(folder+"/snpini/snpini",QApplication::applicationDirPath()+"/snpini/snpini");
                     break;
                 } else{
                     int button=QMessageBox::warning(0,qApp->tr("Warning!"),qApp->tr("This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?"),QMessageBox::Yes | QMessageBox::No);
