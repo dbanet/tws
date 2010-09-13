@@ -632,7 +632,7 @@ Spiele erstellen kannst du indem du einen Kanal in der Spieleanzeige doppelklick
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="274"/>
         <source>&lt;This users idle time: %1&gt;</source>
-        <translation>&lt;Die Zet die dieser Benutzer jetzt untätig ist: %1&gt;</translation>
+        <translation>&lt;Die Zeit die dieser Benutzer jetzt untätig ist: %1&gt;</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="97"/>

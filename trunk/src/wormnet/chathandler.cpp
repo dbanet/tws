@@ -163,7 +163,7 @@ void chathandler::append(const QString &user, const QString &receiver,
     msgtemp.remove("\r");
     msgtemp.remove("\n");
     QString time = QTime::currentTime().toString("hh:mm");
-    cursor->insertText(time + ":", timeformat);
+    cursor->insertText(time + ": ", timeformat);
     if (!containsCI(singleton<snpsettings>().map["buddylist"].value<QStringList> (), user)) {
         if (compareCI(receiver, channel)) {
             if (msg.startsWith("\001ACTION")) {

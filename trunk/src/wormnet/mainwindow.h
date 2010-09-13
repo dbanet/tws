@@ -54,6 +54,7 @@ private:
     QStringList lastOpenedWindows;
     QStringList lastOpenedChatWindows;
 private slots:
+    void on_pbjoin_clicked();
     void join(const QString channel);
     void openchatwindow(const QString &);
     void on_pbabout_clicked();

@@ -655,7 +655,7 @@ void mainwindow::traymenutriggered(QAction *a) {
     } else if (a->text() ==  tr("Select another Textcodec")){
         CodecSelectDia().exec();
     } else if (a->text().startsWith("#")) {
-        join(a->text());
+        join(a->text().split(" ").first());
         return;
     } else if (a->text().contains(".qss")) {
         QFile f(QApplication::applicationDirPath() + "/qss/" + a->text());
@@ -814,4 +814,9 @@ void mainwindow::joinGameSourge(){
     static irc_window *window=new irc_window(net,GamesourgeChannelName);
     window->show();
     window->raise();
+}
+
+void mainwindow::on_pbjoin_clicked()
+{
+    join(ui.cbchannels->currentText());
 }
