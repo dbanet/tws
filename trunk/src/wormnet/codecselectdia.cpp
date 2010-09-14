@@ -21,9 +21,9 @@ CodecSelectDia::~CodecSelectDia()
 
 void CodecSelectDia::on_pblatin_clicked()
 {
-    QTextCodec *c=QTextCodec::codecForName("Windows-1252");     //latin
+    QTextCodec *c=QTextCodec::codecForName("windows-1252");     //latin
     QTextCodec::setCodecForCStrings(c);
-    singleton<snpsettings>().map["textcodec"]="Windows-1252";
+    singleton<snpsettings>().map["textcodec"]="windows-1252";
     qApp->setLayoutDirection(Qt::LeftToRight);
     singleton<snpsettings>().map["righttoleftwriting"]=false;
     accept();
@@ -31,9 +31,9 @@ void CodecSelectDia::on_pblatin_clicked()
 
 void CodecSelectDia::on_pbcyrillic_clicked()
 {
-    QTextCodec *c=QTextCodec::codecForName("Windows-1251");     //cyrillic
+    QTextCodec *c=QTextCodec::codecForName("windows-1251");     //cyrillic
     QTextCodec::setCodecForCStrings(c);
-    singleton<snpsettings>().map["textcodec"]="Windows-1251";
+    singleton<snpsettings>().map["textcodec"]="windows-1251";
     singleton<snpsettings>().map["righttoleftwriting"]=false;
     qApp->setLayoutDirection(Qt::LeftToRight);
     accept();
