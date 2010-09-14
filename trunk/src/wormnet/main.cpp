@@ -40,13 +40,14 @@ void myMessageOutput(QtMsgType, const char *);
 int main(int argc, char *argv[]) {    
     qInstallMsgHandler(myMessageOutput);
     QApplication a(argc, argv);
-    a.setApplicationName("The Wheat Snooper");    
+    a.setApplicationName("The Wheat Snooper");
     chdir(qPrintable(QApplication::applicationDirPath()));
     singleton<snpsettings>().load();
     if(singleton<snpsettings>().map["textcodec"].toString().isEmpty())
         CodecSelectDia().exec();
-    else
-        QTextCodec::setCodecForCStrings(QTextCodec::codecForName(singleton<snpsettings>().map["textcodec"].toByteArray()));
+    else{
+        QTextCodec::setCodecForCStrings(QTextCodec::codecForName(singleton<snpsettings>().map["textcodec"].toByteArray()));                    
+    }
     singleton<charformatsettings>().load();
     QTranslator trans;
     if (trans.load(QApplication::applicationDirPath() + "/translations/"
@@ -103,7 +104,7 @@ int main(int argc, char *argv[]) {
     singleton<sound_handler>().play_startupsound();        
 
     loadusergarbage();
-    loadquerylist();
+    loadquerylist();   
     return a.exec();
 }
 void myMessageOutput(QtMsgType type, const char *msg) {

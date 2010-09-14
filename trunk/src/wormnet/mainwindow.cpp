@@ -54,6 +54,11 @@ mainwindow::mainwindow(QWidget *parent) :
     net = NULL;
     whichuitype = 1;
     ui.setupUi(this);    
+    bool b=singleton<snpsettings>().map["righttoleftwriting"].toBool();
+    if(b)
+        qApp->setLayoutDirection(Qt::RightToLeft);
+    else
+        qApp->setLayoutDirection(Qt::LeftToRight);
     ui.pbrememberjoin->setText(tr("Autojoin:"));
     ui.pbabout->setText(tr("About"));
     ui.tabWidget->setTabEnabled(1, 0);

@@ -103,24 +103,25 @@ p, li { white-space: pre-wrap; }
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+        <widget class="QCheckBox" name="cbrighToLeft">
+         <property name="text">
+          <string>Enable writing from right to left.
+For hebreic and arabic for example.</string>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>121</width>
-           <height>41</height>
-          </size>
-         </property>
-        </spacer>
+        </widget>
        </item>
        <item>
         <widget class="QComboBox" name="comboBox">
          <property name="minimumSize">
           <size>
-           <width>200</width>
+           <width>170</width>
            <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>170</width>
+           <height>16777215</height>
           </size>
          </property>
         </widget>
