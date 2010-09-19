@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/wormnet/codecselectdia.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Codificación de caracteres</translation>
     </message>
     <message>
         <location filename="../src/wormnet/codecselectdia.ui" line="22"/>
@@ -20,28 +20,38 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;But you can also set another codec.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Please press one of the buttons or choose another codec and press Ok.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;To change the Codec at later time you can find this dialog in the Stuff menu.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Desde la versión 2.0, The Wheat Snooper soporta diferentes codificaciones de caracteres.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Las principales codificaciones son&lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#aa0000;&quot;&gt; Latín&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; para caracteres &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#aa0000;&quot;&gt;Americanos y Europeos&lt;/span&gt;&lt;span style=&quot; font-size:8pt; color:#aa0000;&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;y &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#0000ff;&quot;&gt;Cirílico&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; para caracteres &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#0000ff;&quot;&gt;Rusos (y otros)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;También puedes seleccionar otras codificaciones.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Por favor presiona uno de los dos botones o selecciona otra codificación y presiona Aceptar.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Puedes cambiar la codificación en cualquier momento desde el menú Opciones.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/wormnet/codecselectdia.ui" line="58"/>
         <source>Cyrillic</source>
-        <translation type="unfinished"></translation>
+        <translation>Cirílico</translation>
     </message>
     <message>
         <location filename="../src/wormnet/codecselectdia.ui" line="90"/>
         <source>Latin</source>
-        <translation type="unfinished"></translation>
+        <translation>Latín</translation>
     </message>
     <message>
         <location filename="../src/wormnet/codecselectdia.ui" line="108"/>
         <source>Enable writing from right to left.
 For hebreic and arabic for example.</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar escritura de derecha a izquierda.
+Para idioma hebreo o árabe, por ejemplo.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/codecselectdia.ui" line="162"/>
         <source>Ok</source>
-        <translation type="unfinished">Aceptar</translation>
+        <translation>Aceptar</translation>
     </message>
 </context>
 <context>
@@ -655,7 +665,7 @@ Puedes crear partidas haciendo doble clic (o clic derecho) en el nombre de un ca
         <location filename="../src/wormnet/chatwindow.cpp" line="101"/>
         <location filename="../src/wormnet/chatwindow.cpp" line="142"/>
         <source>Was offline when this window opened.</source>
-        <translation>Estuvo desconectado cuando se abrió esta ventana.</translation>
+        <translation>Estaba desconectado cuando se abrió esta ventana.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="280"/>
@@ -1233,7 +1243,7 @@ Usa los comandos CTCP para sitios de clanes, bromas, fotos, enlaces de qfileuplo
     <message>
         <location filename="../src/irc/ircjoindia.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor IRC</translation>
     </message>
     <message>
         <location filename="../src/irc/ircjoindia.ui" line="20"/>
@@ -1242,17 +1252,21 @@ Usa los comandos CTCP para sitios de clanes, bromas, fotos, enlaces de qfileuplo
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Join a channel on irc.gamesurge.net&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Únete a un canal en irc.gamesurge.net&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/irc/ircjoindia.ui" line="34"/>
         <source>Channel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal:</translation>
     </message>
     <message>
         <location filename="../src/irc/ircjoindia.ui" line="41"/>
         <source>#joe.to</source>
-        <translation type="unfinished"></translation>
+        <translation>#joe.to</translation>
     </message>
 </context>
 <context>
@@ -1260,35 +1274,35 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="37"/>
         <source>Chat with</source>
-        <translation type="unfinished">Charla con</translation>
+        <translation>Charla con</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="96"/>
         <location filename="../src/irc/irc_chatwindow.cpp" line="142"/>
         <location filename="../src/irc/irc_chatwindow.cpp" line="284"/>
         <source>Online</source>
-        <translation type="unfinished">En línea</translation>
+        <translation>En línea</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="100"/>
         <location filename="../src/irc/irc_chatwindow.cpp" line="141"/>
         <source>Was offline when this window opened.</source>
-        <translation type="unfinished">Estuvo desconectado cuando se abrió esta ventana.</translation>
+        <translation>Estaba desconectado cuando se abrió esta ventana.</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="252"/>
         <source>Choose a file.</source>
-        <translation type="unfinished">Selecciona un archivo</translation>
+        <translation>Selecciona un archivo</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="267"/>
         <source>&lt;This users idle time: %1&gt;</source>
-        <translation type="unfinished">&lt;Tiempo de inactividad de este usuario: %1&gt;</translation>
+        <translation>&lt;Tiempo de inactividad de este usuario: %1&gt;</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_chatwindow.cpp" line="273"/>
         <source>This user is currently offline</source>
-        <translation type="unfinished">Este usuario está desconectado</translation>
+        <translation>Este usuario está desconectado</translation>
     </message>
 </context>
 <context>
@@ -1296,14 +1310,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/irc/irc_ircnet.cpp" line="192"/>
         <source>Nickname collision!</source>
-        <translation type="unfinished">Nombre de usuario en uso</translation>
+        <translation>Nombre de usuario en uso</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_ircnet.cpp" line="193"/>
         <source>The server things that your nickname is allready in use. This is usually caused by a uncomplete logout at the last session. If its like that you have to wait a few seconds or change your nickname! 
 
 If your nick got faked... bl :)</source>
-        <translation type="unfinished">El servidor informa que tu nombre de usuario se encuentra en uso actualmente. Por lo general, esto es causado por una desconexión incompleta en la sesión anterior, en cuyo caso deberás esperar algunos segundos o cambiar tu nombre de usuario.
+        <translation>El servidor informa que tu nombre de usuario se encuentra en uso actualmente. Por lo general, esto es causado por una desconexión incompleta en la sesión anterior, en cuyo caso deberás esperar algunos segundos o cambiar tu nombre de usuario.
 Si alguien más está usando tu nombre de usuario... mala suerte :)</translation>
     </message>
 </context>
@@ -1312,12 +1326,12 @@ Si alguien más está usando tu nombre de usuario... mala suerte :)</translation
     <message>
         <location filename="../src/irc/irc_window.ui" line="14"/>
         <source>window</source>
-        <translation type="unfinished">Ventana</translation>
+        <translation>Ventana</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.ui" line="60"/>
         <source>Send</source>
-        <translation type="unfinished">Enviar</translation>
+        <translation>Enviar</translation>
     </message>
 </context>
 <context>
@@ -1489,7 +1503,7 @@ Si alguien más está usando tu nombre de usuario... mala suerte :)</translation
         <location filename="../src/wormnet/mainwindow.cpp" line="570"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="660"/>
         <source>Select another Textcodec</source>
-        <translation type="unfinished"></translation>
+        <translation>Codificación de caracteres</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="574"/>
@@ -1602,7 +1616,7 @@ Para reiniciar ahora haz clic en Aceptar, de lo contrario, haz clic en Cancelar.
         <location filename="../src/wormnet/mainwindow.cpp" line="567"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="763"/>
         <source>Open Log Browser</source>
-        <translation>Abrir visor de registros</translation>
+        <translation>Visor de registros</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="575"/>
@@ -1854,8 +1868,8 @@ tutorial.pdf que está adentro de la carpeta del snooper.</translation>
         <source>This is your Playername in a game.
 This name supports more letters then the wormnet name.
 If this string is empty, worms will probably not host or join a game.</source>
-        <translation>Es tu nombre de jugador en el juego.
-Este nombre soporta más letras que el nombre de WormNET.
+        <translation>Este es tu nombre de jugador en las partidas.
+Este nombre soporta más letras que el nombre de jugador en WormNET.
 Si lo dejas en blanco, probablemente no puedas crear o unirte a partidas.</translation>
     </message>
 </context>
