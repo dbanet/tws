@@ -39,7 +39,7 @@ void myMessageOutput(QtMsgType, const char *);
 
 int main(int argc, char *argv[]) {    
     qInstallMsgHandler(myMessageOutput);
-    QApplication a(argc, argv);
+    QApplication a(argc, argv);    
     a.setApplicationName("The Wheat Snooper");
     chdir(qPrintable(QApplication::applicationDirPath()));
     singleton<snpsettings>().load();
@@ -94,17 +94,17 @@ int main(int argc, char *argv[]) {
     handle_wini_ini();
 #endif
     singleton<snpsettings>();
+    singleton<settingswindow>();
+    singleton<sound_handler>().init();
     w = new mainwindow;
     volume->setvalue(singleton<snpsettings>().map["volumeslidervalue"].value<int> ());
     if (!singleton<snpsettings>().map["chbminimized"].value<bool> ()){
-        w->move(0,0);
         w->show();        
     }
-    singleton<sound_handler>().init();
-    singleton<sound_handler>().play_startupsound();        
 
     loadusergarbage();
-    loadquerylist();   
+    loadquerylist();       
+    QTimer::singleShot(1000,&singleton<sound_handler>(),SLOT(play_startupsound()));
     return a.exec();
 }
 void myMessageOutput(QtMsgType type, const char *msg) {

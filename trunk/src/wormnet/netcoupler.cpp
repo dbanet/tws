@@ -373,39 +373,39 @@ void netcoupler::processfinished(int , QProcess::ExitStatus e) {
         http->closehost(looki::lasthost);
         hostlifetimer.stop();
         hostlifetimer.disconnect();
-    }
-    if (e == 0)
-        qDebug() << "joining/hosting a game finished normally";
-    else
-        qDebug() << "joining/hosting a game crashed";
-    if (setawayingame) {
-        if (wasaway)
-            isaway = 1;
-        else {
-            isaway = 0;
-            wasaway = 0;
-            if (!singleton<snpsettings>().map["awaymessage"].value<QStringList> ().isEmpty())
-                this->awaymessage
-                        = singleton<snpsettings>().map["awaymessage"].value<QStringList> ().last();emit
-                          sigawaystringchanged();
-            foreach(QString s,mainwindow::rememberwhogotaway.keys()) {
-                if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
-                    && !singleton<snpsettings>().map["ignorelist"].toStringList().contains(
-                            s, Qt::CaseInsensitive)) {
-                    this->sendnotice(s,
-                                     singleton<settingswindow>().from_map("lebackmessage").toString());
-                    sendrawcommand("PRIVMSG " + s + " :\001back\001");
-                } else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
-                    if (singleton<snpsettings>().map["buddylist"].toStringList().contains(s,
-                                                                                          Qt::CaseInsensitive))
-                        this->sendnotice(
-                                s,
-                                singleton<settingswindow>().from_map("lebackmessage").toString());
-                    sendrawcommand("PRIVMSG " + s + " :\001back\001");
+        if (e == 0)
+            qDebug() << "joining/hosting a game finished normally";
+        else
+            qDebug() << "joining/hosting a game crashed";
+        if (setawayingame) {
+            if (wasaway)
+                isaway = 1;
+            else {
+                isaway = 0;
+                wasaway = 0;
+                if (!singleton<snpsettings>().map["awaymessage"].value<QStringList> ().isEmpty())
+                    this->awaymessage
+                            = singleton<snpsettings>().map["awaymessage"].value<QStringList> ().last();emit
+                              sigawaystringchanged();
+                foreach(QString s,mainwindow::rememberwhogotaway.keys()) {
+                    if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
+                        && !singleton<snpsettings>().map["ignorelist"].toStringList().contains(
+                                s, Qt::CaseInsensitive)) {
+                        this->sendnotice(s,
+                                         singleton<settingswindow>().from_map("lebackmessage").toString());
+                        sendrawcommand("PRIVMSG " + s + " :\001back\001");
+                    } else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
+                        if (singleton<snpsettings>().map["buddylist"].toStringList().contains(s,
+                                                                                              Qt::CaseInsensitive))
+                            this->sendnotice(
+                                    s,
+                                    singleton<settingswindow>().from_map("lebackmessage").toString());
+                        sendrawcommand("PRIVMSG " + s + " :\001back\001");
+                    }
                 }
             }
+            mainwindow::rememberwhogotaway.clear();
         }
-        mainwindow::rememberwhogotaway.clear();
     }
 }
 void netcoupler::hosttimetout() {
@@ -533,7 +533,9 @@ void netcoupler::startprocess(const QString &s){
             w->minimize();
         }
     } if(singleton<settingswindow>().from_map("chbdisconnectongame").toBool()){
+    looki::iswormkitgame=1;
         emit sigdisconnect();
+
     }
     p->start(s);
 }

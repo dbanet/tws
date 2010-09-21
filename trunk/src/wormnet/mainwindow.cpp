@@ -112,9 +112,9 @@ mainwindow::mainwindow(QWidget *parent) :
 
     connect(&singleton<ctcphandler>(), SIGNAL(sigctcpcommand(const QString&,const QString&)),this, SLOT(gotctcpsignal(const QString&,const QString&)));
 
-    QVariantList windowstates = singleton<snpsettings>().map["MainWindow"].toList();
+    QVariantList windowstates = singleton<snpsettings>().map["MainWindowGeometry"].toList();
     if (!windowstates.isEmpty())
-        this->restoreGeometry(windowstates.takeFirst().toByteArray());
+        restoreGeometry(windowstates.takeFirst().toByteArray());    
 }
 void mainwindow::get_baseStyleSheet(){
     QFile f(QApplication::applicationDirPath() + "/qss/Skin_Base");
@@ -248,13 +248,13 @@ void mainwindow::onquit() {
     if (b) {
         safeusergarbage();
         safequerylist();
-    }    
-    QVariantList windowstates;
-    windowstates << this->saveGeometry();
-    singleton<snpsettings>().map["MainWindow"]=windowstates;
-    singleton<snpsettings>().safe();
+    }       
 }
 void mainwindow::closeEvent(QCloseEvent *) {
+    QVariantList windowstates;
+    windowstates << saveGeometry();
+    singleton<snpsettings>().map["MainWindowGeometry"]=windowstates;
+    singleton<snpsettings>().safe();
 }
 void mainwindow::disconnect_netcoupler(){
     returntotabsettings(0);

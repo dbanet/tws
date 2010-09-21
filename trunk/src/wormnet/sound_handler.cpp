@@ -80,7 +80,7 @@ void sound_handler::play_startupsound(){
         return;
     }
     startupsound->stop();
-    startupsound->play();   
+    startupsound->play();
 }
 
 void sound_handler::play_normalmsgsound(const QString user){
@@ -136,7 +136,7 @@ void sound_handler::play_buddyarrivedsound(){
         return;
     }
     buddyarrivedsound->stop();
-    buddyarrivedsound->play();
+    buddyarrivedsound->play();    
 }
 void sound_handler::play_highlightningsound(const QString user, QWidget *w){
     if (!singleton<settingswindow>().from_map("cbhighlightning").value<bool> ())

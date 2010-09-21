@@ -1838,9 +1838,9 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/usermodel.cpp" line="123"/>
         <location filename="../src/wormnet/usermodel.cpp" line="292"/>
         <location filename="../src/wormnet/window.cpp" line="148"/>
-        <location filename="../src/wormnet/window.cpp" line="382"/>
-        <location filename="../src/wormnet/window.cpp" line="418"/>
-        <location filename="../src/wormnet/window.cpp" line="447"/>
+        <location filename="../src/wormnet/window.cpp" line="392"/>
+        <location filename="../src/wormnet/window.cpp" line="428"/>
+        <location filename="../src/wormnet/window.cpp" line="457"/>
         <source>Buddylist</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1853,8 +1853,8 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/usermodel.cpp" line="124"/>
         <location filename="../src/wormnet/usermodel.cpp" line="254"/>
         <location filename="../src/wormnet/window.cpp" line="146"/>
-        <location filename="../src/wormnet/window.cpp" line="342"/>
-        <location filename="../src/wormnet/window.cpp" line="368"/>
+        <location filename="../src/wormnet/window.cpp" line="352"/>
+        <location filename="../src/wormnet/window.cpp" line="378"/>
         <source>Querys</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1863,10 +1863,10 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/irc/irc_window.cpp" line="360"/>
         <location filename="../src/irc/irc_window.cpp" line="403"/>
         <location filename="../src/irc/irc_window.cpp" line="416"/>
-        <location filename="../src/wormnet/window.cpp" line="384"/>
-        <location filename="../src/wormnet/window.cpp" line="427"/>
-        <location filename="../src/wormnet/window.cpp" line="441"/>
-        <location filename="../src/wormnet/window.cpp" line="447"/>
+        <location filename="../src/wormnet/window.cpp" line="394"/>
+        <location filename="../src/wormnet/window.cpp" line="437"/>
+        <location filename="../src/wormnet/window.cpp" line="451"/>
+        <location filename="../src/wormnet/window.cpp" line="457"/>
         <source>Ignorelist</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1893,7 +1893,7 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/irc/irc_window.cpp" line="68"/>
         <location filename="../src/irc/irc_window.cpp" line="379"/>
         <location filename="../src/wormnet/window.cpp" line="96"/>
-        <location filename="../src/wormnet/window.cpp" line="403"/>
+        <location filename="../src/wormnet/window.cpp" line="413"/>
         <source>Add this user to Buddylist.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1901,7 +1901,7 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/irc/irc_window.cpp" line="69"/>
         <location filename="../src/irc/irc_window.cpp" line="381"/>
         <location filename="../src/wormnet/window.cpp" line="97"/>
-        <location filename="../src/wormnet/window.cpp" line="405"/>
+        <location filename="../src/wormnet/window.cpp" line="415"/>
         <source>Add this user to Ignorelist.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1917,13 +1917,13 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/irc/irc_window.cpp" line="408"/>
         <location filename="../src/wormnet/window.cpp" line="99"/>
         <location filename="../src/wormnet/window.cpp" line="101"/>
-        <location filename="../src/wormnet/window.cpp" line="372"/>
-        <location filename="../src/wormnet/window.cpp" line="378"/>
-        <location filename="../src/wormnet/window.cpp" line="390"/>
-        <location filename="../src/wormnet/window.cpp" line="397"/>
+        <location filename="../src/wormnet/window.cpp" line="382"/>
+        <location filename="../src/wormnet/window.cpp" line="388"/>
+        <location filename="../src/wormnet/window.cpp" line="400"/>
         <location filename="../src/wormnet/window.cpp" line="407"/>
-        <location filename="../src/wormnet/window.cpp" line="423"/>
-        <location filename="../src/wormnet/window.cpp" line="432"/>
+        <location filename="../src/wormnet/window.cpp" line="417"/>
+        <location filename="../src/wormnet/window.cpp" line="433"/>
+        <location filename="../src/wormnet/window.cpp" line="442"/>
         <source>Show info about this user.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1932,62 +1932,62 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/irc/irc_window.cpp" line="397"/>
         <location filename="../src/irc/irc_window.cpp" line="406"/>
         <location filename="../src/wormnet/window.cpp" line="100"/>
-        <location filename="../src/wormnet/window.cpp" line="421"/>
-        <location filename="../src/wormnet/window.cpp" line="430"/>
+        <location filename="../src/wormnet/window.cpp" line="431"/>
+        <location filename="../src/wormnet/window.cpp" line="440"/>
         <source>Remove this user from the list.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="319"/>
         <location filename="../src/irc/irc_window.cpp" line="321"/>
-        <location filename="../src/wormnet/window.cpp" line="343"/>
-        <location filename="../src/wormnet/window.cpp" line="345"/>
+        <location filename="../src/wormnet/window.cpp" line="353"/>
+        <location filename="../src/wormnet/window.cpp" line="355"/>
         <source>Remove Querys</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="331"/>
         <location filename="../src/irc/irc_window.cpp" line="336"/>
-        <location filename="../src/wormnet/window.cpp" line="355"/>
-        <location filename="../src/wormnet/window.cpp" line="360"/>
+        <location filename="../src/wormnet/window.cpp" line="365"/>
+        <location filename="../src/wormnet/window.cpp" line="370"/>
         <source>Allow this clanname.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="333"/>
         <location filename="../src/irc/irc_window.cpp" line="338"/>
-        <location filename="../src/wormnet/window.cpp" line="357"/>
-        <location filename="../src/wormnet/window.cpp" line="362"/>
+        <location filename="../src/wormnet/window.cpp" line="367"/>
+        <location filename="../src/wormnet/window.cpp" line="372"/>
         <source>Dissallow this clanname.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="346"/>
         <location filename="../src/irc/irc_window.cpp" line="352"/>
-        <location filename="../src/wormnet/window.cpp" line="370"/>
-        <location filename="../src/wormnet/window.cpp" line="376"/>
+        <location filename="../src/wormnet/window.cpp" line="380"/>
+        <location filename="../src/wormnet/window.cpp" line="386"/>
         <source>Remove this Query.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="364"/>
         <location filename="../src/irc/irc_window.cpp" line="385"/>
-        <location filename="../src/wormnet/window.cpp" line="388"/>
-        <location filename="../src/wormnet/window.cpp" line="409"/>
+        <location filename="../src/wormnet/window.cpp" line="398"/>
+        <location filename="../src/wormnet/window.cpp" line="419"/>
         <source>Remove this user from Buddylist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="371"/>
         <location filename="../src/irc/irc_window.cpp" line="388"/>
-        <location filename="../src/wormnet/window.cpp" line="395"/>
-        <location filename="../src/wormnet/window.cpp" line="412"/>
+        <location filename="../src/wormnet/window.cpp" line="405"/>
+        <location filename="../src/wormnet/window.cpp" line="422"/>
         <source>Remove this user from Ignorelist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="498"/>
-        <location filename="../src/wormnet/window.cpp" line="636"/>
+        <location filename="../src/wormnet/window.cpp" line="646"/>
         <source>Users online</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2003,29 +2003,29 @@ Note: A reconnect is required to apply these settings.</source>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="94"/>
-        <location filename="../src/wormnet/window.cpp" line="507"/>
+        <location filename="../src/wormnet/window.cpp" line="517"/>
         <source>Host a private game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="519"/>
-        <location filename="../src/wormnet/window.cpp" line="540"/>
-        <location filename="../src/wormnet/window.cpp" line="612"/>
+        <location filename="../src/wormnet/window.cpp" line="529"/>
+        <location filename="../src/wormnet/window.cpp" line="550"/>
+        <location filename="../src/wormnet/window.cpp" line="622"/>
         <source>Choose a Program to join this game.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="523"/>
+        <location filename="../src/wormnet/window.cpp" line="533"/>
         <source>Choose a desktop icon.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="527"/>
+        <location filename="../src/wormnet/window.cpp" line="537"/>
         <source>Choose a Program.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="530"/>
+        <location filename="../src/wormnet/window.cpp" line="540"/>
         <source>Choose a Desktopicon.</source>
         <translation type="unfinished"></translation>
     </message>

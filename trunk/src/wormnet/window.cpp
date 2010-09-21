@@ -121,7 +121,7 @@ window::window(netcoupler *n, QString s, int i) :
                                                              + QString::number(this->whichuiison)].toList();
     if (!windowstates.isEmpty()) {
         if (!windowstates.isEmpty())
-            this->restoreGeometry(windowstates.takeFirst().toByteArray());
+            restoreGeometry(windowstates.takeFirst().toByteArray());
         if (!windowstates.isEmpty())
             ui.splitter1->restoreState(windowstates.takeFirst().toByteArray());
         if (!windowstates.isEmpty())
@@ -318,6 +318,16 @@ void window::sendnoticeaction() {
     }
 }
 void window::closeEvent(QCloseEvent * /*event*/) {
+    singleton<snpsettings>().map[this->currentchannel + ":" + QString::number(this->whichuiison)];
+    QVariantList windowstates;
+    windowstates << saveGeometry();
+    windowstates << ui.splitter1->saveState();
+    windowstates << ui.splitter2->saveState();
+    windowstates << ui.users->header()->saveState();
+    windowstates << ui.hosts->header()->saveState();
+
+    singleton<snpsettings>().map[this->currentchannel + ":" + QString::number(this->whichuiison)]
+            = windowstates;
 }
 void window::useritempressed(const QModelIndex &index) {
     if (!index.isValid())
@@ -650,17 +660,7 @@ void window::getuserscount(QStringList sl) {
 }
 window::~window() {
     ui.buttonlayout->removeWidget(buttons);
-    buttons->setParent(0);
-    singleton<snpsettings>().map[this->currentchannel + ":" + QString::number(this->whichuiison)];
-    QVariantList windowstates;
-    windowstates << this->saveGeometry();
-    windowstates << ui.splitter1->saveState();
-    windowstates << ui.splitter2->saveState();
-    windowstates << ui.users->header()->saveState();
-    windowstates << ui.hosts->header()->saveState();
-
-    singleton<snpsettings>().map[this->currentchannel + ":" + QString::number(this->whichuiison)]
-            = windowstates;
+    buttons->setParent(0);    
     if(net!=0)
         net->partchannel(currentchannel);
     QString s = currentchannel;
