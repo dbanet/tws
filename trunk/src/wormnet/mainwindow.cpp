@@ -164,6 +164,7 @@ void mainwindow::chooseclicked() {
     connect(net,SIGNAL(sigdisconnect()),this,SLOT(disconnect_netcoupler()));
 
     QTimer::singleShot(7000,this,SLOT(reopenChatWindowsAndChannelWindows()));
+    ui.tabWidget->setTabEnabled(1, 1);
 }
 void mainwindow::reopenChatWindowsAndChannelWindows(){
     foreach(QString s,lastOpenedChatWindows)
@@ -283,6 +284,7 @@ void mainwindow::returntotabsettings(int i) {
         }
         windowlist.clear();
         net->deleteLater();
+        ui.tabWidget->setTabEnabled(1, 0);
     }
 }
 void mainwindow::changeEvent(QEvent * event) {

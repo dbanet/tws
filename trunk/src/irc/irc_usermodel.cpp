@@ -251,7 +251,7 @@ QVariant irc_usermodel::data(const QModelIndex & index, int role) const {
 
     if (role == Qt::DisplayRole && index.internalId() != e_Channel && index.column() == e_Clan) {
         QString s = usermap[classes[index.internalId()]][index.row()].nickfromclient;
-        if (singleton<snpsettings>().map["dissallowedclannames"].value<QStringList> ().contains(s))
+        if (singleton<snpsettings>().map["dissallowedclannames"].value<QStringList> ().contains(s,Qt::CaseInsensitive))
             return "";
         else
             return s;        

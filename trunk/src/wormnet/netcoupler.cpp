@@ -21,6 +21,13 @@
 extern volumeslider *volume;
 extern inihandlerclass inihandler;
 QProcess *netcoupler::p= new QProcess;
+namespace looki {
+    QString gamename;
+    QString currentchannel;
+    QStringList lasthost;
+    int gethostlistcount;
+    bool iswormkitgame = 0;
+}
 netcoupler::netcoupler(QString s, QObject *parent) :
         QObject(parent), nick(s) {
 
@@ -72,7 +79,7 @@ netcoupler::~netcoupler() {
     userstruct::addressischecked=0;
     irc->quit();
     irc->deleteLater();
-    http->deleteLater();
+    http->deleteLater();    
 }
 void netcoupler::joinchannel(const QString &s) {
     irc->joinchannel(s);
@@ -211,13 +218,6 @@ void netcoupler::ircdiconnected(){
     emit sigdisconnected();
 }
 //*****************************join your own host**********************
-namespace looki {
-    QString gamename;
-    QString currentchannel;
-    QStringList lasthost;
-    int gethostlistcount;
-    bool iswormkitgame = 0;
-}
 void netcoupler::joingamelink(const QString &gamelink) {
     joinprvgame *cast = qobject_cast<joinprvgame*> (sender());
     Q_CHECK_PTR(cast);
@@ -511,7 +511,7 @@ void netcoupler::settingswindowemitfunktion() { //signals are protected?!
     emit sigsettingswindowchanged();
 }
 void netcoupler::setaway() {
-    if (setawayingame) {
+    if (setawayingame && !looki::iswormkitgame) {
         if (!isaway){
             isaway = 1;
             wasaway=0;
@@ -520,8 +520,8 @@ void netcoupler::setaway() {
             wasaway = 1;
         awaymessage = awaystringwhilehosting;
         oldawaystring = awaymessage;
-    }
-    emit sigawaystringchanged();
+        emit sigawaystringchanged();
+    }    
 }
 void netcoupler::refreshhostlist() {
     http->refreshhostlist();
@@ -533,9 +533,8 @@ void netcoupler::startprocess(const QString &s){
             w->minimize();
         }
     } if(singleton<settingswindow>().from_map("chbdisconnectongame").toBool()){
-    looki::iswormkitgame=1;
-        emit sigdisconnect();
-
+        looki::iswormkitgame=1;
+        QTimer::singleShot(3000,this,SIGNAL(sigdisconnect()));
     }
     p->start(s);
 }

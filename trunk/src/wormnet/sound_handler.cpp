@@ -7,28 +7,33 @@
 #include<QPointer>
 #include<QMessageBox>
 extern QPointer<netcoupler> net;
-sound_handler::sound_handler(){
-    startupsound = new Phonon::MediaObject(this);
-    chatwindowopensoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
-    normalmsgsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
-    buddymsgsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
+sound_handler::sound_handler(){    
+    startupsound = new Phonon::MediaObject(this);   
     buddymsgsound = new Phonon::MediaObject(this);
     normalmsgsound = new Phonon::MediaObject(this);
     chatwindowopensound = new Phonon::MediaObject(this);
     highlightningsound = new Phonon::MediaObject(this);
     buddyhostedsound = new Phonon::MediaObject(this);
     costumwordsound=new Phonon::MediaObject(this);
-
-    startupsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
-    highlightningoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
-    buddyleftsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
     buddyleftsound = new Phonon::MediaObject(this);
     buddyarrivedsound = new Phonon::MediaObject(this);
+
+    //SoundObject = new Phonon::MediaObject(this);
+
+    chatwindowopensoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
+    normalmsgsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
+    buddymsgsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
+    startupsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
+    highlightningoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
+    buddyleftsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);    
     buddyarrivedsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
     buddyhostedsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
     costumwordsoundsoundoutput= new Phonon::AudioOutput(Phonon::MusicCategory);
 
+    //SoundOutput = new Phonon::AudioOutput(Phonon::MusicCategory);
+
     Phonon::createPath(startupsound, startupsoundoutput);
+
     Phonon::createPath(chatwindowopensound, chatwindowopensoundoutput);
     Phonon::createPath(buddymsgsound, buddymsgsoundoutput);
     Phonon::createPath(normalmsgsound, normalmsgsoundoutput);
@@ -37,6 +42,8 @@ sound_handler::sound_handler(){
     Phonon::createPath(highlightningsound, highlightningoutput);
     Phonon::createPath(buddyhostedsound, buddyhostedsoundoutput);
     Phonon::createPath(costumwordsound, costumwordsoundsoundoutput);
+
+    //Phonon::createPath(SoundObject, SoundOutput);
 }
 void sound_handler::init(){   
     startupsound->setCurrentSource(
@@ -78,11 +85,32 @@ void sound_handler::play_startupsound(){
         verify_if_played();
     } catch(dont_play_sound_exception){
         return;
-    }
+    }    
     startupsound->stop();
     startupsound->play();
 }
-
+void sound_handler::play_buddyarrivedsound(){
+    if (!singleton<settingswindow>().from_map("cbbuddyarrives").value<bool> ())
+        return;
+    try{
+        verify_if_played();
+    } catch(dont_play_sound_exception){
+        return;
+    }
+    buddyarrivedsound->stop();
+    buddyarrivedsound->play();
+}
+void sound_handler::play_chatwindowopensound(){
+    if (!singleton<settingswindow>().from_map("cbplaybuddychatwindowopened").value<bool> ())
+        return;
+    try{
+        verify_if_played();
+    } catch(dont_play_sound_exception){
+        return;
+    }
+    chatwindowopensound->stop();
+    chatwindowopensound->play();
+}
 void sound_handler::play_normalmsgsound(const QString user){
     if (!singleton<settingswindow>().from_map("cbplaynormalchatmessage").value<bool> ())
         return;
@@ -105,17 +133,6 @@ void sound_handler::play_buddymsgsound(const QString user){
     buddymsgsound->stop();
     buddymsgsound->play();
 }
-void sound_handler::play_chatwindowopensound(){
-    if (!singleton<settingswindow>().from_map("cbplaybuddychatwindowopened").value<bool> ())
-        return;
-    try{
-        verify_if_played();
-    } catch(dont_play_sound_exception){
-        return;
-    }
-    chatwindowopensound->stop();
-    chatwindowopensound->play();
-}
 void sound_handler::play_buddyleftsound(){
     if (!singleton<settingswindow>().from_map("cbbuddyleaves").value<bool> ())
         return;
@@ -126,17 +143,6 @@ void sound_handler::play_buddyleftsound(){
     }
     buddyleftsound->play();
     buddyleftsound->play();
-}
-void sound_handler::play_buddyarrivedsound(){
-    if (!singleton<settingswindow>().from_map("cbbuddyarrives").value<bool> ())
-        return;
-    try{
-        verify_if_played();
-    } catch(dont_play_sound_exception){
-        return;
-    }
-    buddyarrivedsound->stop();
-    buddyarrivedsound->play();    
 }
 void sound_handler::play_highlightningsound(const QString user, QWidget *w){
     if (!singleton<settingswindow>().from_map("cbhighlightning").value<bool> ())
