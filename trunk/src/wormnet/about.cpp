@@ -1,5 +1,5 @@
 #include "about.h"
-QString about::version="2.12";
+QString about::version="2.13";
 about::about(QFrame *parent)
     : QFrame(parent)
 {
@@ -15,10 +15,9 @@ about::about(QFrame *parent)
 			"The translation was made by Lookias.<br>"
 			"<br>"
 			"Lookias`s Homepage: <a href=\"http://lookias.lo.funpic.de/page/index.htm\">lookias.lo.funpic.de/page</a><br>"
-                        "This programs livingplace <a href=\"http://lookias.inventforum.com/viewforum.php?f=9\">lookias.inventforum.com<\a></p>").arg(version));
+                        "This programs livingplace <a href=\"http://lookias.bplaced.com/forum/\">http://lookias.bplaced.com/forum/<\a></p>").arg(version));
 	ui.textBrowser->setHtml(s);
 }
-
 about::~about()
 {
 

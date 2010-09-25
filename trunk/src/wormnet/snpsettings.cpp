@@ -88,7 +88,7 @@ void snpsettings::safeonquit(){
 void snpsettings::loadDefaults(){
     map["volumeslidervalue"].setValue<int>(5);
     map["chbminimized"].setValue<bool>(0);
-    map["dissallowedclannames"].setValue<QStringList>(QStringList()<<"Username"<<"cybershadow"<<"WebSnoop"<<"HostingBuddy"<<"SheriffBot"<<"muzer"<<"Help"<<"Miranda"<<"Mirc");
+    map["dissallowedclannames"].setValue<QStringList>(QStringList()<<"Username"<<"cybershadow"<<"WebSnoop"<<"HostingBuddy"<<"SheriffBot"<<"muzer"<<"Help"<<"Miranda"<<"Mirc"<<"wormatty"<<"simon"<<"darkone"<<"noclan");
     map["language file"].setValue<QString> ("The_Wheat_Snooper_untranslated");
     map["charformatfile"].setValue<QString>("comic by lookias.textscheme");
     map["chbsendhostinfotochan"].setValue<bool>(true);

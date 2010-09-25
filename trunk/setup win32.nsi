@@ -155,7 +155,7 @@ Function CreateSMGroupShortcut
     CreateShortCut "$DESKTOP\The Wheat Snooper.lnk" "$INSTDIR\TheWheatSnooper.exe" "" "$INSTDIR\pictures\tray.ico"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$R1.lnk" $R0
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\The Wheat Snooper.lnk" $INSTDIR\TheWheatSnooper.exe "" "$INSTDIR\pictures\tray.ico"
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Homepage of $(^Name).lnk" http://lookias.inventforum.com/viewforum.php?f=9
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Homepage of $(^Name).lnk" http://lookias.bplaced.com/forum/viewforum.php?f=9
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Tutorial of $(^Name).lnk" $INSTDIR\tutorial.pdf    
 no_smgroup:
     Pop $R2

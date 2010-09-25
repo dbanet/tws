@@ -25,6 +25,8 @@ snoppanet::snoppanet(QObject *parent) :
     hosttimer = new QTimer(this);
     signalmapper = new QSignalMapper(this);
     url = singleton<snpsettings>().map["wormnetserverlist"].value<QStringList>().first();
+    if(!url.startsWith("http://"))
+        url="http://"+url;
     gameliststarts = 0;
     int delay = singleton<settingswindow>().from_map("sbhostrepead").value<int> ();
     hosttimer->start(delay);

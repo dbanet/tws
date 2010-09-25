@@ -29,7 +29,7 @@ QPixmap *unlocked;
 QStringList querylist;
 QMap<QString, QStringList> usergarbagemap;
 static mainwindow *w = 0;
-QStringList defaultServerList(QStringList()<<"http://wormnet1.team17.com"<<"http://itakagames.spb.ru"<<"http://212.240.191.125"<<"http://worms.tom.ru");
+QStringList defaultServerList(QStringList()<<"wormnet1.team17.com"<<"itakagames.spb.ru"<<"212.240.191.125"<<"worms.tom.ru");
 
 void search_for_game_executables();
 void handle_prosnooper_buddys();
