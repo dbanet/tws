@@ -16,6 +16,7 @@
 #include"buttonlayout.h"
 #include "sound_handler.h"
 #include"global_functions.h"
+#include"clantowebpagemapper.h"
 #include<QMessageBox>
 #include<QDate>
 #include<QScrollBar>
@@ -334,13 +335,22 @@ void window::useritempressed(const QModelIndex &index) {
         return;
     if (QApplication::mouseButtons() == Qt::LeftButton && index.column()==usermodel::e_Client){
         QString s=net->users.data(index.sibling(index.row(), usermodel::e_Client)).toString();
-        if(s.startsWith("www.",Qt::CaseInsensitive) || s.startsWith("http://",Qt::CaseInsensitive)){
+        if(isClickableLink(s)){
             s=s.trimmed();
             QUrl u1;
             u1.setUrl(s);
             QDesktopServices::openUrl(u1);
         }
         return;
+    }
+    if (QApplication::mouseButtons() == Qt::LeftButton && index.column()==usermodel::e_Clan){
+        QString s=net->users.data(index.sibling(index.row(), usermodel::e_Clan)).toString();
+        if(singleton<clantowebpagemapper>().contains(s)){
+            s=singleton<clantowebpagemapper>().value(s);
+            QUrl u1;
+            u1.setUrl(s);
+            QDesktopServices::openUrl(u1);
+        }
     }
     if (QApplication::mouseButtons() != Qt::RightButton)
         return;
@@ -358,17 +368,15 @@ void window::useritempressed(const QModelIndex &index) {
             }
         }
     } else if (index.column() == usermodel::e_Clan) {
-        QStringList sl = singleton<snpsettings>().map["dissallowedclannames"].value<QStringList>();
-        //        menu.addAction(tr("Get Information about this clan."));
-        //        menu.addSeparator();
-        if (sl.contains(net->users.getuserstructbyindex(index).nickfromclient))
+        QStringList sl = singleton<snpsettings>().map["dissallowedclannames"].value<QStringList>();        
+        if (sl.contains(net->users.getuserstructbyindex(index).nickfromclient,Qt::CaseInsensitive))
             menu.addAction(tr("Allow this clanname."));
         else
             menu.addAction(tr("Dissallow this clanname."));        
         a = menu.exec(QCursor::pos());
         if (!a) return;
         if (a->text() == tr("Allow this clanname."))
-            sl.removeAll(net->users.getuserstructbyindex(index).nickfromclient);
+            removeCI(sl,net->users.getuserstructbyindex(index).nickfromclient);
         else if(a->text() == tr("Dissallow this clanname."))
             sl<< net->users.getuserstructbyindex(index).nickfromclient;
         else
@@ -454,7 +462,7 @@ void window::useritemdblclicked(const QModelIndex &index) {
         openchatwindow(s);
     } else if (index.internalId() == usermodel::e_Channel){
         QString s=net->users.data(index.sibling(index.row(), 0)).value<QString> ();
-        if(s==usermodel::tr("Buddylist") || s==usermodel::tr("Ignorelist"))
+        if(s==usermodel::tr("Buddylist") || s==usermodel::tr("Ignorelist") || s==usermodel::tr("Querys"))
             return;
         emit sigjoinchannel(s);
     }

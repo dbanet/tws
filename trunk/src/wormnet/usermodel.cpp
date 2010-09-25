@@ -7,6 +7,7 @@
 #include"ctcphandler.h"
 #include "sound_handler.h"
 #include"global_functions.h"
+#include"clantowebpagemapper.h"
 extern QPointer<netcoupler> net;
 extern QList<QPixmap*> flaglist; //declared in main.cpp
 extern QList<QPixmap*> ranklist; //declared in main.cpp
@@ -14,6 +15,7 @@ extern QStringList querylist;
 extern QString GamesourgeChannelName;
 QStringList usermodel::buddyarrivedhelper;
 QStringList usermodel::buddylefthelper;
+
 usermodel::usermodel(QObject * parent) :
 	QAbstractItemModel(parent) {
     stringnamelist << tr("Nick") << "" << tr("Rank") << tr("Clan") << tr("Information");
@@ -278,7 +280,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
 
     if (role == Qt::DisplayRole && index.internalId() != e_Channel && index.column() == e_Clan) {
         QString s = usermap[classes[index.internalId()]][index.row()].nickfromclient;
-        if (singleton<snpsettings>().map["dissallowedclannames"].value<QStringList> ().contains(s))
+        if (singleton<snpsettings>().map["dissallowedclannames"].value<QStringList> ().contains(s,Qt::CaseInsensitive))
             return "";
         else
             return s;        
@@ -360,22 +362,29 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
             }
         }
     }
-    if(role==Qt::FontRole && index.column()==e_Client && index.internalId() != e_Channel){
-        QString s=usermap[classes[index.internalId()]][index.row()].client;
-        if(s.startsWith("www.",Qt::CaseInsensitive) || s.startsWith("http://",Qt::CaseInsensitive)){
-            QFont f;
-            f.setUnderline(true);
-            return f;
+    if(role==Qt::FontRole && index.internalId() != e_Channel){
+        if(singleton<settingswindow>().from_map("cbunderlinelinksandclans").toBool())
+            return QVariant();
+        if(index.column()==e_Client){
+            QString s=usermap[classes[index.internalId()]][index.row()].client;
+            if(isClickableLink(s)){
+                QFont f;
+                f.setUnderline(true);
+                return f;
+            }
+        } if(index.column()==e_Clan){
+            QString s=usermap[classes[index.internalId()]][index.row()].nickfromclient;
+            if(singleton<clantowebpagemapper>().contains(s)){
+                QFont f;
+                f.setUnderline(true);
+                return f;
+            }
         }
+    }    
+    if(role==Qt::ToolTipRole && index.internalId() != e_Channel && index.column() == e_Clan){
+        QString s=usermap[classes[index.internalId()]][index.row()].nickfromclient;
+        return singleton<clantowebpagemapper>().getInformation(s);
     }
-    /*if(role==Qt::ToolTipRole && index.internalId() != e_Channel){
-        if(index.column()==e_Clan) {
-            QString s=tr("The clan of this gamer is: ") + "\n" \
-                         + usermap[classes[index.internalId()]][index.row()].nickfromclient  \
-                         + "\n"+tr("You can rightclick his clan\n to get further inforations about this clan.");
-            return s;
-        }
-    }*/
     return QVariant();
 }
 QVariant usermodel::headerData(int section, Qt::Orientation orientation,

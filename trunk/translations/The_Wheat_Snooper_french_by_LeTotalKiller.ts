@@ -227,12 +227,12 @@ Annulé</translation>
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="25"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="26"/>
         <source>Question</source>
         <translation>Question</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="26"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="27"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
         <translation>Si vous voulez garder vos préférences d&apos;une ancienne version du Snooper, cliquez sur &quot;Oui&quot;.
@@ -260,7 +260,7 @@ Ou bien vous cliquez droit sur une partie pour choisir un autre programme ou en 
 Vous pourrez héberger, par double-clic (ou clic droit) sur le nom d&apos;un canal dans la liste des parties.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/global_functions.h" line="120"/>
+        <location filename="../src/wormnet/global_functions.h" line="125"/>
         <source>is missing or locked, please run worms, one time, without the snooper. it will then create the file!</source>
         <translation>est manquant ou verouillé, merci de démarrer Worms, tout d&apos;abord, sans le snooper. Cela va créer le fichier !</translation>
     </message>
@@ -1395,98 +1395,98 @@ Si votre pseudo est &quot;maudit&quot;... pas de bol :)</translation>
 <context>
     <name>mainwindow</name>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="564"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="566"/>
         <source>Stuff</source>
         <translation>Autres</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="63"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="566"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="746"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="64"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="568"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="748"/>
         <source>About</source>
         <translation>À propos</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="62"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="301"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="63"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="303"/>
         <source>Autojoin:</source>
         <translation>Rejoindre automatiquement :</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="567"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="750"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="569"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="752"/>
         <source>Settings</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="568"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="760"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="570"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="762"/>
         <source>Volume</source>
         <translation>Volume</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="572"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="662"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="574"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="664"/>
         <source>Select another Textcodec</source>
         <translation>Choisir un autre codec de texte</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="576"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="578"/>
         <source>Skins</source>
         <translation>Skins</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="595"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="597"/>
         <source>Layouts</source>
         <translation>Disposition fenêtre canal</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="613"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="615"/>
         <source>Join</source>
         <translation>Rejoindre</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="606"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="608"/>
         <source>Language</source>
         <translation>Langue</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="122"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="123"/>
         <source>Cant read the Skinfile:
 Skin_Base</source>
         <translation>Je ne peux pas lire le fichier de Skin:
 Skin_Base</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="619"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="701"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="621"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="703"/>
         <source>Away mode</source>
         <translation>Mode away</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="623"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="753"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="625"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="755"/>
         <source>Reconnect</source>
         <translation>Reconnecter</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="625"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="649"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="627"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="651"/>
         <source>Close</source>
         <translation>Fermer</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="89"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="90"/>
         <source>Wheat Snoopers root window.</source>
         <translation>Fenêtre de réglages de Wheat Snooper.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="129"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="130"/>
         <source>Nickname field is empty</source>
         <translation>Vous avez oublié d&apos;indiquer votre pseudo</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="129"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="130"/>
         <source>Please choose a nickname.</source>
         <translation>Choisir le pseudo.</translation>
     </message>
@@ -1499,66 +1499,66 @@ Skin_Base</translation>
         <translation type="obsolete">Vous êtes en train d&apos;éditer le fichier .ini. Merci de le fermer avant de rejoindre WormNET.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="315"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="317"/>
         <source>Cant read the Skinfile:
 </source>
         <translation>Je ne peux pas lire le fichier de Skin:
 </translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="389"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="391"/>
         <source>Restart the application?</source>
         <translation>Redémarrer l&apos;application ?</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="390"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="392"/>
         <source>Changing the translation requires a program restart.
 To restart now click Ok, otherwise cancel.</source>
         <translation>Changer de traduction demande de redémarrer le programme.
 Pour redémarrer maintenant appuyez sur OK, sinon appuyez sur Annuler.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="569"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="765"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="571"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="767"/>
         <source>Open Log Browser</source>
         <translation>Ouvrir le chercheur de rapports</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="577"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="579"/>
         <source>Text Schemes</source>
         <translation>Décoration du texte</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="585"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="771"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="587"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="773"/>
         <source>Save current textscheme to file</source>
         <translation>Sauver les réglages de décoration de texte dans un fichier</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="772"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="774"/>
         <source>Save textscheme to.</source>
         <translation>Sauver décoration de texte sous.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="442"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="444"/>
         <source>trying to apply new textscheme: </source>
         <translation>Essayons d&apos;appliquer la nouvelle décoration du texte :</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="571"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="783"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="573"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="785"/>
         <source>Scheme maker</source>
         <translation>Fabriqueur de schemes</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="574"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="786"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="576"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="788"/>
         <source>Playername</source>
         <translation>Nom du joueur</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="412"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="421"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="414"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="423"/>
         <source>&lt;away&gt;:</source>
         <translation></translation>
     </message>
@@ -1569,14 +1569,14 @@ Pour redémarrer maintenant appuyez sur OK, sinon appuyez sur Annuler.</translat
         <translation type="obsolete">&lt;Pour masquer ou afficher cette fenêtre, vous pouvez faire un clic gauche sur l&apos;icône de la barre de tâches. Un clic droit sur cette icône ouvre un menu. Utiliser ce menu pour rejoindre un canal, pour changer le skin ou pour changer la disposition des éléments des canaux Wormnet. Le changement de la disposition des éléments ne s&apos;appiquera pas aux fenêtres ouvertes. Dans le menu autres vous pourrez régler des options pour les sons, les alertes et d&apos;autres choses encore.&gt;</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="122"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="315"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="677"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="123"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="317"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="679"/>
         <source>Warning</source>
         <translation>Attention</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="678"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="680"/>
         <source>Changing the skin crashes sometimes, but The Wheat Snooper
 will keep the settings for the next Start.
 Do you want to proceed?</source>
@@ -1585,12 +1585,12 @@ va garder les paramètres en mémoire pour le prochain démarrage.
 Voulez-vous continuer ?</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="527"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="529"/>
         <source>Connected</source>
         <translation>Connecté</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="530"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="532"/>
         <source>Disconnected</source>
         <translation>Déconnecté</translation>
     </message>
@@ -1843,7 +1843,7 @@ Si cette zone de texte est vide, Worms refusera probablement d&apos;héberger ou
         <translation>Faire apparaître les joueurs ignorés dans la fenêtre de chat du channel.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="272"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="279"/>
         <source>Save querys and logs.</source>
         <translatorcomment>Pas sûr.</translatorcomment>
         <translation>Sauvegarder les requêtes et les rapports.</translation>
@@ -1854,12 +1854,12 @@ Si cette zone de texte est vide, Worms refusera probablement d&apos;héberger ou
         <translation>Être automatiquement marqué comme occupé pendant que vous jouez.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="288"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="295"/>
         <source>Open the buddylist on startup.</source>
         <translation>Ouvrir la liste d&apos;amis au démarrage.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="314"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="321"/>
         <source>Server messages appear in channelwindows.</source>
         <translatorcomment>Si quelqu&apos;un a une meilleure traduction je suis preneur.</translatorcomment>
         <translation>Faire apparaître les messages du serveur (ex. : pseudo a quitté ce canal) dans la boîte de chat.</translation>
@@ -1874,141 +1874,146 @@ Si cette zone de texte est vide, Worms refusera probablement d&apos;héberger ou
         <translation type="obsolete">Je suis dans une partie !</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="332"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="339"/>
         <source>Hide all channelwindows to tray when starting a game.</source>
         <translation>Masquer tous les canaux quand vous démarrez une partie.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="339"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="346"/>
         <source>Disconnect from network when a game starts.</source>
         <translation>Se déconnecter quand une partie commence.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="597"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="604"/>
         <source>Sound on startup.</source>
         <translation>Jouer un son au démarrage.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="611"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="661"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="710"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="761"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="810"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="859"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="908"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="957"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="1006"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="618"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="668"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="717"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="768"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="817"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="866"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="915"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="964"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1013"/>
         <source>Choose a file</source>
         <translation>Choisir un fichier</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="625"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="675"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="724"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="632"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="682"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="731"/>
         <source>Play this sound</source>
         <translation>Jouer ce son</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="647"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="654"/>
         <source>Sound when buddy arrives.</source>
         <translation>Jouer un son à l&apos;arrivée d&apos;un ami.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="696"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="703"/>
         <source>Sound when buddy leaves.</source>
         <translation>Jouer un son lorsque qu&apos;un ami quitte WormNET.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="747"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="754"/>
         <source>Sound when a buddy sends a message.</source>
         <translation>Jouer un son lorsqu&apos;un ami vous envoie un message.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="775"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="824"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="873"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="922"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="971"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="1020"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="782"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="831"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="880"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="929"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="978"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1027"/>
         <source>Play this sound.</source>
         <translation>Jouer ce son.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="796"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="803"/>
         <source>Sound when a chatwindow opens.</source>
         <translation>Jouer un son dès que vous ouvrez une fenêtre de chat.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="845"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="852"/>
         <source>Sound when a normal user sends a message.</source>
         <translation>Jouer un son quand un utilisateur quelconque envoie un message.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1074"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1081"/>
         <source>Who repeat delay (ms).</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1102"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1109"/>
         <source>Host repeat delay.(ms)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="402"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="409"/>
         <source>Join,Part,Quit</source>
         <translation>Joindre un canal, quitter un canal, quitter WormNET</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="408"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="266"/>
+        <source>Dont underline links and clantags in the userslist.</source>
+        <translation>Ne pas souligner les liens et les clans dans la liste des utilisateurs.</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/settingswindow.ui" line="415"/>
         <source>Join Part Quit information in channelchats.</source>
         <translation>Afficher une note quand un joueur rejoint/quitte un canal.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="416"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="423"/>
         <source>Show joininfos in channelchats.</source>
         <translation>Afficher les infos de joueurs joignant un canal.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="426"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="433"/>
         <source>Show partinfos in channelchats.</source>
         <translation>Afficher les infos de joueurs quittant un canal.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="436"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="443"/>
         <source>Show quitinfos in channelchats.</source>
         <translation>Afficher les infos de joueurs quittant WormNET (ou ayant joint une partie).</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1044"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1051"/>
         <source>Advanced</source>
         <translation>Avancé</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1056"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1063"/>
         <source>Better dont touch anything else then &quot;Maximum of textblocks in a chat&quot;.
 Note: A reconnect is required to apply these settings.</source>
         <translation>Il est fortement recommandé de ne rien toucher à part l&apos;option de droite.
 Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1130"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1137"/>
         <source>Host timeout delay.(s)</source>
         <translatorcomment>A traduire.</translatorcomment>
         <translation>Délai de timeout pour une hôte.(en secondes)</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1155"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1162"/>
         <source>Maximum of textblocks in a chat.</source>
         <translatorcomment>Bof.</translatorcomment>
         <translation>Nombre maximal de messages dans un chat (public ou privé).</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1200"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1207"/>
         <source>Ok</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1207"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1214"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
@@ -2037,63 +2042,63 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
         <translation type="obsolete">Je suis de retour.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="894"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="901"/>
         <source>Sound when someone writes your name into the chat.</source>
         <translation>Jouer un son quand quelqu&apos;un écrit votre pseudo dans le chat.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="465"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="472"/>
         <source>Show a balloon message when a buddy arrvies.</source>
         <translation>Voir un message dans la bulle quand un ami arrive.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="475"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="482"/>
         <source>Show a balloon message when a buddy leaves.</source>
         <translation>Voir un message dans la bulle quand un ami quitte WormNET.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="540"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="547"/>
         <source>Show a balloon message when someone sends you a privmsg.</source>
         <translation>Voir un message dans la bulle quand quelqu&apos;un vous envoie un message privé.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="497"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="504"/>
         <source>Maximum count of messages in a balloon.</source>
         <translatorcomment>A traduire.</translatorcomment>
         <translation>Nombre maximal de messages dans la bulle.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="298"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="305"/>
         <source>Show the channelchat of a user in chatwindows.</source>
         <translatorcomment>A traduire.</translatorcomment>
         <translation>Voir les messages publics d&apos;un utilisateur dans la boîte de chat privé avec lui.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="373"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="380"/>
         <source>Maximum of messages for a user inside the log.</source>
         <translatorcomment>A traduire.</translatorcomment>
         <translation>Nombre maximal de messages pour un utilisateur dans le log.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="324"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="331"/>
         <source>Dont open Chatwindows automaticly. Hide them to tray instead.
  (use this only when your game minimizes when chatwindows open)</source>
         <translation>Ne pas ouvrir de fenêtre de chat automatiquement. Les masquer.
 (à n&apos;utiliser que si le jeu se réduit à cause des fenêtres de chat ouvertes)</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="550"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="557"/>
         <source>Show a balloon message when a buddy hosts a game.</source>
         <translatorcomment>A traduire.</translatorcomment>
         <translation>Voir un message dans la bulle quand un ami héberge une partie.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="992"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="999"/>
         <source>Sound when a buddy hosts a game.</source>
         <translation>Jouer un son quand un ami héberge une partie.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="346"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="353"/>
         <source>Open a chatwindow for everyone.</source>
         <translation>Ouvrir une fenêtre de chat pour tout le monde.</translation>
     </message>
@@ -2103,18 +2108,18 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
         <translation>Canaux et chat</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="353"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="360"/>
         <source>Dont show smileys.</source>
         <translation>Ne pas voir les smileys.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="452"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="459"/>
         <source>Balloon Messages</source>
         <translatorcomment>A traduire.</translatorcomment>
         <translation>Messages dans la bulle</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="561"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="568"/>
         <source>Sound notifications</source>
         <translatorcomment>A traduire.</translatorcomment>
         <translation>Notifications sonores</translation>
@@ -2125,23 +2130,23 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
         <translation>Mots personnalisés, le snooper va jouer un son quand un d&apos;eux apparaît dans le chat d&apos;un canal.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="360"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="367"/>
         <source>Dont use Sorting for the userlist in channels. Most recents become first.</source>
         <translation>Ne pas trier la liste des utilisateurs dans les canaux. Ceux ayant rejoint le canal en premier viennent en haut de la liste.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="458"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="465"/>
         <source>Dont show balloons.</source>
         <translatorcomment>A traduire.</translatorcomment>
         <translation>Désactiver la bulle (au-dessus de la barre de tâches).</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="584"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="591"/>
         <source>Dont play sound.</source>
         <translation>Ne pas jouer de son.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="943"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="950"/>
         <source>Sound when a costum word appears in the chat.</source>
         <translation>Jouer un son quand un mot personnalisé apparaît dans le chat.</translation>
     </message>
@@ -2149,17 +2154,17 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
 <context>
     <name>snpsettings</name>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="32"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="33"/>
         <source>Please choose the folder from the old Snooper.</source>
         <translation>Choisissez le dossier de votre Snooper précédent.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="38"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="39"/>
         <source>Warning!</source>
         <translation>Attention!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="38"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="39"/>
         <source>This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?</source>
         <translation>Peut être, ce dossier n&apos;est pas un valide dossier de The Wheat Snooper. Continuer?</translation>
     </message>
@@ -2230,46 +2235,46 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
         <location filename="../src/irc/irc_usermodel.cpp" line="265"/>
         <location filename="../src/irc/irc_window.cpp" line="111"/>
         <location filename="../src/irc/irc_window.cpp" line="175"/>
-        <location filename="../src/irc/irc_window.cpp" line="358"/>
-        <location filename="../src/irc/irc_window.cpp" line="394"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="570"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="756"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="123"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="292"/>
-        <location filename="../src/wormnet/window.cpp" line="148"/>
-        <location filename="../src/wormnet/window.cpp" line="392"/>
-        <location filename="../src/wormnet/window.cpp" line="428"/>
-        <location filename="../src/wormnet/window.cpp" line="457"/>
+        <location filename="../src/irc/irc_window.cpp" line="356"/>
+        <location filename="../src/irc/irc_window.cpp" line="392"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="572"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="758"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="125"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="294"/>
+        <location filename="../src/wormnet/window.cpp" line="149"/>
+        <location filename="../src/wormnet/window.cpp" line="400"/>
+        <location filename="../src/wormnet/window.cpp" line="436"/>
+        <location filename="../src/wormnet/window.cpp" line="465"/>
         <source>Buddylist</source>
         <translation>Liste d&apos;amis</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="171"/>
-        <location filename="../src/irc/irc_window.cpp" line="360"/>
-        <location filename="../src/irc/irc_window.cpp" line="403"/>
-        <location filename="../src/irc/irc_window.cpp" line="416"/>
-        <location filename="../src/wormnet/window.cpp" line="394"/>
-        <location filename="../src/wormnet/window.cpp" line="437"/>
-        <location filename="../src/wormnet/window.cpp" line="451"/>
-        <location filename="../src/wormnet/window.cpp" line="457"/>
+        <location filename="../src/irc/irc_window.cpp" line="358"/>
+        <location filename="../src/irc/irc_window.cpp" line="401"/>
+        <location filename="../src/irc/irc_window.cpp" line="414"/>
+        <location filename="../src/wormnet/window.cpp" line="402"/>
+        <location filename="../src/wormnet/window.cpp" line="445"/>
+        <location filename="../src/wormnet/window.cpp" line="459"/>
+        <location filename="../src/wormnet/window.cpp" line="465"/>
         <source>Ignorelist</source>
         <translation>Liste d&apos;ignorés</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_usermodel.cpp" line="18"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="19"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="21"/>
         <source>Nick</source>
         <translation>Pseudo</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_usermodel.cpp" line="18"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="19"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="21"/>
         <source>Rank</source>
         <translation>Rang</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_usermodel.cpp" line="18"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="19"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="21"/>
         <source>Clan</source>
         <translation>Clan</translation>
     </message>
@@ -2282,30 +2287,31 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
         <location filename="../src/irc/irc_usermodel.cpp" line="228"/>
         <location filename="../src/irc/irc_window.cpp" line="109"/>
         <location filename="../src/irc/irc_window.cpp" line="318"/>
-        <location filename="../src/irc/irc_window.cpp" line="344"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="124"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="254"/>
-        <location filename="../src/wormnet/window.cpp" line="146"/>
-        <location filename="../src/wormnet/window.cpp" line="352"/>
-        <location filename="../src/wormnet/window.cpp" line="378"/>
+        <location filename="../src/irc/irc_window.cpp" line="342"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="126"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="256"/>
+        <location filename="../src/wormnet/window.cpp" line="147"/>
+        <location filename="../src/wormnet/window.cpp" line="362"/>
+        <location filename="../src/wormnet/window.cpp" line="386"/>
+        <location filename="../src/wormnet/window.cpp" line="465"/>
         <source>Querys</source>
         <translation>Requêtes</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_usermodel.cpp" line="75"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="89"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="91"/>
         <source> connected to wormnet.</source>
         <translation> est connecté à WormNET.</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_usermodel.cpp" line="18"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="19"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="21"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_usermodel.cpp" line="82"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="96"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="98"/>
         <source> left wormnet.</source>
         <translation> a quitté WormNET.</translation>
     </message>
@@ -2329,142 +2335,142 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
 <context>
     <name>window</name>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="92"/>
+        <location filename="../src/wormnet/window.cpp" line="93"/>
         <source>Join</source>
         <translation>Rejoindre</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="93"/>
+        <location filename="../src/wormnet/window.cpp" line="94"/>
         <source>Host a game in </source>
         <translation>Héberger un partie dans </translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="94"/>
-        <location filename="../src/wormnet/window.cpp" line="517"/>
+        <location filename="../src/wormnet/window.cpp" line="95"/>
+        <location filename="../src/wormnet/window.cpp" line="525"/>
         <source>Host a private game</source>
         <translation>Héberger une partie privée</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="529"/>
-        <location filename="../src/wormnet/window.cpp" line="550"/>
-        <location filename="../src/wormnet/window.cpp" line="622"/>
+        <location filename="../src/wormnet/window.cpp" line="537"/>
+        <location filename="../src/wormnet/window.cpp" line="558"/>
+        <location filename="../src/wormnet/window.cpp" line="630"/>
         <source>Choose a Program to join this game.</source>
         <translation>Choisir un programme pour rejoindre cette partie.</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="68"/>
-        <location filename="../src/irc/irc_window.cpp" line="379"/>
-        <location filename="../src/wormnet/window.cpp" line="96"/>
-        <location filename="../src/wormnet/window.cpp" line="413"/>
+        <location filename="../src/irc/irc_window.cpp" line="377"/>
+        <location filename="../src/wormnet/window.cpp" line="97"/>
+        <location filename="../src/wormnet/window.cpp" line="421"/>
         <source>Add this user to Buddylist.</source>
         <translation>Ajouter cet utilisateur à la liste d&apos;amis.</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="69"/>
-        <location filename="../src/irc/irc_window.cpp" line="381"/>
-        <location filename="../src/wormnet/window.cpp" line="97"/>
-        <location filename="../src/wormnet/window.cpp" line="415"/>
+        <location filename="../src/irc/irc_window.cpp" line="379"/>
+        <location filename="../src/wormnet/window.cpp" line="98"/>
+        <location filename="../src/wormnet/window.cpp" line="423"/>
         <source>Add this user to Ignorelist.</source>
         <translation>Ajouter cet utilisateur à la liste d&apos;ignorés.</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="71"/>
         <location filename="../src/irc/irc_window.cpp" line="73"/>
-        <location filename="../src/irc/irc_window.cpp" line="348"/>
-        <location filename="../src/irc/irc_window.cpp" line="354"/>
-        <location filename="../src/irc/irc_window.cpp" line="366"/>
-        <location filename="../src/irc/irc_window.cpp" line="373"/>
-        <location filename="../src/irc/irc_window.cpp" line="383"/>
-        <location filename="../src/irc/irc_window.cpp" line="399"/>
-        <location filename="../src/irc/irc_window.cpp" line="408"/>
-        <location filename="../src/wormnet/window.cpp" line="99"/>
-        <location filename="../src/wormnet/window.cpp" line="101"/>
-        <location filename="../src/wormnet/window.cpp" line="382"/>
-        <location filename="../src/wormnet/window.cpp" line="388"/>
-        <location filename="../src/wormnet/window.cpp" line="400"/>
-        <location filename="../src/wormnet/window.cpp" line="407"/>
-        <location filename="../src/wormnet/window.cpp" line="417"/>
-        <location filename="../src/wormnet/window.cpp" line="433"/>
-        <location filename="../src/wormnet/window.cpp" line="442"/>
+        <location filename="../src/irc/irc_window.cpp" line="346"/>
+        <location filename="../src/irc/irc_window.cpp" line="352"/>
+        <location filename="../src/irc/irc_window.cpp" line="364"/>
+        <location filename="../src/irc/irc_window.cpp" line="371"/>
+        <location filename="../src/irc/irc_window.cpp" line="381"/>
+        <location filename="../src/irc/irc_window.cpp" line="397"/>
+        <location filename="../src/irc/irc_window.cpp" line="406"/>
+        <location filename="../src/wormnet/window.cpp" line="100"/>
+        <location filename="../src/wormnet/window.cpp" line="102"/>
+        <location filename="../src/wormnet/window.cpp" line="390"/>
+        <location filename="../src/wormnet/window.cpp" line="396"/>
+        <location filename="../src/wormnet/window.cpp" line="408"/>
+        <location filename="../src/wormnet/window.cpp" line="415"/>
+        <location filename="../src/wormnet/window.cpp" line="425"/>
+        <location filename="../src/wormnet/window.cpp" line="441"/>
+        <location filename="../src/wormnet/window.cpp" line="450"/>
         <source>Show info about this user.</source>
         <translation>Afficher des informations à propos de cet utilisateur.</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="72"/>
-        <location filename="../src/irc/irc_window.cpp" line="397"/>
-        <location filename="../src/irc/irc_window.cpp" line="406"/>
-        <location filename="../src/wormnet/window.cpp" line="100"/>
-        <location filename="../src/wormnet/window.cpp" line="431"/>
-        <location filename="../src/wormnet/window.cpp" line="440"/>
+        <location filename="../src/irc/irc_window.cpp" line="395"/>
+        <location filename="../src/irc/irc_window.cpp" line="404"/>
+        <location filename="../src/wormnet/window.cpp" line="101"/>
+        <location filename="../src/wormnet/window.cpp" line="439"/>
+        <location filename="../src/wormnet/window.cpp" line="448"/>
         <source>Remove this user from the list.</source>
         <translation>Retirer cet utilisateur de la liste.</translation>
     </message>
     <message>
-        <location filename="../src/irc/irc_window.cpp" line="331"/>
-        <location filename="../src/irc/irc_window.cpp" line="336"/>
-        <location filename="../src/wormnet/window.cpp" line="365"/>
-        <location filename="../src/wormnet/window.cpp" line="370"/>
+        <location filename="../src/irc/irc_window.cpp" line="329"/>
+        <location filename="../src/irc/irc_window.cpp" line="334"/>
+        <location filename="../src/wormnet/window.cpp" line="373"/>
+        <location filename="../src/wormnet/window.cpp" line="378"/>
         <source>Allow this clanname.</source>
         <translation>Afficher ce clan.</translation>
     </message>
     <message>
-        <location filename="../src/irc/irc_window.cpp" line="333"/>
-        <location filename="../src/irc/irc_window.cpp" line="338"/>
-        <location filename="../src/wormnet/window.cpp" line="367"/>
-        <location filename="../src/wormnet/window.cpp" line="372"/>
+        <location filename="../src/irc/irc_window.cpp" line="331"/>
+        <location filename="../src/irc/irc_window.cpp" line="336"/>
+        <location filename="../src/wormnet/window.cpp" line="375"/>
+        <location filename="../src/wormnet/window.cpp" line="380"/>
         <source>Dissallow this clanname.</source>
         <translation>Masquer ce clan.</translation>
     </message>
     <message>
-        <location filename="../src/irc/irc_window.cpp" line="346"/>
-        <location filename="../src/irc/irc_window.cpp" line="352"/>
-        <location filename="../src/wormnet/window.cpp" line="380"/>
-        <location filename="../src/wormnet/window.cpp" line="386"/>
+        <location filename="../src/irc/irc_window.cpp" line="344"/>
+        <location filename="../src/irc/irc_window.cpp" line="350"/>
+        <location filename="../src/wormnet/window.cpp" line="388"/>
+        <location filename="../src/wormnet/window.cpp" line="394"/>
         <source>Remove this Query.</source>
         <translation>Retirer cette requête.</translation>
     </message>
     <message>
-        <location filename="../src/irc/irc_window.cpp" line="364"/>
-        <location filename="../src/irc/irc_window.cpp" line="385"/>
-        <location filename="../src/wormnet/window.cpp" line="398"/>
-        <location filename="../src/wormnet/window.cpp" line="419"/>
+        <location filename="../src/irc/irc_window.cpp" line="362"/>
+        <location filename="../src/irc/irc_window.cpp" line="383"/>
+        <location filename="../src/wormnet/window.cpp" line="406"/>
+        <location filename="../src/wormnet/window.cpp" line="427"/>
         <source>Remove this user from Buddylist.</source>
         <translation>Retirer cet utilisateur de la liste d&apos;amis.</translation>
     </message>
     <message>
-        <location filename="../src/irc/irc_window.cpp" line="371"/>
-        <location filename="../src/irc/irc_window.cpp" line="388"/>
-        <location filename="../src/wormnet/window.cpp" line="405"/>
-        <location filename="../src/wormnet/window.cpp" line="422"/>
+        <location filename="../src/irc/irc_window.cpp" line="369"/>
+        <location filename="../src/irc/irc_window.cpp" line="386"/>
+        <location filename="../src/wormnet/window.cpp" line="413"/>
+        <location filename="../src/wormnet/window.cpp" line="430"/>
         <source>Remove this user from Ignorelist.</source>
         <translation>Retirer cet utilisateur de la liste d&apos;ignorés.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="533"/>
+        <location filename="../src/wormnet/window.cpp" line="541"/>
         <source>Choose a desktop icon.</source>
         <translation>Choisir une icône de raccourci bureau.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="537"/>
+        <location filename="../src/wormnet/window.cpp" line="545"/>
         <source>Choose a Program.</source>
         <translation>Choisir une application.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="540"/>
+        <location filename="../src/wormnet/window.cpp" line="548"/>
         <source>Choose a Desktopicon.</source>
         <translation>Choisir l&apos;icône de raccourci bureau.</translation>
     </message>
     <message>
-        <location filename="../src/irc/irc_window.cpp" line="498"/>
-        <location filename="../src/wormnet/window.cpp" line="646"/>
+        <location filename="../src/irc/irc_window.cpp" line="496"/>
+        <location filename="../src/wormnet/window.cpp" line="654"/>
         <source>Users online</source>
         <translation>utilisateurs connectés</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="319"/>
         <location filename="../src/irc/irc_window.cpp" line="321"/>
-        <location filename="../src/wormnet/window.cpp" line="353"/>
-        <location filename="../src/wormnet/window.cpp" line="355"/>
+        <location filename="../src/wormnet/window.cpp" line="363"/>
+        <location filename="../src/wormnet/window.cpp" line="365"/>
         <source>Remove Querys</source>
         <translation>Retirer les requêtes</translation>
     </message>

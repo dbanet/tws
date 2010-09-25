@@ -99,7 +99,7 @@ void netcoupler::getchannellist(QStringList sl) {
         channellist << s.split(" ").first();
     }
     foreach(QString s, channellist) {
-        if(!users.usermap_channellist_helper.contains(s))
+        if(!users.usermap_channellist_helper.contains(s,Qt::CaseInsensitive))
             users.usermap_channellist_helper.push_back(s);
     }
     emit siggotchanellist(sl);

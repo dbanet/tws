@@ -10,7 +10,6 @@
 #include<QMap>
 #include<QString>
 #include<QVariant>
-#include<QDataStream>
 #include"global_macros.h"
 class snpsettings {
 public:	

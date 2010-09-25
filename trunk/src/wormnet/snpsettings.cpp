@@ -12,6 +12,7 @@
 #include<QApplication>
 #include<QMessageBox>
 #include<QFileDialog>
+#include<QDataStream>
 extern QStringList defaultServerList;
 snpsettings::snpsettings(){}
 snpsettings::~snpsettings(){}
@@ -37,15 +38,20 @@ void snpsettings::load(){
                 } else{
                     int button=QMessageBox::warning(0,qApp->tr("Warning!"),qApp->tr("This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?"),QMessageBox::Yes | QMessageBox::No);
                     if(button==QMessageBox::Yes)
-                        continue;
-                    else return;
+                        continue;                    
+                    else {
+                        loadDefaults();
+                        return;
+                    }
                 }
             }
             QFile::copy(folder+"/snpini/"+"settingswindowini",QApplication::applicationDirPath()+"/snpini/settingswindowini");
             QFile::copy(folder+"/snpini/"+"ctcp.ini",QApplication::applicationDirPath()+"/snpini/ctcp.ini");
+            QFile::copy(folder+"/snpini/"+"clanpages",QApplication::applicationDirPath()+"/snpini/clanpages");
 
             QFile::copy(folder+"/query/"+"log",QApplication::applicationDirPath()+"/query/log");
             QFile::copy(folder+"/query/"+"querylist",QApplication::applicationDirPath()+"/query/querylist");
+
             singleton<settingswindow>().load();
         } else{
             loadDefaults();
@@ -80,11 +86,11 @@ void snpsettings::safeonquit(){
     ds<<map;
 }
 void snpsettings::loadDefaults(){
-    singleton<snpsettings>().map["volumeslidervalue"].setValue<int>(5);
-    singleton<snpsettings>().map["chbminimized"].setValue<bool>(0);
-    singleton<snpsettings>().map["dissallowedclannames"].setValue<QStringList>(QStringList()<<"Username"<<"cybershadow"<<"WebSnoop"<<"HostingBuddy"<<"SheriffBot"<<"muzer"<<"help"<<"Miranda"<<"Mirc");
-    singleton<snpsettings>().map["language file"].setValue<QString> ("The_Wheat_Snooper_untranslated");
-    singleton<snpsettings>().map["charformatfile"].setValue<QString>("comic by lookias.textscheme");
-    singleton<snpsettings>().map["chbsendhostinfotochan"].setValue<bool>(true);
-    singleton<snpsettings>().map["wormnetserverlist"].setValue<QStringList>(defaultServerList);
+    map["volumeslidervalue"].setValue<int>(5);
+    map["chbminimized"].setValue<bool>(0);
+    map["dissallowedclannames"].setValue<QStringList>(QStringList()<<"Username"<<"cybershadow"<<"WebSnoop"<<"HostingBuddy"<<"SheriffBot"<<"muzer"<<"Help"<<"Miranda"<<"Mirc");
+    map["language file"].setValue<QString> ("The_Wheat_Snooper_untranslated");
+    map["charformatfile"].setValue<QString>("comic by lookias.textscheme");
+    map["chbsendhostinfotochan"].setValue<bool>(true);
+    map["wormnetserverlist"].setValue<QStringList>(defaultServerList);
 }

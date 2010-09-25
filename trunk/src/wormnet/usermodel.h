@@ -36,7 +36,7 @@ public:
 
     QModelIndex indexbychannelname(QString);
     QStringList classes;
-    QList<QString> usermap_channellist_helper;
+    QStringList usermap_channellist_helper;
     QMap<QString,QList<userstruct> > usermap;
     QList<userstruct> users;
     static QStringList buddyarrivedhelper;

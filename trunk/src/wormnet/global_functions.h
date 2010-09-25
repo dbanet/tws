@@ -25,7 +25,7 @@ namespace {
     //----------------------------------------------------------------------------------------------
     bool containsCI(const QStringList &sl, const QString &s2) {
         return sl.contains(s2, Qt::CaseInsensitive);
-    }
+    }    
     //----------------------------------------------------------------------------------------------
     bool containsOneCI(const QString &s, const QStringList &sl, QString *arg) {
         foreach(QString str,sl){
@@ -44,6 +44,11 @@ namespace {
                 sl.removeAt(sl.indexOf(str));
         }
         return sl;
+    }
+    bool isClickableLink(const QString &s){
+        if(s.startsWith("http",Qt::CaseInsensitive) || s.startsWith("www.",Qt::CaseInsensitive) || s.startsWith("ftp://",Qt::CaseInsensitive) || s.startsWith("https://",Qt::CaseInsensitive))
+            return true;
+        return false;
     }
     //----------------------------------------------------------------------------------------------
     void safeusergarbage() {

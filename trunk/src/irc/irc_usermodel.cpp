@@ -335,7 +335,7 @@ QVariant irc_usermodel::data(const QModelIndex & index, int role) const {
     }
     if(role==Qt::FontRole && index.column()==e_Client && index.internalId() != e_Channel){
         QString s=usermap[classes[index.internalId()]][index.row()].client;
-        if(s.startsWith("www.",Qt::CaseInsensitive) || s.startsWith("http://",Qt::CaseInsensitive)){
+        if(isClickableLink(s)){
             QFont f;
             f.setUnderline(true);
             return f;

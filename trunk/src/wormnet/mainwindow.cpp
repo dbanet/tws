@@ -36,6 +36,7 @@
 #include"src/irc/irc_window.h"
 #include "src/irc/ircjoindia.h"
 #include"codecselectdia.h"
+#include"clantowebpagemapper.h"
 inihandlerclass inihandler;
 QPointer<netcoupler> net;
 extern volumeslider *volume;
@@ -245,6 +246,7 @@ void mainwindow::onquit() {
     }
     singleton<snpsettings>().safeonquit();
     singleton<snpsettings>().safe();
+    singleton<clantowebpagemapper>().safe();
     bool b = singleton<settingswindow>().from_map("cbsafequerys").value<bool> (); //no need for usesettingswindow here
     if (b) {
         safeusergarbage();

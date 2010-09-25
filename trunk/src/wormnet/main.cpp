@@ -14,6 +14,7 @@
 #include "sound_handler.h"
 #include"global_functions.h"
 #include"codecselectdia.h"
+#include"clantowebpagemapper.h"
 #ifdef Q_WS_WIN
     #include <dir.h>
 #endif
@@ -36,13 +37,13 @@ void handle_wini_ini();
 
 void myMessageOutput(QtMsgType, const char *);
 
-
 int main(int argc, char *argv[]) {    
     qInstallMsgHandler(myMessageOutput);
     QApplication a(argc, argv);    
     a.setApplicationName("The Wheat Snooper");
     chdir(qPrintable(QApplication::applicationDirPath()));
     singleton<snpsettings>().load();
+    singleton<clantowebpagemapper>().load();
     if(singleton<snpsettings>().map["textcodec"].toString().isEmpty())
         CodecSelectDia().exec();
     else{

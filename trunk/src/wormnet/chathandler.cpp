@@ -147,7 +147,7 @@ void chathandler::initialformat(QTextCharFormat &c, const QString &font,
 }
 void chathandler::anchorclicked(const QUrl &u) {
     QString s=u.toString();
-    if (containsCI(s, "http://") || containsCI(s,"www.")) {
+    if (isClickableLink(s)) {
         s.remove("\n");
         s.remove("\r");
         QUrl u1;
@@ -247,12 +247,12 @@ void chathandler::appendquitgarbage(const QString &msg) {
 }
 void chathandler::insertText(const QString &s, QTextCharFormat &t,QString user) {
     QString temp;
-    if (containsCI(s, "http://") || containsCI(s, "wa://") || containsCI(s, "www.")) {
+    if (isClickableLink(s) || containsCI(s, "wa://")) {
         QStringList sl = s.split(" ", QString::SkipEmptyParts);
         foreach(QString str,sl) {
             QString strtemp = str;
             str = str + " ";
-            if (startswithCI(str, "http://") || startswithCI(str, "www.")) {
+            if (isClickableLink(str)) {
                 httpformat.setAnchorHref(strtemp);
                 cursor->insertText(str, httpformat);
             } else if (startswithCI(str, "wa://")) {
@@ -350,7 +350,7 @@ void chathandler::contextrequest(const QPoint &p) {
             get_new_font_and_color(&buddyformat,fontmenu.exec(QCursor::pos()));
         } else if (anchor == "debug") {
             get_new_font_and_color(&debugformat,debugmenu.exec(QCursor::pos()));
-        } else if (containsCI(anchor, "http://") || containsCI(anchor, "www.")) {
+        } else if (isClickableLink(anchor)) {
             get_new_font_and_color(&httpformat,fontmenu.exec(QCursor::pos()));
         } else if (containsCI(anchor, "wa://")) {
             QAction *a = wamenu.exec(QCursor::pos());

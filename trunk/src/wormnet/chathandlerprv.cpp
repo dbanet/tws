@@ -39,7 +39,7 @@ void chathandlerprv::append(const QString &user, const QString &/*receiver*/,
             insertText("<" + user + " " + msgtemp + ">", actionformat,user);
         } else {
             cursor->insertText(user + "> ", nickformat);
-            if (singleton<settingswindow>().from_map("chbsmileys").toBool() || containsCI(msg, "http://") || containsCI(msg, "wa://") || containsCI(msg, "www.")) {
+            if (singleton<settingswindow>().from_map("chbsmileys").toBool() || isClickableLink(msg) || containsCI(msg, "wa://")) {
                 if(user==net->nick)
                     insertText(msgtemp, myselfformat,user);
                 else
@@ -62,7 +62,7 @@ void chathandlerprv::append(const QString &user, const QString &/*receiver*/,
             insertText("<" + user + " " + msgtemp + ">", buddyformat,user);
         } else {
             cursor->insertText(user + "> ", nickformat);
-            if (singleton<settingswindow>().from_map("chbsmileys").toBool() || containsCI(msg, "http://") || containsCI(msg, "wa://") || containsCI(msg, "www.")) {
+            if (singleton<settingswindow>().from_map("chbsmileys").toBool() || isClickableLink(msg) || containsCI(msg, "wa://")) {
                 insertText(msgtemp, buddyformat,user);
             } else {
                 foreach(QVariant v,emot->preparemsg(msgtemp)) {
