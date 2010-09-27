@@ -1,5 +1,5 @@
 #include "about.h"
-QString about::version="2.13";
+QString about::version="2.14";
 about::about(QFrame *parent)
     : QFrame(parent)
 {
@@ -14,8 +14,8 @@ about::about(QFrame *parent)
 			"The license of the program is GPLv2.<br>"
 			"The translation was made by Lookias.<br>"
 			"<br>"
-			"Lookias`s Homepage: <a href=\"http://lookias.lo.funpic.de/page/index.htm\">lookias.lo.funpic.de/page</a><br>"
-                        "This programs livingplace <a href=\"http://lookias.bplaced.com/forum/\">http://lookias.bplaced.com/forum/<\a></p>").arg(version));
+                        "Lookias`s Homepage: <a href=\"http://lookias.worms2d.info/\">http://lookias.worms2d.info</a><br>"
+                        "This programs livingplace <a href=\"http://lookias.worms2d.info/forum/\">http://lookias.worms2d.info/forum/<\a></p>").arg(version));
 	ui.textBrowser->setHtml(s);
 }
 about::~about()

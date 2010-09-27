@@ -45,10 +45,9 @@ int main(int argc, char *argv[]) {
     singleton<snpsettings>().load();
     singleton<clantowebpagemapper>().load();
     if(singleton<snpsettings>().map["textcodec"].toString().isEmpty())
-        CodecSelectDia().exec();
-    else{
-        QTextCodec::setCodecForCStrings(QTextCodec::codecForName(singleton<snpsettings>().map["textcodec"].toByteArray()));                    
-    }
+        QTextCodec::setCodecForCStrings(QTextCodec::codecForLocale());
+    else
+        QTextCodec::setCodecForCStrings(QTextCodec::codecForName(singleton<snpsettings>().map["textcodec"].toByteArray()));                        
     singleton<charformatsettings>().load();
     QTranslator trans;
     if (trans.load(QApplication::applicationDirPath() + "/translations/"

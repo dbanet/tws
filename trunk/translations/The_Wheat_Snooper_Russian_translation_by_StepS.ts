@@ -323,8 +323,12 @@ Hosting is done, by double- or right- clicking a channel name inside the hostvie
         <translation type="obsolete">&lt;p&gt;Версия %1&lt;br&gt;Эта программа была полностью написана Lookias&apos;ом.&lt;br&gt;Она была написана на  C++.&lt;br&gt;Использованная рабочая среда - Qt.&lt;br&gt;Эта программа распространяется под GPLv2.&lt;br&gt;Перевод был сделан StepS&apos;ом (&lt;a href=&quot;mailto:stepyen@xakep.ru&quot;&gt;stepyen@xakep.ru&lt;/a&gt;)&lt;br&gt;&lt;br&gt;Домашняя страничка Lookias&apos;a: &lt;a href=&quot;http://lookias.lo.funpic.de/page/index.htm&quot;&gt;lookias.lo.funpic.de/page&lt;/a&gt;&lt;br&gt;Домашняя страничка программы: &lt;a href=&quot;:http://lookias.inventforum.com/viewforum.php?f=9&quot;&gt;lookias.inventforum.com&lt;<byte value="x7"/>&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/about.cpp" line="10"/>
         <source>&lt;p&gt;Version %1&lt;br&gt;This Program was completely written by Lookias.&lt;br&gt;It was written in C++, with the eclipse ide.&lt;br&gt;The framework in use was Qt.&lt;br&gt;The license of the program is GPLv2.&lt;br&gt;The translation was made by Lookias.&lt;br&gt;&lt;br&gt;Lookias`s Homepage: &lt;a href=&quot;http://lookias.lo.funpic.de/page/index.htm&quot;&gt;lookias.lo.funpic.de/page&lt;/a&gt;&lt;br&gt;This programs livingplace &lt;a href=&quot;http://lookias.bplaced.com/forum/&quot;&gt;http://lookias.bplaced.com/forum/&lt;<byte value="x7"/>&gt;&lt;/p&gt;</source>
+        <translation type="obsolete">&lt;p&gt;Версия %1&lt;br&gt;Эта программа была полностью написана Lookias&apos;ом.&lt;br&gt;Она была написана на  C++.&lt;br&gt;Использованная рабочая среда - Qt.&lt;br&gt;Эта программа распространяется под GPLv2.&lt;br&gt;Перевод был сделан StepS&apos;ом (&lt;a href=&quot;mailto:stepyen@xakep.ru&quot;&gt;stepyen@xakep.ru&lt;/a&gt;)&lt;br&gt;&lt;br&gt;Домашняя страничка Lookias&apos;a: &lt;a href=&quot;http://lookias.lo.funpic.de/page/index.htm&quot;&gt;lookias.lo.funpic.de/page&lt;/a&gt;&lt;br&gt;Домашняя страничка программы: &lt;a href=&quot;http://lookias.bplaced.com/forum/viewforum.php?f=9&quot;&gt;lookias.inventforum.com&lt;<byte value="x7"/>&gt;&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/about.cpp" line="10"/>
+        <source>&lt;p&gt;Version %1&lt;br&gt;This Program was completely written by Lookias.&lt;br&gt;It was written in C++, with the eclipse ide.&lt;br&gt;The framework in use was Qt.&lt;br&gt;The license of the program is GPLv2.&lt;br&gt;The translation was made by Lookias.&lt;br&gt;&lt;br&gt;Lookias`s Homepage: &lt;a href=&quot;http://lookias.worms2d.info/&quot;&gt;http://lookias.worms2d.info&lt;/a&gt;&lt;br&gt;This programs livingplace &lt;a href=&quot;http://lookias.worms2d.info/forum/&quot;&gt;http://lookias.worms2d.info/forum/&lt;<byte value="x7"/>&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1959,7 +1963,7 @@ If this string is empty, worms will probably not host or join a game.</source>
         <location filename="../src/wormnet/settingswindow.ui" line="682"/>
         <location filename="../src/wormnet/settingswindow.ui" line="731"/>
         <source>Play this sound</source>
-        <translation>Играть этот звук</translation>
+        <translation>Включен</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="654"/>
@@ -1984,7 +1988,7 @@ If this string is empty, worms will probably not host or join a game.</source>
         <location filename="../src/wormnet/settingswindow.ui" line="978"/>
         <location filename="../src/wormnet/settingswindow.ui" line="1027"/>
         <source>Play this sound.</source>
-        <translation>Играть этот звук</translation>
+        <translation>Включен</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="803"/>
@@ -1999,7 +2003,7 @@ If this string is empty, worms will probably not host or join a game.</source>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="1081"/>
         <source>Who repeat delay (ms).</source>
-        <translation>Задержка повторов запросов &quot;who&quot; (мсек)</translation>
+        <translation>Частота обновления списка игроков (мсек)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="1109"/>
@@ -2014,7 +2018,7 @@ If this string is empty, worms will probably not host or join a game.</source>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="266"/>
         <source>Dont underline links and clantags in the userslist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не подчеркивать ссылки и кланы в списке игроков</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="339"/>
@@ -2024,7 +2028,7 @@ If this string is empty, worms will probably not host or join a game.</source>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="415"/>
         <source>Join Part Quit information in channelchats.</source>
-        <translation>Показывать сообщения (уходы, приходы_</translation>
+        <translation>Показывать инфо о приходах и уходах</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="423"/>
@@ -2050,8 +2054,8 @@ If this string is empty, worms will probably not host or join a game.</source>
         <location filename="../src/wormnet/settingswindow.ui" line="1063"/>
         <source>Better dont touch anything else then &quot;Maximum of textblocks in a chat&quot;.
 Note: A reconnect is required to apply these settings.</source>
-        <translation>Лучше не трогать что-то еще типа &quot;Максимум текстовых блоков в окне чата&quot;
-Примечание: для применения настроек потребуется переподключение.</translation>
+        <translation>Лучше кое-что не трогать, например, &quot;Максимум текстовых блоков в окне чата&quot;
+Примечание: для применения настроек потребуется перезайти в программу.</translation>
     </message>
     <message>
         <source>Who repead delay (ms).</source>
@@ -2064,7 +2068,7 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="1137"/>
         <source>Host timeout delay.(s)</source>
-        <translation>Задержка таймаута &quot;host&quot; (сек)</translation>
+        <translation>Таймаут запросов хостов (сек)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="1162"/>
@@ -2174,7 +2178,7 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="459"/>
         <source>Balloon Messages</source>
-        <translation>Сообщения оповещения</translation>
+        <translation>Оповещения в трее</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="568"/>
@@ -2189,17 +2193,18 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="367"/>
         <source>Dont use Sorting for the userlist in channels. Most recents become first.</source>
-        <translation>Не использовать сортировку для списка пользователей на каналах. Недавно зашедшие помещаются наверх</translation>
+        <translation>Не использовать сортировку для списка пользователей на
+каналах. Недавно зашедшие помещаются наверх</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="465"/>
         <source>Dont show balloons.</source>
-        <translation>Не показывать сообщения оповещения</translation>
+        <translation>Не показывать оповещения в трее</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="591"/>
         <source>Dont play sound.</source>
-        <translation>Не играть звук</translation>
+        <translation>Отключить все звуки</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="950"/>

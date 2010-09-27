@@ -42,7 +42,7 @@ QString clantowebpagemapper::value(const QString &key){
 void clantowebpagemapper::loadDefaults(){
 }
 void clantowebpagemapper::refresh(){
-    QUrl url("http://lookias.bplaced.com/wheat/clanlist.txt.php");
+    QUrl url("http://lookias.worms2d.info/wheat/clanlist.txt.php");
     reply = qnam.get(QNetworkRequest(url));
     connect(reply, SIGNAL(finished()),
             this, SLOT(httpFinished()));

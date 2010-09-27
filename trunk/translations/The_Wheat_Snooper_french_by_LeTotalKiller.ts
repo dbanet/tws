@@ -288,8 +288,14 @@ Site du traducteur : &lt;a href=&quot;http://www.worms-univers.com/&quot;&gt;htt
 Forum du traducteur : &lt;a href=&quot;http://wormsuniver.forumactif.net/&quot;&gt;&quot;http://wormsuniver.forumactif.net/&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/about.cpp" line="10"/>
         <source>&lt;p&gt;Version %1&lt;br&gt;This Program was completely written by Lookias.&lt;br&gt;It was written in C++, with the eclipse ide.&lt;br&gt;The framework in use was Qt.&lt;br&gt;The license of the program is GPLv2.&lt;br&gt;The translation was made by Lookias.&lt;br&gt;&lt;br&gt;Lookias`s Homepage: &lt;a href=&quot;http://lookias.lo.funpic.de/page/index.htm&quot;&gt;lookias.lo.funpic.de/page&lt;/a&gt;&lt;br&gt;This programs livingplace &lt;a href=&quot;http://lookias.bplaced.com/forum/&quot;&gt;http://lookias.bplaced.com/forum/&lt;<byte value="x7"/>&gt;&lt;/p&gt;</source>
+        <translation type="obsolete">&lt;p&gt;Version %1&lt;br&gt;Cette application a complètement été écrite par Lookias.&lt;br&gt;Elle a été écrite en C++, avec l&apos;IDE Eclipse.&lt;br&gt;Le framework utilisé est Qt.&lt;br&gt;La licence du programme est GPLv2.&lt;br&gt;La traduction française a été faite par LeTotalKiller.&lt;br&gt;&lt;br&gt;Page de Lookias : &lt;a href=&quot;http://lookias.lo.funpic.de/page/index.htm&quot;&gt;lookias.lo.funpic.de/page&lt;/a&gt;&lt;br&gt;Forum du programme &lt;a href=&quot;http://lookias.bplaced.com/forum/&quot;&gt;http://lookias.bplaced.com/forum/&lt;/a&gt;&lt;br /&gt;
+Site du traducteur : &lt;a href=&quot;http://www.worms-univers.com/&quot;&gt;http://www.worms-univers.com/&lt;/a&gt;&lt;br /&gt;
+Forum du traducteur : &lt;a href=&quot;http://wormsuniver.forumactif.net/&quot;&gt;&quot;http://wormsuniver.forumactif.net/&lt;/a&gt;&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/about.cpp" line="10"/>
+        <source>&lt;p&gt;Version %1&lt;br&gt;This Program was completely written by Lookias.&lt;br&gt;It was written in C++, with the eclipse ide.&lt;br&gt;The framework in use was Qt.&lt;br&gt;The license of the program is GPLv2.&lt;br&gt;The translation was made by Lookias.&lt;br&gt;&lt;br&gt;Lookias`s Homepage: &lt;a href=&quot;http://lookias.worms2d.info/&quot;&gt;http://lookias.worms2d.info&lt;/a&gt;&lt;br&gt;This programs livingplace &lt;a href=&quot;http://lookias.worms2d.info/forum/&quot;&gt;http://lookias.worms2d.info/forum/&lt;<byte value="x7"/>&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
