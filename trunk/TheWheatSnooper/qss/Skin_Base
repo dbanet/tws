@@ -1,5 +1,5 @@
-*{
-font-size:13px;
+*{    
+        font-size:13px;
 	font-style:bold;
 	font-family: "Yudit";	
 }
@@ -341,3 +341,15 @@ QTreeView::branch:open:has-children:!has-siblings,
          border-image: none;
          image: url(qss/opencoffee/scrollbar_downArrow_pressed.png);
  }
+ #channelwindow QDialog{
+ background:gray;
+ }
+ #channelwindow QComboBox{
+ background:white;
+ }
+ #chatindow QDialog{
+ background:gray;
+ }
+#chatindow QComboBox{
+background:white;
+}

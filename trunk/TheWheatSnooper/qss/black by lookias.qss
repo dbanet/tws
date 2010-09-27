@@ -84,9 +84,6 @@ background:transparent;
 QStatusBar{
 color:white;
 }
-QWidget#scrollareacorner{
-background:black;
-}
 #bgframe{
 	border-image:url(qss/black/bg.png);
 }
@@ -118,7 +115,7 @@ border-image: url(qss/opencoffee/normalButton_pressed_2.png) 4 5 4 5 stretch;
 	alternate-background-color:transparent;
 	color:white;
 }
-#channelwindow QTreeView::item:selected { 
+#channelwindow QTreeView::item:selected {
 	background-color: rgb(50,50,50,100);
 }
 #channelwindow QScrollBar:horizontal {
@@ -137,29 +134,29 @@ border-image: url(qss/opencoffee/normalButton_pressed_2.png) 4 5 4 5 stretch;
      	min-width: 20px;
      	height: 20px;
  }
-#channelwindow QScrollBar::handle:vertical { 
+#channelwindow QScrollBar::handle:vertical {
 	border-image: url(qss/black/normalscrollbarver.png) 4 0 4 0 stretch; 
 	min-height: 20px; 
 	border-width: 4px 0px 4px 0px;
 } 
-#channelwindow QScrollBar::handle:vertical:hover { 
+#channelwindow QScrollBar::handle:vertical:hover {
 	border-image: url(qss/black/hoverscrollbarver.png) 4 0 4 0 stretch; 
 	border-width: 4px 0px 4px 0px;
 } 
-#channelwindow QScrollBar::handle:vertical:pressed { 
+#channelwindow QScrollBar::handle:vertical:pressed {
 	border-image: url(qss/black/pressedscrollbarver.png) 4 0 4 0 stretch; 
 	border-width: 4px 0px 4px 0px;
 } 
-#channelwindow QScrollBar::handle:horizontal { 
+#channelwindow QScrollBar::handle:horizontal {
 	border-image: url(qss/black/normalscrollbarhor.png) 0 4 0 4 stretch; 
 	min-width: 20px; 
 	border-width: 0px 4px 0px 4px;
 } 
-#channelwindow QScrollBar::handle:horizontal:hover { 
+#channelwindow QScrollBar::handle:horizontal:hover {
 	border-image: url(qss/black/hoverscrollbarhor.png) 0 4 0 4 stretch; 
 	border-width: 0px 4px 0px 4px;
 } 
-#channelwindow QScrollBar::handle:horizontal:pressed { 
+#channelwindow QScrollBar::handle:horizontal:pressed {
 	border-image: url(qss/black/pressedscrollbarhor.png) 0 4 0 4 stretch; 
 	border-width: 0px 4px 0px 4px;
 } 
@@ -176,17 +173,17 @@ border-image: url(qss/opencoffee/normalButton_pressed_2.png) 4 5 4 5 stretch;
 	border-width: 4px 4px 4px 4px; 
 	border-radius: 0px;
 } 
-#channelwindow QLineEdit:hover{ 
+#channelwindow QLineEdit:hover{
 	border-image: url(qss/black/lineEditBg_hover.png) 4 4 4 4 stretch; 
 	border-width: 4px 4px 4px 4px; 
 	border-radius: 0px;
 } 
-#channelwindow QLineEdit:focus{ 
+#channelwindow QLineEdit:focus{
 	border-image: url(qss/black/lineEditBg_focus.png) 4 4 4 4 stretch; 
 	border-width: 4px 4px 4px 4px; 
 	border-radius: 0px;
 }
-#channelwindow QLineEdit{ 
+#channelwindow QLineEdit{
 color:white;
 }
 #channelwindow QSlider::handle:horizontal {
@@ -216,7 +213,7 @@ color:white;
      height: 2px;
      width: 2px;		
 }
-#channelwindow QLineEdit QMenu{ 
+#channelwindow QLineEdit QMenu{
 background:white;
 }
 /**---------------------------------------------------------------------------------chatwindow**/
@@ -226,12 +223,12 @@ background:white;
      width: 10px;
      margin: 20px 0px 20px 0px;
  }
-#chatwindow QScrollBar::handle:vertical { 
+#chatwindow QScrollBar::handle:vertical {
 	border-image: url(qss/black/normalscrollbarver.png) 4 0 4 0 stretch; 
 	min-height: 20px; 
 	border-width: 4px 0px 4px 0px;
 } 
-#chatwindow QScrollBar::handle:vertical:hover { 
+#chatwindow QScrollBar::handle:vertical:hover {
 	border-image: url(qss/black/hoverscrollbarver.png) 4 0 4 0 stretch; 
 	border-width: 4px 0px 4px 0px;
 } 
@@ -243,25 +240,25 @@ background:white;
 	border-image:none;
      background: transparent;
  }
-#chatwindow QLineEdit{ 
+#chatwindow QLineEdit{
 	border-image: url(qss/black/lineEditBg.png) 4 4 4 4 stretch; 
 	border-width: 4px 4px 4px 4px; 
 	border-radius: 0px;
 } 
-#chatwindow QLineEdit QMenu{ 
+#chatwindow QLineEdit QMenu{
 background:white;
 }
-#chatwindow QLineEdit:hover{ 
+#chatwindow QLineEdit:hover{
 	border-image: url(qss/black/lineEditBg_hover.png) 4 4 4 4 stretch; 
 	border-width: 4px 4px 4px 4px; 
 	border-radius: 0px;
 } 
-#chatwindow QLineEdit:focus{ 
+#chatwindow QLineEdit:focus{
 	border-image: url(qss/black/lineEditBg_focus.png) 4 4 4 4 stretch; 
 	border-width: 4px 4px 4px 4px; 
 	border-radius: 0px;
 }
-#chatwindow QLineEdit{ 
+#chatwindow QLineEdit{
 color:white;
 }
 #chatwindow QToolTip{

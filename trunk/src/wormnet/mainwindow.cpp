@@ -675,6 +675,8 @@ void mainwindow::traymenutriggered(QAction *a) {
             stylesheet = f.readAll();
             singleton<snpsettings>().map["qss file"] = a->text();
             singleton<snpsettings>().safe();
+            safeusergarbage();
+            safequerylist();
             try{
                 QMessageBox::StandardButton button=QMessageBox::warning(this,tr("Warning"),
                                                                         tr("Changing the skin crashes sometimes, but The Wheat Snooper\n" \

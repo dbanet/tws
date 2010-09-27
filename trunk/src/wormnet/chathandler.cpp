@@ -312,13 +312,13 @@ void chathandler::get_new_font_and_color(QTextCharFormat *tempformat,QAction *a)
     if (a != 0) {
         if (a->text() == tr("Set the font for this texttype")) {
             bool *b = new bool;
-            QFont f = QFontDialog::getFont(b, tempformat->font(), tb);
+            QFont f = QFontDialog::getFont(b, tempformat->font(), 0);
             if (*b) {
                 setschememap(tempformat, f);
             }
         } else if (a->text() == tr("Set the color for this texttype")) {
             QColor f = QColorDialog::getColor(
-                    tempformat->foreground().color(), tb);
+                    tempformat->foreground().color(), 0);
             setschememap(tempformat, f);
         }
     }
@@ -365,7 +365,7 @@ void chathandler::contextrequest(const QPoint &p) {
                 } else if (a->text() == tr("Set the color for this texttype")) {
                     tempformat = &waformat;
                     QColor f = QColorDialog::getColor(
-                            waformat.foreground().color(), tb);
+                            waformat.foreground().color(), 0);
                     setschememap(tempformat, f);
                 } else if (a->text() == tr("Show game info.")) {
                     QMessageBox::information(0,
@@ -389,7 +389,7 @@ void chathandler::contextrequest(const QPoint &p) {
                 } else if (a->text() == tr("Set the color for this texttype")) {
                     tempformat = &prvformat;
                     QColor f = QColorDialog::getColor(
-                            prvformat.foreground().color(), tb);
+                            prvformat.foreground().color(), 0);
                     setschememap(tempformat, f);
                 } else {
                     emit sigopenchatwindow(anchor.split(" ").last());
@@ -408,7 +408,7 @@ void chathandler::contextrequest(const QPoint &p) {
                 } else if (a->text() == tr("Set the color for this texttype")) {
                     tempformat = &nickformat;
                     QColor f = QColorDialog::getColor(
-                            nickformat.foreground().color(), tb);
+                            nickformat.foreground().color(), 0);
                     setschememap(tempformat, f);
                 } else {
                     emit sigopenchatwindow(anchor.split(" ").last());
@@ -427,7 +427,7 @@ void chathandler::contextrequest(const QPoint &p) {
                 } else if (a->text() == tr("Set the color for this texttype")) {
                     tempformat = &noticeformat;
                     QColor f = QColorDialog::getColor(
-                            noticeformat.foreground().color(), tb);
+                            noticeformat.foreground().color(), 0);
                     setschememap(tempformat, f);
                 } else {
                     emit sigopenchatwindow(anchor.split(" ").last());

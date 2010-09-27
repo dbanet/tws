@@ -10,7 +10,6 @@
 #include <QTextDocument>
 #include<QTime>
 #include<QDebug>
-#include<QFontDialog>
 #include<QColorDialog>
 #include<QScrollBar>
 #include<QMessageBox>

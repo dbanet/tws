@@ -44,8 +44,10 @@ int main(int argc, char *argv[]) {
     chdir(qPrintable(QApplication::applicationDirPath()));
     singleton<snpsettings>().load();
     singleton<clantowebpagemapper>().load();
-    if(singleton<snpsettings>().map["textcodec"].toString().isEmpty())
+    if(singleton<snpsettings>().map["textcodec"].toString().isEmpty()){
         QTextCodec::setCodecForCStrings(QTextCodec::codecForLocale());
+        singleton<snpsettings>().map["textcodec"]=QTextCodec::codecForCStrings()->name();
+    }
     else
         QTextCodec::setCodecForCStrings(QTextCodec::codecForName(singleton<snpsettings>().map["textcodec"].toByteArray()));                        
     singleton<charformatsettings>().load();

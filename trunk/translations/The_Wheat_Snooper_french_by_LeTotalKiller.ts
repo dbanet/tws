@@ -1412,7 +1412,7 @@ Si votre pseudo est &quot;maudit&quot;... pas de bol :)</translation>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="64"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="568"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="748"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="750"/>
         <source>About</source>
         <translation>À propos</translation>
     </message>
@@ -1424,13 +1424,13 @@ Si votre pseudo est &quot;maudit&quot;... pas de bol :)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="569"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="752"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="754"/>
         <source>Settings</source>
         <translation>Options</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="570"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="762"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="764"/>
         <source>Volume</source>
         <translation>Volume</translation>
     </message>
@@ -1469,13 +1469,13 @@ Skin_Base</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="621"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="703"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="705"/>
         <source>Away mode</source>
         <translation>Mode away</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="625"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="755"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="757"/>
         <source>Reconnect</source>
         <translation>Reconnecter</translation>
     </message>
@@ -1529,7 +1529,7 @@ Pour redémarrer maintenant appuyez sur OK, sinon appuyez sur Annuler.</translat
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="571"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="767"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="769"/>
         <source>Open Log Browser</source>
         <translation>Ouvrir le chercheur de rapports</translation>
     </message>
@@ -1540,12 +1540,12 @@ Pour redémarrer maintenant appuyez sur OK, sinon appuyez sur Annuler.</translat
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="587"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="773"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="775"/>
         <source>Save current textscheme to file</source>
         <translation>Sauver les réglages de décoration de texte dans un fichier</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="774"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="776"/>
         <source>Save textscheme to.</source>
         <translation>Sauver décoration de texte sous.</translation>
     </message>
@@ -1556,13 +1556,13 @@ Pour redémarrer maintenant appuyez sur OK, sinon appuyez sur Annuler.</translat
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="573"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="785"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="787"/>
         <source>Scheme maker</source>
         <translation>Fabriqueur de schemes</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="576"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="788"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="790"/>
         <source>Playername</source>
         <translation>Nom du joueur</translation>
     </message>
@@ -1581,12 +1581,12 @@ Pour redémarrer maintenant appuyez sur OK, sinon appuyez sur Annuler.</translat
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="123"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="317"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="679"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="681"/>
         <source>Warning</source>
         <translation>Attention</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="680"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="682"/>
         <source>Changing the skin crashes sometimes, but The Wheat Snooper
 will keep the settings for the next Start.
 Do you want to proceed?</source>
@@ -2248,7 +2248,7 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
         <location filename="../src/irc/irc_window.cpp" line="356"/>
         <location filename="../src/irc/irc_window.cpp" line="392"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="572"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="758"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="760"/>
         <location filename="../src/wormnet/usermodel.cpp" line="125"/>
         <location filename="../src/wormnet/usermodel.cpp" line="294"/>
         <location filename="../src/wormnet/window.cpp" line="149"/>
