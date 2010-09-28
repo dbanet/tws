@@ -45,8 +45,15 @@ namespace {
         }
         return sl;
     }
+    //----------------------------------------------------------------------------------------------
+    bool containsClickableLink(const QString &s){
+        if(containsCI(s,"http://") || containsCI(s,"www.") || containsCI(s,"ftp://") || containsCI(s,"https://"))
+            return true;
+        return false;
+    }
+    //----------------------------------------------------------------------------------------------
     bool isClickableLink(const QString &s){
-        if(s.startsWith("http",Qt::CaseInsensitive) || s.startsWith("www.",Qt::CaseInsensitive) || s.startsWith("ftp://",Qt::CaseInsensitive) || s.startsWith("https://",Qt::CaseInsensitive))
+        if(s.startsWith("http://",Qt::CaseInsensitive) || s.startsWith("www.",Qt::CaseInsensitive) || s.startsWith("ftp://",Qt::CaseInsensitive) || s.startsWith("https://",Qt::CaseInsensitive))
             return true;
         return false;
     }

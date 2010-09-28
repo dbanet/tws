@@ -148,16 +148,18 @@ SOURCES +=  src/wormnet/about.cpp \
     src/irc/ircjoindia.cpp \
     src/irc/irc_chatwindow.cpp \
     src/wormnet/codecselectdia.cpp \
-    src/wormnet/clantowebpagemapper.cpp
+    src/wormnet/clantowebpagemapper.cpp \
+    src/wormnet/fakeObject.cpp
 
 RC_FILE = src/wormnet/myapp.rc
-TRANSLATIONS += translations/The_Wheat_Snooper_Romanian_by_MihaiS \
-    translations/The_Wheat_Snooper_danish.ts \
-    translations/The_Wheat_Snooper_german_by_lookias.ts \
-    translations/The_Wheat_Snooper_portugues.ts \
+TRANSLATIONS += \
     translations/The_Wheat_Snooper_spanish-(of_spain)_by_kosmos.ts \
     translations/The_Wheat_Snooper_untranslated.ts \
-    translations/The_Wheat_Snooper_spanish-(of_spain)_by_kosmos.ts \
-    translations/The_Wheat_Snooper_Russian_translation_by_StepS.ts \
-    translations/The_Wheat_Snooper_french_by_LeTotalKiller.ts \
-    translations/The_Wheat_Snooper_Spanish_by_eViL.ts
+    \
+    translations/_da.Danish.ts \
+    translations/_de.German_by_lookias.ts \
+    translations/_es.Spanish_by_eViL.ts \
+    translations/_fr.French_by_LeTotalKiller.ts \
+    translations/_pt.Portugues.ts \
+    translations/_ro.Romanian_by_MihaiS.ts \
+    translations/_ru.Russian_translation_by_StepS.ts \

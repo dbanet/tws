@@ -20,5 +20,7 @@ public:
 	QMap<QString,QVariant> map;
 
         DECLARE_SINGLETON(snpsettings);
+private:
+        void installTranslationBySystemLocale();
 };
 #endif /* SNPSETTINGS_H_ */

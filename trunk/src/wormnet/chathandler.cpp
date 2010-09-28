@@ -181,7 +181,6 @@ void chathandler::append(const QString &user, const QString &receiver,
             if (msg.startsWith("\001ACTION")) {
                 msgtemp.remove(0, 7).remove("\001");
                 insertText("<" + user + " " + msgtemp + ">", actionformat,user);
-
             } else {
                 prvformat.setAnchorHref("<prv> " + user);
                 cursor->insertText(user + " to " + receiver + ">", prvformat);
@@ -247,7 +246,7 @@ void chathandler::appendquitgarbage(const QString &msg) {
 }
 void chathandler::insertText(const QString &s, QTextCharFormat &t,QString user) {
     QString temp;
-    if (isClickableLink(s) || containsCI(s, "wa://")) {
+    if (containsClickableLink(s) || containsCI(s, "wa://")) {
         QStringList sl = s.split(" ", QString::SkipEmptyParts);
         foreach(QString str,sl) {
             QString strtemp = str;

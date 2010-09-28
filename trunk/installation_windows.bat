@@ -20,6 +20,8 @@ copy %QTDIR%\plugins\imageformats\qsvg4.dll "TheWheatSnooper\imageformats"
 mkdir TheWheatSnooper\phonon_backend
 copy %QTDIR%\plugins\phonon_backend\phonon_ds94.dll "TheWheatSnooper\phonon_backend"
 
-lrelease netcoupler.pro
+cd translations
+lrelease ..\netcoupler.pro
+cd ..
 copy /Y translations\* "TheWheatSnooper\translations"
 makensis.exe "setup win32.nsi"

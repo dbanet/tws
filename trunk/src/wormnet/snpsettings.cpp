@@ -13,6 +13,8 @@
 #include<QMessageBox>
 #include<QFileDialog>
 #include<QDataStream>
+#include<QTranslator>
+#include<QDebug>
 extern QStringList defaultServerList;
 snpsettings::snpsettings(){}
 snpsettings::~snpsettings(){}
@@ -23,6 +25,7 @@ void snpsettings::load(){
         QDir().mkdir("snpini");
     QFile f(QApplication::applicationDirPath()+"/snpini/snpini");
     if(!f.open(QFile::ReadOnly)){
+        installTranslationBySystemLocale();
         int button=QMessageBox::question(0,QApplication::tr("Question")
                                          ,QApplication::tr("If you like to keep the settings from an older Snooper installation click yes.\n"
                                                            "If you use The Wheat Snooper at the first time just click No.")
@@ -50,13 +53,11 @@ void snpsettings::load(){
             QFile::copy(folder+"/snpini/"+"clanpages",QApplication::applicationDirPath()+"/snpini/clanpages");
 
             QFile::copy(folder+"/query/"+"log",QApplication::applicationDirPath()+"/query/log");
-            QFile::copy(folder+"/query/"+"querylist",QApplication::applicationDirPath()+"/query/querylist");
-
-            singleton<settingswindow>().load();
+            QFile::copy(folder+"/query/"+"querylist",QApplication::applicationDirPath()+"/query/querylist");           
         } else{
             loadDefaults();
             return;
-        }
+        }        
     }
     f.open(QFile::ReadOnly);
     QDataStream ds(&f);
@@ -70,6 +71,12 @@ void snpsettings::load(){
         ds.setDevice(&f);
         ds>>map;
     }
+    QTranslator *trans=new QTranslator;
+    QString file=singleton<snpsettings>().map["language file"].value<QString> ().remove(".qm");
+    if (trans->load(file,QApplication::applicationDirPath() + "/translations/")){
+        qApp->installTranslator(trans);
+    } else
+        qDebug() << "The translationfile cannot be loaded! it might be corrupt.";
 }
 void snpsettings::safe(){
     QFile f(QApplication::applicationDirPath()+QDir::separator()+"snpini"+QDir::separator()+"snpini");
@@ -85,12 +92,26 @@ void snpsettings::safeonquit(){
     ds.setVersion(QDataStream::Qt_4_3);
     ds<<map;
 }
+void snpsettings::installTranslationBySystemLocale(){
+    QTranslator *trans=new QTranslator;
+    QString language=QLocale::system().name().left(2);
+    QDir dir("translations");
+    foreach(QString s,dir.entryList()){
+        if(s.startsWith("_") && s.mid(1,2)==language){
+            trans->load(s,QApplication::applicationDirPath() + "/translations/");
+            qApp->installTranslator(trans);
+            return;
+        }
+    }
+    return;
+}
+
 void snpsettings::loadDefaults(){
     map["volumeslidervalue"].setValue<int>(5);
     map["chbminimized"].setValue<bool>(0);
     map["dissallowedclannames"].setValue<QStringList>(QStringList()<<"Username"<<"cybershadow"<<"WebSnoop"<<"HostingBuddy"<<"SheriffBot"<<"muzer"<<"Help"<<"Miranda"<<"Mirc"<<"wormatty"<<"simon"<<"darkone"<<"noclan");
-    map["language file"].setValue<QString> ("The_Wheat_Snooper_untranslated");
     map["charformatfile"].setValue<QString>("comic by lookias.textscheme");
     map["chbsendhostinfotochan"].setValue<bool>(true);
     map["wormnetserverlist"].setValue<QStringList>(defaultServerList);
+    installTranslationBySystemLocale();
 }

@@ -36,7 +36,6 @@ void handle_prosnooper_buddys();
 void handle_wini_ini();
 
 void myMessageOutput(QtMsgType, const char *);
-
 int main(int argc, char *argv[]) {    
     qInstallMsgHandler(myMessageOutput);
     QApplication a(argc, argv);    
@@ -51,12 +50,6 @@ int main(int argc, char *argv[]) {
     else
         QTextCodec::setCodecForCStrings(QTextCodec::codecForName(singleton<snpsettings>().map["textcodec"].toByteArray()));                        
     singleton<charformatsettings>().load();
-    QTranslator trans;
-    if (trans.load(QApplication::applicationDirPath() + "/translations/"
-                   + singleton<snpsettings>().map["language file"].value<QString> ().remove(".qm"))) {
-        a.installTranslator(&trans);
-    } else
-        qDebug() << "The translationfile cannot be loaded! it might be corrupt.";    
     volume = new volumeslider;
     a.addLibraryPath(QApplication::applicationDirPath());
     a.setWindowIcon(QIcon(QApplication::applicationDirPath()
