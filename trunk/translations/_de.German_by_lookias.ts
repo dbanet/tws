@@ -2365,6 +2365,24 @@ Dieser Name sollte nie leer sein.</translation>
     </message>
 </context>
 <context>
+    <name>settingswindow</name>
+    <message>
+        <location filename="../src/wormnet/settingswindow.cpp" line="119"/>
+        <source>Choose a Sound (mp3 or wav) file for this event</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/settingswindow.cpp" line="167"/>
+        <source>I&apos;m in a Game!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/settingswindow.cpp" line="168"/>
+        <source>I&apos;m back.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>settingswindowClass</name>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="14"/>
@@ -2492,12 +2510,12 @@ Channelchats.</translation>
         <translation>Tone wenn ein normaler Teilnehmer eine Nachricht sendet.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1081"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1086"/>
         <source>Who repeat delay (ms).</source>
         <translation>WHO Frenquenz</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1109"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1106"/>
         <source>Host repeat delay.(ms)</source>
         <translation>Host abfrage Frequenz</translation>
     </message>
@@ -2554,22 +2572,22 @@ Note: A reconnect is required to apply these settings.</source>
 Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1137"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1126"/>
         <source>Host timeout delay.(s)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1162"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1143"/>
         <source>Maximum of textblocks in a chat.</source>
         <translation>Maximum and Texteinheiten in einem Chatfenster.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1207"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1197"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1214"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1204"/>
         <source>Cancel</source>
         <translation>Abbruch</translation>
     </message>

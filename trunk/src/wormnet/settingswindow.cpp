@@ -116,7 +116,7 @@ void settingswindow::soundoptionbuttonslot() {
     QPushButton *pb = qobject_cast<QPushButton*> (sender());
     Q_ASSERT(pb!=0);
     QString file = QFileDialog::getOpenFileName(this,
-                                                "Choose a wav file for this event",
+                                                tr("Choose a Sound (mp3 or wav) file for this event"),
                                                 QApplication::applicationDirPath() + "/wav");
     if (file == QString())
         return;
@@ -164,8 +164,9 @@ void settingswindow::to_map(const QString &s, const QVariant &v){
     safe();
 }
 void settingswindow::loadDefaults(){
-    map["leawaystring"].setValue<QString>("Im in a Game!");
-    map["lebackmessage"].setValue<QString>("Im back.");
+    map["leawaystring"].setValue<QString>(tr("I'm in a Game!"));
+    map["lebackmessage"].setValue<QString>(tr("I'm back."));
+
     map["lestartup"].setValue<QString>("wav/startup.wav.mp3");
     map["lebuddyarrives"].setValue<QString>("wav/buddyarrives.wav.mp3");
     map["lebuddyleaves"].setValue<QString>("wav/buddyleaves.wav.mp3");

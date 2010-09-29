@@ -2332,6 +2332,24 @@ If this string is empty, worms will probably not host or join a game.</source>
     </message>
 </context>
 <context>
+    <name>settingswindow</name>
+    <message>
+        <location filename="../src/wormnet/settingswindow.cpp" line="119"/>
+        <source>Choose a Sound (mp3 or wav) file for this event</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/settingswindow.cpp" line="167"/>
+        <source>I&apos;m in a Game!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/settingswindow.cpp" line="168"/>
+        <source>I&apos;m back.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>settingswindowClass</name>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="14"/>
@@ -2532,12 +2550,12 @@ Note: A reconnect is required to apply these settings.</source>
         <translation type="unfinished">Nota: O reconectare este necesara pentru aplicarea acestor setari.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1081"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1086"/>
         <source>Who repeat delay (ms).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1109"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1106"/>
         <source>Host repeat delay.(ms)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2550,22 +2568,22 @@ Note: A reconnect is required to apply these settings.</source>
         <translation type="obsolete">Intarziere de repetare Gazda. (ms)</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1137"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1126"/>
         <source>Host timeout delay.(s)</source>
         <translation>Intarziere de expirare Gazda. (s)</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1162"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1143"/>
         <source>Maximum of textblocks in a chat.</source>
         <translation>Numarul maxim de blocuri de text intr-un chat.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1207"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1197"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1214"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1204"/>
         <source>Cancel</source>
         <translation>Recova</translation>
     </message>

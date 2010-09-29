@@ -103,6 +103,8 @@ void snpsettings::installTranslationBySystemLocale(){
             return;
         }
     }
+    if(trans->load("_en.Standard.qm",QApplication::applicationDirPath() + "/translations/"))
+        qApp->installTranslator(trans);
     return;
 }
 

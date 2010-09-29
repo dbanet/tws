@@ -163,3 +163,4 @@ TRANSLATIONS += \
     translations/_pt.Portugues.ts \
     translations/_ro.Romanian_by_MihaiS.ts \
     translations/_ru.Russian_translation_by_StepS.ts \
+    translations/_en.Standard.ts
