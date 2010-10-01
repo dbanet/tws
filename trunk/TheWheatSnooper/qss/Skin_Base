@@ -229,6 +229,7 @@ QComboBox QAbstractItemView {
 	border-width: 1px 1px 1px 1px;
 } 
 QGroupBox { 
+	padding-top: 10px; 
 	background-color: transparent; 
 	border-color: #969696; 
 	border-width: 1px; 
@@ -237,8 +238,7 @@ QGroupBox {
 	font-weight: bold; 
 	color: #3c3c3c;
 } 
-QGroupBox::title { 
-	padding-top: 4px; 
+QGroupBox::title { 	
 	background-color: transparent; 
 	subcontrol-origin: margin; 
 	subcontrol-position: top center;

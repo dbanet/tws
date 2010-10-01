@@ -164,8 +164,8 @@ void settingswindow::to_map(const QString &s, const QVariant &v){
     safe();
 }
 void settingswindow::loadDefaults(){
-    map["leawaystring"].setValue<QString>(tr("I'm in a Game!"));
-    map["lebackmessage"].setValue<QString>(tr("I'm back."));
+    map["leawaystring"].setValue<QString>("I'm in a Game!");
+    map["lebackmessage"].setValue<QString>("I'm back.");
 
     map["lestartup"].setValue<QString>("wav/startup.wav.mp3");
     map["lebuddyarrives"].setValue<QString>("wav/buddyarrives.wav.mp3");

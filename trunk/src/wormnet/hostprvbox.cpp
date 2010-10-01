@@ -61,15 +61,15 @@ void hostprvbox::okclicked() {
     singleton<snpsettings>().map["useacostumipforhosting"].setValue<bool> (
             ui.cbip->isChecked());
     singleton<snpsettings>().map["costumipforhosting"].setValue<QString>(ui.leip->text());
-    if (!sl.isEmpty()) {
-        sl.move(sl.indexOf(ui.icons->currentText()), 0);
-        singleton<snpsettings>().map["joinstrings"] = sl;
-        singleton<snpsettings>().safe();
-        net->sendprvhosttobuddys(ui.lescheme->text());emit
-		sigok(ui.lescheme->text());
-        this->close();
-        this->deleteLater();
-    }
+    if (sl.isEmpty())
+        return;
+    sl.move(sl.indexOf(ui.icons->currentText()), 0);
+    singleton<snpsettings>().map["joinstrings"] = sl;
+    singleton<snpsettings>().safe();
+    net->sendprvhosttobuddys(ui.lescheme->text());
+    emit sigok(ui.lescheme->text());
+    close();
+    deleteLater();
 }
 void hostprvbox::okjustclicked() {
     sethostport(ui.lehostport->text());
@@ -100,6 +100,9 @@ void hostprvbox::cancelclicked() {
     this->deleteLater();
 }
 void hostprvbox::copyslot() {
+    singleton<snpsettings>().map["useacostumipforhosting"].setValue<bool> (
+            ui.cbip->isChecked());
+    singleton<snpsettings>().map["costumipforhosting"].setValue<QString>(ui.leip->text());
     sethostport(ui.lehostport->text());
     net->copyprvhosttoclipboard(ui.lescheme->text());
 }

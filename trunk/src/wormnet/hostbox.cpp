@@ -7,11 +7,11 @@
 #include<QPointer>
 #include<QKeyEvent>
 extern QPointer<netcoupler> net;
+bool hostbox::dontStartGame=false;
 hostbox::hostbox(QString c, QWidget *parent) :QWidget(parent),
 channel(c) {
     this->setObjectName("normalwidget");
     ui.setupUi(this);
-    this->setAttribute(Qt::WA_DeleteOnClose);
     QStringList sl = singleton<snpsettings>().map.value("joinstrings").value<QStringList> ();
     ui.icons->addItems(sl);
     ui.cbip->setChecked(false);
@@ -31,13 +31,9 @@ channel(c) {
             "|ò|ó|ô|õ|ö|÷|ø|ù|ú|û|ü|ý|þ|ÿ|¿|¡){30}");
     validator = new QRegExpValidator(regexp, 0);
     ui.gamename->setValidator(validator);
-    ui.leplayername->setValidator(validator);
-    singleton<snpsettings>().map["waitforhostappearsinwormnet"];
-    ui.chbwaitforhost->setChecked(
-            singleton<snpsettings>().map["waitforhostappearsinwormnet"].value<bool> ());   
+    ui.leplayername->setValidator(validator);     
     ui.chbsendhostinfotochan->setChecked(
             singleton<snpsettings>().map["chbsendhostinfotochan"].toBool());
-    singleton<snpsettings>().map["leplayername"];
     ui.leplayername->setText(singleton<snpsettings>().map["leplayername"].toString());
     ui.lehostport->setText(gethostport());
 
@@ -87,11 +83,10 @@ void hostbox::addclicked() {
     }
 }
 void hostbox::okclicked() {
+    dontStartGame=ui.cbDontStartGame->isChecked();
     sethostport(ui.lehostport->text());
     singleton<snpsettings>().map["leplayername"].setValue<QString> (ui.leplayername->text());
-    singleton<snpsettings>().map["chbsendhostinfotochan"] = ui.chbsendhostinfotochan->isChecked();
-    singleton<snpsettings>().map["waitforhostappearsinwormnet"].setValue<bool> (
-            ui.chbwaitforhost->isChecked());
+    singleton<snpsettings>().map["chbsendhostinfotochan"] = ui.chbsendhostinfotochan->isChecked();    
     singleton<snpsettings>().map["useacostumipforhosting"].setValue<bool> (
             ui.cbip->isChecked());
     singleton<snpsettings>().map["costumipforhosting"].setValue<QString>(ui.leip->text());

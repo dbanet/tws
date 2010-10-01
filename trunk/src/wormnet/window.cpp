@@ -474,9 +474,7 @@ void window::hostitemdblclicked(const QModelIndex &index) {
         QString gamename = net->hosts.gamename(index);
         net->joingame(hostinfo, currentchannel, gamename);
     } else if (index.internalId() == 999) {
-        hbox = new hostbox(currentchannel);
-        hbox->show();
-        connect(hbox, SIGNAL(sigok()),this, SLOT(hboxok()));
+        openhbox();
     }
 }
 void window::getuserinfo(const QString &s) {
@@ -588,8 +586,11 @@ void window::hboxok() {
         if (u.nick == net->nick) {
             flag = QString::number(u.flag);
         }
-    }
-    net->createhost(hbox->gamename, hbox->pwd, currentchannel, flag);
+    }        
+    net->sendHostInfoToChan(hbox->gamename, hbox->pwd, currentchannel, flag);
+    if(!hostbox::dontStartGame)
+        net->createhost(hbox->gamename, hbox->pwd, currentchannel, flag);
+    sender()->deleteLater();
 }
 void window::hboxprvok(const QString &scheme) {
     net->createprvhost(currentchannel, scheme);

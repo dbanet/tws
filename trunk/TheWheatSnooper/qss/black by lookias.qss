@@ -116,7 +116,8 @@ border-image: url(qss/opencoffee/normalButton_pressed_2.png) 4 5 4 5 stretch;
 	color:white;
 }
 #channelwindow QTreeView::item:selected {
-	background-color: rgb(50,50,50,100);
+	background-color: transparent;
+	color: white;
 }
 #channelwindow QScrollBar:horizontal {
 	border-image:none;

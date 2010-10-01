@@ -15,6 +15,7 @@ public:
     QString pwd;
     QString icon;
     const QString channel;
+    static bool dontStartGame;
 
 private:
     Ui::hostboxClass ui;

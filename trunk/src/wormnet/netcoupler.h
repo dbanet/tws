@@ -27,6 +27,7 @@ public:
     void partchannel(const QString&);
     void createhost(const QString &name,const QString &pwd, const QString &chan,const QString &flag);
     void createprvhost(const QString &chan,const QString &scheme);
+    void sendHostInfoToChan(const QString &name,const QString &pwd, const QString &chan,const QString &flag);
     void refreshlist();
     void copyprvhosttoclipboard(const QString &);
     void sendprvhosttobuddys(const QString &);
@@ -101,14 +102,11 @@ private slots:
     void getmsg(const QString&,const QString&,const QString&);
     void getwholist();
     void sendquit();
-    void getscheme(QString,QString);
-    void gethostlistforhosting(QList<hoststruct>,QString);
-    void hosttimetout();
+    void getscheme(QString,QString);    
 
     void sendmessagetoallbuddys(const QString&);
     void processfinished(int , QProcess::ExitStatus);
-    void readprocess();
-    void hostwontstart();
+    void readprocess();    
     void ircconnected();
     void ircdiconnected();
 };

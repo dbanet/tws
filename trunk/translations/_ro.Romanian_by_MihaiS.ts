@@ -1485,13 +1485,13 @@ foloseste comenzi CTCP pentru site -uri de clan, glume, poze, legaturi de incarc
         <translation>Creaza un joc public in</translation>
     </message>
     <message>
+        <location filename="../src/wormnet/hostbox.cpp" line="59"/>
         <location filename="../src/wormnet/hostbox.cpp" line="63"/>
-        <location filename="../src/wormnet/hostbox.cpp" line="67"/>
         <source>Choose a desktop icon.</source>
         <translation>Alege un icon de desktop.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="71"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="67"/>
         <source>Choose a Program.</source>
         <translation>Alege un Program.</translation>
     </message>
@@ -1513,62 +1513,66 @@ foloseste comenzi CTCP pentru site -uri de clan, glume, poze, legaturi de incarc
         <translation type="obsolete">Parola</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.ui" line="88"/>
+        <location filename="../src/wormnet/hostbox.ui" line="91"/>
         <source>Chose a program.</source>
         <translation>Alege un program.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.ui" line="99"/>
+        <location filename="../src/wormnet/hostbox.ui" line="102"/>
         <source>Add a Program.</source>
         <translation>Adauga un program.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.ui" line="235"/>
+        <location filename="../src/wormnet/hostbox.ui" line="239"/>
+        <source>Dont start the game, just host. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/hostbox.ui" line="255"/>
         <source>Ok</source>
         <translation>Accepta</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.ui" line="242"/>
+        <location filename="../src/wormnet/hostbox.ui" line="262"/>
         <source>Cancel</source>
         <translation>Revoca</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.ui" line="213"/>
         <source>The Snooper should wait starting worms, until the host appears.</source>
-        <translation>Snooper -ul ar trebui sa astepte sa porneasca worms, pana sa apara gazduirea.</translation>
+        <translation type="obsolete">Snooper -ul ar trebui sa astepte sa porneasca worms, pana sa apara gazduirea.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.ui" line="54"/>
+        <location filename="../src/wormnet/hostbox.ui" line="222"/>
         <source>Show this game as a private game.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.ui" line="73"/>
+        <location filename="../src/wormnet/hostbox.ui" line="76"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.ui" line="154"/>
+        <location filename="../src/wormnet/hostbox.ui" line="144"/>
         <source>Playername for this Host (leave this empty to use your wormnet nick.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.ui" line="166"/>
+        <location filename="../src/wormnet/hostbox.ui" line="156"/>
         <source>Use this ip for hosting. (This is normally not necessary.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.ui" line="180"/>
+        <location filename="../src/wormnet/hostbox.ui" line="170"/>
         <source>Enable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.ui" line="223"/>
+        <location filename="../src/wormnet/hostbox.ui" line="229"/>
         <source>Send a hostinfo to the channel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.ui" line="201"/>
+        <location filename="../src/wormnet/hostbox.ui" line="191"/>
         <source>Host port.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2295,17 +2299,24 @@ Pentru a reporni acum da click pe Ok, altfel pe cancel.</translation>
 <context>
     <name>netcoupler</name>
     <message>
-        <location filename="../src/wormnet/netcoupler.cpp" line="425"/>
         <source>No executables are given.
 you must choose a game executable,
 for example wa.exe, to join a game.
 if you dont know what this means,
 please read the tutorial.pdf inside the snooper folder.</source>
-        <translation>Nu sunt specificate nici un executabil.
+        <translation type="obsolete">Nu sunt specificate nici un executabil.
 trebuie sa alegi un executabil de joc,
 de exemplu wa.exe, pentru a participa la un joc.
 daca nu stii ce inseamna asta,
 te rog citeste tutorialul.pdf din cadrul folderului snooper -ului.</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/netcoupler.cpp" line="328"/>
+        <source>No executables are given.
+you must choose a game executable,
+for example wa.exe, to join a game.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2338,16 +2349,6 @@ If this string is empty, worms will probably not host or join a game.</source>
         <source>Choose a Sound (mp3 or wav) file for this event</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../src/wormnet/settingswindow.cpp" line="167"/>
-        <source>I&apos;m in a Game!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/settingswindow.cpp" line="168"/>
-        <source>I&apos;m back.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>settingswindowClass</name>
@@ -2366,42 +2367,42 @@ If this string is empty, worms will probably not host or join a game.</source>
         <translation type="obsolete">Alerta si indisponibil.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="57"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="60"/>
         <source>Alert me on notice.</source>
         <translation>Alerteaza-ma la notificare.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="73"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="76"/>
         <source>Alert me on prvmsg from normal user.</source>
         <translation>Alerteaza-ma la mesaje private din partea utilizatorilor normali.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="256"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="259"/>
         <source>Users from ingorelist appear in channelchat windows.</source>
         <translation>Utilizatorii din lista de ignorare apar in ferestrele de chat de canal.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="279"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="282"/>
         <source>Save querys and logs.</source>
         <translation>Salveaza intrebari si jurnale.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="105"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="108"/>
         <source>Set automaticly away while gaming.</source>
         <translation>Seteaza automat indisponibil in timp ce joci.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="295"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="298"/>
         <source>Open the buddylist on startup.</source>
         <translation>Deschide lista de prieteni la pornire.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="321"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="324"/>
         <source>Server messages appear in channelwindows.</source>
         <translation>Mesajele de server apar in ferestrele de canal.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="127"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="130"/>
         <source>Away String while gaming.</source>
         <translation>Sirul Indisponibil in timp ce joci.</translation>
     </message>
@@ -2414,148 +2415,148 @@ If this string is empty, worms will probably not host or join a game.</source>
         <translation type="obsolete">Sunet</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="604"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="646"/>
         <source>Sound on startup.</source>
         <translation>Sunet la pornire.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="618"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="668"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="717"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="768"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="817"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="866"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="915"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="964"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="1013"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="660"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="710"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="759"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="810"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="859"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="908"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="957"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1006"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1055"/>
         <source>Choose a file</source>
         <translation>Alege un fisier</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="632"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="682"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="731"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="674"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="724"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="773"/>
         <source>Play this sound</source>
         <translation>Ruleaza acest sunet</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="654"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="696"/>
         <source>Sound when buddy arrives.</source>
         <translation>Sunet pentru atunci cand un prieten soseste.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="703"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="745"/>
         <source>Sound when buddy leaves.</source>
         <translation>Sunet pentru atunci cand un prieten pleaca.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="754"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="796"/>
         <source>Sound when a buddy sends a message.</source>
         <translation>Sunet pentru atunci cand un prieten iti trimite un mesaj.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="782"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="831"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="880"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="929"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="978"/>
-        <location filename="../src/wormnet/settingswindow.ui" line="1027"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="824"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="873"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="922"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="971"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1020"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1069"/>
         <source>Play this sound.</source>
         <translation>Ruleaza acest sunet.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="803"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="845"/>
         <source>Sound when a chatwindow opens.</source>
         <translation>Sunet pentru atunci cand o fereastra de chat se deschide.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="852"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="894"/>
         <source>Sound when a normal user sends a message.</source>
         <translation>Sunet pentru atunci cand un utilixator normal trimite un mesaj.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="409"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="425"/>
         <source>Join,Part,Quit</source>
         <translation>Pariticpa,Pleaca,Iesi</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="149"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="152"/>
         <source>Costum words, the snooper will play a sound when one of them appears in a channel chat.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="266"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="269"/>
         <source>Dont underline links and clantags in the userslist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="339"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="342"/>
         <source>Hide all channelwindows to tray when starting a game.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="346"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="349"/>
         <source>Disconnect from network when a game starts.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="367"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="370"/>
         <source>Dont use Sorting for the userlist in channels. Most recents become first.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="415"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="431"/>
         <source>Join Part Quit information in channelchats.</source>
         <translation>Informatii Pariticpa,Pleaca,Iesi in chat -urile de canal.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="423"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="439"/>
         <source>Show joininfos in channelchats.</source>
         <translation>Arata informatii de participare in chat -urile de canal.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="433"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="449"/>
         <source>Show partinfos in channelchats.</source>
         <translation>Arata informatii de plecare in chat -urile de canal.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="443"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="459"/>
         <source>Show quitinfos in channelchats.</source>
         <translation>Arata informatii de iesire in chat -urile de canal.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="465"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="494"/>
         <source>Dont show balloons.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="591"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="633"/>
         <source>Dont play sound.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="950"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="992"/>
         <source>Sound when a costum word appears in the chat.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1051"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1093"/>
         <source>Advanced</source>
         <translation>Avansat</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1063"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1105"/>
         <source>Better dont touch anything else then &quot;Maximum of textblocks in a chat&quot;.
 Note: A reconnect is required to apply these settings.</source>
         <translation type="unfinished">Nota: O reconectare este necesara pentru aplicarea acestor setari.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1086"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1128"/>
         <source>Who repeat delay (ms).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1106"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1154"/>
         <source>Host repeat delay.(ms)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2568,67 +2569,67 @@ Note: A reconnect is required to apply these settings.</source>
         <translation type="obsolete">Intarziere de repetare Gazda. (ms)</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1126"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1174"/>
         <source>Host timeout delay.(s)</source>
         <translation>Intarziere de expirare Gazda. (s)</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1143"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1191"/>
         <source>Maximum of textblocks in a chat.</source>
         <translation>Numarul maxim de blocuri de text intr-un chat.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1197"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1258"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1204"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1265"/>
         <source>Cancel</source>
         <translation>Recova</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="89"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="92"/>
         <source>Send action to channel when i join a game.</source>
         <translation>Trimite actiune in canal cand particip la un joc.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="472"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="501"/>
         <source>Show a balloon message when a buddy arrvies.</source>
         <translation>Arata un mesaj balon cand soseste un prieten.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="482"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="511"/>
         <source>Show a balloon message when a buddy leaves.</source>
         <translation>Arata un mesaj balon cand pleaca un prieten.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="547"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="521"/>
         <source>Show a balloon message when someone sends you a privmsg.</source>
         <translation>Arata un mesaj balon cand cineva iti trimite un mesaj privat.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="504"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="553"/>
         <source>Maximum count of messages in a balloon.</source>
         <translation>Numarul maxim de mesaje intr-un balon.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="170"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="173"/>
         <source>Send back message to normal users.</source>
         <translation>Trimite un mesaj de intoarcere utilizatorilor normali.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="186"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="189"/>
         <source>Send back message to buddys.</source>
         <translation>Trimite un mesaj de intoarcere prietenilor.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="305"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="308"/>
         <source>Show the channelchat of a user in chatwindows.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="202"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="205"/>
         <source>Message when im back.</source>
         <translation>Mesaj de intoarcere.</translation>
     </message>
@@ -2637,53 +2638,53 @@ Note: A reconnect is required to apply these settings.</source>
         <translation type="obsolete">M-am intors.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="901"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="943"/>
         <source>Sound when someone writes your name into the chat.</source>
         <translation>Sunet pentru atunci cand cineva iti scrie numele in chat.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="380"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="383"/>
         <source>Maximum of messages for a user inside the log.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="331"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="334"/>
         <source>Dont open Chatwindows automaticly. Hide them to tray instead.
  (use this only when your game minimizes when chatwindows open)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="557"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="531"/>
         <source>Show a balloon message when a buddy hosts a game.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="999"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1041"/>
         <source>Sound when a buddy hosts a game.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="353"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="356"/>
         <source>Open a chatwindow for everyone.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="227"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="230"/>
         <source>Channels and chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="360"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="363"/>
         <source>Dont show smileys.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="459"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="488"/>
         <source>Balloon Messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="568"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="610"/>
         <source>Sound notifications</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2883,14 +2884,14 @@ Note: A reconnect is required to apply these settings.</source>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="95"/>
-        <location filename="../src/wormnet/window.cpp" line="525"/>
+        <location filename="../src/wormnet/window.cpp" line="523"/>
         <source>Host a private game</source>
         <translation>Gazduieste un joc privat</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="537"/>
-        <location filename="../src/wormnet/window.cpp" line="558"/>
-        <location filename="../src/wormnet/window.cpp" line="630"/>
+        <location filename="../src/wormnet/window.cpp" line="535"/>
+        <location filename="../src/wormnet/window.cpp" line="556"/>
+        <location filename="../src/wormnet/window.cpp" line="631"/>
         <source>Choose a Program to join this game.</source>
         <translation>Alege un Program pentru a accesa acest joc.</translation>
     </message>
@@ -2983,23 +2984,23 @@ Note: A reconnect is required to apply these settings.</source>
         <translation>Scoate acest utilizator din Lista de Ignorare.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="541"/>
+        <location filename="../src/wormnet/window.cpp" line="539"/>
         <source>Choose a desktop icon.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="545"/>
+        <location filename="../src/wormnet/window.cpp" line="543"/>
         <source>Choose a Program.</source>
         <translation>Alege un Program.Alege un Program.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="548"/>
+        <location filename="../src/wormnet/window.cpp" line="546"/>
         <source>Choose a Desktopicon.</source>
         <translation>Alege un Icon de Desktop.</translation>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="496"/>
-        <location filename="../src/wormnet/window.cpp" line="654"/>
+        <location filename="../src/wormnet/window.cpp" line="655"/>
         <source>Users online</source>
         <translation type="unfinished"></translation>
     </message>

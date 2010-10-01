@@ -175,13 +175,13 @@ void netcoupler::refreshwho() {
 void netcoupler::copyprvhosttoclipboard(const QString &scheme) {
     int i = users.users.indexOf(userstruct::whoami(nick));
     if (i > -1) {
-        QString address = myip;
-        QString host = "wa://" + address + "?gameid=999" + "&scheme=" + scheme;
+        QString address=myip;
+        if(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ())
+            address=singleton<snpsettings>().map["costumipforhosting"].value<QString>();
         QString port = gethostport();
-        if (port != "")
-            QString host = "wa://" + address + ":" + port + "?gameid=999"
-                           + "&scheme=" + scheme;
-
+        if (port.isEmpty())
+            port="17011";
+        QString host = "wa://" + address + ":" + port + "?gameid=999"+ "&scheme=" + scheme;
         QApplication::clipboard()->setText(host);
     }
 }
@@ -217,7 +217,6 @@ void netcoupler::ircconnected(){
 void netcoupler::ircdiconnected(){
     emit sigdisconnected();
 }
-//*****************************join your own host**********************
 void netcoupler::joingamelink(const QString &gamelink) {
     joinprvgame *cast = qobject_cast<joinprvgame*> (sender());
     Q_CHECK_PTR(cast);
@@ -240,133 +239,50 @@ void netcoupler::joingame(const QString &hostinfo, const QString &channel,
         sendinfotochan(channel, " is joining a game: " + gamename);
 }
 void netcoupler::createhost(const QString &name, const QString &pwd,
-                            const QString &chan, const QString &flag) {
-    usesettingswindow("sbhosttimeout");
+                            const QString &chan, const QString &flag) {    
     looki::gethostlistcount = 0;
     looki::gamename = name;
-    looki::currentchannel = chan;
-    int i = users.users.indexOf(userstruct::whoami(nick));
-    if (i > -1) {
-        QString address;
-        if(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ()){
-            address=singleton<snpsettings>().map["costumipforhosting"].value<QString>();
-        }else{
-            address = myip;
-        }
-        singleton<snpsettings>().map["leplayername"];
-        if (singleton<snpsettings>().map["leplayername"].toString().isEmpty())
-            http->sendhost(name, address, nick, pwd, chan, flag);
-        else
-            http->sendhost(name, address,
-                           singleton<snpsettings>().map["leplayername"].toString(), pwd, chan, flag);
-        if (singleton<snpsettings>().map["waitforhostappearsinwormnet"].value<bool> ()) {
-            connect(&getownhosttimer, SIGNAL(timeout()),http, SLOT(refreshhostlist()));
-            getownhosttimer.start(2000);
-            connect(http, SIGNAL(sighostwontstart()),this, SLOT(hostwontstart()));
-            connect(http, SIGNAL(sighostlist(QList<hoststruct>,QString)),this, SLOT(gethostlistforhosting(QList<hoststruct>,QString)));
-        } else {
-            QString temp = getprocessstring();
-            if (temp != "") {
-                temp = temp + " \"" + "wa://" + "?gameid=999" + "&scheme="
-                       + schememap[looki::currentchannel] + "\"";
-                startprocess(temp);
-                setaway();
-                int i = users.users.indexOf(userstruct::whoami(nick));
-                if (i > -1) {
-                    QString address;
-                    if(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ()){
-                        address=singleton<snpsettings>().map["costumipforhosting"].value<QString>();
-                    }else{
-                        address = myip;
-                    }
-                    QString host = QString("wa://%1?gameid=999&scheme=%2").arg(
-                            address).arg(schememap[looki::currentchannel]);
-                    QString msg = QString(" is hosting a game: %1, %2").arg(
-                            looki::gamename).arg(host);
-                    if (singleton<snpsettings>().map["chbsendhostinfotochan"].toBool())
-                        sendinfotochan(looki::currentchannel, msg);
-                }
-                looki::lasthost.clear();
-            }
-        }
-    }
+    looki::currentchannel = chan;    
+    if (users.users.indexOf(userstruct::whoami(nick)) == -1)
+        return;
+    QString temp = getprocessstring();
+    if (temp == "")
+        return;
+    temp = temp + " \"" + "wa://" + "?gameid=999" + "&scheme="
+           + schememap[looki::currentchannel] + "\"";
+    startprocess(temp);
+    setaway();
+    QString address=myip;
+    if(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ())
+        address=singleton<snpsettings>().map["costumipforhosting"].value<QString>();
+    QString host = QString("wa://%1?gameid=999&scheme=%2").arg(address).arg(schememap[looki::currentchannel]);
+    QString msg = QString(" is hosting a game: %1, %2").arg(looki::gamename).arg(host);
+    if (singleton<snpsettings>().map["chbsendhostinfotochan"].toBool())
+        sendinfotochan(looki::currentchannel, msg);
+    looki::lasthost.clear();
 }
 void netcoupler::createprvhost(const QString &chan, const QString &scheme) {
-    //gamename = name;
     looki::currentchannel = chan;
-    int i = users.users.indexOf(userstruct::whoami(nick));
-    if (i > -1) {
-        QString address;
-        if(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ()){
-            address=singleton<snpsettings>().map["costumipforhosting"].value<QString>();
-        }else{
-            address = myip;
-        }
-        QString temp = getprocessstring();
-        if (temp != "") {
-            temp = temp + " \"" + "wa://" + "?gameid=999" + "&scheme=" + scheme
-                   + "\"";
-            startprocess(temp);
-            setaway();
-            //lasthost.clear();
-            //lasthost << h.gameid << gamename;
-        }
-    }
+    if (users.users.indexOf(userstruct::whoami(nick))==-1)
+        return;
+    QString address=myip;
+    if(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ())
+        address=singleton<snpsettings>().map["costumipforhosting"].value<QString>();
+    QString temp = getprocessstring();
+    if (temp == "")
+        return;
+    temp = temp + " \"" + "wa://" + "?gameid=999" + "&scheme=" + scheme+ "\"";
+    startprocess(temp);
+    setaway();
 }
-void netcoupler::gethostlistforhosting(QList<hoststruct> l, QString) {
-    QString address =myip;
-    foreach(hoststruct h,l) {
-        if (nick == h.playername) {
-            if (!address.isEmpty() && h.gameip.split(":",
-                                                     QString::SkipEmptyParts).first() == address
-                && h.gamename == looki::gamename) {
-                QString temp = getprocessstring();
-                if (temp != "") {
-                    temp = temp + " \"" + h.hoststring + "&scheme="
-                           + schememap[looki::currentchannel] + "\"";
-                    startprocess(temp);
-                    setaway();
-                    int i = users.users.indexOf(userstruct::whoami(nick));
-                    if (i > -1) {
-                        QString port=gethostport();
-                        QString address;
-                        if(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ()){
-                            address=singleton<snpsettings>().map["costumipforhosting"].value<QString>();
-                        }else{
-                            address = myip;
-                        }
-                        address = address+":" +port;
-                        QString
-                                host =
-                                QString(
-                                        "wa://%1?gameid=999&scheme=%2").arg(
-                                                address).arg(
-                                                        schememap[looki::currentchannel]);
-                        QString msg =
-                                QString(" is hosting a game: %1, %2").arg(
-                                        looki::gamename).arg(host);
-                        if (singleton<snpsettings>().map["chbsendhostinfotochan"].toBool())
-                            sendinfotochan(looki::currentchannel, msg);
-                    }
-                    looki::lasthost.clear();
-                    looki::lasthost << h.gameid << looki::gamename;
-                }
-            }
-            getownhosttimer.stop();
-            getownhosttimer.disconnect();
-            disconnect(http, SIGNAL(sighostlist(QList<hoststruct>,QString)),this, SLOT(gethostlistforhosting(QList<hoststruct>,QString)));
-            hostlifetimer.singleShot(180 * 1000, this, SLOT(hosttimetout()));
-            return;
-        }
-    }
-    looki::gethostlistcount++;
-    if (looki::gethostlistcount > hosttimeoutdelay) {
-        getownhosttimer.stop();
-        getownhosttimer.disconnect();
-        qDebug() << "hostrequest timed out";
-        disconnect(http, SIGNAL(sighostlist(QList<hoststruct>,QString)),this, SLOT(gethostlistforhosting(QList<hoststruct>,QString)));
-        hosttimetout();
-    }
+void netcoupler::sendHostInfoToChan(const QString &name,const QString &pwd, const QString &chan,const QString &flag){
+    QString address=myip;
+    if(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ())
+        address=singleton<snpsettings>().map["costumipforhosting"].value<QString>();
+    if (singleton<snpsettings>().map["leplayername"].toString().isEmpty())
+        http->sendhost(name, address, nick, pwd, chan, flag);
+    else
+        http->sendhost(name, address,singleton<snpsettings>().map["leplayername"].toString(), pwd, chan, flag);
 }
 void netcoupler::processfinished(int , QProcess::ExitStatus e) {
     if (!looki::iswormkitgame) {
@@ -378,43 +294,30 @@ void netcoupler::processfinished(int , QProcess::ExitStatus e) {
         else
             qDebug() << "joining/hosting a game crashed";
         if (setawayingame) {
-            if (wasaway)
+            if (wasaway){
                 isaway = 1;
-            else {
-                isaway = 0;
-                wasaway = 0;
-                if (!singleton<snpsettings>().map["awaymessage"].value<QStringList> ().isEmpty())
-                    this->awaymessage
-                            = singleton<snpsettings>().map["awaymessage"].value<QStringList> ().last();emit
-                              sigawaystringchanged();
-                foreach(QString s,mainwindow::rememberwhogotaway.keys()) {
-                    if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
-                        && !singleton<snpsettings>().map["ignorelist"].toStringList().contains(
-                                s, Qt::CaseInsensitive)) {
-                        this->sendnotice(s,
-                                         singleton<settingswindow>().from_map("lebackmessage").toString());
-                        sendrawcommand("PRIVMSG " + s + " :\001back\001");
-                    } else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
-                        if (singleton<snpsettings>().map["buddylist"].toStringList().contains(s,
-                                                                                              Qt::CaseInsensitive))
-                            this->sendnotice(
-                                    s,
-                                    singleton<settingswindow>().from_map("lebackmessage").toString());
-                        sendrawcommand("PRIVMSG " + s + " :\001back\001");
-                    }
+                return;
+            }
+            isaway = 0;
+            wasaway = 0;
+            if (!singleton<snpsettings>().map["awaymessage"].value<QStringList> ().isEmpty())
+                this->awaymessage
+                        = singleton<snpsettings>().map["awaymessage"].value<QStringList> ().last();
+            emit sigawaystringchanged();
+            foreach(QString s,mainwindow::rememberwhogotaway.keys()) {
+                if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
+                    && !singleton<snpsettings>().map["ignorelist"].toStringList().contains(s, Qt::CaseInsensitive)) {
+                    sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
+                    sendrawcommand("PRIVMSG " + s + " :\001back\001");
+                } else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
+                    if (singleton<snpsettings>().map["buddylist"].toStringList().contains(s,Qt::CaseInsensitive))
+                        sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
+                    sendrawcommand("PRIVMSG " + s + " :\001back\001");
                 }
             }
-            mainwindow::rememberwhogotaway.clear();
         }
+        mainwindow::rememberwhogotaway.clear();
     }
-}
-void netcoupler::hosttimetout() {
-    http->closehost(looki::lasthost);
-}
-void netcoupler::hostwontstart() {
-    getownhosttimer.stop();
-    getownhosttimer.disconnect();
-    disconnect(http, SIGNAL(sighostlist(QList<hoststruct>,QString)),this, SLOT(gethostlistforhosting(QList<hoststruct>,QString)));
 }
 void netcoupler::readprocess() {
     qWarning() << qobject_cast<QProcess*> (sender())->readAll();
@@ -424,9 +327,7 @@ QString netcoupler::getprocessstring() {
     if (sl.isEmpty())
         QMessageBox::warning(0, "", tr("No executables are given.\n"
                                        "you must choose a game executable,\n"
-                                       "for example wa.exe, to join a game.\n"
-                                       "if you dont know what this means,\n"
-                                       "please read the tutorial.pdf inside the snooper folder."),
+                                       "for example wa.exe, to join a game.\n"),
                              QMessageBox::Ok);
 #ifdef Q_WS_MAC
     if (!sl.isEmpty()) {
@@ -470,7 +371,7 @@ QString netcoupler::getprocessstring() {
 #endif
 #ifdef Q_WS_WIN
     if(!sl.isEmpty()) {
-        if(sl.first().endsWith("WormKit.exe")) {
+        if(sl.first().contains("WormKit.exe",Qt::CaseInsensitive)) {
             looki::iswormkitgame=1; //wormkit closes the QProcess
             return QString("\"")+sl.first()+"\" wa.exe";
         }
@@ -482,7 +383,6 @@ QString netcoupler::getprocessstring() {
 #endif
     return "";
 }
-//*****************************join your own host end**********************
 void netcoupler::sendinfotochan(const QString &chan, const QString &msg) {
     QString command = QString("PRIVMSG %1 :\001ACTION %2 \001").arg(chan).arg(
             msg);
@@ -501,10 +401,7 @@ void netcoupler::usesettingswindow(const QString &s) {
                 = singleton<settingswindow>().from_map("cbsetawaywhilegaming").value<bool> ();
     else if (s == "leawaystring" || s == "")
         awaystringwhilehosting = singleton<settingswindow>().from_map("leawaystring").value<
-                                 QString> ();
-    else if (s == "sbhosttimeout" || s == "")
-        hosttimeoutdelay = singleton<settingswindow>().from_map("sbhosttimeout").value<int> ();
-
+                                 QString> ();   
     singleton<sound_handler>().init();
 }
 void netcoupler::settingswindowemitfunktion() { //signals are protected?!
@@ -533,8 +430,8 @@ void netcoupler::startprocess(const QString &s){
             w->minimize();
         }
     } if(singleton<settingswindow>().from_map("chbdisconnectongame").toBool()){
-        looki::iswormkitgame=1;
-        QTimer::singleShot(3000,this,SIGNAL(sigdisconnect()));
-    }
+    looki::iswormkitgame=1;
+    QTimer::singleShot(3000,this,SIGNAL(sigdisconnect()));
+}
     p->start(s);
 }

@@ -107,7 +107,6 @@ void snpsettings::installTranslationBySystemLocale(){
         qApp->installTranslator(trans);
     return;
 }
-
 void snpsettings::loadDefaults(){
     map["volumeslidervalue"].setValue<int>(5);
     map["chbminimized"].setValue<bool>(0);

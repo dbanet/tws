@@ -19,7 +19,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>5</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -28,6 +28,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout_10">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_9">
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QScrollArea" name="scrollArea_2">
              <property name="widgetResizable">
@@ -396,6 +399,19 @@
                  </layout>
                 </widget>
                </item>
+               <item>
+                <spacer name="verticalSpacer_4">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
               </layout>
              </item>
             </layout>
@@ -447,6 +463,19 @@
                 </property>
                </widget>
               </item>
+              <item>
+               <spacer name="verticalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
              </layout>
             </item>
            </layout>
@@ -480,6 +509,26 @@
           <widget class="QCheckBox" name="chbbuddyballoonleaves">
            <property name="text">
             <string>Show a balloon message when a buddy leaves.</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="chbballoonprivmsg">
+           <property name="text">
+            <string>Show a balloon message when someone sends you a privmsg.</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="chbshowbaloonwhenbuddyhosts">
+           <property name="text">
+            <string>Show a balloon message when a buddy hosts a game.</string>
            </property>
            <property name="checked">
             <bool>false</bool>
@@ -542,24 +591,17 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="chbballoonprivmsg">
-           <property name="text">
-            <string>Show a balloon message when someone sends you a privmsg.</string>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
            </property>
-           <property name="checked">
-            <bool>false</bool>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
            </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="chbshowbaloonwhenbuddyhosts">
-           <property name="text">
-            <string>Show a balloon message when a buddy hosts a game.</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -1078,7 +1120,7 @@ Note: A reconnect is required to apply these settings.</string>
             <widget class="QLabel" name="label_2">
              <property name="maximumSize">
               <size>
-               <width>200</width>
+               <width>300</width>
                <height>16777215</height>
               </size>
              </property>
@@ -1089,6 +1131,12 @@ Note: A reconnect is required to apply these settings.</string>
            </item>
            <item row="2" column="1">
             <widget class="QSpinBox" name="sbwhorepead">
+             <property name="maximumSize">
+              <size>
+               <width>200</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="minimum">
               <number>1000</number>
              </property>
@@ -1156,6 +1204,19 @@ Note: A reconnect is required to apply these settings.</string>
               <number>150</number>
              </property>
             </widget>
+           </item>
+           <item row="2" column="2">
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </item>

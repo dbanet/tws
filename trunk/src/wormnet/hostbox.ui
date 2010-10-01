@@ -46,14 +46,17 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QCheckBox" name="chbPassword">
-         <property name="toolTip">
-          <string/>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
-         <property name="text">
-          <string>Show this game as a private game.</string>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
          </property>
-        </widget>
+        </spacer>
        </item>
        <item>
         <widget class="QPushButton" name="pbshowdetails">
@@ -104,19 +107,6 @@
         </item>
        </layout>
       </widget>
-     </item>
-     <item>
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-      </spacer>
      </item>
      <item>
       <widget class="QFrame" name="detailsframe">
@@ -207,14 +197,30 @@
           </layout>
          </widget>
         </item>
-        <item>
-         <widget class="QCheckBox" name="chbwaitforhost">
-          <property name="text">
-           <string>The Snooper should wait starting worms, until the host appears.</string>
-          </property>
-         </widget>
-        </item>
        </layout>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="chbPassword">
+       <property name="toolTip">
+        <string/>
+       </property>
+       <property name="text">
+        <string>Show this game as a private game.</string>
+       </property>
       </widget>
      </item>
      <item>
@@ -224,6 +230,20 @@
        </property>
        <property name="checked">
         <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="cbDontStartGame">
+       <property name="text">
+        <string>Dont start the game, just host. </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
