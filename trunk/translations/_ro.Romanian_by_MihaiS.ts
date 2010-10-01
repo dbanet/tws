@@ -1485,13 +1485,18 @@ foloseste comenzi CTCP pentru site -uri de clan, glume, poze, legaturi de incarc
         <translation>Creaza un joc public in</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="59"/>
-        <location filename="../src/wormnet/hostbox.cpp" line="63"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="28"/>
+        <source>([A-Z]|[a-z]| |[0-9]|\-|`|!|\$|%|\(|\)|\*|,|\-|\.|/|:|;|=|\?|\@|\[|\]|\^|_|\{|\|\}|\~|£|À|Á|Â|Ã|Ä|Å|Æ|Ç|È|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|Ö|×|Ø|Ù|Ú|Û|Ü|Ý|Þ||ß|à|á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|ð|ñ|ò|ó|ô|õ|ö|÷|ø|ù|ú|û|ü|ý|þ|ÿ|¿|¡){30}</source>
+        <translation>([A-Z]|[a-z]| |[0-9]|\\-|`|!|\\$|%|\\(|\\)|\\*|,|\\-|\\.|/|:|;|=|\\?|\\@|\\[|\\]|\\^|_|\\{|\\|\\}|\\~|£|À|Á|Â|Ã|Ä|Å|Æ|Ç|È|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|Ö|×|Ø|Ù|Ú|Û|Ü|Ý|Þ|Ÿ|ß|à|á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|ð|ñ|ò|ó|ô|õ|ö|÷|ø|ù|ú|û|ü|ý|þ|ÿ|¿|¡){30}</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/hostbox.cpp" line="61"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="65"/>
         <source>Choose a desktop icon.</source>
         <translation>Alege un icon de desktop.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="67"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="69"/>
         <source>Choose a Program.</source>
         <translation>Alege un Program.</translation>
     </message>
