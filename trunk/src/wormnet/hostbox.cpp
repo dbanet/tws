@@ -7,6 +7,7 @@
 #include<QPointer>
 #include<QKeyEvent>
 #include<QMessageBox>
+#include<QValidator>
 extern QPointer<netcoupler> net;
 bool hostbox::dontStartGame=false;
 hostbox::hostbox(QString c, QWidget *parent) :QWidget(parent),
@@ -29,6 +30,9 @@ channel(c) {
     connect(ui.ok, SIGNAL(clicked()),this, SLOT(okclicked()));
     connect(ui.cancel, SIGNAL(clicked()),this, SLOT(cancelclicked()));
 
+    QRegExp regex;
+    regex.setPattern("\\S{30}");
+    ui.leplayername->setValidator(new QRegExpValidator(regex,0));
 
     ui.chbsendhostinfotochan->setChecked(
             singleton<snpsettings>().map["chbsendhostinfotochan"].toBool());

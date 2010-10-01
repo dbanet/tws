@@ -239,8 +239,7 @@ void netcoupler::joingame(const QString &hostinfo, const QString &channel,
     if (singleton<settingswindow>().from_map("chbactionwhenjoining").toBool())
         sendinfotochan(channel, " is joining a game: " + gamename);
 }
-void netcoupler::createhost(const QString &name, const QString &pwd,
-                            const QString &chan, const QString &flag) {
+void netcoupler::createhost(const QString &name, const QString &chan) {
     looki::gethostlistcount = 0;
     looki::gamename = name;
     looki::currentchannel = chan;    
@@ -254,14 +253,7 @@ void netcoupler::createhost(const QString &name, const QString &pwd,
     if(!hostbox::dontStartGame){
         startprocess(temp);
         setaway();
-    }
-    QString address=myip;
-    if(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ())
-        address=singleton<snpsettings>().map["costumipforhosting"].value<QString>();
-    QString host = QString("wa://%1?gameid=999&scheme=%2").arg(address).arg(schememap[looki::currentchannel]);
-    QString msg = QString(" is hosting a game: %1, %2").arg(looki::gamename).arg(host);
-    if (singleton<snpsettings>().map["chbsendhostinfotochan"].toBool())
-        sendinfotochan(looki::currentchannel, msg);
+    }    
     looki::lasthost.clear();
 }
 void netcoupler::createprvhost(const QString &chan, const QString &scheme) {

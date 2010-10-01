@@ -588,7 +588,15 @@ void window::hboxok() {
         }
     }        
     net->sendHostInfoToChan(hbox->gamename, hbox->pwd, currentchannel, flag);
-    net->createhost(hbox->gamename, hbox->pwd, currentchannel, flag);
+    net->createhost(hbox->gamename, currentchannel);
+
+    QString address=net->myip;
+    if(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ())
+        address=singleton<snpsettings>().map["costumipforhosting"].value<QString>();
+    QString host = QString("wa://%1?gameid=999&scheme=%2").arg(address).arg(net->schememap[currentchannel]);
+    QString msg = QString(" is hosting a game: %1, %2").arg(hbox->gamename).arg(host);
+    if (singleton<snpsettings>().map["chbsendhostinfotochan"].toBool())
+        net->sendinfotochan(currentchannel, msg);
     sender()->deleteLater();
 }
 void window::hboxprvok(const QString &scheme) {

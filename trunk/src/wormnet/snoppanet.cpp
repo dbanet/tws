@@ -191,7 +191,7 @@ void snoppanet::refreshhostlist() {
 }
 void snoppanet::readhostreply() {
     if (hostreply->readAll() == "<NOTHING>\n") {
-        qDebug() << "wormnet wont open this game, try again later.";
+        qDebug() << tr("Wormnet wont start this game, please try again at a later time.");
         hostreply->disconnect();
         hostreply->deleteLater();
         emit sighostwontstart();

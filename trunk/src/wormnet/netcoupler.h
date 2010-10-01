@@ -25,7 +25,7 @@ public:
     void sendrawcommand(const QString&);
     void joinchannel(const QString&);
     void partchannel(const QString&);
-    void createhost(const QString &name,const QString &pwd, const QString &chan,const QString &flag);
+    void createhost(const QString &name, const QString &chan);
     void createprvhost(const QString &chan,const QString &scheme);
     void sendHostInfoToChan(const QString &name,const QString &pwd, const QString &chan,const QString &flag);
     void refreshlist();
@@ -91,11 +91,11 @@ public slots:
     void joingamelink(const QString &);
     void joingame(const QString &,const QString&,const QString&);
     void getnotice(const QString&,const QString&,const QString&);
+    void sendinfotochan(const QString &,const QString &);
     void refreshhostlist();
 private slots:
     void setaway();
-    void usesettingswindow(const QString &s="");
-    void sendinfotochan(const QString &,const QString &);
+    void usesettingswindow(const QString &s="");    
     void getchannellist(QStringList);
     void getircip(QString);
     void gethostlist(QList<hoststruct>,QString);
