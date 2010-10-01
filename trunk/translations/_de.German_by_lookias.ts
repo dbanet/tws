@@ -1459,23 +1459,30 @@ CTCP kannst du für Clanseiten-Links, Witze, Bilder-Links, QFileUpload-Links und
 <context>
     <name>hostbox</name>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="21"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="27"/>
         <source>Create a public game in </source>
         <translation>Starte ein öffentliches Spiel.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="28"/>
         <source>([A-Z]|[a-z]| |[0-9]|\-|`|!|\$|%|\(|\)|\*|,|\-|\.|/|:|;|=|\?|\@|\[|\]|\^|_|\{|\|\}|\~|£|À|Á|Â|Ã|Ä|Å|Æ|Ç|È|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|Ö|×|Ø|Ù|Ú|Û|Ü|Ý|Þ||ß|à|á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|ð|ñ|ò|ó|ô|õ|ö|÷|ø|ù|ú|û|ü|ý|þ|ÿ|¿|¡){30}</source>
-        <translation>([A-Z]|[a-z]| |[0-9]|\\-|`|!|\\$|%|\\(|\\)|\\*|,|\\-|\\.|/|:|;|=|\\?|\\@|\\[|\\]|\\^|_|\\{|\\|\\}|\\~|£|À|Á|Â|Ã|Ä|Å|Æ|Ç|È|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|Ö|×|Ø|Ù|Ú|Û|Ü|Ý|Þ|Ÿ|ß|à|á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|ð|ñ|ò|ó|ô|õ|ö|÷|ø|ù|ú|û|ü|ý|þ|ÿ|¿|¡){30}</translation>
+        <translation type="obsolete">([A-Z]|[a-z]| |[0-9]|\\-|`|!|\\$|%|\\(|\\)|\\*|,|\\-|\\.|/|:|;|=|\\?|\\@|\\[|\\]|\\^|_|\\{|\\|\\}|\\~|£|À|Á|Â|Ã|Ä|Å|Æ|Ç|È|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|Ö|×|Ø|Ù|Ú|Û|Ü|Ý|Þ|Ÿ|ß|à|á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|ð|ñ|ò|ó|ô|õ|ö|÷|ø|ù|ú|û|ü|ý|þ|ÿ|¿|¡){30}</translation>
     </message>
     <message>
+        <source>regexp for gamenames</source>
+        <translation type="obsolete">([A-Z]|[a-z]| |[0-9]|\\-|`|!|\\$|%|\\(|\\)|\\*|,|\\-|\\.|/|:|;|=|\\?|\\@|\\[|\\]|\\^|_|\\{|\\|\\}|\\~|£|À|Á|Â|Ã|Ä|Å|Æ|Ç|È|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|Ö|×|Ø|Ù|Ú|Û|Ü|Ý|Þ|Ÿ|ß|à|á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|ð|ñ|ò|ó|ô|õ|ö|÷|ø|ù|ú|û|ü|ý|þ|ÿ|¿|¡){30}</translation>
+    </message>
+    <message>
+        <source>([A-Z]|[a-z]| |[0-9]|\-|`|!|\$|%|\(|\)|\*|,|\-|\.|/|:|;|=|\?|\@|\[|\]|\^|_|\{|\|\}|\~|£|À|Á|Â|Ã|Ä|Å|Æ|Ç|È|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|Ö|×|Ø|Ù|Ú|Û|Ü|Ý|Þ||ß|à|á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|ð|ñ|ò|ó|ô|õ|ö|÷|ø|ù|ú|û|ü|ý|þ|ÿ|¿|¡){31}</source>
+        <translation type="obsolete">([A-Z]|[a-z]| |[0-9]|\\-|`|!|\\$|%|\\(|\\)|\\*|,|\\-|\\.|/|:|;|=|\\?|\\@|\\[|\\]|\\^|_|\\{|\\|\\}|\\~|£|À|Á|Â|Ã|Ä|Å|Æ|Ç|È|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|Ö|×|Ø|Ù|Ú|Û|Ü|Ý|Þ|Ÿ|ß|à|á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|ð|ñ|ò|ó|ô|õ|ö|÷|ø|ù|ú|û|ü|ý|þ|ÿ|¿|¡){30}</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/hostbox.cpp" line="57"/>
         <location filename="../src/wormnet/hostbox.cpp" line="61"/>
-        <location filename="../src/wormnet/hostbox.cpp" line="65"/>
         <source>Choose a desktop icon.</source>
         <translation>Waehle dieses Desktop Icon.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="69"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="65"/>
         <source>Choose a Program.</source>
         <translation>Wähle ein Program.</translation>
     </message>
@@ -1787,27 +1794,27 @@ If your nick got faked... bl :)</source>
         <translation type="obsolete">Es gab einen fehler bei der verbindungsherstellung: </translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="41"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="43"/>
         <source>Reconnecting</source>
         <translation>Wiederverbinden</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="47"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="49"/>
         <source>There was an error with the connection to Wormnet: </source>
         <translation>Es gab einen Fehler mit der Verbindung zum Wormnet.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="415"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="416"/>
         <source>disconnected from irc server.</source>
         <translation>Vom IRC Server getrennt</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="481"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="482"/>
         <source>Nickname collision!</source>
         <translation>Namens Kollision</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="482"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="483"/>
         <source>The server things that your nickname is allready in use. This is usually caused by a uncomplete logout at the last session. If its like that you have to wait a few seconds or change your nickname! 
 
 If your nick got faked... bl :)</source>
@@ -2353,7 +2360,7 @@ in der tutorial.pdf nachlesen.
 Das Tutorial befindet sich im Programverzeichnis.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/netcoupler.cpp" line="328"/>
+        <location filename="../src/wormnet/netcoupler.cpp" line="331"/>
         <source>No executables are given.
 you must choose a game executable,
 for example wa.exe, to join a game.
@@ -2922,7 +2929,7 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
     <message>
         <location filename="../src/wormnet/window.cpp" line="535"/>
         <location filename="../src/wormnet/window.cpp" line="556"/>
-        <location filename="../src/wormnet/window.cpp" line="631"/>
+        <location filename="../src/wormnet/window.cpp" line="630"/>
         <source>Choose a Program to join this game.</source>
         <translation>Wähle ein Program um diesem Spiel beizutreten.</translation>
     </message>
@@ -3044,7 +3051,7 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="496"/>
-        <location filename="../src/wormnet/window.cpp" line="655"/>
+        <location filename="../src/wormnet/window.cpp" line="654"/>
         <source>Users online</source>
         <translation> Benutzer online </translation>
     </message>

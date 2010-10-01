@@ -6,6 +6,7 @@
 #include<QDebug>
 #include<QPointer>
 #include<QKeyEvent>
+#include<QMessageBox>
 extern QPointer<netcoupler> net;
 bool hostbox::dontStartGame=false;
 hostbox::hostbox(QString c, QWidget *parent) :QWidget(parent),
@@ -18,28 +19,23 @@ channel(c) {
     if(singleton<snpsettings>().map.contains("useacostumipforhosting"))
         ui.cbip->setChecked(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ());
     ui.leip->setText(singleton<snpsettings>().map["costumipforhosting"].value<QString>());
-    this->setWindowTitle(tr("Create a public game in ") + channel + ".");
-    ui.gamename->setText(net->nick);
+    QString gamename=singleton<snpsettings>().map["legamename"].toString();
+    if(!gamename.isEmpty())
+        ui.legamename->setText(gamename);
+    else
+        ui.legamename->setText(net->nick);
+    this->setWindowTitle(tr("Create a public game in ") + channel + ".");    
     connect(ui.add, SIGNAL(clicked()),this, SLOT(addclicked()));
     connect(ui.ok, SIGNAL(clicked()),this, SLOT(okclicked()));
     connect(ui.cancel, SIGNAL(clicked()),this, SLOT(cancelclicked()));
 
-    QRegExp regexp;
-    regexp.setPattern(tr(""
-            "([A-Z]|[a-z]| |[0-9]|\\-|`|!|\\$|%|\\(|\\)|\\*|,|\\-|\\.|/|:|;|="
-            "|\\?|\\@|\\[|\\]|\\^|_|\\{|\\|\\}|\\~|"
-            "£|À|Á|Â|Ã|Ä|Å|Æ|Ç|È|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|Ö|×"
-            "|Ø|Ù|Ú|Û|Ü|Ý|Þ|Ÿ|ß|à|á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|"
-            "ð|ñ|ò|ó|ô|õ|ö|÷|ø|ù|ú|û|ü|ý|þ|ÿ|¿|¡){30}"));
-    validator = new QRegExpValidator(regexp, 0);
-    ui.gamename->setValidator(validator);
-    ui.leplayername->setValidator(validator);     
+
     ui.chbsendhostinfotochan->setChecked(
             singleton<snpsettings>().map["chbsendhostinfotochan"].toBool());
     ui.leplayername->setText(singleton<snpsettings>().map["leplayername"].toString());
     ui.lehostport->setText(gethostport());
 
-    ui.gamename->installEventFilter(this);
+    ui.legamename->installEventFilter(this);
     ui.lehostport->installEventFilter(this);
     ui.leplayername->installEventFilter(this);
     ui.detailsframe->hide();
@@ -89,13 +85,12 @@ void hostbox::okclicked() {
     sethostport(ui.lehostport->text());
     singleton<snpsettings>().map["leplayername"].setValue<QString> (ui.leplayername->text());
     singleton<snpsettings>().map["chbsendhostinfotochan"] = ui.chbsendhostinfotochan->isChecked();    
-    singleton<snpsettings>().map["useacostumipforhosting"].setValue<bool> (
-            ui.cbip->isChecked());
+    singleton<snpsettings>().map["useacostumipforhosting"].setValue<bool> (ui.cbip->isChecked());
     singleton<snpsettings>().map["costumipforhosting"].setValue<QString>(ui.leip->text());
-    gamename = ui.gamename->text();
+    singleton<snpsettings>().map["legamename"]=ui.legamename->text();
+    gamename = ui.legamename->text();
     gamename.replace(" ", "_");
     pwd = ui.chbPassword->isChecked()==true?"true":"";
-    //pwd.replace(" ", "_");
     icon = ui.icons->currentText();
     QStringList sl = singleton<snpsettings>().map.value("joinstrings").value<QStringList> ();
     if (!sl.isEmpty()) {

@@ -2,6 +2,7 @@
 #include "ui_codecselectdia.h"
 #include<QTextCodec>
 #include"snpsettings.h"
+QTextCodec *CodecSelectDia::codec=0;
 CodecSelectDia::CodecSelectDia(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CodecSelectDia)
@@ -21,8 +22,7 @@ CodecSelectDia::~CodecSelectDia()
 
 void CodecSelectDia::on_pblatin_clicked()
 {
-    QTextCodec *c=QTextCodec::codecForName("windows-1252");     //latin
-    QTextCodec::setCodecForCStrings(c);
+    codec=QTextCodec::codecForName("windows-1252");     //latin
     singleton<snpsettings>().map["textcodec"]="windows-1252";
     qApp->setLayoutDirection(Qt::LeftToRight);
     singleton<snpsettings>().map["righttoleftwriting"]=false;
@@ -31,8 +31,7 @@ void CodecSelectDia::on_pblatin_clicked()
 
 void CodecSelectDia::on_pbcyrillic_clicked()
 {
-    QTextCodec *c=QTextCodec::codecForName("windows-1251");     //cyrillic
-    QTextCodec::setCodecForCStrings(c);
+    codec=QTextCodec::codecForName("windows-1251");     //cyrillic
     singleton<snpsettings>().map["textcodec"]="windows-1251";
     singleton<snpsettings>().map["righttoleftwriting"]=false;
     qApp->setLayoutDirection(Qt::LeftToRight);
@@ -41,8 +40,7 @@ void CodecSelectDia::on_pbcyrillic_clicked()
 
 void CodecSelectDia::on_pbOk_clicked()
 {
-    QTextCodec *c=QTextCodec::codecForName(qPrintable(ui->comboBox->currentText()));
-    QTextCodec::setCodecForCStrings(c);
+    codec=QTextCodec::codecForName(qPrintable(ui->comboBox->currentText()));
     singleton<snpsettings>().map["textcodec"]=ui->comboBox->currentText();
     bool b=ui->cbrighToLeft->isChecked();
     singleton<snpsettings>().map["righttoleftwriting"]=b;

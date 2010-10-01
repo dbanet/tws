@@ -65,7 +65,7 @@
         <widget class="QCommandLinkButton" name="pbabout">
          <property name="maximumSize">
           <size>
-           <width>110</width>
+           <width>100</width>
            <height>16777215</height>
           </size>
          </property>

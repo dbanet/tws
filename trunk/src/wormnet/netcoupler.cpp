@@ -18,6 +18,7 @@
 #include"global_functions.h"
 #include"global_functions.h"
 #include"balloon_handler.h"
+#include "hostbox.h"
 extern volumeslider *volume;
 extern inihandlerclass inihandler;
 QProcess *netcoupler::p= new QProcess;
@@ -239,7 +240,7 @@ void netcoupler::joingame(const QString &hostinfo, const QString &channel,
         sendinfotochan(channel, " is joining a game: " + gamename);
 }
 void netcoupler::createhost(const QString &name, const QString &pwd,
-                            const QString &chan, const QString &flag) {    
+                            const QString &chan, const QString &flag) {
     looki::gethostlistcount = 0;
     looki::gamename = name;
     looki::currentchannel = chan;    
@@ -250,8 +251,10 @@ void netcoupler::createhost(const QString &name, const QString &pwd,
         return;
     temp = temp + " \"" + "wa://" + "?gameid=999" + "&scheme="
            + schememap[looki::currentchannel] + "\"";
-    startprocess(temp);
-    setaway();
+    if(!hostbox::dontStartGame){
+        startprocess(temp);
+        setaway();
+    }
     QString address=myip;
     if(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ())
         address=singleton<snpsettings>().map["costumipforhosting"].value<QString>();

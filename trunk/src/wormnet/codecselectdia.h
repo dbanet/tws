@@ -14,6 +14,7 @@ class CodecSelectDia : public QDialog
 public:
     explicit CodecSelectDia(QWidget *parent = 0);
     ~CodecSelectDia();
+    static QTextCodec *codec;
 
 private:
     Ui::CodecSelectDia *ui;

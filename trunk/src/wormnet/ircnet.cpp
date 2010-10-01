@@ -7,11 +7,13 @@
 #include<QDir>
 #include<QTime>
 #include<QMessageBox>
+#include<QTextCodec>
 #include<QDebug>
 #include"inihandlerclass.h"
 #include"snpsettings.h"
 #include"settingswindow.h"
 #include "about.h"
+#include "codecselectdia.h"
 extern inihandlerclass inihandler;
 extern QMap<QString, QStringList> usergarbagemap;
 ircnet::ircnet(QString s, QObject *parent) :
@@ -58,7 +60,7 @@ void ircnet::connected() {
             this->sendrawcommand(sl.first());
         }
     }
-    tcp->write(qPrintable("NICK " + nick + "\n"));
+    tcp_write("NICK " + nick);
     QString s = inihandler.stringlistfromini("[irc register]").first();
     sl = s.split(" ", QString::SkipEmptyParts);
     s = sl.takeFirst() + "  ";
@@ -327,13 +329,12 @@ void ircnet::connected() {
         //*******
     }
     s.append(singleton<snpsettings>().map["client"].value<QString> ());
-    tcp->write(qPrintable(s));
-    tcp->write("\n");
-    tcp->write("list\n");
+    tcp_write(s);
+    tcp_write("list");
     emit sigconnected();
 }
 void ircnet::tcpread() {
-    ircreadstring.append(tcp->readAll());
+    ircreadstring.append(CodecSelectDia::codec->toUnicode(tcp->readAll()));
     QStringList sl = ircreadstring.split("\n");
     ircreadstring = sl.takeLast(); //is "" or incomplete
     foreach(QString s,sl) {
@@ -344,7 +345,7 @@ void ircnet::tcpread() {
         if (s.startsWith(servermessageindicator))
             readservermassege(s.remove(servermessageindicator).trimmed());
         else if (s.startsWith("PING")) {
-            tcp->write("PONG\n");
+            tcp_write("PONG");
         } else if (s.startsWith("ERROR")) {
             qDebug() << s;
         } else {
@@ -494,42 +495,44 @@ void ircnet::readservermassege(QString s) {
 	}
 }
 void ircnet::joinchannel(const QString &chan) {
-    tcp->write(QString(QString("JOIN ") + chan + "\n").toAscii());
+    tcp_write("JOIN " + chan + "\n");
 }
 void ircnet::partchannel(const QString &chan) {
-    tcp->write(QString(QString("PART ") + chan + "\n").toAscii());
+    tcp_write("PART " + chan);
 }
 void ircnet::sendmessage(const QString &msg, const QString &receiver) {
     QString s = msg;
     s.replace("\n", " ");
-    tcp->write(QString("PRIVMSG " + receiver + " :" + s + "\n").toAscii());
+    tcp_write("PRIVMSG " + receiver + " :" + s);
 }
 void ircnet::sendnotice(const QString &msg, const QString &receiver) {
     QString s = msg;
     s.replace("\n", " ");
-    tcp->write(qPrintable("NOTICE " + receiver + " :" + s + "\n"));
+    tcp_write("NOTICE " + receiver + " :" + s);
 }
 void ircnet::sendrawcommand(const QString &raw) {
-    tcp->write(qPrintable(raw + "\n"));
+    tcp_write(raw);
 }
 void ircnet::refreshlist() {
     if (justgetlist == false) {
-        tcp->write("list\n");
+        tcp_write("list");
         justgetlist = true;
     }
 }
 void ircnet::who() {    
     if (whoreceivedcompletely) {
-        tcp->write("who\n");
+        tcp_write("who");
         whoreceivedcompletely = 0;
     }
 }
 void ircnet::quit() {
-    tcp->write(QString("QUIT : The Wheat Snooper "
-                       + about::version +
-                       +" \n").toAscii());
+    tcp_write("QUIT : The Wheat Snooper "+ about::version);
     tcp->waitForDisconnected(5000);
     emit sigdisconnected();
 }
+void ircnet::tcp_write(const QString &msg){
+    tcp->write(CodecSelectDia::codec->fromUnicode(msg)+"\n");
+}
+
 ircnet::~ircnet() {
 }

@@ -42,8 +42,7 @@ void hostmodel::sethoststruct(QList<hoststruct> l, QString chan) {
         hostmap[chan].push_back(*i);
         if (!singleton<settingswindow>().from_map("chbshowbaloonwhenbuddyhosts").toBool())
             continue;
-        if (!singleton<snpsettings>().map["buddylist"].value<QStringList> ().contains(
-                i->playername))
+        if (!singleton<snpsettings>().map["buddylist"].value<QStringList> ().contains(i->playername))
             continue;
         sl << i->playername;
         if (buddyhosts[chan].contains(i->playername))   //if the host was allready alerted

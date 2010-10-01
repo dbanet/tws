@@ -11,6 +11,7 @@
 #include<QSignalMapper>
 #include<QProcess>
 #include<QMessageBox>
+#include<QTextCodec>
 #include"snpsettings.h"
 #include"settingswindow.h"
 #include"hoststruct.h"
@@ -109,7 +110,9 @@ void snoppanet::hosttimeout() {
     connect(signalmapper, SIGNAL(mapped(int)),this, SLOT(readgamelist(int)));
 }
 void snoppanet::readgamelist(int i) {
-    templist[i].append(replylist[i]->readAll());
+    QByteArray byteArray=replylist[i]->readAll();
+    static QTextCodec *codec=QTextCodec::codecForHtml(byteArray,QTextCodec::codecForName("UTF-8"));
+    templist[i].append(codec->toUnicode(byteArray));
     if (templist[i].contains("<GAMELISTEND>") && templist[i].contains("<GAMELISTSTART>")) {
         QStringList sl = templist[i].split("\n", QString::SkipEmptyParts);
         templist[i].clear();
@@ -123,8 +126,7 @@ void snoppanet::readgamelist(int i) {
         QList<hoststruct> list;
         QStringList sltemp;
         foreach(QString s,sl) {
-            if (s[0].toAscii() == -33)
-                s = s.remove(0, 1);
+            s=s.remove(QChar(65533));
             list.push_back(hoststruct());
             sltemp = s.split(" ");
             list.last().sethost(sltemp);

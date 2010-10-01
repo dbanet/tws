@@ -588,8 +588,7 @@ void window::hboxok() {
         }
     }        
     net->sendHostInfoToChan(hbox->gamename, hbox->pwd, currentchannel, flag);
-    if(!hostbox::dontStartGame)
-        net->createhost(hbox->gamename, hbox->pwd, currentchannel, flag);
+    net->createhost(hbox->gamename, hbox->pwd, currentchannel, flag);
     sender()->deleteLater();
 }
 void window::hboxprvok(const QString &scheme) {
