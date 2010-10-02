@@ -2734,7 +2734,7 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/snoppanet.cpp" line="194"/>
         <source>Wormnet wont start this game, please try again at a later time.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Невозможно поместить хост на вормнет, пожалуйста, попробуйте позже.</translation>
     </message>
 </context>
 <context>

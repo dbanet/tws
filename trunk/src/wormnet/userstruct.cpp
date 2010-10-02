@@ -37,7 +37,7 @@ userstruct::userstruct(QStringList sl) {
         rank = i;
     else rank=12;
     country = sl.takeFirst();
-    if (flag >= 49) {
+    if (flag >= 49 && flag <=83) {
         if (country == "CL")
             flag = 53;
         else if (country == "CS")
