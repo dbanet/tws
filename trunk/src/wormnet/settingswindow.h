@@ -22,7 +22,6 @@ private slots:
     void ok();
     void cancel();
     void soundoptionbuttonslot();
-
 };
 
 #endif // SETTINGSWINDOW_H

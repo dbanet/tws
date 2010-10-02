@@ -1165,7 +1165,7 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
 <context>
     <name>hostbox</name>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="27"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="28"/>
         <source>Create a public game in </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1178,13 +1178,13 @@ use CTCP commands for clansites, jokes, pictures, qfileupload links etc.</source
         <translation type="obsolete">([A-Z]|[a-z]| |[0-9]|\\-|`|!|\\$|%|\\(|\\)|\\*|,|\\-|\\.|/|:|;|=|\\?|\\@|\\[|\\]|\\^|_|\\{|\\|\\}|\\~|£|À|Á|Â|Ã|Ä|Å|Æ|Ç|È|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|Ö|×|Ø|Ù|Ú|Û|Ü|Ý|Þ|Ÿ|ß|à|á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|ð|ñ|ò|ó|ô|õ|ö|÷|ø|ù|ú|û|ü|ý|þ|ÿ|¿|¡){30} {0-9]?} {31}?}</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="57"/>
         <location filename="../src/wormnet/hostbox.cpp" line="61"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="65"/>
         <source>Choose a desktop icon.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="65"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="69"/>
         <source>Choose a Program.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1850,7 +1850,7 @@ Do you want to proceed?</source>
 <context>
     <name>netcoupler</name>
     <message>
-        <location filename="../src/wormnet/netcoupler.cpp" line="331"/>
+        <location filename="../src/wormnet/netcoupler.cpp" line="323"/>
         <source>No executables are given.
 you must choose a game executable,
 for example wa.exe, to join a game.
@@ -2064,21 +2064,16 @@ Note: A reconnect is required to apply these settings.</source>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="1174"/>
-        <source>Host timeout delay.(s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1191"/>
         <source>Maximum of textblocks in a chat.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1258"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1241"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1265"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1248"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2201,6 +2196,14 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="992"/>
         <source>Sound when a costum word appears in the chat.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>snoppanet</name>
+    <message>
+        <location filename="../src/wormnet/snoppanet.cpp" line="194"/>
+        <source>Wormnet wont start this game, please try again at a later time.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2402,7 +2405,7 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/window.cpp" line="535"/>
         <location filename="../src/wormnet/window.cpp" line="556"/>
-        <location filename="../src/wormnet/window.cpp" line="630"/>
+        <location filename="../src/wormnet/window.cpp" line="638"/>
         <source>Choose a Program to join this game.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2511,7 +2514,7 @@ Note: A reconnect is required to apply these settings.</source>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="496"/>
-        <location filename="../src/wormnet/window.cpp" line="654"/>
+        <location filename="../src/wormnet/window.cpp" line="662"/>
         <source>Users online</source>
         <translation type="unfinished"></translation>
     </message>

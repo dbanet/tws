@@ -1480,7 +1480,7 @@ foloseste comenzi CTCP pentru site -uri de clan, glume, poze, legaturi de incarc
 <context>
     <name>hostbox</name>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="27"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="28"/>
         <source>Create a public game in </source>
         <translation>Creaza un joc public in</translation>
     </message>
@@ -1493,13 +1493,13 @@ foloseste comenzi CTCP pentru site -uri de clan, glume, poze, legaturi de incarc
         <translation type="obsolete">([A-Z]|[a-z]| |[0-9]|\\-|`|!|\\$|%|\\(|\\)|\\*|,|\\-|\\.|/|:|;|=|\\?|\\@|\\[|\\]|\\^|_|\\{|\\|\\}|\\~|£|À|Á|Â|Ã|Ä|Å|Æ|Ç|È|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|Ö|×|Ø|Ù|Ú|Û|Ü|Ý|Þ|Ÿ|ß|à|á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|ð|ñ|ò|ó|ô|õ|ö|÷|ø|ù|ú|û|ü|ý|þ|ÿ|¿|¡){30} {0-9]?} {31}?}</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="57"/>
         <location filename="../src/wormnet/hostbox.cpp" line="61"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="65"/>
         <source>Choose a desktop icon.</source>
         <translation>Alege un icon de desktop.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="65"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="69"/>
         <source>Choose a Program.</source>
         <translation>Alege un Program.</translation>
     </message>
@@ -2319,7 +2319,7 @@ daca nu stii ce inseamna asta,
 te rog citeste tutorialul.pdf din cadrul folderului snooper -ului.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/netcoupler.cpp" line="331"/>
+        <location filename="../src/wormnet/netcoupler.cpp" line="323"/>
         <source>No executables are given.
 you must choose a game executable,
 for example wa.exe, to join a game.
@@ -2577,22 +2577,21 @@ Note: A reconnect is required to apply these settings.</source>
         <translation type="obsolete">Intarziere de repetare Gazda. (ms)</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1174"/>
         <source>Host timeout delay.(s)</source>
-        <translation>Intarziere de expirare Gazda. (s)</translation>
+        <translation type="obsolete">Intarziere de expirare Gazda. (s)</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1191"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1174"/>
         <source>Maximum of textblocks in a chat.</source>
         <translation>Numarul maxim de blocuri de text intr-un chat.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1258"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1241"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1265"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1248"/>
         <source>Cancel</source>
         <translation>Recova</translation>
     </message>
@@ -2694,6 +2693,14 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="610"/>
         <source>Sound notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>snoppanet</name>
+    <message>
+        <location filename="../src/wormnet/snoppanet.cpp" line="194"/>
+        <source>Wormnet wont start this game, please try again at a later time.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2899,7 +2906,7 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/window.cpp" line="535"/>
         <location filename="../src/wormnet/window.cpp" line="556"/>
-        <location filename="../src/wormnet/window.cpp" line="630"/>
+        <location filename="../src/wormnet/window.cpp" line="638"/>
         <source>Choose a Program to join this game.</source>
         <translation>Alege un Program pentru a accesa acest joc.</translation>
     </message>
@@ -3008,7 +3015,7 @@ Note: A reconnect is required to apply these settings.</source>
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="496"/>
-        <location filename="../src/wormnet/window.cpp" line="654"/>
+        <location filename="../src/wormnet/window.cpp" line="662"/>
         <source>Users online</source>
         <translation type="unfinished"></translation>
     </message>

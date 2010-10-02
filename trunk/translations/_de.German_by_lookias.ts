@@ -1459,7 +1459,7 @@ CTCP kannst du für Clanseiten-Links, Witze, Bilder-Links, QFileUpload-Links und
 <context>
     <name>hostbox</name>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="27"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="28"/>
         <source>Create a public game in </source>
         <translation>Starte ein öffentliches Spiel.</translation>
     </message>
@@ -1476,13 +1476,13 @@ CTCP kannst du für Clanseiten-Links, Witze, Bilder-Links, QFileUpload-Links und
         <translation type="obsolete">([A-Z]|[a-z]| |[0-9]|\\-|`|!|\\$|%|\\(|\\)|\\*|,|\\-|\\.|/|:|;|=|\\?|\\@|\\[|\\]|\\^|_|\\{|\\|\\}|\\~|£|À|Á|Â|Ã|Ä|Å|Æ|Ç|È|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|Ö|×|Ø|Ù|Ú|Û|Ü|Ý|Þ|Ÿ|ß|à|á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|ð|ñ|ò|ó|ô|õ|ö|÷|ø|ù|ú|û|ü|ý|þ|ÿ|¿|¡){30}</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="57"/>
         <location filename="../src/wormnet/hostbox.cpp" line="61"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="65"/>
         <source>Choose a desktop icon.</source>
         <translation>Waehle dieses Desktop Icon.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="65"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="69"/>
         <source>Choose a Program.</source>
         <translation>Wähle ein Program.</translation>
     </message>
@@ -2360,7 +2360,7 @@ in der tutorial.pdf nachlesen.
 Das Tutorial befindet sich im Programverzeichnis.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/netcoupler.cpp" line="331"/>
+        <location filename="../src/wormnet/netcoupler.cpp" line="323"/>
         <source>No executables are given.
 you must choose a game executable,
 for example wa.exe, to join a game.
@@ -2592,21 +2592,16 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="1174"/>
-        <source>Host timeout delay.(s)</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1191"/>
         <source>Maximum of textblocks in a chat.</source>
         <translation>Maximum and Texteinheiten in einem Chatfenster.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1258"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1241"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1265"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1248"/>
         <source>Cancel</source>
         <translation>Abbruch</translation>
     </message>
@@ -2730,6 +2725,14 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
         <location filename="../src/wormnet/settingswindow.ui" line="992"/>
         <source>Sound when a costum word appears in the chat.</source>
         <translation>Ton wenn ein benutzerdefiniertes Wort im Chat erscheint.</translation>
+    </message>
+</context>
+<context>
+    <name>snoppanet</name>
+    <message>
+        <location filename="../src/wormnet/snoppanet.cpp" line="194"/>
+        <source>Wormnet wont start this game, please try again at a later time.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2929,7 +2932,7 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
     <message>
         <location filename="../src/wormnet/window.cpp" line="535"/>
         <location filename="../src/wormnet/window.cpp" line="556"/>
-        <location filename="../src/wormnet/window.cpp" line="630"/>
+        <location filename="../src/wormnet/window.cpp" line="638"/>
         <source>Choose a Program to join this game.</source>
         <translation>Wähle ein Program um diesem Spiel beizutreten.</translation>
     </message>
@@ -3051,7 +3054,7 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="496"/>
-        <location filename="../src/wormnet/window.cpp" line="654"/>
+        <location filename="../src/wormnet/window.cpp" line="662"/>
         <source>Users online</source>
         <translation> Benutzer online </translation>
     </message>

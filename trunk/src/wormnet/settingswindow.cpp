@@ -209,6 +209,5 @@ void settingswindow::loadDefaults(){
     map["sbmaximumballonmessages"].setValue<int>(3);
     map["sbwhorepead"].setValue<int>(3000);
     map["sbhostrepead"].setValue<int>(15000);
-    map["sbhosttimeout"].setValue<int>(60);
     map["sbmaximumoftextblocks"].setValue<int>(500);
 }

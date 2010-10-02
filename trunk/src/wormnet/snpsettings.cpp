@@ -113,6 +113,6 @@ void snpsettings::loadDefaults(){
     map["dissallowedclannames"].setValue<QStringList>(QStringList()<<"Username"<<"cybershadow"<<"WebSnoop"<<"HostingBuddy"<<"SheriffBot"<<"muzer"<<"Help"<<"Miranda"<<"Mirc"<<"wormatty"<<"simon"<<"darkone"<<"noclan");
     map["charformatfile"].setValue<QString>("comic by lookias.textscheme");
     map["chbsendhostinfotochan"].setValue<bool>(true);
-    map["wormnetserverlist"].setValue<QStringList>(defaultServerList);
-    installTranslationBySystemLocale();
+    map["wormnetserverlist"].setValue<QStringList>(defaultServerList);   
+    installTranslationBySystemLocale();   
 }

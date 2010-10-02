@@ -45,10 +45,10 @@ int main(int argc, char *argv[]) {
     singleton<clantowebpagemapper>().load();
     if(singleton<snpsettings>().map["textcodec"].toString().isEmpty()){
         CodecSelectDia::codec=QTextCodec::codecForLocale();
-        singleton<snpsettings>().map["textcodec"]=QTextCodec::codecForCStrings()->name();
+        singleton<snpsettings>().map["textcodec"]=CodecSelectDia::codec->name();
     }
     else
-        CodecSelectDia::codec=QTextCodec::codecForName(singleton<snpsettings>().map["textcodec"].toByteArray());
+        CodecSelectDia::codec=QTextCodec::codecForName(singleton<snpsettings>().map["textcodec"].toByteArray());    
     singleton<charformatsettings>().load();
     volume = new volumeslider;
     a.addLibraryPath(QApplication::applicationDirPath());
