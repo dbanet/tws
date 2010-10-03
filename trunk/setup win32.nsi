@@ -9,7 +9,7 @@ SetCompressor lzma
 !define REGKEY "SOFTWARE\$(^Name)"
 !define VERSION 2.0
 !define COMPANY Lookias
-!define URL http://lookias.lo.funpic.de/page/
+!define URL http://lookias.worms2d.info/
 
 # Included files
 !include Sections.nsh
@@ -62,7 +62,7 @@ DirText "If you allready have an installation of this programm, \
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File /r /x snpini /x query /x .svn TheWheatSnooper\*
+    File /r /x snpini /x query /x .svn /x lastedited.textscheme TheWheatSnooper\*
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
 SectionEnd
 
@@ -108,9 +108,15 @@ Section /o -un.Main UNSEC0000
 SectionEnd
 
 Section -un.post UNSEC0001
+    SetShellVarContext all
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     !insertmacro DELETE_SMGROUP_SHORTCUT "Uninstall $(^Name)"
-    Delete /REBOOTOK "$INSTDIR\uninstall.exe"
+    Delete /REBOOTOK "$INSTDIR\uninstall.exe"    
+    Delete /REBOOTOK "$LOCALAPPDATA\VirtualStore\Program Files\The Wheat Snooper\snpini\*"
+    Delete /REBOOTOK "$LOCALAPPDATA\VirtualStore\Program Files\The Wheat Snooper\query\*"
+    Delete /REBOOTOK "$LOCALAPPDATA\VirtualStore\Program Files\The Wheat Snooper\*"
+    RmDir /REBOOTOK "$LOCALAPPDATA\VirtualStore\Program Files\The Wheat Snooper"
+    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\*"
     RmDir /REBOOTOK "$SMPROGRAMS\$StartMenuGroup"
     Delete /REBOOTOK "$DESKTOP\The Wheat Snooper.lnk"        
     DeleteRegValue HKLM "${REGKEY}" StartMenuGroup
@@ -145,6 +151,7 @@ Function .onInit
 FunctionEnd
 
 Function CreateSMGroupShortcut
+    SetShellVarContext all
     Exch $R0 ;PATH
     Exch
     Exch $R1 ;NAME

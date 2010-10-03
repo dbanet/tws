@@ -5,7 +5,7 @@
     <name>CodecSelectDia</name>
     <message>
         <location filename="../src/wormnet/codecselectdia.ui" line="14"/>
-        <source>Dialog</source>
+        <source>Select a Codec</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2327,13 +2327,18 @@ for example wa.exe, to join a game.
 <context>
     <name>playername</name>
     <message>
-        <location filename="../src/wormnet/playername.cpp" line="34"/>
+        <location filename="../src/wormnet/playername.cpp" line="31"/>
         <source>This is your Playername in a game.
 This name supports more letters then the wormnet name.
 If this string is empty, worms will probably not host or join a game.</source>
         <translation>Este es tu Nombre en el juego.
 Este nombre soporta más letras que el de wormnet.
 Si esta cadena está vacía, es probable que el juego no cree o entre en partidas.</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/playername.cpp" line="35"/>
+        <source>Sry but this feature is not available on your system.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2739,27 +2744,31 @@ Nota: Es necesario reconectar para aplicar estos cambios.</translation>
 <context>
     <name>textschemehandlerClass</name>
     <message>
-        <location filename="../src/wormnet/textschemehandler.ui" line="13"/>
         <source>textschemehandler</source>
-        <translation>Control Esquema de texto</translation>
+        <translation type="obsolete">Control Esquema de texto</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.ui" line="24"/>
+        <location filename="../src/wormnet/textschemehandler.ui" line="14"/>
+        <source>Scheme helper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/textschemehandler.ui" line="25"/>
         <source>Show this texttype in channelwindows.</source>
         <translation>Mostrar este tipo de texto en canales.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.ui" line="35"/>
+        <location filename="../src/wormnet/textschemehandler.ui" line="36"/>
         <source>Set Color</source>
         <translation>Cambiar color</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.ui" line="42"/>
+        <location filename="../src/wormnet/textschemehandler.ui" line="43"/>
         <source>Set font</source>
         <translation>Cambiar fuente</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.ui" line="53"/>
+        <location filename="../src/wormnet/textschemehandler.ui" line="74"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>

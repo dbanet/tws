@@ -1,44 +1,45 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>textschemehandlerClass</class>
- <widget class="QWidget" name="textschemehandlerClass" >
-  <property name="geometry" >
+ <widget class="QWidget" name="textschemehandlerClass">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>304</width>
     <height>300</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>textschemehandler</string>
+  <property name="windowTitle">
+   <string>Scheme helper</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_3" >
+  <layout class="QHBoxLayout" name="horizontalLayout_3">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_2" >
+    <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QListWidget" name="listWidget" />
+      <widget class="QListWidget" name="listWidget"/>
      </item>
      <item>
-      <widget class="QPushButton" name="show" >
-       <property name="text" >
+      <widget class="QPushButton" name="show">
+       <property name="text">
         <string>Show this texttype in channelwindows.</string>
        </property>
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout" >
+        <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QPushButton" name="color" >
-           <property name="text" >
+          <widget class="QPushButton" name="color">
+           <property name="text">
             <string>Set Color</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="font" >
-           <property name="text" >
+          <widget class="QPushButton" name="font">
+           <property name="text">
             <string>Set font</string>
            </property>
           </widget>
@@ -46,10 +47,30 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2" >
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QPushButton" name="close" >
-           <property name="text" >
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="close">
+           <property name="text">
             <string>Close</string>
            </property>
           </widget>
@@ -62,7 +83,7 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11" />
+ <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
 </ui>

@@ -11,7 +11,6 @@
 #include"src/wormnet/settingswindow.h"
 #include"src/wormnet/volumeslider.h"
 #include"src/wormnet/mainwindow.h"
-#include"src/wormnet/playername.h"
 #include"src/wormnet/sound_handler.h"
 #include"src/wormnet/sound_handler.h"
 #include"src/wormnet/global_functions.h"

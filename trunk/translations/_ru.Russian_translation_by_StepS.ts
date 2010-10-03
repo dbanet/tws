@@ -4,9 +4,13 @@
 <context>
     <name>CodecSelectDia</name>
     <message>
-        <location filename="../src/wormnet/codecselectdia.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Диалоговое окно</translation>
+        <translation type="obsolete">Диалоговое окно</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/codecselectdia.ui" line="14"/>
+        <source>Select a Codec</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/wormnet/codecselectdia.ui" line="22"/>
@@ -272,8 +276,8 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/wormnet/snpsettings.cpp" line="30"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
-        <translation>Если вы хотите импортировать настройки из старой версии программы, нажмите Да.
-Если вы используете The Wheat Snooper в первый раз, просто нажмите Нет.</translation>
+        <translation>Если вы хотите импортировать старые настройки, нажмите Да.
+Если вы используете Wheat Snooper в первый раз, нажмите Нет.</translation>
     </message>
 </context>
 <context>
@@ -2359,13 +2363,18 @@ for example wa.exe, to join a game.
 <context>
     <name>playername</name>
     <message>
-        <location filename="../src/wormnet/playername.cpp" line="34"/>
+        <location filename="../src/wormnet/playername.cpp" line="31"/>
         <source>This is your Playername in a game.
 This name supports more letters then the wormnet name.
 If this string is empty, worms will probably not host or join a game.</source>
         <translation>Это ваш ник в игре.
 Этот ник поддерживает больше букв, чем на каналах WormNET.
 Если это поле пустое, вы не сможете создавать/вступать в игры.</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/playername.cpp" line="35"/>
+        <source>Sry but this feature is not available on your system.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2734,7 +2743,7 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/snoppanet.cpp" line="194"/>
         <source>Wormnet wont start this game, please try again at a later time.</source>
-        <translation type="unfinished">Невозможно поместить хост на вормнет, пожалуйста, попробуйте позже.</translation>
+        <translation>Невозможно поместить хост на вормнет, пожалуйста, попробуйте позже.</translation>
     </message>
 </context>
 <context>
@@ -2771,27 +2780,31 @@ Note: A reconnect is required to apply these settings.</source>
 <context>
     <name>textschemehandlerClass</name>
     <message>
-        <location filename="../src/wormnet/textschemehandler.ui" line="13"/>
         <source>textschemehandler</source>
-        <translation>Управление текстовыми таблицами</translation>
+        <translation type="obsolete">Управление текстовыми таблицами</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.ui" line="24"/>
+        <location filename="../src/wormnet/textschemehandler.ui" line="14"/>
+        <source>Scheme helper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/textschemehandler.ui" line="25"/>
         <source>Show this texttype in channelwindows.</source>
         <translation>Использовать это оформление в окнах каналов</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.ui" line="35"/>
+        <location filename="../src/wormnet/textschemehandler.ui" line="36"/>
         <source>Set Color</source>
         <translation>Задать цвет</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.ui" line="42"/>
+        <location filename="../src/wormnet/textschemehandler.ui" line="43"/>
         <source>Set font</source>
         <translation>Задать шрифт</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.ui" line="53"/>
+        <location filename="../src/wormnet/textschemehandler.ui" line="74"/>
         <source>Close</source>
         <translation>Закрыть</translation>
     </message>

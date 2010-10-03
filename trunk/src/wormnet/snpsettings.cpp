@@ -100,11 +100,14 @@ void snpsettings::installTranslationBySystemLocale(){
         if(s.startsWith("_") && s.mid(1,2)==language){
             trans->load(s,QApplication::applicationDirPath() + "/translations/");
             qApp->installTranslator(trans);
+            singleton<snpsettings>().map["language file"]=s;
             return;
         }
     }
-    if(trans->load("_en.Standard.qm",QApplication::applicationDirPath() + "/translations/"))
+    if(trans->load("_en.Standard.qm",QApplication::applicationDirPath() + "/translations/")){
         qApp->installTranslator(trans);
+        singleton<snpsettings>().map["language file"]="_en.Standard.qm";
+    }
     return;
 }
 void snpsettings::loadDefaults(){

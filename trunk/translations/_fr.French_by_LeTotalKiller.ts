@@ -4,9 +4,13 @@
 <context>
     <name>CodecSelectDia</name>
     <message>
-        <location filename="../src/wormnet/codecselectdia.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Fenêtre</translation>
+        <translation type="obsolete">Fenêtre</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/codecselectdia.ui" line="14"/>
+        <source>Select a Codec</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/wormnet/codecselectdia.ui" line="22"/>
@@ -244,57 +248,57 @@ Si vous utilisez The Wheat Snooper pour la première fois, cliquez sur &quot;Non
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="16"/>
         <source>Hu&amp;e:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="17"/>
         <source>&amp;Sat:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="18"/>
         <source>&amp;Val:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="19"/>
         <source>&amp;Red:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rouge :</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="20"/>
         <source>&amp;Green:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver&amp;t :</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="21"/>
         <source>Bl&amp;ue:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ble&amp;u:</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="22"/>
         <source>A&amp;lpha channel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal a&amp;lpha :</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="23"/>
         <source>Select Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner une couleur</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="24"/>
         <source>&amp;Basic colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleurs de &amp;Base</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="25"/>
         <source>&amp;Custom colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleurs &amp;Personnalisées</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="26"/>
         <source>&amp;Add to Custom Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ajouter aux couleurs personnalisées</translation>
     </message>
 </context>
 <context>
@@ -302,122 +306,122 @@ Si vous utilisez The Wheat Snooper pour la première fois, cliquez sur &quot;Non
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="76"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="77"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Sauvegarder</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="78"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sauvegarder</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="79"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="80"/>
         <source>Cancel</source>
-        <translation type="unfinished">Annuler</translation>
+        <translation>Annuler</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="81"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Annuler</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="82"/>
         <source>Close</source>
-        <translation type="unfinished">Fermer</translation>
+        <translation>Fermer</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="83"/>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fermer</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="84"/>
         <source>Apply</source>
-        <translation type="unfinished">Se connecter</translation>
+        <translation>Se connecter</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="85"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Redéfinir</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="86"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Aide</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="87"/>
         <source>Don&apos;t Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne pas auvegarder</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="88"/>
         <source>Discard</source>
-        <translation type="unfinished"></translation>
+        <translation>Renoncer aux modifications</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="89"/>
         <source>&amp;Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Oui</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="90"/>
         <source>Yes to &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Oui pour &amp;tout</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="91"/>
         <source>&amp;No</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Non</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="92"/>
         <source>N&amp;o to All</source>
-        <translation type="unfinished"></translation>
+        <translation>N&amp;on pour tout</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="93"/>
         <source>Save All</source>
-        <translation type="unfinished"></translation>
+        <translation>Tout sauvegarder</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="94"/>
         <source>Abort</source>
-        <translation type="unfinished"></translation>
+        <translation>Abandonner</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="95"/>
         <source>Retry</source>
-        <translation type="unfinished"></translation>
+        <translation>Réessayer</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="96"/>
         <source>Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorer</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="97"/>
         <source>Restore Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaurer les options par défaut</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="98"/>
         <source>Close without Saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Fermer sans sauvegarder</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="99"/>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>O&amp;K</translation>
     </message>
 </context>
 <context>
@@ -425,243 +429,249 @@ Si vous utilisez The Wheat Snooper pour la première fois, cliquez sur &quot;Non
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="28"/>
         <source>All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tous les fichers (*)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="29"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Retour</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="30"/>
         <source>List View</source>
-        <translation type="unfinished"></translation>
+        <translation>Aperçu de la liste</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="31"/>
         <source>Detail View</source>
-        <translation type="unfinished"></translation>
+        <translation>Aperçu des détails</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="32"/>
         <source>File</source>
-        <translation type="unfinished">Fichier</translation>
+        <translation>Fichier</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="33"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="34"/>
         <source>Save As</source>
-        <translation type="unfinished"></translation>
+        <translation>Sauvegarder sous</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="35"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ouvrir</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="36"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sauvegarder</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="37"/>
         <source>Recent Places</source>
-        <translation type="unfinished"></translation>
+        <translation>Dossiers récents</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="38"/>
         <source>&amp;Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Renommer</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="39"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Effacer</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="40"/>
         <source>Show &amp;hidden files</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher les fichiers &amp;cachés</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="41"/>
         <source>New Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouveau dossier</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="42"/>
         <source>Find Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechercer un dossier</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="43"/>
         <source>Directories</source>
-        <translation type="unfinished"></translation>
+        <translation>Dossiers</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="44"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tous les fichiers (*.*)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="45"/>
         <source>Directory:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dossier :</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="46"/>
         <source>%1 already exists.
 Do you want to replace it?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 éxiste déjà.
+Voulez-vous le remplacer ?</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="47"/>
         <source>%1
 File not found.
 Please verify the correct file name was given.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1
+Fichier introuvable.
+Vérifiez bien que vous avez fourni le bon nom du fichier.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="48"/>
         <source>My Computer</source>
-        <translation type="unfinished"></translation>
+        <translation>Poste de travail</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="49"/>
         <source>Parent Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Dossier parent</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="50"/>
         <source>Files of type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichiers du type :</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="51"/>
         <source>%1
 Directory not found.
 Please verify the correct directory name was given.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1
+Dossier introuvable.
+Vérifiez bien que vous avez fourni le bon nom du dossier.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="52"/>
         <source>&apos;%1&apos; is write protected.
 Do you want to delete it anyway</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%1&apos; est en écriture protégée.
+Voulez-vous quand même l&apos;effacer </translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="53"/>
         <source>Are sure you want to delete &apos;%1&apos;?</source>
-        <translation type="unfinished"></translation>
+        <translation>Êtes-vous sûr(e) de vouloir effacer &apos;%1&apos; ?</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="54"/>
         <source>Could not delete directory.</source>
-        <translation type="unfinished"></translation>
+        <translation>N&apos;a pas pu effacer le dossier.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="55"/>
         <source>Drive</source>
-        <translation type="unfinished"></translation>
+        <translation>Partition de disque</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="56"/>
         <source>File Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Dossier du ficher</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="57"/>
         <source>Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Dossier</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="58"/>
         <source>Alias</source>
-        <translation type="unfinished"></translation>
+        <translation>Alias</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="59"/>
         <source>Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Raccourci</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="60"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Inconnu</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="61"/>
         <source>Show </source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="62"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Suivant</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="63"/>
         <source>&amp;New Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nouveau dossier</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="64"/>
         <source>&amp;Choose</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Choisir</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="65"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Retirer</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="66"/>
         <source>File &amp;name:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nom du fichie :</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="67"/>
         <source>Look in:</source>
-        <translation type="unfinished"></translation>
+        <translation>Regarder dans :</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="68"/>
         <source>Create New Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Créer nouveau dossier</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="69"/>
         <source>Go back</source>
-        <translation type="unfinished"></translation>
+        <translation>Retourner au précédent</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="70"/>
         <source>Go forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Aller au suivant</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="71"/>
         <source>Go to the parent directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Aller dans le dossier parent</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="72"/>
         <source>Create a New Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Créer un nouveau dossier</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="73"/>
         <source>Change to list view mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Passer à l&apos;aperçu de la liste</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="74"/>
         <source>Change to detail view mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Passer à l&apos;aperçu des détails</translation>
     </message>
 </context>
 <context>
@@ -669,47 +679,47 @@ Do you want to delete it anyway</source>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="6"/>
         <source>&amp;Font</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Police</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="7"/>
         <source>Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Effets</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="8"/>
         <source>Font st&amp;yle</source>
-        <translation type="unfinished"></translation>
+        <translation>St&amp;yle de la police</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="9"/>
         <source>&amp;Size</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Taille</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="10"/>
         <source>Stri&amp;keout</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Barrer</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="11"/>
         <source>&amp;Underline</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Souligner</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="12"/>
         <source>Sample</source>
-        <translation type="unfinished"></translation>
+        <translation>Échantillon</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="13"/>
         <source>Select Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner une police</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="14"/>
         <source>Wr&amp;iting System</source>
-        <translation type="unfinished"></translation>
+        <translation>Système d&apos;écritur&amp;e</translation>
     </message>
 </context>
 <context>
@@ -769,7 +779,9 @@ Forum du traducteur : &lt;a href=&quot;http://wormsuniver.forumactif.net/&quot;&
     <message>
         <location filename="../src/wormnet/about.cpp" line="10"/>
         <source>&lt;p&gt;Version %1&lt;br&gt;This Program was completely written by Lookias.&lt;br&gt;It was written in C++, with the eclipse ide.&lt;br&gt;The framework in use was Qt.&lt;br&gt;The license of the program is GPLv2.&lt;br&gt;The translation was made by Lookias.&lt;br&gt;&lt;br&gt;Lookias`s Homepage: &lt;a href=&quot;http://lookias.worms2d.info/&quot;&gt;http://lookias.worms2d.info&lt;/a&gt;&lt;br&gt;This programs livingplace &lt;a href=&quot;http://lookias.worms2d.info/forum/&quot;&gt;http://lookias.worms2d.info/forum/&lt;<byte value="x7"/>&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Version %1&lt;br&gt;Cette application a complètement été écrite par Lookias.&lt;br&gt;Elle a été écrite en C++, avec l&apos;IDE Eclipse.&lt;br /&gt;Le framework utilisé est Qt.&lt;br /&gt;La licence du programme est GPLv2.&lt;br /&gt;La traduction française a été faite par LeTotalKiller.&lt;br&gt;&lt;br&gt;Page de Lookias : &lt;a href=&quot;http://lookias.worms2d.info/&quot;&gt;http://lookias.worms2d.info&lt;/a&gt;&lt;br /&gt;Forum du programme &lt;a href=&quot;http://lookias.worms2d.info/forum/&quot;&gt;http://lookias.worms2d.info/forum/&lt;/a&gt;&lt;br /&gt;
+Site du traducteur : &lt;a href=&quot;http://www.worms-univers.com/&quot;&gt;http://www.worms-univers.com/&lt;/a&gt;&lt;br /&gt;
+Forum du traducteur : &lt;a href=&quot;http://wormsuniver.forumactif.net/&quot;&gt;&quot;http://wormsuniver.forumactif.net/&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -1507,7 +1519,7 @@ Vous pouvez utiliser les commandes CTCP pour des sites de clan, des plaisanterie
     <message>
         <location filename="../src/wormnet/hostbox.ui" line="239"/>
         <source>Dont start the game, just host. </source>
-        <translation type="unfinished"></translation>
+        <translation>Ne pas démarrer le jeu, héberger seulement.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.ui" line="255"/>
@@ -2287,19 +2299,26 @@ veuillez lire le fichier tutorial.pdf dans le dossier du snooper.</translation>
 you must choose a game executable,
 for example wa.exe, to join a game.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Aucun exécutable n&apos;est donné.
+Vous devez choisir un exécutable,
+par exemple wa.exe, pour rejoindre une partie.</translation>
     </message>
 </context>
 <context>
     <name>playername</name>
     <message>
-        <location filename="../src/wormnet/playername.cpp" line="34"/>
+        <location filename="../src/wormnet/playername.cpp" line="31"/>
         <source>This is your Playername in a game.
 This name supports more letters then the wormnet name.
 If this string is empty, worms will probably not host or join a game.</source>
         <translation>Ceci est votre pseudo dans une partie.
 Ce pseudo supporte plus de lettres que le pseudo WormNET.
 Si cette zone de texte est vide, Worms refusera probablement d&apos;héberger ou de rejoindre une partie.</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/playername.cpp" line="35"/>
+        <source>Sry but this feature is not available on your system.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2320,7 +2339,7 @@ Si cette zone de texte est vide, Worms refusera probablement d&apos;héberger ou
     <message>
         <location filename="../src/wormnet/settingswindow.cpp" line="119"/>
         <source>Choose a Sound (mp3 or wav) file for this event</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir un fichier son (mp3 ou wav) pour cet évènement</translation>
     </message>
 </context>
 <context>
@@ -2665,7 +2684,7 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
     <message>
         <location filename="../src/wormnet/snoppanet.cpp" line="194"/>
         <source>Wormnet wont start this game, please try again at a later time.</source>
-        <translation type="unfinished"></translation>
+        <translation>WormNET refuse le démarrage de cette partie, veuillez réesayer plus tard.</translation>
     </message>
 </context>
 <context>
@@ -2702,27 +2721,27 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
 <context>
     <name>textschemehandlerClass</name>
     <message>
-        <location filename="../src/wormnet/textschemehandler.ui" line="13"/>
-        <source>textschemehandler</source>
-        <translation></translation>
+        <location filename="../src/wormnet/textschemehandler.ui" line="14"/>
+        <source>Scheme helper</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.ui" line="24"/>
+        <location filename="../src/wormnet/textschemehandler.ui" line="25"/>
         <source>Show this texttype in channelwindows.</source>
         <translation>Afficher ce type de texte dans la fenêtre du canal.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.ui" line="35"/>
+        <location filename="../src/wormnet/textschemehandler.ui" line="36"/>
         <source>Set Color</source>
         <translation>Définir couleur</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.ui" line="42"/>
+        <location filename="../src/wormnet/textschemehandler.ui" line="43"/>
         <source>Set font</source>
         <translation>Définir police</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.ui" line="53"/>
+        <location filename="../src/wormnet/textschemehandler.ui" line="74"/>
         <source>Close</source>
         <translation>Fermer</translation>
     </message>
