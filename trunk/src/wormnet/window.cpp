@@ -535,6 +535,10 @@ void window::hostitempressed(const QModelIndex &index) {
                 if (a->text() == tr("Choose a Program to join this game.")) {
                     QStringList sl = singleton<snpsettings>().map.value("joinstrings").value<
                                      QStringList> ();
+#ifdef Q_WS_S60
+    QString file;
+    return;
+#endif
 #ifdef Q_WS_MAC
                     QString file = QFileDialog::getOpenFileName(this, tr(
                             "Choose a desktop icon."), "/home", "*.desktop");

@@ -155,10 +155,8 @@ void chathandler::anchorclicked(const QUrl &u) {
         QDesktopServices::openUrl(u1);
     }
 }
-QString globallastuser;
 void chathandler::append(const QString &user, const QString &receiver,
-                         const QString &msg) {
-    globallastuser = user;
+                         const QString &msg) {    
     QString msgtemp = msg;
     msgtemp.remove("\r");
     msgtemp.remove("\n");
@@ -263,10 +261,10 @@ void chathandler::insertText(const QString &s, QTextCharFormat &t,QString user) 
         }
     } else if (containsCI(s, net->nick)) {
         if (!t.anchorHref().startsWith("<notice>") && t.anchorHref()!= "action")
-            singleton<sound_handler>().play_highlightningsound(globallastuser,qobject_cast<QWidget*> (this->parent()));
+            singleton<sound_handler>().play_highlightningsound(user,qobject_cast<QWidget*> (this->parent()));
         cursor->insertText(s, t);
     } else if (containsOneCI(s, singleton<settingswindow>().from_map("combobox_wrapper").value<QStringList>(),&temp)) {
-        singleton<sound_handler>().play_costumwordsound(globallastuser,qobject_cast<QWidget*> (this->parent()));
+        singleton<sound_handler>().play_costumwordsound(user,qobject_cast<QWidget*> (this->parent()));
         singleton<balloon_handler>().got_costum_word(temp,user);
         cursor->insertText(s, t);
     } else

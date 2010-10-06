@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
                           + QDir::separator() + "snppictures" + QDir::separator()
                           + "tray.png"));
     QString sep = QDir::separator();
-    QDir dir(QApplication::applicationDirPath() + "/snppictures/flags");
+    QDir dir("snppictures/flags");
     if (!dir.exists())
         qDebug() << "the flags in snppictures/flags are missing!";
     foreach(QString f,dir.entryList(QStringList()<<"*.png",QDir::Files,QDir::Name)) {

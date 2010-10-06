@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/wormnet/codecselectdia.ui" line="14"/>
         <source>Select a Codec</source>
-        <translation type="unfinished"></translation>
+        <translation>Wähle einen Codec</translation>
     </message>
     <message>
         <location filename="../src/wormnet/codecselectdia.ui" line="22"/>
@@ -229,16 +229,31 @@ For hebreic and arabic for example.</source>
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="29"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="30"/>
         <source>Question</source>
         <translation>Frage</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="30"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="31"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
         <translation>Der Snooper kann die Einstellungen von einer alten version übernehmen. Wenn du das möchtest klicke Yes.
 Wenn du das erste mal den Wheat Snooper benutzt das klicke auf No.</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/snpsettings.cpp" line="37"/>
+        <source>Please choose the folder from the old Snooper.</source>
+        <translation>Bitte wähle das Verzeichnis wo der alte Wheat Snooper zu finden ist.</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/snpsettings.cpp" line="44"/>
+        <source>Warning!</source>
+        <translation>Warnung!</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/snpsettings.cpp" line="44"/>
+        <source>This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?</source>
+        <translation>Dieses Verszeichnis enthält keine korrekte Installation des Wheat Snoopers. Willst du weitere Orte durchsuchen?</translation>
     </message>
 </context>
 <context>
@@ -755,6 +770,28 @@ Spiele erstellen kannst du indem du einen Kanal in der Spieleanzeige doppelklick
         <source>There is no textscheme file available.</source>
         <translation>Es gibt keine Textscheme dateien.</translation>
     </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.cpp" line="123"/>
+        <source>Warning</source>
+        <translation>Warnung</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.cpp" line="123"/>
+        <source>Cant read the Skinfile:
+Skin_Base</source>
+        <translation>Kann die Skin-Datei nich lesen:
+Skin_base</translation>
+    </message>
+    <message>
+        <source>Question</source>
+        <translation type="obsolete">Frage</translation>
+    </message>
+    <message>
+        <source>There is a problem with your settings file it appeares to be broken or it has an old format.
+Is it true that you have just updated to a new version?</source>
+        <translation type="obsolete">Es gibt ein Problem mit den Einstellungen, die entsprechende Datei scheint kaputt zu sein oder hat ein altes Format.
+Stimmt es, dass The Wheat Snooper gerade neu installiert wurde?</translation>
+    </message>
 </context>
 <context>
     <name>about</name>
@@ -1011,11 +1048,11 @@ Spiele erstellen kannst du indem du einen Kanal in der Spieleanzeige doppelklick
         <location filename="../src/wormnet/chathandler.cpp" line="77"/>
         <location filename="../src/wormnet/chathandler.cpp" line="82"/>
         <location filename="../src/wormnet/chathandler.cpp" line="84"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="312"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="357"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="381"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="400"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="419"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="310"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="355"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="379"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="398"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="417"/>
         <source>Set the font for this texttype</source>
         <translation>Setze die Schrift dieser Textart.</translation>
     </message>
@@ -1026,11 +1063,11 @@ Spiele erstellen kannst du indem du einen Kanal in der Spieleanzeige doppelklick
         <location filename="../src/wormnet/chathandler.cpp" line="78"/>
         <location filename="../src/wormnet/chathandler.cpp" line="83"/>
         <location filename="../src/wormnet/chathandler.cpp" line="85"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="318"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="364"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="388"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="407"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="426"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="316"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="362"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="386"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="405"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="424"/>
         <source>Set the color for this texttype</source>
         <translation>Setze die Farbe dieser Textart.</translation>
     </message>
@@ -1048,29 +1085,29 @@ Spiele erstellen kannst du indem du einen Kanal in der Spieleanzeige doppelklick
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="75"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="369"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="367"/>
         <source>Show game info.</source>
         <translation>Zeige Spiel informationen.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chathandler.cpp" line="217"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="220"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="215"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="218"/>
         <source>Notice from</source>
         <translation>Notiz von</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chathandler.cpp" line="217"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="220"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="215"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="218"/>
         <source>to</source>
         <translation>zu</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chathandler.cpp" line="371"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="369"/>
         <source>Info about this gamelink.</source>
         <translation>Zeige Infos über diesen Spielverweis.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chathandler.cpp" line="259"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="257"/>
         <source>GAMELINK</source>
         <translation>Spiel Verweis</translation>
     </message>
@@ -1476,13 +1513,13 @@ CTCP kannst du für Clanseiten-Links, Witze, Bilder-Links, QFileUpload-Links und
         <translation type="obsolete">([A-Z]|[a-z]| |[0-9]|\\-|`|!|\\$|%|\\(|\\)|\\*|,|\\-|\\.|/|:|;|=|\\?|\\@|\\[|\\]|\\^|_|\\{|\\|\\}|\\~|£|À|Á|Â|Ã|Ä|Å|Æ|Ç|È|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|Ö|×|Ø|Ù|Ú|Û|Ü|Ý|Þ|Ÿ|ß|à|á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|ð|ñ|ò|ó|ô|õ|ö|÷|ø|ù|ú|û|ü|ý|þ|ÿ|¿|¡){30}</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="61"/>
         <location filename="../src/wormnet/hostbox.cpp" line="65"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="69"/>
         <source>Choose a desktop icon.</source>
         <translation>Waehle dieses Desktop Icon.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostbox.cpp" line="69"/>
+        <location filename="../src/wormnet/hostbox.cpp" line="73"/>
         <source>Choose a Program.</source>
         <translation>Wähle ein Program.</translation>
     </message>
@@ -1599,14 +1636,14 @@ bis das Spiel im Wormnet erscheint.</translation>
         <translation>Starte ein privates Spiel.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostprvbox.cpp" line="31"/>
         <location filename="../src/wormnet/hostprvbox.cpp" line="35"/>
         <location filename="../src/wormnet/hostprvbox.cpp" line="39"/>
+        <location filename="../src/wormnet/hostprvbox.cpp" line="43"/>
         <source>Choose a desktop icon.</source>
         <translation>Wähle einen Desktop Icon.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/hostprvbox.cpp" line="96"/>
+        <location filename="../src/wormnet/hostprvbox.cpp" line="100"/>
         <source>A description about the channel schemes.</source>
         <translation>Eine beschreibung der Channel-schemes.</translation>
     </message>
@@ -1731,30 +1768,30 @@ p, li { white-space: pre-wrap; }
         <translation>Chatte mit</translation>
     </message>
     <message>
-        <location filename="../src/irc/irc_chatwindow.cpp" line="96"/>
-        <location filename="../src/irc/irc_chatwindow.cpp" line="142"/>
-        <location filename="../src/irc/irc_chatwindow.cpp" line="284"/>
+        <location filename="../src/irc/irc_chatwindow.cpp" line="90"/>
+        <location filename="../src/irc/irc_chatwindow.cpp" line="136"/>
+        <location filename="../src/irc/irc_chatwindow.cpp" line="278"/>
         <source>Online</source>
         <translation>Online</translation>
     </message>
     <message>
-        <location filename="../src/irc/irc_chatwindow.cpp" line="100"/>
-        <location filename="../src/irc/irc_chatwindow.cpp" line="141"/>
+        <location filename="../src/irc/irc_chatwindow.cpp" line="94"/>
+        <location filename="../src/irc/irc_chatwindow.cpp" line="135"/>
         <source>Was offline when this window opened.</source>
         <translation>Dieser Teilnehmer war offline als dieses Fenster geöffnet wurde.</translation>
     </message>
     <message>
-        <location filename="../src/irc/irc_chatwindow.cpp" line="252"/>
+        <location filename="../src/irc/irc_chatwindow.cpp" line="246"/>
         <source>Choose a file.</source>
         <translation>Wähle eine Datei</translation>
     </message>
     <message>
-        <location filename="../src/irc/irc_chatwindow.cpp" line="267"/>
+        <location filename="../src/irc/irc_chatwindow.cpp" line="261"/>
         <source>&lt;This users idle time: %1&gt;</source>
         <translation>&lt;Die Zet die dieser Benutzer jetzt untätig ist: %1&gt;</translation>
     </message>
     <message>
-        <location filename="../src/irc/irc_chatwindow.cpp" line="273"/>
+        <location filename="../src/irc/irc_chatwindow.cpp" line="267"/>
         <source>This user is currently offline</source>
         <translation>Dieser Benutzer ist zur Zeit Offline.</translation>
     </message>
@@ -1828,13 +1865,13 @@ If your nick got faked... bl :)</source>
         <translation type="obsolete">Trete diesem spiel bei mit:</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/joinprvgame.cpp" line="21"/>
         <location filename="../src/wormnet/joinprvgame.cpp" line="25"/>
+        <location filename="../src/wormnet/joinprvgame.cpp" line="29"/>
         <source>Choose a desktop icon.</source>
         <translation>Wähle einen Desktop Icon.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/joinprvgame.cpp" line="29"/>
+        <location filename="../src/wormnet/joinprvgame.cpp" line="33"/>
         <source>Choose a Program.</source>
         <translation>Wähle ein Program.</translation>
     </message>
@@ -1921,10 +1958,9 @@ If your nick got faked... bl :)</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="123"/>
         <source>Cant read the Skinfile:
 Skin_Base</source>
-        <translation>Kann die Skin-Datei nich lesen:
+        <translation type="obsolete">Kann die Skin-Datei nich lesen:
 Skin_base</translation>
     </message>
     <message>
@@ -2128,7 +2164,6 @@ Skin_Base.qss</source>
         <translation type="obsolete">Um dieses Fenster zu zeigen oder zu verstecken kannst du das Trayicon linksklicken. Ein rechtsklick zum Tray wird einige Menus öffnen. Benutze diese Menus um Channles beizutreten, oder um den Skin vom Snooper zu ändern. Unter Stuff wirst du einige nützliche menupunkte wie zB Settings usw. finden.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="123"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="317"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="681"/>
         <source>Warning</source>
@@ -2382,7 +2417,7 @@ Dieser Name sollte nie leer sein.</translation>
     <message>
         <location filename="../src/wormnet/playername.cpp" line="35"/>
         <source>Sry but this feature is not available on your system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Feature ist auf deinem System leider nicht verfügbar</translation>
     </message>
 </context>
 <context>
@@ -2737,25 +2772,38 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
     <message>
         <location filename="../src/wormnet/snoppanet.cpp" line="194"/>
         <source>Wormnet wont start this game, please try again at a later time.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wormnet wird dieses Spiel nicht anzeigen, versuche es später noch einmal.</translation>
     </message>
 </context>
 <context>
     <name>snpsettings</name>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="36"/>
         <source>Please choose the folder from the old Snooper.</source>
-        <translation>Bitte wähle das Verzeichnis wo der alte Wheat Snooper zu finden ist.</translation>
+        <translation type="obsolete">Bitte wähle das Verzeichnis wo der alte Wheat Snooper zu finden ist.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="42"/>
         <source>Warning!</source>
-        <translation>Warnung!</translation>
+        <translation type="obsolete">Warnung!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="42"/>
         <source>This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?</source>
-        <translation>Dieses Verszeichnis enthält keine korrekte Installation des Wheat Snoopers. Willst du weitere Orte durchsuchen?</translation>
+        <translation type="obsolete">Dieses Verszeichnis enthält keine korrekte Installation des Wheat Snoopers. Willst du weitere Orte durchsuchen?</translation>
+    </message>
+    <message>
+        <source>Question</source>
+        <translation type="obsolete">Frage</translation>
+    </message>
+    <message>
+        <source>There is a problem with your settings file it appeares to be broken or it has an old format.
+Is it true that you have just updated to a new version?</source>
+        <translation type="obsolete">Es gibt ein Problem mit den Einstellungen, die entsprechende Datei scheint kaputt zu sein oder hat ein altes Format.
+Stimmt es, dass The Wheat Snooper gerade neu installiert wurde?</translation>
+    </message>
+    <message>
+        <source>There is a problem with your settings file it appeares to be broken or it has an old format.
+Is it true that this is a new installation of The Wheat Snooper?</source>
+        <translation type="obsolete">Es gibt ein Problem mit den Einstellungen, die entsprechende Datei scheint kaputt zu sein oder hat ein altes Format.
+Stimmt es, dass The Wheat Snooper gerade neu installiert wurde?</translation>
     </message>
 </context>
 <context>
@@ -2776,7 +2824,7 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
     <message>
         <location filename="../src/wormnet/textschemehandler.ui" line="14"/>
         <source>Scheme helper</source>
-        <translation type="unfinished"></translation>
+        <translation>Schema Helfer</translation>
     </message>
     <message>
         <location filename="../src/wormnet/textschemehandler.ui" line="25"/>
@@ -2802,19 +2850,12 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
 <context>
     <name>uploadedfileatomicClass</name>
     <message>
-        <location filename="../src/wormnet/uploadedfileatomic.ui" line="25"/>
-        <source>uploadedfileatomic</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/uploadedfileatomic.ui" line="60"/>
         <source>Copy this link to clipboard.</source>
-        <translation>Kopiere Link in die Zwischenablage.</translation>
+        <translation type="obsolete">Kopiere Link in die Zwischenablage.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/uploadedfileatomic.ui" line="73"/>
         <source>Delete this link.</source>
-        <translation>Lösche diesen Link.</translation>
+        <translation type="obsolete">Lösche diesen Link.</translation>
     </message>
 </context>
 <context>
@@ -2848,8 +2889,8 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
         <translation type="obsolete">Programmname</translation>
     </message>
     <message>
-        <location filename="../src/irc/irc_usermodel.cpp" line="104"/>
-        <location filename="../src/irc/irc_usermodel.cpp" line="265"/>
+        <location filename="../src/irc/irc_usermodel.cpp" line="96"/>
+        <location filename="../src/irc/irc_usermodel.cpp" line="257"/>
         <location filename="../src/irc/irc_window.cpp" line="111"/>
         <location filename="../src/irc/irc_window.cpp" line="175"/>
         <location filename="../src/irc/irc_window.cpp" line="356"/>
@@ -2866,8 +2907,8 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
         <translation>Liste der Freunde</translation>
     </message>
     <message>
-        <location filename="../src/irc/irc_usermodel.cpp" line="105"/>
-        <location filename="../src/irc/irc_usermodel.cpp" line="228"/>
+        <location filename="../src/irc/irc_usermodel.cpp" line="97"/>
+        <location filename="../src/irc/irc_usermodel.cpp" line="220"/>
         <location filename="../src/irc/irc_window.cpp" line="109"/>
         <location filename="../src/irc/irc_window.cpp" line="318"/>
         <location filename="../src/irc/irc_window.cpp" line="342"/>
@@ -2893,13 +2934,13 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
         <translation>Liste der Ignorierten</translation>
     </message>
     <message>
-        <location filename="../src/irc/irc_usermodel.cpp" line="75"/>
+        <location filename="../src/irc/irc_usermodel.cpp" line="67"/>
         <location filename="../src/wormnet/usermodel.cpp" line="91"/>
         <source> connected to wormnet.</source>
         <translation> ist beigetreten. </translation>
     </message>
     <message>
-        <location filename="../src/irc/irc_usermodel.cpp" line="82"/>
+        <location filename="../src/irc/irc_usermodel.cpp" line="74"/>
         <location filename="../src/wormnet/usermodel.cpp" line="98"/>
         <source> left wormnet.</source>
         <translation> ist gegangen. </translation>
@@ -2936,8 +2977,8 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="535"/>
-        <location filename="../src/wormnet/window.cpp" line="556"/>
-        <location filename="../src/wormnet/window.cpp" line="638"/>
+        <location filename="../src/wormnet/window.cpp" line="560"/>
+        <location filename="../src/wormnet/window.cpp" line="642"/>
         <source>Choose a Program to join this game.</source>
         <translation>Wähle ein Program um diesem Spiel beizutreten.</translation>
     </message>
@@ -3038,17 +3079,17 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
         <translation>Entferne diesen Tilnehmer von der Ignorierten Liste.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="539"/>
+        <location filename="../src/wormnet/window.cpp" line="543"/>
         <source>Choose a desktop icon.</source>
         <translation>Wähle ein Desktop Icon</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="543"/>
+        <location filename="../src/wormnet/window.cpp" line="547"/>
         <source>Choose a Program.</source>
         <translation>Wähle ein Program.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="546"/>
+        <location filename="../src/wormnet/window.cpp" line="550"/>
         <source>Choose a Desktopicon.</source>
         <translation>Wähle einen Desktop Icon.</translation>
     </message>
@@ -3059,7 +3100,7 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
     </message>
     <message>
         <location filename="../src/irc/irc_window.cpp" line="496"/>
-        <location filename="../src/wormnet/window.cpp" line="662"/>
+        <location filename="../src/wormnet/window.cpp" line="666"/>
         <source>Users online</source>
         <translation> Benutzer online </translation>
     </message>

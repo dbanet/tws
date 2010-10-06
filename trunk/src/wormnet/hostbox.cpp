@@ -57,6 +57,10 @@ bool hostbox::eventFilter(QObject *obj, QEvent *event){
 void hostbox::showEvent(QShowEvent * /*event*/) {
 }
 void hostbox::addclicked() {
+#ifdef Q_WS_S60
+    QString file;
+    return;
+#endif
 #ifdef Q_WS_MAC
     QString file = QFileDialog::getOpenFileName(this, tr(
             "Choose a desktop icon."), "/home", "*.desktop");

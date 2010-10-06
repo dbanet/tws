@@ -17,6 +17,10 @@ joinprvgame::joinprvgame(const QString &a,const QString &b)
     connect(ui.cancel, SIGNAL(clicked()),this, SLOT(cancelclicked()));
 }
 void joinprvgame::addclicked() {
+#ifdef Q_WS_S60
+    QString file;
+    return;
+#endif
 #ifdef Q_WS_MAC
     QString file = QFileDialog::getOpenFileName(this, tr(
             "Choose a desktop icon."), "/home", "*.desktop");

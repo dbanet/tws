@@ -37,18 +37,12 @@ irc_chatwindow::irc_chatwindow(irc_netcoupler *n, const QString &s, QWidget *par
     this->setWindowTitle(tr("Chat with") + " " + s);
 
     if (containsCI(singleton<snpsettings>().map["buddylist"].value<QStringList> (), chatpartner))
-        this->setWindowIcon(QIcon(QApplication::applicationDirPath()
-                                  + QDir::separator() + "snppictures" + QDir::separator()
-                                  + "buddyicon.png"));
+        this->setWindowIcon(QIcon("snppictures/buddyicon.png"));
     else if (containsCI(singleton<snpsettings>().map["ignorelist"].value<QStringList> (),
 			chatpartner))
-        this->setWindowIcon(QIcon(QApplication::applicationDirPath()
-                                  + QDir::separator() + "snppictures" + QDir::separator()
-                                  + "ignoreicon.png"));
+        this->setWindowIcon(QIcon("snppictures/ignoreicon.png"));
     else
-        this->setWindowIcon(QIcon(QApplication::applicationDirPath()
-                                  + QDir::separator() + "snppictures" + QDir::separator()
-                                  + "usericon.png"));
+        this->setWindowIcon(QIcon("snppictures/usericon.png"));
 
     connect(ui.send, SIGNAL(clicked()),ui.lineEdit, SIGNAL(returnPressed()));
     connect(ui.lineEdit, SIGNAL(returnPressed()),this, SLOT(sendmsg()));

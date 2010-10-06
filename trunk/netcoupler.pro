@@ -50,7 +50,6 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/snpsettings.h \
     src/wormnet/textschemehandler.h \
     src/wormnet/uihelper.h \
-    src/wormnet/uploadedfileatomic.h \
     src/wormnet/usermodel.h \
     src/wormnet/userstruct.h \
     src/wormnet/volumeslider.h \
@@ -89,7 +88,6 @@ FORMS += src/wormnet/about.ui \
     src/wormnet/playername.ui \
     src/wormnet/settingswindow.ui \
     src/wormnet/textschemehandler.ui \
-    src/wormnet/uploadedfileatomic.ui \
     src/wormnet/volumeslider.ui \
     src/wormnet/window.ui \
     src/wormnet/window2.ui \
@@ -132,7 +130,6 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/snpsettings.cpp \
     src/wormnet/textschemehandler.cpp \
     src/wormnet/uihelper.cpp \
-    src/wormnet/uploadedfileatomic.cpp \
     src/wormnet/usermodel.cpp \
     src/wormnet/userstruct.cpp \
     src/wormnet/volumeslider.cpp \

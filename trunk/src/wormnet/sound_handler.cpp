@@ -180,10 +180,10 @@ void sound_handler::play_costumwordsound(const QString user, QWidget *w){
     QApplication::alert(w);
 }
 void sound_handler::verify_if_played(const QString user) throw(dont_play_sound_exception){
-    if(singleton<settingswindow>().from_map("cbdontplaysound").toBool())
-        throw dont_play_sound_exception();
-    if(user==QString())
+    if(user.isEmpty())
         return;
+    if(singleton<settingswindow>().from_map("cbdontplaysound").toBool())
+        throw dont_play_sound_exception();    
     if (net->mutedusers.contains(user, Qt::CaseInsensitive))
         throw dont_play_sound_exception();
 }

@@ -120,7 +120,7 @@ mainwindow::mainwindow(QWidget *parent) :
 void mainwindow::get_baseStyleSheet(){
     QFile f(QApplication::applicationDirPath() + "/qss/Skin_Base");
     if(!f.open(QFile::ReadOnly))
-        QMessageBox::warning(0,qApp->tr("Warning"),qApp->tr("Cant read the Skinfile:\nSkin_Base"));
+        QMessageBox::warning(0,QObject::tr("Warning"),QObject::tr("Cant read the Skinfile:\nSkin_Base"));
     baseStyleSheet = QLatin1String(f.readAll());
 }
 void mainwindow::chooseclicked() {

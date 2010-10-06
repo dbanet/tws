@@ -20,30 +20,22 @@ irc_usermodel::irc_usermodel(irc_netcoupler *net) :
     sortorder = Qt::AscendingOrder;
     sortsection = 0;
 
-    if (!channelicon.load(QApplication::applicationDirPath()
-        + "/snppictures/channelicon.png"))
-        qDebug() << "/snppictures/channelicon.png is missing.";
-    if (!usericon.load(QApplication::applicationDirPath()
-        + "/snppictures/usericon.png"))
-        qDebug() << "/snppictures/usericon.png is missing.";
-    if (!buddyicon.load(QApplication::applicationDirPath()
-        + "/snppictures/buddyicon.png"))
-        qDebug() << "/snppictures/buddyicon.png is missing.";
-    if (!ignoreicon.load(QApplication::applicationDirPath()
-        + "/snppictures/ignoreicon.png"))
-        qDebug() << "/snppictures/ignoreicon.png is missing.";
-    if (!offlineicon.load(QApplication::applicationDirPath()
-        + "/snppictures/offlineicon.png"))
-        qDebug() << "/snppictures/offlineicon.png is missing.";
-    if (!awayusericon.load(QApplication::applicationDirPath()
-        + "/snppictures/awayusericon.png"))
-        qDebug() << "/snppictures/awayusericon.png is missing.";
-    if (!awaybuddyicon.load(QApplication::applicationDirPath()
-        + "/snppictures/awaybuddyicon.png"))
-        qDebug() << "/snppictures/awaybuddyicon.png is missing.";
-    if (!awayignoreicon.load(QApplication::applicationDirPath()
-        + "/snppictures/awayignoreicon.png"))
-        qDebug() << "/snppictures/awayignoreicon.png is missing.";
+    if (!channelicon.load("snppictures/channelicon.png"))
+        qDebug() << "snppictures/channelicon.png is missing.";
+    if (!usericon.load("snppictures/usericon.png"))
+        qDebug() << "snppictures/usericon.png is missing.";
+    if (!buddyicon.load("snppictures/buddyicon.png"))
+        qDebug() << "snppictures/buddyicon.png is missing.";
+    if (!ignoreicon.load("snppictures/ignoreicon.png"))
+        qDebug() << "snppictures/ignoreicon.png is missing.";
+    if (!offlineicon.load("snppictures/offlineicon.png"))
+        qDebug() << "snppictures/offlineicon.png is missing.";
+    if (!awayusericon.load("snppictures/awayusericon.png"))
+        qDebug() << "snppictures/awayusericon.png is missing.";
+    if (!awaybuddyicon.load("snppictures/awaybuddyicon.png"))
+        qDebug() << "snppictures/awaybuddyicon.png is missing.";
+    if (!awayignoreicon.load("snppictures/awayignoreicon.png"))
+        qDebug() << "snppictures/awayignoreicon.png is missing.";
     currentselectedchannel = -1;
     usesettingswindow();
     //connect(irc_net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow())); ********in netcoupler
