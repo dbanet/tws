@@ -2,7 +2,7 @@
     $wheatFile=file("wheat/DownloadLocation.txt");     
     $pwaolFile="pwaol/Play%20Worms%20Armageddon%20on%20linux.7z"; 
     $fxFile="ProSnooperFx/ProSnooperFx.rar"; 
-    if(isset($_POST['downloadWheat']))    {        
+    if(isset($_POST['downloadWheat']) && file_exists('wheat/'.trim($wheatFile[0])))    {                
         header('Content-disposition: attachment; filename=TheWheatSnooperwin32.exe'); 
         header("Content-Transfer-Encoding: binary"); 
         header('Content-type: application/exe'); 
@@ -85,6 +85,15 @@
     </head> 
  
     <body>            
+    <?php
+        if(!file_exists('wheat/'.trim($wheatFile[0])) && isset($_POST['downloadWheat'])):
+    ?>
+        <script type="text/javascript">
+            confirm("The file is currently not available. Please try again at a later time.");
+        </script>
+    <?php
+        endif;
+    ?>
         <form action="download.php" method="post" name="downloadForm">     
             <table class="downloadTable"> 
                 <tr>                  
