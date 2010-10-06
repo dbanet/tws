@@ -51,23 +51,23 @@
 <html> 
     <head> 
         <meta name="generator" content="HTML Tidy for Windows (vers 14 February 2006), see www.w3.org"> 
- 
+
         <title>Download</title>  
- 
+
         <link rel="shortcut icon" href="icon/pwaolIcon.png"/> 
         <style type="text/css"> 
-        table{ 
-            width:400px; 
-        } 
+            table{ 
+                width:400px; 
+            } 
             table td { 
                 border:2px; 
                 border-style: ridge; 
                 border-width: 3px; 
                 border-style: outset; 
-                border-color: black; 
+                border-color: Aquamarine ; 
                 text-align: center; 
                 padding: 5px; 
-                background-color: silver;  
+                background-color: white;  
             } 
             body{                
                 text-align:center; 
@@ -76,31 +76,35 @@
                 margin-top :50px; 
                 padding:15px; 
                 border:1px dashed #333; 
-                background-color:#eee; 
+                background-color:white; 
             }                    
             .footNode{
                 font-size: 11;
             }
+            body {
+                background-image: url(back.jpg);
+                background-repeat: repeat-x;
+            }
         </style> 
     </head> 
- 
+
     <body>            
-    <?php
-        if(!file_exists('wheat/'.trim($wheatFile[0])) && isset($_POST['downloadWheat'])):
-    ?>
-        <script type="text/javascript">
-            confirm("The file is currently not available. Please try again at a later time.");
-        </script>
-    <?php
-        endif;
-    ?>
+        <?php
+            if(!file_exists('wheat/'.trim($wheatFile[0])) && isset($_POST['downloadWheat'])):
+            ?>
+            <script type="text/javascript">
+                confirm("The file is currently not available. Please try again at a later time.");
+            </script>
+            <?php
+                endif;
+        ?>
         <form action="download.php" method="post" name="downloadForm">     
             <table class="downloadTable"> 
                 <tr>                  
                     <td><img src="icon/wheatIcon.png" alt="Icon"></td> 
                     <td> 
                         The Wheat Snooper <br/>Version <?php echo $wheatFile[1]?><br/> 
-                        <input value="Download" type="submit" name="downloadWheat"> </td> 
+                    <input value="Download" type="submit" name="downloadWheat"> </td> 
                     <td> 
                         <label >Downloads:</label> 
                         <label><?php echo $counter[0]?></label> 
@@ -128,10 +132,10 @@
                 </tr> 
             </table> 
             <div class="footNode">
-            The programs are written by Lookias. 
-            All programs here, but ProSnooperFx, are licensed with the <a href="http://en.wikipedia.org/wiki/GNU_General_Public_License">GPL</a> version 2. 
-            There is also a <a href="http://lookias.worms2d.info/forum/">forum</a> dedicated to these programs, 
-            you can get a support there and post your own wishes and ideas.</div>
+                The programs are written by Lookias. 
+                All programs here, but ProSnooperFx, are licensed with the <a href="http://en.wikipedia.org/wiki/GNU_General_Public_License">GPL</a> version 2. 
+                There is also a <a href="http://lookias.worms2d.info/forum/">forum</a> dedicated to these programs, 
+                you can get a support there and post your own wishes and ideas.</div>
         </form>    
     </body>      
 </html> 
