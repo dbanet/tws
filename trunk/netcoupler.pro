@@ -4,11 +4,9 @@ QT += gui \
     network \
     svg \
     phonon
-DEPENDPATH += . \
-    qfileupload \
+DEPENDPATH += . \    
     translations
 INCLUDEPATH += . \
-    qfileupload
 MOC_DIR = .moc
 UI_DIR = .ui
 OBJECTS_DIR = .lib
