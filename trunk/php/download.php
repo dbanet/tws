@@ -1,21 +1,40 @@
-<?php                        
+<?php         
+    require_once('config.php');          
+    require_once('verifyDublicatedAccess.php');
+    $ipaddress = getenv ("REMOTE_ADDR");
     $wheatFile=file("wheat/DownloadLocation.txt");     
     $pwaolFile="pwaol/Play%20Worms%20Armageddon%20on%20linux.7z"; 
     $fxFile="ProSnooperFx/ProSnooperFx.rar"; 
-    if(isset($_POST['downloadWheat']) && file_exists('wheat/'.trim($wheatFile[0])))    {                
+    
+    mysql_query(' delete from downloads_ip_date where date < '.time().' - 24 * 60 * 60;');
+    $counter=file("downloadCounter.txt"); 
+    for($i=0;$i<=2;$i++){ 
+        $counter[$i]=trim($counter[$i]);        
+    }                
+    if(isset($_POST['downloadWheat']) && file_exists('wheat/'.trim($wheatFile[0])))    {                                                
         header('Content-disposition: attachment; filename=TheWheatSnooperwin32.exe'); 
         header("Content-Transfer-Encoding: binary"); 
         header('Content-type: application/exe'); 
-        $s='wheat/'.trim($wheatFile[0]);
-        header("Content-Length: ".filesize($s)); 
-        readfile($s);    
+        $s='wheat/'.trim($wheatFile[0]);        
+        header("Content-Length: ".filesize($s));                 
+        readfile($s);                
+        if(!verifyDublicatedAccess("wheat")){
+            $counter[0]++;        
+            $save=true;
+            mysql_query('INSERT INTO downloads_ip_date ( ip, date, program ) VALUES ( "'.$ipaddress.'", "'.time().'", "wheat");');                   
+        }
     } 
     if(isset($_POST['downloadPwaol']))    { 
         header('Content-disposition: attachment; filename='.$pwaolFile); 
         header("Content-Transfer-Encoding: binary"); 
         header('Content-type: application/exe'); 
         header("Content-Length: ".filesize($pwaolFile)); 
-        readfile($pwaolFile);    
+        readfile($pwaolFile);  
+        if(!verifyDublicatedAccess("pwaol")){
+            $counter[1]++;        
+            $save=true;
+            mysql_query('INSERT INTO downloads_ip_date ( ip, date, program ) VALUES ( "'.$ipaddress.'", "'.time().'", "pwaol");');                   
+        }  
     } 
     if(isset($_POST['downloadFx']))    { 
         header('Content-disposition: attachment; filename='.$fxFile); 
@@ -23,24 +42,12 @@
         header('Content-type: application/exe'); 
         header("Content-Length: ".filesize($fxFile)); 
         readfile($fxFile);    
+        if(!verifyDublicatedAccess("fx")){
+            $counter[2]++;        
+            $save=true;
+            mysql_query('INSERT INTO downloads_ip_date ( ip, date, program ) VALUES ( "'.$ipaddress.'", "'.time().'", "fx");');                   
+        }
     } 
-    $counter=file("downloadCounter.txt"); 
-    for($i=0;$i<=2;$i++){ 
-        $counter[$i]=trim($counter[$i]);        
-    }        
-    $save=false; 
-    if(isset($_POST['downloadWheat']))    {        
-        $counter[0]++;        
-        $save=true;        
-    } 
-    if(isset($_POST['downloadPwaol']))    {        
-        $counter[1]++; 
-        $save=true;        
-    }          
-    if(isset($_POST['downloadFx']))    {        
-        $counter[2]++; 
-        $save=true;        
-    }            
     if($save){ 
         $file=fopen("downloadCounter.txt","w+"); 
         fputs($file,($counter[0]."\n".$counter[1]."\n".$counter[2])); 
@@ -88,9 +95,10 @@
         </style> 
     </head> 
 
-    <body>            
+    <body>                        
+        <?php echo "Your IP is: $ipaddress";?>
         <?php
-            if(!file_exists('wheat/'.trim($wheatFile[0])) && isset($_POST['downloadWheat'])):
+            if(!file_exists('wheat/'.trim($wheatFile[0])) && isset($_POST['downloadWheat'])):            
             ?>
             <script type="text/javascript">
                 confirm("The file is currently not available. Please try again at a later time.");
