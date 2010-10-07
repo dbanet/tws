@@ -1,4 +1,5 @@
 <?php
+    mkdir('officialDownload');
     if(!file_exists("DownloadLocation.txt")){
         touch("DownloadLocation.txt");
         $file = fopen('DownloadLocation.txt','w+');

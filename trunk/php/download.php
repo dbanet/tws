@@ -95,8 +95,7 @@
         </style> 
     </head> 
 
-    <body>                        
-        <?php echo "Your IP is: $ipaddress";?>
+    <body>                                
         <?php
             if(!file_exists('wheat/'.trim($wheatFile[0])) && isset($_POST['downloadWheat'])):            
             ?>
