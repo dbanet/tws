@@ -2,7 +2,6 @@
 #include"netcoupler.h"
 #include"snpsettings.h"
 #include"settingswindow.h"
-#include<QDebug>
 #include<QPointer>
 extern QPointer<netcoupler> net;;
 buttonlayout::buttonlayout(QWidget *parent) :

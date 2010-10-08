@@ -5,7 +5,6 @@
 #include<QTime>
 #include<QSystemTrayIcon>
 #include<QDir>
-#include<QDebug>
 balloon_handler::balloon_handler()
 {
     tray=new QSystemTrayIcon;
@@ -14,7 +13,7 @@ balloon_handler::balloon_handler()
     tray->setObjectName("normalwidget");
     tray->show();
     balloonhelper << QTime::currentTime().toString("hh:mm") + ":"
-            + tr("The Wheat Snooper version ")+about::version+tr(" started!");
+            + QObject::tr("The Wheat Snooper version ")+about::version+QObject::tr(" started!");
     if(!singleton<settingswindow>().from_map("cbdontshowballoons").toBool())
         tray->showMessage(tr("Notifications."), balloonhelper.join("\n"));
 }

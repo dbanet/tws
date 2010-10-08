@@ -2,7 +2,6 @@
 #include "snpsettings.h"
 #include"netcoupler.h"
 #include<QPointer>
-#include<QDebug>
 extern QPointer<netcoupler> net;
 bool awaybox::ison=0;
 awaybox::awaybox(QWidget *parent) :

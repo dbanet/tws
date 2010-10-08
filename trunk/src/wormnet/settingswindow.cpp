@@ -7,7 +7,6 @@
 #include<QDir>
 #include<QSpinBox>
 #include<QFileDialog>
-#include<QDebug>
 #include<QPointer>
 #include<stdexcept>
 extern QPointer<netcoupler> net;

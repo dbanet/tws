@@ -2,7 +2,6 @@
 #include "snpsettings.h"
 #include"netcoupler.h"
 #include <QFileDialog>
-#include<QDebug>
 #include<QPointer>
 #include"global_functions.h"
 extern QPointer<netcoupler> net;

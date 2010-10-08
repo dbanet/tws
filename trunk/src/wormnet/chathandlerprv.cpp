@@ -9,7 +9,6 @@
 #include<QTextBrowser>
 #include <QTextDocument>
 #include<QTime>
-#include<QDebug>
 #include<QColorDialog>
 #include<QScrollBar>
 #include<QMessageBox>

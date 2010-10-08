@@ -3,7 +3,6 @@
 #include<QNetworkReply>
 #include<QNetworkRequest>
 #include<QTimer>
-#include<QDebug>
 #include<QFile>
 #include<QTextStream>
 #include<QApplication>
@@ -58,10 +57,7 @@ void snoppanet::readircip() {
     }
 }
 void snoppanet::httpError(QNetworkReply::NetworkError error) {
-    qDebug()
-            << "an error occured, error code (value in http://doc.trolltech.com/4.4/qnetworkreply.html#NetworkError-enum) is: "
-            << error;
-    qDebug() << "please make sure your have a working internet connection.";
+    myDebug() << tr("Gameserver disonnected!");
 }
 void snoppanet::setchannellist(const QStringList &sl) {
     currentchannellist = sl;
@@ -191,7 +187,7 @@ void snoppanet::refreshhostlist() {
 }
 void snoppanet::readhostreply() {
     if (hostreply->readAll() == "<NOTHING>\n") {
-        qDebug() << tr("Wormnet wont start this game, please try again at a later time.");
+        myDebug() << tr("Wormnet wont start this game, please try again at a later time.");
         hostreply->disconnect();
         hostreply->deleteLater();
         emit sighostwontstart();

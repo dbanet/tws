@@ -4,7 +4,6 @@
  *  Created on: 13.01.2009
  *      Author: looki
  */
-#include<QDebug>
 #include "ctcphandler.h"
 #include"netcoupler.h"
 #include"chatwindow.h"

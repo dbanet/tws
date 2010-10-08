@@ -9,7 +9,6 @@
 #include<QTextBrowser>
 #include <QTextDocument>
 #include<QTime>
-#include<QDebug>
 #include<QFontDialog>
 #include<QColorDialog>
 #include<QScrollBar>
@@ -432,7 +431,7 @@ void chathandler::contextrequest(const QPoint &p) {
 
             }
         } else{
-            qDebug() << anchor;
+            myDebug() << anchor;
             throw std::runtime_error("void chathandler::contextrequest(const QPoint &p)");
         }
     }

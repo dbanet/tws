@@ -8,12 +8,12 @@
 #include<QTime>
 #include<QMessageBox>
 #include<QTextCodec>
-#include<QDebug>
 #include"inihandlerclass.h"
 #include"snpsettings.h"
 #include"settingswindow.h"
 #include "about.h"
 #include "codecselectdia.h"
+#include"myDebug.h"
 extern inihandlerclass inihandler;
 extern QMap<QString, QStringList> usergarbagemap;
 ircnet::ircnet(QString s, QObject *parent) :
@@ -40,13 +40,13 @@ void ircnet::start() {
     tcp->connectToHost(wnip, 6667, QIODevice::ReadWrite);
 }
 void ircnet::reconnect(){
-    qDebug()<<tr("Reconnecting");
+    myDebug()<<tr("Reconnecting");
     tcp->connectToHost(wnip, 6667, QIODevice::ReadWrite);
 }
 void ircnet::tcpError(QAbstractSocket::SocketError s){
     if(s==QAbstractSocket::RemoteHostClosedError)
         return;
-    qDebug()<<tr("There was an error with the connection to Wormnet: ")<<s;
+    myDebug()<<tr("There was an error with the connection to Wormnet.");
 }
 void ircnet::connected() {
     QStringList sl = inihandler.stringlistfromini("[irc password]");
@@ -347,7 +347,7 @@ void ircnet::tcpread() {
         else if (s.startsWith("PING")) {
             tcp_write("PONG");
         } else if (s.startsWith("ERROR")) {
-            qDebug() << s;
+            myDebug() << s;
         } else {
             readusermessage(s);
         }
@@ -392,7 +392,7 @@ void ircnet::readusermessage(QString &s) {
         emit signotice(user, receiver, sl.join(" ").remove(0, 1));
         break;
 	default:
-        qDebug() << "readusermessage: " << s;
+        myDebug() << tr("Servermessage: ") << s;
     }
 }
 void ircnet::gotusergarbage(QString &user, QString &s) {
@@ -413,7 +413,7 @@ void ircnet::gotusergarbage(QString &user, QString &s) {
 }
 void ircnet::disconnected() {    
     reconnecttimer.singleShot(200 *1000, this, SIGNAL(sigreconnect()));
-    qDebug() << tr("disconnected from irc server.");
+    myDebug() << tr("disconnected from irc server.");
 }
 void ircnet::readservermassege(QString s) {
     static bool b=false;
@@ -491,7 +491,7 @@ void ircnet::readservermassege(QString s) {
         case 404: //Cannot send to channel
         case 372: //:- info
 	default:
-            qDebug() << s;
+            myDebug() << s;
 	}
 }
 void ircnet::joinchannel(const QString &chan) {

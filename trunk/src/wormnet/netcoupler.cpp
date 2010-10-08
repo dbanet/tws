@@ -285,9 +285,9 @@ void netcoupler::processfinished(int , QProcess::ExitStatus e) {
         hostlifetimer.stop();
         hostlifetimer.disconnect();
         if (e == 0)
-            qDebug() << "joining/hosting a game finished normally";
+            myDebug() << tr("joining/hosting a game finished normally");
         else
-            qDebug() << "joining/hosting a game crashed";
+            myDebug() << tr("joining/hosting a game crashed");
         if (setawayingame) {
             if (wasaway){
                 isaway = 1;

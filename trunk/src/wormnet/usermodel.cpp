@@ -2,7 +2,6 @@
 #include"snpsettings.h"
 #include"settingswindow.h"
 #include<QtGui>
-#include<QDebug>
 #include"netcoupler.h"
 #include"ctcphandler.h"
 #include "sound_handler.h"
@@ -25,28 +24,28 @@ usermodel::usermodel(QObject * parent) :
 
     if (!channelicon.load(QApplication::applicationDirPath()
         + "/snppictures/channelicon.png"))
-        qDebug() << "/snppictures/channelicon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!usericon.load(QApplication::applicationDirPath()
         + "/snppictures/usericon.png"))
-        qDebug() << "/snppictures/usericon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!buddyicon.load(QApplication::applicationDirPath()
         + "/snppictures/buddyicon.png"))
-        qDebug() << "/snppictures/buddyicon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!ignoreicon.load(QApplication::applicationDirPath()
         + "/snppictures/ignoreicon.png"))
-        qDebug() << "/snppictures/ignoreicon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!offlineicon.load(QApplication::applicationDirPath()
         + "/snppictures/offlineicon.png"))
-        qDebug() << "/snppictures/offlineicon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!awayusericon.load(QApplication::applicationDirPath()
         + "/snppictures/awayusericon.png"))
-        qDebug() << "/snppictures/awayusericon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!awaybuddyicon.load(QApplication::applicationDirPath()
         + "/snppictures/awaybuddyicon.png"))
-        qDebug() << "/snppictures/awaybuddyicon.png is missing.";
+        myDebug() << tr("Some Pictures are missing!");
     if (!awayignoreicon.load(QApplication::applicationDirPath()
         + "/snppictures/awayignoreicon.png"))
-        qDebug() << "/snppictures/awayignoreicon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     currentselectedchannel = -1;
     usesettingswindow();
     //connect(net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow())); ********in netcoupler

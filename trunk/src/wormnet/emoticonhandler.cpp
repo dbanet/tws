@@ -1,9 +1,9 @@
 #include "emoticonhandler.h"
 #include"settingswindow.h"
 #include "snpsettings.h"
+#include"myDebug.h"
 #include<QMessageBox>
 #include<QFileDialog>
-#include<QDebug>
 #include<QFile>
 emoticonhandler::emoticonhandler(QWidget *parent) :
 	QWidget(parent) {
@@ -106,7 +106,7 @@ void emoticonhandler::remove() {
 	QListWidgetItem *item;
 	if (!ui.listWidget->selectedItems().isEmpty()) {
 		item = ui.listWidget->selectedItems().first();
-		qDebug() << item->text();
+		myDebug() << item->text();
 		filemap[scheme].remove(item->text());
 		map.remove(item->text());
 		ui.listWidget->clear();

@@ -61,7 +61,7 @@ private:
     void readusermessage(QString &);
     void gotusergarbage(QString&,QString&);
 
-    QMap<QString,int> mapusercommand;    
+    QMap<QString,int> mapusercommand;
 
 private slots:
     void tcpError(QAbstractSocket::SocketError);

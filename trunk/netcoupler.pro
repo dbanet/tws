@@ -58,15 +58,11 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/global_functions.h \
     src/wormnet/combobox_wrapper.h \
     src/wormnet/balloon_handler.h \
-    \
-    src/irc/irc_ircnet.h \
-    src/irc/irc_netcoupler.h \
-    src/irc/irc_window.h \
-    src/irc/irc_usermodel.h \
-    src/irc/ircjoindia.h \
-    src/irc/irc_chatwindow.h \
+    \    
     src/wormnet/codecselectdia.h \
-    src/wormnet/clantowebpagemapper.h
+    src/wormnet/clantowebpagemapper.h \
+    src/wormnet/mydebugclass.h \
+    src/wormnet/myDebug.h
 
 FORMS += src/wormnet/about.ui \
     src/wormnet/awaybox.ui \
@@ -91,10 +87,7 @@ FORMS += src/wormnet/about.ui \
     src/wormnet/window2.ui \
     src/wormnet/window3.ui \
     src/wormnet/combobox_wrapper.ui \
-    \
-    src/irc/irc_window.ui \
-    src/irc/ircjoindia.ui \
-    src/irc/irc_chatwindow.ui \
+    \    
     src/wormnet/codecselectdia.ui
 
 SOURCES +=  src/wormnet/about.cpp \
@@ -135,16 +128,12 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/sound_handler.cpp \
     src/wormnet/combobox_wrapper.cpp \
     src/wormnet/balloon_handler.cpp \
-    \
-    src/irc/irc_ircnet.cpp \
-    src/irc/irc_netcoupler.cpp \
-    src/irc/irc_window.cpp \
-    src/irc/irc_usermodel.cpp \
-    src/irc/ircjoindia.cpp \
-    src/irc/irc_chatwindow.cpp \
+    \    
     src/wormnet/codecselectdia.cpp \
     src/wormnet/clantowebpagemapper.cpp \
-    src/wormnet/fakeObject.cpp
+    src/wormnet/fakeObject.cpp \
+    src/wormnet/mydebugclass.cpp \
+    src/wormnet/myDebug.cpp
 
 RC_FILE = src/wormnet/myapp.rc
 TRANSLATIONS += \

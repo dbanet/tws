@@ -15,6 +15,8 @@
 #include"global_functions.h"
 #include"codecselectdia.h"
 #include"clantowebpagemapper.h"
+#include"myDebug.h"
+
 #ifdef Q_WS_WIN
     #include <dir.h>
 #endif
@@ -34,7 +36,6 @@ QStringList defaultServerList(QStringList()<<"wormnet1.team17.com"<<"itakagames.
 void search_for_game_executables();
 void handle_prosnooper_buddys();
 void handle_wini_ini();
-
 void myMessageOutput(QtMsgType, const char *);
 int main(int argc, char *argv[]) {    
     qInstallMsgHandler(myMessageOutput);
@@ -58,14 +59,14 @@ int main(int argc, char *argv[]) {
     QString sep = QDir::separator();
     QDir dir("snppictures/flags");
     if (!dir.exists())
-        qDebug() << "the flags in snppictures/flags are missing!";
+        myDebug() << QObject::tr("the flags in snppictures/flags are missing!");
     foreach(QString f,dir.entryList(QStringList()<<"*.png",QDir::Files,QDir::Name)) {
         flaglist.push_back(new QPixmap(dir.path() + sep + f));
     }
     dir.setPath(QApplication::applicationDirPath() + sep + "snppictures" + sep
                 + "ranks");
     if (!dir.exists())
-        qDebug() << "the ranks in snppictures/flags are missing!";
+        myDebug() << QObject::tr("the ranks in snppictures/flags are missing!");
     foreach(QString f,dir.entryList(QStringList()<<"*.png",QDir::Files,QDir::Name)) {
         ranklist.push_back(new QPixmap(dir.path() + sep + f));
     }
@@ -73,10 +74,10 @@ int main(int argc, char *argv[]) {
     unlocked = new QPixmap;
     if (!locked->load(QApplication::applicationDirPath() + sep + "snppictures"
                       + sep + "locked.png"))
-        qDebug() << "some pictures are missing!";
+        myDebug() << QObject::tr("some pictures are missing!");
     if (!unlocked->load(QApplication::applicationDirPath() + sep
 			+ "snppictures" + sep + "unlocked.png"))
-        qDebug() << "some pictures are missing!";
+        myDebug() << QObject::tr("some pictures are missing!");
 
     ranklistsize = ranklist.size();
     flaglistsize = flaglist.size();
@@ -92,6 +93,7 @@ int main(int argc, char *argv[]) {
     singleton<settingswindow>();
     singleton<sound_handler>().init();
     w = new mainwindow;
+    myDebugClass::w=w;
     volume->setvalue(singleton<snpsettings>().map["volumeslidervalue"].value<int> ());
     if (!singleton<snpsettings>().map["chbminimized"].value<bool> ()){
         w->show();        

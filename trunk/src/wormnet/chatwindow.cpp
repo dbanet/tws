@@ -14,7 +14,6 @@
 #include<QStatusBar>
 #include<QMessageBox>
 #include<QDesktopWidget>
-#include<QDebug>
 extern QStringList querylist;
 extern QMap<QString, QStringList> usergarbagemap;
 chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :

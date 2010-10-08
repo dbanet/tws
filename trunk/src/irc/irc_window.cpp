@@ -22,7 +22,6 @@
 #include<QDate>
 #include<QScrollBar>
 #include<QDesktopServices>
-#include<QDebug>
 QList<irc_chatwindow*> irc_window::chatwindows;
 QStringList irc_window::chatwindowstringlist;
 QList< ::irc_window*> irc_window::hiddenchannelwindowshelper;
@@ -324,7 +323,7 @@ void irc_window::useritempressed(const QModelIndex &index) {
             }
         }
     } else if (index.column() == usermodel::e_Clan) {
-        QStringList sl = singleton<snpsettings>().map["dissallowedclannames"].value<QStringList>();        
+        QStringList sl = singleton<snpsettings>().map["dissallowedclannames"].value<QStringList>();
         if (sl.contains(net->users.getuserstructbyindex(index).nickfromclient,Qt::CaseInsensitive))
             menu.addAction(window::tr("Allow this clanname."));
         else

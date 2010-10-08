@@ -1,4 +1,4 @@
-lupdate netcoupler.pro
+lupdate -no-obsolete netcoupler.pro
 qmake -config release
 mingw32-make -j2 release
 copy %QTDIR%\bin\mingwm10.dll "TheWheatSnooper"

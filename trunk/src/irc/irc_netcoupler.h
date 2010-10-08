@@ -24,7 +24,7 @@ public:
     void sendnotice(const QString&,const QString&);
     void sendrawcommand(const QString&);
     void joinchannel(const QString&);
-    void partchannel(const QString&);       
+    void partchannel(const QString&);
     const QString nick;
     irc_usermodel users;
     QStringList channellist;
@@ -42,7 +42,7 @@ public:
     QStringList mutedusers;
 signals:
     void siggotmsg(const QString&,const QString&,const QString&);
-    void siggotnotice(const QString&,const QString&,const QString&);    
+    void siggotnotice(const QString&,const QString&,const QString&);
     void siggotchanellist(QStringList);
     void sigusergarbage(const QString&,const QString&);
     void sigusergarbagejoin(const QString&,const QString&);
@@ -59,20 +59,20 @@ signals:
     void sigreconnect();
     //void siggethostlist(QList<hoststruct>,QString);
 
-private:    
-    QString ircip;        
+private:
+    QString ircip;
     QTimer timer;
 
 
-    bool setawayingame;    
+    bool setawayingame;
     QString oldawaystring;
 
-public slots:    
+public slots:
     void getnotice(const QString&,const QString&,const QString&);
     void getFirstServerMessage();
-private slots:    
+private slots:
     void usesettingswindow(const QString &s="");
-    void sendinfotochan(const QString &,const QString &);    
+    void sendinfotochan(const QString &,const QString &);
     void getmsg(const QString&,const QString&,const QString&);
     void sendquit();
 

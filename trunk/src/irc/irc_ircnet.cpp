@@ -49,7 +49,7 @@ void irc_ircnet::connected() {
     s.append(sl.takeFirst() + " ");
     s.append(sl.takeFirst() + " :");
     s.append(singleton<snpsettings>().map["flag"].value<QString> () + " ");
-    s.append(singleton<snpsettings>().map["rank"].value<QString> () + " ");    
+    s.append(singleton<snpsettings>().map["rank"].value<QString> () + " ");
     s.append("?? ");
     s.append(singleton<snpsettings>().map["client"].value<QString> ());
     tcp->write(qPrintable(s+"\n"));
@@ -69,7 +69,7 @@ void irc_ircnet::tcpread() {
         } else if (s.startsWith("ERROR")) {
             ;
         } else
-            readusermessage(s);        
+            readusermessage(s);
     }
 }
 void irc_ircnet::readusermessage(QString &s) {
@@ -89,7 +89,7 @@ void irc_ircnet::readusermessage(QString &s) {
         {
             foreach(QString s,joinlist.keys()) {
                 joinlist[s].removeAll(userstruct::whoami(user));
-            }            
+            }
             break;
         }
     case 2:
@@ -98,7 +98,7 @@ void irc_ircnet::readusermessage(QString &s) {
     case 3:
         if (user.toLower() == nick.toLower())
             joinlist[receiver].clear();
-        joinlist[receiver].removeAll(userstruct::whoami(user));        
+        joinlist[receiver].removeAll(userstruct::whoami(user));
         break;
     case 4:
         if(nick==user)
@@ -157,7 +157,7 @@ void irc_ircnet::readservermassege(QString s) {
             QString channel = sl.takeFirst();
             sl[0].remove(":");
             foreach(QString s,sl)
-                joinlist[channel] << userstruct::whoami(s);            
+                joinlist[channel] << userstruct::whoami(s);
             break;
         }
     case 366: //end of /NAME list happens after join

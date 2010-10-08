@@ -10,7 +10,6 @@
 #include<QMouseEvent>
 #include<QTabBar>
 #include<QCursor>
-#include<QDebug>
 #include<QMenu>
 #include<QApplication>
 mytabwidget::mytabwidget(QWidget *w) :

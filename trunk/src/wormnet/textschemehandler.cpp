@@ -1,7 +1,6 @@
 #include "textschemehandler.h"
 #include<QFontDialog>
 #include<QColorDialog>
-#include<QDebug>
 #include"chathandler.h"
 #include "charformatsettings.h"
 #include"mainwindow.h"

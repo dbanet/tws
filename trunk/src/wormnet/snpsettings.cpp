@@ -5,8 +5,9 @@
  *      Author: looki
  */
 
-#include "snpsettings.h"
+#include"snpsettings.h"
 #include"settingswindow.h"
+#include"myDebug.h"
 #include<QFile>
 #include<QDir>
 #include<QApplication>
@@ -14,7 +15,6 @@
 #include<QFileDialog>
 #include<QDataStream>
 #include<QTranslator>
-#include<QDebug>
 extern QStringList defaultServerList;
 snpsettings::snpsettings(){}
 snpsettings::~snpsettings(){}
@@ -94,7 +94,7 @@ void snpsettings::load(){
     if (trans->load(file,"translations/")){
         qApp->installTranslator(trans);
     } else
-        qDebug() << "The translationfile cannot be loaded! it might be corrupt.";
+        myDebug() << QObject::tr("The translationfile cannot be loaded! it might be corrupt.");
 }
 void snpsettings::safe(){
     QFile f("snpini/snpini");

@@ -8,7 +8,6 @@
 #include "userstruct.h"
 #include"netcoupler.h"
 #include<QHostInfo>
-#include<QDebug>
 #include<QPointer>
 bool *userstruct::boolhelper = new bool;
 QMap<int, QString> userstruct::temp;

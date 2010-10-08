@@ -6,10 +6,10 @@
  */
 
 #include "inihandlerclass.h"
+#include"myDebug.h"
 #include<QFile>
 #include<QApplication>
 #include<QDir>
-#include<QDebug>
 inihandlerclass::inihandlerclass() {
     file="wormnet.net";
 
@@ -22,14 +22,14 @@ inihandlerclass::~inihandlerclass() {
 void inihandlerclass::tcpwrite(const QString &inistring, QTcpSocket& tcp) {
     QFile f(QApplication::applicationDirPath() + "/network/" + file);
     if (!f.open(QFile::ReadOnly)) {
-        qDebug() << "the file network/wormnet.net is missing!";
+        myDebug() << QObject::tr("the file network/wormnet.net is missing!");
     }
     QTextStream ts(&f);
     while (ts.readLine() != inistring && !ts.atEnd())
         ;
     if (ts.atEnd()) {
-        qDebug() << "your network/wormnet.net file is corrupt! " << inistring
-                << " can not be found, but is important.";
+        myDebug() << QObject::tr("The file network/wormnet.net file is corrupt!") << inistring
+                << QObject::tr(" can not be found, but is important.");
         return;
     }
     QString s;
@@ -46,14 +46,14 @@ QStringList inihandlerclass::stringlistfromini(const QString &inistring) {
     QFile f;
     f.setFileName(QApplication::applicationDirPath() + "/network/" + file);
     if (!f.open(QIODevice::ReadOnly)) {
-        qDebug() << "network/wormnet.net is missing!";
+        myDebug() << QObject::tr("the file network/wormnet.net is missing!");
     }
     QTextStream ts(&f);
     while (ts.readLine() != inistring && !ts.atEnd())
         ;
     if (ts.atEnd()) {
-        qDebug() << "your wormnet.net file is corrupt! " << inistring
-                << " can not be found, but is important.";
+        myDebug() << QObject::tr("The file network/wormnet.net file is corrupt!") << inistring
+                << QObject::tr(" can not be found, but is important.");
         return QStringList("");
     }
     QStringList sl;
@@ -70,14 +70,14 @@ QNetworkRequest inihandlerclass::requestfromini(const QString &inistring) {
     QFile f;
     f.setFileName(QApplication::applicationDirPath() + "/network/" + file);
     if (!f.open(QIODevice::ReadOnly)) {
-        qDebug() << "network/wormnet.net is missing!";
+        myDebug() << QObject::tr("the file network/wormnet.net is missing!");
     }
     QTextStream ts(&f);
     while (ts.readLine() != inistring && !ts.atEnd())
         ;
     if (ts.atEnd()) {
-        qDebug() << "your network/wormnet.net file is corrupt! " << inistring
-                << " can not be found, but is important.";
+        myDebug() << QObject::tr("The file network/wormnet.net file is corrupt!") << inistring
+                << QObject::tr(" can not be found, but is important.");
     }
 
     QNetworkRequest r;

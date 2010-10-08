@@ -20,7 +20,7 @@ public:
     const QString currentchannel;
     static QList<irc_chatwindow*> chatwindows;
     static QStringList chatwindowstringlist;
-    void gotdebugmsg(const QString&);   
+    void gotdebugmsg(const QString&);
     buttonlayout *buttons;
     static QList< ::irc_window*> hiddenchannelwindowshelper;
     QPointer<chathandler> chat;		//handles the whole textbrowser
@@ -29,7 +29,7 @@ public:
 public slots:
     void minimize();
 private slots:
-    void gotmsg(const QString&,const QString&,const QString&);    
+    void gotmsg(const QString&,const QString&,const QString&);
     void gotnotice(const QString&,const QString&,const QString&);
     void gotgarbagejoin(const QString&,const QString&);
     void gotgarbagepart(const QString&,const QString&);
@@ -39,16 +39,16 @@ private slots:
     void useritempressed(const QModelIndex&);
     void useritemdblclicked(const QModelIndex&);
     void getuserinfo(const QString&);
-    void openchatwindow(const QString&);     
+    void openchatwindow(const QString&);
 
     void userselectionchanged(const QItemSelection&,const QItemSelection&);
     void setselection(const QModelIndex&,const QWidget*);
 
     void usesettingswindow(const QString &s="");
 
-    void expandchannels(QStringList sl);	//expand on startup   
+    void expandchannels(QStringList sl);	//expand on startup
     void changealpha(int);
-    void getuserscount(QStringList);    
+    void getuserscount(QStringList);
     void openchatwindowhidden(const QString &);
 
 private:

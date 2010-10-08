@@ -5,7 +5,6 @@
 #include <QStringList>
 #include <QSystemTrayIcon>
 #include <QMenu>
-#include <QDebug>
 #include <QMessageBox>
 #include <QPicture>
 #include "buddylist.h"
@@ -215,7 +214,7 @@ void mainwindow::join(const QString channel){
         windowlist.push_back(new ::window(net, channel, whichuitype));
         windowlist.last()->setObjectName("channelwindow");
     } else
-        qDebug() << "joinclicked in mainwindow assert";
+        myDebug() << "joinclicked in mainwindow assert";
     windowlist.last()->show();
     windowlist.last()->raise();
     if (net->isaway) {
@@ -386,7 +385,7 @@ void mainwindow::appenddebugmessage(const QString &msg) {
 }
 void mainwindow::setlanguage(const QString &langfile) {
     singleton<snpsettings>().map["language file"] = langfile;
-    qDebug() << singleton<snpsettings>().map["language file"].value<QString> ();
+    myDebug() << singleton<snpsettings>().map["language file"].value<QString> ();
     singleton<snpsettings>().safe();
     QMessageBox::StandardButton button = QMessageBox::question(this, tr(
             "Restart the application?"), tr(
@@ -441,7 +440,7 @@ void mainwindow::gotctcpsignal(const QString& command, const QString &user) {
     }
 }
 void mainwindow::settextscheme(const QString &file) {
-    qDebug() << tr("trying to apply new textscheme: ") + file;
+    myDebug() << tr("trying to apply new textscheme: ") + file;
     singleton<snpsettings>().map["charformatfile"] = file;
     singleton<charformatsettings>().load();
     chathandler::initialformatstarter();
@@ -686,7 +685,7 @@ void mainwindow::traymenutriggered(QAction *a) {
                     qApp->setStyleSheet(baseStyleSheet+stylesheet);
             }
             catch(...){
-                qDebug()<<"Skinchanging failed, please try again"<<endl;
+                myDebug()<<tr("Skinchanging failed, please try again.");
             }
         }
         return;
@@ -818,13 +817,13 @@ void mainwindow::on_pbabout_clicked()
     ab->show();
 }
 void mainwindow::joinGameSourge(){
-    ircJoinDia dia;
-    if(!dia.exec())
-        return;
-    static irc_netcoupler *net=new irc_netcoupler(ui.lenick->text(), this, dia.getChannel());
-    static irc_window *window=new irc_window(net,GamesourgeChannelName);
-    window->show();
-    window->raise();
+//    ircJoinDia dia;
+//    if(!dia.exec())
+//        return;
+//    static irc_netcoupler *net=new irc_netcoupler(ui.lenick->text(), this, dia.getChannel());
+//    static irc_window *window=new irc_window(net,GamesourgeChannelName);
+//    window->show();
+//    window->raise();
 }
 
 void mainwindow::on_pbjoin_clicked()

@@ -27,7 +27,7 @@ irc_netcoupler::irc_netcoupler(QString s, QObject *parent,QString channel) :
     connect(irc, SIGNAL(sigusergarbagepart(const QString&,const QString&)),this, SIGNAL(sigusergarbagepart(const QString&,const QString&)));
     connect(irc, SIGNAL(sigusergarbagequit(const QString&,const QString&)),this, SIGNAL(sigusergarbagequit(const QString&,const QString&)));
     connect(irc,SIGNAL(sigconnected()),this,SLOT(ircconnected()));
-    connect(irc,SIGNAL(sigdisconnected()),this,SLOT(ircdiconnected()));    
+    connect(irc,SIGNAL(sigdisconnected()),this,SLOT(ircdiconnected()));
 
     connect(irc, SIGNAL(sigmsg(const QString&,const QString&,const QString&)),this, SLOT(getmsg(const QString&,const QString&,const QString&)));
     connect(irc, SIGNAL(signotice(const QString&,const QString&,const QString&)),this, SLOT(getnotice(const QString&,const QString&,const QString&)));
@@ -36,7 +36,7 @@ irc_netcoupler::irc_netcoupler(QString s, QObject *parent,QString channel) :
     connect(irc,SIGNAL(sigFirstServerMessage()),this,SLOT(getFirstServerMessage()));
 
     connect(&users, SIGNAL(sigbuddyarrived()),&singleton<balloon_handler>(), SLOT(buddyarrived()));
-    connect(&users, SIGNAL(sigbuddyleft()),&singleton<balloon_handler>(), SLOT(buddyleft()));       
+    connect(&users, SIGNAL(sigbuddyleft()),&singleton<balloon_handler>(), SLOT(buddyleft()));
     ircip = "93.189.105.234";
     irc->setip(ircip);
     irc->start();
@@ -48,7 +48,7 @@ irc_netcoupler::~irc_netcoupler() {
     irc->quit();
     irc->deleteLater();
 }
-void irc_netcoupler::joinchannel(const QString &s) {    
+void irc_netcoupler::joinchannel(const QString &s) {
     if (!irc->listofjoinedchannels.contains(s)){
         irc->joinchannel(s);
         irc->listofjoinedchannels << s;
@@ -59,8 +59,8 @@ void irc_netcoupler::partchannel(const QString &s) {
     irc->listofjoinedchannels.removeOne(s);
 }
 void irc_netcoupler::getmsg(const QString &user, const QString &receiver,
-                            const QString &msg) {        
-        emit siggotmsg(user, receiver, msg);   
+                            const QString &msg) {
+        emit siggotmsg(user, receiver, msg);
 }
 void irc_netcoupler::getnotice(const QString &user, const QString &receiver,
                                const QString &msg) {
@@ -135,7 +135,7 @@ bool irc_netcoupler::joinListContains(QString user){
     return false;
 }
 int irc_netcoupler::countUsers(){
-    int i=0;   
+    int i=0;
     foreach(QList<userstruct> l,irc->joinlist){
         i+=l.count();
     }

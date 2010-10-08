@@ -7,7 +7,6 @@
 
 #include "hoststruct.h"
 #include<QStringList>
-#include<QDebug>
 #include<QPixmap>
 bool *hoststruct::boolhelper = new bool;
 extern QList<QPixmap*> flaglist; //declared in main.cpp

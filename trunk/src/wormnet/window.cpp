@@ -21,7 +21,6 @@
 #include<QDate>
 #include<QScrollBar>
 #include<QDesktopServices>
-#include<QDebug>
 QList<chatwindow*> window::chatwindows;
 QStringList window::chatwindowstringlist;
 QList< ::window*> window::hiddenchannelwindowshelper;
@@ -571,7 +570,7 @@ void window::hostitempressed(const QModelIndex &index) {
                         QString s = ts.readLine();
                         while (!s.startsWith("Exec=") && !ts.atEnd())
                             QString s = ts.readLine();
-                        qDebug() << s;
+                        myDebug() << s;
                     }
                 } else {
                     QStringList sl = singleton<snpsettings>().map["joinstrings"].value<

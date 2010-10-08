@@ -2,7 +2,6 @@
 #include<QStringList>
 #include<QFileDialog>
 #include "snpsettings.h"
-#include<QDebug>
 joinprvgame::joinprvgame(const QString &a,const QString &b)
     : chan(b),anchor(a)
 {

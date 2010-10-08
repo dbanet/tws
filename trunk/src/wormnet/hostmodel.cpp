@@ -6,8 +6,8 @@
 #include"netcoupler.h"
 #include "sound_handler.h"
 #include "balloon_handler.h"
+#include"myDebug.h"
 #include<QTime>
-#include<QDebug>
 #include<QPointer>
 extern QList<QPixmap*> flaglist; //declared in main.cpp
 extern QList<QPixmap*> ranklist; //declared in main.cpp
@@ -20,16 +20,16 @@ hostmodel::hostmodel(QObject *parent) :
     stringnamelist << tr("Gamename") << tr("User") << "" << "" << tr("GameIp");
     if (!channelicon.load(QApplication::applicationDirPath()
         + "/snppictures/channelicon.png"))
-        qDebug() << "/snppictures/channelicon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!hosticon.load(QApplication::applicationDirPath()
         + "/snppictures/hosticon.png"))
-        qDebug() << "/snppictures/hosticon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!buddyhosticon.load(QApplication::applicationDirPath()
         + "/snppictures/buddyhosticon.png"))
-        qDebug() << "/snppictures/buddyhosticon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!ignorehosticon.load(QApplication::applicationDirPath()
         + "/snppictures/ignorehosticon.png"))
-        qDebug() << "/snppictures/ignorehosticon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
 }
 void hostmodel::sethoststruct(QList<hoststruct> l, QString chan) {
     emit layoutAboutToBeChanged();

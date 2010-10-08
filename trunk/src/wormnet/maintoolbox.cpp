@@ -3,7 +3,6 @@
 #include"chatwindow.h"
 #include"mytabwidget.h"
 #include<QVBoxLayout>
-#include<QDebug>
 maintoolbox::maintoolbox(QString s,QWidget *parent)
     : QWidget(parent)
 {

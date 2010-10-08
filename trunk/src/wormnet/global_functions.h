@@ -1,5 +1,6 @@
 #ifndef GLOBAL_FUNCTIONS_H
 #define GLOBAL_FUNCTIONS_H
+#include"myDebug.h"
 #include<QStringList>
 #include<QString>
 #include<QMap>
@@ -129,7 +130,7 @@ namespace {
             }
             winini.close();
         } else
-            qDebug()<<"%systemroot%/win.ini "+QObject::tr("is missing or locked, please run worms, one time, without the snooper. it will then create the file!");
+            myDebug()<<"%systemroot%/win.ini "+QObject::tr("is missing or locked, please run worms, one time, without the snooper. it will then create the file!");
 #endif
         return port;
     }

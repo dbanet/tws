@@ -3,7 +3,6 @@
 #include"netcoupler.h"
 #include"global_functions.h"
 #include <QFileDialog>
-#include<QDebug>
 #include<QPointer>
 #include<QKeyEvent>
 #include<QMessageBox>

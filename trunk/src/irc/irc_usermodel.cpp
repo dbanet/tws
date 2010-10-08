@@ -2,7 +2,6 @@
 #include"src/wormnet/snpsettings.h"
 #include"src/wormnet/settingswindow.h"
 #include<QtGui>
-#include<QDebug>
 #include"src/irc/irc_netcoupler.h"
 #include"src/wormnet/ctcphandler.h"
 #include"src/wormnet/sound_handler.h"
@@ -21,21 +20,21 @@ irc_usermodel::irc_usermodel(irc_netcoupler *net) :
     sortsection = 0;
 
     if (!channelicon.load("snppictures/channelicon.png"))
-        qDebug() << "snppictures/channelicon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!usericon.load("snppictures/usericon.png"))
-        qDebug() << "snppictures/usericon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!buddyicon.load("snppictures/buddyicon.png"))
-        qDebug() << "snppictures/buddyicon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!ignoreicon.load("snppictures/ignoreicon.png"))
-        qDebug() << "snppictures/ignoreicon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!offlineicon.load("snppictures/offlineicon.png"))
-        qDebug() << "snppictures/offlineicon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!awayusericon.load("snppictures/awayusericon.png"))
-        qDebug() << "snppictures/awayusericon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!awaybuddyicon.load("snppictures/awaybuddyicon.png"))
-        qDebug() << "snppictures/awaybuddyicon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     if (!awayignoreicon.load("snppictures/awayignoreicon.png"))
-        qDebug() << "snppictures/awayignoreicon.png is missing.";
+        myDebug() << QObject::tr("Some Pictures are missing!");
     currentselectedchannel = -1;
     usesettingswindow();
     //connect(irc_net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow())); ********in netcoupler
@@ -205,7 +204,7 @@ QModelIndex irc_usermodel::parent(const QModelIndex & index) const {
         return QModelIndex();
     return createIndex(index.internalId(), 0, e_Channel);
 }
-QVariant irc_usermodel::data(const QModelIndex & index, int role) const {    
+QVariant irc_usermodel::data(const QModelIndex & index, int role) const {
     if (!index.isValid())
         return QVariant();
 
@@ -246,8 +245,8 @@ QVariant irc_usermodel::data(const QModelIndex & index, int role) const {
         if (singleton<snpsettings>().map["dissallowedclannames"].value<QStringList> ().contains(s,Qt::CaseInsensitive))
             return "";
         else
-            return s;        
-    }    
+            return s;
+    }
     if (role == Qt::DisplayRole || role == Qt::BackgroundRole) {
         if (index.internalId() == e_Channel) {
             if (index.column() == e_Nick) {
