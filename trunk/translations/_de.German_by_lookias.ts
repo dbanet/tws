@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/wormnet/codecselectdia.ui" line="14"/>
         <source>Select a Codec</source>
-        <translation>Wähle einen Codec</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/wormnet/codecselectdia.ui" line="22"/>
@@ -85,8 +85,8 @@ For hebreic and arabic for example.</source>
         <location filename="../src/wormnet/snpsettings.cpp" line="31"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
-        <translation>Der Snooper kann die Einstellungen von einer alten version übernehmen. Wenn du das möchtest klicke Yes.
-Wenn du das erste mal den Wheat Snooper benutzt das klicke auf No.</translation>
+        <translation>Der Snooper kann die Einstellungen von einer alten version übernehmen. Wenn du das möchtest klicke Ja.
+Wenn du das erste mal den Wheat Snooper benutzt das klicke auf Nein.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/snpsettings.cpp" line="37"/>
