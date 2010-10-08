@@ -27,7 +27,7 @@ void snpsettings::load(){
     QFile f("snpini/snpini");
     if(!f.open(QFile::ReadOnly)){
         installTranslationBySystemLocale();
-        int button=QMessageBox::question(0,QApplication::tr("Question")
+        int button=QMessageBox::question(0,QObject::tr("Question")
                                          ,QApplication::tr("If you like to keep the settings from an older Snooper installation click yes.\n"
                                                            "If you use The Wheat Snooper at the first time just click No.")
                                          ,QMessageBox::Yes | QMessageBox::No);
@@ -41,7 +41,7 @@ void snpsettings::load(){
                     QFile::copy(folder+"snpini/snpini","snpini/snpini");
                     break;
                 } else{
-                    int button=QMessageBox::warning(0,QApplication::tr("Warning!"),QApplication::tr("This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?"),QMessageBox::Yes | QMessageBox::No);
+                    int button=QMessageBox::warning(0,QObject::tr("Warning!"),QApplication::tr("This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?"),QMessageBox::Yes | QMessageBox::No);
                     if(button==QMessageBox::Yes)
                         continue;                    
                     else {
@@ -61,8 +61,8 @@ void snpsettings::load(){
             loadDefaults();
             return;
         }        
-    }
-    f.open(QFile::ReadOnly);
+        f.open(QFile::ReadOnly);
+    }    
     QDataStream ds(&f);
     ds.setVersion(QDataStream::Qt_4_3);
     ds>>map;

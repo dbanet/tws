@@ -46,7 +46,7 @@ void charformatsettings::safe() {
 	fontorcolorchanged=0;
         QFile f("textschemes/" + singleton<snpsettings>().map["charformatfile"].toString());
 	if (!f.open(QFile::WriteOnly | QFile::Truncate)) {
-            myDebug() << QObject::tr("cannot write file: ") << singleton<snpsettings>().map["charformatfile"].toString();
+            myDebug() << QObject::tr("cannot write file:")+" " << singleton<snpsettings>().map["charformatfile"].toString();
 	}
 	QDataStream ds(&f);
 	ds.setVersion(QDataStream::Qt_4_3);

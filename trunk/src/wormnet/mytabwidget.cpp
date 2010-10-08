@@ -12,10 +12,11 @@
 #include<QCursor>
 #include<QMenu>
 #include<QApplication>
+#include<QDialogButtonBox>
 mytabwidget::mytabwidget(QWidget *w) :
 	QTabWidget(w) {
 	menu=new QMenu;
-	menu->addAction(tr("Close"));
+        menu->addAction(QDialogButtonBox::tr("&Close"));
 	tabBar()->installEventFilter(this);
 }
 bool mytabwidget::eventFilter(QObject *obj, QEvent *e) {

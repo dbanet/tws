@@ -74,11 +74,6 @@ For hebrew and arabic, for example.</translation>
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="30"/>
-        <source>Question</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../src/wormnet/snpsettings.cpp" line="31"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
@@ -89,11 +84,6 @@ If you use The Wheat Snooper for the first time, just click No.</translation>
         <location filename="../src/wormnet/snpsettings.cpp" line="37"/>
         <source>Please choose the folder from the old Snooper.</source>
         <translation type="unfinished">Please choose the old Snooper folder</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="44"/>
-        <source>Warning!</source>
-        <translation type="unfinished">Warning!</translation>
     </message>
     <message>
         <location filename="../src/wormnet/snpsettings.cpp" line="44"/>
@@ -199,6 +189,9 @@ The Wheat Snooper. Do you want to continue anyway?</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="83"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="626"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="650"/>
+        <location filename="../src/wormnet/mytabwidget.cpp" line="19"/>
         <source>&amp;Close</source>
         <translation></translation>
     </message>
@@ -591,7 +584,7 @@ Do you want to delete it anyway</source>
     </message>
     <message>
         <location filename="../src/wormnet/charformatsettings.cpp" line="49"/>
-        <source>cannot write file: </source>
+        <source>cannot write file:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -600,12 +593,16 @@ Do you want to delete it anyway</source>
         <translation>is deleted or locked, please run WA once, without the snooper, it will then create the file!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="122"/>
+        <location filename="../src/wormnet/emoticonhandler.cpp" line="95"/>
+        <location filename="../src/wormnet/emoticonhandler.cpp" line="100"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="123"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="316"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="680"/>
         <source>Warning</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="122"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="123"/>
         <source>Cant read the Skinfile:
 Skin_Base</source>
         <translation>Can&apos;t read the Skin file:
@@ -633,20 +630,30 @@ Skin_Base</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/main.cpp" line="62"/>
+        <location filename="../src/wormnet/main.cpp" line="60"/>
         <source>the flags in snppictures/flags are missing!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/main.cpp" line="69"/>
+        <location filename="../src/wormnet/main.cpp" line="67"/>
         <source>the ranks in snppictures/flags are missing!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/main.cpp" line="77"/>
-        <location filename="../src/wormnet/main.cpp" line="80"/>
+        <location filename="../src/wormnet/main.cpp" line="75"/>
+        <location filename="../src/wormnet/main.cpp" line="78"/>
         <source>some pictures are missing!</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/snpsettings.cpp" line="30"/>
+        <source>Question</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/snpsettings.cpp" line="44"/>
+        <source>Warning!</source>
+        <translation type="unfinished">Warning!</translation>
     </message>
     <message>
         <location filename="../src/wormnet/snpsettings.cpp" line="97"/>
@@ -654,6 +661,7 @@ Skin_Base</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/wormnet/balloon_handler.cpp" line="11"/>
         <location filename="../src/wormnet/balloon_handler.cpp" line="16"/>
         <source>The Wheat Snooper version </source>
         <translation type="unfinished">The Wheat Snooper v.</translation>
@@ -678,13 +686,111 @@ Skin_Base</translation>
         <source>Some Pictures are missing!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="24"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="26"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="76"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="78"/>
+        <source>Costum words</source>
+        <translation type="unfinished">Custom words</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="24"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="31"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="36"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="41"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="76"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="88"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="99"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="110"/>
+        <source>on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="26"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="29"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="34"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="39"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="78"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="86"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="97"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="108"/>
+        <source>off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="29"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="31"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="86"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="88"/>
+        <source>Sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="34"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="36"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="97"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="99"/>
+        <source>Balloons</source>
+        <translation type="unfinished">Notifications</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="39"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="41"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="108"/>
+        <location filename="../src/wormnet/buttonlayout.cpp" line="110"/>
+        <source>Sorting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/chatwindow.cpp" line="96"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="143"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="289"/>
+        <source>Online</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>about</name>
     <message>
         <location filename="../src/wormnet/about.cpp" line="10"/>
-        <source>&lt;p&gt;Version %1&lt;br&gt;This Program was completely written by Lookias.&lt;br&gt;It was written in C++, with the eclipse ide.&lt;br&gt;The framework in use was Qt.&lt;br&gt;The license of the program is GPLv2.&lt;br&gt;The translation was made by Lookias.&lt;br&gt;&lt;br&gt;Lookias`s Homepage: &lt;a href=&quot;http://lookias.worms2d.info/&quot;&gt;http://lookias.worms2d.info&lt;/a&gt;&lt;br&gt;This programs livingplace &lt;a href=&quot;http://lookias.worms2d.info/forum/&quot;&gt;http://lookias.worms2d.info/forum/&lt;<byte value="x7"/>&gt;&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Version %1&lt;br&gt;This program was completely written by Lookias.&lt;br&gt;It was written in C++, with the eclipse IDE.&lt;br&gt;Used framework was Qt.&lt;br&gt;The license of the program is GPLv2.&lt;br&gt;The translation was made by lookias and StepS (&lt;a href=&quot;mailto:stepyen@xakep.ru&quot;&gt;stepyen@xakep.ru&lt;/a&gt;)&lt;br&gt;&lt;br&gt;Lookias&apos; Homepage: &lt;a href=&quot;http://lookias.worms2d.info/&quot;&gt;http://lookias.worms2d.info&lt;/a&gt;&lt;br&gt;The program&apos;s homepage: &lt;a href=&quot;http://lookias.worms2d.info/forum/&quot;&gt;http://lookias.worms2d.info/forum/&lt;<byte value="x7"/>&gt;&lt;/p&gt;</translation>
+        <source>Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/about.cpp" line="11"/>
+        <source>This Program was completely written by Lookias.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/about.cpp" line="12"/>
+        <source>It was written in C++, with the eclipse ide.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/about.cpp" line="13"/>
+        <source>The framework in use was Qt.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/about.cpp" line="14"/>
+        <source>The license of the program is GPLv2.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/about.cpp" line="15"/>
+        <source>The translation was made by Lookias.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/about.cpp" line="16"/>
+        <source>Lookias`s Homepage:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/about.cpp" line="17"/>
+        <source>This programs livingplace</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -786,57 +892,6 @@ Skin_Base</translation>
         <location filename="../src/wormnet/buddylist.ui" line="54"/>
         <source>close</source>
         <translation>Close</translation>
-    </message>
-</context>
-<context>
-    <name>buttonlayout</name>
-    <message>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="24"/>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="76"/>
-        <source>Costum words on</source>
-        <translation>Custom words ON</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="26"/>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="78"/>
-        <source>Costum words off</source>
-        <translation>Custom words OFF</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="29"/>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="86"/>
-        <source>Sound off</source>
-        <translation>Sound OFF</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="31"/>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="88"/>
-        <source>Sound on</source>
-        <translation>Sound ON</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="34"/>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="97"/>
-        <source>Balloons off</source>
-        <translation>Notifications OFF</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="36"/>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="99"/>
-        <source>Balloons on</source>
-        <translation>Notifications ON</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="39"/>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="108"/>
-        <source>Sorting off</source>
-        <translation>Sorting OFF</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="41"/>
-        <location filename="../src/wormnet/buttonlayout.cpp" line="110"/>
-        <source>Sorting on</source>
-        <translation>Sorting ON</translation>
     </message>
 </context>
 <context>
@@ -978,13 +1033,6 @@ Skin_Base</translation>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chatwindow.cpp" line="96"/>
-        <location filename="../src/wormnet/chatwindow.cpp" line="143"/>
-        <location filename="../src/wormnet/chatwindow.cpp" line="290"/>
-        <source>Online</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="100"/>
         <location filename="../src/wormnet/chatwindow.cpp" line="141"/>
         <source>Was offline when this window opened.</source>
@@ -997,11 +1045,11 @@ Skin_Base</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="273"/>
-        <source>&lt;This users idle time: %1&gt;</source>
-        <translation>&lt;This user is away during %1&gt;</translation>
+        <source>&lt;This users idle time:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chatwindow.cpp" line="279"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="278"/>
         <source>This user is currently offline</source>
         <translation></translation>
     </message>
@@ -1190,12 +1238,6 @@ Use CTCP commands for clansites, jokes, pictures etc.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/emoticonhandler.cpp" line="95"/>
-        <location filename="../src/wormnet/emoticonhandler.cpp" line="100"/>
-        <source>Warning</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/emoticonhandler.cpp" line="95"/>
         <source>This shortcut is allready reserved.</source>
         <translation>This shortcut is already reserved</translation>
     </message>
@@ -1260,8 +1302,8 @@ Use CTCP commands for clansites, jokes, pictures etc.</translation>
     <name>hostbox</name>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="27"/>
-        <source>Create a public game in </source>
-        <translation>Create a public game at </translation>
+        <source>Create a public game in</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="64"/>
@@ -1575,36 +1617,30 @@ to change your nickname! If someone has taken your nick, we can&apos;t do anythi
 <context>
     <name>mainwindow</name>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="62"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="63"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="302"/>
         <source>Autojoin:</source>
         <translation>Autojoin:</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="63"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="64"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="567"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="749"/>
         <source>About</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="89"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="90"/>
         <source>Wheat Snoopers root window.</source>
         <translation>Wheat Snooper&apos;s root window</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="316"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="680"/>
-        <source>Warning</source>
-        <translation>Warning</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="129"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="130"/>
         <source>Nickname field is empty</source>
         <translation>Nickname field is empty</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="129"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="130"/>
         <source>Please choose a nickname.</source>
         <translation>Please choose a nickname</translation>
     </message>
@@ -1733,12 +1769,6 @@ To restart now, click OK, otherwise cancel.</translation>
         <translation>Reconnect</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="626"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="650"/>
-        <source>Close</source>
-        <translation>Close</translation>
-    </message>
-    <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="681"/>
         <source>Changing the skin crashes sometimes, but The Wheat Snooper
 will keep the settings for the next Start.
@@ -1854,14 +1884,6 @@ Do you want to continue?</translation>
         <location filename="../src/wormnet/mainwindow.ui" line="425"/>
         <source>join</source>
         <translation>Join</translation>
-    </message>
-</context>
-<context>
-    <name>mytabwidget</name>
-    <message>
-        <location filename="../src/wormnet/mytabwidget.cpp" line="18"/>
-        <source>Close</source>
-        <translation type="unfinished">Close</translation>
     </message>
 </context>
 <context>

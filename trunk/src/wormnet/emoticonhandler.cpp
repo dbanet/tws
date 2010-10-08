@@ -92,14 +92,13 @@ void emoticonhandler::add() {
 					ui.lineEdit->text().simplified());
 			ui.listWidget->addItem(item);
 		} else
-			QMessageBox::warning(0, tr("Warning"), tr(
+                    QMessageBox::warning(0, QObject::tr("Warning"), tr(
 					"This shortcut is allready reserved."));
 	} else {
 		QMessageBox::warning(
 				0,
-				tr("Warning"),
-				tr(
-						"Bevor you can choose a smiley, you must declare a smiley shortcut."));
+                                QObject::tr("Warning"),
+				tr("Bevor you can choose a smiley, you must declare a smiley shortcut."));
 	}
 }
 void emoticonhandler::remove() {

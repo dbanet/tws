@@ -24,7 +24,7 @@ channel(c) {
         ui.legamename->setText(gamename);
     else
         ui.legamename->setText(net->nick);
-    this->setWindowTitle(tr("Create a public game in ") + channel + ".");    
+    this->setWindowTitle(tr("Create a public game in")+" " + channel + ".");
     connect(ui.add, SIGNAL(clicked()),this, SLOT(addclicked()));
     connect(ui.ok, SIGNAL(clicked()),this, SLOT(okclicked()));
     connect(ui.cancel, SIGNAL(clicked()),this, SLOT(cancelclicked()));

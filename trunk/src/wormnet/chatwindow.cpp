@@ -93,7 +93,7 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     ui.verticalLayout_2->addWidget(statusbar);
     statusbar->setMaximumHeight(20);
     if (net->users.users.contains(userstruct::whoami(chatpartner))){
-        statusbar->showMessage(tr("Online"));
+        statusbar->showMessage(QObject::tr("Online"));
         userisoffline=0;
     }
     else{
@@ -140,7 +140,7 @@ void chatwindow::gotmsg(const QString &user, const QString &receiver,
                         const QString &msg) {
     if (statusbar->currentMessage() == tr(
             "Was offline when this window opened."))
-        statusbar->showMessage(tr("Online"));
+        statusbar->showMessage(QObject::tr("Online"));
     if (compareCI(user, chatpartner)) {
         chat->append(user, receiver, msg);
         QApplication::alert(this);emit
@@ -270,8 +270,7 @@ void chatwindow::gotidletime(const QString &user, int i) {
     QTime time(0, 0, 0);
     time = time.addSecs(i);
     if (compareCI(user, this->chatpartner)) {
-        chat->appenddebug(tr("<This users idle time: %1>").arg(time.toString(
-                "hh:mm:ss")));
+        chat->appenddebug(tr("<This users idle time:")+" " +time.toString("hh:mm:ss"));
     }
 }
 void chatwindow::gotnosuchnick(const QString &s){
@@ -287,7 +286,7 @@ void chatwindow::setaway(bool b, const QString &msg) {
     if (b) {
         statusbar->showMessage(QString(msg).remove(0, 5).remove("\001"));
     } else {
-        statusbar->showMessage(tr("Online"));
+        statusbar->showMessage(QObject::tr("Online"));
     }
 }
 void chatwindow::channelmsg(const QString &user, const QString &receiver,

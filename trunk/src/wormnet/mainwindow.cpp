@@ -7,6 +7,7 @@
 #include <QMenu>
 #include <QMessageBox>
 #include <QPicture>
+#include<QDialogButtonBox>
 #include "buddylist.h"
 #include <QTime>
 #include "ctcphandler.h"
@@ -157,8 +158,7 @@ void mainwindow::chooseclicked() {
     connect(net, SIGNAL(siggotchanellist(const QStringList &)),this, SLOT(getchannellist(const QStringList &)));
     connect(net, SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));
     connect(net, SIGNAL(siggotprivmsg(const QString&,const QString&,const QString&)),this,
-            SLOT(gotprvmsg(const QString&,const QString&,const QString&)));
-    connect(ui.pbjoin, SIGNAL(clicked()),this, SLOT(joinclicked()));
+            SLOT(gotprvmsg(const QString&,const QString&,const QString&)));    
     connect(net,SIGNAL(sigconnected()),this,SLOT(connected()));
     connect(net,SIGNAL(sigdisconnected()),this,SLOT(disconnected()));
     connect(net,SIGNAL(sigdisconnect()),this,SLOT(disconnect_netcoupler()));
@@ -313,7 +313,7 @@ void mainwindow::snpsetcontains(const QString &s) {
             skinFile="black by lookias.qss";
         QFile f(QApplication::applicationDirPath() + "/qss/" + skinFile);
         if(!f.open(QFile::ReadOnly))
-            QMessageBox::warning(this,tr("Warning"),tr("Cant read the Skinfile:\n")+skinFile);
+            QMessageBox::warning(this,QObject::tr("Warning"),tr("Cant read the Skinfile:\n")+skinFile);
         QString stylesheet = QLatin1String(f.readAll());
         qApp->setStyleSheet(baseStyleSheet+stylesheet);
     } else if (s == "joinonstartup" && singleton<snpsettings>().map.contains(s)
@@ -410,7 +410,7 @@ void mainwindow::quitslot() {
 void mainwindow::awayboxok() {
     singleton<balloon_handler>().set_away_tray_icon();
     foreach(::window *w,this->windowlist) {
-        w->windowtitleaway = " " + tr("<away>:") + net->awaymessage;
+        w->windowtitleaway = " " + tr("<away>:") +" "+ net->awaymessage;
         w->mysetwindowtitle();
     }
     net->wasaway = 1;
@@ -419,7 +419,7 @@ void mainwindow::awayboxok() {
 void mainwindow::awaymessagechanged() {
     if (net->isaway) {
         foreach(::window *w,this->windowlist) {
-            w->windowtitleaway = " " + tr("<away>:") + net->awaymessage;
+            w->windowtitleaway = " " + tr("<away>:") + " "+net->awaymessage;
             w->mysetwindowtitle();
         }
     } else {
@@ -623,7 +623,7 @@ void mainwindow::init_menus(){
     traymenu->addSeparator();
     a0 = traymenu->addAction(tr("Reconnect"));
     a0->setIcon(QIcon("snppictures/reconnect.png"));
-    a0 = traymenu->addAction(tr("Close"));
+    a0 = traymenu->addAction(QDialogButtonBox::tr("&Close"));
     a0->setIcon(QIcon("snppictures/closeicon.png"));        
 }
 
@@ -647,7 +647,7 @@ void mainwindow::trayactivation(QSystemTrayIcon::ActivationReason reason) {
     }
 }
 void mainwindow::traymenutriggered(QAction *a) {
-    if (a->text() == tr("Close")) {        
+    if (a->text() == QDialogButtonBox::tr("&Close")) {
         foreach(chatwindow *w,::window::chatwindows) {
             Q_ASSERT(w!=0);
             w->close();
@@ -677,7 +677,7 @@ void mainwindow::traymenutriggered(QAction *a) {
             safeusergarbage();
             safequerylist();
             try{
-                QMessageBox::StandardButton button=QMessageBox::warning(this,tr("Warning"),
+                QMessageBox::StandardButton button=QMessageBox::warning(this,QObject::tr("Warning"),
                                                                         tr("Changing the skin crashes sometimes, but The Wheat Snooper\n" \
                                                                            "will keep the settings for the next Start.\nDo you want to proceed?"),
                                                                         QMessageBox::Ok | QMessageBox::Cancel);

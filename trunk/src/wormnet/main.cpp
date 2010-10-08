@@ -36,9 +36,7 @@ QStringList defaultServerList(QStringList()<<"wormnet1.team17.com"<<"itakagames.
 void search_for_game_executables();
 void handle_prosnooper_buddys();
 void handle_wini_ini();
-void myMessageOutput(QtMsgType, const char *);
 int main(int argc, char *argv[]) {    
-    qInstallMsgHandler(myMessageOutput);
     QApplication a(argc, argv);    
     a.setApplicationName("The Wheat Snooper");
     chdir(qPrintable(QApplication::applicationDirPath()));
@@ -103,27 +101,6 @@ int main(int argc, char *argv[]) {
     loadquerylist();       
     QTimer::singleShot(1000,&singleton<sound_handler>(),SLOT(play_startupsound()));
     return a.exec();
-}
-void myMessageOutput(QtMsgType type, const char *msg) {
-    switch (type) {
-    case QtDebugMsg:
-        fprintf(stderr, "Debug: %s\n", msg);
-        if (w != 0
-            && singleton<settingswindow>().from_map("cbservermessageinchannelwindows").value<bool> ())
-            w->appenddebugmessage(QString(msg).simplified()+"\n");
-        else
-            mainwindow::debugmsg.append(QString(msg).simplified()+"\n");
-        break;
-    case QtWarningMsg:
-        fprintf(stderr, "Warning: %s\n", msg);
-        break;
-    case QtCriticalMsg:
-        fprintf(stderr, "Critical: %s\n", msg);
-        break;
-    case QtFatalMsg:
-        fprintf(stderr, "Fatal: %s\n", msg);
-        abort();
-    }
 }
 void handle_wini_ini(){
     //looking in win.ini for the playername, to avoid mistakes
