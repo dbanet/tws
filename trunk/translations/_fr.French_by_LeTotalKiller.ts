@@ -359,7 +359,7 @@ Si vous utilisez The Wheat Snooper pour la première fois, cliquez sur &quot;Non
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="42"/>
         <source>Find Directory</source>
-        <translation>Rechercer un dossier</translation>
+        <translation>Rechercher un dossier</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="43"/>
@@ -491,7 +491,7 @@ Voulez-vous quand même l&apos;effacer </translation>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="66"/>
         <source>File &amp;name:</source>
-        <translation>&amp;Nom du fichie :</translation>
+        <translation>&amp;Nom du fichier :</translation>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="67"/>
@@ -704,7 +704,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/buttonlayout.cpp" line="76"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="78"/>
         <source>Costum words</source>
-        <translation>Mots personnalisés : </translation>
+        <translation>Mots personnalisés :</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="24"/>
@@ -736,7 +736,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/buttonlayout.cpp" line="86"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="88"/>
         <source>Sound</source>
-        <translation>Son : </translation>
+        <translation>Son :</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="34"/>
@@ -744,7 +744,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/buttonlayout.cpp" line="97"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="99"/>
         <source>Balloons</source>
-        <translation>Bulles d&apos;infos : </translation>
+        <translation>Bulles d&apos;infos :</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="39"/>
@@ -752,7 +752,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/buttonlayout.cpp" line="108"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="110"/>
         <source>Sorting</source>
-        <translation>Tri : </translation>
+        <translation>Tri :</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="96"/>
@@ -1047,7 +1047,7 @@ Skin_Base</translation>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="258"/>
         <source>Choose a file.</source>
-        <translation>Chisissez un fichier.</translation>
+        <translation>Choisissez un fichier.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="100"/>
@@ -1936,7 +1936,7 @@ Si cette zone de texte est vide, Worms refusera probablement d&apos;héberger ou
     <message>
         <location filename="../src/wormnet/playername.cpp" line="35"/>
         <source>Sry but this feature is not available on your system.</source>
-        <translation>Désolé mais cette option n&apos;est pas disponible sur votre système d&apos;exploitation.</translation>
+        <translation>Désolé, mais cette option n&apos;est pas disponible sur votre système d&apos;exploitation.</translation>
     </message>
 </context>
 <context>
@@ -2294,7 +2294,7 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
     <message>
         <location filename="../src/wormnet/snoppanet.cpp" line="190"/>
         <source>Wormnet wont start this game, please try again at a later time.</source>
-        <translation>WormNET refuse le démarrage de cette partie, veuillez réesayer plus tard.</translation>
+        <translation>WormNET refuse le démarrage de cette partie, veuillez réessayer plus tard.</translation>
     </message>
 </context>
 <context>
@@ -2307,7 +2307,7 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
     <message>
         <location filename="../src/wormnet/textschemehandler.cpp" line="71"/>
         <source>This is a teststring &gt; ? ! &lt; @ THIS IS A TESTSTRING! 0123456789 xD ,) :) ;P :P :E :D :C ;o :o o0 o_0 ,0.0,</source>
-        <translation>Ceci est un texte de test &gt; ? ! &lt; @ CECI EST UN TEXTE DE TEST! 0123456789 xD ,) :) ;P :P :E :D :C ;o :o o0 o_0 ,0.0,</translation>
+        <translation>Ceci est un texte de test &gt; ? ! &lt; @ CECI EST UN TEXTE DE TEST ! 0123456789 xD ,) :) ;P :P :E :D :C ;o :o o0 o_0 ,0.0,</translation>
     </message>
 </context>
 <context>
