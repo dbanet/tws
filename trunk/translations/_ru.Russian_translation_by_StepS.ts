@@ -626,37 +626,37 @@ Skin_Base</translation>
         <location filename="../src/wormnet/inihandlerclass.cpp" line="49"/>
         <location filename="../src/wormnet/inihandlerclass.cpp" line="73"/>
         <source>the file network/wormnet.net is missing!</source>
-        <translation type="unfinished"></translation>
+        <translation>Не хватает файла &quot;network/wormnet.net&quot;</translation>
     </message>
     <message>
         <location filename="../src/wormnet/inihandlerclass.cpp" line="31"/>
         <location filename="../src/wormnet/inihandlerclass.cpp" line="55"/>
         <location filename="../src/wormnet/inihandlerclass.cpp" line="79"/>
         <source>The file network/wormnet.net file is corrupt!</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл &quot;network/wormnet.net&quot; поврежден!</translation>
     </message>
     <message>
         <location filename="../src/wormnet/inihandlerclass.cpp" line="32"/>
         <location filename="../src/wormnet/inihandlerclass.cpp" line="56"/>
         <location filename="../src/wormnet/inihandlerclass.cpp" line="80"/>
         <source> can not be found, but is important.</source>
-        <translation type="unfinished"></translation>
+        <translation> не найден, но необходим!</translation>
     </message>
     <message>
         <location filename="../src/wormnet/main.cpp" line="60"/>
         <source>the flags in snppictures/flags are missing!</source>
-        <translation type="unfinished"></translation>
+        <translation>Не хватает флагов в папке &quot;snppictures/flags&quot;</translation>
     </message>
     <message>
         <location filename="../src/wormnet/main.cpp" line="67"/>
         <source>the ranks in snppictures/flags are missing!</source>
-        <translation type="unfinished"></translation>
+        <translation>Не хватает рангов в папке &quot;snppictures/ranks&quot;</translation>
     </message>
     <message>
         <location filename="../src/wormnet/main.cpp" line="75"/>
         <location filename="../src/wormnet/main.cpp" line="78"/>
         <source>some pictures are missing!</source>
-        <translation type="unfinished"></translation>
+        <translation>Не хватает некоторых картинок!</translation>
     </message>
     <message>
         <location filename="../src/wormnet/snpsettings.cpp" line="30"/>
@@ -671,18 +671,18 @@ Skin_Base</translation>
     <message>
         <location filename="../src/wormnet/snpsettings.cpp" line="97"/>
         <source>The translationfile cannot be loaded! it might be corrupt.</source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно загрузить файл языка интерфейса! Возможно, он поврежден.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="11"/>
         <location filename="../src/wormnet/balloon_handler.cpp" line="16"/>
         <source>The Wheat Snooper version </source>
-        <translation type="unfinished">The Wheat Snooper </translation>
+        <translation>The Wheat Snooper </translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="16"/>
         <source> started!</source>
-        <translation type="unfinished"> запущен!</translation>
+        <translation> запущен!</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostmodel.cpp" line="23"/>
@@ -697,7 +697,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/usermodel.cpp" line="42"/>
         <location filename="../src/wormnet/usermodel.cpp" line="48"/>
         <source>Some Pictures are missing!</source>
-        <translation type="unfinished"></translation>
+        <translation>Не хватает некоторых картинок!</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="24"/>
@@ -1516,17 +1516,17 @@ CTCP означает &quot;Протокол от Клиента К Клиент
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="49"/>
         <source>There was an error with the connection to Wormnet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка при подключении к серверу.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="395"/>
         <source>Servermessage: </source>
-        <translation type="unfinished"></translation>
+        <translation>Сообщение сервера: </translation>
     </message>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="416"/>
         <source>disconnected from irc server.</source>
-        <translation>Отключено от IRC</translation>
+        <translation>Потеряна связь с IRC-сервером!</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="482"/>
@@ -1547,7 +1547,7 @@ If your nick got faked... bl :)</source>
     <message>
         <location filename="../src/wormnet/joinprvgame.cpp" line="13"/>
         <source>Join game with.</source>
-        <translation type="unfinished"></translation>
+        <translation>Войти в игру, используя</translation>
     </message>
     <message>
         <location filename="../src/wormnet/joinprvgame.cpp" line="24"/>
@@ -1751,7 +1751,7 @@ To restart now click Ok, otherwise cancel.</source>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="688"/>
         <source>Skinchanging failed, please try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось сменить скин, пожалуйста, попробуйте еще раз.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="775"/>
@@ -1904,12 +1904,12 @@ The Wheat Snooper сохранит настройки на следующий з
     <message>
         <location filename="../src/wormnet/netcoupler.cpp" line="288"/>
         <source>joining/hosting a game finished normally</source>
-        <translation type="unfinished"></translation>
+        <translation>Хостинг/вход в игру прошел успешно</translation>
     </message>
     <message>
         <location filename="../src/wormnet/netcoupler.cpp" line="290"/>
         <source>joining/hosting a game crashed</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось захостить/войти в игру</translation>
     </message>
     <message>
         <location filename="../src/wormnet/netcoupler.cpp" line="323"/>
@@ -2277,7 +2277,7 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/snoppanet.cpp" line="60"/>
         <source>Gameserver disonnected!</source>
-        <translation type="unfinished"></translation>
+        <translation>Потеряна связь с игровым сервером!</translation>
     </message>
     <message>
         <location filename="../src/wormnet/snoppanet.cpp" line="190"/>
@@ -2391,7 +2391,7 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/usermodel.cpp" line="45"/>
         <source>Some Pictures are missing!</source>
-        <translation type="unfinished"></translation>
+        <translation>Не хватает некоторых картинок!</translation>
     </message>
 </context>
 <context>
