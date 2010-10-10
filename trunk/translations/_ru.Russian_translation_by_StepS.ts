@@ -603,7 +603,7 @@ Do you want to delete it anyway</source>
     <message>
         <location filename="../src/wormnet/charformatsettings.cpp" line="49"/>
         <source>cannot write file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно записать файл:</translation>
     </message>
     <message>
         <location filename="../src/wormnet/emoticonhandler.cpp" line="95"/>
@@ -661,12 +661,12 @@ Skin_Base</translation>
     <message>
         <location filename="../src/wormnet/snpsettings.cpp" line="30"/>
         <source>Question</source>
-        <translation type="unfinished">Вопрос</translation>
+        <translation>Вопрос</translation>
     </message>
     <message>
         <location filename="../src/wormnet/snpsettings.cpp" line="44"/>
         <source>Warning!</source>
-        <translation type="unfinished">Внимание!</translation>
+        <translation>Внимание!</translation>
     </message>
     <message>
         <location filename="../src/wormnet/snpsettings.cpp" line="97"/>
@@ -705,7 +705,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/buttonlayout.cpp" line="76"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="78"/>
         <source>Costum words</source>
-        <translation type="unfinished">Контр. слова</translation>
+        <translation>Контр. слова</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="24"/>
@@ -717,7 +717,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/buttonlayout.cpp" line="99"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="110"/>
         <source>on</source>
-        <translation type="unfinished"></translation>
+        <translation>вкл</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="26"/>
@@ -729,7 +729,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/buttonlayout.cpp" line="97"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="108"/>
         <source>off</source>
-        <translation type="unfinished"></translation>
+        <translation>выкл</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="29"/>
@@ -737,7 +737,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/buttonlayout.cpp" line="86"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="88"/>
         <source>Sound</source>
-        <translation type="unfinished">Звук</translation>
+        <translation>Звук</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="34"/>
@@ -745,7 +745,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/buttonlayout.cpp" line="97"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="99"/>
         <source>Balloons</source>
-        <translation type="unfinished">Кружки</translation>
+        <translation>Оповещ.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="39"/>
@@ -753,14 +753,14 @@ Skin_Base</translation>
         <location filename="../src/wormnet/buttonlayout.cpp" line="108"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="110"/>
         <source>Sorting</source>
-        <translation type="unfinished"></translation>
+        <translation>Сортировка</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="96"/>
         <location filename="../src/wormnet/chatwindow.cpp" line="143"/>
         <location filename="../src/wormnet/chatwindow.cpp" line="289"/>
         <source>Online</source>
-        <translation type="unfinished">В сети</translation>
+        <translation>В сети</translation>
     </message>
 </context>
 <context>
@@ -768,42 +768,42 @@ Skin_Base</translation>
     <message>
         <location filename="../src/wormnet/about.cpp" line="10"/>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Версия</translation>
     </message>
     <message>
         <location filename="../src/wormnet/about.cpp" line="11"/>
         <source>This Program was completely written by Lookias.</source>
-        <translation type="unfinished"></translation>
+        <translation>Эта программа была полностью написана Lookias&apos;ом.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/about.cpp" line="12"/>
         <source>It was written in C++, with the eclipse ide.</source>
-        <translation type="unfinished"></translation>
+        <translation>Она была написана на C++.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/about.cpp" line="13"/>
         <source>The framework in use was Qt.</source>
-        <translation type="unfinished"></translation>
+        <translation>Использованная рабочая среда - Qt.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/about.cpp" line="14"/>
         <source>The license of the program is GPLv2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Эта программа распространяется под GPLv2.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/about.cpp" line="15"/>
         <source>The translation was made by Lookias.</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевод был сделан StepS&apos;ом.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/about.cpp" line="16"/>
         <source>Lookias`s Homepage:</source>
-        <translation type="unfinished"></translation>
+        <translation>Домашняя страничка Lookias&apos;a:</translation>
     </message>
     <message>
         <location filename="../src/wormnet/about.cpp" line="17"/>
         <source>This programs livingplace</source>
-        <translation type="unfinished"></translation>
+        <translation>Домашняя страничка программы:</translation>
     </message>
 </context>
 <context>
@@ -1059,7 +1059,7 @@ Skin_Base</translation>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="273"/>
         <source>&lt;This users idle time:</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Время отсутствия этого пользователя:</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="278"/>
@@ -1317,7 +1317,7 @@ CTCP означает &quot;Протокол от Клиента К Клиент
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="27"/>
         <source>Create a public game in</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать игру на</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="64"/>
@@ -1871,7 +1871,7 @@ The Wheat Snooper сохранит настройки на следующий з
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="280"/>
         <source>The Wheat Snooper</source>
-        <translation>The Wheat Snooper 2.28</translation>
+        <translation>The Wheat Snooper 2.3</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="382"/>

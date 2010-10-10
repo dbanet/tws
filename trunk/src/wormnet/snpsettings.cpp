@@ -16,6 +16,7 @@
 #include<QDataStream>
 #include<QTranslator>
 extern QStringList defaultServerList;
+const QString Version_String="1";
 snpsettings::snpsettings(){}
 snpsettings::~snpsettings(){}
 void snpsettings::load(){
@@ -43,7 +44,7 @@ void snpsettings::load(){
                 } else{
                     int button=QMessageBox::warning(0,QObject::tr("Warning!"),QApplication::tr("This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?"),QMessageBox::Yes | QMessageBox::No);
                     if(button==QMessageBox::Yes)
-                        continue;                    
+                        continue;
                     else {
                         loadDefaults();
                         return;
@@ -60,21 +61,29 @@ void snpsettings::load(){
         } else{
             loadDefaults();
             return;
-        }        
+        }
         f.open(QFile::ReadOnly);
-    }    
+    }
+    version=Version_String;
     QDataStream ds(&f);
     ds.setVersion(QDataStream::Qt_4_3);
     ds>>map;
     QString s;
-    ds>>s;
     if(!QDir().exists("snpini/256")){
-            isOnFirstRun=true;
-            QDir().mkdir("snpini/256");
+        isOnFirstRun=true;
+        QDir().mkdir("snpini/256");
+    } else {
+        ds>>version;
+        if(version=="end"){
+            s="end";
+            version=Version_String;
+        }
+        else
+            ds>>s;
     }
     if(s!="end" && !isOnFirstRun){
         QFile::remove("snpini/snpinibackup");
-        QFile::copy("snpini/snpini","snpini/snpinibackup");        
+        QFile::copy("snpini/snpini","snpini/snpinibackup");
         map.clear();
         ds.resetStatus();
         f.setFileName("snpini/snpinifromlastquit");
@@ -82,6 +91,8 @@ void snpsettings::load(){
         ds.setDevice(&f);
         map.clear();
         ds>>map;
+        if(QDir().exists("snpini/256"))
+            ds>>version;
         ds>>s;
         if(s!="end"){
             map.clear();
@@ -102,6 +113,7 @@ void snpsettings::safe(){
     QDataStream ds(&f);
     ds.setVersion(QDataStream::Qt_4_3);
     ds<<map;
+    ds<<Version_String;
     ds<<QString("end");
 }
 void snpsettings::safeonquit(){
@@ -110,6 +122,7 @@ void snpsettings::safeonquit(){
     QDataStream ds(&f);
     ds.setVersion(QDataStream::Qt_4_3);
     ds<<map;
+    ds<<Version_String;
     ds<<QString("end");
 }
 void snpsettings::installTranslationBySystemLocale(){
@@ -136,6 +149,6 @@ void snpsettings::loadDefaults(){
     map["dissallowedclannames"].setValue<QStringList>(QStringList()<<"Username"<<"cybershadow"<<"WebSnoop"<<"HostingBuddy"<<"SheriffBot"<<"muzer"<<"Help"<<"Miranda"<<"Mirc"<<"wormatty"<<"simon"<<"darkone"<<"noclan"<<"baleegames");
     map["charformatfile"].setValue<QString>("comic by lookias.textscheme");
     map["chbsendhostinfotochan"].setValue<bool>(true);
-    map["wormnetserverlist"].setValue<QStringList>(defaultServerList);   
-    installTranslationBySystemLocale();   
+    map["wormnetserverlist"].setValue<QStringList>(defaultServerList);
+    installTranslationBySystemLocale();
 }

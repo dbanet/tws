@@ -22,5 +22,6 @@ public:
         DECLARE_SINGLETON(snpsettings);
 private:
         void installTranslationBySystemLocale();
+        QString version;
 };
 #endif /* SNPSETTINGS_H_ */

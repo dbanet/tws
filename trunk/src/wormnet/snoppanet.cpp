@@ -57,7 +57,10 @@ void snoppanet::readircip() {
     }
 }
 void snoppanet::httpError(QNetworkReply::NetworkError error) {
-    myDebug() << tr("Gameserver disonnected!");
+    static bool noErrorYet=true;
+    if(noErrorYet)
+        myDebug() << tr("Gameserver disonnected!");
+    noErrorYet=false;
 }
 void snoppanet::setchannellist(const QStringList &sl) {
     currentchannellist = sl;
