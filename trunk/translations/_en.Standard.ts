@@ -74,19 +74,19 @@ For hebrew and arabic, for example.</translation>
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="31"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="32"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
         <translation>If you like to keep the settings from an old version, click yes.
 If you use The Wheat Snooper for the first time, just click No.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="37"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="38"/>
         <source>Please choose the folder from the old Snooper.</source>
         <translation>Please choose the old Snooper folder</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="44"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="45"/>
         <source>This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?</source>
         <translation>This folder doesn&apos;t seem to be a valid installation of
 The Wheat Snooper. Do you want to continue anyway?</translation>
@@ -646,17 +646,17 @@ Skin_Base</translation>
         <translation>Some pictures are missing!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="30"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="31"/>
         <source>Question</source>
         <translation>Question</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="44"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="45"/>
         <source>Warning!</source>
         <translation>Warning!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="97"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="108"/>
         <source>The translationfile cannot be loaded! it might be corrupt.</source>
         <translation>The language file cannot be loaded! It might be missing or corrupt.</translation>
     </message>
@@ -2262,12 +2262,12 @@ Note: to apply these settings, you must reconnect to WormNET.</translation>
 <context>
     <name>snoppanet</name>
     <message>
-        <location filename="../src/wormnet/snoppanet.cpp" line="60"/>
+        <location filename="../src/wormnet/snoppanet.cpp" line="62"/>
         <source>Gameserver disonnected!</source>
         <translation>Disconnected from Game server!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snoppanet.cpp" line="190"/>
+        <location filename="../src/wormnet/snoppanet.cpp" line="193"/>
         <source>Wormnet wont start this game, please try again at a later time.</source>
         <translation>Error while hosting a game, please try again later.</translation>
     </message>
