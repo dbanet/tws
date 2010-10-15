@@ -10,8 +10,6 @@
 #include<QPixmap>
 bool *hoststruct::boolhelper = new bool;
 extern QList<QPixmap*> flaglist; //declared in main.cpp
-extern QList<QPixmap*> ranklist; //declared in main.cpp
-extern int ranklistsize;
 extern int flaglistsize;
 hoststruct::hoststruct() {
 	// TODO Auto-generated constructor stub

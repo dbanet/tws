@@ -7,6 +7,7 @@
 
 #include "userstruct.h"
 #include"netcoupler.h"
+#include"myDebug.h"
 #include<QHostInfo>
 #include<QPointer>
 bool *userstruct::boolhelper = new bool;
@@ -31,11 +32,6 @@ userstruct::userstruct(QStringList sl) {
     if (*boolhelper && i < flaglistsize && i >= 0)
         flag = i;
     else flag=49;
-    i = sl.takeFirst().toInt(boolhelper);
-    if (*boolhelper && i < ranklistsize && i >= 0)
-        rank = i;
-    else rank=12;
-    country = sl.takeFirst();
     if (flag >= 49) {
         if (country == "CL")
             flag = 53;
@@ -102,7 +98,14 @@ userstruct::userstruct(QStringList sl) {
             flag = 83;
         //*******
     }
+    int clannumber = sl.takeFirst().toInt(boolhelper);
+    country = sl.takeFirst();
     client = sl.join(" ").remove("\r");
+    if(client.startsWith("prosnooper",Qt::CaseInsensitive))
+        rank=13;
+    else if (*boolhelper && clannumber < ranklistsize && clannumber >= 0)
+        rank = clannumber;
+    else rank=12;
     if(addressischecked==0 && nick==net->nick){
         QList<QHostAddress> a=QHostInfo::fromName (address).addresses();
         QString ip;

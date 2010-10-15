@@ -13,6 +13,7 @@
 #include"settingswindow.h"
 #include "about.h"
 #include "codecselectdia.h"
+#include"mainwindow.h"
 #include"myDebug.h"
 extern inihandlerclass inihandler;
 extern QMap<QString, QStringList> usergarbagemap;
@@ -68,7 +69,7 @@ void ircnet::connected() {
     s.append(sl.takeFirst() + " ");
     s.append(sl.takeFirst() + " :");
     s.append(singleton<snpsettings>().map["flag"].value<QString> () + " ");
-    s.append(singleton<snpsettings>().map["rank"].value<QString> () + " ");
+    s.append(QString::number(mainwindow::rank)+" ");
     switch (singleton<snpsettings>().map["flag"].value<QString> ().toInt()) {
         //written by steps
     case 0:

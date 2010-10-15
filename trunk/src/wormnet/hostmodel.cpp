@@ -10,7 +10,6 @@
 #include<QTime>
 #include<QPointer>
 extern QList<QPixmap*> flaglist; //declared in main.cpp
-extern QList<QPixmap*> ranklist; //declared in main.cpp
 extern QPixmap *locked;
 extern QPixmap *unlocked;
 extern QPointer<netcoupler> net;

@@ -5,11 +5,13 @@
 #include "ui_mainwindow.h"
 #include<QList>
 #include <QSystemTrayIcon>
+#include<QNetworkAccessManager>
 #include"maintoolbox.h"
 class window;
 class netcoupler;
 class chatwindow;
 class QMenu;
+class QNetworkReply;
 class mainwindow : public QWidget
 {
     Q_OBJECT
@@ -22,6 +24,7 @@ public:
     static QMap<QString,QString> rememberwhogotaway;
     static QList< ::window * > windowlist;
     static QList< ::chatwindow*> hiddenchatwindowshelper;
+    static int rank;
 private:
     typedef ::window channelwindow;
     Ui::mainwindowClass ui;
@@ -50,9 +53,16 @@ private:
     QString baseStyleSheet;
 
     void joinGameSourge();
+    void getRankFromTus();
+
+    void connectToNetwork();
 
     QStringList lastOpenedWindows;
     QStringList lastOpenedChatWindows;
+
+    QNetworkAccessManager qnam;
+    QNetworkReply *reply;
+    QString tusresponse;
 private slots:
     void on_pbjoin_clicked();
     void join(const QString channel);
@@ -88,9 +98,13 @@ private slots:
     void connected();
     void disconnected();
     void reconnect();
-    void disconnect_netcoupler();
+    void disconnect_netcoupler();    
 
     void reopenChatWindowsAndChannelWindows();
+
+    void httpFinished();
+    void httpReadyRead();
+    void tusRequestTimeOut();
 protected:
     void changeEvent (QEvent*);
     void closeEvent ( QCloseEvent * event );

@@ -4,6 +4,7 @@
 #include<QApplication>
 #include<QMessageBox>
 #include<QUrl>
+#include<QNetworkReply>
 clantowebpagemapper::clantowebpagemapper()
 {
 }

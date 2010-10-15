@@ -4,7 +4,7 @@
 #include<QMap>
 #include<QObject>
 #include<QNetworkAccessManager>
-#include<QNetworkReply>
+class QNetworkReply;
 class clantowebpagemapper: public QObject
 {
     Q_OBJECT

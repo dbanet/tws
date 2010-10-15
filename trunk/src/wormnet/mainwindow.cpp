@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QPicture>
 #include<QDialogButtonBox>
+#include<QNetworkReply>
 #include "buddylist.h"
 #include <QTime>
 #include "ctcphandler.h"
@@ -41,7 +42,6 @@ inihandlerclass inihandler;
 QPointer<netcoupler> net;
 extern volumeslider *volume;
 extern QList<QPixmap*> flaglist;
-extern QList<QPixmap*> ranklist;
 QString mainwindow::debugmsg;
 QMap<QString, QString> mainwindow::rememberwhogotaway;
 bool fontorcolorchanged = 0;
@@ -50,6 +50,7 @@ extern QStringList defaultServerList;
 QList< ::window *> mainwindow::windowlist;
 QList< ::chatwindow*> mainwindow::hiddenchatwindowshelper;
 QString GamesourgeChannelName="#GameSourgeWorms";
+int mainwindow::rank=13;
 mainwindow::mainwindow(QWidget *parent) :
         QWidget(parent){
     net = NULL;
@@ -70,22 +71,20 @@ mainwindow::mainwindow(QWidget *parent) :
     connect(singleton<balloon_handler>().tray, SIGNAL(activated ( QSystemTrayIcon::ActivationReason)),this, SLOT(trayactivation(QSystemTrayIcon::ActivationReason)));        
     for (int i = 0; i < flaglist.size(); ++i)
         ui.flag->addItem(*(flaglist[i]), QString::number(i));
-    for (int i = 0; i < ranklist.size(); ++i)
-        ui.rank->addItem(*(ranklist[i]), QString::number(i));
     snpsetcontains("chbminimized");
     snpsetcontains("nickname");
-    snpsetcontains("password");
+    snpsetcontains("tus_password");
+    snpsetcontains("tus_login");
+    snpsetcontains("tusloginenable");
     snpsetcontains("whichuitype");
-    snpsetcontains("flag");
-    snpsetcontains("rank");
+    snpsetcontains("flag");    
     snpsetcontains("client");
     snpsetcontains("clan");
-    snpsetcontains("wormnetserverlist");
+    snpsetcontains("wormnetserverlist");    
 
     ui.cbremember->setChecked(singleton<snpsettings>().map["chbremember"].value<bool> ());
     if (ui.cbremember->isChecked() && ui.lenick->text() != "") {
-        chooseclicked();
-        ui.tabWidget->setCurrentIndex(1);
+        chooseclicked();        
     }
     this->setWindowTitle(tr("Wheat Snoopers root window."));
     joinonstartup = 0;
@@ -123,7 +122,7 @@ void mainwindow::get_baseStyleSheet(){
         QMessageBox::warning(0,QObject::tr("Warning"),QObject::tr("Cant read the Skinfile:\nSkin_Base"));
     baseStyleSheet = QLatin1String(f.readAll());
 }
-void mainwindow::chooseclicked() {
+void mainwindow::connectToNetwork(){
     if(ui.tabWidget->currentIndex()!=0)
         return;
     if (ui.lenick->text().isEmpty()){
@@ -136,11 +135,12 @@ void mainwindow::chooseclicked() {
         singleton<snpsettings>().map["clan"] = ui.clan->text();
 
     singleton<snpsettings>().map["nickname"] = ui.lenick->text();
-    singleton<snpsettings>().map["password"] = ui.lepassword->text();
+    singleton<snpsettings>().map["tus_password"] = ui.letuspassword->text();
+    singleton<snpsettings>().map["tus_login"] = ui.letuslogin->text();
     singleton<snpsettings>().map["flag"] = ui.flag->currentText();
-    singleton<snpsettings>().map["rank"] = ui.rank->currentText();
     singleton<snpsettings>().map["client"] = ui.client->text();
-    QStringList sl;        
+    singleton<snpsettings>().map["tusloginenable"] = ui.cbenabletus->isChecked();
+    QStringList sl;
     sl<<ui.cbServerList->currentText();
     for(int i=0 ; i<ui.cbServerList->count() ; i++){
         if(!sl.contains(ui.cbServerList->itemText(i)))
@@ -151,20 +151,28 @@ void mainwindow::chooseclicked() {
 
     singleton<snpsettings>().map["wormnetserverlist"] = sl;
 
-    singleton<snpsettings>().safe();   
+    singleton<snpsettings>().safe();
     ui.tabWidget->setCurrentIndex(1);
+
     net = new netcoupler(ui.lenick->text(), this);
     connect(net,SIGNAL(sigreconnect()),this,SLOT(reconnect()));
     connect(net, SIGNAL(siggotchanellist(const QStringList &)),this, SLOT(getchannellist(const QStringList &)));
     connect(net, SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));
     connect(net, SIGNAL(siggotprivmsg(const QString&,const QString&,const QString&)),this,
-            SLOT(gotprvmsg(const QString&,const QString&,const QString&)));    
+            SLOT(gotprvmsg(const QString&,const QString&,const QString&)));
     connect(net,SIGNAL(sigconnected()),this,SLOT(connected()));
     connect(net,SIGNAL(sigdisconnected()),this,SLOT(disconnected()));
     connect(net,SIGNAL(sigdisconnect()),this,SLOT(disconnect_netcoupler()));
 
     QTimer::singleShot(7000,this,SLOT(reopenChatWindowsAndChannelWindows()));
     ui.tabWidget->setTabEnabled(1, 1);
+}
+
+void mainwindow::chooseclicked() {
+    if(ui.cbenabletus->isChecked()){
+        getRankFromTus();
+    } else
+        connectToNetwork();
 }
 void mainwindow::reopenChatWindowsAndChannelWindows(){
     foreach(QString s,lastOpenedChatWindows)
@@ -328,19 +336,15 @@ void mainwindow::snpsetcontains(const QString &s) {
         ui.chbminimized->setChecked(singleton<snpsettings>().map["chbminimized"].value<bool> ());   
     else if (s == "nickname" && singleton<snpsettings>().map.contains(s))
         ui.lenick->setText(singleton<snpsettings>().map["nickname"].value<QString> ());
-    else if (s == "password" && singleton<snpsettings>().map.contains("password"))
-        ui.lepassword->setText(singleton<snpsettings>().map["password"].value<QString> ());
+    else if (s == "tus_password" && singleton<snpsettings>().map.contains("tus_password"))
+        ui.letuspassword->setText(singleton<snpsettings>().map["tus_password"].value<QString> ());
+    else if (s == "tus_login" && singleton<snpsettings>().map.contains("tus_login"))
+        ui.letuslogin->setText(singleton<snpsettings>().map["tus_login"].value<QString> ());
     else if (s == "flag"){
         QString flagText=singleton<snpsettings>().map[s].value<QString> ();
         if(flagText.isEmpty())
             flagText="49";
         ui.flag->setCurrentIndex(ui.flag->findText(flagText));
-    }
-    else if (s == "rank"){
-        QString rankText=singleton<snpsettings>().map[s].value<QString> ();
-        if(rankText.isEmpty())
-            rankText="13";
-        ui.rank->setCurrentIndex(ui.rank->findText(rankText));
     }
     else if (s == "client" && singleton<snpsettings>().map.contains(s))
         ui.client->setText(singleton<snpsettings>().map[s].value<QString> ());
@@ -358,6 +362,9 @@ void mainwindow::snpsetcontains(const QString &s) {
             ui.cbServerList->addItems(defaultServerList);
         } else
             ui.cbServerList->addItems(singleton<snpsettings>().map["wormnetserverlist"].value<QStringList> ());
+    }
+    else if(s=="tusloginenable"){
+        ui.cbenabletus->setChecked(singleton<snpsettings>().map["tusloginenable"].toBool());
     }
 }
 void mainwindow::windowremoved(const QString &s) {
@@ -829,4 +836,32 @@ void mainwindow::joinGameSourge(){
 void mainwindow::on_pbjoin_clicked()
 {
     join(ui.cbchannels->currentText());
+}
+void mainwindow::getRankFromTus(){
+    QUrl url="http://www.tus-wa.com/testlogin.php?u="+ui.letuslogin->text()+"&p="+ui.letuspassword->text();
+    reply=qnam.get(QNetworkRequest(url));
+    connect(reply, SIGNAL(finished()),this, SLOT(httpFinished()));
+    connect(reply, SIGNAL(readyRead()),this, SLOT(httpReadyRead()));
+    QTimer::singleShot(2000,this,SLOT(tusRequestTimeOut()));
+}
+void mainwindow::tusRequestTimeOut(){
+    myDebug()<<tr("Timeout at TUS server!");
+    connectToNetwork();
+}
+
+void mainwindow::httpFinished(){
+    QStringList sl=tusresponse.split(" ");
+    sl<<""<<""<<""<<""<<"";
+    if(sl.takeFirst()=="0"){
+        QMessageBox::information(0,QObject::tr("Warning"),tr("Your TUS Account seems to be wrong, please try again."));
+        return;
+    }
+    bool b;
+    rank=sl.takeFirst().toInt(&b);
+    if(!b)
+        rank=13;
+    connectToNetwork();
+}
+void mainwindow::httpReadyRead(){
+    tusresponse=reply->readAll();
 }
