@@ -19,7 +19,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>4</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -240,8 +240,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>950</width>
-              <height>471</height>
+              <width>387</width>
+              <height>430</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -620,19 +620,39 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>306</width>
-              <height>660</height>
+              <width>933</width>
+              <height>668</height>
              </rect>
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_8">
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_6">
                <item>
-                <widget class="QCheckBox" name="cbdontplaysound">
-                 <property name="text">
-                  <string>Dont play sound.</string>
+                <layout class="QHBoxLayout" name="horizontalLayout">
+                 <property name="topMargin">
+                  <number>0</number>
                  </property>
-                </widget>
+                 <item>
+                  <widget class="QCheckBox" name="cbdontplaysound">
+                   <property name="text">
+                    <string>Dont play sound.</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton">
+                   <property name="maximumSize">
+                    <size>
+                     <width>200</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>Try to apply a Soundpack</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
                <item>
                 <widget class="QGroupBox" name="groupBox_11">

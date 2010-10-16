@@ -18,7 +18,9 @@ private:
     Ui::settingswindowClass ui;    
     QMap<QString,QVariant> map;
     void loadDefaults();
+    void checkValidEntries();
 private slots:
+    void on_pushButton_clicked();
     void ok();
     void cancel();
     void soundoptionbuttonslot();

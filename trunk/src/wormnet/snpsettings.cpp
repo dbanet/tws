@@ -164,4 +164,4 @@ void snpsettings::checkifempty(){
         singleton<snpsettings>().map["flagtext"]="49";
     if(singleton<snpsettings>().map["qss file"].toString().isEmpty())
         singleton<snpsettings>().map["qss file"]="black by lookias.qss";
-    }
+}

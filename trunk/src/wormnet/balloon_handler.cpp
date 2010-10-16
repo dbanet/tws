@@ -30,11 +30,11 @@ void balloon_handler::showballoon(){
     balloonhelper = balloonhelper.mid(balloonhelper.size()- max_size);
 }
 void balloon_handler::disconnected(){
-    balloonhelper << QTime::currentTime().toString("hh:mm") + ":" + tr("Disconnected from Network");
+    balloonhelper << QTime::currentTime().toString("hh:mm") + ":" + tr("Disconnected from Wormnet");
     showballoon();
 }
 void balloon_handler::connected(){
-    balloonhelper << QTime::currentTime().toString("hh:mm") + ":" + tr("Connected to Network");
+    balloonhelper << QTime::currentTime().toString("hh:mm") + ":" + tr("Connected to Wormnet");
     showballoon();
 }
 void balloon_handler::connectedtoleagueserver(QString servicename){

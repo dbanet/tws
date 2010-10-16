@@ -1,6 +1,7 @@
 #include"settingswindow.h"
 #include"netcoupler.h"
 #include"combobox_wrapper.h"
+#include"myDebug.h"
 #include<QLineEdit>
 #include<QCheckBox>
 #include<QFile>
@@ -62,6 +63,7 @@ void settingswindow::load() {
         ds.setVersion(QDataStream::Qt_4_3);
         ds >> map;
     }
+    checkValidEntries();
     QObject *o;
     foreach(QString s,objectnames) {
         o = this->findChild<QObject*> (s);
@@ -77,7 +79,7 @@ void settingswindow::load() {
         }   else if (qobject_cast<combobox_wrapper*> (o)) {
             qobject_cast<combobox_wrapper*> (o)->set(map[s].value<QStringList> ());
         }
-    }
+    }   
 }
 void settingswindow::safe() {
     QFile f(QApplication::applicationDirPath() + "/snpini/settingswindowini");
@@ -166,15 +168,15 @@ void settingswindow::loadDefaults(){
     map["leawaystring"].setValue<QString>("I'm in a Game!");
     map["lebackmessage"].setValue<QString>("I'm back.");
 
-    map["lestartup"].setValue<QString>("wav/startup.wav.mp3");
-    map["lebuddyarrives"].setValue<QString>("wav/buddyarrives.wav.mp3");
-    map["lebuddyleaves"].setValue<QString>("wav/buddyleaves.wav.mp3");
-    map["lebuddychatmessage"].setValue<QString>("wav/buddymessage.wav.mp3");
-    map["lebuddychatwindowsopened"].setValue<QString>("wav/buddychatwindowopened.wav.mp3");
-    map["lenormalchatmessage"].setValue<QString>("wav/normalprivmsg.wav.mp3");
+    map["lestartup"].setValue<QString>("wav/startup.mp3");
+    map["lebuddyarrives"].setValue<QString>("wav/buddyarrives.mp3");
+    map["lebuddyleaves"].setValue<QString>("wav/buddyleaves.mp3");
+    map["lebuddychatmessage"].setValue<QString>("wav/buddymessage.mp3");
+    map["lebuddychatwindowsopened"].setValue<QString>("wav/buddychatwindowopened.mp3");
+    map["lenormalchatmessage"].setValue<QString>("wav/normalprivmsg.mp3");
     map["lehighlightning"].setValue<QString>("wav/highlightningsound.mp3");
     map["lecostumword"].setValue<QString>("wav/costumword.mp3");
-    map["lehostsound"].setValue<QString>("wav/buddyhosts.wav.mp3");
+    map["lehostsound"].setValue<QString>("wav/buddyhosts.mp3");
 
     map["cbalertmeonnotice"].setValue<bool>(true);
     map["cbalertfromnormal"].setValue<bool>(true);
@@ -209,4 +211,62 @@ void settingswindow::loadDefaults(){
     map["sbwhorepead"].setValue<int>(3000);
     map["sbhostrepead"].setValue<int>(15000);
     map["sbmaximumoftextblocks"].setValue<int>(500);
+}
+void settingswindow::checkValidEntries(){
+    if(map["lestartup"].toString().startsWith("wav/"))
+        map["lestartup"].setValue<QString>("wav/startup.mp3");
+
+    if(map["lebuddyarrives"].toString().startsWith("wav/"))
+        map["lebuddyarrives"].setValue<QString>("wav/buddyarrives.mp3");
+
+    if(map["lebuddyleaves"].toString().startsWith("wav/"))
+        map["lebuddyleaves"].setValue<QString>("wav/buddyleaves.mp3");
+
+    if(map["lebuddychatmessage"].toString().startsWith("wav/"))
+        map["lebuddychatmessage"].setValue<QString>("wav/buddymessage.mp3");
+
+    if(map["lebuddychatwindowsopened"].toString().startsWith("wav/"))
+        map["lebuddychatwindowsopened"].setValue<QString>("wav/buddychatwindowopened.mp3");
+
+    if(map["lenormalchatmessage"].toString().startsWith("wav/"))
+        map["lenormalchatmessage"].setValue<QString>("wav/normalprivmsg.mp3");
+
+    if(map["lehighlightning"].toString().startsWith("wav/"))
+        map["lehighlightning"].setValue<QString>("wav/highlightningsound.mp3");
+
+    if(map["lecostumword"].toString().startsWith("wav/"))
+        map["lecostumword"].setValue<QString>("wav/costumword.mp3");
+
+    if(map["lehostsound"].toString().startsWith("wav/"))
+        map["lehostsound"].setValue<QString>("wav/buddyhosts.mp3");
+}
+
+void settingswindow::on_pushButton_clicked()
+{
+    QString s=QFileDialog::getExistingDirectory(this,tr("Choose the directory from the soundpack."));
+    if(s.isEmpty())
+        return;
+    QDir dir=s;
+    foreach(s,dir.entryList(QStringList()<<"*.*",QDir::Files)){
+        if(s.contains("startup"))
+            ui.lestartup->setText(dir.path()+"/"+s);
+        else if(s.contains("buddyarrives"))
+            ui.lebuddyarrives->setText(dir.path()+"/"+s);
+        else if(s.contains("buddyleaves"))
+            ui.lebuddyleaves->setText(dir.path()+"/"+s);
+        else if(s.contains("buddymessage"))
+            ui.lebuddychatmessage->setText(dir.path()+"/"+s);
+        else if(s.contains("buddychatwindowopened"))
+            ui.lebuddychatwindowsopened->setText(dir.path()+"/"+s);
+        else if(s.contains("normalprivmsg"))
+            ui.lenormalchatmessage->setText(dir.path()+"/"+s);
+        else if(s.contains("highlightning"))
+            ui.lehighlightning->setText(dir.path()+"/"+s);
+        else if(s.contains("costumword"))
+            ui.lecostumword->setText(dir.path()+"/"+s);
+        else if(s.contains("buddyhosts"))
+            ui.lehostsound->setText(dir.path()+"/"+s);
+
+    }
+
 }

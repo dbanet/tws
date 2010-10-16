@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/rank">
+        <file>tusranks/00.PNG</file>
+        <file>tusranks/01.PNG</file>
+        <file>tusranks/02.PNG</file>
+        <file>tusranks/03.PNG</file>
+        <file>tusranks/04.PNG</file>
+        <file>tusranks/05.PNG</file>
+        <file>tusranks/06.PNG</file>
+        <file>tusranks/07.PNG</file>
+        <file>tusranks/08.PNG</file>
+        <file>tusranks/09.PNG</file>
+        <file>tusranks/10.PNG</file>
+        <file>tusranks/11.PNG</file>
+    </qresource>
+</RCC>
