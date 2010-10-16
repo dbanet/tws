@@ -62,7 +62,8 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/codecselectdia.h \
     src/wormnet/clantowebpagemapper.h \
     src/wormnet/mydebugclass.h \
-    src/wormnet/myDebug.h
+    src/wormnet/myDebug.h \
+    src/wormnet/leagueserverhandler.h
 
 FORMS += src/wormnet/about.ui \
     src/wormnet/awaybox.ui \
@@ -133,7 +134,8 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/clantowebpagemapper.cpp \
     src/wormnet/fakeObject.cpp \
     src/wormnet/mydebugclass.cpp \
-    src/wormnet/myDebug.cpp
+    src/wormnet/myDebug.cpp \
+    src/wormnet/leagueserverhandler.cpp
 
 RC_FILE = src/wormnet/myapp.rc
 TRANSLATIONS += \
@@ -148,3 +150,6 @@ TRANSLATIONS += \
     translations/_ro.Romanian_by_MihaiS.ts \
     translations/_ru.Russian_translation_by_StepS.ts \
     translations/_en.Standard.ts
+
+RESOURCES += \
+    pictureResource.qrc

@@ -24,6 +24,8 @@ volumeslider *volume;
 
 QList<QPixmap*> flaglist;
 QList<QPixmap*> ranklist;
+QList<QPixmap*> leagueranklist;
+int leagueranklistsize;
 int ranklistsize;
 int flaglistsize;
 QPixmap *locked;
@@ -31,7 +33,6 @@ QPixmap *unlocked;
 QStringList querylist;
 QMap<QString, QStringList> usergarbagemap;
 static mainwindow *w = 0;
-QStringList defaultServerList(QStringList()<<"wormnet1.team17.com"<<"itakagames.spb.ru"<<"212.240.191.125"<<"worms.tom.ru"<<"http://steps.servegame.com");
 
 void search_for_game_executables();
 void handle_prosnooper_buddys();
@@ -65,8 +66,12 @@ int main(int argc, char *argv[]) {
                 + "ranks");
     if (!dir.exists())
         myDebug() << QObject::tr("the ranks in snppictures/flags are missing!");
+    foreach(QString f,dir.entryList(QStringList()<<"*.png",QDir::Files,QDir::Name)) {                
+        ranklist.push_back(new QPixmap(dir.path() + sep + f));                
+    }
+    dir.setPath(":/rank/tusranks");
     foreach(QString f,dir.entryList(QStringList()<<"*.png",QDir::Files,QDir::Name)) {
-        ranklist.push_back(new QPixmap(dir.path() + sep + f));
+        leagueranklist.push_back(new QPixmap(dir.path() + sep + f));
     }
     locked = new QPixmap;
     unlocked = new QPixmap;
@@ -77,6 +82,7 @@ int main(int argc, char *argv[]) {
 			+ "snppictures" + sep + "unlocked.png"))
         myDebug() << QObject::tr("some pictures are missing!");
 
+    leagueranklistsize=leagueranklist.size();
     ranklistsize = ranklist.size();
     flaglistsize = flaglist.size();
     a.setStyle(new QPlastiqueStyle);

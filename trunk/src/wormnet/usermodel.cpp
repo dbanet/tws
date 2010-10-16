@@ -7,9 +7,11 @@
 #include "sound_handler.h"
 #include"global_functions.h"
 #include"clantowebpagemapper.h"
+#include"leagueserverhandler.h"
 extern QPointer<netcoupler> net;
 extern QList<QPixmap*> flaglist; //declared in main.cpp
 extern QList<QPixmap*> ranklist; //declared in main.cpp
+extern QList<QPixmap*> leagueranklist;
 extern QStringList querylist;
 extern QString GamesourgeChannelName;
 QStringList usermodel::buddyarrivedhelper;
@@ -308,7 +310,16 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
             case e_Rank:
                 {
                     if (role == Qt::BackgroundRole) {
-                        return *ranklist[usermap[classes[index.internalId()]][index.row()].rank];
+                        if(singleton<snpsettings>().map["tusloginenable"].toBool()){
+                            static QString nick;
+                            nick=usermap[classes[index.internalId()]][index.row()].nick;
+                            int i=leagueserverhandler::map_at_toInt(nick,0);
+                            if(i==-1)
+                                return QVariant();
+                            return *leagueranklist[i];
+                        }
+                        else
+                            return *ranklist[usermap[classes[index.internalId()]][index.row()].rank];
                     }
                     break;
                 }

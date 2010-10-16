@@ -79,6 +79,7 @@ netcoupler::netcoupler(QString s, QObject *parent) :
 netcoupler::~netcoupler() {
     userstruct::addressischecked=0;
     irc->quit();
+    qApp->processEvents();
     irc->deleteLater();
     http->deleteLater();    
 }

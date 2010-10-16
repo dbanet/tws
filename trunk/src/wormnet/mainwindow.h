@@ -5,13 +5,12 @@
 #include "ui_mainwindow.h"
 #include<QList>
 #include <QSystemTrayIcon>
-#include<QNetworkAccessManager>
 #include"maintoolbox.h"
 class window;
 class netcoupler;
 class chatwindow;
 class QMenu;
-class QNetworkReply;
+class leagueserverhandler;
 class mainwindow : public QWidget
 {
     Q_OBJECT
@@ -52,17 +51,15 @@ private:
     void get_baseStyleSheet();           
     QString baseStyleSheet;
 
-    void joinGameSourge();
-    void getRankFromTus();
+    void joinGameSourge();    
 
     void connectToNetwork();
 
     QStringList lastOpenedWindows;
     QStringList lastOpenedChatWindows;
 
-    QNetworkAccessManager qnam;
-    QNetworkReply *reply;
-    QString tusresponse;
+    leagueserverhandler *leagueghandler;
+
 private slots:
     void on_pbjoin_clicked();
     void join(const QString channel);
@@ -102,9 +99,9 @@ private slots:
 
     void reopenChatWindowsAndChannelWindows();
 
-    void httpFinished();
-    void httpReadyRead();
-    void tusRequestTimeOut();
+    void leagueserverconnectionfailed();
+    void leagueserverconnectionsuccess();
+
 protected:
     void changeEvent (QEvent*);
     void closeEvent ( QCloseEvent * event );

@@ -100,10 +100,8 @@ userstruct::userstruct(QStringList sl) {
     }
     int clannumber = sl.takeFirst().toInt(boolhelper);
     country = sl.takeFirst();
-    client = sl.join(" ").remove("\r");
-    if(client.startsWith("prosnooper",Qt::CaseInsensitive))
-        rank=13;
-    else if (*boolhelper && clannumber < ranklistsize && clannumber >= 0)
+    client = sl.join(" ").remove("\r");    
+    if (*boolhelper && clannumber < ranklistsize && clannumber >= 0)
         rank = clannumber;
     else rank=12;
     if(addressischecked==0 && nick==net->nick){

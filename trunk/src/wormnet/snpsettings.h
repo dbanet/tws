@@ -23,5 +23,6 @@ public:
 private:
         void installTranslationBySystemLocale();
         QString version;
+        void checkifempty();
 };
 #endif /* SNPSETTINGS_H_ */

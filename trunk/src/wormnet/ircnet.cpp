@@ -68,12 +68,13 @@ void ircnet::connected() {
     s.append(singleton<snpsettings>().map["clan"].value<QString> () + " ");
     s.append(sl.takeFirst() + " ");
     s.append(sl.takeFirst() + " :");
-    s.append(singleton<snpsettings>().map["flag"].value<QString> () + " ");
-    s.append(QString::number(mainwindow::rank)+" ");
+    s.append(singleton<snpsettings>().map["flag"].value<QString> () + " ");    
+    int i=singleton<snpsettings>().map["rank"].value<QString> ().toInt();
+    s.append(QString::number(i) + " ");
     switch (singleton<snpsettings>().map["flag"].value<QString> ().toInt()) {
         //written by steps
     case 0:
-                s.append("UK ");
+        s.append("UK ");
         break;
     case 1:
         s.append("AR ");

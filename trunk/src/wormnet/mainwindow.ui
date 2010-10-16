@@ -224,12 +224,11 @@
                    </widget>
                   </item>
                   <item row="3" column="1">
-                   <widget class="QComboBox" name="cbrank"/>
+                   <widget class="QComboBox" name="rank"/>
                   </item>
                  </layout>
                 </item>
                </layout>
-               <zorder>groupBox</zorder>
               </widget>
              </item>
              <item>
@@ -265,7 +264,7 @@
                 <property name="spacing">
                  <number>0</number>
                 </property>
-                <item row="6" column="0">
+                <item row="7" column="0">
                  <widget class="QLabel" name="label_2">
                   <property name="minimumSize">
                    <size>
@@ -278,7 +277,7 @@
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="1">
+                <item row="7" column="1">
                  <widget class="QLineEdit" name="client">
                   <property name="text">
                    <string>The Wheat Snooper</string>
@@ -288,14 +287,14 @@
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="0" colspan="2">
+                <item row="6" column="0" colspan="2">
                  <widget class="Line" name="line">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
+                <item row="2" column="1">
                  <widget class="QLineEdit" name="letuspassword">
                   <property name="toolTip">
                    <string>TUS password.</string>
@@ -305,7 +304,7 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
+                <item row="2" column="0">
                  <widget class="QLabel" name="label_4">
                   <property name="minimumSize">
                    <size>
@@ -314,18 +313,18 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>TUS password</string>
+                   <string>Secure Password</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0" colspan="2">
+                <item row="4" column="0" colspan="2">
                  <widget class="Line" name="line_2">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="0">
+                <item row="5" column="0">
                  <widget class="QLabel" name="label">
                   <property name="minimumSize">
                    <size>
@@ -338,7 +337,7 @@
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
+                <item row="5" column="1">
                  <widget class="QLineEdit" name="clan">
                   <property name="inputMask">
                    <string/>
@@ -348,24 +347,38 @@
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="1">
+                <item row="1" column="1">
                  <widget class="QLineEdit" name="letuslogin">
                   <property name="toolTip">
                    <string>TUS login.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="0">
+                <item row="1" column="0">
                  <widget class="QLabel" name="label33">
                   <property name="text">
-                   <string>TUS login</string>
+                   <string>Secure Login</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0" colspan="2">
+                <item row="3" column="0" colspan="2">
                  <widget class="QCheckBox" name="cbenabletus">
                   <property name="text">
-                   <string>Enable TUS loging to get Rank information.</string>
+                   <string>Enable secure loging to get User informations.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QComboBox" name="cbleagueservers">
+                  <property name="editable">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_8">
+                  <property name="text">
+                   <string>Server</string>
                   </property>
                  </widget>
                 </item>

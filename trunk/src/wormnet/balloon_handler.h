@@ -17,6 +17,7 @@ signals:
 public slots:
     void disconnected();
     void connected();
+    void connectedtoleagueserver(QString servicename);
     void buddyarrived();
     void buddyleft();
     void got_privmsg(const QString user, const QString msg);
