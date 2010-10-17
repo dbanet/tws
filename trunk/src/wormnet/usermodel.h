@@ -45,6 +45,9 @@ private:
     QString currentselecteduser;
     int currentselectedchannel;
     QMap<QString,const QWidget*> selectionwidgetmap;
+    QVariant getrank(const userstruct &) const;
+    QVariant getflag(const userstruct &) const;
+    QVariant getclan(const userstruct &) const;
 
     QStringList stringnamelist;
     bool *boolean;

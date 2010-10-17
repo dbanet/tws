@@ -73,18 +73,18 @@ For hebreic and arabic for example.</source>
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="32"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="33"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="38"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="39"/>
         <source>Please choose the folder from the old Snooper.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="45"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="46"/>
         <source>This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -186,8 +186,8 @@ If you use The Wheat Snooper at the first time just click No.</source>
     </message>
     <message>
         <location filename="../src/wormnet/fakeObject.cpp" line="83"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="662"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="686"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="650"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="674"/>
         <location filename="../src/wormnet/mytabwidget.cpp" line="19"/>
         <source>&amp;Close</source>
         <translation type="unfinished"></translation>
@@ -583,23 +583,24 @@ Do you want to delete it anyway</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/global_functions.h" line="133"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="87"/>
         <source>is missing or locked, please run worms, one time, without the snooper. it will then create the file!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/wormnet/emoticonhandler.cpp" line="95"/>
         <location filename="../src/wormnet/emoticonhandler.cpp" line="100"/>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="37"/>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="47"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="128"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="354"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="716"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="40"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="49"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="54"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="126"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="340"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="704"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="128"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="126"/>
         <source>Cant read the Skinfile:
 Skin_Base</source>
         <translation type="unfinished"></translation>
@@ -642,17 +643,17 @@ Skin_Base</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="31"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="32"/>
         <source>Question</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="45"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="46"/>
         <source>Warning!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="108"/>
+        <location filename="../src/wormnet/snpsettings.cpp" line="109"/>
         <source>The translationfile cannot be loaded! it might be corrupt.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -672,13 +673,13 @@ Skin_Base</source>
         <location filename="../src/wormnet/hostmodel.cpp" line="25"/>
         <location filename="../src/wormnet/hostmodel.cpp" line="28"/>
         <location filename="../src/wormnet/hostmodel.cpp" line="31"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="29"/>
         <location filename="../src/wormnet/usermodel.cpp" line="32"/>
         <location filename="../src/wormnet/usermodel.cpp" line="35"/>
         <location filename="../src/wormnet/usermodel.cpp" line="38"/>
         <location filename="../src/wormnet/usermodel.cpp" line="41"/>
         <location filename="../src/wormnet/usermodel.cpp" line="44"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="50"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="47"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="53"/>
         <source>Some Pictures are missing!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1557,23 +1558,28 @@ If your nick got faked... bl :)</source>
 <context>
     <name>leagueserverhandler</name>
     <message>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="37"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="40"/>
         <source>Cant connect to %1 server, please try again at a later time.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="47"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="49"/>
+        <source>The Server %1 doesnt seem to support the secure logging.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="54"/>
         <source>Your %1 Account seems to be wrong, please try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="102"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="122"/>
         <source>Unable to get the user information from</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="106"/>
-        <source>unable to connect to connect to</source>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="126"/>
+        <source>unable to connect to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1625,14 +1631,14 @@ If your nick got faked... bl :)</source>
     <name>mainwindow</name>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="66"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="344"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="330"/>
         <source>Autojoin:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="67"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="603"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="785"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="591"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="773"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1642,151 +1648,151 @@ If your nick got faked... bl :)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="155"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="153"/>
         <source>Nickname field is empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="155"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="153"/>
         <source>Please choose a nickname.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="354"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="340"/>
         <source>Cant read the Skinfile:
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="426"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="414"/>
         <source>Restart the application?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="427"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="415"/>
         <source>Changing the translation requires a program restart.
 To restart now click Ok, otherwise cancel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="449"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="458"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="437"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="446"/>
         <source>&lt;away&gt;:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="479"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="467"/>
         <source>trying to apply new textscheme: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="564"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="552"/>
         <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="567"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="555"/>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="601"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="589"/>
         <source>Stuff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="604"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="789"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="592"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="777"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="605"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="799"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="593"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="787"/>
         <source>Volume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="606"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="804"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="594"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="792"/>
         <source>Open Log Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="608"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="822"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="596"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="810"/>
         <source>Scheme maker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="609"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="699"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="597"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="687"/>
         <source>Select another Textcodec</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="611"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="825"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="599"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="813"/>
         <source>Playername</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="613"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="601"/>
         <source>Skins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="614"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="602"/>
         <source>Text Schemes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="622"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="810"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="610"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="798"/>
         <source>Save current textscheme to file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="632"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="620"/>
         <source>Layouts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="643"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="631"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="650"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="638"/>
         <source>Join</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="656"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="740"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="644"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="728"/>
         <source>Away mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="660"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="792"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="648"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="780"/>
         <source>Reconnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="717"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="705"/>
         <source>Changing the skin crashes sometimes, but The Wheat Snooper
 will keep the settings for the next Start.
 Do you want to proceed?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="724"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="712"/>
         <source>Skinchanging failed, please try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="811"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="799"/>
         <source>Save textscheme to.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1815,107 +1821,108 @@ Do you want to proceed?</source>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="137"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="283"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="194"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="199"/>
         <source>Nickname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="171"/>
-        <location filename="../src/wormnet/mainwindow.ui" line="381"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="326"/>
+        <source>Enable secure login.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.ui" line="176"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="269"/>
         <source>Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="178"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="183"/>
         <source>To apply a server to this list press enter.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="208"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="213"/>
         <source>Flag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="222"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="227"/>
         <source>Rank</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="243"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="344"/>
         <source>Optional</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="276"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="394"/>
         <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="283"/>
-        <source>The Wheat Snooper</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="300"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="310"/>
         <source>TUS password.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="316"/>
-        <source>Secure Password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="336"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="371"/>
         <source>Clanstring</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="353"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="290"/>
         <source>TUS login.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="360"/>
-        <source>Secure Login</source>
+        <location filename="../src/wormnet/mainwindow.ui" line="152"/>
+        <source>Wormnet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="367"/>
-        <source>Enable secure loging to get User informations.</source>
+        <location filename="../src/wormnet/mainwindow.ui" line="248"/>
+        <source>Secure Logging</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="402"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="303"/>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/mainwindow.ui" line="421"/>
         <source>Autologin </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="415"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="447"/>
         <source>Apply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="427"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="457"/>
         <source>Join channels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="435"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="465"/>
         <source>Start minimized to tray.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="442"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="472"/>
         <source>Join a channel on startup.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="470"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="500"/>
         <source>join</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1977,7 +1984,7 @@ If this string is empty, worms will probably not host or join a game.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.cpp" line="246"/>
+        <location filename="../src/wormnet/settingswindow.cpp" line="252"/>
         <source>Choose the directory from the soundpack.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2262,37 +2269,62 @@ If this string is empty, worms will probably not host or join a game.</source>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="1113"/>
+        <source>Secure Logging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/settingswindow.ui" line="1119"/>
+        <source>Secure Logging repeat delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/settingswindow.ui" line="1138"/>
+        <source>Show only ranks from verified users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/settingswindow.ui" line="1145"/>
+        <source>Show only flags from verified users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/settingswindow.ui" line="1152"/>
+        <source>Veriefied users should appear underlined</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/settingswindow.ui" line="1173"/>
         <source>Advanced</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1125"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1185"/>
         <source>Better dont touch anything else then &quot;Maximum of textblocks in a chat&quot;.
 Note: A reconnect is required to apply these settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1148"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1208"/>
         <source>Who repeat delay (ms).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1174"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1234"/>
         <source>Host repeat delay.(ms)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1194"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1254"/>
         <source>Maximum of textblocks in a chat.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1261"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1321"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.ui" line="1268"/>
+        <location filename="../src/wormnet/settingswindow.ui" line="1328"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2354,40 +2386,40 @@ Note: A reconnect is required to apply these settings.</source>
 <context>
     <name>usermodel</name>
     <message>
-        <location filename="../src/wormnet/usermodel.cpp" line="22"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="25"/>
         <source>Nick</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/usermodel.cpp" line="22"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="25"/>
         <source>Rank</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/usermodel.cpp" line="22"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="25"/>
         <source>Clan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/usermodel.cpp" line="22"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="25"/>
         <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/usermodel.cpp" line="92"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="95"/>
         <source> connected to wormnet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/usermodel.cpp" line="99"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="102"/>
         <source> left wormnet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="607"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="795"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="126"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="295"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="595"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="783"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="129"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="298"/>
         <location filename="../src/wormnet/window.cpp" line="148"/>
         <location filename="../src/wormnet/window.cpp" line="399"/>
         <location filename="../src/wormnet/window.cpp" line="435"/>
@@ -2396,8 +2428,8 @@ Note: A reconnect is required to apply these settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/usermodel.cpp" line="127"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="257"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="130"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="260"/>
         <location filename="../src/wormnet/window.cpp" line="146"/>
         <location filename="../src/wormnet/window.cpp" line="361"/>
         <location filename="../src/wormnet/window.cpp" line="385"/>
@@ -2414,7 +2446,7 @@ Note: A reconnect is required to apply these settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/usermodel.cpp" line="47"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="50"/>
         <source>Some Pictures are missing!</source>
         <translation type="unfinished"></translation>
     </message>

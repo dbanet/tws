@@ -211,6 +211,7 @@ void settingswindow::loadDefaults(){
     map["sbwhorepead"].setValue<int>(3000);
     map["sbhostrepead"].setValue<int>(15000);
     map["sbmaximumoftextblocks"].setValue<int>(500);
+    map["sbsecureloggingrepeatdelay"].setValue<int>(10*100);
 }
 void settingswindow::checkValidEntries(){
     if(map["lestartup"].toString().startsWith("wav/"))
@@ -239,6 +240,11 @@ void settingswindow::checkValidEntries(){
 
     if(map["lehostsound"].toString().startsWith("wav/"))
         map["lehostsound"].setValue<QString>("wav/buddyhosts.mp3");
+    if(map["sbsecureloggingrepeatdelay"].toInt()==0)
+        map["sbsecureloggingrepeatdelay"].setValue<int>(10*1000);
+    if(!map.contains("cbonlyshowranksfromverifiedusers"))
+        map["cbonlyshowranksfromverifiedusers"]=true;
+
 }
 
 void settingswindow::on_pushButton_clicked()

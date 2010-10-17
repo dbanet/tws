@@ -11,11 +11,17 @@ class leagueserverhandler : public QObject
 {
     Q_OBJECT
 public:
+    enum {
+        e_rank=0,e_flag,e_clan
+    };
     explicit leagueserverhandler(QObject *parent);
     void login(const QString n,const QString p);
 
     void setleague(const QString league, const QString server);
     static int map_at_toInt(const QString key,const int i);
+    static QString map_at_toString(const QString key,const int i);
+    static bool contains_key(QString key);
+    static QString nick;
 signals:
     void sigloginsuccess();
     void sigloginfailed();
@@ -38,8 +44,6 @@ private:
     QString connectresponse;
     QString refreshresponse;
 
-    QString nick;
-    QString password;
     QString servicename;
 
     QTimer *connecttimer;

@@ -135,7 +135,8 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/fakeObject.cpp \
     src/wormnet/mydebugclass.cpp \
     src/wormnet/myDebug.cpp \
-    src/wormnet/leagueserverhandler.cpp
+    src/wormnet/leagueserverhandler.cpp \
+    src/wormnet/global_functions.cpp
 
 RC_FILE = src/wormnet/myapp.rc
 TRANSLATIONS += \

@@ -98,9 +98,7 @@ mainwindow::mainwindow(QWidget *parent) :
     connect(ui.start, SIGNAL(clicked()),this, SLOT(chooseclicked()));
     connect(ui.pbrememberjoin, SIGNAL(clicked()),this, SLOT(pbrememberjoinclicked()));
     connect(QApplication::instance(), SIGNAL(aboutToQuit()),this, SLOT(onquit()));
-    connect(ui.tabWidget, SIGNAL(currentChanged ( int )),this, SLOT(returntotabsettings(int)));
-
-    connect(net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
+    connect(ui.tabWidget, SIGNAL(currentChanged ( int )),this, SLOT(returntotabsettings(int)));    
 
     QRegExp regexp;
     regexp.setPattern("([A-Z]|[a-z]|[0-9]|-|`){15}");
@@ -130,11 +128,11 @@ void mainwindow::get_baseStyleSheet(){
 }
 void mainwindow::connectToNetwork(){    
     ui.tabWidget->setCurrentIndex(1);
-
     if(singleton<snpsettings>().map["tusloginenable"].toBool())
-        net = new netcoupler(ui.letuslogin->text(), this);
+        net = new netcoupler(leagueserverhandler::nick, this);
     else
         net = new netcoupler(ui.lenick->text(), this);
+    connect(net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
     connect(net,SIGNAL(sigreconnect()),this,SLOT(reconnect()));
     connect(net, SIGNAL(siggotchanellist(const QStringList &)),this, SLOT(getchannellist(const QStringList &)));
     connect(net, SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));
@@ -164,33 +162,15 @@ void mainwindow::chooseclicked() {
     singleton<snpsettings>().map["tus_password"] = ui.letuspassword->text();
     singleton<snpsettings>().map["tus_login"] = ui.letuslogin->text();
     singleton<snpsettings>().map["flag"] = ui.flag->currentText();
+    singleton<snpsettings>().map["rank"] = ui.rank->currentText();
     singleton<snpsettings>().map["client"] = ui.client->text();
     singleton<snpsettings>().map["tusloginenable"] = ui.cbenabletus->isChecked();
-    QStringList sl;
-    sl<<ui.cbServerList->currentText();
-    for(int i=0 ; i<ui.cbServerList->count() ; i++){
-        if(!sl.contains(ui.cbServerList->itemText(i)))
-            sl<<ui.cbServerList->itemText(i);
-    }
-    ui.cbServerList->clear();
-    ui.cbServerList->addItems(sl);
 
-    singleton<snpsettings>().map["wormnetserverlist"] = sl;
-
-    sl.clear();
-    sl<<ui.cbleagueservers->currentText();
-    for(int i=0 ; i<ui.cbleagueservers->count() ; i++){
-        if(!sl.contains(ui.cbleagueservers->itemText(i)))
-            sl<<ui.cbleagueservers->itemText(i);
-    }
-    ui.cbleagueservers->clear();
-    ui.cbleagueservers->addItems(sl);
-
-    singleton<snpsettings>().map["leagueservers"]=sl;
-
+    singleton<snpsettings>().map["wormnetserverlist"] = refreshcombobox(ui.cbServerList);
+    singleton<snpsettings>().map["leagueservers"]= refreshcombobox(ui.cbleagueservers);
 
     singleton<snpsettings>().safe();
-    if(ui.cbenabletus->isChecked()){
+    if(singleton<snpsettings>().map["tusloginenable"].toBool()){
         if(leagueghandler==NULL){
             leagueghandler=new leagueserverhandler(this);
             connect(leagueghandler,SIGNAL(sigloginfailed()),this,SLOT(leagueserverconnectionfailed()));
@@ -199,9 +179,13 @@ void mainwindow::chooseclicked() {
         QString item=ui.cbleagueservers->currentText();
         if(!item.endsWith("/"))
             item+="/";
+        if(!item.startsWith("http://"))
+            item="http://"+item;
         QString servicename=item;
         servicename=servicename.remove("http://");
-        servicename=servicename.left(servicename.indexOf("/"));
+        int i=servicename.indexOf("/");
+        if(i!=-1)
+            servicename=servicename.left(i);
         leagueghandler->setleague(servicename,item);
 
         leagueghandler->login(ui.letuslogin->text(),ui.letuspassword->text());
@@ -279,7 +263,9 @@ void mainwindow::onquit() {
     singleton<snpsettings>().map["nickname"] = ui.lenick->text();
     singleton<snpsettings>().map["chbminimized"] = ui.chbminimized->isChecked();
     singleton<snpsettings>().map["chbautojoin"] = ui.chbautojoin->isChecked();
-    singleton<snpsettings>().map["whichuitype"] = whichuitype;        
+    singleton<snpsettings>().map["whichuitype"] = whichuitype;
+    singleton<snpsettings>().map["flagtext"]=ui.flag->currentText();
+    singleton<snpsettings>().map["rank"]=ui.rank->currentText();
     if (fontorcolorchanged == 1) {
         singleton<snpsettings>().map["charformatfile"] = "lastedited.textscheme";
         singleton<charformatsettings>().safe();
@@ -371,9 +357,9 @@ void mainwindow::snpsetcontains(const QString &s) {
     else if (s == "tus_login" && singleton<snpsettings>().map.contains("tus_login"))
         ui.letuslogin->setText(singleton<snpsettings>().map["tus_login"].value<QString> ());
     else if (s == "flag"){        
-        ui.flag->setCurrentIndex(singleton<snpsettings>().map["flagtext"].toInt());
+        ui.flag->setCurrentIndex(singleton<snpsettings>().map["flagtext"].toString().toInt());
     }else if (s == "rank"){
-        ui.rank->setCurrentIndex(singleton<snpsettings>().map["rank"].toInt());
+        ui.rank->setCurrentIndex(singleton<snpsettings>().map["rank"].toString().toInt());
     }
     else if (s == "client" && singleton<snpsettings>().map.contains(s))
         ui.client->setText(singleton<snpsettings>().map[s].value<QString> ());
@@ -393,7 +379,9 @@ void mainwindow::snpsetcontains(const QString &s) {
         ui.cbleagueservers->addItems(singleton<snpsettings>().map["leagueservers"].value<QStringList>());
     }
     else if(s=="tusloginenable"){
-        ui.cbenabletus->setChecked(singleton<snpsettings>().map["tusloginenable"].toBool());
+        bool b=singleton<snpsettings>().map["tusloginenable"].toBool();
+        ui.cbenabletus->setChecked(b);
+        on_cbenabletus_toggled(b);
     }
 }
 void mainwindow::windowremoved(const QString &s) {
@@ -865,4 +853,30 @@ void mainwindow::joinGameSourge(){
 void mainwindow::on_pbjoin_clicked()
 {
     join(ui.cbchannels->currentText());
+}
+
+void mainwindow::on_cbenabletus_toggled(bool checked)
+{
+    if(checked){
+        ui.lenick->setEnabled(false);
+        ui.rank->setEnabled(false);
+        int i=ui.cbServerList->findText("http://wormnet1.team17.com");
+        if(i==-1)
+            ui.cbServerList->addItem("http://wormnet1.team17.com");
+        i=ui.cbServerList->findText("http://wormnet1.team17.com");
+        ui.cbServerList->setCurrentIndex(i);
+        ui.cbServerList->setEnabled(false);
+        ui.flag->setEnabled(false);
+        ui.letuspassword->setEnabled(true);
+        ui.letuslogin->setEnabled(true);
+        ui.cbleagueservers->setEnabled(true);
+    } else{
+        ui.flag->setEnabled(true);
+        ui.lenick->setEnabled(true);
+        ui.rank->setEnabled(true);
+        ui.cbServerList->setEnabled(true);;
+        ui.letuspassword->setEnabled(false);
+        ui.letuslogin->setEnabled(false);
+        ui.cbleagueservers->setEnabled(false);
+    }
 }

@@ -12,6 +12,9 @@ extern QPointer<netcoupler> net;
 extern QList<QPixmap*> flaglist; //declared in main.cpp
 extern QList<QPixmap*> ranklist; //declared in main.cpp
 extern QList<QPixmap*> leagueranklist;
+extern int flaglistsize;
+extern int leagueranklistsize;
+extern int ranklistsize;
 extern QStringList querylist;
 extern QString GamesourgeChannelName;
 QStringList usermodel::buddyarrivedhelper;
@@ -246,7 +249,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
         return QVariant();
 
     if (role == Qt::TextAlignmentRole)
-        return int(Qt::AlignLeft | Qt::AlignVCenter);
+        return int(Qt::AlignLeft | Qt::AlignVCenter);                
 
     if (role == Qt::DecorationRole) {
         if (index.internalId() == e_Channel && index.column() == e_Nick) {
@@ -302,31 +305,22 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
                 }
             case e_Flag:
                 {
-                    if (role == Qt::BackgroundRole) {
-                        return *flaglist[usermap[classes[index.internalId()]][index.row()].flag];
-                    }
+                    if (role != Qt::BackgroundRole)
+                        break;
+                    return getflag(usermap[classes[index.internalId()]][index.row()]);
                     break;
                 }
             case e_Rank:
                 {
-                    if (role == Qt::BackgroundRole) {
-                        if(singleton<snpsettings>().map["tusloginenable"].toBool()){
-                            static QString nick;
-                            nick=usermap[classes[index.internalId()]][index.row()].nick;
-                            int i=leagueserverhandler::map_at_toInt(nick,0);
-                            if(i==-1)
-                                return QVariant();
-                            return *leagueranklist[i];
-                        }
-                        else
-                            return *ranklist[usermap[classes[index.internalId()]][index.row()].rank];
-                    }
+                    if (role != Qt::BackgroundRole)
+                        break;
+                    return getrank(usermap[classes[index.internalId()]][index.row()]);
                     break;
                 }
             case e_Clan:
                 {
                     if (role == Qt::DisplayRole)
-                        return usermap[classes[index.internalId()]][index.row()].nickfromclient;
+                        return getclan(usermap[classes[index.internalId()]][index.row()]);
                     break;
                 }
             case e_Client:
@@ -347,20 +341,20 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
                 }
             case e_Flag:
                 {
-                    if (role == Qt::BackgroundRole) {
-                        return *flaglist[usermap[classes[index.internalId()]][index.row()].flag];
-                    }
+                    if (role == Qt::BackgroundRole)
+                        return getflag(usermap[classes[index.internalId()]][index.row()]);                    
                     break;
                 }
             case e_Rank:
                 {
-                    if (role == Qt::BackgroundRole) {
-                        return *ranklist[usermap[classes[index.internalId()]][index.row()].rank];
-                    }
+                    if (role == Qt::BackgroundRole)
+                        return getrank(usermap[classes[index.internalId()]][index.row()]);                    
                     break;
                 }
             case e_Clan:
                 {
+                    if (role == Qt::DisplayRole)
+                    return getclan(usermap[classes[index.internalId()]][index.row()]);
                     break;
                 }
             case e_Client:
@@ -382,10 +376,24 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
                 f.setUnderline(true);
                 return f;
             }
-        } if(index.column()==e_Clan){
+        }else if(index.column()==e_Clan){
             QString s=usermap[classes[index.internalId()]][index.row()].nickfromclient;
             if(singleton<clantowebpagemapper>().contains(s)){
                 QFont f;
+                f.setUnderline(true);
+                return f;
+
+            }
+        }else if(index.column()==e_Nick){
+            if(!singleton<snpsettings>().map["tusloginenable"].toBool())
+                return QVariant();
+            if(!singleton<settingswindow>().from_map("cbunderlineverifiedusers").toBool())
+                return QVariant();
+            QString nick =usermap[classes[index.internalId()]][index.row()].nick;
+            if(leagueserverhandler::contains_key(nick)){
+                QFont f;
+                f.setBold(true);
+                f.setWeight(QFont::Black);
                 f.setUnderline(true);
                 return f;
             }
@@ -487,4 +495,33 @@ userstruct usermodel::getuserstructbyindex(const QModelIndex &index) {
     return u;
 }
 usermodel::~usermodel() {
+}
+QVariant usermodel::getrank(const userstruct &u) const{
+    if(singleton<snpsettings>().map["tusloginenable"].toBool()){
+        int i=leagueserverhandler::map_at_toInt(u.nick,leagueserverhandler::e_rank);
+        if(i!=-1)
+            return *leagueranklist[i];
+        if(singleton<settingswindow>().from_map("cbonlyshowranksfromverifiedusers").toBool())
+            return QVariant();
+    }
+    return *ranklist[u.rank];
+}
+QVariant usermodel::getflag(const userstruct &u) const{
+    if(singleton<snpsettings>().map["tusloginenable"].toBool()){
+        int i=leagueserverhandler::map_at_toInt(u.nick,leagueserverhandler::e_flag);
+        if(i!=-1)
+            return *flaglist[i];
+        if(singleton<settingswindow>().from_map("cbonlyshowflagsfromverifiedusers").toBool())
+            return QVariant();
+    }
+    return *flaglist[u.flag];
+}
+QVariant usermodel::getclan(const userstruct &u) const{
+    if(singleton<snpsettings>().map["tusloginenable"].toBool()){
+        QString s=leagueserverhandler::map_at_toString(u.nick,leagueserverhandler::e_clan);
+        return s;
+        if(singleton<settingswindow>().from_map("cbshowranksonlyfromsecureloggedusers").toBool())
+            return QVariant();
+    }
+    return u.nickfromclient;
 }

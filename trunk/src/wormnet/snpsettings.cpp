@@ -8,6 +8,7 @@
 #include"snpsettings.h"
 #include"settingswindow.h"
 #include"myDebug.h"
+#include"about.h"
 #include<QFile>
 #include<QDir>
 #include<QApplication>
@@ -106,7 +107,7 @@ void snpsettings::load(){
         qApp->installTranslator(trans);
     } else
         myDebug() << QObject::tr("The translationfile cannot be loaded! it might be corrupt.");
-    checkifempty();
+    validate();
 }
 void snpsettings::safe(){
     QFile f("snpini/snpini");
@@ -151,17 +152,20 @@ void snpsettings::loadDefaults(){
     map["charformatfile"].setValue<QString>("comic by lookias.textscheme");
     map["chbsendhostinfotochan"].setValue<bool>(true);    
     installTranslationBySystemLocale();
-    checkifempty();
+    validate();
 }
-void snpsettings::checkifempty(){
+void snpsettings::validate(){
     if(map["leagueservers"].toStringList().isEmpty())
-        map["leagueservers"].setValue<QStringList>(QStringList()<<"http://www.tus-wa.com/"<<"http://lookias.worms2d.info/");
+        map["leagueservers"].setValue<QStringList>(QStringList()<<"http://www.tus-wa.com/"<<"http://lookias.worms2d.info/securelogging");
     if(map["wormnetserverlist"].toStringList().isEmpty())
         map["wormnetserverlist"].setValue<QStringList>(QStringList()<<"wormnet1.team17.com"<<"itakagames.spb.ru"<<"212.240.191.125"<<"worms.tom.ru"<<"http://steps.servegame.com");
     if(singleton<snpsettings>().map["rank"].toString().isEmpty())
-        singleton<snpsettings>().map["rank"]=13;
+        singleton<snpsettings>().map["rank"]="13";
     if(singleton<snpsettings>().map["flagtext"].toString().isEmpty())
         singleton<snpsettings>().map["flagtext"]="49";
     if(singleton<snpsettings>().map["qss file"].toString().isEmpty())
         singleton<snpsettings>().map["qss file"]="black by lookias.qss";
+    if(singleton<snpsettings>().map["client"].toString().isEmpty() ||
+       singleton<snpsettings>().map["client"].toString().startsWith("The Wheat Snooper"))
+        singleton<snpsettings>().map["client"]="The Wheat Snooper "+about::version;
 }

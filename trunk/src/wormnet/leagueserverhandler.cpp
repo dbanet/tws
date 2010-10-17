@@ -2,13 +2,18 @@
 #include"myDebug.h"
 #include"singleton.h"
 #include"balloon_handler.h"
+#include"settingswindow.h"
+#include"snpsettings.h"
+#include"global_functions.h"
 #include<QNetworkReply>
 #include<QMessageBox>
 #include<QUrl>
 #include<QTimer>
+#include<QDesktopServices>
 QMap<QString,QStringList> leagueserverhandler::leagueserverhandler::map;
+QString leagueserverhandler::nick;
 leagueserverhandler::leagueserverhandler(QObject *parent) :
-    QObject(parent)
+        QObject(parent)
 {
     connecttimer=new QTimer;
     connecttimer->setSingleShot(true);
@@ -21,8 +26,6 @@ leagueserverhandler::leagueserverhandler(QObject *parent) :
 void leagueserverhandler::login(QString n, QString p){
     informationrefreshtimer->stop();
     connecttimer->stop();
-    nick=n;
-    password=p;
     myconnect(n,p);    
 }
 void leagueserverhandler::myconnect(const QString n,const QString p){
@@ -42,16 +45,31 @@ void leagueserverhandler::loginFinished(){
     connecttimer->stop();
     QStringList sl=connectresponse.split(" ");
     connectresponse.clear();
-    sl<<""<<""<<""<<""<<"";
+    if(sl.size()<2){
+        QMessageBox::information(0,QObject::tr("Warning"),tr("The Server %1 doesnt seem to support the secure logging.").arg(servicename));
+        emit sigloginfailed();
+        return;
+    }
     if(sl.takeFirst()=="0"){
         QMessageBox::information(0,QObject::tr("Warning"),tr("Your %1 Account seems to be wrong, please try again.").arg(servicename));        
         emit sigloginfailed();
         return;
     }
+    nick=sl.takeFirst();    
     informationrefreshtimer->start(0);
     emit sigloginsuccess();
     connectreply->deleteLater();
     singleton<balloon_handler>().connectedtoleagueserver(servicename);
+    if(sl.size()<2)
+        return;
+    bool b=false;
+    int number=sl.takeFirst().toInt(&b);
+    if(!b)
+        return;
+    if(singleton<snpsettings>().map["tusloginmessagenumber"].toInt()==number)
+        return;
+    singleton<snpsettings>().map["tusloginmessagenumber"]=number;
+    QDesktopServices::openUrl(QUrl(sl.takeFirst()));
 }
 void leagueserverhandler::loginReadyRead(){
     connectresponse.append(connectreply->readAll());
@@ -79,7 +97,7 @@ void leagueserverhandler::refreshFinished(){
     }
     refreshresponse.clear();
     refreshreply->deleteLater();
-    informationrefreshtimer->start(10*1000);
+    informationrefreshtimer->start(singleton<settingswindow>().from_map("sbsecureloggingrepeatdelay").toInt());
 }
 
 void leagueserverhandler::refreshReadyRead(){
@@ -89,11 +107,22 @@ int leagueserverhandler::map_at_toInt(const QString key,const int i){
     static bool b;
     if(!map.contains(key))
         return -1;
+    if(i>=map[key].size())
+        return -1;
     int j=map[key].at(i).toInt(&b);
     if(!b)
         return -1;
     return j;
 }
+QString leagueserverhandler::map_at_toString(const QString key,const int i){
+    static bool b;
+    if(!map.contains(key))
+        return QString();
+    if(i>=map[key].size())
+        return QString();
+    return map[key].at(i);
+}
+
 void leagueserverhandler::setleague(const QString league, const QString server){
     servicename=league;
     serveraddress=server;
@@ -103,5 +132,8 @@ void leagueserverhandler::refresherror(QNetworkReply::NetworkError error){
 }
 
 void leagueserverhandler::loginerror(QNetworkReply::NetworkError error){
-    myDebug()<<tr("unable to connect to connect to")+" "+servicename;
+    myDebug()<<tr("unable to connect to")+" "+servicename;
+}
+bool leagueserverhandler::contains_key(QString key){
+    return map.contains(key);
 }

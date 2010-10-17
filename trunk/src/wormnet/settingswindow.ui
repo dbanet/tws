@@ -19,7 +19,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>4</number>
+        <number>5</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -620,7 +620,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>933</width>
+              <width>306</width>
               <height>668</height>
              </rect>
             </property>
@@ -643,7 +643,7 @@
                   <widget class="QPushButton" name="pushButton">
                    <property name="maximumSize">
                     <size>
-                     <width>200</width>
+                     <width>300</width>
                      <height>16777215</height>
                     </size>
                    </property>
@@ -1105,6 +1105,73 @@
             </layout>
            </widget>
           </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_7">
+        <attribute name="title">
+         <string>Secure Logging</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QGroupBox" name="groupBox">
+           <property name="title">
+            <string>Secure Logging repeat delay</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QSpinBox" name="sbsecureloggingrepeatdelay">
+              <property name="minimum">
+               <number>3000</number>
+              </property>
+              <property name="maximum">
+               <number>150000</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="cbonlyshowranksfromverifiedusers">
+           <property name="text">
+            <string>Show only ranks from verified users</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="cbonlyshowflagsfromverifiedusers">
+           <property name="text">
+            <string>Show only flags from verified users</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="cbshowranksonlyfromsecureloggedusers">
+           <property name="text">
+            <string>Show only clan tags from verified users.</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="cbunderlineverifiedusers">
+           <property name="text">
+            <string>Veriefied users should appear underlined</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>342</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </widget>

@@ -61,6 +61,7 @@ private:
     leagueserverhandler *leagueghandler;
 
 private slots:
+    void on_cbenabletus_toggled(bool checked);
     void on_pbjoin_clicked();
     void join(const QString channel);
     void openchatwindow(const QString &);
