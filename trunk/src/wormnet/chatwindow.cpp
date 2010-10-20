@@ -4,7 +4,6 @@
 #include"settingswindow.h"
 #include"chathandlerprv.h"
 #include"ctcphandler.h"
-#include"mainwindow.h"
 #include "sound_handler.h"
 #include"global_functions.h"
 #include<QKeyEvent>
@@ -210,12 +209,12 @@ void chatwindow::sendnoticeaction() {
 }
 void chatwindow::closeEvent(QCloseEvent *) {
 }
-void chatwindow::getgamerwho() {
+void chatwindow::getgamerwho(QString prefix) {
 
     int i = net->users.users.indexOf(userstruct::whoami(chatpartner));
     if (i > -1) {
         userstruct u = net->users.users[i];
-        chat->append(chatpartner, net->nick, " GAMERWHO:\n"
+        chat->append(chatpartner, net->nick, prefix+" GAMERWHO:\n"
                      + u.returnwho().join(" | "));
     }
 }

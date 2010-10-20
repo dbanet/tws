@@ -8,12 +8,13 @@
 #include "userstruct.h"
 #include"netcoupler.h"
 #include"myDebug.h"
+#include"global_functions.h"
+#include"singleton.h"
+#include"picturehandler.h"
 #include<QHostInfo>
 #include<QPointer>
 bool *userstruct::boolhelper = new bool;
 QMap<int, QString> userstruct::temp;
-extern int ranklistsize;
-extern int flaglistsize;
 extern QPointer<netcoupler> net;
 bool userstruct::addressischecked=0;
 userstruct::userstruct():flag(49),rank(12) {
@@ -21,7 +22,7 @@ userstruct::userstruct():flag(49),rank(12) {
 userstruct::userstruct(QStringList sl) {
     Q_ASSERT(sl.size()>=5);
     chan = sl.takeFirst();
-    nickfromclient = sl.takeFirst().remove("~");
+    clan = sl.takeFirst().remove("~");
     address = sl.takeFirst();
     server = sl.takeFirst();
     nick = sl.takeFirst();
@@ -29,79 +30,16 @@ userstruct::userstruct(QStringList sl) {
     unknown = sl.takeFirst();
     commandstart = sl.takeFirst();
     int i = sl.takeFirst().toInt(boolhelper);
-    if (*boolhelper && i < flaglistsize && i >= 0)
+    if (*boolhelper && i >= 0)
         flag = i;
-    else flag=49;
-    if (flag >= 49) {
-        if (country == "CL")
-            flag = 53;
-        else if (country == "CS")
-            flag = 54;
-        else if (country == "SI")
-            flag = 55;
-        else if (country == "LB")
-            flag = 56;
-        else if (country == "MD")
-            flag = 57;
-        else if (country == "UA")
-            flag = 58;
-        else if (country == "LV")
-            flag = 59;
-        else if (country == "SK")
-            flag = 60;
-        else if (country == "CR")
-            flag = 61;
-        else if (country == "EE")
-            flag = 62;
-        else if (country == "CN")
-            flag = 63;
-        else if (country == "CO")
-            flag = 64;
-        else if (country == "EC")
-            flag = 65;
-        else if (country == "UY")
-            flag = 66;
-        else if (country == "VE")
-            flag = 67;
-        //written by steps
-        else if (country == "LT")
-            flag = 68;
-        else if (country == "BG")
-            flag = 69;
-        else if (country == "EG")
-            flag = 70;
-        else if (country == "SA")
-            flag = 71;
-        else if (country == "KR")
-            flag = 72;
-        else if (country == "BY")
-            flag = 73;
-        else if (country == "PE")
-            flag = 74;
-        else if (country == "DZ")
-            flag = 75;
-        else if (country == "KZ")
-            flag = 76;
-        else if (country == "SV")
-            flag = 77;
-        else if (country == "TW")
-            flag = 78;
-        else if (country == "JM")
-            flag = 79;
-        else if (country == "GT")
-            flag = 80;
-        else if (country == "MH")
-            flag = 81;
-        else if (country == "MK")
-            flag = 82;
-        else if (country == "AE")
-            flag = 83;
-        //*******
-    }
+    else
+        flag=49;
     int clannumber = sl.takeFirst().toInt(boolhelper);
     country = sl.takeFirst();
+    if(flag<53)
+        country=singleton<picturehandler>().map_number_to_countrycode(flag);
     client = sl.join(" ").remove("\r");    
-    if (*boolhelper && clannumber < ranklistsize && clannumber >= 0)
+    if (*boolhelper && clannumber < singleton<picturehandler>().ranklistsize() && clannumber >= 0)
         rank = clannumber;
     else rank=12;
     if(addressischecked==0 && nick==net->nick){
@@ -119,7 +57,7 @@ userstruct::userstruct(QStringList sl) {
 }
 QStringList userstruct::returnwho() {
     QStringList modellist;
-    modellist << chan << nickfromclient << address << server << nick << unknown
+    modellist << chan << clan << address << server << nick << unknown
             << commandstart << QString::number(flag) << QString::number(rank)
             << country << client;
     return modellist;

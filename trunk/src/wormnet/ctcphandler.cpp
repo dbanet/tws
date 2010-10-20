@@ -4,11 +4,10 @@
  *  Created on: 13.01.2009
  *      Author: looki
  */
-#include "ctcphandler.h"
+#include"ctcphandler.h"
 #include"netcoupler.h"
 #include"chatwindow.h"
 #include"ctcphandleratomic.h"
-#include"mainwindow.h"
 #include"global_functions.h"
 extern QPointer<netcoupler> net;
 extern QMap<QString, QString> ctcpcontainer;

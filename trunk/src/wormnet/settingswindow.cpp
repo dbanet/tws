@@ -2,6 +2,7 @@
 #include"netcoupler.h"
 #include"combobox_wrapper.h"
 #include"myDebug.h"
+#include "ui_settingswindow.h"
 #include<QLineEdit>
 #include<QCheckBox>
 #include<QFile>
@@ -12,15 +13,16 @@
 #include<stdexcept>
 extern QPointer<netcoupler> net;
 settingswindow::settingswindow(){
-    this->setObjectName("normalwidget");
-    ui.setupUi(this);
-    ui.tabWidget->setObjectName("bgchatwindowwidget");
-    ui.tab->setObjectName("bgchatwindowwidget");
-    ui.tab_2->setObjectName("bgchatwindowwidget");
-    ui.tab_3->setObjectName("bgchatwindowwidget");   
+    setObjectName("normalwidget");
+    ui=new Ui::settingswindowClass;
+    ui->setupUi(this);
+    ui->tabWidget->setObjectName("bgchatwindowwidget");
+    ui->tab->setObjectName("bgchatwindowwidget");
+    ui->tab_2->setObjectName("bgchatwindowwidget");
+    ui->tab_3->setObjectName("bgchatwindowwidget");
     combobox_wrapper *cw=new combobox_wrapper(this);
     cw->setObjectName("combobox_wrapper");
-    ui.costum_combobox_layout->addWidget(cw);
+    ui->costum_combobox_layout->addWidget(cw);
     QString s;
     foreach(QObject *o,this->findChildren<QObject*>()) { //first loaded with default values then initialized with settingswindowini
         s = o->objectName();
@@ -41,18 +43,18 @@ settingswindow::settingswindow(){
         }
     }
     load();
-    connect(ui.ok, SIGNAL(clicked()),this, SLOT(ok()));
-    connect(ui.cancel, SIGNAL(clicked()),this, SLOT(cancel()));
-    connect(ui.pbbuddychatmessage, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui.pbbuddychatwindowopened, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui.pbnormalchatmessage, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui.pbstartup, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui.pbbuddyarrives, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui.pbbuddyleaves, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui.pbhighlightning, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui.pbbuddyhosts, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui.pbcostumword, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    ui.tabWidget->setCurrentIndex(0);
+    connect(ui->ok, SIGNAL(clicked()),this, SLOT(ok()));
+    connect(ui->cancel, SIGNAL(clicked()),this, SLOT(cancel()));
+    connect(ui->pbbuddychatmessage, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbbuddychatwindowopened, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbnormalchatmessage, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbstartup, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbbuddyarrives, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbbuddyleaves, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbhighlightning, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbbuddyhosts, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbcostumword, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    ui->tabWidget->setCurrentIndex(0);
 }
 void settingswindow::load() {
     QFile f(QApplication::applicationDirPath() + "/snpini/settingswindowini");
@@ -122,23 +124,23 @@ void settingswindow::soundoptionbuttonslot() {
     if (file == QString())
         return;
     if (pb->objectName() == "pbbuddychatmessage") {
-        ui.lebuddychatmessage->setText(file);
+        ui->lebuddychatmessage->setText(file);
     } else if (pb->objectName() == "pbbuddychatwindowopened") {
-        ui.lebuddychatwindowsopened->setText(file);
+        ui->lebuddychatwindowsopened->setText(file);
     } else if (pb->objectName() == "pbnormalchatmessage") {
-        ui.lenormalchatmessage->setText(file);
+        ui->lenormalchatmessage->setText(file);
     } else if (pb->objectName() == "pbstartup") {
-        ui.lestartup->setText(file);
+        ui->lestartup->setText(file);
     } else if (pb->objectName() == "pbbuddyarrives") {
-        ui.lebuddyarrives->setText(file);
+        ui->lebuddyarrives->setText(file);
     } else if (pb->objectName() == "pbbuddyleaves") {
-        ui.lebuddyleaves->setText(file);
+        ui->lebuddyleaves->setText(file);
     } else if (pb->objectName() == "pbhighlightning") {
-        ui.lehighlightning->setText(file);
+        ui->lehighlightning->setText(file);
     } else if (pb->objectName() == "pbbuddyhosts")
-        ui.lehostsound->setText(file);
+        ui->lehostsound->setText(file);
     else if (pb->objectName() == "pbcostumword")
-        ui.lecostumword->setText(file);
+        ui->lecostumword->setText(file);
     else
         throw std::runtime_error("settingswindow::soundoptionbuttonslot()");
 }
@@ -151,15 +153,15 @@ const QVariant settingswindow::from_map(const QString &s) const{
 void settingswindow::to_map(const QString &s, const QVariant &v){
     map[s]=v;
     if(s=="cbcostumword")
-        ui.cbcostumword->setChecked(v.toBool());
+        ui->cbcostumword->setChecked(v.toBool());
     else if(s=="chbsmileys")
-        ui.chbsmileys->setChecked(v.toBool());
+        ui->chbsmileys->setChecked(v.toBool());
     else if(s=="cbdontplaysound")
-        ui.cbdontplaysound->setChecked(v.toBool());
+        ui->cbdontplaysound->setChecked(v.toBool());
     else if(s=="cbdontshowballoons")
-        ui.cbdontshowballoons->setChecked(v.toBool());
+        ui->cbdontshowballoons->setChecked(v.toBool());
     else if(s=="cbdontsortinchannels")
-        ui.cbdontsortinchannels->setChecked(v.toBool());
+        ui->cbdontsortinchannels->setChecked(v.toBool());
     else
         throw std::runtime_error("\nvoid settingswindow::to_map(const QString &s, const QVariant &v)\n");
     safe();
@@ -243,36 +245,61 @@ void settingswindow::checkValidEntries(){
     if(map["sbsecureloggingrepeatdelay"].toInt()==0)
         map["sbsecureloggingrepeatdelay"].setValue<int>(10*1000);
     if(!map.contains("cbonlyshowranksfromverifiedusers"))
-        map["cbonlyshowranksfromverifiedusers"]=true;
-
+        map["cbonlyshowranksfromverifiedusers"]=true;    
 }
 
-void settingswindow::on_pushButton_clicked()
+void settingswindow::on_pbloadsoundpack_clicked()
 {
-    QString s=QFileDialog::getExistingDirectory(this,tr("Choose the directory from the soundpack."));
+    QString s=QFileDialog::getExistingDirectory(this,tr("Choose the directory from the soundpack."),"sounpacks");
     if(s.isEmpty())
         return;
     QDir dir=s;
     foreach(s,dir.entryList(QStringList()<<"*.*",QDir::Files)){
         if(s.contains("startup"))
-            ui.lestartup->setText(dir.path()+"/"+s);
+            ui->lestartup->setText(dir.path()+"/"+s);
         else if(s.contains("buddyarrives"))
-            ui.lebuddyarrives->setText(dir.path()+"/"+s);
+            ui->lebuddyarrives->setText(dir.path()+"/"+s);
         else if(s.contains("buddyleaves"))
-            ui.lebuddyleaves->setText(dir.path()+"/"+s);
+            ui->lebuddyleaves->setText(dir.path()+"/"+s);
         else if(s.contains("buddymessage"))
-            ui.lebuddychatmessage->setText(dir.path()+"/"+s);
+            ui->lebuddychatmessage->setText(dir.path()+"/"+s);
         else if(s.contains("buddychatwindowopened"))
-            ui.lebuddychatwindowsopened->setText(dir.path()+"/"+s);
+            ui->lebuddychatwindowsopened->setText(dir.path()+"/"+s);
         else if(s.contains("normalprivmsg"))
-            ui.lenormalchatmessage->setText(dir.path()+"/"+s);
+            ui->lenormalchatmessage->setText(dir.path()+"/"+s);
         else if(s.contains("highlightning"))
-            ui.lehighlightning->setText(dir.path()+"/"+s);
+            ui->lehighlightning->setText(dir.path()+"/"+s);
         else if(s.contains("costumword"))
-            ui.lecostumword->setText(dir.path()+"/"+s);
+            ui->lecostumword->setText(dir.path()+"/"+s);
         else if(s.contains("buddyhosts"))
-            ui.lehostsound->setText(dir.path()+"/"+s);
+            ui->lehostsound->setText(dir.path()+"/"+s);
 
     }
 
+}
+
+void settingswindow::on_pbloaddefaultsounds_clicked()
+{
+    QDir dir("wav");
+    foreach(QString s,dir.entryList(QStringList()<<"*.*",QDir::Files)){
+        if(s.contains("startup"))
+            ui->lestartup->setText(dir.path()+"/"+s);
+        else if(s.contains("buddyarrives"))
+            ui->lebuddyarrives->setText(dir.path()+"/"+s);
+        else if(s.contains("buddyleaves"))
+            ui->lebuddyleaves->setText(dir.path()+"/"+s);
+        else if(s.contains("buddymessage"))
+            ui->lebuddychatmessage->setText(dir.path()+"/"+s);
+        else if(s.contains("buddychatwindowopened"))
+            ui->lebuddychatwindowsopened->setText(dir.path()+"/"+s);
+        else if(s.contains("normalprivmsg"))
+            ui->lenormalchatmessage->setText(dir.path()+"/"+s);
+        else if(s.contains("highlightning"))
+            ui->lehighlightning->setText(dir.path()+"/"+s);
+        else if(s.contains("costumword"))
+            ui->lecostumword->setText(dir.path()+"/"+s);
+        else if(s.contains("buddyhosts"))
+            ui->lehostsound->setText(dir.path()+"/"+s);
+
+    }
 }

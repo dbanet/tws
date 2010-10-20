@@ -67,7 +67,7 @@ void textschemehandler::colorclicked() {
 }
 void textschemehandler::showclicked() {
 	if (!ui.listWidget->selectedItems().isEmpty()) {
-		foreach(::window *w,mainwindow::windowlist){
+                foreach(::window *w,singleton<mainwindow>().windowlist){
 			w->chat->insertText(tr("This is a teststring > ? ! < @ THIS IS A TESTSTRING! 0123456789 xD ,) :) ;P :P :E :D :C ;o :o o0 o_0 ,0.0,"),*map[ui.listWidget->selectedItems().first()->text()]);
 		}
 	}

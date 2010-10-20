@@ -15,7 +15,7 @@ class chatwindow : public QWidget
 public:
     chatwindow(netcoupler*, const QString&, QWidget *parent = 0);
     QString chatpartner;
-    void getgamerwho();
+    void getgamerwho(QString prefix=QString());
     ~chatwindow();
     void gotmsg(const QString&,const QString&,const QString&);
     void setaway(bool,const QString &msg="");

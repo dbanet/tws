@@ -12,7 +12,6 @@ class ircnet : public QObject
 
 public:
     ircnet(QString s, QObject *parent = 0);
-    ~ircnet();
 //    enum {
 //        QUIT=1,PRIVMSG,PART,JOIN,NOTICE
 //    };
@@ -49,6 +48,7 @@ signals: //public signals:
     void siggotidletime(const QString&, int);
     void signosuchnick(const QString&);
     void sigreconnect();
+    void sigconnectingfailed();
 
 private:
     bool justgetlist;
@@ -66,7 +66,6 @@ private:
     void readusermessage(QString &);
     void gotusergarbage(QString&,QString&);
 
-    QMap<QString,int> mapusercommand;
     bool whoreceivedcompletely;
     void tcp_write(const QString &msg);
 

@@ -17,6 +17,7 @@
 #include "sound_handler.h"
 #include"global_functions.h"
 #include"clantowebpagemapper.h"
+#include"leagueserverhandler.h"
 #include<QMessageBox>
 #include<QDate>
 #include<QScrollBar>
@@ -60,13 +61,9 @@ window::window(netcoupler *n, QString s, int i) :
     ui.users->setEnabled(1);
     ui.users->header()->swapSections(0, 1);
     ui.users->header()->swapSections(1, 2);
-    ui.users->setColumnWidth(0, 180);
-    ui.users->setColumnWidth(1, 22);
-    ui.users->setColumnWidth(2, 48);
+    ui.users->setColumnWidth(0, 180);    
     ui.users->setColumnWidth(3, 48);
-    ui.users->setColumnWidth(4, 120);
-    ui.users->header()->setResizeMode(1, QHeaderView::Fixed);
-    ui.users->header()->setResizeMode(2, QHeaderView::Fixed);
+    ui.users->setColumnWidth(4, 120);    
 
     ui.users->setSortingEnabled(1);
     ui.users->header()->setSortIndicator(0, Qt::AscendingOrder);
@@ -80,11 +77,7 @@ window::window(netcoupler *n, QString s, int i) :
     ui.hosts->setEnabled(1);
     ui.hosts->setSortingEnabled(1);
     ui.hosts->header()->swapSections(1, 3);
-    ui.hosts->header()->swapSections(0, 2);
-    ui.hosts->header()->setResizeMode(2, QHeaderView::Fixed);
-    ui.hosts->header()->setResizeMode(3, QHeaderView::Fixed);
-    ui.hosts->setColumnWidth(3, 16);
-    ui.hosts->setColumnWidth(2, 22);
+    ui.hosts->header()->swapSections(0, 2);    
     ui.hosts->setColumnWidth(0, 190);
     ui.hosts->setColumnWidth(1, 120);
     ui.hosts->header()->setSortIndicatorShown(0);
@@ -133,6 +126,15 @@ window::window(netcoupler *n, QString s, int i) :
             ui.hosts->header()->restoreState(
                     windowstates.takeFirst().toByteArray());
     }
+    ui.hosts->setColumnWidth(3, 16);
+    ui.hosts->setColumnWidth(2, 22);
+    ui.users->setColumnWidth(1, 22);
+    ui.users->setColumnWidth(2, 48);
+    ui.users->header()->setResizeMode(1, QHeaderView::Fixed);
+    ui.users->header()->setResizeMode(2, QHeaderView::Fixed);
+    ui.hosts->header()->setResizeMode(2, QHeaderView::Fixed);
+    ui.hosts->header()->setResizeMode(3, QHeaderView::Fixed);
+
     usesettingswindow();
     this->windowtitlechannel = this->currentchannel;
 
@@ -350,7 +352,7 @@ void window::useritempressed(const QModelIndex &index) {
             u1.setUrl(s);
             QDesktopServices::openUrl(u1);
         }
-    }
+    }    
     if (QApplication::mouseButtons() != Qt::RightButton)
         return;
     QAction *a;
@@ -368,18 +370,18 @@ void window::useritempressed(const QModelIndex &index) {
         }
     } else if (index.column() == usermodel::e_Clan) {
         QStringList sl = singleton<snpsettings>().map["dissallowedclannames"].value<QStringList>();        
-        if (sl.contains(net->users.getuserstructbyindex(index).nickfromclient,Qt::CaseInsensitive))
+        if (sl.contains(net->users.getuserstructbyindex(index).clan,Qt::CaseInsensitive))
             menu.addAction(tr("Allow this clanname."));
         else
             menu.addAction(tr("Dissallow this clanname."));        
         a = menu.exec(QCursor::pos());
         if (!a) return;
         if (a->text() == tr("Allow this clanname."))
-            removeCI(sl,net->users.getuserstructbyindex(index).nickfromclient);
+            removeCI(sl,net->users.getuserstructbyindex(index).clan);
         else if(a->text() == tr("Dissallow this clanname."))
-            sl<< net->users.getuserstructbyindex(index).nickfromclient;
+            sl<< net->users.getuserstructbyindex(index).clan;
         else
-            showInformationAboutClan(net->users.getuserstructbyindex(index).nickfromclient);
+            showInformationAboutClan(net->users.getuserstructbyindex(index).clan);
         singleton<snpsettings>().map["dissallowedclannames"].setValue<QStringList> (sl);
         singleton<snpsettings>().safe();
     } else if (net->users.classes[index.internalId()] == usermodel::tr("Querys")) {
@@ -477,11 +479,21 @@ void window::hostitemdblclicked(const QModelIndex &index) {
     }
 }
 void window::getuserinfo(const QString &s) {
+    QString msg;
+    if(singleton<snpsettings>().map["tusloginenable"].toBool()){
+        QString url=singleton<leagueserverhandler>().map_at_toString(s,leagueserverhandler::e_webpage);
+        if(!url.isEmpty()){
+            QDesktopServices::openUrl(QUrl(url));
+            return;
+        }
+        msg=tr("Sry but there is no webside for this user available, at %1.\n").arg(singleton<leagueserverhandler>().service_name());
+
+    }
     foreach(QString chat,chatwindowstringlist) {
         if (compareCI(chat, s)) {
             foreach(chatwindow *c,chatwindows) {
                 if (compareCI(chat, c->chatpartner)) {
-                    c->getgamerwho();
+                    c->getgamerwho(msg);
                     return;
                 }
             }
@@ -500,7 +512,7 @@ void window::openchatwindow(const QString &s) {
                 w->raise();
                 qApp->setActiveWindow(w);
             }
-            mainwindow::hiddenchatwindowshelper.removeAll(w);
+            singleton<mainwindow>().hiddenchatwindowshelper.removeAll(w);
             querylist.removeAll(s);
         }
         return;
@@ -535,8 +547,8 @@ void window::hostitempressed(const QModelIndex &index) {
                     QStringList sl = singleton<snpsettings>().map.value("joinstrings").value<
                                      QStringList> ();
 #ifdef Q_WS_S60
-    QString file;
-    return;
+                    QString file;
+                    return;
 #endif
 #ifdef Q_WS_MAC
                     QString file = QFileDialog::getOpenFileName(this, tr(

@@ -4,7 +4,9 @@
 #include<QFile>
 #include<QApplication>
 #include<QMessageBox>
+#include<QDir>
 #include"global_functions.h"
+
 //----------------------------------------------------------------------------------------------
 QStringList refreshcombobox(QComboBox *cb){
     QStringList sl;
@@ -140,3 +142,6 @@ void info(const QString &msg){
 void info(int i){
     QMessageBox::information(0,"Debug info",QString::number(i));
 }
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------

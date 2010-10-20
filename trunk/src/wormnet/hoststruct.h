@@ -20,7 +20,7 @@ public:
 	bool withkey;
 	QString gameid;
 	QString rest;		//1, 0/1 for key
-
+        QString country;
 	QString joinstring;
 	QString hoststring;
 

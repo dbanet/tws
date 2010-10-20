@@ -300,7 +300,7 @@ void netcoupler::processfinished(int , QProcess::ExitStatus e) {
                 this->awaymessage
                         = singleton<snpsettings>().map["awaymessage"].value<QStringList> ().last();
             emit sigawaystringchanged();
-            foreach(QString s,mainwindow::rememberwhogotaway.keys()) {
+            foreach(QString s,singleton<mainwindow>().rememberwhogotaway.keys()) {
                 if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
                     && !singleton<snpsettings>().map["ignorelist"].toStringList().contains(s, Qt::CaseInsensitive)) {
                     sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
@@ -312,7 +312,7 @@ void netcoupler::processfinished(int , QProcess::ExitStatus e) {
                 }
             }
         }
-        mainwindow::rememberwhogotaway.clear();
+        singleton<mainwindow>().rememberwhogotaway.clear();
     }
 }
 void netcoupler::readprocess() {
@@ -421,7 +421,7 @@ void netcoupler::refreshhostlist() {
 }
 void netcoupler::startprocess(const QString &s){    
     if(singleton<settingswindow>().from_map("chbhidechannelwindowsongame").toBool()){
-        foreach(window *w,mainwindow::windowlist)
+        foreach(window *w,singleton<mainwindow>().windowlist)
         {
             w->minimize();
         }

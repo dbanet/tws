@@ -2,7 +2,7 @@
 #define USERMODEL_H
 #include <QAbstractItemModel>
 #include<QPixmap>
-#include<QSet>
+#include<QLinearGradient>
 #include"userstruct.h"
 class usermodel: public QAbstractItemModel {
     Q_OBJECT
@@ -46,7 +46,6 @@ private:
     int currentselectedchannel;
     QMap<QString,const QWidget*> selectionwidgetmap;
     QVariant getrank(const userstruct &) const;
-    QVariant getflag(const userstruct &) const;
     QVariant getclan(const userstruct &) const;
 
     QStringList stringnamelist;
@@ -65,6 +64,8 @@ private:
     QPixmap awayignoreicon;
 
     QStringList currentbuddylist;
+
+    QLinearGradient leagueuserhighlightgradient;
 private slots:
     void buddyarrived();
     void buddyleft();

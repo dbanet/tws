@@ -161,8 +161,8 @@ void snpsettings::validate(){
         map["wormnetserverlist"].setValue<QStringList>(QStringList()<<"wormnet1.team17.com"<<"itakagames.spb.ru"<<"212.240.191.125"<<"worms.tom.ru"<<"http://steps.servegame.com");
     if(singleton<snpsettings>().map["rank"].toString().isEmpty())
         singleton<snpsettings>().map["rank"]="13";
-    if(singleton<snpsettings>().map["flagtext"].toString().isEmpty())
-        singleton<snpsettings>().map["flagtext"]="49";
+    if(singleton<snpsettings>().map["countrycode"].toString().isEmpty())
+        singleton<snpsettings>().map["countrycode"]="49";
     if(singleton<snpsettings>().map["qss file"].toString().isEmpty())
         singleton<snpsettings>().map["qss file"]="black by lookias.qss";
     if(singleton<snpsettings>().map["client"].toString().isEmpty() ||

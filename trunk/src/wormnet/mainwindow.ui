@@ -148,6 +148,14 @@
              </item>
              <item>
               <widget class="QLabel" name="label_11">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                </font>
+               </property>
                <property name="text">
                 <string>Wormnet</string>
                </property>
@@ -244,6 +252,14 @@
              </item>
              <item>
               <widget class="QLabel" name="label_9">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                </font>
+               </property>
                <property name="text">
                 <string>Secure Logging</string>
                </property>
@@ -340,6 +356,14 @@
              </item>
              <item>
               <widget class="QLabel" name="label_10">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                </font>
+               </property>
                <property name="text">
                 <string>Optional</string>
                </property>
@@ -552,7 +576,6 @@
   <tabstop>pbabout</tabstop>
   <tabstop>cbServerList</tabstop>
   <tabstop>lenick</tabstop>
-  <tabstop>flag</tabstop>
   <tabstop>cbremember</tabstop>
   <tabstop>start</tabstop>
   <tabstop>chbautojoin</tabstop>

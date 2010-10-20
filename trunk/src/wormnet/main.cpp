@@ -8,6 +8,7 @@
 #include<QPlastiqueStyle>
 #include<QTextStream>
 #include<QTextCodec>
+#include<QDir>
 #include"settingswindow.h"
 #include"volumeslider.h"
 #include"playername.h"
@@ -15,30 +16,24 @@
 #include"global_functions.h"
 #include"codecselectdia.h"
 #include"clantowebpagemapper.h"
+#include"picturehandler.h"
 #include"myDebug.h"
 
 #ifdef Q_WS_WIN
-    #include <dir.h>
+#include <dir.h>
 #endif
 volumeslider *volume;
 
-QList<QPixmap*> flaglist;
-QList<QPixmap*> ranklist;
-QList<QPixmap*> leagueranklist;
-int leagueranklistsize;
-int ranklistsize;
-int flaglistsize;
-QPixmap *locked;
-QPixmap *unlocked;
 QStringList querylist;
 QMap<QString, QStringList> usergarbagemap;
-static mainwindow *w = 0;
 
 void search_for_game_executables();
 void handle_prosnooper_buddys();
 void handle_wini_ini();
-int main(int argc, char *argv[]) {    
-    QApplication a(argc, argv);    
+void get_picutres();
+int main(int argc, char *argv[]) {
+    QApplication a(argc, argv);
+    singleton<picturehandler>();
     a.setApplicationName("The Wheat Snooper");
     chdir(qPrintable(QApplication::applicationDirPath()));
     singleton<snpsettings>().load();
@@ -48,45 +43,14 @@ int main(int argc, char *argv[]) {
         singleton<snpsettings>().map["textcodec"]=CodecSelectDia::codec->name();
     }
     else
-        CodecSelectDia::codec=QTextCodec::codecForName(singleton<snpsettings>().map["textcodec"].toByteArray());    
-    singleton<charformatsettings>().load();
-    volume = new volumeslider;
+        CodecSelectDia::codec=QTextCodec::codecForName(singleton<snpsettings>().map["textcodec"].toByteArray());            
+    singleton<charformatsettings>().load();    
+    volume = new volumeslider;    
     a.addLibraryPath(QApplication::applicationDirPath());
     a.setWindowIcon(QIcon(QApplication::applicationDirPath()
                           + QDir::separator() + "snppictures" + QDir::separator()
-                          + "tray.png"));
-    QString sep = QDir::separator();
-    QDir dir("snppictures/flags");
-    if (!dir.exists())
-        myDebug() << QObject::tr("the flags in snppictures/flags are missing!");
-    foreach(QString f,dir.entryList(QStringList()<<"*.png",QDir::Files,QDir::Name)) {
-        flaglist.push_back(new QPixmap(dir.path() + sep + f));
-    }
-    dir.setPath(QApplication::applicationDirPath() + sep + "snppictures" + sep
-                + "ranks");
-    if (!dir.exists())
-        myDebug() << QObject::tr("the ranks in snppictures/flags are missing!");
-    foreach(QString f,dir.entryList(QStringList()<<"*.png",QDir::Files,QDir::Name)) {                
-        ranklist.push_back(new QPixmap(dir.path() + sep + f));                
-    }
-    dir.setPath(":/rank/tusranks");
-    foreach(QString f,dir.entryList(QStringList()<<"*.png",QDir::Files,QDir::Name)) {
-        leagueranklist.push_back(new QPixmap(dir.path() + sep + f));
-    }
-    locked = new QPixmap;
-    unlocked = new QPixmap;
-    if (!locked->load(QApplication::applicationDirPath() + sep + "snppictures"
-                      + sep + "locked.png"))
-        myDebug() << QObject::tr("some pictures are missing!");
-    if (!unlocked->load(QApplication::applicationDirPath() + sep
-			+ "snppictures" + sep + "unlocked.png"))
-        myDebug() << QObject::tr("some pictures are missing!");
-
-    leagueranklistsize=leagueranklist.size();
-    ranklistsize = ranklist.size();
-    flaglistsize = flaglist.size();
+                          + "tray.png"));                
     a.setStyle(new QPlastiqueStyle);
-    a.setQuitOnLastWindowClosed(0);    
 
 #ifdef Q_WS_WIN
     search_for_game_executables();
@@ -94,13 +58,12 @@ int main(int argc, char *argv[]) {
     handle_wini_ini();
 #endif
     singleton<snpsettings>();
-    singleton<settingswindow>();
+    singleton<settingswindow>();    
+    singleton<mainwindow>();
     singleton<sound_handler>().init();
-    w = new mainwindow;
-    myDebugClass::w=w;
     volume->setvalue(singleton<snpsettings>().map["volumeslidervalue"].value<int> ());
     if (!singleton<snpsettings>().map["chbminimized"].value<bool> ()){
-        w->show();        
+        singleton<mainwindow>().show();
     }
 
     loadusergarbage();

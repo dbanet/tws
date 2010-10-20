@@ -3,27 +3,31 @@
 
 #include <QtGui/QWidget>
 #include "ui_mainwindow.h"
+#include"maintoolbox.h"
+#include"global_macros.h"
 #include<QList>
 #include <QSystemTrayIcon>
-#include"maintoolbox.h"
+
 class window;
 class netcoupler;
 class chatwindow;
 class QMenu;
-class leagueserverhandler;
 class mainwindow : public QWidget
 {
     Q_OBJECT
 
-public:
-    mainwindow(QWidget *parent = 0);
-    ~mainwindow();
+public:  
     void appenddebugmessage(const QString &);
-    static QString debugmsg;
-    static QMap<QString,QString> rememberwhogotaway;
-    static QList< ::window * > windowlist;
-    static QList< ::chatwindow*> hiddenchatwindowshelper;
-    static int rank;
+    QString debugmsg;
+    QMap<QString,QString> rememberwhogotaway;
+    QList< ::window * > windowlist;
+    QList< ::chatwindow*> hiddenchatwindowshelper;
+    void fillsnpsettings();
+    void onquit();
+
+    DECLARE_SINGLETON(mainwindow);     
+public slots:
+    void returntotabsettings(int);
 private:
     typedef ::window channelwindow;
     Ui::mainwindowClass ui;
@@ -58,8 +62,6 @@ private:
     QStringList lastOpenedWindows;
     QStringList lastOpenedChatWindows;
 
-    leagueserverhandler *leagueghandler;
-
 private slots:
     void on_cbenabletus_toggled(bool checked);
     void on_pbjoin_clicked();
@@ -68,9 +70,7 @@ private slots:
     void on_pbabout_clicked();
     void on_pbsettings_clicked();
     void getchannellist(const QStringList &);   
-    void chooseclicked();
-    void onquit();    
-    void returntotabsettings(int);
+    void chooseclicked();        
     void trayactivation(QSystemTrayIcon::ActivationReason);
     void traymenutriggered(QAction *);
     void pbrememberjoinclicked();

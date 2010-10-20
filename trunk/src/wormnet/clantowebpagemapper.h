@@ -1,6 +1,7 @@
 #ifndef CLANTOWEBPAGEMAPPER_H
 #define CLANTOWEBPAGEMAPPER_H
 #include "global_macros.h"
+#include"userstruct.h"
 #include<QMap>
 #include<QObject>
 #include<QNetworkAccessManager>
@@ -15,7 +16,7 @@ public:
     bool contains(const QString &key);
     QString value(const QString &key);
     void refresh();
-    QString getInformation(QString key);
+    QString getInformation(const userstruct &u);
 private slots:
     void httpFinished();
     void httpReadyRead();

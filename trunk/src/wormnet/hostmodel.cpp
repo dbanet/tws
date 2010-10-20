@@ -1,17 +1,16 @@
 #include "hostmodel.h"
 #include"netcoupler.h"
 #include "snpsettings.h"
-#include"mainwindow.h"
 #include"settingswindow.h"
 #include"netcoupler.h"
 #include "sound_handler.h"
 #include "balloon_handler.h"
+#include"global_functions.h"
 #include"myDebug.h"
+#include "picturehandler.h"
 #include<QTime>
 #include<QPointer>
-extern QList<QPixmap*> flaglist; //declared in main.cpp
-extern QPixmap *locked;
-extern QPixmap *unlocked;
+#include<QApplication>
 extern QPointer<netcoupler> net;
 hostmodel::hostmodel(QObject *parent) :
 	QAbstractItemModel(parent) {
@@ -110,15 +109,15 @@ QVariant hostmodel::data(const QModelIndex & index, int role) const {
             break;
 		case 2:
             if (role == Qt::BackgroundRole) {
-                return *flaglist[hostmap[classes[index.internalId()]][index.row()].flag];
+                return *singleton<picturehandler>().getflag(hostmap[classes[index.internalId()]][index.row()].country);
             }
             break;
 		case 3:
             if (role == Qt::BackgroundRole) {
                 if (hostmap[classes[index.internalId()]][index.row()].withkey)
-                    return *locked;
+                    return *singleton<picturehandler>().locked;
                 else
-                    return *unlocked;
+                    return *singleton<picturehandler>().unlocked;
             }
             break;
 		case 4:

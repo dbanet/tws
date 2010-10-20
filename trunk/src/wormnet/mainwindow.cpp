@@ -38,26 +38,19 @@
 #include"codecselectdia.h"
 #include"clantowebpagemapper.h"
 #include"leagueserverhandler.h"
+#include "picturehandler.h"
+#include"quithandler.h"
 
 inihandlerclass inihandler;
 QPointer<netcoupler> net;
 extern volumeslider *volume;
-extern QList<QPixmap*> flaglist;
-extern QList<QPixmap*> ranklist;
-QString mainwindow::debugmsg;
-QMap<QString, QString> mainwindow::rememberwhogotaway;
 bool fontorcolorchanged = 0;
 extern QStringList querylist;
-QList< ::window *> mainwindow::windowlist;
-QList< ::chatwindow*> mainwindow::hiddenchatwindowshelper;
 QString GamesourgeChannelName="#GameSourgeWorms";
-int mainwindow::rank=13;
-mainwindow::mainwindow(QWidget *parent) :
-        QWidget(parent){
+mainwindow::mainwindow() {
     net = NULL;
     whichuitype = 1;
-    ui.setupUi(this);    
-    leagueghandler=NULL;
+    ui.setupUi(this);        
     bool b=singleton<snpsettings>().map["righttoleftwriting"].toBool();
     if(b)
         qApp->setLayoutDirection(Qt::RightToLeft);
@@ -68,20 +61,17 @@ mainwindow::mainwindow(QWidget *parent) :
     ui.tabWidget->setTabEnabled(1, 0);
 
     get_baseStyleSheet();
-    init_menus();
-
-    connect(singleton<balloon_handler>().tray, SIGNAL(activated ( QSystemTrayIcon::ActivationReason)),this, SLOT(trayactivation(QSystemTrayIcon::ActivationReason)));        
-    for (int i = 0; i < flaglist.size(); ++i)
-        ui.flag->addItem(*(flaglist[i]), QString::number(i));
-    for (int i = 0; i < 14; ++i)
-        ui.rank->addItem(*(ranklist[i]), QString::number(i));
+    init_menus();    
+    connect(singleton<balloon_handler>().tray, SIGNAL(activated ( QSystemTrayIcon::ActivationReason)),this, SLOT(trayactivation(QSystemTrayIcon::ActivationReason)));            
+    singleton<picturehandler>().fillflags(ui.flag);
+    singleton<picturehandler>().fillranks(ui.rank);
     snpsetcontains("chbminimized");
     snpsetcontains("nickname");
     snpsetcontains("tus_password");
     snpsetcontains("tus_login");
     snpsetcontains("tusloginenable");
     snpsetcontains("whichuitype");
-    snpsetcontains("flag");    
+    snpsetcontains("countrycode");    
     snpsetcontains("client");
     snpsetcontains("clan");
     snpsetcontains("wormnetserverlist");    
@@ -97,7 +87,7 @@ mainwindow::mainwindow(QWidget *parent) :
     connect(ui.tabWidget, SIGNAL(currentChanged (int) ),this, SLOT(returntotabsettings(int)));
     connect(ui.start, SIGNAL(clicked()),this, SLOT(chooseclicked()));
     connect(ui.pbrememberjoin, SIGNAL(clicked()),this, SLOT(pbrememberjoinclicked()));
-    connect(QApplication::instance(), SIGNAL(aboutToQuit()),this, SLOT(onquit()));
+    connect(QApplication::instance(), SIGNAL(aboutToQuit()),&singleton<quithandler>(), SLOT(beforequit()));
     connect(ui.tabWidget, SIGNAL(currentChanged ( int )),this, SLOT(returntotabsettings(int)));    
 
     QRegExp regexp;
@@ -120,6 +110,21 @@ mainwindow::mainwindow(QWidget *parent) :
     if (!windowstates.isEmpty())
         restoreGeometry(windowstates.takeFirst().toByteArray());        
 }
+mainwindow::~mainwindow() {
+}
+void mainwindow::fillsnpsettings(){
+    singleton<snpsettings>().map["chbremember"] = ui.cbremember->isChecked();
+    singleton<snpsettings>().map["nickname"] = ui.lenick->text();
+    singleton<snpsettings>().map["chbminimized"] = ui.chbminimized->isChecked();
+    singleton<snpsettings>().map["chbautojoin"] = ui.chbautojoin->isChecked();
+    singleton<snpsettings>().map["whichuitype"] = whichuitype;
+    singleton<snpsettings>().map["countrycode"]=ui.flag->currentText();
+    singleton<snpsettings>().map["rank"]=ui.rank->currentText();
+    if (fontorcolorchanged == 1) {
+        singleton<snpsettings>().map["charformatfile"] = "lastedited.textscheme";
+        singleton<charformatsettings>().safe();
+    }
+}
 void mainwindow::get_baseStyleSheet(){
     QFile f(QApplication::applicationDirPath() + "/qss/Skin_Base");
     if(!f.open(QFile::ReadOnly))
@@ -129,7 +134,7 @@ void mainwindow::get_baseStyleSheet(){
 void mainwindow::connectToNetwork(){    
     ui.tabWidget->setCurrentIndex(1);
     if(singleton<snpsettings>().map["tusloginenable"].toBool())
-        net = new netcoupler(leagueserverhandler::nick, this);
+        net = new netcoupler(singleton<leagueserverhandler>().nick, this);
     else
         net = new netcoupler(ui.lenick->text(), this);
     connect(net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
@@ -145,7 +150,6 @@ void mainwindow::connectToNetwork(){
     QTimer::singleShot(7000,this,SLOT(reopenChatWindowsAndChannelWindows()));
     ui.tabWidget->setTabEnabled(1, 1);
 }
-
 void mainwindow::chooseclicked() {
     if(ui.tabWidget->currentIndex()!=0)
         return;
@@ -161,7 +165,7 @@ void mainwindow::chooseclicked() {
     singleton<snpsettings>().map["nickname"] = ui.lenick->text();
     singleton<snpsettings>().map["tus_password"] = ui.letuspassword->text();
     singleton<snpsettings>().map["tus_login"] = ui.letuslogin->text();
-    singleton<snpsettings>().map["flag"] = ui.flag->currentText();
+    singleton<snpsettings>().map["countrycode"] = ui.flag->currentText();
     singleton<snpsettings>().map["rank"] = ui.rank->currentText();
     singleton<snpsettings>().map["client"] = ui.client->text();
     singleton<snpsettings>().map["tusloginenable"] = ui.cbenabletus->isChecked();
@@ -170,12 +174,9 @@ void mainwindow::chooseclicked() {
     singleton<snpsettings>().map["leagueservers"]= refreshcombobox(ui.cbleagueservers);
 
     singleton<snpsettings>().safe();
-    if(singleton<snpsettings>().map["tusloginenable"].toBool()){
-        if(leagueghandler==NULL){
-            leagueghandler=new leagueserverhandler(this);
-            connect(leagueghandler,SIGNAL(sigloginfailed()),this,SLOT(leagueserverconnectionfailed()));
-            connect(leagueghandler,SIGNAL(sigloginsuccess()),this,SLOT(leagueserverconnectionsuccess()));
-        }
+    if(singleton<snpsettings>().map["tusloginenable"].toBool()){           
+        connect(&singleton<leagueserverhandler>(),SIGNAL(sigloginfailed()),this,SLOT(leagueserverconnectionfailed()));
+        connect(&singleton<leagueserverhandler>(),SIGNAL(sigloginsuccess()),this,SLOT(leagueserverconnectionsuccess()));
         QString item=ui.cbleagueservers->currentText();
         if(!item.endsWith("/"))
             item+="/";
@@ -186,9 +187,9 @@ void mainwindow::chooseclicked() {
         int i=servicename.indexOf("/");
         if(i!=-1)
             servicename=servicename.left(i);
-        leagueghandler->setleague(servicename,item);
+        singleton<leagueserverhandler>().setleague(servicename,item);
 
-        leagueghandler->login(ui.letuslogin->text(),ui.letuspassword->text());
+        singleton<leagueserverhandler>().login(ui.letuslogin->text(),ui.letuspassword->text());
     } else
         connectToNetwork();
 }
@@ -258,26 +259,17 @@ void mainwindow::join(const QString channel){
     connect(windowlist.last(), SIGNAL(sigwindowclosed(const QString&)),this, SLOT(windowremoved(const QString&)));
     singleton<snpsettings>().safe();
 }
-void mainwindow::onquit() {
-    singleton<snpsettings>().map["chbremember"] = ui.cbremember->isChecked();
-    singleton<snpsettings>().map["nickname"] = ui.lenick->text();
-    singleton<snpsettings>().map["chbminimized"] = ui.chbminimized->isChecked();
-    singleton<snpsettings>().map["chbautojoin"] = ui.chbautojoin->isChecked();
-    singleton<snpsettings>().map["whichuitype"] = whichuitype;
-    singleton<snpsettings>().map["flagtext"]=ui.flag->currentText();
-    singleton<snpsettings>().map["rank"]=ui.rank->currentText();
-    if (fontorcolorchanged == 1) {
-        singleton<snpsettings>().map["charformatfile"] = "lastedited.textscheme";
-        singleton<charformatsettings>().safe();
+void mainwindow::onquit() {        
+    foreach(chatwindow *w,::window::chatwindows) {
+        Q_ASSERT(w!=0);
+        w->close();
+        w->deleteLater();
     }
-    singleton<snpsettings>().safeonquit();
-    singleton<snpsettings>().safe();
-    singleton<clantowebpagemapper>().safe();
-    bool b = singleton<settingswindow>().from_map("cbsafequerys").value<bool> (); //no need for usesettingswindow here
-    if (b) {
-        safeusergarbage();
-        safequerylist();
-    }       
+    foreach(::window *w,this->windowlist) {
+        w->close();
+        w->deleteLater();
+    }
+    singleton<mainwindow>().fillsnpsettings();
 }
 void mainwindow::closeEvent(QCloseEvent *) {
     QVariantList windowstates;
@@ -291,7 +283,8 @@ void mainwindow::disconnect_netcoupler(){
 
 void mainwindow::returntotabsettings(int i) {
     if (i != 0)
-        return;
+        return;    
+    singleton<leagueserverhandler>().reset();
     joinonstartup = 0;
     singleton<snpsettings>().map["chbautojoin"] = ui.chbautojoin->isChecked();
     singleton<snpsettings>().safe();
@@ -356,8 +349,12 @@ void mainwindow::snpsetcontains(const QString &s) {
         ui.letuspassword->setText(singleton<snpsettings>().map["tus_password"].value<QString> ());
     else if (s == "tus_login" && singleton<snpsettings>().map.contains("tus_login"))
         ui.letuslogin->setText(singleton<snpsettings>().map["tus_login"].value<QString> ());
-    else if (s == "flag"){        
-        ui.flag->setCurrentIndex(singleton<snpsettings>().map["flagtext"].toString().toInt());
+    else if (s == "countrycode"){
+        QString language=QLocale::system().name().left(2);
+        int i=ui.flag->findText(singleton<snpsettings>().map["countrycode"].toString());
+        if(i==-1)
+            i=ui.flag->findText(language);
+        ui.flag->setCurrentIndex(i);
     }else if (s == "rank"){
         ui.rank->setCurrentIndex(singleton<snpsettings>().map["rank"].toString().toInt());
     }
@@ -469,8 +466,6 @@ void mainwindow::settextscheme(const QString &file) {
     singleton<charformatsettings>().load();
     chathandler::initialformatstarter();
 }
-mainwindow::~mainwindow() {
-}
 void mainwindow::openchatwindow(const QString &s) {
     window::chatwindowstringlist << s;
     window::chatwindows.push_back(new chatwindow(net, s));
@@ -500,7 +495,7 @@ void mainwindow::gotprvmsg(const QString &user, const QString &receiver,
         if (mainwindow::rememberwhogotaway[user] != net->awaymessage) {
             net->sendmessage(user, net->awaymessage);
             int i = net->users.users.indexOf(userstruct::whoami(user));
-            if (i != -1 && net->users.users[i].nickfromclient != "Username")
+            if (i != -1 && net->users.users[i].clan != "Username")
                 net->sendrawcommand("PRIVMSG " + user + " :\001away "
                                     + net->awaymessage + "\001");
         }
@@ -671,18 +666,8 @@ void mainwindow::trayactivation(QSystemTrayIcon::ActivationReason reason) {
     }
 }
 void mainwindow::traymenutriggered(QAction *a) {
-    if (a->text() == QDialogButtonBox::tr("&Close")) {
-        foreach(chatwindow *w,::window::chatwindows) {
-            Q_ASSERT(w!=0);
-            w->close();
-            w->deleteLater();
-        }
-        foreach(::window *w,this->windowlist) {
-            w->close();
-            w->deleteLater();
-        }
-        singleton<balloon_handler>().hide_tray();
-        qApp->quit();        
+    if (a->text() == QDialogButtonBox::tr("&Close")) {        
+        singleton<quithandler>().inducequit();
         return;    
     } else if (a->text() ==  tr("Select another Textcodec")){
         CodecSelectDia().exec();
@@ -737,7 +722,7 @@ void mainwindow::traymenutriggered(QAction *a) {
                             != -1
                                     && !compareCI(
                                             net->users.users[net->users.users.indexOf(
-                                                    userstruct::whoami(s))].nickfromclient,
+                                                    userstruct::whoami(s))].clan,
                                             "username"))
                             net->sendrawcommand("PRIVMSG " + s
                                                 + " :\001back\001");
@@ -860,6 +845,7 @@ void mainwindow::on_cbenabletus_toggled(bool checked)
     if(checked){
         ui.lenick->setEnabled(false);
         ui.rank->setEnabled(false);
+        ui.clan->setEnabled(false);
         int i=ui.cbServerList->findText("http://wormnet1.team17.com");
         if(i==-1)
             ui.cbServerList->addItem("http://wormnet1.team17.com");
@@ -874,6 +860,7 @@ void mainwindow::on_cbenabletus_toggled(bool checked)
         ui.flag->setEnabled(true);
         ui.lenick->setEnabled(true);
         ui.rank->setEnabled(true);
+        ui.clan->setEnabled(true);
         ui.cbServerList->setEnabled(true);;
         ui.letuspassword->setEnabled(false);
         ui.letuslogin->setEnabled(false);

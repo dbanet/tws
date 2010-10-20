@@ -18,7 +18,7 @@ public:
 	static userstruct whoami(const QString &,const QString &s="");
 //private:
 	QString chan;
-	QString nickfromclient;
+        QString clan;
 	QString address;
 	QString server;
 	QString nick;

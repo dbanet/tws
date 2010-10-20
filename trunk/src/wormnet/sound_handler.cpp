@@ -3,6 +3,7 @@
 #include "singleton.h"
 #include"settingswindow.h"
 #include"netcoupler.h"
+#include<QApplication>
 #include<phonon/phonon>
 #include<QPointer>
 #include<QMessageBox>

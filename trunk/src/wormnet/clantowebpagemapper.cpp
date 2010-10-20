@@ -1,4 +1,7 @@
 #include "clantowebpagemapper.h"
+#include"settingswindow.h"
+#include"snpsettings.h"
+#include"leagueserverhandler.h"
 #include<QFile>
 #include<QDir>
 #include<QApplication>
@@ -65,8 +68,14 @@ void clantowebpagemapper::httpFinished(){
 void clantowebpagemapper::httpReadyRead(){
     file.append(reply->readAll());
 }
-QString clantowebpagemapper::getInformation(QString key){
-    if(!InformationMap.contains(key.toLower()))
-        return "";
-    return InformationMap[key.toLower()];
+QString clantowebpagemapper::getInformation(const userstruct &u){
+    QString clan=u.clan.toLower();
+    if(singleton<snpsettings>().map["tusloginenable"].toBool()){
+        if(singleton<settingswindow>().from_map("cbshowranksonlyfromsecureloggedusers").toBool()){
+            clan=singleton<leagueserverhandler>().map_at_toString(u.nick,leagueserverhandler::e_clan);
+        }
+    }
+    if(!InformationMap.contains(clan))
+        return QString();
+    return InformationMap[clan];
 }

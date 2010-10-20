@@ -1,9 +1,12 @@
 #ifndef SETTINGSWINDOW_H
 #define SETTINGSWINDOW_H
 
-#include <QtGui/QWidget>
-#include "ui_settingswindow.h"
-#include "global_macros.h"
+#include<QtGui/QWidget>
+#include<QMap>
+#include"global_macros.h"
+namespace Ui{
+    class settingswindowClass;
+}
 class settingswindow : public QWidget
 {
     Q_OBJECT
@@ -15,12 +18,13 @@ public:
     const QVariant from_map(const QString&) const;
     void to_map(const QString&, const QVariant&);
 private:
-    Ui::settingswindowClass ui;    
+    Ui::settingswindowClass *ui;
     QMap<QString,QVariant> map;
     void loadDefaults();
     void checkValidEntries();
 private slots:
-    void on_pushButton_clicked();
+    void on_pbloaddefaultsounds_clicked();
+    void on_pbloadsoundpack_clicked();
     void ok();
     void cancel();
     void soundoptionbuttonslot();
