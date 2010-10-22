@@ -20,14 +20,17 @@ leagueserverhandler::leagueserverhandler()
     informationrefreshtimer=new QTimer;
     informationrefreshtimer->setSingleShot(true);
     connect(informationrefreshtimer,SIGNAL(timeout()),this,SLOT(refresh()));
+    loggingstate=false;
 }
 leagueserverhandler::~leagueserverhandler(){}
+
 void leagueserverhandler::login(QString n, QString p){
+    leagueloginnick=n;
     informationrefreshtimer->stop();
     connecttimer->stop();
     myconnect(n,p);    
 }
-void leagueserverhandler::myconnect(const QString n,const QString p){
+void leagueserverhandler::myconnect(const QString n,const QString p){    
     QUrl url=serveraddress+"testlogin.php?u="+n+"&p="+p;
     loginreply=qnam.get(QNetworkRequest(url));
     connect(loginreply, SIGNAL(finished()),this, SLOT(loginFinished()));
@@ -40,22 +43,33 @@ void leagueserverhandler::logintTimeOut(){
     emit sigloginfailed();
     loginreply->deleteLater();
 }
+void leagueserverhandler::loginerror(QNetworkReply::NetworkError error){
+    QMessageBox::information(0,QObject::tr("Warning"),tr("Cant connect to %1 server, please try again at a later time.").arg(servicename));
+    emit sigloginfailed();
+    loginreply->deleteLater();
+}
 void leagueserverhandler::loginFinished(){
+    loggingstate=true;
     connecttimer->stop();
     QStringList sl=connectresponse.split(" ");
     connectresponse.clear();
-    if(sl.size()<2){
+    if(sl.isEmpty()){
         QMessageBox::information(0,QObject::tr("Warning"),tr("The Server %1 doesnt seem to support the secure logging.").arg(servicename));
         emit sigloginfailed();
         return;
     }
     if(sl.takeFirst()=="0"){
-        QMessageBox::information(0,QObject::tr("Warning"),tr("Your %1 Account seems to be wrong, please try again.").arg(servicename));        
+        QMessageBox::information(0,QObject::tr("Warning"),tr("Your %1 Account seems to be wrong, please try again.").arg(servicename));
         emit sigloginfailed();
         return;
     }
-    nick=sl.takeFirst();    
-    informationrefreshtimer->start(0);
+    if(sl.isEmpty()){
+        QMessageBox::information(0,QObject::tr("Warning"),tr("The Server %1 doesnt seem to support the secure logging.").arg(servicename));
+        emit sigloginfailed();
+        return;
+    }
+    nick=sl.takeFirst();        
+    startrefresh();
     emit sigloginsuccess();
     loginreply->deleteLater();
     singleton<balloon_handler>().connectedtoleagueserver(servicename);
@@ -68,7 +82,17 @@ void leagueserverhandler::loginFinished(){
     if(singleton<snpsettings>().map["tusloginmessagenumber"].toInt()==number)
         return;
     singleton<snpsettings>().map["tusloginmessagenumber"]=number;
-    QDesktopServices::openUrl(QUrl(sl.takeFirst()));
+    QDesktopServices::openUrl(QUrl(sl.takeFirst()));    
+}
+void leagueserverhandler::startrefresh(){
+    informationrefreshtimer->start(0);
+}
+void leagueserverhandler::stoprefresh(){
+    informationrefreshtimer->stop();
+}
+void leagueserverhandler::reset(){
+    stoprefresh();
+    connecttimer->stop();
 }
 void leagueserverhandler::loginReadyRead(){
     connectresponse.append(loginreply->readAll());
@@ -79,7 +103,11 @@ void leagueserverhandler::loginReadyRead(){
 //###################################
 
 void leagueserverhandler::refresh(){
-    QUrl url=serveraddress+"userlist.php?"+nick;
+    QUrl url;
+    if(singleton<leagueserverhandler>().islogged())
+        url=serveraddress+"userlist.php?update="+leagueloginnick;
+    else
+        url=serveraddress+"userlist.php";
     refreshreply=qnam.get(QNetworkRequest(url));
     connect(refreshreply, SIGNAL(finished()),this, SLOT(refreshFinished()));
     connect(refreshreply, SIGNAL(readyRead()),this, SLOT(refreshReadyRead()));
@@ -110,22 +138,18 @@ void leagueserverhandler::refresherror(QNetworkReply::NetworkError error){
     myDebug()<<tr("Unable to get the user information from")+" "+servicename;
     refreshreply->deleteLater();
 }
-void leagueserverhandler::loginerror(QNetworkReply::NetworkError error){
-    myDebug()<<tr("unable to connect to")+" "+servicename;
-    loginreply->deleteLater();
-}
 bool leagueserverhandler::contains_key(QString key){
     return map.contains(key);
-}
-void leagueserverhandler::reset(){
-    informationrefreshtimer->stop();
-    connecttimer->stop();
 }
 QString leagueserverhandler::service_name(){
     return servicename;
 }
+//###################################
+//###################################
+//###################################
+//###################################
 void leagueserverhandler::logout(){
-    QUrl url=serveraddress+"testlogin.php?logout="+nick;
+    QUrl url=serveraddress+"testlogin.php?logout="+leagueloginnick;
     logoutreply=qnam.get(QNetworkRequest(url));
     connect(logoutreply, SIGNAL(finished()),this, SLOT(logoutFinished()));
     connect(logoutreply, SIGNAL(readyRead()),this, SLOT(logoutReadyRead()));
@@ -133,13 +157,17 @@ void leagueserverhandler::logout(){
 }
 void leagueserverhandler::logoutFinished(){
     logoutreply->deleteLater();
-    singleton<quithandler>().finished(e_leagueserverhandler);
+    stoprefresh();
+    loggingstate=false;
+    emit siglogout();
 }
 void leagueserverhandler::logoutReadyRead(){
 
 }
 void leagueserverhandler::logouterror(QNetworkReply::NetworkError){
     logoutreply->deleteLater();
+    loggingstate=false;
+    emit siglogout();
 }
 int leagueserverhandler::map_at_toInt(const QString key,const int i){
     static bool b;
@@ -158,4 +186,28 @@ QString leagueserverhandler::map_at_toString(const QString key,const int i){
     if(i>=map[key].size())
         return QString();
     return map[key].at(i);
+}
+bool leagueserverhandler::islogged(){
+    return loggingstate;
+}
+//###################################
+//###################################
+//###################################
+//###################################
+void leagueserverhandler::profile(QString n){
+    QUrl url=serveraddress+"testlogin.php?profile="+n+";snooper";
+    profilereply=qnam.get(QNetworkRequest(url));
+    connect(profilereply, SIGNAL(finished()),this, SLOT(profileFinished()));
+    connect(profilereply, SIGNAL(readyRead()),this, SLOT(profileReadyRead()));
+    connect(profilereply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(profileerror(QNetworkReply::NetworkError)));
+}
+void leagueserverhandler::profileFinished(){
+    emit sigprofile(profileresponse);
+    profileresponse.clear();
+}
+void leagueserverhandler::profileReadyRead(){
+    profileresponse.append(profilereply->readAll());
+}
+void leagueserverhandler::profileerror(QNetworkReply::NetworkError){
+    QMessageBox::information(0,QObject::tr("Warning"),tr("Cant connect to %1 server, please try again at a later time.").arg(servicename));
 }

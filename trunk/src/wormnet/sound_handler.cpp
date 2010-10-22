@@ -7,7 +7,6 @@
 #include<phonon/phonon>
 #include<QPointer>
 #include<QMessageBox>
-extern QPointer<netcoupler> net;
 sound_handler::sound_handler(){    
     startupsound = new Phonon::MediaObject(this);   
     buddymsgsound = new Phonon::MediaObject(this);
@@ -185,7 +184,7 @@ void sound_handler::verify_if_played(const QString user) throw(dont_play_sound_e
         return;
     if(singleton<settingswindow>().from_map("cbdontplaysound").toBool())
         throw dont_play_sound_exception();    
-    if (net->mutedusers.contains(user, Qt::CaseInsensitive))
+    if (singleton<netcoupler>().mutedusers.contains(user, Qt::CaseInsensitive))
         throw dont_play_sound_exception();
 }
 sound_handler::~sound_handler(){

@@ -7,7 +7,6 @@
 #include<QKeyEvent>
 #include<QMessageBox>
 #include<QValidator>
-extern QPointer<netcoupler> net;
 bool hostbox::dontStartGame=false;
 hostbox::hostbox(QString c, QWidget *parent) :QWidget(parent),
 channel(c) {
@@ -23,7 +22,7 @@ channel(c) {
     if(!gamename.isEmpty())
         ui.legamename->setText(gamename);
     else
-        ui.legamename->setText(net->nick);
+        ui.legamename->setText(singleton<netcoupler>().nick);
     this->setWindowTitle(tr("Create a public game in")+" " + channel + ".");
     connect(ui.add, SIGNAL(clicked()),this, SLOT(addclicked()));
     connect(ui.ok, SIGNAL(clicked()),this, SLOT(okclicked()));

@@ -8,7 +8,6 @@ class quithandler : public QObject
     Q_OBJECT
 public:    
     void inducequit();
-    void finished(CLASSES c);
     DECLARE_SINGLETON(quithandler);
 signals:
 

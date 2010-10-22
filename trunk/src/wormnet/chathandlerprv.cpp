@@ -20,7 +20,6 @@
 #include "emoticonhandler.h"
 #include"global_functions.h"
 QPointer<emoticonhandler> chathandlerprv::emot;
-extern QPointer<netcoupler> net;
 chathandlerprv::chathandlerprv(QObject *parent, QTextBrowser *t, QString chan) :
 	chathandler(parent, t, chan) {
     if (emot == 0)
@@ -38,7 +37,7 @@ void chathandlerprv::append(const QString &user, const QString &/*receiver*/,
         } else {
             cursor->insertText(user + "> ", nickformat);
             if (singleton<settingswindow>().from_map("chbsmileys").toBool() || isClickableLink(msg) || containsCI(msg, "wa://")) {
-                if(user==net->nick)
+                if(user==singleton<netcoupler>().nick)
                     insertText(msgtemp, myselfformat,user);
                 else
                     insertText(msgtemp, chatformat,user);
@@ -47,7 +46,7 @@ void chathandlerprv::append(const QString &user, const QString &/*receiver*/,
                     if (v.canConvert(QVariant::Image))
                         cursor->insertImage(qvariant_cast<QImage> (v));
                     else{
-                        if(user==net->nick)
+                        if(user==singleton<netcoupler>().nick)
                             insertText(v.toString(), myselfformat,user);
                         else
                             insertText(v.toString(), chatformat,user);
@@ -67,7 +66,7 @@ void chathandlerprv::append(const QString &user, const QString &/*receiver*/,
                     if (v.canConvert(QVariant::Image))
                         cursor->insertImage(qvariant_cast<QImage> (v));
                     else{
-                        if(user==net->nick)
+                        if(user==singleton<netcoupler>().nick)
                             insertText(v.toString(), myselfformat,user);
                         else
                             insertText(v.toString(), buddyformat,user);

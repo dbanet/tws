@@ -41,6 +41,7 @@ public:
     QList<userstruct> users;
     static QStringList buddyarrivedhelper;
     static QStringList buddylefthelper;
+    void clear();
 private:
     QString currentselecteduser;
     int currentselectedchannel;
@@ -68,7 +69,7 @@ private:
     QLinearGradient leagueuserhighlightgradient;
 private slots:
     void buddyarrived();
-    void buddyleft();
+    void buddyleft();    
 public slots:
     void sortslot(int, Qt::SortOrder);
     void usesettingswindow(const QString &s="");

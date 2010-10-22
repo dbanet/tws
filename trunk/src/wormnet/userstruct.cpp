@@ -15,7 +15,6 @@
 #include<QPointer>
 bool *userstruct::boolhelper = new bool;
 QMap<int, QString> userstruct::temp;
-extern QPointer<netcoupler> net;
 bool userstruct::addressischecked=0;
 userstruct::userstruct():flag(49),rank(12) {
 }
@@ -42,16 +41,16 @@ userstruct::userstruct(QStringList sl) {
     if (*boolhelper && clannumber < singleton<picturehandler>().ranklistsize() && clannumber >= 0)
         rank = clannumber;
     else rank=12;
-    if(addressischecked==0 && nick==net->nick){
+    if(addressischecked==0 && nick==singleton<netcoupler>().nick){
         QList<QHostAddress> a=QHostInfo::fromName (address).addresses();
         QString ip;
         if(!a.isEmpty()){
             ip=a.first().toString();
         }
         if(!ip.isEmpty())
-            net->myip=ip;
+            singleton<netcoupler>().myip=ip;
         else
-            net->myip=address;
+            singleton<netcoupler>().myip=address;
         addressischecked=1;
     }
 }

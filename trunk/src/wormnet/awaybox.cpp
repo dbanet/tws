@@ -2,7 +2,6 @@
 #include "snpsettings.h"
 #include"netcoupler.h"
 #include<QPointer>
-extern QPointer<netcoupler> net;
 bool awaybox::ison=0;
 awaybox::awaybox(QWidget *parent) :
 	QWidget(parent) {
@@ -25,7 +24,7 @@ awaybox::awaybox(QWidget *parent) :
 	//connect(ui.cancel,SIGNAL(clicked()),this,SLOT(cancelclicked()));
 }
 void awaybox::okclicked() {
-	net->setaway(ui.textEdit->toPlainText());
+        singleton<netcoupler>().setaway(ui.textEdit->toPlainText());
 	if(!sl.contains(ui.textEdit->toPlainText()))
 		sl<<ui.textEdit->toPlainText();
 	else
@@ -49,7 +48,7 @@ void awaybox::forwardclicked() {
 }
 void awaybox::closeEvent(QCloseEvent *) {
 	ison=0;
-	net->setaway(ui.textEdit->toPlainText());
+        singleton<netcoupler>().setaway(ui.textEdit->toPlainText());
 }
 awaybox::~awaybox() {
 }

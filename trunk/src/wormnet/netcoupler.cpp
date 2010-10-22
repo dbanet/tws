@@ -21,7 +21,6 @@
 #include "hostbox.h"
 extern volumeslider *volume;
 extern inihandlerclass inihandler;
-QProcess *netcoupler::p= new QProcess;
 namespace looki {
     QString gamename;
     QString currentchannel;
@@ -29,19 +28,35 @@ namespace looki {
     int gethostlistcount;
     bool iswormkitgame = 0;
 }
-netcoupler::netcoupler(QString s, QObject *parent) :
-        QObject(parent), nick(s) {
-
+netcoupler::netcoupler() {
+    connectstate=e_stoped;
+    p=new QProcess(this);
     connect(volume, SIGNAL(valueChanged (int)),&singleton<sound_handler>(), SLOT(volumechange(int)));
 
-    irc = new ircnet(nick, this);
-    connect(irc,SIGNAL(sigreconnect()),this,SIGNAL(sigreconnect()));
+    connect(&users, SIGNAL(sigbuddyarrived()),&singleton<balloon_handler>(), SLOT(buddyarrived()));
+    connect(&users, SIGNAL(sigbuddyleft()),&singleton<balloon_handler>(), SLOT(buddyleft()));
+    connect(this,SIGNAL(sigconnected()),&singleton<balloon_handler>(),SLOT(connected()));
+    connect(this,SIGNAL(sigdisconnected()),&singleton<balloon_handler>(),SLOT(disconnected()));       
+    p->setProcessChannelMode(QProcess::MergedChannels);
+    connect(p, SIGNAL(finished (int , QProcess::ExitStatus)),this, SLOT(processfinished(int , QProcess::ExitStatus)));
+    connect(p, SIGNAL(readyRead()),this, SLOT(readprocess()));    
+    usesettingswindow("cbsetawaywhilegaming");
+    usesettingswindow("leawaystring");
+
+    mutedusers = singleton<snpsettings>().map["mutedusers"].toStringList();
+    connect(this, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
+    connect(this, SIGNAL(sigsettingswindowchanged()),&users, SLOT(usesettingswindow()));
+}
+void netcoupler::start(QString nick){
+    connectstate=e_started;
+    this->nick=nick;
+    irc = new ircnet(nick, this);    
     connect(irc, SIGNAL(sigusergarbage(const QString&,const QString&)),this, SIGNAL(sigusergarbage(const QString&,const QString&)));
     connect(irc, SIGNAL(sigusergarbagejoin(const QString&,const QString&)),this, SIGNAL(sigusergarbagejoin(const QString&,const QString&)));
     connect(irc, SIGNAL(sigusergarbagepart(const QString&,const QString&)),this, SIGNAL(sigusergarbagepart(const QString&,const QString&)));
     connect(irc, SIGNAL(sigusergarbagequit(const QString&,const QString&)),this, SIGNAL(sigusergarbagequit(const QString&,const QString&)));
     connect(irc,SIGNAL(sigconnected()),this,SLOT(ircconnected()));
-    connect(irc,SIGNAL(sigdisconnected()),this,SLOT(ircdiconnected()));
+    connect(irc,SIGNAL(sigdisconnected()),this,SLOT(ircdisconnected()));
     http = new snoppanet(this);
     connect(http, SIGNAL(sigchannelscheme(QString,QString)),this, SLOT(getscheme(QString,QString)));
     connect(irc, SIGNAL(siggetlist(QStringList)),this, SLOT(getchannellist(QStringList)));
@@ -50,10 +65,6 @@ netcoupler::netcoupler(QString s, QObject *parent) :
     connect(irc, SIGNAL(siggotidletime(const QString&, int)),this, SIGNAL(siggotidletime(const QString&, int)));
     connect(irc, SIGNAL(signosuchnick(const QString&)),this, SIGNAL(signosuchnick(const QString&)));
     connect(http, SIGNAL(sighostlist(QList<hoststruct>,QString)),this, SLOT(gethostlist(QList<hoststruct>,QString)));
-    connect(&users, SIGNAL(sigbuddyarrived()),&singleton<balloon_handler>(), SLOT(buddyarrived()));
-    connect(&users, SIGNAL(sigbuddyleft()),&singleton<balloon_handler>(), SLOT(buddyleft()));
-    connect(this,SIGNAL(sigconnected()),&singleton<balloon_handler>(),SLOT(connected()));
-    connect(this,SIGNAL(sigdisconnected()),&singleton<balloon_handler>(),SLOT(disconnected()));
     QStringList sl = inihandler.stringlistfromini("[irc ip]");
     if (sl.isEmpty()) {
         connect(http, SIGNAL(sigircip(QString)),this, SLOT(getircip(QString)));
@@ -64,24 +75,17 @@ netcoupler::netcoupler(QString s, QObject *parent) :
         irc->start();
         usesettingswindow("sbwhorepead");
     }
-    connect(QApplication::instance(), SIGNAL(aboutToQuit()),this, SLOT(sendquit()));
-    p->setProcessChannelMode(QProcess::MergedChannels);
-    connect(p, SIGNAL(finished (int , QProcess::ExitStatus)),this, SLOT(processfinished(int , QProcess::ExitStatus)));
-    connect(p, SIGNAL(readyRead()),this, SLOT(readprocess()));
     isaway = 0;
-    usesettingswindow("cbsetawaywhilegaming");
-    usesettingswindow("leawaystring");
-
-    mutedusers = singleton<snpsettings>().map["mutedusers"].toStringList();
-    connect(this, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
-    connect(this, SIGNAL(sigsettingswindowchanged()),&users, SLOT(usesettingswindow()));
 }
-netcoupler::~netcoupler() {
-    userstruct::addressischecked=0;
-    irc->quit();
-    qApp->processEvents();
+
+netcoupler::~netcoupler() {        
     irc->deleteLater();
     http->deleteLater();    
+}
+void netcoupler::stop(){
+    connectstate=e_stoped;
+    userstruct::addressischecked=0;
+    sendquit();
 }
 void netcoupler::joinchannel(const QString &s) {
     irc->joinchannel(s);
@@ -216,7 +220,8 @@ void netcoupler::setaway(const QString &s) {
 void netcoupler::ircconnected(){
     emit sigconnected();
 }
-void netcoupler::ircdiconnected(){
+void netcoupler::ircdisconnected(){
+    users.clear();
     emit sigdisconnected();
 }
 void netcoupler::joingamelink(const QString &gamelink) {
@@ -427,7 +432,9 @@ void netcoupler::startprocess(const QString &s){
         }
     } if(singleton<settingswindow>().from_map("chbdisconnectongame").toBool()){
     looki::iswormkitgame=1;
-    QTimer::singleShot(3000,this,SIGNAL(sigdisconnect()));
 }
     p->start(s);
+}
+int netcoupler::ircstate(){
+    return irc->state();
 }

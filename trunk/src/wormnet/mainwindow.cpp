@@ -1,54 +1,54 @@
-#include "mainwindow.h"
-#include "window.h"
-#include "netcoupler.h"
-#include <QDir>
-#include <QStringList>
-#include <QSystemTrayIcon>
-#include <QMenu>
-#include <QMessageBox>
-#include <QPicture>
-#include<QDialogButtonBox>
-#include "buddylist.h"
-#include <QTime>
-#include "ctcphandler.h"
-#include "chathandler.h"
-#include <QFileDialog>
-#include "buttonlayout.h"
-#include "awaybox.h"
-#include "inihandlerclass.h"
-#include "chatwindow.h"
-#include "about.h"
-#include "snpsettings.h"
-#include "charformatsettings.h"
-#include "ui_window.h"
-#include "ui_window2.h"
-#include "ui_window3.h"
-#include "settingswindow.h"
-#include "volumeslider.h"
-#include "logbrowser.h"
-#include "textschemehandler.h"
-#include "playername.h"
-#include "singleton.h"
-#include "sound_handler.h"
-#include "global_functions.h"
-#include "balloon_handler.h"
+#include"mainwindow.h"
+#include"window.h"
+#include"netcoupler.h"
+#include"buddylist.h"
+#include"ctcphandler.h"
+#include"chathandler.h"
+#include"buttonlayout.h"
+#include"awaybox.h"
+#include"inihandlerclass.h"
+#include"chatwindow.h"
+#include"about.h"
+#include"snpsettings.h"
+#include"charformatsettings.h"
+#include"ui_window.h"
+#include"ui_window2.h"
+#include"ui_window3.h"
+#include"settingswindow.h"
+#include"volumeslider.h"
+#include"logbrowser.h"
+#include"textschemehandler.h"
+#include"playername.h"
+#include"singleton.h"
+#include"sound_handler.h"
+#include"global_functions.h"
+#include"balloon_handler.h"
 #include"src/irc/irc_netcoupler.h"
 #include"src/irc/irc_window.h"
-#include "src/irc/ircjoindia.h"
+#include"src/irc/ircjoindia.h"
 #include"codecselectdia.h"
 #include"clantowebpagemapper.h"
 #include"leagueserverhandler.h"
-#include "picturehandler.h"
+#include"picturehandler.h"
 #include"quithandler.h"
 
+#include<QDir>
+#include<QStringList>
+#include<QSystemTrayIcon>
+#include<QMenu>
+#include<QMessageBox>
+#include<QPicture>
+#include<QDialogButtonBox>
+#include<QTime>
+#include<QFileDialog>
+#include<QDesktopServices>
+
 inihandlerclass inihandler;
-QPointer<netcoupler> net;
 extern volumeslider *volume;
 bool fontorcolorchanged = 0;
 extern QStringList querylist;
 QString GamesourgeChannelName="#GameSourgeWorms";
 mainwindow::mainwindow() {
-    net = NULL;
     whichuitype = 1;
     ui.setupUi(this);        
     bool b=singleton<snpsettings>().map["righttoleftwriting"].toBool();
@@ -68,8 +68,8 @@ mainwindow::mainwindow() {
     snpsetcontains("chbminimized");
     snpsetcontains("nickname");
     snpsetcontains("tus_password");
-    snpsetcontains("tus_login");
-    snpsetcontains("tusloginenable");
+    snpsetcontains("tus_login");    
+    snpsetcontains("enablesecurelogging");
     snpsetcontains("whichuitype");
     snpsetcontains("countrycode");    
     snpsetcontains("client");
@@ -83,21 +83,29 @@ mainwindow::mainwindow() {
         chooseclicked();        
     }
     this->setWindowTitle(tr("Wheat Snoopers root window."));
-    joinonstartup = 0;
-    connect(ui.tabWidget, SIGNAL(currentChanged (int) ),this, SLOT(returntotabsettings(int)));
+    joinonstartup = 0;    
     connect(ui.start, SIGNAL(clicked()),this, SLOT(chooseclicked()));
-    connect(ui.pbrememberjoin, SIGNAL(clicked()),this, SLOT(pbrememberjoinclicked()));
-    connect(QApplication::instance(), SIGNAL(aboutToQuit()),&singleton<quithandler>(), SLOT(beforequit()));
-    connect(ui.tabWidget, SIGNAL(currentChanged ( int )),this, SLOT(returntotabsettings(int)));    
+    connect(ui.pbrememberjoin, SIGNAL(clicked()),this, SLOT(pbrememberjoinclicked()));    
+    connect(ui.tabWidget, SIGNAL(currentChanged ( int )),this, SLOT(currenttabchanged(int)));
+
+    connect(&singleton<netcoupler>(), SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));    
+    connect(&singleton<netcoupler>(), SIGNAL(siggotchanellist(const QStringList &)),this, SLOT(getchannellist(const QStringList &)));
+    connect(&singleton<netcoupler>(), SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));
+    connect(&singleton<netcoupler>(), SIGNAL(siggotprivmsg(const QString&,const QString&,const QString&)),this,
+            SLOT(gotprvmsg(const QString&,const QString&,const QString&)));
+    connect(&singleton<netcoupler>(), SIGNAL(sigconnected()),this,SLOT(connected()));
+    connect(&singleton<netcoupler>(), SIGNAL(sigdisconnected()),this,SLOT(disconnected()));
+
+    connect(&singleton<leagueserverhandler>(),SIGNAL(sigloginfailed()),this,SLOT(leagueserverconnectionfailed()));
+    connect(&singleton<leagueserverhandler>(),SIGNAL(sigloginsuccess()),this,SLOT(leagueserverconnectionsuccess()));
+    connect(&singleton<leagueserverhandler>(),SIGNAL(sigprofile(QString)),this,SLOT(leagueserverprofilepage(QString)));
+
 
     QRegExp regexp;
     regexp.setPattern("([A-Z]|[a-z]|[0-9]|-|`){15}");
     validator = new QRegExpValidator(regexp, 0);
     ui.lenick->setValidator(validator);
-    ui.clan->setValidator(validator);
-    regexp.setPattern("([A-Z]|[a-z]|[0-9]|-|`|[ ]|=|){25}");
-    validatorclient = new QRegExpValidator(regexp, 0);
-    //ui.client->setValidator(validatorclient);   
+    ui.clan->setValidator(validator);    
 
     singleton<snpsettings>().map["isarrangedbyonetab"] = false;
     singleton<snpsettings>().map["isarrangedbytwotabs"] = false;
@@ -108,9 +116,14 @@ mainwindow::mainwindow() {
 
     QVariantList windowstates = singleton<snpsettings>().map["MainWindowGeometry"].toList();
     if (!windowstates.isEmpty())
-        restoreGeometry(windowstates.takeFirst().toByteArray());        
+        restoreGeometry(windowstates.takeFirst().toByteArray());
 }
 mainwindow::~mainwindow() {
+}
+void mainwindow::currenttabchanged(int i){
+    if(i!=0)
+        return;
+    singleton<netcoupler>().stop();
 }
 void mainwindow::fillsnpsettings(){
     singleton<snpsettings>().map["chbremember"] = ui.cbremember->isChecked();
@@ -133,20 +146,10 @@ void mainwindow::get_baseStyleSheet(){
 }
 void mainwindow::connectToNetwork(){    
     ui.tabWidget->setCurrentIndex(1);
-    if(singleton<snpsettings>().map["tusloginenable"].toBool())
-        net = new netcoupler(singleton<leagueserverhandler>().nick, this);
+    if(singleton<snpsettings>().map["enablesecurelogging"].toBool())
+        singleton<netcoupler>().start(singleton<leagueserverhandler>().nick);
     else
-        net = new netcoupler(ui.lenick->text(), this);
-    connect(net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
-    connect(net,SIGNAL(sigreconnect()),this,SLOT(reconnect()));
-    connect(net, SIGNAL(siggotchanellist(const QStringList &)),this, SLOT(getchannellist(const QStringList &)));
-    connect(net, SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));
-    connect(net, SIGNAL(siggotprivmsg(const QString&,const QString&,const QString&)),this,
-            SLOT(gotprvmsg(const QString&,const QString&,const QString&)));
-    connect(net,SIGNAL(sigconnected()),this,SLOT(connected()));
-    connect(net,SIGNAL(sigdisconnected()),this,SLOT(disconnected()));
-    connect(net,SIGNAL(sigdisconnect()),this,SLOT(disconnect_netcoupler()));
-
+        singleton<netcoupler>().start(ui.lenick->text());
     QTimer::singleShot(7000,this,SLOT(reopenChatWindowsAndChannelWindows()));
     ui.tabWidget->setTabEnabled(1, 1);
 }
@@ -168,31 +171,33 @@ void mainwindow::chooseclicked() {
     singleton<snpsettings>().map["countrycode"] = ui.flag->currentText();
     singleton<snpsettings>().map["rank"] = ui.rank->currentText();
     singleton<snpsettings>().map["client"] = ui.client->text();
-    singleton<snpsettings>().map["tusloginenable"] = ui.cbenabletus->isChecked();
+    singleton<snpsettings>().map["enablesecurelogging"] = ui.cbenabletus->isChecked();
+    singleton<snpsettings>().map["spectateleagueserver"]=ui.cbenabletus->isChecked();
 
     singleton<snpsettings>().map["wormnetserverlist"] = refreshcombobox(ui.cbServerList);
     singleton<snpsettings>().map["leagueservers"]= refreshcombobox(ui.cbleagueservers);
 
-    singleton<snpsettings>().safe();
-    if(singleton<snpsettings>().map["tusloginenable"].toBool()){           
-        connect(&singleton<leagueserverhandler>(),SIGNAL(sigloginfailed()),this,SLOT(leagueserverconnectionfailed()));
-        connect(&singleton<leagueserverhandler>(),SIGNAL(sigloginsuccess()),this,SLOT(leagueserverconnectionsuccess()));
-        QString item=ui.cbleagueservers->currentText();
-        if(!item.endsWith("/"))
-            item+="/";
-        if(!item.startsWith("http://"))
-            item="http://"+item;
-        QString servicename=item;
-        servicename=servicename.remove("http://");
-        int i=servicename.indexOf("/");
-        if(i!=-1)
-            servicename=servicename.left(i);
-        singleton<leagueserverhandler>().setleague(servicename,item);
-
+    singleton<snpsettings>().safe();    
+    if(singleton<snpsettings>().map["enablesecurelogging"].toBool()){
+        setleague();
         singleton<leagueserverhandler>().login(ui.letuslogin->text(),ui.letuspassword->text());
     } else
-        connectToNetwork();
+        connectToNetwork();    
 }
+void mainwindow::setleague(){
+    QString item=ui.cbleagueservers->currentText();
+    if(!item.endsWith("/"))
+        item+="/";
+    if(!item.startsWith("http://"))
+        item="http://"+item;
+    QString servicename=item;
+    servicename=servicename.remove("http://");
+    int i=servicename.indexOf("/");
+    if(i!=-1)
+        servicename=servicename.left(i);
+    singleton<leagueserverhandler>().setleague(servicename,item);
+}
+
 void mainwindow::leagueserverconnectionfailed(){
 }
 void mainwindow::leagueserverconnectionsuccess(){
@@ -235,22 +240,22 @@ void mainwindow::join(const QString channel){
     if(currentchannellist.contains(channel))
         return;
     currentchannellist << channel;
-    net->joinchannel(channel);    
+    singleton<netcoupler>().joinchannel(channel);
     if (whichuitype == 1) {
-        windowlist.push_back(new ::window(net, channel, whichuitype));
+        windowlist.push_back(new ::window(&singleton<netcoupler>(), channel, whichuitype));
         windowlist.last()->setObjectName("channelwindow");
     } else if (whichuitype == 2) {
-        windowlist.push_back(new ::window(net, channel, whichuitype));
+        windowlist.push_back(new ::window(&singleton<netcoupler>(), channel, whichuitype));
         windowlist.last()->setObjectName("channelwindow");
     } else if (whichuitype == 3) {
-        windowlist.push_back(new ::window(net, channel, whichuitype));
+        windowlist.push_back(new ::window(&singleton<netcoupler>(), channel, whichuitype));
         windowlist.last()->setObjectName("channelwindow");
     } else
         myDebug() << "joinclicked in mainwindow assert";
     windowlist.last()->show();
     windowlist.last()->raise();
-    if (net->isaway) {
-        windowlist.last()->windowtitleaway = net->awaymessage;
+    if (singleton<netcoupler>().isaway) {
+        windowlist.last()->windowtitleaway = singleton<netcoupler>().awaymessage;
         windowlist.last()->mysetwindowtitle();
     }
     connect(windowlist.last(), SIGNAL(sigjoinchannel(const QString&)),this, SLOT(join(const QString&)));
@@ -259,17 +264,18 @@ void mainwindow::join(const QString channel){
     connect(windowlist.last(), SIGNAL(sigwindowclosed(const QString&)),this, SLOT(windowremoved(const QString&)));
     singleton<snpsettings>().safe();
 }
-void mainwindow::onquit() {        
+void mainwindow::quit() {
     foreach(chatwindow *w,::window::chatwindows) {
         Q_ASSERT(w!=0);
         w->close();
         w->deleteLater();
     }
     foreach(::window *w,this->windowlist) {
+        Q_ASSERT(w!=0);
         w->close();
         w->deleteLater();
     }
-    singleton<mainwindow>().fillsnpsettings();
+    fillsnpsettings();
 }
 void mainwindow::closeEvent(QCloseEvent *) {
     QVariantList windowstates;
@@ -277,13 +283,8 @@ void mainwindow::closeEvent(QCloseEvent *) {
     singleton<snpsettings>().map["MainWindowGeometry"]=windowstates;
     singleton<snpsettings>().safe();
 }
-void mainwindow::disconnect_netcoupler(){
-    returntotabsettings(0);
-}
 
-void mainwindow::returntotabsettings(int i) {
-    if (i != 0)
-        return;    
+void mainwindow::returntologintab() {    
     singleton<leagueserverhandler>().reset();
     joinonstartup = 0;
     singleton<snpsettings>().map["chbautojoin"] = ui.chbautojoin->isChecked();
@@ -304,10 +305,8 @@ void mainwindow::returntotabsettings(int i) {
         Q_ASSERT(w!=0);
         w->deleteLater();
     }
-    windowlist.clear();
-    net->deleteLater();
-    qApp->processEvents();
-    ui.tabWidget->setTabEnabled(1, 0);
+    windowlist.clear();        
+    ui.tabWidget->setTabEnabled(1, 0);    
 }
 void mainwindow::changeEvent(QEvent * event) {
     if (event->type() == QEvent::WindowStateChange) {
@@ -375,8 +374,8 @@ void mainwindow::snpsetcontains(const QString &s) {
     else if (s == "leagueservers"){
         ui.cbleagueservers->addItems(singleton<snpsettings>().map["leagueservers"].value<QStringList>());
     }
-    else if(s=="tusloginenable"){
-        bool b=singleton<snpsettings>().map["tusloginenable"].toBool();
+    else if(s=="enablesecurelogging"){
+        bool b=singleton<snpsettings>().map["enablesecurelogging"].toBool();
         ui.cbenabletus->setChecked(b);
         on_cbenabletus_toggled(b);
     }
@@ -414,8 +413,8 @@ void mainwindow::setlanguage(const QString &langfile) {
                     "To restart now click Ok, otherwise cancel."), QMessageBox::Ok
                                                                | QMessageBox::Cancel);
     if (button == QMessageBox::Ok) {
-        int i = 0;
-        returntotabsettings(i);
+        returntologintab();
+        singleton<netcoupler>().stop();
         QProcess::startDetached(qApp->applicationFilePath(), QStringList(),
                                 QApplication::applicationDirPath());
         foreach(::window *w,this->windowlist) {
@@ -425,22 +424,19 @@ void mainwindow::setlanguage(const QString &langfile) {
         QTimer::singleShot(100, qApp,SLOT(quit()));
     }
 }
-void mainwindow::quitslot() {
-    //qApp->exit();
-}
 void mainwindow::awayboxok() {
     singleton<balloon_handler>().set_away_tray_icon();
     foreach(::window *w,this->windowlist) {
-        w->windowtitleaway = " " + tr("<away>:") +" "+ net->awaymessage;
+        w->windowtitleaway = " " + tr("<away>:") +" "+ singleton<netcoupler>().awaymessage;
         w->mysetwindowtitle();
     }
-    net->wasaway = 1;
-    net->isaway = 1;
+    singleton<netcoupler>().wasaway = 1;
+    singleton<netcoupler>().isaway = 1;
 }
 void mainwindow::awaymessagechanged() {
-    if (net->isaway) {
+    if (singleton<netcoupler>().isaway) {
         foreach(::window *w,this->windowlist) {
-            w->windowtitleaway = " " + tr("<away>:") + " "+net->awaymessage;
+            w->windowtitleaway = " " + tr("<away>:") + " "+singleton<netcoupler>().awaymessage;
             w->mysetwindowtitle();
         }
     } else {
@@ -468,13 +464,13 @@ void mainwindow::settextscheme(const QString &file) {
 }
 void mainwindow::openchatwindow(const QString &s) {
     window::chatwindowstringlist << s;
-    window::chatwindows.push_back(new chatwindow(net, s));
+    window::chatwindows.push_back(new chatwindow(&singleton<netcoupler>(), s));
     window::chatwindows.last()->show();
     connect(window::chatwindows.last(), SIGNAL(closed()),this, SLOT(chatwinowclosed()));
 }
 void mainwindow::openchatwindowhidden(const QString &s) {
     window::chatwindowstringlist << s;
-    window::chatwindows.push_back(new chatwindow(net, s));
+    window::chatwindows.push_back(new chatwindow(&singleton<netcoupler>(), s));
     mainwindow::hiddenchatwindowshelper << window::chatwindows.last();
     connect(window::chatwindows.last(), SIGNAL(closed()),this, SLOT(chatwinowclosed()));
 }
@@ -491,28 +487,28 @@ void mainwindow::gotprvmsg(const QString &user, const QString &receiver,
             << QDate::currentDate().toString("dd.MM") + " "
             + QTime::currentTime().toString("hh:mm") + " " + user
             + ">" + QString(msg).remove("\n").remove("\r");
-    if (net->isaway && !ctcp_wants_it) {
-        if (mainwindow::rememberwhogotaway[user] != net->awaymessage) {
-            net->sendmessage(user, net->awaymessage);
-            int i = net->users.users.indexOf(userstruct::whoami(user));
-            if (i != -1 && net->users.users[i].clan != "Username")
-                net->sendrawcommand("PRIVMSG " + user + " :\001away "
-                                    + net->awaymessage + "\001");
+    if (singleton<netcoupler>().isaway && !ctcp_wants_it) {
+        if (mainwindow::rememberwhogotaway[user] != singleton<netcoupler>().awaymessage) {
+            singleton<netcoupler>().sendmessage(user, singleton<netcoupler>().awaymessage);
+            int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(user));
+            if (i != -1 && singleton<netcoupler>().users.users[i].clan != "Username")
+                singleton<netcoupler>().sendrawcommand("PRIVMSG " + user + " :\001away "
+                                                       + singleton<netcoupler>().awaymessage + "\001");
         }
-        mainwindow::rememberwhogotaway[user] = net->awaymessage;
+        mainwindow::rememberwhogotaway[user] = singleton<netcoupler>().awaymessage;
     }
     if (!ctcp_wants_it) {
-        if (!net->users.usermap[usermodel::tr("Ignorelist")].count(
+        if (!singleton<netcoupler>().users.usermap[usermodel::tr("Ignorelist")].count(
                 userstruct::whoami(user))
             && !::window::chatwindowstringlist.contains(user,
                                                         Qt::CaseInsensitive)) {
             singleton<balloon_handler>().got_privmsg(user, msg);
         }
         if (!containsCI(window::chatwindowstringlist, user)) {
-            if ((net->users.usermap[usermodel::tr("Buddylist")].count(
+            if ((singleton<netcoupler>().users.usermap[usermodel::tr("Buddylist")].count(
                     userstruct::whoami(user)) || mainwindow::windowlist.isEmpty()
                 || singleton<settingswindow>().from_map("chballwaysopenchatwindows").toBool())
-                && !net->users.usermap[usermodel::tr("Ignorelist")].count(
+                && !singleton<netcoupler>().users.usermap[usermodel::tr("Ignorelist")].count(
                         userstruct::whoami(user))) {
                 Q_ASSERT(user!="");
                 if (singleton<settingswindow>().from_map("chbstartchatsminimized").toBool()) {
@@ -547,7 +543,11 @@ void mainwindow::connected(){
     ui.connectlabel->setText(tr("Connected"));
 }
 void mainwindow::disconnected(){
+    if(singleton<netcoupler>().connectstate==netcoupler::e_started)
+        QTimer::singleShot(200 *1000, this, SLOT(reconnect()));
     ui.connectlabel->setText(tr("Disconnected"));
+    singleton<leagueserverhandler>().logout();
+    returntologintab();        
 }
 //************************************************************************************************************************
 //************************************************************************************************************************
@@ -711,46 +711,44 @@ void mainwindow::traymenutriggered(QAction *a) {
         singleton<snpsettings>().map["whichuitype"] = whichuitype;
         return;
     } else if (a->text() == tr("Away mode")) {
-        if (net != 0) {
-            if (net->isaway) {
-                if (!awaybox::ison) {
-                    net->isaway = 0;
-                    net->wasaway = 0;
-                    singleton<balloon_handler>().set_normal_tray_icon();
-                    foreach(QString s,rememberwhogotaway.keys()) {
-                        if (net->users.users.indexOf(userstruct::whoami(s))
-                            != -1
-                                    && !compareCI(
-                                            net->users.users[net->users.users.indexOf(
-                                                    userstruct::whoami(s))].clan,
-                                            "username"))
-                            net->sendrawcommand("PRIVMSG " + s
-                                                + " :\001back\001");
-                        if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
-                            && !singleton<snpsettings>().map["ignorelist"].toStringList().contains(
-                                    s, Qt::CaseInsensitive))
-                            net->sendnotice(
+        if (singleton<netcoupler>().isaway) {
+            if (!awaybox::ison) {
+                singleton<netcoupler>().isaway = 0;
+                singleton<netcoupler>().wasaway = 0;
+                singleton<balloon_handler>().set_normal_tray_icon();
+                foreach(QString s,rememberwhogotaway.keys()) {
+                    if (singleton<netcoupler>().users.users.indexOf(userstruct::whoami(s))
+                        != -1
+                                && !compareCI(
+                                        singleton<netcoupler>().users.users[singleton<netcoupler>().users.users.indexOf(
+                                                userstruct::whoami(s))].clan,
+                                        "username"))
+                        singleton<netcoupler>().sendrawcommand("PRIVMSG " + s
+                                                               + " :\001back\001");
+                    if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
+                        && !singleton<snpsettings>().map["ignorelist"].toStringList().contains(
+                                s, Qt::CaseInsensitive))
+                        singleton<netcoupler>().sendnotice(
+                                s,
+                                singleton<settingswindow>().from_map("lebackmessage").toString());
+                    else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
+                        if (singleton<snpsettings>().map["buddylist"].toStringList().contains(
+                                s, Qt::CaseInsensitive))
+                            singleton<netcoupler>().sendnotice(
                                     s,
                                     singleton<settingswindow>().from_map("lebackmessage").toString());
-                        else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
-                            if (singleton<snpsettings>().map["buddylist"].toStringList().contains(
-                                    s, Qt::CaseInsensitive))
-                                net->sendnotice(
-                                        s,
-                                        singleton<settingswindow>().from_map("lebackmessage").toString());
-                        }
                     }
-                    rememberwhogotaway.clear();
-                    this->awaymessagechanged();
-                } else {
-
                 }
+                rememberwhogotaway.clear();
+                this->awaymessagechanged();
             } else {
-                if (!awaybox::ison) {
-                    awaybox *away = new awaybox;
-                    away->show();
-                    connect(away, SIGNAL(sigok()),this, SLOT(awayboxok()));
-                }
+
+            }
+        } else {
+            if (!awaybox::ison) {
+                awaybox *away = new awaybox;
+                away->show();
+                connect(away, SIGNAL(sigok()),this, SLOT(awayboxok()));
             }
         }
         return;
@@ -807,11 +805,11 @@ void mainwindow::reconnect(){
     }
     foreach(chatwindow *w,::window::chatwindows) {
         lastOpenedChatWindows<<w->chatpartner;
-    }
-    if (net != 0)
-        net->isaway = 0;
+    }    
+    singleton<netcoupler>().isaway = 0;
     singleton<balloon_handler>().set_normal_tray_icon();
-    returntotabsettings(0);
+    returntologintab();
+    singleton<netcoupler>().stop();
     QTimer::singleShot(2000, this, SLOT(chooseclicked()));
 }
 
@@ -842,7 +840,7 @@ void mainwindow::on_pbjoin_clicked()
 
 void mainwindow::on_cbenabletus_toggled(bool checked)
 {
-    if(checked){
+    if(checked) {
         ui.lenick->setEnabled(false);
         ui.rank->setEnabled(false);
         ui.clan->setEnabled(false);
@@ -856,7 +854,7 @@ void mainwindow::on_cbenabletus_toggled(bool checked)
         ui.letuspassword->setEnabled(true);
         ui.letuslogin->setEnabled(true);
         ui.cbleagueservers->setEnabled(true);
-    } else{
+    } else {
         ui.flag->setEnabled(true);
         ui.lenick->setEnabled(true);
         ui.rank->setEnabled(true);
@@ -866,4 +864,18 @@ void mainwindow::on_cbenabletus_toggled(bool checked)
         ui.letuslogin->setEnabled(false);
         ui.cbleagueservers->setEnabled(false);
     }
+}
+
+void mainwindow::on_pbeditleagueprofile_clicked()
+{
+    setleague();
+    if(ui.letuslogin->text().isEmpty()){
+        QMessageBox::information(0,QObject::tr("Information"),tr("Before you can view your profile, you must fill in a loginname."));
+        ui.letuslogin->setFocus(Qt::MouseFocusReason);
+        return;
+    }
+    singleton<leagueserverhandler>().profile(ui.letuslogin->text());
+}
+void mainwindow::leagueserverprofilepage(QString url){
+    QDesktopServices::openUrl(QUrl(url));
 }

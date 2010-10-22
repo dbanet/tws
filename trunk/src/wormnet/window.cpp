@@ -30,6 +30,7 @@ window::window(netcoupler *n, QString s, int i) :
 	currentchannel(s), chaticon("snppictures/Chat_Icon.png") {
 
     buttons = new buttonlayout(this);
+    buttons->fillleaguemenu();
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setAttribute(Qt::WA_TranslucentBackground);
     this->setObjectName("channelwindow");
@@ -52,11 +53,11 @@ window::window(netcoupler *n, QString s, int i) :
     ui.buttonlayout->addWidget(buttons);
     ui.msg->installEventFilter(this);
     ui.users->installEventFilter(this);
-    connect(&net->users, SIGNAL(sigselectitem(const QModelIndex&,const QWidget*)),this, SLOT(setselection(const QModelIndex&,const QWidget*)));
+    connect(&singleton<netcoupler>().users, SIGNAL(sigselectitem(const QModelIndex&,const QWidget*)),this, SLOT(setselection(const QModelIndex&,const QWidget*)));
     chat = new chathandler(this, ui.chat, currentchannel);
     connect(chat, SIGNAL(sigopenchatwindow(const QString&)),this, SLOT(openchatwindow(const QString&)));
     connect(ui.send, SIGNAL(clicked()),ui.msg, SIGNAL(returnPressed()));
-    ui.users->setModel(&net->users);
+    ui.users->setModel(&singleton<netcoupler>().users);
     connect(ui.users->selectionModel(), SIGNAL(selectionChanged ( const QItemSelection&,const QItemSelection&)),this, SLOT(userselectionchanged(const QItemSelection&,const QItemSelection&)));
     ui.users->setEnabled(1);
     ui.users->header()->swapSections(0, 1);
@@ -71,9 +72,9 @@ window::window(netcoupler *n, QString s, int i) :
     ui.users->header()->setSortIndicator(2, Qt::AscendingOrder);
     ui.users->header()->setSortIndicator(3, Qt::AscendingOrder);
     ui.users->header()->setSortIndicatorShown(1);
-    connect(ui.users->header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),&net->users, SLOT(sortslot(int, Qt::SortOrder)));
+    connect(ui.users->header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),&singleton<netcoupler>().users, SLOT(sortslot(int, Qt::SortOrder)));
 
-    ui.hosts->setModel(&net->hosts);
+    ui.hosts->setModel(&singleton<netcoupler>().hosts);
     ui.hosts->setEnabled(1);
     ui.hosts->setSortingEnabled(1);
     ui.hosts->header()->swapSections(1, 3);
@@ -104,7 +105,7 @@ window::window(netcoupler *n, QString s, int i) :
     connect(net, SIGNAL(siggotnotice(const QString&,const QString&,const QString&)),this, SLOT(gotnotice(const QString&,const QString&,const QString&)));
     connect(net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));    
 
-    net->refreshwho();
+    singleton<netcoupler>().refreshwho();
 
     connect(net, SIGNAL(siggotchanellist(QStringList)),this, SLOT(expandchannels(QStringList)));
     connect(net, SIGNAL(siggotchanellist(QStringList)),this, SLOT(getuserscount(QStringList)));
@@ -143,15 +144,15 @@ void window::expandchannels() { //expand on startup
     expandchannels(QStringList());
 }
 void window::expandchannels(QStringList) { //expand on startup
-    ui.hosts->setExpanded(net->hosts.indexbychannelname(currentchannel), 1);
-    ui.users->setExpanded(net->users.indexbychannelname(currentchannel), 1);
-    ui.users->setExpanded(net->users.indexbychannelname(usermodel::tr("Querys")), 1);
+    ui.hosts->setExpanded(singleton<netcoupler>().hosts.indexbychannelname(currentchannel), 1);
+    ui.users->setExpanded(singleton<netcoupler>().users.indexbychannelname(currentchannel), 1);
+    ui.users->setExpanded(singleton<netcoupler>().users.indexbychannelname(usermodel::tr("Querys")), 1);
     if (singleton<settingswindow>().from_map("cbopenbuddylistonstartup").value<bool> ())
-        ui.users->setExpanded(net->users.indexbychannelname(usermodel::tr(
+        ui.users->setExpanded(singleton<netcoupler>().users.indexbychannelname(usermodel::tr(
                 "Buddylist")), 1);
-    if (ui.users->isExpanded(net->users.index(net->users.classes.indexOf(
+    if (ui.users->isExpanded(singleton<netcoupler>().users.index(singleton<netcoupler>().users.classes.indexOf(
             this->currentchannel), 0)) && ui.hosts->isExpanded(
-                    net->hosts.index(net->hosts.classes.indexOf(this->currentchannel),
+                    singleton<netcoupler>().hosts.index(singleton<netcoupler>().hosts.classes.indexOf(this->currentchannel),
                                      0))) {
         disconnect(net, SIGNAL(siggotchanellist(QStringList)),this, SLOT(expandchannels(QStringList)));
     } else
@@ -172,7 +173,7 @@ void window::userselectionchanged(const QItemSelection &selected,
                                   const QItemSelection&) {
 
     if (!selected.indexes().isEmpty())
-        net->users.selectionchanged(selected.indexes().first(), this);
+        singleton<netcoupler>().users.selectionchanged(selected.indexes().first(), this);
 }
 bool window::eventFilter(QObject *obj, QEvent *event) {
     if (obj == ui.msg) {
@@ -193,12 +194,12 @@ bool window::eventFilter(QObject *obj, QEvent *event) {
                 QModelIndex index=ui.users->currentIndex();
                 if (index.internalId() == usermodel::e_Channel)
                     return false;
-                QString s = net->users.data(index.sibling(index.row(), 0)).value<QString> ();
+                QString s = singleton<netcoupler>().users.data(index.sibling(index.row(), 0)).value<QString> ();
                 if (s != "")
                     this->openchatwindow(s);
                 return true;
             } else if (keyEvent->key() == Qt::Key_Space) {
-                QString s = net->users.data(ui.users->currentIndex().sibling(
+                QString s = singleton<netcoupler>().users.data(ui.users->currentIndex().sibling(
                         ui.users->currentIndex().row(), 0)).value<QString> ();
                 ui.msg->insert(s + " ");
                 ui.msg->setFocus(Qt::MouseFocusReason);
@@ -231,7 +232,7 @@ void window::gotnotice(const QString &user, const QString &receiver,
                        const QString &msg) {
 
     if (!containsCI(singleton<snpsettings>().map["ignorelist"].value<QStringList> (), user)) {
-        if (containsCI(net->channellist, receiver)) { //notice from user to a channel
+        if (containsCI(singleton<netcoupler>().channellist, receiver)) { //notice from user to a channel
             if (compareCI(receiver, currentchannel))
                 chat->appendnotice(user, receiver, msg); //only one channel will get the notice
         } else { //notice from user to yourself
@@ -246,8 +247,8 @@ void window::gotnotice(const QString &user, const QString &receiver,
 void window::gotprvmsg(const QString &user, const QString &receiver,
                        const QString &msg) {
     if (!containsCI(chatwindowstringlist, user)) {
-        if (!net->users.usermap[usermodel::tr("Ignorelist")].count(
-                userstruct::whoami(user)) && !net->users.usermap[usermodel::tr(
+        if (!singleton<netcoupler>().users.usermap[usermodel::tr("Ignorelist")].count(
+                userstruct::whoami(user)) && !singleton<netcoupler>().users.usermap[usermodel::tr(
                         "Buddylist")].count(userstruct::whoami(user))) {
             if (!containsCI(querylist, user))
                 querylist << user;
@@ -276,25 +277,25 @@ void window::sendmsg() {
     QString s = ui.msg->text();    
     if (s != "") {
         if (s.startsWith(">!")) {
-            net->sendrawcommand(QString("PRIVMSG ") + currentchannel + " :\001"
+            singleton<netcoupler>().sendrawcommand(QString("PRIVMSG ") + currentchannel + " :\001"
                                 + s.remove(0, 2) + " \001");
-            chat->append(net->nick, currentchannel, "\001" + s + "\001");
+            chat->append(singleton<netcoupler>().nick, currentchannel, "\001" + s + "\001");
         } else if (s.startsWith("/")) {
-            net->sendrawcommand(s.remove(0, 1));
-            chat->append(net->nick, currentchannel, s);
+            singleton<netcoupler>().sendrawcommand(s.remove(0, 1));
+            chat->append(singleton<netcoupler>().nick, currentchannel, s);
         } else if (s.startsWith(">>>")) {
             sendnoticeaction();
-            chat->append(net->nick, currentchannel, s);
+            chat->append(singleton<netcoupler>().nick, currentchannel, s);
         } else if (s.startsWith(">>")) {
             sendnotice();
-            chat->append(net->nick, currentchannel, s);
+            chat->append(singleton<netcoupler>().nick, currentchannel, s);
         } else if (s.startsWith(">")) {
-            net->sendrawcommand(QString("PRIVMSG ") + currentchannel
+            singleton<netcoupler>().sendrawcommand(QString("PRIVMSG ") + currentchannel
                                 + " :\001ACTION " + s.remove(0, 1).remove("\n") + " \001");
-            chat->append(net->nick, currentchannel, "\001ACTION " + s + " \001");
+            chat->append(singleton<netcoupler>().nick, currentchannel, "\001ACTION " + s + " \001");
         } else {
-            net->sendmessage(currentchannel, s);
-            chat->append(net->nick, currentchannel, s);
+            singleton<netcoupler>().sendmessage(currentchannel, s);
+            chat->append(singleton<netcoupler>().nick, currentchannel, s);
         }
         ui.msg->clear();
         chat->moveSliderToMaximum();
@@ -303,8 +304,8 @@ void window::sendmsg() {
 void window::sendnotice() {
     const QString s = ui.msg->text().remove(0, 2);
     if (s != "") {
-        net->sendnotice(currentchannel, s);
-        gotnotice(net->nick, this->currentchannel, s);
+        singleton<netcoupler>().sendnotice(currentchannel, s);
+        gotnotice(singleton<netcoupler>().nick, this->currentchannel, s);
         ui.msg->clear();
         chat->moveSliderToMaximum();
     }
@@ -312,9 +313,9 @@ void window::sendnotice() {
 void window::sendnoticeaction() {
     const QString s = ui.msg->text().remove(0, 3).remove("\n");
     if (s != "") {
-        net->sendrawcommand(QString("NOTICE ") + this->currentchannel
+        singleton<netcoupler>().sendrawcommand(QString("NOTICE ") + this->currentchannel
                             + " :\001ACTION " + s + " \001");
-        gotnotice(net->nick, currentchannel, "<" + s + ">");
+        gotnotice(singleton<netcoupler>().nick, currentchannel, "<" + s + ">");
         ui.msg->clear();
         chat->moveSliderToMaximum();
     }
@@ -335,7 +336,7 @@ void window::useritempressed(const QModelIndex &index) {
     if (!index.isValid())
         return;
     if (QApplication::mouseButtons() == Qt::LeftButton && index.column()==usermodel::e_Client){
-        QString s=net->users.data(index.sibling(index.row(), usermodel::e_Client)).toString();
+        QString s=singleton<netcoupler>().users.data(index.sibling(index.row(), usermodel::e_Client)).toString();
         if(isClickableLink(s)){
             s=s.trimmed();
             QUrl u1;
@@ -345,7 +346,7 @@ void window::useritempressed(const QModelIndex &index) {
         return;
     }
     if (QApplication::mouseButtons() == Qt::LeftButton && index.column()==usermodel::e_Clan){
-        QString s=net->users.data(index.sibling(index.row(), usermodel::e_Clan)).toString();
+        QString s=singleton<netcoupler>().users.data(index.sibling(index.row(), usermodel::e_Clan)).toString();
         if(singleton<clantowebpagemapper>().contains(s)){
             s=singleton<clantowebpagemapper>().value(s);
             QUrl u1;
@@ -357,10 +358,10 @@ void window::useritempressed(const QModelIndex &index) {
         return;
     QAction *a;
     QMenu menu;
-    QString user = net->users.data(index.sibling(index.row(), 0),
+    QString user = singleton<netcoupler>().users.data(index.sibling(index.row(), 0),
                                    Qt::DisplayRole).value<QString> ();
     if (index.internalId() == usermodel::e_Channel) {
-        if(net->users.data(index.sibling(index.row(), 0)).value<QString> ()==usermodel::tr("Querys")){
+        if(singleton<netcoupler>().users.data(index.sibling(index.row(), 0)).value<QString> ()==usermodel::tr("Querys")){
             menu.addAction(tr("Remove Querys"));
             a = menu.exec(QCursor::pos());
             if(a && a->text()==tr("Remove Querys")){
@@ -370,21 +371,21 @@ void window::useritempressed(const QModelIndex &index) {
         }
     } else if (index.column() == usermodel::e_Clan) {
         QStringList sl = singleton<snpsettings>().map["dissallowedclannames"].value<QStringList>();        
-        if (sl.contains(net->users.getuserstructbyindex(index).clan,Qt::CaseInsensitive))
+        if (sl.contains(singleton<netcoupler>().users.getuserstructbyindex(index).clan,Qt::CaseInsensitive))
             menu.addAction(tr("Allow this clanname."));
         else
             menu.addAction(tr("Dissallow this clanname."));        
         a = menu.exec(QCursor::pos());
         if (!a) return;
         if (a->text() == tr("Allow this clanname."))
-            removeCI(sl,net->users.getuserstructbyindex(index).clan);
+            removeCI(sl,singleton<netcoupler>().users.getuserstructbyindex(index).clan);
         else if(a->text() == tr("Dissallow this clanname."))
-            sl<< net->users.getuserstructbyindex(index).clan;
+            sl<< singleton<netcoupler>().users.getuserstructbyindex(index).clan;
         else
-            showInformationAboutClan(net->users.getuserstructbyindex(index).clan);
+            showInformationAboutClan(singleton<netcoupler>().users.getuserstructbyindex(index).clan);
         singleton<snpsettings>().map["dissallowedclannames"].setValue<QStringList> (sl);
         singleton<snpsettings>().safe();
-    } else if (net->users.classes[index.internalId()] == usermodel::tr("Querys")) {
+    } else if (singleton<netcoupler>().users.classes[index.internalId()] == usermodel::tr("Querys")) {
         QMenu menu;
         menu.addAction(tr("Remove this Query."));
         menu.addSeparator();
@@ -398,8 +399,8 @@ void window::useritempressed(const QModelIndex &index) {
                 getuserinfo(user);
             }
         }
-    } else if (net->users.classes[index.internalId()] != usermodel::tr(
-            "Buddylist") && net->users.classes[index.internalId()]
+    } else if (singleton<netcoupler>().users.classes[index.internalId()] != usermodel::tr(
+            "Buddylist") && singleton<netcoupler>().users.classes[index.internalId()]
                != usermodel::tr("Ignorelist")) {
         QMenu menu;
         if (containsCI(singleton<snpsettings>().map["buddylist"].value<QStringList> (),
@@ -420,34 +421,34 @@ void window::useritempressed(const QModelIndex &index) {
             a = usermenu.exec(QCursor::pos());
         if (a) {
             if (a->text() == tr("Add this user to Buddylist.")) {
-                net->users.addbuddy(user);
+                singleton<netcoupler>().users.addbuddy(user);
             } else if (a->text() == tr("Add this user to Ignorelist.")) {
-                net->users.addignore(user);
+                singleton<netcoupler>().users.addignore(user);
             } else if (a->text() == tr("Show info about this user.")) {
                 getuserinfo(user);
             } else if (a->text() == tr(
                     "Remove this user from Buddylist.")) {
-                net->users.deletebuddy(user);
+                singleton<netcoupler>().users.deletebuddy(user);
             } else if (a->text() == tr(
                     "Remove this user from Ignorelist.")) {
-                net->users.deleteignore(user);
+                singleton<netcoupler>().users.deleteignore(user);
             }
         } else
             return;
-    } else if (net->users.classes[index.internalId()] == usermodel::tr("Buddylist")) {
+    } else if (singleton<netcoupler>().users.classes[index.internalId()] == usermodel::tr("Buddylist")) {
         QAction *a = costumlistmenu.exec(QCursor::pos());
         if (a) {
             if (a->text() == tr("Remove this user from the list.")) {
-                net->users.deletebuddy(user);
+                singleton<netcoupler>().users.deletebuddy(user);
             } else if (a->text() == tr("Show info about this user.")) {
                 getuserinfo(user);
             }
         }
-    } else if (net->users.classes[index.internalId()] == usermodel::tr("Ignorelist")) {
+    } else if (singleton<netcoupler>().users.classes[index.internalId()] == usermodel::tr("Ignorelist")) {
         a = costumlistmenu.exec(QCursor::pos());
         if (a) {
             if (a->text() == tr("Remove this user from the list.")) {
-                net->users.deleteignore(user);
+                singleton<netcoupler>().users.deleteignore(user);
             } else if (a->text() == tr("Show info about this user.")) {
                 getuserinfo(user);
             }
@@ -457,12 +458,12 @@ void window::useritempressed(const QModelIndex &index) {
 void window::useritemdblclicked(const QModelIndex &index) {
 
     if (index.internalId() != usermodel::e_Channel
-        && net->users.classes[index.internalId()]!= usermodel::tr("Ignorelist")) {
-        QString s = net->users.data(index.sibling(index.row(), 0),
+        && singleton<netcoupler>().users.classes[index.internalId()]!= usermodel::tr("Ignorelist")) {
+        QString s = singleton<netcoupler>().users.data(index.sibling(index.row(), 0),
                                     Qt::DisplayRole).value<QString> ();
         openchatwindow(s);
     } else if (index.internalId() == usermodel::e_Channel){
-        QString s=net->users.data(index.sibling(index.row(), 0)).value<QString> ();
+        QString s=singleton<netcoupler>().users.data(index.sibling(index.row(), 0)).value<QString> ();
         if(s==usermodel::tr("Buddylist") || s==usermodel::tr("Ignorelist") || s==usermodel::tr("Querys"))
             return;
         emit sigjoinchannel(s);
@@ -470,17 +471,17 @@ void window::useritemdblclicked(const QModelIndex &index) {
 }
 void window::hostitemdblclicked(const QModelIndex &index) {
     if (index.internalId() != 999) {
-        QString hostinfo = " \"" + net->hosts.joininfo(index) + "&scheme="
-                           + net->schememap[currentchannel] + "\"";
-        QString gamename = net->hosts.gamename(index);
-        net->joingame(hostinfo, currentchannel, gamename);
+        QString hostinfo = " \"" + singleton<netcoupler>().hosts.joininfo(index) + "&scheme="
+                           + singleton<netcoupler>().schememap[currentchannel] + "\"";
+        QString gamename = singleton<netcoupler>().hosts.gamename(index);
+        singleton<netcoupler>().joingame(hostinfo, currentchannel, gamename);
     } else if (index.internalId() == 999) {
         openhbox();
     }
 }
 void window::getuserinfo(const QString &s) {
     QString msg;
-    if(singleton<snpsettings>().map["tusloginenable"].toBool()){
+    if(singleton<snpsettings>().map["spectateleagueserver"].toBool()){
         QString url=singleton<leagueserverhandler>().map_at_toString(s,leagueserverhandler::e_webpage);
         if(!url.isEmpty()){
             QDesktopServices::openUrl(QUrl(url));
@@ -525,9 +526,9 @@ void window::openchatwindow(const QString &s) {
 }
 void window::hostitempressed(const QModelIndex &index) {
     if (QApplication::mouseButtons() == Qt::RightButton) {
-        QString hostinfo = " \"" + net->hosts.joininfo(index) + "&scheme="
-                           + net->schememap[currentchannel] + "\"";
-        QString gamename = net->hosts.gamename(index);
+        QString hostinfo = " \"" + singleton<netcoupler>().hosts.joininfo(index) + "&scheme="
+                           + singleton<netcoupler>().schememap[currentchannel] + "\"";
+        QString gamename = singleton<netcoupler>().hosts.gamename(index);
         if (index.internalId() == 999) {
             QAction *a = hostmenu.exec((QCursor::pos()));
             if (a != 0) {
@@ -589,7 +590,7 @@ void window::hostitempressed(const QModelIndex &index) {
                                      QStringList> ();
                     sl.move(sl.indexOf(a->text()), 0);
                     singleton<snpsettings>().map["joinstrings"] = sl;
-                    net->joingame(hostinfo, currentchannel, gamename);
+                    singleton<netcoupler>().joingame(hostinfo, currentchannel, gamename);
                 }
             }
         }
@@ -597,25 +598,25 @@ void window::hostitempressed(const QModelIndex &index) {
 }
 void window::hboxok() {
     QString flag;
-    foreach(userstruct u,net->users.users) {
-        if (u.nick == net->nick) {
+    foreach(userstruct u,singleton<netcoupler>().users.users) {
+        if (u.nick == singleton<netcoupler>().nick) {
             flag = QString::number(u.flag);
         }
     }        
-    net->sendHostInfoToChan(hbox->gamename, hbox->pwd, currentchannel, flag);
-    net->createhost(hbox->gamename, currentchannel);
+    singleton<netcoupler>().sendHostInfoToChan(hbox->gamename, hbox->pwd, currentchannel, flag);
+    singleton<netcoupler>().createhost(hbox->gamename, currentchannel);
 
-    QString address=net->myip;
+    QString address=singleton<netcoupler>().myip;
     if(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ())
         address=singleton<snpsettings>().map["costumipforhosting"].value<QString>();
-    QString host = QString("wa://%1?gameid=999&scheme=%2").arg(address).arg(net->schememap[currentchannel]);
+    QString host = QString("wa://%1?gameid=999&scheme=%2").arg(address).arg(singleton<netcoupler>().schememap[currentchannel]);
     QString msg = QString(" is hosting a game: %1, %2").arg(hbox->gamename).arg(host);
     if (singleton<snpsettings>().map["chbsendhostinfotochan"].toBool())
-        net->sendinfotochan(currentchannel, msg);
+        singleton<netcoupler>().sendinfotochan(currentchannel, msg);
     sender()->deleteLater();
 }
 void window::hboxprvok(const QString &scheme) {
-    net->createprvhost(currentchannel, scheme);
+    singleton<netcoupler>().createprvhost(currentchannel, scheme);
 }
 void window::usesettingswindow(const QString &s) {
     if (s == "cbalertmeonnotice" || s == "")
@@ -693,12 +694,12 @@ window::~window() {
     ui.buttonlayout->removeWidget(buttons);
     buttons->setParent(0);    
     if(net!=0)
-        net->partchannel(currentchannel);
+        singleton<netcoupler>().partchannel(currentchannel);
     QString s = currentchannel;
-    bool b = containsCI(net->hosts.hostmap.keys(), s);
+    bool b = containsCI(singleton<netcoupler>().hosts.hostmap.keys(), s);
     Q_UNUSED(b);
     if(net!=0)
-        net->hosts.sethoststruct(QList<hoststruct> (), s);emit
+        singleton<netcoupler>().hosts.sethoststruct(QList<hoststruct> (), s);emit
                 sigwindowclosed(currentchannel);
     disconnect();
     hiddenchannelwindowshelper.removeAll(this);

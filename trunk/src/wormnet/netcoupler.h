@@ -1,7 +1,7 @@
 #ifndef NETCOUPLER_H
 #define NETCOUPLER_H
 
-#include <QObject>
+#include<QObject>
 #include<QTimer>
 #include<QProcess>
 #include<QHostInfo>
@@ -9,6 +9,7 @@
 #include"userstruct.h"
 #include"usermodel.h"
 #include"hostmodel.h"
+#include"global_macros.h"
 class ircnet;
 class snoppanet;
 class QProcess;
@@ -16,9 +17,13 @@ class netcoupler : public QObject
 {
     Q_OBJECT
 
-public:
-    netcoupler(QString,QObject *parent = 0);
-    ~netcoupler();
+public:    
+    enum state{
+        e_started, e_stoped
+    };
+
+    void start(QString nick);
+    void stop();
     void sendmessage(const QString&,const QString&);
     void senduncheckedmessage(const QString&,const QString&);
     void sendnotice(const QString&,const QString&);
@@ -36,7 +41,7 @@ public:
     QString awaymessage;
     bool isaway;
     bool wasaway;
-    const QString nick;
+    QString nick;
     usermodel users;
     hostmodel hosts;
     QMap<QString,QString> schememap;
@@ -46,6 +51,12 @@ public:
 
     QStringList mutedusers;
     QString myip;
+    void sendquit();
+    int ircstate();
+
+    state connectstate;
+
+    DECLARE_SINGLETON(netcoupler);
 signals:
     void signewwholist(QList<userstruct>);
     void siggotmsg(const QString&,const QString&,const QString&);
@@ -62,9 +73,7 @@ signals:
     void siggotidletime(const QString&, int);
     void signosuchnick(const QString&);
     void sigconnected();
-    void sigdisconnected();
-    void sigdisconnect();
-    void sigreconnect();
+    void sigdisconnected();  
     //void siggethostlist(QList<hoststruct>,QString);
 
 private:
@@ -77,7 +86,7 @@ private:
     QTimer getownhosttimer;
     int hosttimeoutdelay;
 
-    static QProcess *p;
+    QProcess *p;
 
     QTimer timer;
 
@@ -100,15 +109,14 @@ private slots:
     void getircip(QString);
     void gethostlist(QList<hoststruct>,QString);
     void getmsg(const QString&,const QString&,const QString&);
-    void getwholist();
-    void sendquit();
+    void getwholist();    
     void getscheme(QString,QString);    
 
     void sendmessagetoallbuddys(const QString&);
     void processfinished(int , QProcess::ExitStatus);
     void readprocess();    
     void ircconnected();
-    void ircdiconnected();
+    void ircdisconnected();
 };
 
 #endif // NETCOUPLER_H

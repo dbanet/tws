@@ -11,7 +11,7 @@ class picturehandler
 public:
     QPixmap *getflag(QString country);
     QPixmap *getrank(int i);
-    QPixmap *getleaguerank(int i);
+    QPixmap *getleaguerank(QString s);
     void fillflags(QComboBox *cb);
     void fillranks(QComboBox *cb);
     QVariant getflag(const userstruct &u) const;
@@ -24,9 +24,9 @@ public:
 
     DECLARE_SINGLETON(picturehandler);
 private:
-    QMap<QString,QPixmap*> flaglist;
+    QMap<QString, QPixmap*> flaglist;
     QList<QPixmap*> ranklist;
-    QList<QPixmap*> leagueranklist;
+    QMap<QString, QPixmap*> leagueranklist;
 };
 
 #endif // PICTUREHANDLER_H

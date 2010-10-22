@@ -70,7 +70,7 @@ void clantowebpagemapper::httpReadyRead(){
 }
 QString clantowebpagemapper::getInformation(const userstruct &u){
     QString clan=u.clan.toLower();
-    if(singleton<snpsettings>().map["tusloginenable"].toBool()){
+    if(singleton<snpsettings>().map["spectateleagueserver"].toBool()){
         if(singleton<settingswindow>().from_map("cbshowranksonlyfromsecureloggedusers").toBool()){
             clan=singleton<leagueserverhandler>().map_at_toString(u.nick,leagueserverhandler::e_clan);
         }

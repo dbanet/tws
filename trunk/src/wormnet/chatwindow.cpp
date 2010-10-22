@@ -61,7 +61,7 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     connect(net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
 
     singleton<sound_handler>().play_chatwindowopensound();    
-    if (net->mutedusers.contains(this->chatpartner, Qt::CaseInsensitive))
+    if (singleton<netcoupler>().mutedusers.contains(this->chatpartner, Qt::CaseInsensitive))
         ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
     else
         ui.pbmute->setIcon(QIcon("snppictures/buttons/mutebutton.png"));
@@ -91,7 +91,7 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     this->statusbar = new QStatusBar(this);
     ui.verticalLayout_2->addWidget(statusbar);
     statusbar->setMaximumHeight(20);
-    if (net->users.users.contains(userstruct::whoami(chatpartner))){
+    if (singleton<netcoupler>().users.users.contains(userstruct::whoami(chatpartner))){
         statusbar->showMessage(QObject::tr("Online"));
         userisoffline=0;
     }
@@ -144,7 +144,7 @@ void chatwindow::gotmsg(const QString &user, const QString &receiver,
         chat->append(user, receiver, msg);
         QApplication::alert(this);emit
                 sigalert(this);
-        if (net->users.usermap[usermodel::tr("Buddylist")].count(
+        if (singleton<netcoupler>().users.usermap[usermodel::tr("Buddylist")].count(
                 userstruct::whoami(user))) {
             singleton<sound_handler>().play_buddymsgsound(user);
 
@@ -161,29 +161,29 @@ void chatwindow::sendmsg(QString str) {
         s = str;
     if (s != "") {
         if (s.startsWith(">!")) {
-            net->sendrawcommand(QString("PRIVMSG ") + chatpartner + " :\001"
+            singleton<netcoupler>().sendrawcommand(QString("PRIVMSG ") + chatpartner + " :\001"
                                 + s.remove(0, 2) + "\001");
-            chat->append(net->nick, chatpartner, "\001" + s + "\001");
+            chat->append(singleton<netcoupler>().nick, chatpartner, "\001" + s + "\001");
         } else if (s.startsWith("/")) {
-            chat->append(net->nick, chatpartner, s);
-            net->sendrawcommand(s.remove(0, 1));
+            chat->append(singleton<netcoupler>().nick, chatpartner, s);
+            singleton<netcoupler>().sendrawcommand(s.remove(0, 1));
         } else if (s.startsWith(">>>")) {
             sendnoticeaction();
-            chat->append(net->nick, chatpartner, s);
+            chat->append(singleton<netcoupler>().nick, chatpartner, s);
         } else if (s.startsWith(">>")) {
             sendnotice();
-            chat->append(net->nick, chatpartner, s);
+            chat->append(singleton<netcoupler>().nick, chatpartner, s);
         } else if (s.startsWith(">")) {
-            net->sendrawcommand(QString("PRIVMSG ") + chatpartner
+            singleton<netcoupler>().sendrawcommand(QString("PRIVMSG ") + chatpartner
                                 + " :\001ACTION " + s.remove(0, 1).remove("") + " \001\n");
-            chat->append(net->nick, chatpartner, "\001ACTION " + s + " \001");
+            chat->append(singleton<netcoupler>().nick, chatpartner, "\001ACTION " + s + " \001");
         } else {
-            net->sendmessage(chatpartner, s);
-            chat->append(net->nick, chatpartner, s);
+            singleton<netcoupler>().sendmessage(chatpartner, s);
+            chat->append(singleton<netcoupler>().nick, chatpartner, s);
         }
         usergarbagemap[chatpartner.toLower()] << QDate::currentDate().toString(
                 "dd.MM") + " " + QTime::currentTime().toString("hh:mm") + " "
-                + net->nick + ">" + s;
+                + singleton<netcoupler>().nick + ">" + s;
         ui.lineEdit->clear();
         chat->moveSliderToMaximum();
     }
@@ -192,8 +192,8 @@ void chatwindow::sendnotice() {
 
     const QString s = ui.lineEdit->text().remove(0, 2).remove("\n");
     if (s != "") {
-        net->sendnotice(chatpartner, s);
-        chat->appendnotice(net->nick, chatpartner, s);
+        singleton<netcoupler>().sendnotice(chatpartner, s);
+        chat->appendnotice(singleton<netcoupler>().nick, chatpartner, s);
         ui.lineEdit->clear();
     }
 }
@@ -201,9 +201,9 @@ void chatwindow::sendnoticeaction() {
 
     const QString s = ui.lineEdit->text().remove(0, 3).remove("\n");
     if (s != "") {
-        net->sendrawcommand(QString("NOTICE ") + chatpartner + " :\001ACTION "
+        singleton<netcoupler>().sendrawcommand(QString("NOTICE ") + chatpartner + " :\001ACTION "
                             + s + " \001");
-        chat->appendnotice(net->nick, chatpartner, "<" + s + ">");
+        chat->appendnotice(singleton<netcoupler>().nick, chatpartner, "<" + s + ">");
         ui.lineEdit->clear();
     }
 }
@@ -211,27 +211,27 @@ void chatwindow::closeEvent(QCloseEvent *) {
 }
 void chatwindow::getgamerwho(QString prefix) {
 
-    int i = net->users.users.indexOf(userstruct::whoami(chatpartner));
+    int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(chatpartner));
     if (i > -1) {
-        userstruct u = net->users.users[i];
-        chat->append(chatpartner, net->nick, prefix+" GAMERWHO:\n"
+        userstruct u = singleton<netcoupler>().users.users[i];
+        chat->append(chatpartner, singleton<netcoupler>().nick, prefix+" GAMERWHO:\n"
                      + u.returnwho().join(" | "));
     }
 }
 void chatwindow::usesettingswindow(const QString&) {
 }
 void chatwindow::pbmuteclicked() {
-    if (net->mutedusers.contains(this->chatpartner, Qt::CaseInsensitive)) {
-        foreach(QString s,net->mutedusers) {
+    if (singleton<netcoupler>().mutedusers.contains(this->chatpartner, Qt::CaseInsensitive)) {
+        foreach(QString s,singleton<netcoupler>().mutedusers) {
             if (compareCI(s, this->chatpartner))
-                net->mutedusers.removeAt(net->mutedusers.indexOf(s));
+                singleton<netcoupler>().mutedusers.removeAt(singleton<netcoupler>().mutedusers.indexOf(s));
         }
         ui.pbmute->setIcon(QIcon("snppictures/buttons/mutebutton.png"));
     } else {
-        net->mutedusers << this->chatpartner;
+        singleton<netcoupler>().mutedusers << this->chatpartner;
         ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
     }
-    singleton<snpsettings>().map["mutedusers"] = net->mutedusers;
+    singleton<snpsettings>().map["mutedusers"] = singleton<netcoupler>().mutedusers;
 }
 void chatwindow::pbbuddyclicked() {
     if (singleton<snpsettings>().map["buddylist"].value<QStringList> ().contains(
@@ -263,7 +263,7 @@ void chatwindow::pblogclicked() {
     }
 }
 void chatwindow::pbidleclicked() {
-    net->sendrawcommand("whois " + this->chatpartner);
+    singleton<netcoupler>().sendrawcommand("whois " + this->chatpartner);
 }
 void chatwindow::gotidletime(const QString &user, int i) {
     QTime time(0, 0, 0);

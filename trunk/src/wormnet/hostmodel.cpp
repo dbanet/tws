@@ -11,7 +11,6 @@
 #include<QTime>
 #include<QPointer>
 #include<QApplication>
-extern QPointer<netcoupler> net;
 hostmodel::hostmodel(QObject *parent) :
 	QAbstractItemModel(parent) {
 

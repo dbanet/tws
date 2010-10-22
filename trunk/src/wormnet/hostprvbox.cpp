@@ -4,7 +4,6 @@
 #include <QFileDialog>
 #include<QPointer>
 #include"global_functions.h"
-extern QPointer<netcoupler> net;
 hostprvbox::hostprvbox(QWidget *parent) :
 	QWidget(parent) {
     this->setObjectName("normalwidget");
@@ -69,7 +68,7 @@ void hostprvbox::okclicked() {
     sl.move(sl.indexOf(ui.icons->currentText()), 0);
     singleton<snpsettings>().map["joinstrings"] = sl;
     singleton<snpsettings>().safe();
-    net->sendprvhosttobuddys(ui.lescheme->text());
+    singleton<netcoupler>().sendprvhosttobuddys(ui.lescheme->text());
     emit sigok(ui.lescheme->text());
     close();
     deleteLater();
@@ -107,7 +106,7 @@ void hostprvbox::copyslot() {
             ui.cbip->isChecked());
     singleton<snpsettings>().map["costumipforhosting"].setValue<QString>(ui.leip->text());
     sethostport(ui.lehostport->text());
-    net->copyprvhosttoclipboard(ui.lescheme->text());
+    singleton<netcoupler>().copyprvhosttoclipboard(ui.lescheme->text());
 }
 hostprvbox::~hostprvbox() {
 

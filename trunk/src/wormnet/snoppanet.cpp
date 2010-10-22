@@ -2,7 +2,6 @@
 #include<QNetworkAccessManager>
 #include<QNetworkReply>
 #include<QNetworkRequest>
-#include<QTimer>
 #include<QFile>
 #include<QTextStream>
 #include<QApplication>
@@ -18,29 +17,23 @@
 #include"global_functions.h"
 extern inihandlerclass inihandler;
 snoppanet::snoppanet(QObject *parent) :
-	QObject(parent) {
-    manager = new QNetworkAccessManager(this);
-    schememanager = new QNetworkAccessManager(this);
-    hostmanager = new QNetworkAccessManager(this);
-    hosttimer = new QTimer(this);
+	QObject(parent) {        
     signalmapper = new QSignalMapper(this);
     url = singleton<snpsettings>().map["wormnetserverlist"].value<QStringList>().first();
     if(!url.startsWith("http://"))
         url="http://"+url;
     gameliststarts = 0;
     int delay = singleton<settingswindow>().from_map("sbhostrepead").value<int> ();
-    hosttimer->start(delay);
+    hosttimer.start(delay);
 }
 
-snoppanet::~snoppanet() {
-    manager->deleteLater();
-    hosttimer->deleteLater();
+snoppanet::~snoppanet() {   
     signalmapper->deleteLater();
 }
 void snoppanet::start() {
     request = inihandler.requestfromini("[http login header]");
     request.setUrl(url + "/wormageddonweb/Login.asp?UserName=&Password=&IPAddress=");
-    reply = manager->get(request);
+    reply = manager.get(request);
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
             this, SLOT(httpError(QNetworkReply::NetworkError)));
     connect(reply, SIGNAL(readyRead()),this, SLOT(readircip()));
@@ -77,7 +70,7 @@ void snoppanet::setchannellist(const QStringList &sl) {
         channelmap[requestlist.size() - 1] = s;
         requestlist.last().setUrl(url
                                   + "/wormageddonweb/GameList.asp?Channel=" + s.remove("#"));
-        replylist.push_back(manager->get(requestlist.last()));
+        replylist.push_back(manager.get(requestlist.last()));
         connect(replylist.last(), SIGNAL(readyRead()),signalmapper, SLOT(map()));
         signalmapper->setMapping(replylist.last(), replylist.size() - 1);
         connect(replylist.last(), SIGNAL(error(QNetworkReply::NetworkError)),
@@ -88,8 +81,8 @@ void snoppanet::setchannellist(const QStringList &sl) {
     for (int i = 0; i < currentchannellist.size(); i++) {
         templist << "";
     }
-    hosttimer->disconnect();
-    connect(hosttimer, SIGNAL(timeout()),this, SLOT(hosttimeout()));
+    hosttimer.disconnect();
+    connect(&hosttimer, SIGNAL(timeout()),this, SLOT(hosttimeout()));
 }
 void snoppanet::hosttimeout() {
     foreach(QNetworkReply *n,replylist) {
@@ -99,7 +92,7 @@ void snoppanet::hosttimeout() {
     replylist.clear();
     int i = 0;
     foreach(QString s,currentchannellist) {
-        replylist.push_back(manager->get(requestlist[i]));
+        replylist.push_back(manager.get(requestlist[i]));
         i++;
         connect(replylist.last(), SIGNAL(readyRead()),signalmapper, SLOT(map()));
         signalmapper->setMapping(replylist.last(), replylist.size() - 1);
@@ -143,7 +136,7 @@ void snoppanet::getscheme(QString s) {
         schemerequest.setUrl(url
                              + "/wormageddonweb/RequestChannelScheme.asp?Channel="
                              + s.remove("#"));
-        schemereply = schememanager->get(schemerequest);
+        schemereply = schememanager.get(schemerequest);
         connect(schemereply, SIGNAL(readyRead()),this, SLOT(getscheme()));
     }
 }
@@ -171,7 +164,7 @@ void snoppanet::sendhost(const QString &gamename, const QString &ip,
             + "&HostIP=" + ip+":"+port + "&Nick=" + nick + "&Pwd=" + pwd + "&Chan="
             + QString(chan).remove("#") + "&Loc=" + flag + "&Type=0&Pass=0";
     hostrequest.setUrl(s);
-    hostreply = hostmanager->get(hostrequest);
+    hostreply = hostmanager.get(hostrequest);
     connect(hostreply, SIGNAL(readyRead()),this, SLOT(readhostreply()));
 }
 void snoppanet::closehost(QStringList sl) {
@@ -180,7 +173,7 @@ void snoppanet::closehost(QStringList sl) {
         QString s = url + "/wormageddonweb/Game.asp?Cmd=Close&GameID=" + sl[0]
                     + "&Name=" + sl[1] + "&HostID=&GuestID=&GameType=0";
         hostrequest.setUrl(s);
-        hostreply = hostmanager->get(hostrequest);
+        hostreply = hostmanager.get(hostrequest);
     }
 }
 void snoppanet::refreshhostlist() {

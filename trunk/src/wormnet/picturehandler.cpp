@@ -26,7 +26,7 @@ picturehandler::picturehandler(){
     }
     dir.setPath(":/tusranks");
     foreach(QString f,dir.entryList(QStringList()<<"*.png",QDir::Files,QDir::Name)) {
-        leagueranklist.push_back(new QPixmap(dir.path() + "/" + f));
+        leagueranklist[QString(f).remove(".png",Qt::CaseInsensitive)]=new QPixmap(dir.path() + "/" + f);
     }
     locked = new QPixmap;
     unlocked = new QPixmap;
@@ -61,7 +61,7 @@ void picturehandler::fillranks(QComboBox *cb){
 }
 //----------------------------------------------------------------------------------------------
 QVariant picturehandler::getflag(const userstruct &u) const{
-    if(singleton<snpsettings>().map["tusloginenable"].toBool()){
+    if(singleton<snpsettings>().map["spectateleagueserver"].toBool()){
         QString s=singleton<leagueserverhandler>().map_at_toString(u.nick,leagueserverhandler::e_flag);
         if(!s.isEmpty()){
             if(!flaglist.contains(s.toLower().trimmed()))
@@ -81,13 +81,13 @@ QVariant picturehandler::getflag(const userstruct &u) const{
 //----------------------------------------------------------------------------------------------
 QPixmap *picturehandler::getrank(int i){
     if(i>ranklist.size())
-        return 0;
+        return ranklist[12];
     return ranklist[i];
 }
-QPixmap *picturehandler::getleaguerank(int i){
-    if(i>=leagueranklist.size())
-        return 0;
-    return leagueranklist[i];
+QPixmap *picturehandler::getleaguerank(QString s){
+    if(!leagueranklist.contains(s))
+        return ranklist[12];
+    return leagueranklist[s];
 }
 int picturehandler::ranklistsize(){
     return ranklist.size();

@@ -4,6 +4,7 @@
 #include <QObject>
 #include<QNetworkReply>
 #include<QStringList>
+#include<QTimer>
 class QNetworkReply;
 class QNetworkAccessManager;
 class QTimer;
@@ -38,16 +39,16 @@ private:
 	QStringList currentchannellist;
 	QString url;
 	QString ircip;
-	QNetworkAccessManager *manager;
+        QNetworkAccessManager manager;
 	QNetworkReply *reply;
-	QTimer *hosttimer;
+        QTimer hosttimer;
 	QMap<int,QString> channelmap;
 
-	QNetworkAccessManager *schememanager;
+        QNetworkAccessManager schememanager;
 	QNetworkRequest schemerequest;
 	QNetworkReply *schemereply;
 
-	QNetworkAccessManager *hostmanager;
+        QNetworkAccessManager hostmanager;
 	QNetworkRequest hostrequest;
 	QNetworkReply *hostreply;
 

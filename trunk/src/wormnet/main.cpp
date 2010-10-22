@@ -33,6 +33,8 @@ void handle_wini_ini();
 void get_picutres();
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
+    a.setQuitOnLastWindowClosed(false);
+    volume = new volumeslider;
     singleton<picturehandler>();
     a.setApplicationName("The Wheat Snooper");
     chdir(qPrintable(QApplication::applicationDirPath()));
@@ -44,8 +46,7 @@ int main(int argc, char *argv[]) {
     }
     else
         CodecSelectDia::codec=QTextCodec::codecForName(singleton<snpsettings>().map["textcodec"].toByteArray());            
-    singleton<charformatsettings>().load();    
-    volume = new volumeslider;    
+    singleton<charformatsettings>().load();           
     a.addLibraryPath(QApplication::applicationDirPath());
     a.setWindowIcon(QIcon(QApplication::applicationDirPath()
                           + QDir::separator() + "snppictures" + QDir::separator()

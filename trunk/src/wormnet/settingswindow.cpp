@@ -11,7 +11,6 @@
 #include<QFileDialog>
 #include<QPointer>
 #include<stdexcept>
-extern QPointer<netcoupler> net;
 settingswindow::settingswindow(){
     setObjectName("normalwidget");
     ui=new Ui::settingswindowClass;
@@ -109,8 +108,7 @@ void settingswindow::ok() {
     }
     safe();
     close();
-    if (net != 0)
-        net->settingswindowemitfunktion();
+    singleton<netcoupler>().settingswindowemitfunktion();
 }
 void settingswindow::cancel() {
     this->close();

@@ -63,7 +63,9 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/clantowebpagemapper.h \
     src/wormnet/mydebugclass.h \
     src/wormnet/myDebug.h \
-    src/wormnet/leagueserverhandler.h
+    src/wormnet/leagueserverhandler.h \
+    src/wormnet/picturehandler.h \
+    src/wormnet/quithandler.h
 
 FORMS += src/wormnet/about.ui \
     src/wormnet/awaybox.ui \
@@ -136,7 +138,9 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/mydebugclass.cpp \
     src/wormnet/myDebug.cpp \
     src/wormnet/leagueserverhandler.cpp \
-    src/wormnet/global_functions.cpp
+    src/wormnet/global_functions.cpp \
+    src/wormnet/picturehandler.cpp \
+    src/wormnet/quithandler.cpp
 
 RC_FILE = src/wormnet/myapp.rc
 TRANSLATIONS += \

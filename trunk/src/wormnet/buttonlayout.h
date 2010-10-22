@@ -13,13 +13,16 @@ public:
     ~buttonlayout();
     void hidebuttons();
     void showbuttons();
+    void fillleaguemenu();
 private:
     Ui::buttonlayoutClass ui;
+    QMenu *leaguemenu;
 private slots:
     void on_pbsort_clicked();
     void on_pbballoon_clicked();
     void on_pbsound_clicked();
     void on_pbcostumwords_clicked();
+    void leaguemenutriggered(QAction *action);
 signals:
     void pbhostclicked();
     void pbminimizedclicked();

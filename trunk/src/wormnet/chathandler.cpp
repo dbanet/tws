@@ -26,7 +26,6 @@
 #include "sound_handler.h"
 #include"global_functions.h"
 #include "balloon_handler.h"
-extern QPointer<netcoupler> net;
 QTextCharFormat chathandler::timeformat;
 QTextCharFormat chathandler::nickformat;
 QTextCharFormat chathandler::chatformat;
@@ -84,7 +83,7 @@ chathandler::chathandler(QObject *parent, QTextBrowser *t, QString chan) :
     debugmenu.addAction(tr("Set the color for this texttype"));
 
     connect(tb->verticalScrollBar(), SIGNAL(valueChanged(int)),this, SLOT(slidermoved(int)));
-    connect(net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
+    connect(&singleton<netcoupler>(), SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
     connect(tb,SIGNAL(selectionChanged()),this,SLOT(selectionChanged()));
 }
 bool chathandler::eventFilter(QObject *obj, QEvent *event){       
@@ -169,7 +168,7 @@ void chathandler::append(const QString &user, const QString &receiver,
             } else {
                 nickformat.setAnchorHref("<nick> " + user);
                 cursor->insertText(user + "> ", nickformat);
-                if(user==net->nick)
+                if(user==singleton<netcoupler>().nick)
                     insertText(msgtemp, myselfformat,user);
                 else
                     insertText(msgtemp, chatformat,user);
@@ -191,7 +190,7 @@ void chathandler::append(const QString &user, const QString &receiver,
         } else {
             nickformat.setAnchorHref("<nick> " + user);
             cursor->insertText(user + "> ", nickformat);
-            if(user==net->nick)
+            if(user==singleton<netcoupler>().nick)
                 insertText(msgtemp, myselfformat,user);
             else
                 insertText(msgtemp, buddyformat,user);
@@ -258,8 +257,8 @@ void chathandler::insertText(const QString &s, QTextCharFormat &t,QString user) 
                 cursor->insertText(str, t);
             }
         }
-    } else if (containsCI(s, net->nick)) {
-        if (!t.anchorHref().startsWith("<notice>") && t.anchorHref()!= "action")
+    } else if (containsCI(s, singleton<netcoupler>().nick)) {
+        if (!t.anchorHref().startsWith("<notice>") && t.anchorHref() != "action")
             singleton<sound_handler>().play_highlightningsound(user,qobject_cast<QWidget*> (this->parent()));
         cursor->insertText(s, t);
     } else if (containsOneCI(s, singleton<settingswindow>().from_map("combobox_wrapper").value<QStringList>(),&temp)) {
@@ -369,7 +368,7 @@ void chathandler::contextrequest(const QPoint &p) {
                 } else {
                     joinprvgame *prv = new joinprvgame(anchor, channel);
                     prv->show();
-                    connect(prv, SIGNAL(sigjoingamelink(const QString&)),net, SLOT(joingamelink(const QString&)));
+                    connect(prv, SIGNAL(sigjoingamelink(const QString&)),&singleton<netcoupler>(), SLOT(joingamelink(const QString&)));
                 }
             }
         } else if (anchor.startsWith("<prv>")) {

@@ -9,7 +9,6 @@
 #include"clantowebpagemapper.h"
 #include"leagueserverhandler.h"
 #include"picturehandler.h"
-extern QPointer<netcoupler> net;
 extern QStringList querylist;
 extern QString GamesourgeChannelName;
 QStringList usermodel::buddyarrivedhelper;
@@ -54,7 +53,7 @@ usermodel::usermodel(QObject * parent) :
 
     leagueuserhighlightgradient.setColorAt(0,QColor(255,255,255,0));
     leagueuserhighlightgradient.setColorAt(0.5,QColor(255,255,255,100));
-    leagueuserhighlightgradient.setColorAt(1,QColor(255,255,255,0));
+    leagueuserhighlightgradient.setColorAt(1,QColor(255,255,255,0));    
 }
 void usermodel::selectionchanged(const QModelIndex &index, const QWidget *w) {
 
@@ -146,8 +145,7 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QMap<QString,
 }
 void usermodel::addbuddy(const QString &user) {
 
-    emit
-            layoutAboutToBeChanged();
+    emit layoutAboutToBeChanged();
     if (!singleton<snpsettings>().map["buddylist"].value<QStringList> ().contains(user,
                                                                                   Qt::CaseInsensitive)
         && !singleton<snpsettings>().map["ignorelist"].value<QStringList> ().contains(user,
@@ -155,14 +153,13 @@ void usermodel::addbuddy(const QString &user) {
         singleton<snpsettings>().map["buddylist"].setValue<QStringList> (
                 singleton<snpsettings>().map["buddylist"].value<QStringList> () << user);
     }
-    singleton<snpsettings>().safe();emit
-            layoutChanged();
+    singleton<snpsettings>().safe();
+    emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
 void usermodel::deletebuddy(const QString &s) {
 
-    emit
-            layoutAboutToBeChanged();
+    emit layoutAboutToBeChanged();
     QStringList sl = singleton<snpsettings>().map["buddylist"].value<QStringList> ();
     QStringList::iterator i = sl.begin();
     QStringList temp;
@@ -176,14 +173,13 @@ void usermodel::deletebuddy(const QString &s) {
         sl.removeAll(s);
     }
     singleton<snpsettings>().map["buddylist"] = sl;
-    singleton<snpsettings>().safe();emit
-            layoutChanged();
+    singleton<snpsettings>().safe();
+    emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
 void usermodel::addignore(const QString &s) {
 
-    emit
-            layoutAboutToBeChanged();
+    emit layoutAboutToBeChanged();
     if (!singleton<snpsettings>().map["ignorelist"].value<QStringList> ().contains(s,
                                                                                    Qt::CaseInsensitive)
         && !singleton<snpsettings>().map["buddylist"].value<QStringList> ().contains(s,
@@ -191,22 +187,20 @@ void usermodel::addignore(const QString &s) {
         singleton<snpsettings>().map["ignorelist"]
                 = singleton<snpsettings>().map["ignorelist"].value<QStringList> () << s;
     }
-    singleton<snpsettings>().safe();emit
-            layoutChanged();
+    singleton<snpsettings>().safe();
+    emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
-void usermodel::deleteignore(const QString &s) {
-
-    emit
-            layoutAboutToBeChanged();
+void usermodel::deleteignore(const QString &s) {    
+    emit layoutAboutToBeChanged();
     userstruct u;
     u.nick = s;
     QStringList sl = singleton<snpsettings>().map["ignorelist"].value<QStringList> ();
     sl.removeOne(s);
     singleton<snpsettings>().map["ignorelist"] = sl;
     usermap[usermodel::tr("Ignorelist")].removeOne(u);
-    singleton<snpsettings>().safe();emit
-            layoutChanged();
+    singleton<snpsettings>().safe();
+    emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
 int usermodel::columnCount(const QModelIndex & /*parent*/) const {
@@ -359,7 +353,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
     }
     if (index.internalId() != e_Channel) {
         if (role == Qt::BackgroundRole){
-            if(singleton<snpsettings>().map["tusloginenable"].toBool()){
+            if(singleton<snpsettings>().map["spectateleagueserver"].toBool()){
                 if(singleton<leagueserverhandler>().contains_key(usermap[classes[index.internalId()]][index.row()].nick)){
                     if(!singleton<settingswindow>().from_map("cbdontshowagradientonverifiedusers").toBool()){
                         return QBrush(leagueuserhighlightgradient);
@@ -380,7 +374,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
                 return f;
             }
         }else if(index.column()==e_Clan){
-            if(singleton<snpsettings>().map["tusloginenable"].toBool()){
+            if(singleton<snpsettings>().map["spectateleagueserver"].toBool()){
                 QString s=singleton<leagueserverhandler>().map_at_toString(usermap[classes[index.internalId()]][index.row()].nick,leagueserverhandler::e_clan);
                 if(!s.isEmpty()){
                     if(singleton<clantowebpagemapper>().contains(s)){
@@ -399,7 +393,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
 
             }
         }else if(index.column()==e_Nick){
-            if(!singleton<snpsettings>().map["tusloginenable"].toBool())
+            if(!singleton<snpsettings>().map["spectateleagueserver"].toBool())
                 return QVariant();
             if(!singleton<settingswindow>().from_map("cbunderlineverifiedusers").toBool())
                 return QVariant();
@@ -415,6 +409,9 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
     }    
     if(role==Qt::ToolTipRole && index.internalId() != e_Channel && index.column() == e_Clan){        
         return singleton<clantowebpagemapper>().getInformation(usermap[classes[index.internalId()]][index.row()]);
+    }
+    if(role==Qt::ToolTipRole && index.internalId() != e_Channel && index.column() == e_Nick){
+        return singleton<leagueserverhandler>().map_at_toString(usermap[classes[index.internalId()]][index.row()].nick,leagueserverhandler::e_truenick);
     }
     return QVariant();
 }
@@ -510,10 +507,10 @@ userstruct usermodel::getuserstructbyindex(const QModelIndex &index) {
 usermodel::~usermodel() {
 }
 QVariant usermodel::getrank(const userstruct &u) const{
-    if(singleton<snpsettings>().map["tusloginenable"].toBool()){
-        int i=singleton<leagueserverhandler>().map_at_toInt(u.nick,leagueserverhandler::e_rank);
-        if(i!=-1)
-            return *singleton<picturehandler>().getrank(i);
+    if(singleton<snpsettings>().map["spectateleagueserver"].toBool()){
+        QString s=singleton<leagueserverhandler>().map_at_toString(u.nick,leagueserverhandler::e_rank);
+        if(!s.isEmpty())
+            return *singleton<picturehandler>().getleaguerank(s);
         if(singleton<settingswindow>().from_map("cbonlyshowranksfromverifiedusers").toBool())
             return QVariant();
     }
@@ -521,7 +518,7 @@ QVariant usermodel::getrank(const userstruct &u) const{
 }
 QVariant usermodel::getclan(const userstruct &u) const{
     QString s;
-    if(singleton<snpsettings>().map["tusloginenable"].toBool()){
+    if(singleton<snpsettings>().map["spectateleagueserver"].toBool()){
         s=singleton<leagueserverhandler>().map_at_toString(u.nick,leagueserverhandler::e_clan);
         if (singleton<snpsettings>().map["dissallowedclannames"].value<QStringList> ().contains(s,Qt::CaseInsensitive))
             return QVariant();
@@ -535,4 +532,11 @@ QVariant usermodel::getclan(const userstruct &u) const{
         return QVariant();
     else
         return s;
+}
+void usermodel::clear(){
+    emit layoutAboutToBeChanged();
+    usermap.clear();
+    classes.clear();
+    emit layoutChanged();
+    emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }

@@ -9,7 +9,6 @@
 #include"chatwindow.h"
 #include"ctcphandleratomic.h"
 #include"global_functions.h"
-extern QPointer<netcoupler> net;
 extern QMap<QString, QString> ctcpcontainer;
 QStringList ctcphandler::awayusers;
 ctcphandler::ctcphandler(){
@@ -27,17 +26,17 @@ bool ctcphandler::getctcp(const QString &user, const QString &msg) {
         removeCI(this->awayusers, user);
         emit sigctcpcommand("back", user);
     } else if (s=="status") {
-        if (net->isaway)
-            net->sendrawcommand("PRIVMSG " + user + " :\001away "
-                                + net->awaymessage + "\001");
+        if (singleton<netcoupler>().isaway)
+            singleton<netcoupler>().sendrawcommand("PRIVMSG " + user + " :\001away "
+                                + singleton<netcoupler>().awaymessage + "\001");
         else
-            net->sendrawcommand("PRIVMSG " + user + " :\001back\001");
+            singleton<netcoupler>().sendrawcommand("PRIVMSG " + user + " :\001back\001");
     } else if (singleton<ctctphandlerwidget>().atomicmap.keys().contains(s)) {
         if(!singleton<ctctphandlerwidget>().atomicmap[s]->ui.cbenable->isChecked())
             return false;
         QString str =
                 singleton<ctctphandlerwidget>().atomicmap[s]->ui.textEdit->toPlainText();
-        net->senduncheckedmessage(user, str);
+        singleton<netcoupler>().senduncheckedmessage(user, str);
     } else{
         return false;
     }

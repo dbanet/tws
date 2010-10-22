@@ -2,17 +2,20 @@
 #include"netcoupler.h"
 #include"snpsettings.h"
 #include"settingswindow.h"
+#include"leagueserverhandler.h"
+#include<QMenu>
 #include<QPointer>
-extern QPointer<netcoupler> net;;
 buttonlayout::buttonlayout(QWidget *parent) :
 	QWidget(parent) {
-    ui.setupUi(this);
+    ui.setupUi(this);    
+    leaguemenu=new QMenu;
     ui.horizontalLayout->setAlignment(Qt::AlignLeft);
     this->setObjectName("buttoenlayout");
-    connect(ui.pbrefresh, SIGNAL(clicked()),net, SLOT(refreshhostlist()));
+    connect(ui.pbrefresh, SIGNAL(clicked()),&singleton<netcoupler>(), SLOT(refreshhostlist()));
     connect(ui.pbhost, SIGNAL(clicked()),this, SIGNAL(pbhostclicked()));
     connect(ui.pbminimize, SIGNAL(clicked()),this, SIGNAL(pbminimizedclicked()));
     connect(ui.slideralpha,SIGNAL(valueChanged ( int )),this,SIGNAL(sigchangealpha(int)));
+    connect(leaguemenu,SIGNAL(triggered(QAction*)),this,SLOT(leaguemenutriggered(QAction*)));
     if(singleton<snpsettings>().map["channeltransparency"].toInt()>=20){
         ui.slideralpha->setValue(singleton<snpsettings>().map["channeltransparency"].toInt());
     }
@@ -108,4 +111,24 @@ void buttonlayout::on_pbsort_clicked()
         ui.pbsort->setText(QObject::tr("Sorting")+" "+QObject::tr("off"));
     else
         ui.pbsort->setText(QObject::tr("Sorting")+" "+QObject::tr("on"));
+}
+void buttonlayout::leaguemenutriggered(QAction *action){
+    if(action==NULL)
+        return;
+    if(action->text()==tr("None")){
+        singleton<leagueserverhandler>().stoprefresh();
+        singleton<snpsettings>().map["spectateleagueserver"]=false;
+        return;
+    }
+    QString s=action->text();
+    singleton<snpsettings>().map["spectateleagueserver"]=true;
+    singleton<leagueserverhandler>().setleague(s,s);
+    singleton<leagueserverhandler>().startrefresh();
+}
+void buttonlayout::fillleaguemenu(){
+    leaguemenu->addAction(tr("None"));
+    foreach(QString s,singleton<snpsettings>().map["leagueservers"].value<QStringList>()){
+        leaguemenu->addAction(s);
+    }
+    ui.pbspectate->setMenu(leaguemenu);
 }

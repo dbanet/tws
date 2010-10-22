@@ -23,11 +23,11 @@ public:
     QList< ::window * > windowlist;
     QList< ::chatwindow*> hiddenchatwindowshelper;
     void fillsnpsettings();
-    void onquit();
+    void quit();
 
     DECLARE_SINGLETON(mainwindow);     
 public slots:
-    void returntotabsettings(int);
+    void returntologintab();
 private:
     typedef ::window channelwindow;
     Ui::mainwindowClass ui;
@@ -48,7 +48,6 @@ private:
     bool joinonstartup;
 
     QRegExpValidator *validator;
-    QRegExpValidator *validatorclient;
 
     void setlanguage(const QString&);
     void init_menus();
@@ -58,11 +57,12 @@ private:
     void joinGameSourge();    
 
     void connectToNetwork();
-
+    void setleague();
     QStringList lastOpenedWindows;
     QStringList lastOpenedChatWindows;
 
 private slots:
+    void on_pbeditleagueprofile_clicked();
     void on_cbenabletus_toggled(bool checked);
     void on_pbjoin_clicked();
     void join(const QString channel);
@@ -80,9 +80,7 @@ private slots:
     void windowremoved(const QString&);
     void usesettingswindow(const QString &s="");
 
-    void chatwinowclosed();
-
-    void quitslot();
+    void chatwinowclosed();    
 
     void awayboxok();
     void awaymessagechanged();
@@ -96,12 +94,15 @@ private slots:
     void connected();
     void disconnected();
     void reconnect();
-    void disconnect_netcoupler();    
 
     void reopenChatWindowsAndChannelWindows();
 
     void leagueserverconnectionfailed();
     void leagueserverconnectionsuccess();
+
+    void currenttabchanged(int);
+
+    void leagueserverprofilepage(QString);
 
 protected:
     void changeEvent (QEvent*);

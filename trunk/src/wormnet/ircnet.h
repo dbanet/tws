@@ -25,6 +25,7 @@ public:
     void who();
     void partchannel(const QString&);
     void quit();
+    int state();
     QList<userstruct> wholist;
     QMap<QString,QStringList> joinlist;
     QString nick;
@@ -47,7 +48,6 @@ signals: //public signals:
     void sigusergarbagequit(const QString&,const QString&);
     void siggotidletime(const QString&, int);
     void signosuchnick(const QString&);
-    void sigreconnect();
     void sigconnectingfailed();
 
 private:
