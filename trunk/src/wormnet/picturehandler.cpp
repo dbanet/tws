@@ -92,7 +92,6 @@ QPixmap *picturehandler::getleaguerank(QString s){
 int picturehandler::ranklistsize(){
     return ranklist.size();
 }
-
 QString picturehandler::map_number_to_countrycode(const int i){
     QString s="??";
     switch(i){

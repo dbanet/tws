@@ -6,6 +6,7 @@
 #include<QStringList>
 #include<QMap>
 #include<QNetworkReply>
+#include<QTimer>
 #include"global_macros.h"
 class QTimer;
 class leagueserverhandler : public QObject
@@ -39,21 +40,17 @@ signals:
 private slots:
     void loginFinished();
     void loginReadyRead();
-    void logintTimeOut();
+    void logintTimeOut();    
 
     void refreshFinished();
     void refreshReadyRead();
-    void refresh();
-    void refresherror(QNetworkReply::NetworkError);
-    void loginerror(QNetworkReply::NetworkError);
+    void refresh();    
 
     void logoutFinished();
-    void logoutReadyRead();
-    void logouterror(QNetworkReply::NetworkError);
+    void logoutReadyRead();    
 
     void profileFinished();
-    void profileReadyRead();
-    void profileerror(QNetworkReply::NetworkError);
+    void profileReadyRead();    
 private:
     void myconnect(QString p,QString n);
     QNetworkAccessManager qnam;
@@ -67,8 +64,8 @@ private:
 
     QString servicename;
 
-    QTimer *connecttimer;
-    QTimer *informationrefreshtimer;
+    QTimer connecttimer;
+    QTimer informationrefreshtimer;
 
     QMap<QString,QStringList> map;
 

@@ -150,7 +150,7 @@ void mainwindow::connectToNetwork(){
         singleton<netcoupler>().start(singleton<leagueserverhandler>().nick);
     else
         singleton<netcoupler>().start(ui.lenick->text());
-    QTimer::singleShot(7000,this,SLOT(reopenChatWindowsAndChannelWindows()));
+    QTimer::singleShot(1000,this,SLOT(reopenChatWindowsAndChannelWindows()));
     ui.tabWidget->setTabEnabled(1, 1);
 }
 void mainwindow::chooseclicked() {

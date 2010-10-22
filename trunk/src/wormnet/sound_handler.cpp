@@ -3,6 +3,8 @@
 #include "singleton.h"
 #include"settingswindow.h"
 #include"netcoupler.h"
+#include"global_functions.h"
+#include<QSound>
 #include<QApplication>
 #include<phonon/phonon>
 #include<QPointer>
@@ -45,7 +47,7 @@ sound_handler::sound_handler(){
 
     //Phonon::createPath(SoundObject, SoundOutput);
 }
-void sound_handler::init(){   
+void sound_handler::init(){       
     startupsound->setCurrentSource(
             singleton<settingswindow>().from_map("lestartup").value<QString> ());    
     normalmsgsound->setCurrentSource(
@@ -86,8 +88,7 @@ void sound_handler::play_startupsound(){
     } catch(dont_play_sound_exception){
         return;
     }    
-    startupsound->stop();
-    startupsound->play();
+    QSound::play(singleton<settingswindow>().from_map("lestartup").value<QString> ());
 }
 void sound_handler::play_buddyarrivedsound(){
     if (!singleton<settingswindow>().from_map("cbbuddyarrives").value<bool> ())
@@ -107,9 +108,9 @@ void sound_handler::play_chatwindowopensound(){
         verify_if_played();
     } catch(dont_play_sound_exception){
         return;
-    }
-    chatwindowopensound->stop();
-    chatwindowopensound->play();
+    }    
+    info(singleton<settingswindow>().from_map("lebuddychatwindowsopened").value<QString> ());
+    QSound::play(singleton<settingswindow>().from_map("lebuddychatwindowsopened").value<QString> ());
 }
 void sound_handler::play_normalmsgsound(const QString user){
     if (!singleton<settingswindow>().from_map("cbplaynormalchatmessage").value<bool> ())
