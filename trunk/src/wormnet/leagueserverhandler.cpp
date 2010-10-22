@@ -49,8 +49,7 @@ void leagueserverhandler::loginerror(QNetworkReply::NetworkError error){
     loginreply->deleteLater();
 }
 void leagueserverhandler::loginFinished(){
-    loggingstate=true;
-    connecttimer->stop();
+    loggingstate=true;    
     QStringList sl=connectresponse.split(" ");
     connectresponse.clear();
     if(sl.isEmpty()){
@@ -149,6 +148,7 @@ QString leagueserverhandler::service_name(){
 //###################################
 //###################################
 void leagueserverhandler::logout(){
+    stoprefresh();
     QUrl url=serveraddress+"testlogin.php?logout="+leagueloginnick;
     logoutreply=qnam.get(QNetworkRequest(url));
     connect(logoutreply, SIGNAL(finished()),this, SLOT(logoutFinished()));
@@ -156,8 +156,7 @@ void leagueserverhandler::logout(){
     connect(logoutreply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(logouterror(QNetworkReply::NetworkError)));    
 }
 void leagueserverhandler::logoutFinished(){
-    logoutreply->deleteLater();
-    stoprefresh();
+    logoutreply->deleteLater();    
     loggingstate=false;
     emit siglogout();
 }
