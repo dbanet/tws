@@ -26,8 +26,6 @@ public slots:
     void play_buddyhostedsound();
     void play_costumwordsound(const QString user, QWidget *w);
 private:
-//    Phonon::MediaObject *SoundObject;
-
     Phonon::MediaObject *startupsound;
     Phonon::MediaObject	*normalmsgsound;
     Phonon::MediaObject	*buddymsgsound;
@@ -38,8 +36,6 @@ private:
     Phonon::MediaObject	*highlightningsound;
     Phonon::MediaObject *buddyhostedsound;
     Phonon::MediaObject *costumwordsound;
-
-//    Phonon::AudioOutput *SoundOutput;
 
     Phonon::AudioOutput *startupsoundoutput;
     Phonon::AudioOutput *chatwindowopensoundoutput;

@@ -18,8 +18,6 @@ sound_handler::sound_handler(){
     buddyleftsound = new Phonon::MediaObject(this);
     buddyarrivedsound = new Phonon::MediaObject(this);
 
-    //SoundObject = new Phonon::MediaObject(this);
-
     chatwindowopensoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
     normalmsgsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
     buddymsgsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
@@ -29,8 +27,6 @@ sound_handler::sound_handler(){
     buddyarrivedsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
     buddyhostedsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
     costumwordsoundsoundoutput= new Phonon::AudioOutput(Phonon::MusicCategory);
-
-    //SoundOutput = new Phonon::AudioOutput(Phonon::MusicCategory);
 
     Phonon::createPath(startupsound, startupsoundoutput);
 
@@ -42,8 +38,6 @@ sound_handler::sound_handler(){
     Phonon::createPath(highlightningsound, highlightningoutput);
     Phonon::createPath(buddyhostedsound, buddyhostedsoundoutput);
     Phonon::createPath(costumwordsound, costumwordsoundsoundoutput);
-
-    //Phonon::createPath(SoundObject, SoundOutput);
 }
 void sound_handler::init(){
     startupsound->setCurrentSource(
