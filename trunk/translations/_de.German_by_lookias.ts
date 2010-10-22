@@ -606,11 +606,11 @@ Wirklich löschen?</translation>
     <message>
         <location filename="../src/wormnet/emoticonhandler.cpp" line="95"/>
         <location filename="../src/wormnet/emoticonhandler.cpp" line="100"/>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="41"/>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="51"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="39"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="49"/>
         <location filename="../src/wormnet/leagueserverhandler.cpp" line="56"/>
         <location filename="../src/wormnet/leagueserverhandler.cpp" line="61"/>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="210"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="193"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="144"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="332"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="689"/>
@@ -1580,13 +1580,13 @@ If your nick got faked... bl :)</source>
 <context>
     <name>leagueserverhandler</name>
     <message>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="41"/>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="210"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="39"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="193"/>
         <source>Cant connect to %1 server, please try again at a later time.</source>
         <translation>Kann die Verbindung zu %1 nicht herstellen. Versuche es zu einem späteren Zeitpunkt noch einmal.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="51"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="49"/>
         <location filename="../src/wormnet/leagueserverhandler.cpp" line="61"/>
         <source>The Server %1 doesnt seem to support the secure logging.</source>
         <translation>Der Server %1 scheint das sichere Einloggen nicht zu unterstützen.</translation>
@@ -1597,14 +1597,9 @@ If your nick got faked... bl :)</source>
         <translation>Dein %1 Account scheint falsch zu sein, versuche es noch einmal.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="132"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="112"/>
         <source>Unable to get the user information from</source>
         <translation>Kann die Beneutzerdaten nicht Auslesen: </translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="136"/>
-        <source>unable to connect to</source>
-        <translation>Kann keine Verbindung aufbauen: </translation>
     </message>
 </context>
 <context>

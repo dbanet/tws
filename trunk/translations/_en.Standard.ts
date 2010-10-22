@@ -595,11 +595,11 @@ Do you want to delete it anyway</source>
     <message>
         <location filename="../src/wormnet/emoticonhandler.cpp" line="95"/>
         <location filename="../src/wormnet/emoticonhandler.cpp" line="100"/>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="41"/>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="51"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="39"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="49"/>
         <location filename="../src/wormnet/leagueserverhandler.cpp" line="56"/>
         <location filename="../src/wormnet/leagueserverhandler.cpp" line="61"/>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="210"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="193"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="144"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="332"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="689"/>
@@ -1574,13 +1574,13 @@ to change your nickname! If someone has taken your nick, we can&apos;t do anythi
 <context>
     <name>leagueserverhandler</name>
     <message>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="41"/>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="210"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="39"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="193"/>
         <source>Cant connect to %1 server, please try again at a later time.</source>
         <translation>Can&apos;t connect to %1 server, please try again later.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="51"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="49"/>
         <location filename="../src/wormnet/leagueserverhandler.cpp" line="61"/>
         <source>The Server %1 doesnt seem to support the secure logging.</source>
         <translation>The server %1 doesn&apos;t seem to support the secure logging.</translation>
@@ -1591,14 +1591,9 @@ to change your nickname! If someone has taken your nick, we can&apos;t do anythi
         <translation>Your %1 account seems to be wrong, please try again.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="132"/>
+        <location filename="../src/wormnet/leagueserverhandler.cpp" line="112"/>
         <source>Unable to get the user information from</source>
         <translation>Unable to get the profile from</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/leagueserverhandler.cpp" line="136"/>
-        <source>unable to connect to</source>
-        <translation>There was an error while connecting to</translation>
     </message>
 </context>
 <context>
