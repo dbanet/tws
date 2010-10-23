@@ -111,8 +111,7 @@ window::window(netcoupler *n, QString s, int i) :
     connect(net, SIGNAL(siggotchanellist(QStringList)),this, SLOT(getuserscount(QStringList)));
     ui.msg->setFocus(Qt::MouseFocusReason);
 
-    QVariantList windowstates = singleton<snpsettings>().map[this->currentchannel + ":"
-                                                             + QString::number(this->whichuiison)].toList();
+    QVariantList windowstates = singleton<snpsettings>().map[currentchannel + ":"+ QString::number(whichuiison)].toList();
     if (!windowstates.isEmpty()) {
         if (!windowstates.isEmpty())
             restoreGeometry(windowstates.takeFirst().toByteArray());
@@ -121,11 +120,17 @@ window::window(netcoupler *n, QString s, int i) :
         if (!windowstates.isEmpty())
             ui.splitter2->restoreState(windowstates.takeFirst().toByteArray());
         if (!windowstates.isEmpty())
-            ui.users->header()->restoreState(
-                    windowstates.takeFirst().toByteArray());
+            ui.users->header()->restoreState(windowstates.takeFirst().toByteArray());
         if (!windowstates.isEmpty())
-            ui.hosts->header()->restoreState(
-                    windowstates.takeFirst().toByteArray());
+            ui.hosts->header()->restoreState(windowstates.takeFirst().toByteArray());
+        if (!windowstates.isEmpty())
+            ui.hosts->header()->resizeSection(3,windowstates.takeFirst().toInt());
+        if (!windowstates.isEmpty())
+            ui.hosts->header()->resizeSection(4,windowstates.takeFirst().toInt());
+        if (!windowstates.isEmpty())
+            ui.users->header()->resizeSection(3,windowstates.takeFirst().toInt());
+        if (!windowstates.isEmpty())
+            ui.users->header()->resizeSection(4,windowstates.takeFirst().toInt());
     }
     ui.hosts->setColumnWidth(3, 16);
     ui.hosts->setColumnWidth(2, 22);
@@ -328,9 +333,11 @@ void window::closeEvent(QCloseEvent * /*event*/) {
     windowstates << ui.splitter2->saveState();
     windowstates << ui.users->header()->saveState();
     windowstates << ui.hosts->header()->saveState();
-
-    singleton<snpsettings>().map[this->currentchannel + ":" + QString::number(this->whichuiison)]
-            = windowstates;
+    windowstates << ui.hosts->header()->sectionSize(3);
+    windowstates << ui.hosts->header()->sectionSize(4);
+    windowstates << ui.users->header()->sectionSize(3);
+    windowstates << ui.users->header()->sectionSize(4);
+    singleton<snpsettings>().map[this->currentchannel + ":" + QString::number(whichuiison)]= windowstates;
 }
 void window::useritempressed(const QModelIndex &index) {
     if (!index.isValid())

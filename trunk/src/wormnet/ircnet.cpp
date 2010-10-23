@@ -1,7 +1,4 @@
 #include "ircnet.h"
-#include<QNetworkAccessManager>
-#include<QNetworkRequest>
-#include<QNetworkReply>
 #include<QFile>
 #include<QApplication>
 #include<QDir>

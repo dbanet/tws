@@ -19,7 +19,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>5</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -41,8 +41,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>473</width>
-                <height>474</height>
+                <width>948</width>
+                <height>469</height>
                </rect>
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_28">
@@ -74,22 +74,6 @@
                    </property>
                    <property name="text">
                     <string>Alert me on prvmsg from normal user.</string>
-                   </property>
-                   <property name="checked">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="chbactionwhenjoining">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string>Send action to channel when i join a game.</string>
                    </property>
                    <property name="checked">
                     <bool>false</bool>
@@ -240,8 +224,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>387</width>
-              <height>430</height>
+              <width>950</width>
+              <height>471</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -333,20 +317,6 @@
                  <property name="text">
                   <string>Dont open Chatwindows automaticly. Hide them to tray instead.
  (use this only when your game minimizes when chatwindows open)</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QCheckBox" name="chbhidechannelwindowsongame">
-                 <property name="text">
-                  <string>Hide all channelwindows to tray when starting a game.</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QCheckBox" name="chbdisconnectongame">
-                 <property name="text">
-                  <string>Disconnect from network when a game starts.</string>
                  </property>
                 </widget>
                </item>
@@ -479,6 +449,82 @@
              </layout>
             </item>
            </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_8">
+        <attribute name="title">
+         <string>Gaming</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QScrollArea" name="scrollArea_4">
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="scrollAreaWidgetContents_4">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>950</width>
+              <height>471</height>
+             </rect>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_12">
+             <item>
+              <widget class="QCheckBox" name="chbactionwhenjoining">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Send action to channel when i join a game.</string>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="chbhidechannelwindowsongame">
+               <property name="text">
+                <string>Hide all channelwindows to tray when starting a game.</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="chbdisconnectongame">
+               <property name="text">
+                <string>Disconnect from network when a game starts.</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cbshowipofhosts">
+               <property name="text">
+                <string>Show the ip of hosted games</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_6">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
           </widget>
          </item>
         </layout>
@@ -620,7 +666,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>373</width>
+              <width>933</width>
               <height>668</height>
              </rect>
             </property>

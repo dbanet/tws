@@ -55,6 +55,8 @@ void clantowebpagemapper::refresh(){
 }
 void clantowebpagemapper::httpFinished(){
     reply->deleteLater();
+    if(reply->error()!=QNetworkReply::NoError)
+        return;
     QStringList sl=file.split("\n");
     foreach(QString s,sl){
         if(s.isEmpty())

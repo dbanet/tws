@@ -77,6 +77,7 @@ mainwindow::mainwindow() {
     snpsetcontains("wormnetserverlist");    
     snpsetcontains("rank");
     snpsetcontains("leagueservers");
+    snpsetcontains("showinformation");
 
     ui.cbremember->setChecked(singleton<snpsettings>().map["chbremember"].value<bool> ());
     if (ui.cbremember->isChecked()) {
@@ -176,6 +177,7 @@ void mainwindow::chooseclicked() {
 
     singleton<snpsettings>().map["wormnetserverlist"] = refreshcombobox(ui.cbServerList);
     singleton<snpsettings>().map["leagueservers"]= refreshcombobox(ui.cbleagueservers);
+    singleton<snpsettings>().map["showinformation"]=ui.cbshowinformation->isChecked();
 
     singleton<snpsettings>().safe();    
     if(singleton<snpsettings>().map["enablesecurelogging"].toBool()){
@@ -378,6 +380,9 @@ void mainwindow::snpsetcontains(const QString &s) {
         bool b=singleton<snpsettings>().map["enablesecurelogging"].toBool();
         ui.cbenabletus->setChecked(b);
         on_cbenabletus_toggled(b);
+    } else if(s=="showinformation"){
+        bool b=singleton<snpsettings>().map["showinformation"].toBool();
+        ui.cbshowinformation->setChecked(b);
     }
 }
 void mainwindow::windowremoved(const QString &s) {

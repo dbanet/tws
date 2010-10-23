@@ -204,7 +204,8 @@ void usermodel::deleteignore(const QString &s) {
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
 int usermodel::columnCount(const QModelIndex & /*parent*/) const {
-
+    if(!singleton<snpsettings>().map["showinformation"].toBool())
+        return 4;
     return 5;
 }
 int usermodel::rowCount(const QModelIndex & parent) const {

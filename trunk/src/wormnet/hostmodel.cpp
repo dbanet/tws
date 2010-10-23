@@ -14,7 +14,7 @@
 hostmodel::hostmodel(QObject *parent) :
 	QAbstractItemModel(parent) {
 
-    stringnamelist << tr("Gamename") << tr("User") << "" << "" << tr("GameIp");
+    stringnamelist << tr("Gamename") << tr("User") << "" << "" <<  tr("GameIp");
     if (!channelicon.load(QApplication::applicationDirPath()
         + "/snppictures/channelicon.png"))
         myDebug() << QObject::tr("Some Pictures are missing!");
@@ -55,7 +55,8 @@ void hostmodel::sethoststruct(QList<hoststruct> l, QString chan) {
             hostmap[chan].count() - 1, 4, classes.indexOf(chan)));
 }
 int hostmodel::columnCount(const QModelIndex & /*parent*/) const {
-
+    if(!singleton<settingswindow>().from_map("cbshowipofhosts").toBool())
+        return 4;
     return 5;
 }
 int hostmodel::rowCount(const QModelIndex & parent) const {

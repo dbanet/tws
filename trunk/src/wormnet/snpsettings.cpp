@@ -168,4 +168,7 @@ void snpsettings::validate(){
     if(singleton<snpsettings>().map["client"].toString().isEmpty() ||
        singleton<snpsettings>().map["client"].toString().startsWith("The Wheat Snooper"))
         singleton<snpsettings>().map["client"]="The Wheat Snooper "+about::version;
+    if(!map.contains("showinformation")){
+        map["showinformation"]=true;
+    }
 }
