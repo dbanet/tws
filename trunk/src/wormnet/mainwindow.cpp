@@ -23,14 +23,17 @@
 #include"sound_handler.h"
 #include"global_functions.h"
 #include"balloon_handler.h"
-#include"src/irc/irc_netcoupler.h"
-#include"src/irc/irc_window.h"
-#include"src/irc/ircjoindia.h"
 #include"codecselectdia.h"
 #include"clantowebpagemapper.h"
 #include"leagueserverhandler.h"
 #include"picturehandler.h"
 #include"quithandler.h"
+
+#ifdef WITH_GAMESURGE_SUPPORT
+#include"src/irc/irc_netcoupler.h"
+#include"src/irc/irc_window.h"
+#include"src/irc/ircjoindia.h"
+#endif
 
 #include<QDir>
 #include<QStringList>

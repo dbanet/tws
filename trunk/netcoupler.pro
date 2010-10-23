@@ -57,8 +57,7 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/sound_handler.h \
     src/wormnet/global_functions.h \
     src/wormnet/combobox_wrapper.h \
-    src/wormnet/balloon_handler.h \
-    \    
+    src/wormnet/balloon_handler.h \    
     src/wormnet/codecselectdia.h \
     src/wormnet/clantowebpagemapper.h \
     src/wormnet/mydebugclass.h \
@@ -90,8 +89,8 @@ FORMS += src/wormnet/about.ui \
     src/wormnet/window2.ui \
     src/wormnet/window3.ui \
     src/wormnet/combobox_wrapper.ui \
-    \    
-    src/wormnet/codecselectdia.ui
+    src/wormnet/codecselectdia.ui \
+    \        
 
 SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/awaybox.cpp \
@@ -131,7 +130,6 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/sound_handler.cpp \
     src/wormnet/combobox_wrapper.cpp \
     src/wormnet/balloon_handler.cpp \
-    \    
     src/wormnet/codecselectdia.cpp \
     src/wormnet/clantowebpagemapper.cpp \
     src/wormnet/fakeObject.cpp \
@@ -146,7 +144,6 @@ RC_FILE = src/wormnet/myapp.rc
 TRANSLATIONS += \
     translations/The_Wheat_Snooper_spanish-(of_spain)_by_kosmos.ts \
     translations/The_Wheat_Snooper_untranslated.ts \
-    \
     translations/_da.Danish.ts \
     translations/_de.German_by_lookias.ts \
     translations/_es.Spanish_by_eViL.ts \

@@ -16,6 +16,8 @@
 #include<QFileDialog>
 #include<QDataStream>
 #include<QTranslator>
+#include<QLocale>
+
 extern QStringList defaultServerList;
 const QString Version_String="1";
 snpsettings::snpsettings(){}
