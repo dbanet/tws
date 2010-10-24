@@ -1,1 +1,0 @@
-move "The Wheat Snooper win32.exe" twsbeta.exe

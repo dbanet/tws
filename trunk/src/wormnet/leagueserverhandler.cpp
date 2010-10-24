@@ -7,7 +7,8 @@
 #include"global_functions.h"
 #include"quithandler.h"
 #include"mainwindow.h"
-#include<QNetworkReply>
+#include"mynetworkreply.h"
+
 #include<QMessageBox>
 #include<QUrl>
 #include<QTimer>
@@ -35,34 +36,29 @@ void leagueserverhandler::myconnect(const QString n,const QString p){
     connect(loginreply, SIGNAL(readyRead()),this, SLOT(loginReadyRead()));    
     connecttimer.start(5000);
 }
-void leagueserverhandler::logintTimeOut(){    
-    QMessageBox::information(0,QObject::tr("Warning"),tr("Cant connect to %1 server, please try again at a later time.").arg(servicename));
-    emit sigloginfailed();
-    loginreply->deleteLater();
+void leagueserverhandler::logintTimeOut(){        
+    qobject_cast<mynetworkreply*>(loginreply)->setError(QNetworkReply::TimeoutError);       //bad design?
 }
 void leagueserverhandler::loginFinished(){        
     connecttimer.stop();
-    loggingstate=true;    
     QStringList sl=connectresponse.split(" ",QString::SkipEmptyParts);
-    connectresponse.clear();    
-    if(sl.isEmpty() || loginreply->error() != QNetworkReply::NoError){
-        QMessageBox::information(0,QObject::tr("Warning"),tr("The Server %1 doesnt seem to support the secure logging.").arg(servicename));
+    if(sl.isEmpty() || loginreply->error() != QNetworkReply::NoError || sl.isEmpty()){
+        QMessageBox::information(0,QObject::tr("Warning"),tr("The Server %1 doesnt seem to support the secure logging feature.").arg(servicename));
         singleton<mainwindow>().show();
         singleton<mainwindow>().raise();
         emit sigloginfailed();
         return;
     }
+    loggingstate=true;        
+    connectresponse.clear();        
     if(sl.takeFirst()=="0"){
         QMessageBox::information(0,QObject::tr("Warning"),tr("Your %1 Account seems to be wrong, please try again.").arg(servicename));
         emit sigloginfailed();
         return;
-    }
-    if(sl.isEmpty()){
-        QMessageBox::information(0,QObject::tr("Warning"),tr("The Server %1 doesnt seem to support the secure logging.").arg(servicename));
-        emit sigloginfailed();
-        return;
-    }
-    nick=sl.takeFirst();        
+    }   
+    nick=sl.takeFirst();
+    if(nick.contains(" "))
+        QMessageBox::critical(0,"exception","nick in leagueserverhandler::finished contains whitespaces!!");
     startrefresh();
     emit sigloginsuccess();
     loginreply->deleteLater();
@@ -185,8 +181,7 @@ void leagueserverhandler::profile(QString n){
     QUrl url=serveraddress+"testlogin.php?profile="+n+";snooper";
     profilereply=qnam.get(QNetworkRequest(url));
     connect(profilereply, SIGNAL(finished()),this, SLOT(profileFinished()));
-    connect(profilereply, SIGNAL(readyRead()),this, SLOT(profileReadyRead()));
-    connect(profilereply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(profileerror(QNetworkReply::NetworkError)));
+    connect(profilereply, SIGNAL(readyRead()),this, SLOT(profileReadyRead()));    
 }
 void leagueserverhandler::profileFinished(){
     if(profilereply->error() != QNetworkReply::NoError){

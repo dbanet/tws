@@ -22,8 +22,8 @@ void quithandler::inducequit(){
         quit();
         return;
     }
-    singleton<netcoupler>().sendquit();
-    connect(&singleton<netcoupler>(),SIGNAL(sigdisconnected()),this,SLOT(quit()));        
+    connect(&singleton<netcoupler>(),SIGNAL(sigdisconnected()),this,SLOT(quit()));
+    singleton<netcoupler>().sendquit();   
 }
 void quithandler::beforequit(){    
     singleton<mainwindow>().quit();
