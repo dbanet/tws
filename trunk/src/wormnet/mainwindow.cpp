@@ -310,8 +310,8 @@ void mainwindow::returntologintab() {
         Q_ASSERT(w!=0);
         w->deleteLater();
     }
-    windowlist.clear();        
-    ui.tabWidget->setTabEnabled(1, 0);    
+    windowlist.clear();
+    ui.tabWidget->setTabEnabled(1, 0);
 }
 void mainwindow::changeEvent(QEvent * event) {
     if (event->type() == QEvent::WindowStateChange) {
@@ -429,7 +429,7 @@ void mainwindow::setlanguage(const QString &langfile) {
             w->close();
         }
         singleton<balloon_handler>().tray->hide();
-        QTimer::singleShot(100, qApp,SLOT(quit()));
+        singleton<quithandler>().inducequit();
     }
 }
 void mainwindow::awayboxok() {

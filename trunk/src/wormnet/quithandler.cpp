@@ -15,15 +15,15 @@ quithandler::quithandler(){
 }
 quithandler::~quithandler(){}
 
-void quithandler::inducequit(){
-    beforequit();
-    int state=singleton<netcoupler>().ircstate();
+void quithandler::inducequit(){    
+    beforequit();    
+    int state=singleton<netcoupler>().ircstate();    
     if(state!=QAbstractSocket::ConnectedState){
         quit();
         return;
     }
     connect(&singleton<netcoupler>(),SIGNAL(sigdisconnected()),this,SLOT(quit()));
-    singleton<netcoupler>().sendquit();   
+    singleton<netcoupler>().sendquit();
 }
 void quithandler::beforequit(){    
     singleton<mainwindow>().quit();
@@ -43,7 +43,7 @@ void quithandler::quit(){
         singleton<leagueserverhandler>().logout();
         return;
     }
-    this->disconnect();
-    QTimer::singleShot(0,qApp,SLOT(quit()));
+    this->disconnect();    
+    qApp->quit();
     return;
 }

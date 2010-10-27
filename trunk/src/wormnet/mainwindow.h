@@ -25,9 +25,7 @@ public:
     void fillsnpsettings();
     void quit();
 
-    DECLARE_SINGLETON(mainwindow);     
-public slots:
-    void returntologintab();
+    DECLARE_SINGLETON(mainwindow);         
 private:
     typedef ::window channelwindow;
     Ui::mainwindowClass ui;
@@ -62,6 +60,7 @@ private:
     QStringList lastOpenedChatWindows;
 
 private slots:
+    void returntologintab();
     void on_pbeditleagueprofile_clicked();
     void on_cbenabletus_toggled(bool checked);
     void on_pbjoin_clicked();

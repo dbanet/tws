@@ -24,7 +24,8 @@ leagueserverhandler::leagueserverhandler()
 }
 leagueserverhandler::~leagueserverhandler(){}
 
-void leagueserverhandler::login(QString n, QString p){
+void leagueserverhandler::login(QString n, QString p){    
+    map.clear();
     leagueloginnick=n;
     reset();
     myconnect(n,p);    

@@ -59,8 +59,7 @@ int main(int argc, char *argv[]) {
     handle_wini_ini();
 #endif
     singleton<snpsettings>();
-    singleton<settingswindow>();    
-    singleton<mainwindow>();
+    singleton<settingswindow>();        
     singleton<sound_handler>().init();
     volume->setvalue(singleton<snpsettings>().map["volumeslidervalue"].value<int> ());
     if (!singleton<snpsettings>().map["chbminimized"].value<bool> ()){
