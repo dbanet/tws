@@ -115,7 +115,7 @@ void buttonlayout::on_pbsort_clicked()
 void buttonlayout::leaguemenutriggered(QAction *action){
     if(action==NULL)
         return;
-    if(action->text()==tr("None")){
+    if(action->text()==tr("Off")){
         singleton<leagueserverhandler>().stoprefresh();
         singleton<snpsettings>().map["spectateleagueserver"]=false;
         return;
@@ -126,7 +126,7 @@ void buttonlayout::leaguemenutriggered(QAction *action){
     singleton<leagueserverhandler>().startrefresh();
 }
 void buttonlayout::fillleaguemenu(){
-    leaguemenu->addAction(tr("None"));
+    leaguemenu->addAction(tr("Off"));
     foreach(QString s,singleton<snpsettings>().map["leagueservers"].value<QStringList>()){
         leaguemenu->addAction(s);
     }

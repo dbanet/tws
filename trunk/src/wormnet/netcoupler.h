@@ -29,18 +29,15 @@ public:
     void sendnotice(const QString&,const QString&);
     void sendrawcommand(const QString&);
     void joinchannel(const QString&);
-    void partchannel(const QString&);
-    void createhost(const QString &name, const QString &chan);
-    void createprvhost(const QString &chan,const QString &scheme);
-    void sendHostInfoToChan(const QString &name,const QString &pwd, const QString &chan,const QString &flag);
+    void partchannel(const QString&);       
+    void sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,const QString &flag);
     void refreshlist();
-    void copyprvhosttoclipboard(const QString &);
-    void sendprvhosttobuddys(const QString &);
     void refreshwho();
     void setaway(const QString &);
     QString awaymessage;
     bool isaway;
     bool wasaway;
+    QString getmyhostip();
     QString nick;
     usermodel users;
     hostmodel hosts;
@@ -49,8 +46,7 @@ public:
 
     void settingswindowemitfunktion();
 
-    QStringList mutedusers;
-    QString myip;
+    QStringList mutedusers;    
     void sendquit();
     int ircstate();
 
@@ -74,7 +70,8 @@ signals:
     void signosuchnick(const QString&);
     void sigconnected();
     void sigdisconnected();  
-    //void siggethostlist(QList<hoststruct>,QString);
+
+    void sighoststarts(hoststruct);
 
 private:
     ircnet *irc;
@@ -96,6 +93,8 @@ private:
 
     QString getprocessstring();
     void startprocess(const QString&);
+    void createhost(hoststruct);
+    QString myip;
 public slots:
     void joingamelink(const QString &);
     void joingame(const QString &,const QString&,const QString&);
@@ -117,6 +116,10 @@ private slots:
     void readprocess();    
     void ircconnected();
     void ircdisconnected();
+
+    void getmywormnethost(hoststruct);
+
+    friend class userstruct;
 };
 
 #endif // NETCOUPLER_H

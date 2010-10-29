@@ -1,5 +1,17 @@
-#include "window.h"
+#include"window.h"
 #include"chatwindow.h"
+#include"snpsettings.h"
+#include"mainwindow.h"
+#include"chathandler.h"
+#include"hostbox.h"
+#include"settingswindow.h"
+#include"buttonlayout.h"
+#include"sound_handler.h"
+#include"global_functions.h"
+#include"clantowebpagemapper.h"
+#include"leagueserverhandler.h"
+
+
 #include<QHBoxLayout>
 #include<QHeaderView>
 #include<QFileDialog>
@@ -7,17 +19,6 @@
 #include<QKeyEvent>
 #include<QItemSelectionModel>
 #include<QItemSelection>
-#include "snpsettings.h"
-#include"mainwindow.h"
-#include"chathandler.h"
-#include"hostbox.h"
-#include"hostprvbox.h"
-#include"settingswindow.h"
-#include"buttonlayout.h"
-#include "sound_handler.h"
-#include"global_functions.h"
-#include"clantowebpagemapper.h"
-#include"leagueserverhandler.h"
 #include<QMessageBox>
 #include<QDate>
 #include<QScrollBar>
@@ -53,7 +54,7 @@ window::window(netcoupler *n, QString s, int i) :
     ui.buttonlayout->addWidget(buttons);
     ui.msg->installEventFilter(this);
     ui.users->installEventFilter(this);
-    connect(&singleton<netcoupler>().users, SIGNAL(sigselectitem(const QModelIndex&,const QWidget*)),this, SLOT(setselection(const QModelIndex&,const QWidget*)));
+    connect(&singleton<netcoupler>().users, SIGNAL(sigselectitem(const QModelIndex&,const QWidget*)),this, SLOT(setselection(const QModelIndex&,const QWidget*)));    
     chat = new chathandler(this, ui.chat, currentchannel);
     connect(chat, SIGNAL(sigopenchatwindow(const QString&)),this, SLOT(openchatwindow(const QString&)));
     connect(ui.send, SIGNAL(clicked()),ui.msg, SIGNAL(returnPressed()));
@@ -84,8 +85,7 @@ window::window(netcoupler *n, QString s, int i) :
     ui.hosts->header()->setSortIndicatorShown(0);
 
     joinmenu2.setTitle(tr("Join"));
-    hostmenu.addAction(tr("Host a game in ") + currentchannel);
-    hostmenu.addAction(tr("Host a private game"));
+    hostmenu.addAction(tr("Host a game in ") + currentchannel);    
     joinmenu.addMenu(&joinmenu2);
     usermenu.addAction(tr("Add this user to Buddylist."));
     usermenu.addAction(tr("Add this user to Ignorelist."));
@@ -520,7 +520,7 @@ void window::openchatwindow(const QString &s) {
                 w->raise();
                 qApp->setActiveWindow(w);
             }
-            singleton<mainwindow>().hiddenchatwindowshelper.removeAll(w);
+            qobjectwrapper<mainwindow>::ref().hiddenchatwindowshelper.removeAll(w);
             querylist.removeAll(s);
         }
         return;
@@ -537,16 +537,7 @@ void window::hostitempressed(const QModelIndex &index) {
                            + singleton<netcoupler>().schememap[currentchannel] + "\"";
         QString gamename = singleton<netcoupler>().hosts.gamename(index);
         if (index.internalId() == 999) {
-            QAction *a = hostmenu.exec((QCursor::pos()));
-            if (a != 0) {
-                if (a->text() == tr("Host a private game")) {
-                    hprvbox = new hostprvbox;
-                    hprvbox->show();
-                    connect(hprvbox, SIGNAL(sigok(const QString&)),this, SLOT(hboxprvok(const QString&)));
-                } else {
-                    openhbox();
-                }
-            }
+                       openhbox();
         } else {
             getjoinmenu();
             QAction *a = joinmenu.exec(QCursor::pos());
@@ -610,20 +601,8 @@ void window::hboxok() {
             flag = QString::number(u.flag);
         }
     }        
-    singleton<netcoupler>().sendHostInfoToChan(hbox->gamename, hbox->pwd, currentchannel, flag);
-    singleton<netcoupler>().createhost(hbox->gamename, currentchannel);
-
-    QString address=singleton<netcoupler>().myip;
-    if(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ())
-        address=singleton<snpsettings>().map["costumipforhosting"].value<QString>();
-    QString host = QString("wa://%1?gameid=999&scheme=%2").arg(address).arg(singleton<netcoupler>().schememap[currentchannel]);
-    QString msg = QString(" is hosting a game: %1, %2").arg(hbox->gamename).arg(host);
-    if (singleton<snpsettings>().map["chbsendhostinfotochan"].toBool())
-        singleton<netcoupler>().sendinfotochan(currentchannel, msg);
-    sender()->deleteLater();
-}
-void window::hboxprvok(const QString &scheme) {
-    singleton<netcoupler>().createprvhost(currentchannel, scheme);
+    singleton<netcoupler>().sendhostinfotoserverandhost(hbox->gamename, hbox->pwd, currentchannel, flag);
+    hbox->deleteLater();
 }
 void window::usesettingswindow(const QString &s) {
     if (s == "cbalertmeonnotice" || s == "")

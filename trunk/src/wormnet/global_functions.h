@@ -18,7 +18,6 @@ void safequerylist();
 void loadquerylist();
 void info(const QString &);
 void info(int);
-
 namespace {
     bool compareCI(const QString &s1, const QString &s2) {
         return s1.toLower() == s2.toLower();

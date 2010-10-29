@@ -1,4 +1,4 @@
-#include "leagueserverhandler.h"
+#include"leagueserverhandler.h"
 #include"myDebug.h"
 #include"singleton.h"
 #include"balloon_handler.h"
@@ -43,10 +43,10 @@ void leagueserverhandler::logintTimeOut(){
 void leagueserverhandler::loginFinished(){        
     connecttimer.stop();
     QStringList sl=connectresponse.split(" ",QString::SkipEmptyParts);
-    if(sl.isEmpty() || loginreply->error() != QNetworkReply::NoError || sl.isEmpty()){
-        QMessageBox::information(0,QObject::tr("Warning"),tr("The Server %1 doesnt seem to support the secure logging feature.").arg(servicename));
-        singleton<mainwindow>().show();
-        singleton<mainwindow>().raise();
+    if(sl.isEmpty() || loginreply->error() != QNetworkReply::NoError){
+        QMessageBox::information(0,QObject::tr("Warning"),tr("The Server %1 doesnt seem to support the secure logging feature.\n errormessage: %2").arg(servicename).arg(loginreply->errorString()));
+        qobjectwrapper<mainwindow>::ref().show();
+        qobjectwrapper<mainwindow>::ref().raise();
         emit sigloginfailed();
         return;
     }

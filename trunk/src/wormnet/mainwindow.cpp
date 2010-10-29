@@ -820,7 +820,6 @@ void mainwindow::reconnect(){
     singleton<netcoupler>().stop();
     QTimer::singleShot(2000, this, SLOT(chooseclicked()));
 }
-
 void mainwindow::on_pbsettings_clicked()
 {
     singleton<settingswindow>().show();

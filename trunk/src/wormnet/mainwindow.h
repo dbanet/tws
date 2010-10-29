@@ -1,12 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtGui/QWidget>
-#include "ui_mainwindow.h"
+#include"ui_mainwindow.h"
 #include"maintoolbox.h"
-#include"global_macros.h"
+#include"qobjectwrapper.h"
+
+#include <QtGui/QWidget>
 #include<QList>
-#include <QSystemTrayIcon>
+#include<QSystemTrayIcon>
 
 class window;
 class netcoupler;
@@ -16,7 +17,7 @@ class mainwindow : public QWidget
 {
     Q_OBJECT
 
-public:  
+public:      
     void appenddebugmessage(const QString &);
     QString debugmsg;
     QMap<QString,QString> rememberwhogotaway;
@@ -25,8 +26,12 @@ public:
     void fillsnpsettings();
     void quit();
 
-    DECLARE_SINGLETON(mainwindow);         
+public slots:
+    void returntologintab();
+
 private:
+    mainwindow();
+    ~mainwindow();
     typedef ::window channelwindow;
     Ui::mainwindowClass ui;
     //QList<chatwindow* > chatwindows;
@@ -59,8 +64,7 @@ private:
     QStringList lastOpenedWindows;
     QStringList lastOpenedChatWindows;
 
-private slots:
-    void returntologintab();
+private slots:    
     void on_pbeditleagueprofile_clicked();
     void on_cbenabletus_toggled(bool checked);
     void on_pbjoin_clicked();
@@ -108,6 +112,8 @@ protected:
     void closeEvent ( QCloseEvent * event );
 signals:
     void sigopenchatwindow(const QString&);
+
+    friend class qobjectwrapper<mainwindow>;
 };
 
 #endif // MAINWINDOW_H

@@ -19,7 +19,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>6</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -41,8 +41,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>535</width>
-                <height>446</height>
+                <width>473</width>
+                <height>438</height>
                </rect>
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_28">
@@ -224,8 +224,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>434</width>
-              <height>377</height>
+              <width>387</width>
+              <height>384</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -469,7 +469,7 @@
               <x>0</x>
               <y>0</y>
               <width>950</width>
-              <height>463</height>
+              <height>471</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -666,8 +666,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>427</width>
-              <height>715</height>
+              <width>373</width>
+              <height>668</height>
              </rect>
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_8">

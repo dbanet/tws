@@ -15,21 +15,18 @@ public:
     QString pwd;
     QString icon;
     const QString channel;
-    static bool dontStartGame;
-
 private:
     Ui::hostboxClass ui;
     QRegExpValidator *validator;
-private slots:
-        void on_pbshowdetails_clicked();
- void addclicked();
-	void okclicked();
-	void cancelclicked();
+private slots:  
+    void addclicked();
+    void okclicked();
+    void cancelclicked();
 protected:
-        bool eventFilter(QObject *obj, QEvent *event);
-	void showEvent ( QShowEvent * event );
+    bool eventFilter(QObject *obj, QEvent *event);
+    void showEvent ( QShowEvent * event );
 signals:
-	void sigok();
+    void sigok();
 };
 
 #endif // HOSTBOX_H

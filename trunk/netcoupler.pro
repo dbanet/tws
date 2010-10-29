@@ -32,7 +32,6 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/emoticonhandler.h \
     src/wormnet/hostbox.h \
     src/wormnet/hostmodel.h \
-    src/wormnet/hostprvbox.h \
     src/wormnet/hoststruct.h \
     src/wormnet/inihandlerclass.h \
     src/wormnet/ircnet.h \
@@ -66,7 +65,8 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/picturehandler.h \
     src/wormnet/quithandler.h \
     src/wormnet/mynetworkreply.h \
-    qobjectwrapper.h
+    src/qobjectwrapper.h \
+    src/wormnet/qobjectwrapper.h
 
 FORMS += src/wormnet/about.ui \
     src/wormnet/awaybox.ui \
@@ -78,7 +78,6 @@ FORMS += src/wormnet/about.ui \
     src/wormnet/emoticonhandler.ui \
     src/wormnet/filehistorylister.ui \
     src/wormnet/hostbox.ui \
-    src/wormnet/hostprvbox.ui \
     src/wormnet/joinprvgame.ui \
     src/wormnet/logbrowser.ui \
     src/wormnet/maintoolbox.ui \
@@ -108,7 +107,6 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/emoticonhandler.cpp \
     src/wormnet/hostbox.cpp \
     src/wormnet/hostmodel.cpp \
-    src/wormnet/hostprvbox.cpp \
     src/wormnet/hoststruct.cpp \
     src/wormnet/inihandlerclass.cpp \
     src/wormnet/ircnet.cpp \

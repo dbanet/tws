@@ -244,5 +244,41 @@
         <file>flags/za.png</file>
         <file>flags/zm.png</file>
         <file>flags/zw.png</file>
+        <file>ranks/a1.png</file>
+        <file>ranks/a2.png</file>
+        <file>ranks/a3.png</file>
+        <file>ranks/a4.png</file>
+        <file>ranks/a5.png</file>
+        <file>ranks/a6.png</file>
+        <file>ranks/a7.png</file>
+        <file>ranks/a8.png</file>
+        <file>ranks/a9.png</file>
+        <file>ranks/a10.png</file>
+        <file>ranks/a11.png</file>
+        <file>ranks/a12.png</file>
+        <file>ranks/b1.png</file>
+        <file>ranks/b2.png</file>
+        <file>ranks/b3.png</file>
+        <file>ranks/b4.png</file>
+        <file>ranks/b5.png</file>
+        <file>ranks/b6.png</file>
+        <file>ranks/b7.png</file>
+        <file>ranks/b8.png</file>
+        <file>ranks/b9.png</file>
+        <file>ranks/b10.png</file>
+        <file>ranks/b11.png</file>
+        <file>ranks/b12.png</file>
+        <file>ranks/c1.png</file>
+        <file>ranks/c2.png</file>
+        <file>ranks/c3.png</file>
+        <file>ranks/c4.png</file>
+        <file>ranks/c5.png</file>
+        <file>ranks/c6.png</file>
+        <file>ranks/c7.png</file>
+        <file>ranks/c8.png</file>
+        <file>ranks/c9.png</file>
+        <file>ranks/c10.png</file>
+        <file>ranks/c11.png</file>
+        <file>ranks/c12.png</file>
     </qresource>
 </RCC>

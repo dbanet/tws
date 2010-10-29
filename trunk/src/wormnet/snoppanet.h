@@ -1,13 +1,11 @@
 #ifndef SNOPPANET_H
 #define SNOPPANET_H
 
-#include <QObject>
+#include<QObject>
+#include<QNetworkAccessManager>
 #include<QNetworkReply>
 #include<QStringList>
 #include<QTimer>
-class QNetworkReply;
-class QNetworkAccessManager;
-class QTimer;
 class QSignalMapper;
 #include"hoststruct.h"
 class snoppanet : public QObject
@@ -22,51 +20,59 @@ public:
     void setchannellist(const QStringList&);
     void getscheme(QString);
     void sendhost(const QString &gamename,const QString &ip,const QString &nick,const QString &pwd,const QString &chan,const QString &flag);
-    void closehost(QStringList);
+    void closehost(hoststruct h);
+    void closelasthost();
 
 public slots:
     void refreshhostlist();
 
 signals: //public signals:
-	void sighostlist(QList<hoststruct>,QString);
+    void sighostlist(QList<hoststruct>,QString);
     void sigircip(QString);
     void sigchannelscheme(QString,QString);
-    void sighostwontstart();
+    void sighostwontstart();    
+    void sighoststarts(hoststruct);
 
 private:
-	QString temp;
-	QStringList templist;
-	QStringList currentchannellist;
-	QString url;
-	QString ircip;
-        QNetworkAccessManager manager;
-	QNetworkReply *reply;
-        QTimer hosttimer;
-	QMap<int,QString> channelmap;
+    void inithosting(QString url);
+    hoststruct findlasthost(QList<hoststruct> list);
+    QString temp;
+    QStringList templist;
+    QStringList currentchannellist;
+    QString htmladdress;
+    QString ircip;
+    QNetworkAccessManager manager;
+    QNetworkReply *reply;
+    QTimer hosttimer;
+    QMap<int,QString> channelmap;
 
-        QNetworkAccessManager schememanager;
-	QNetworkRequest schemerequest;
-	QNetworkReply *schemereply;
+    QNetworkReply *schemereply;
 
-        QNetworkAccessManager hostmanager;
-	QNetworkRequest hostrequest;
-	QNetworkReply *hostreply;
+    QNetworkReply *hostreply;
 
-	QString schemechannel;
-	QString scheme;
+    QNetworkReply *hostlistforhostingreply;
 
-	QSignalMapper *signalmapper;
-	QNetworkRequest request;
-	QList<QNetworkReply*> replylist;
-	QList<QNetworkRequest> requestlist;
-	bool gameliststarts;
+
+    QString schemechannel;
+    QString scheme;
+
+    QSignalMapper *signalmapper;
+    QNetworkRequest request;
+    QList<QNetworkReply*> replylist;
+    QList<QNetworkRequest> requestlist;
+    QList<hoststruct> hostlist;
+    bool gameliststarts;
+    hoststruct lasthost;
 private slots:
-	void readircip();
-	void httpError(QNetworkReply::NetworkError);
-	void hosttimeout();
-	void readgamelist(int);
-	void getscheme();
-	void readhostreply();
+    void readircip();
+    void httpError(QNetworkReply::NetworkError);
+    void hosttimeout();
+    void readgamelist(int);
+    void getscheme();
+    void readhostreply();
+
+    void hostlistforhostingreplyfinished();
+    void repeathostlistforhostingreplyrequest();
 };
 
 #endif // SNOPPANET_H

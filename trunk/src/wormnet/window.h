@@ -13,7 +13,6 @@
 #include"uihelper.h"
 class buttonlayout;
 class hostbox;
-class hostprvbox;
 class chathandler;
 class chatwindow;
 class window : public QWidget
@@ -54,7 +53,6 @@ private slots:
 
 
     void hboxok();
-    void hboxprvok(const QString&);
 
     void userselectionchanged(const QItemSelection&,const QItemSelection&);
     void setselection(const QModelIndex&,const QWidget*);
@@ -83,7 +81,6 @@ private:
     QMenu costumlistmenu;
 
     QPointer<hostbox> hbox;
-    QPointer<hostprvbox> hprvbox;
 
     void sendnoticeaction();
     void showInformationAboutClan(QString);

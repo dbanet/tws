@@ -39,14 +39,14 @@ void hostmodel::sethoststruct(QList<hoststruct> l, QString chan) {
         hostmap[chan].push_back(*i);
         if (!singleton<settingswindow>().from_map("chbshowbaloonwhenbuddyhosts").toBool())
             continue;
-        if (!singleton<snpsettings>().map["buddylist"].value<QStringList> ().contains(i->playername))
+        if (!singleton<snpsettings>().map["buddylist"].value<QStringList> ().contains(i->nick()))
             continue;
-        sl << i->playername;
-        if (buddyhosts[chan].contains(i->playername))   //if the host was allready alerted
+        sl << i->nick();
+        if (buddyhosts[chan].contains(i->nick()))   //if the host was allready alerted
             continue;
 
         singleton<sound_handler>().play_buddyhostedsound();
-        singleton<balloon_handler>().got_game(i->playername,i->gamename);
+        singleton<balloon_handler>().got_game(i->nick(),i->name());
 
     }
     buddyhosts[chan] = sl;
@@ -80,7 +80,7 @@ QVariant hostmodel::data(const QModelIndex & index, int role) const {
         } else if (index.column() == 0) {
             QString
                     s =
-                    hostmap[classes[index.internalId()]][index.row()].playername;
+                    hostmap[classes[index.internalId()]][index.row()].nick();
             if (singleton<snpsettings>().map["buddylist"].value<QStringList> ().contains(s))
                 return buddyhosticon;
             else if (singleton<snpsettings>().map["ignorelist"].value<QStringList> ().contains(s))
@@ -99,22 +99,22 @@ QVariant hostmodel::data(const QModelIndex & index, int role) const {
         switch (index.column()) {
         case 0:
             if (role == Qt::DisplayRole) {
-                return hostmap[classes[index.internalId()]][index.row()].gamename;
+                return hostmap[classes[index.internalId()]][index.row()].name();
             }
             break;
 		case 1:
             if (role == Qt::DisplayRole) {
-                return hostmap[classes[index.internalId()]][index.row()].playername;
+                return hostmap[classes[index.internalId()]][index.row()].nick();
             }
             break;
 		case 2:
             if (role == Qt::BackgroundRole) {
-                return *singleton<picturehandler>().getflag(hostmap[classes[index.internalId()]][index.row()].country);
+                return *singleton<picturehandler>().getflag(hostmap[classes[index.internalId()]][index.row()].country());
             }
             break;
 		case 3:
             if (role == Qt::BackgroundRole) {
-                if (hostmap[classes[index.internalId()]][index.row()].withkey)
+                if (hostmap[classes[index.internalId()]][index.row()].withkey())
                     return *singleton<picturehandler>().locked;
                 else
                     return *singleton<picturehandler>().unlocked;
@@ -122,7 +122,7 @@ QVariant hostmodel::data(const QModelIndex & index, int role) const {
             break;
 		case 4:
             if (role == Qt::DisplayRole)
-                return hostmap[classes[index.internalId()]][index.row()].gameip;
+                return hostmap[classes[index.internalId()]][index.row()].ip();
             break;
         }
     }
@@ -176,14 +176,14 @@ QModelIndex hostmodel::indexbychannelname(QString s) {
 QString hostmodel::joininfo(const QModelIndex &index) {
 
     if (index.internalId() != 999) {
-        return hostmap[classes[index.internalId()]][index.row()].joinstring;
+        return hostmap[classes[index.internalId()]][index.row()].joinstring();
     }
     return "";
 }
 QString hostmodel::gamename(const QModelIndex &index) {
 
     if (index.internalId() != 999) {
-        return hostmap[classes[index.internalId()]][index.row()].gamename;
+        return hostmap[classes[index.internalId()]][index.row()].name();
     }
     return "";
 }

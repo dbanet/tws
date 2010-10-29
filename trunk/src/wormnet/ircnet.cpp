@@ -10,7 +10,6 @@
 #include"settingswindow.h"
 #include "about.h"
 #include "codecselectdia.h"
-#include"mainwindow.h"
 #include"global_functions.h"
 #include"myDebug.h"
 #include"picturehandler.h"

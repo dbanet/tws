@@ -7,40 +7,33 @@
 #include<QKeyEvent>
 #include<QMessageBox>
 #include<QValidator>
-bool hostbox::dontStartGame=false;
-hostbox::hostbox(QString c, QWidget *parent) :QWidget(parent),
-channel(c) {
-    this->setObjectName("normalwidget");
+hostbox::hostbox(QString c, QWidget *parent) :
+        QWidget(parent),channel(c) {
     ui.setupUi(this);
+    this->setObjectName("normalwidget");
     QStringList sl = singleton<snpsettings>().map.value("joinstrings").value<QStringList> ();
     ui.icons->addItems(sl);
-    ui.cbip->setChecked(false);
-    if(singleton<snpsettings>().map.contains("useacostumipforhosting"))
-        ui.cbip->setChecked(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ());
+    ui.cbip->setChecked(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ());
     ui.leip->setText(singleton<snpsettings>().map["costumipforhosting"].value<QString>());
-    QString gamename=singleton<snpsettings>().map["legamename"].toString();
+
+    ui.legamename->setText(singleton<netcoupler>().nick);
+    QString gamename=singleton<snpsettings>().map["legamename"].toString();        
     if(!gamename.isEmpty())
         ui.legamename->setText(gamename);
-    else
-        ui.legamename->setText(singleton<netcoupler>().nick);
-    this->setWindowTitle(tr("Create a public game in")+" " + channel + ".");
+    setWindowTitle(tr("Create a public game in")+" " + channel + ".");
+    ui.chbsendhostinfotochan->setText(tr("Send hostinfo to %1.").arg(channel));
+
     connect(ui.add, SIGNAL(clicked()),this, SLOT(addclicked()));
     connect(ui.ok, SIGNAL(clicked()),this, SLOT(okclicked()));
     connect(ui.cancel, SIGNAL(clicked()),this, SLOT(cancelclicked()));
 
-    QRegExp regex;
-    regex.setPattern("\\S{30}");
-    ui.leplayername->setValidator(new QRegExpValidator(regex,0));
-
-    ui.chbsendhostinfotochan->setChecked(
-            singleton<snpsettings>().map["chbsendhostinfotochan"].toBool());
+    ui.chbsendhostinfotochan->setChecked(singleton<snpsettings>().map["chbsendhostinfotochan"].toBool());
     ui.leplayername->setText(singleton<snpsettings>().map["leplayername"].toString());
     ui.lehostport->setText(gethostport());
 
     ui.legamename->installEventFilter(this);
     ui.lehostport->installEventFilter(this);
     ui.leplayername->installEventFilter(this);
-    ui.detailsframe->hide();
     resize(9,9);
 }
 bool hostbox::eventFilter(QObject *obj, QEvent *event){
@@ -87,7 +80,6 @@ void hostbox::addclicked() {
     }
 }
 void hostbox::okclicked() {
-    dontStartGame=ui.cbDontStartGame->isChecked();
     sethostport(ui.lehostport->text());
     singleton<snpsettings>().map["leplayername"].setValue<QString> (ui.leplayername->text());
     singleton<snpsettings>().map["chbsendhostinfotochan"] = ui.chbsendhostinfotochan->isChecked();    
@@ -96,7 +88,7 @@ void hostbox::okclicked() {
     singleton<snpsettings>().map["legamename"]=ui.legamename->text();
     gamename = ui.legamename->text();
     gamename.replace(" ", "_");
-    pwd = ui.chbPassword->isChecked()==true?"true":"";
+    pwd = ui.lepassword->text();
     icon = ui.icons->currentText();
     QStringList sl = singleton<snpsettings>().map.value("joinstrings").value<QStringList> ();
     if (!sl.isEmpty()) {
@@ -106,19 +98,11 @@ void hostbox::okclicked() {
     }
     singleton<snpsettings>().safe();
     this->close();
-    this->deleteLater();
 }
 void hostbox::cancelclicked() {
     this->close();
     this->deleteLater();
 }
-
 hostbox::~hostbox() {
 
-}
-
-void hostbox::on_pbshowdetails_clicked()
-{
-    ui.detailsframe->show();
-    ui.pbshowdetails->hide();
 }

@@ -26,7 +26,7 @@ void quithandler::inducequit(){
     singleton<netcoupler>().sendquit();
 }
 void quithandler::beforequit(){    
-    singleton<mainwindow>().quit();
+    qobjectwrapper<mainwindow>::ref().quit();
     singleton<snpsettings>().safeonquit();
     singleton<snpsettings>().safe();
     singleton<clantowebpagemapper>().safe();

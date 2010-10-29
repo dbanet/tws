@@ -260,7 +260,7 @@ QString picturehandler::map_number_to_countrycode(const int i){
 }
 //----------------------------------------------------------------------------------------------
 int picturehandler::map_countrycode_to_number(const QString country){
-    int i=999;
+    int i=49;
     if (compareCI(country, "UK"))
         i = 0;
     else if (compareCI(country , "AR"))
@@ -365,5 +365,7 @@ int picturehandler::map_countrycode_to_number(const QString country){
         i = 50;
     else if (compareCI(country , "e"))
         i = 51;    
+    else if (compareCI(country , "e"))
+        i = 52;
     return i;
 }

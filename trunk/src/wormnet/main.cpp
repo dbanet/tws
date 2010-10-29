@@ -1,23 +1,24 @@
-#include "netcoupler.h"
-#include "window.h"
-#include "mainwindow.h"
-#include "snpsettings.h"
-#include "charformatsettings.h"
-#include <QtGui>
-#include <QApplication>
-#include<QPlastiqueStyle>
-#include<QTextStream>
-#include<QTextCodec>
-#include<QDir>
+#include"netcoupler.h"
+#include"window.h"
+#include"mainwindow.h"
+#include"snpsettings.h"
+#include"charformatsettings.h"
 #include"settingswindow.h"
 #include"volumeslider.h"
 #include"playername.h"
-#include "sound_handler.h"
+#include"sound_handler.h"
 #include"global_functions.h"
 #include"codecselectdia.h"
 #include"clantowebpagemapper.h"
 #include"picturehandler.h"
 #include"myDebug.h"
+
+#include<QtGui>
+#include<QApplication>
+#include<QPlastiqueStyle>
+#include<QTextStream>
+#include<QTextCodec>
+#include<QDir>
 
 #ifdef Q_WS_WIN
 #include <dir.h>
@@ -32,14 +33,15 @@ void handle_prosnooper_buddys();
 void handle_wini_ini();
 void get_picutres();
 int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
+    QApplication a(argc, argv);    
     a.setQuitOnLastWindowClosed(false);
-    volume = new volumeslider;
-    singleton<picturehandler>();
+    volume = new volumeslider;    
     a.setApplicationName("The Wheat Snooper");
     chdir(qPrintable(QApplication::applicationDirPath()));
     singleton<snpsettings>().load();
+    singleton<settingswindow>();
     singleton<clantowebpagemapper>().load();
+    singleton<picturehandler>();
     if(singleton<snpsettings>().map["textcodec"].toString().isEmpty()){
         CodecSelectDia::codec=QTextCodec::codecForLocale();
         singleton<snpsettings>().map["textcodec"]=CodecSelectDia::codec->name();
@@ -57,18 +59,17 @@ int main(int argc, char *argv[]) {
     search_for_game_executables();
     handle_prosnooper_buddys();
     handle_wini_ini();
-#endif
-    singleton<snpsettings>();
-    singleton<settingswindow>();        
+#endif                   
     singleton<sound_handler>().init();
-    volume->setvalue(singleton<snpsettings>().map["volumeslidervalue"].value<int> ());
+    qobjectwrapper<mainwindow> w;
+    volume->setvalue(singleton<snpsettings>().map["volumeslidervalue"].value<int> ());        
     if (!singleton<snpsettings>().map["chbminimized"].value<bool> ()){
-        singleton<mainwindow>().show();
+        w.ref().show();
     }
 
     loadusergarbage();
     loadquerylist();       
-    QTimer::singleShot(1000,&singleton<sound_handler>(),SLOT(play_startupsound()));
+    QTimer::singleShot(1000,&singleton<sound_handler>(),SLOT(play_startupsound()));    
     return a.exec();
 }
 void handle_wini_ini(){
