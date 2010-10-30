@@ -39,29 +39,22 @@ signals:
     void siglogout();
     void sigprofile(QString);
 private slots:
-    void loginFinished();
-    void loginReadyRead();
+    void loginFinished();   
     void logintTimeOut();    
 
-    void refreshFinished();
-    void refreshReadyRead();
+    void refreshFinished();    
     void refresh();    
-
-    void logoutFinished();
-    void logoutReadyRead();    
-
+    void logoutFinished();      
     void profileFinished();
-    void profileReadyRead();    
+
 private:
     void myconnect(QString p,QString n);
+
     QNetworkAccessManager qnam;
     QNetworkReply *loginreply;
     QNetworkReply *refreshreply;
     QNetworkReply *logoutreply;
-    QNetworkReply *profilereply;
-    QString connectresponse;
-    QString refreshresponse;
-    QString profileresponse;
+    QNetworkReply *profilereply;    
 
     QString servicename;
 

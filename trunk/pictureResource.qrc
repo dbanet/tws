@@ -280,5 +280,7 @@
         <file>ranks/c10.png</file>
         <file>ranks/c11.png</file>
         <file>ranks/c12.png</file>
+        <file>flags/che.png</file>
+        <file>flags/sco.png</file>
     </qresource>
 </RCC>

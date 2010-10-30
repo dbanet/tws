@@ -212,6 +212,7 @@ void settingswindow::loadDefaults(){
     map["sbhostrepead"].setValue<int>(15000);
     map["sbmaximumoftextblocks"].setValue<int>(500);
     map["sbsecureloggingrepeatdelay"].setValue<int>(10*100);
+     map["cbonlyshowranksfromverifiedusers"]=true;
 }
 void settingswindow::checkValidEntries(){
     if(map["lestartup"].toString().startsWith("wav/"))

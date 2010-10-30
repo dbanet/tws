@@ -160,7 +160,7 @@ void mainwindow::connectToNetwork(){
 void mainwindow::chooseclicked() {
     if(ui.tabWidget->currentIndex()!=0)
         return;
-    if (ui.lenick->text().isEmpty()){
+    if (ui.lenick->text().isEmpty() && !ui.cbenabletus->isChecked()){
         QMessageBox::warning(this,tr("Nickname field is empty"),tr("Please choose a nickname."),QMessageBox::Ok);
         return;
     }
@@ -186,8 +186,14 @@ void mainwindow::chooseclicked() {
     if(singleton<snpsettings>().map["enablesecurelogging"].toBool()){
         setleague();
         singleton<leagueserverhandler>().login(ui.letuslogin->text(),ui.letuspassword->text());
-    } else
+    } else {
+//        if(singleton<snpsettings>().map["spectatingneversettedoff"].toBool()){
+//            singleton<snpsettings>().map["spectateleagueserver"]=true;
+//            singleton<leagueserverhandler>().setleague("http://www.tus-wa.com/","http://www.tus-wa.com/");
+//            singleton<leagueserverhandler>().startrefresh();
+//        }
         connectToNetwork();    
+    }
 }
 void mainwindow::setleague(){
     QString item=ui.cbleagueservers->currentText();

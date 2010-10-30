@@ -65,7 +65,6 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/picturehandler.h \
     src/wormnet/quithandler.h \
     src/wormnet/mynetworkreply.h \
-    src/qobjectwrapper.h \
     src/wormnet/qobjectwrapper.h
 
 FORMS += src/wormnet/about.ui \

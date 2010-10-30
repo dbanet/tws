@@ -173,4 +173,6 @@ void snpsettings::validate(){
     if(!map.contains("showinformation")){
         map["showinformation"]=true;
     }
+    if(!map.contains("spectatingneversettedoff"))
+        map["spectatingneversettedoff"]=true;
 }

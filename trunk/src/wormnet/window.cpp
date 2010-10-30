@@ -494,8 +494,9 @@ void window::getuserinfo(const QString &s) {
             QDesktopServices::openUrl(QUrl(url));
             return;
         }
-        msg=tr("Sry but there is no webside for this user available, at %1.\n").arg(singleton<leagueserverhandler>().service_name());
-
+        QString service=singleton<leagueserverhandler>().service_name();
+        msg=tr("Sry but there is no webside for this user available, at ")+service;
+        myDebug()<<msg;
     }
     foreach(QString chat,chatwindowstringlist) {
         if (compareCI(chat, s)) {

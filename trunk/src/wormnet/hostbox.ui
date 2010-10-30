@@ -29,9 +29,9 @@ qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 r
    <item>
     <layout class="QGridLayout" name="gridLayout" columnstretch="0,6,6">
      <item row="0" column="0">
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="lgamename">
        <property name="text">
-        <string>Gamename</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -117,7 +117,7 @@ qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 r
       </layout>
      </item>
      <item row="6" column="0">
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="lnick">
        <property name="frameShape">
         <enum>QFrame::NoFrame</enum>
        </property>
@@ -133,9 +133,9 @@ qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 r
       <widget class="QLineEdit" name="leplayername"/>
      </item>
      <item row="7" column="0">
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="lgameip">
        <property name="text">
-        <string>GameIp</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -178,7 +178,7 @@ qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 r
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="label_7">
+      <widget class="QLabel" name="lpwd">
        <property name="text">
         <string>Password</string>
        </property>

@@ -14,7 +14,7 @@
 hostmodel::hostmodel(QObject *parent) :
 	QAbstractItemModel(parent) {
 
-    stringnamelist << tr("Gamename") << tr("User") << "" << "" <<  tr("GameIp");
+    stringnamelist << QObject::tr("Gamename") << QObject::tr("User") << "" << "" <<  QObject::tr("GameIp");
     if (!channelicon.load(QApplication::applicationDirPath()
         + "/snppictures/channelicon.png"))
         myDebug() << QObject::tr("Some Pictures are missing!");

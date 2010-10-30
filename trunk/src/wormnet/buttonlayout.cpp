@@ -80,7 +80,6 @@ void buttonlayout::on_pbcostumwords_clicked()
     else
         ui.pbcostumwords->setText(QObject::tr("Costum words")+" "+QObject::tr("off"));
 }
-
 void buttonlayout::on_pbsound_clicked()
 {
     bool b=singleton<settingswindow>().from_map("cbdontplaysound").toBool();
@@ -91,7 +90,6 @@ void buttonlayout::on_pbsound_clicked()
         ui.pbsound->setText(QObject::tr("Sound")+" "+QObject::tr("on"));
 
 }
-
 void buttonlayout::on_pbballoon_clicked()
 {
     bool b=singleton<settingswindow>().from_map("cbdontshowballoons").toBool();
@@ -100,9 +98,7 @@ void buttonlayout::on_pbballoon_clicked()
         ui.pbballoon->setText(QObject::tr("Balloons")+" "+QObject::tr("off"));
     else
         ui.pbballoon->setText(QObject::tr("Balloons")+" "+QObject::tr("on"));
-
 }
-
 void buttonlayout::on_pbsort_clicked()
 {
     bool b=singleton<settingswindow>().from_map("cbdontsortinchannels").toBool();
@@ -116,6 +112,7 @@ void buttonlayout::leaguemenutriggered(QAction *action){
     if(action==NULL)
         return;
     if(action->text()==tr("Off")){
+        singleton<snpsettings>().map["spectatingneversettedoff"]=false;
         singleton<leagueserverhandler>().stoprefresh();
         singleton<snpsettings>().map["spectateleagueserver"]=false;
         return;

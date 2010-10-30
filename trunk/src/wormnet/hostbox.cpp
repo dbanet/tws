@@ -10,7 +10,11 @@
 hostbox::hostbox(QString c, QWidget *parent) :
         QWidget(parent),channel(c) {
     ui.setupUi(this);
-    this->setObjectName("normalwidget");
+    setObjectName("normalwidget");
+
+    ui.lgamename->setText(QObject::tr("Gamename"));
+    ui.lgameip->setText(QObject::tr("GameIp"));
+
     QStringList sl = singleton<snpsettings>().map.value("joinstrings").value<QStringList> ();
     ui.icons->addItems(sl);
     ui.cbip->setChecked(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ());

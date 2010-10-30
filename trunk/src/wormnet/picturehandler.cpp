@@ -24,7 +24,7 @@ picturehandler::picturehandler(){
     foreach(QString f,dir.entryList(QStringList()<<"*.png",QDir::Files,QDir::Name)) {
         ranklist.push_back(new QPixmap(dir.path() + "/" + f));
     }
-    dir.setPath(":/tusranks");
+    dir.setPath(":/ranks");
     foreach(QString f,dir.entryList(QStringList()<<"*.png",QDir::Files,QDir::Name)) {
         leagueranklist[QString(f).remove(".png",Qt::CaseInsensitive)]=new QPixmap(dir.path() + "/" + f);
     }
@@ -367,5 +367,65 @@ int picturehandler::map_countrycode_to_number(const QString country){
         i = 51;    
     else if (compareCI(country , "e"))
         i = 52;
+    else if (compareCI(country , "CS"))
+        i = 54;
+    else if (compareCI(country , "SI"))
+        i = 55;
+    else if (compareCI(country , "LB"))
+        i = 56;
+    else if (compareCI(country , "MD"))
+        i = 57;
+    else if (compareCI(country , "UA"))
+        i = 58;
+    else if (compareCI(country , "LV"))
+        i = 59;
+    else if (compareCI(country , "SK"))
+        i = 60;
+    else if (compareCI(country , "CR"))
+        i = 61;
+    else if (compareCI(country , "EE"))
+        i = 62;
+    else if (compareCI(country , "CN"))
+        i = 63;
+    else if (compareCI(country , "CO"))
+        i = 64;
+    else if (compareCI(country , "EC"))
+        i = 65;
+    else if (compareCI(country , "UY"))
+        i = 66;
+    else if (compareCI(country , "VE"))
+        i = 67;
+    else if (compareCI(country , "LT"))
+        i = 68;
+    else if (compareCI(country , "BG"))
+        i = 69;
+    else if (compareCI(country , "EG"))
+        i = 70;
+    else if (compareCI(country , "SA"))
+        i = 71;
+    else if (compareCI(country , "KR"))
+        i = 72;
+    else if (compareCI(country , "BY"))
+        i = 73;
+    else if (compareCI(country , "PE"))
+        i = 74;
+    else if (compareCI(country , "DZ"))
+        i = 75;
+    else if (compareCI(country , "KZ"))
+        i = 76;
+    else if (compareCI(country , "SV"))
+        i = 77;
+    else if (compareCI(country , "TW"))
+        i = 78;
+    else if (compareCI(country , "JM"))
+        i = 79;
+    else if (compareCI(country , "GT"))
+        i = 80;
+    else if (compareCI(country , "MH"))
+        i = 81;
+    else if (compareCI(country , "MK"))
+        i = 82;
+    else if (compareCI(country , "AE"))
+        i = 83;
     return i;
 }
