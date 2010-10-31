@@ -15,14 +15,14 @@ class leagueserverhandler : public QObject
     Q_OBJECT
 public:
     enum {
-        e_truenick=0, e_rank, e_flag, e_webpage, e_clan
+        e_truenick=0, e_rank, e_flag, e_webpage, e_clan, e_ranktooltip
     };    
     void login(const QString n,const QString p);
     void logout();
     void startrefresh();
     void stoprefresh();
     void profile(QString n);
-    void setleague(const QString league, const QString server);
+    void setleague(const QString league, QString server);
     int map_at_toInt(const QString key,const int i);
     QString map_at_toString(const QString key,const int i);
     bool contains_key(QString key);

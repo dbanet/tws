@@ -156,34 +156,35 @@ void snoppanet::getscheme() {
         schemereply = 0;
     }
 }
-void snoppanet::sendhost(const QString &gamename, const QString &ip,
-                         const QString &nick, const QString &pwd, const QString &chan,
-                         const QString &flag) {
-    lasthost.sethost(QStringList()<<gamename<<nick<<ip<<""<<""<<""<<"");
-    lasthost.setpwd(pwd);
-    closehost(findlasthost(hostlist));                   //delete duplicated hosts
-
+void snoppanet::sendhost(hoststruct h) {
+    lasthost=h;
+    closehostandstartlasthost(findduplicatedhosts(hostlist));
+}
+void snoppanet::sendhostrequest(){
     QNetworkRequest hostrequest = inihandler.requestfromini("[http get host header]");
-    QString s = htmladdress + "/wormageddonweb/Game.asp?Cmd=Create&Name=" + gamename
-                + "&HostIP=" + ip + "&Nick=" + nick + "&Pwd=" + pwd + "&Chan="
-                + QString(chan).remove("#") + "&Loc=" + flag + "&Type=0&Pass=0";
+    QString s = htmladdress + "/wormageddonweb/Game.asp?Cmd=Create&Name=" + lasthost.name()
+                + "&HostIP=" + lasthost.ip() + "&Nick=" + lasthost.nick() + "&Pwd=" + lasthost.pwd() + "&Chan="
+                + QString(lasthost.chan()).remove("#") + "&Loc=" + lasthost.flagstring() + "&Type=0&Pass=0";
     QString port=gethostport();
     if(port!="")
-        s = htmladdress + "/wormageddonweb/Game.asp?Cmd=Create&Name=" + gamename
-            + "&HostIP=" + ip+":"+port + "&Nick=" + nick + "&Pwd=" + pwd + "&Chan="
-            + QString(chan).remove("#") + "&Loc=" + flag + "&Type=0&Pass=0";
+        s = htmladdress + "/wormageddonweb/Game.asp?Cmd=Create&Name=" + lasthost.name()
+            + "&HostIP=" + lasthost.ip()+":"+port + "&Nick=" + lasthost.nick() + "&Pwd=" + lasthost.pwd() + "&Chan="
+            + QString(lasthost.chan()).remove("#") + "&Loc=" + lasthost.flagstring() + "&Type=0&Pass=0";
     hostrequest.setUrl(s);
     hostreply = manager.get(hostrequest);
     connect(hostreply, SIGNAL(finished()),this, SLOT(readhostreply()));
 }
-void snoppanet::closehost(hoststruct h) {
-    if (!h.isvalid())
+void snoppanet::closehostandstartlasthost(hoststruct h) {
+    if (!h.isvalid()){
+        sendhostrequest();
         return;
+    }
     QNetworkRequest hostrequest = inihandler.requestfromini("[http get host header]");
     QString s = htmladdress + "/wormageddonweb/Game.asp?Cmd=Close&GameID=" + h.id()
                 + "&Name=" + h.name() + "&HostID=&GuestID=&GameType=0";
     hostrequest.setUrl(s);
-    hostreply = manager.get(hostrequest);
+    closehostreply = manager.get(hostrequest);
+    connect(closehostreply,SIGNAL(finished()),this,SLOT(closehostreplyfinished()));
 }
 void snoppanet::closelasthost() {
     hoststruct h=lasthost;
@@ -191,7 +192,12 @@ void snoppanet::closelasthost() {
     QString s = htmladdress + "/wormageddonweb/Game.asp?Cmd=Close&GameID=" + h.id()
                 + "&Name=" + h.name() + "&HostID=&GuestID=&GameType=0";
     hostrequest.setUrl(s);
-    hostreply = manager.get(hostrequest);
+    closehostreply = manager.get(hostrequest);
+}
+void snoppanet::closehostreplyfinished(){
+    if(closehostreply->error()!=QNetworkReply::NoError)
+        return;
+    QTimer::singleShot(1000,this,SLOT(sendhostrequest()));
 }
 void snoppanet::refreshhostlist() {
     if (hostreply != 0) {
@@ -244,7 +250,7 @@ void snoppanet::hostlistforhostingreplyfinished(){
     }
     QString s=hostlistforhostingreply->readAll();
     QList<hoststruct> list=hoststruct::extracthostlist(s);
-    hoststruct h=findlasthost(list);
+    hoststruct h=findduplicatedhosts(list);
     if(h.isvalid()){
         emit sighoststarts(h);
         counter=0;
@@ -257,7 +263,7 @@ void snoppanet::hostlistforhostingreplyfinished(){
     counter++;
     QTimer::singleShot(counter*500,this,SLOT(repeathostlistforhostingreplyrequest()));
 }
-hoststruct snoppanet::findlasthost(QList<hoststruct> list){
+hoststruct snoppanet::findduplicatedhosts(QList<hoststruct> list){
     foreach(hoststruct h,list){
         if(startswithCI(h.ip(),singleton<netcoupler>().getmyhostip())){
             return h;
@@ -265,7 +271,6 @@ hoststruct snoppanet::findlasthost(QList<hoststruct> list){
     }
     return hoststruct();
 }
-
 void snoppanet::repeathostlistforhostingreplyrequest(){
     hostlistforhostingreply->deleteLater();
     hostlistforhostingreply=manager.get(hostlistforhostingreply->request());

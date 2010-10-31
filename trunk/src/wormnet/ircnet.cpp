@@ -18,11 +18,9 @@ extern inihandlerclass inihandler;
 extern QMap<QString, QStringList> usergarbagemap;
 ircnet::ircnet(QString s, QObject *parent) :
 	QObject(parent), tcp(new QTcpSocket(this)) {    
-    QStringList sl;
     nick = s;
     connect(tcp, SIGNAL(readyRead()),this, SLOT(tcpread()));
     whoreceivedcompletely = 1;
-
 }
 void ircnet::setip(const QString &ip) {
     wnip = ip;
@@ -63,8 +61,8 @@ void ircnet::connected() {
     s.append(singleton<snpsettings>().map["clan"].value<QString> () + " ");    
     s.append(sl.takeFirst() + " ");
     s.append(sl.takeFirst() + " :");
-    QString flag=singleton<snpsettings>().map["countrycode"].toString();
-    s.append(QString::number(singleton<picturehandler>().map_countrycode_to_number(flag))+ " ");
+    QString flag=singleton<snpsettings>().map["countrycode"].toString().toUpper();
+    s.append(singleton<picturehandler>().map_countrycode_to_number(flag)+ " ");
     int i=singleton<snpsettings>().map["rank"].value<QString> ().toInt();
     s.append(QString::number(i) + " ");
     s.append(flag+" ");
@@ -72,6 +70,7 @@ void ircnet::connected() {
     tcp_write(s);
     tcp_write("list");
     emit sigconnected();
+    who();
 }
 void ircnet::tcpread() {
     ircreadstring.append(CodecSelectDia::codec->toUnicode(tcp->readAll()));
@@ -212,9 +211,14 @@ void ircnet::readservermassege(QString s) {
                 emit signosuchnick(s);
             }
             break;
-        case 433: //nickname allready in use            
-            QMessageBox::information(0,tr("Nickname collision!"),
-                                     tr("The server things that your nickname is allready in use. This is usually caused by a uncomplete logout at the last session. If its like that you have to wait a few seconds or change your nickname! \n\nIf your nick got faked... bl :)"),
+        case 433: //nickname allready in use
+            if(singleton<snpsettings>().map["enablesecurelogging"].toBool())
+                QMessageBox::information(0,tr("Nickname collision!"),
+                                     tr("Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again."),
+                                     QMessageBox::Ok);
+            else
+                QMessageBox::information(0,tr("Nickname collision!"),
+                                     tr("Your nickname is already in use. You can wait some minutes or change your nickname and try again."),
                                      QMessageBox::Ok);
             tcp->disconnect();
             break;

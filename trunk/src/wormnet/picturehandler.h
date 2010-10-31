@@ -15,7 +15,7 @@ public:
     void fillflags(QComboBox *cb);
     void fillranks(QComboBox *cb);
     QVariant getflag(const userstruct &u) const;
-    int map_countrycode_to_number(const QString country);
+    QString map_countrycode_to_number(QString country);
     QString map_number_to_countrycode(const int i);
     int ranklistsize();
 

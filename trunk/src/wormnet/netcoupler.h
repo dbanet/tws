@@ -30,7 +30,7 @@ public:
     void sendrawcommand(const QString&);
     void joinchannel(const QString&);
     void partchannel(const QString&);       
-    void sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,const QString &flag);
+    void sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,int flag);
     void refreshlist();
     void refreshwho();
     void setaway(const QString &);

@@ -65,6 +65,7 @@ private:
     QStringList lastOpenedChatWindows;
 
 private slots:    
+    void on_cbleagueservers_activated(QString );
     void on_pbeditleagueprofile_clicked();
     void on_cbenabletus_toggled(bool checked);
     void on_pbjoin_clicked();
@@ -105,7 +106,7 @@ private slots:
 
     void currenttabchanged(int);
 
-    void leagueserverprofilepage(QString);
+    void leagueserverprofilepage(QString);    
 
 protected:
     void changeEvent (QEvent*);

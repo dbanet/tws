@@ -23,7 +23,6 @@ extern volumeslider *volume;
 extern inihandlerclass inihandler;
 namespace looki {
     QString currentchannel;
-    bool iswormkitgame = 0;
 }
 netcoupler::netcoupler() {
     connectstate=e_stoped;
@@ -74,7 +73,6 @@ void netcoupler::start(QString nick){
     }
     isaway = 0;
 }
-
 netcoupler::~netcoupler() {        
     irc->deleteLater();
     http->deleteLater();    
@@ -202,7 +200,6 @@ void netcoupler::joingamelink(const QString &gamelink) {
     QString temp = getprocessstring();
     temp = temp + " \"" + gamelink + "\"";
     startprocess(temp);
-    setaway();
 }
 void netcoupler::joingame(const QString &hostinfo, const QString &channel,
                           const QString &gamename) {
@@ -210,7 +207,6 @@ void netcoupler::joingame(const QString &hostinfo, const QString &channel,
     QString temp = getprocessstring();
     temp = temp + hostinfo;
     startprocess(temp);
-    setaway();
     if (singleton<settingswindow>().from_map("chbactionwhenjoining").toBool())
         sendinfotochan(channel, " is joining a game: " + gamename);
 }
@@ -221,20 +217,20 @@ void netcoupler::createhost(hoststruct h) {
     if (temp == "")
         return;
     QString s;
-    if(!h.pwd().isEmpty())
-        s="&password="+h.pwd();
+    if(!http->lasthost.pwd().isEmpty())
+        s="&password="+http->lasthost.pwd();
     temp = temp + " \"" + "wa://" + "?gameid="+ h.id() + "&scheme="
            + schememap[looki::currentchannel] + s+"\"";
     startprocess(temp);
-    setaway();
 }
-void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,const QString &flag){
+void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,int flag){
     looki::currentchannel=chan;
-    QString address=getmyhostip();
-    QString nickname=nick;
+    QString nick=this->nick;
     if (!singleton<snpsettings>().map["leplayername"].toString().isEmpty())
-        nickname=singleton<snpsettings>().map["leplayername"].toString();
-    http->sendhost(name, address,nickname, pwd, chan, flag);
+        nick=singleton<snpsettings>().map["leplayername"].toString();
+    hoststruct h;
+    h.sethost(name,nick,getmyhostip(),flag,"??","",pwd,chan);
+    http->sendhost(h);
     connect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));
 }
 void netcoupler::getmywormnethost(hoststruct h){
@@ -243,7 +239,7 @@ void netcoupler::getmywormnethost(hoststruct h){
     QString host = QString("wa://%1?gameid="+h.id()+"&scheme=%2").arg(address).arg(schememap[looki::currentchannel]);
     QString msg = QString(" is hosting a game: %1, %2").arg(h.name()).arg(host);
     if (singleton<snpsettings>().map["chbsendhostinfotochan"].toBool())
-        sendinfotochan(looki::currentchannel, msg);    
+        sendinfotochan(looki::currentchannel, msg);
     createhost(h);
 }
 QString netcoupler::getmyhostip(){
@@ -253,7 +249,7 @@ QString netcoupler::getmyhostip(){
     return address;
 }
 void netcoupler::processfinished(int , QProcess::ExitStatus e) {
-    if (!looki::iswormkitgame) {
+    if (false) {
         http->closelasthost();
         hostlifetimer.stop();
         hostlifetimer.disconnect();
@@ -339,12 +335,10 @@ QString netcoupler::getprocessstring() {
 #endif
 #ifdef Q_WS_WIN
     if(!sl.isEmpty()) {
-        if(sl.first().contains("WormKit.exe",Qt::CaseInsensitive)) {
-            looki::iswormkitgame=1; //wormkit closes the QProcess
+        if(sl.first().contains("WormKit.exe",Qt::CaseInsensitive)) {            
             return QString("\"")+sl.first()+"\" wa.exe";
         }
         else {
-            looki::iswormkitgame=0;
             return QString("\"")+sl.first()+"\"";
         }
     }
@@ -362,7 +356,7 @@ void netcoupler::usesettingswindow(const QString &s) {
     if (s == "sbwhorepead" || s == "") {
         int i = singleton<settingswindow>().from_map("sbwhorepead").value<int> ();
         timer.disconnect();
-        connect(&timer, SIGNAL(timeout()),this, SLOT(getwholist()));
+        connect(&timer, SIGNAL(timeout()),this, SLOT(getwholist()));        
         timer.start(i);
     } else if (s == "cbsetawaywhilegaming" || s == "")
         setawayingame
@@ -376,7 +370,7 @@ void netcoupler::settingswindowemitfunktion() { //signals are protected?!
     emit sigsettingswindowchanged();
 }
 void netcoupler::setaway() {
-    if (setawayingame && !looki::iswormkitgame && !singleton<settingswindow>().from_map("chbdisconnectongame").toBool()) {
+    if (setawayingame && !singleton<settingswindow>().from_map("chbdisconnectongame").toBool()) {
         if (!isaway){
             isaway = 1;
             wasaway=0;
@@ -400,7 +394,7 @@ void netcoupler::startprocess(const QString &s){
     }
     if(singleton<settingswindow>().from_map("chbdisconnectongame").toBool())
         qobjectwrapper<mainwindow>::ref().returntologintab();
-    p->start(s);
+    p->startDetached(s);
 }
 int netcoupler::ircstate(){
     return irc->state();

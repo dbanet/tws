@@ -13,20 +13,24 @@ public:
 	hoststruct();
 	virtual ~hoststruct();
         void sethost(QStringList&);
+        void sethost(QString name,QString nick,QString ip,int flag,QString country,QString id="",QString pwd="",QString chan="");
         const QString &name() const{
             return myname;
-        }
+        }       
         const QString &nick() const{
             return mynick;
-        }
+        }        
         const QString &ip() const{
             return myip;
-        }
+        }        
         const QString &id() const{
             return myid;
         }
         const int &flag() const{
             return myflag;
+        }
+        QString flagstring() const{
+            return QString::number(myflag);
         }
         const QString &country() const{
             return mycountry;
@@ -43,8 +47,11 @@ public:
         const QString &pwd() const{
             return mypwd;
         }
-
+        const QString &chan() const{
+            return mychan;
+        }
         void setpwd(QString s);
+        void setchan(QString s);
         bool isvalid();
         static QList<hoststruct> extracthostlist(QString s);
         bool compare(const hoststruct &h) const;
@@ -60,6 +67,7 @@ private:
         QString myjoinstring;
         QString myhoststring;
         QString mypwd;
+        QString mychan;
 
         bool valid;
 	static bool *boolhelper;

@@ -19,9 +19,10 @@ public:
     void start();
     void setchannellist(const QStringList&);
     void getscheme(QString);
-    void sendhost(const QString &gamename,const QString &ip,const QString &nick,const QString &pwd,const QString &chan,const QString &flag);
-    void closehost(hoststruct h);
+    void sendhost(hoststruct h);
+    void closehostandstartlasthost(hoststruct h);
     void closelasthost();
+    hoststruct lasthost;
 
 public slots:
     void refreshhostlist();
@@ -34,8 +35,8 @@ signals: //public signals:
     void sighoststarts(hoststruct);
 
 private:
-    void inithosting(QString url);
-    hoststruct findlasthost(QList<hoststruct> list);
+    void inithosting(QString url);    
+    hoststruct findduplicatedhosts(QList<hoststruct> list);
     QString temp;
     QStringList templist;
     QStringList currentchannellist;
@@ -49,6 +50,7 @@ private:
     QNetworkReply *schemereply;
 
     QNetworkReply *hostreply;
+    QNetworkReply *closehostreply;
 
     QNetworkReply *hostlistforhostingreply;
 
@@ -61,15 +63,16 @@ private:
     QList<QNetworkReply*> replylist;
     QList<QNetworkRequest> requestlist;
     QList<hoststruct> hostlist;
-    bool gameliststarts;
-    hoststruct lasthost;
+    bool gameliststarts;    
 private slots:
+    void sendhostrequest();
     void readircip();
     void httpError(QNetworkReply::NetworkError);
     void hosttimeout();
     void readgamelist(int);
     void getscheme();
     void readhostreply();
+    void closehostreplyfinished();
 
     void hostlistforhostingreplyfinished();
     void repeathostlistforhostingreplyrequest();

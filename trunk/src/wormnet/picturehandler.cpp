@@ -92,6 +92,7 @@ QPixmap *picturehandler::getleaguerank(QString s){
 int picturehandler::ranklistsize(){
     return ranklist.size();
 }
+//----------------------------------------------------------------------------------------------
 QString picturehandler::map_number_to_countrycode(const int i){
     QString s="??";
     switch(i){
@@ -255,177 +256,277 @@ QString picturehandler::map_number_to_countrycode(const int i){
     case 52:
         s=("E ");
         break;
+    case 53:
+        s=("CL ");
+        break;
+    case 54:
+        s=("CS ");
+        break;
+    case 55:
+        s=("SI ");
+        break;
+    case 56:
+        s=("LB ");
+        break;
+    case 57:
+        s=("MD ");
+        break;
+    case 58:
+        s=("UA ");
+        break;
+    case 59:
+        s=("LV ");
+        break;
+    case 60:
+        s=("SK ");
+        break;
+    case 61:
+        s=("CR ");
+        break;
+    case 62:
+        s=("EE ");
+        break;
+    case 63:
+        s=("CN ");
+        break;
+    case 64:
+        s=("CO ");
+        break;
+    case 65:
+        s=("EC ");
+        break;
+    case 66:
+        s=("UY ");
+        break;
+    case 67:
+        s=("VE ");
+        break;
+    case 68:
+        s=("LT ");
+        break;
+    case 69:
+        s=("BG ");
+        break;
+    case 70:
+        s=("EG ");
+        break;
+    case 71:
+        s=("SA ");
+        break;
+    case 72:
+        s=("KR ");
+        break;
+    case 73:
+        s=("BY ");
+        break;
+    case 74:
+        s=("PE ");
+        break;
+    case 75:
+        s=("DZ ");
+        break;
+    case 76:
+        s=("KZ ");
+        break;
+    case 77:
+        s=("SV ");
+        break;
+    case 78:
+        s=("TW ");
+        break;
+    case 79:
+        s=("JM ");
+        break;
+    case 80:
+        s=("GT ");
+        break;
+    case 81:
+        s=("MH ");
+        break;
+    case 82:
+        s=("MK ");
+        break;
+    case 83:
+        s=("AE ");
+        break;
+    default:
+        s=("?? ");
+        break;
+        //*******
     }
     return s;
 }
 //----------------------------------------------------------------------------------------------
-int picturehandler::map_countrycode_to_number(const QString country){
+QString picturehandler::map_countrycode_to_number(QString country){
+    country=country.trimmed().toUpper();
     int i=49;
-    if (compareCI(country, "UK"))
+    if (country == "UK")
         i = 0;
-    else if (compareCI(country , "AR"))
+    else if (country == "AR")
         i = 1;
-    else if (compareCI(country , "AU"))
+    else if (country == "AU")
         i = 2;
-    else if (compareCI(country , "AT"))
+    else if (country == "AT")
         i = 3;
-    else if (compareCI(country , "BE"))
+    else if (country == "BE")
         i = 4;
-    else if (compareCI(country , "BR"))
+    else if (country == "BR")
         i = 5;
-    else if (compareCI(country , "CA"))
+    else if (country == "CA")
         i = 6;
-    else if (compareCI(country , "HR"))
+    else if (country == "HR")
         i = 7;
-    else if (compareCI(country , "BA"))
+    else if (country == "BA")
         i = 8;
-    else if (compareCI(country , "CY"))
+    else if (country == "CY")
         i = 9;
-    else if (compareCI(country , "CZ"))
+    else if (country == "CZ")
         i = 10;
-    else if (compareCI(country , "DK"))
+    else if (country == "DK")
         i = 11;
-    else if (compareCI(country , "FI"))
+    else if (country == "FI")
         i = 12;
-    else if (compareCI(country , "FR"))
+    else if (country == "FR")
         i = 13;
-    else if (compareCI(country , "GE"))
+    else if (country == "GE")
         i = 14;
-    else if (compareCI(country , "DE"))
+    else if (country == "DE")
         i = 15;
-    else if (compareCI(country , "GR"))
+    else if (country == "GR")
         i = 16;
-    else if (compareCI(country , "HK"))
+    else if (country == "HK")
         i = 17;
-    else if (compareCI(country , "HU"))
+    else if (country == "HU")
         i = 18;
-    else if (compareCI(country , "IS"))
+    else if (country == "IS")
         i = 19;
-    else if (compareCI(country , "IN"))
+    else if (country == "IN")
         i = 20;
-    else if (compareCI(country , "MC"))
+    else if (country == "MC")
         i = 21;
-    else if (compareCI(country , "IR"))
+    else if (country == "IR")
         i = 22;
-    else if (compareCI(country , "IQ"))
+    else if (country == "IQ")
         i = 23;
-    else if (compareCI(country , "IE"))
+    else if (country == "IE")
         i = 24;
-    else if (compareCI(country , "IL"))
+    else if (country == "IL")
         i = 25;
-    else if (compareCI(country , "IT"))
+    else if (country == "IT")
         i = 26;
-    else if (compareCI(country , "JP"))
+    else if (country == "JP")
         i = 27;
-    else if (compareCI(country , "LI"))
+    else if (country == "LI")
         i = 28;
-    else if (compareCI(country , "LU"))
+    else if (country == "LU")
         i = 29;
-    else if (compareCI(country , "MY"))
+    else if (country == "MY")
         i = 30;
-    else if (compareCI(country , "MT"))
+    else if (country == "MT")
         i = 31;
-    else if (compareCI(country , "MX"))
+    else if (country == "MX")
         i = 32;
-    else if (compareCI(country , "MA"))
+    else if (country == "MA")
         i = 33;
-    else if (compareCI(country , "NL"))
+    else if (country == "NL")
         i = 34;
-    else if (compareCI(country , "NZ"))
+    else if (country == "NZ")
         i = 35;
-    else if (compareCI(country , "NO"))
+    else if (country == "NO")
         i = 36;
-    else if (compareCI(country , "PL"))
+    else if (country == "PL")
         i = 37;
-    else if (compareCI(country , "PT"))
+    else if (country == "PT")
         i = 38;
-    else if (compareCI(country , "CR"))
+    else if (country == "CR")
         i = 39;
-    else if (compareCI(country , "RO"))
+    else if (country == "RO")
         i = 40;
-    else if (compareCI(country , "RU"))
+    else if (country == "RU")
         i = 41;
-    else if (compareCI(country , "SG"))
+    else if (country == "SG")
         i = 42;
-    else if (compareCI(country , "ZA"))
+    else if (country == "ZA")
         i = 43;
-    else if (compareCI(country , "ES"))
+    else if (country == "ES")
         i = 44;
-    else if (compareCI(country , "SW"))
+    else if (country == "SW")
         i = 45;
-    else if (compareCI(country , "CH"))
+    else if (country == "CH")
         i = 46;
-    else if (compareCI(country , "TR"))
+    else if (country == "TR")
         i = 47;
-    else if (compareCI(country , "US"))
+    else if (country == "US")
         i = 48;
-    else if (compareCI(country , "??"))
+    else if (country == "AQ")
         i = 49;
-    else if (compareCI(country , "e"))
+    else if (country == "??")
         i = 50;
-    else if (compareCI(country , "e"))
-        i = 51;    
-    else if (compareCI(country , "e"))
+    else if (country == "e")
+        i = 51;
+    else if (country == "e")
         i = 52;
-    else if (compareCI(country , "CS"))
+    else if (country == "CL")
+        i = 53;
+    else if (country == "CS")
         i = 54;
-    else if (compareCI(country , "SI"))
+    else if (country == "SI")
         i = 55;
-    else if (compareCI(country , "LB"))
+    else if (country == "LB")
         i = 56;
-    else if (compareCI(country , "MD"))
+    else if (country == "MD")
         i = 57;
-    else if (compareCI(country , "UA"))
+    else if (country == "UA")
         i = 58;
-    else if (compareCI(country , "LV"))
+    else if (country == "LV")
         i = 59;
-    else if (compareCI(country , "SK"))
+    else if (country == "SK")
         i = 60;
-    else if (compareCI(country , "CR"))
+    else if (country == "CR")
         i = 61;
-    else if (compareCI(country , "EE"))
+    else if (country == "EE")
         i = 62;
-    else if (compareCI(country , "CN"))
+    else if (country == "CN")
         i = 63;
-    else if (compareCI(country , "CO"))
+    else if (country == "CO")
         i = 64;
-    else if (compareCI(country , "EC"))
+    else if (country == "EC")
         i = 65;
-    else if (compareCI(country , "UY"))
+    else if (country == "UY")
         i = 66;
-    else if (compareCI(country , "VE"))
+    else if (country == "VE")
         i = 67;
-    else if (compareCI(country , "LT"))
+    else if (country == "LT")
         i = 68;
-    else if (compareCI(country , "BG"))
+    else if (country == "BG")
         i = 69;
-    else if (compareCI(country , "EG"))
+    else if (country == "EG")
         i = 70;
-    else if (compareCI(country , "SA"))
+    else if (country == "SA")
         i = 71;
-    else if (compareCI(country , "KR"))
+    else if (country == "KR")
         i = 72;
-    else if (compareCI(country , "BY"))
+    else if (country == "BY")
         i = 73;
-    else if (compareCI(country , "PE"))
+    else if (country == "PE")
         i = 74;
-    else if (compareCI(country , "DZ"))
+    else if (country == "DZ")
         i = 75;
-    else if (compareCI(country , "KZ"))
+    else if (country == "KZ")
         i = 76;
-    else if (compareCI(country , "SV"))
+    else if (country == "SV")
         i = 77;
-    else if (compareCI(country , "TW"))
+    else if (country == "TW")
         i = 78;
-    else if (compareCI(country , "JM"))
+    else if (country == "JM")
         i = 79;
-    else if (compareCI(country , "GT"))
+    else if (country == "GT")
         i = 80;
-    else if (compareCI(country , "MH"))
+    else if (country == "MH")
         i = 81;
-    else if (compareCI(country , "MK"))
+    else if (country == "MK")
         i = 82;
-    else if (compareCI(country , "AE"))
+    else if (country == "AE")
         i = 83;
-    return i;
+    return QString::number(i);
 }

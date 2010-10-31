@@ -61,6 +61,7 @@ mainwindow::mainwindow() {
         qApp->setLayoutDirection(Qt::LeftToRight);
     ui.pbrememberjoin->setText(tr("Autojoin:"));
     ui.pbabout->setText(tr("About"));
+    ui.start->setText(tr("Apply"));
     ui.tabWidget->setTabEnabled(1, 0);
 
     get_baseStyleSheet();
@@ -106,7 +107,7 @@ mainwindow::mainwindow() {
 
 
     QRegExp regexp;
-    regexp.setPattern("([A-Z]|[a-z]|[0-9]|-|`){15}");
+    regexp.setPattern("([A-Z]|[a-z]|[0-9]|-|`){,15}");
     validator = new QRegExpValidator(regexp, 0);
     ui.lenick->setValidator(validator);
     ui.clan->setValidator(validator);    
@@ -121,12 +122,14 @@ mainwindow::mainwindow() {
     QVariantList windowstates = singleton<snpsettings>().map["MainWindowGeometry"].toList();
     if (!windowstates.isEmpty())
         restoreGeometry(windowstates.takeFirst().toByteArray());
+    if(height()<530)
+        resize(width(),530);
 }
 mainwindow::~mainwindow() {
 }
 void mainwindow::currenttabchanged(int i){
     if(i!=0)
-        return;
+        return;           
     singleton<netcoupler>().stop();
 }
 void mainwindow::fillsnpsettings(){
@@ -164,10 +167,9 @@ void mainwindow::chooseclicked() {
         QMessageBox::warning(this,tr("Nickname field is empty"),tr("Please choose a nickname."),QMessageBox::Ok);
         return;
     }
+    singleton<snpsettings>().map["clan"] = ui.clan->text();
     if (ui.clan->text().isEmpty())
-        singleton<snpsettings>().map["clan"]="Username";
-    else
-        singleton<snpsettings>().map["clan"] = ui.clan->text();
+        singleton<snpsettings>().map["clan"]="Username";            
     singleton<snpsettings>().map["rank"] = ui.rank->currentText();
     singleton<snpsettings>().map["nickname"] = ui.lenick->text();
     singleton<snpsettings>().map["tus_password"] = ui.letuspassword->text();
@@ -181,17 +183,18 @@ void mainwindow::chooseclicked() {
     singleton<snpsettings>().map["wormnetserverlist"] = refreshcombobox(ui.cbServerList);
     singleton<snpsettings>().map["leagueservers"]= refreshcombobox(ui.cbleagueservers);
     singleton<snpsettings>().map["showinformation"]=ui.cbshowinformation->isChecked();
+    singleton<snpsettings>().map["leagueservers:"+ui.cbleagueservers->currentText()]=QStringList()<<ui.letuslogin->text()<<ui.letuspassword->text();
 
     singleton<snpsettings>().safe();    
     if(singleton<snpsettings>().map["enablesecurelogging"].toBool()){
         setleague();
         singleton<leagueserverhandler>().login(ui.letuslogin->text(),ui.letuspassword->text());
     } else {
-//        if(singleton<snpsettings>().map["spectatingneversettedoff"].toBool()){
-//            singleton<snpsettings>().map["spectateleagueserver"]=true;
-//            singleton<leagueserverhandler>().setleague("http://www.tus-wa.com/","http://www.tus-wa.com/");
-//            singleton<leagueserverhandler>().startrefresh();
-//        }
+        if(singleton<snpsettings>().map["spectatingneversettedoff"].toBool()){
+            singleton<snpsettings>().map["spectateleagueserver"]=true;
+            singleton<leagueserverhandler>().setleague("http://www.tus-wa.com/","http://www.tus-wa.com/");
+            singleton<leagueserverhandler>().startrefresh();
+        }
         connectToNetwork();    
     }
 }
@@ -295,7 +298,7 @@ void mainwindow::closeEvent(QCloseEvent *) {
     singleton<snpsettings>().safe();
 }
 
-void mainwindow::returntologintab() {    
+void mainwindow::returntologintab() {        
     singleton<leagueserverhandler>().reset();
     joinonstartup = 0;
     singleton<snpsettings>().map["chbautojoin"] = ui.chbautojoin->isChecked();
@@ -309,10 +312,9 @@ void mainwindow::returntologintab() {
     foreach(chatwindow *w,::window::chatwindows) {
         Q_ASSERT(w!=0);
         w->deleteLater();
-    }
-    qDeleteAll(::window::chatwindows.begin(), ::window::chatwindows.end());
+    }    
     ::window::chatwindows.clear();
-    foreach(::window *w,this->windowlist) {
+    foreach(::window *w,windowlist) {
         Q_ASSERT(w!=0);
         w->deleteLater();
     }
@@ -405,9 +407,7 @@ void mainwindow::chatwinowclosed() {
     Q_CHECK_PTR(w);
     w->disconnect();
     int i = window::chatwindowstringlist.removeAll(w->chatpartner);
-    Q_ASSERT(i!=0);
     i = window::chatwindows.removeAll(w);
-    Q_ASSERT(i!=0);
 }
 void mainwindow::appenddebugmessage(const QString &msg) {
     debugmsg.append(msg);
@@ -554,9 +554,13 @@ void mainwindow::gotprvmsg(const QString &user, const QString &receiver,
     }
 }
 void mainwindow::connected(){
+    ui.start->setEnabled(false);
+    ui.start->setText("");
     ui.connectlabel->setText(tr("Connected"));
 }
 void mainwindow::disconnected(){
+    ui.start->setText(tr("Apply"));
+    ui.start->setEnabled(true);
     if(singleton<netcoupler>().connectstate==netcoupler::e_started)
         QTimer::singleShot(200 *1000, this, SLOT(reconnect()));
     ui.connectlabel->setText(tr("Disconnected"));
@@ -591,8 +595,9 @@ void mainwindow::disconnected(){
 //************************************************************************************************************************
 //************************************************************************************************************************
 void mainwindow::init_menus(){
-    traymenu = new QMenu(this);
+    traymenu = new QMenu(this);    
     connect(traymenu,SIGNAL(triggered(QAction*)),this,SLOT(traymenutriggered(QAction*)));
+    ui.pbtraymenu->setMenu(traymenu);
     singleton<balloon_handler>().tray->setContextMenu(traymenu);
     QAction *a0;
     stuffmenu = traymenu->addMenu(tr("Stuff"));
@@ -891,4 +896,12 @@ void mainwindow::on_pbeditleagueprofile_clicked()
 }
 void mainwindow::leagueserverprofilepage(QString url){
     QDesktopServices::openUrl(QUrl(url));
+}
+void mainwindow::on_cbleagueservers_activated(QString s)
+{
+    QStringList sl=singleton<snpsettings>().map["leagueservers:"+s].toStringList();
+    if(sl.size()<2)
+        return;
+    ui.letuslogin->setText(sl.takeFirst());
+    ui.letuspassword->setText(sl.takeFirst());
 }

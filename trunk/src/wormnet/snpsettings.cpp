@@ -9,6 +9,8 @@
 #include"settingswindow.h"
 #include"myDebug.h"
 #include"about.h"
+#include"global_functions.h"
+
 #include<QFile>
 #include<QDir>
 #include<QApplication>
@@ -22,6 +24,7 @@ extern QStringList defaultServerList;
 const QString Version_String="1";
 snpsettings::snpsettings(){}
 snpsettings::~snpsettings(){}
+
 void snpsettings::load(){
     bool isOnFirstRun=false;
     if(!QDir().exists("query"))
@@ -156,11 +159,23 @@ void snpsettings::loadDefaults(){
     installTranslationBySystemLocale();
     validate();
 }
+void snpsettings::checkifexistsinstringlist(QString key,QString value){
+    if(map[key].toStringList().contains(value,Qt::CaseInsensitive))
+        return;
+    QStringList sl=map[key].toStringList();
+    sl<<value;
+    map[key]=sl;
+}
 void snpsettings::validate(){
-    if(map["leagueservers"].toStringList().isEmpty())
-        map["leagueservers"].setValue<QStringList>(QStringList()<<"http://www.tus-wa.com/"<<"http://lookias.worms2d.info/securelogging");
-    if(map["wormnetserverlist"].toStringList().isEmpty())
-        map["wormnetserverlist"].setValue<QStringList>(QStringList()<<"wormnet1.team17.com"<<"itakagames.spb.ru"<<"212.240.191.125"<<"worms.tom.ru"<<"http://steps.servegame.com");
+    checkifexistsinstringlist("leagueservers","http://www.tus-wa.com/");
+    checkifexistsinstringlist("leagueservers","http://www.normalnonoobs.org/");
+    checkifexistsinstringlist("leagueservers","http://lookias.worms2d.info/securelogging/");
+    checkifexistsinstringlist("wormnetserverlist","wormnet1.team17.com");
+    checkifexistsinstringlist("wormnetserverlist","itakagames.spb.ru");
+    checkifexistsinstringlist("wormnetserverlist","212.240.191.125");
+    checkifexistsinstringlist("wormnetserverlist","worms.tom.ru");
+    checkifexistsinstringlist("wormnetserverlist","http://steps.servegame.com");
+
     if(singleton<snpsettings>().map["rank"].toString().isEmpty())
         singleton<snpsettings>().map["rank"]="13";
     if(singleton<snpsettings>().map["countrycode"].toString().isEmpty())

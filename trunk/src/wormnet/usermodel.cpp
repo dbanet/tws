@@ -53,7 +53,7 @@ usermodel::usermodel(QObject * parent) :
 
     leagueuserhighlightgradient.setColorAt(0,QColor(255,255,255,0));
     leagueuserhighlightgradient.setColorAt(0.5,QColor(255,255,255,100));
-    leagueuserhighlightgradient.setColorAt(1,QColor(255,255,255,0));    
+    leagueuserhighlightgradient.setColorAt(1,QColor(255,255,255,0));
 }
 void usermodel::selectionchanged(const QModelIndex &index, const QWidget *w) {
 
@@ -191,7 +191,7 @@ void usermodel::addignore(const QString &s) {
     emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
-void usermodel::deleteignore(const QString &s) {    
+void usermodel::deleteignore(const QString &s) {
     emit layoutAboutToBeChanged();
     userstruct u;
     u.nick = s;
@@ -243,7 +243,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
         return QVariant();
 
     if (role == Qt::TextAlignmentRole)
-        return int(Qt::AlignLeft | Qt::AlignVCenter);                
+        return int(Qt::AlignLeft | Qt::AlignVCenter);
 
     if (role == Qt::DecorationRole) {
         if (index.internalId() == e_Channel && index.column() == e_Nick) {
@@ -274,7 +274,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
             }
         } else
             return QVariant();
-    }   
+    }
     if (role == Qt::DisplayRole || role == Qt::BackgroundRole) {
         if (index.internalId() == e_Channel) {
             if (index.column() == e_Nick) {
@@ -334,7 +334,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
             case e_Rank:
                 {
                     if (role == Qt::BackgroundRole)
-                        return getrank(usermap[classes[index.internalId()]][index.row()]);                    
+                        return getrank(usermap[classes[index.internalId()]][index.row()]);
                     break;
                 }
             case e_Clan:
@@ -374,7 +374,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
                 f.setUnderline(true);
                 return f;
             }
-        }else if(index.column()==e_Clan){
+        } else if(index.column()==e_Clan){
             if(singleton<snpsettings>().map["spectateleagueserver"].toBool()){
                 QString s=singleton<leagueserverhandler>().map_at_toString(usermap[classes[index.internalId()]][index.row()].nick,leagueserverhandler::e_clan);
                 if(!s.isEmpty()){
@@ -407,12 +407,16 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
                 return f;
             }
         }
-    }    
-    if(role==Qt::ToolTipRole && index.internalId() != e_Channel && index.column() == e_Clan){        
-        return singleton<clantowebpagemapper>().getInformation(usermap[classes[index.internalId()]][index.row()]);
     }
-    if(role==Qt::ToolTipRole && index.internalId() != e_Channel && index.column() == e_Nick){
+    if(role==Qt::ToolTipRole && index.internalId() != e_Channel && index.column() == e_Clan){
+        return singleton<clantowebpagemapper>().getInformation(usermap[classes[index.internalId()]][index.row()]);
+    }else if(role==Qt::ToolTipRole && index.internalId() != e_Channel && index.column() == e_Nick){
         return singleton<leagueserverhandler>().map_at_toString(usermap[classes[index.internalId()]][index.row()].nick,leagueserverhandler::e_truenick);
+    }else if(role==Qt::ToolTipRole && index.internalId() != e_Channel && index.column() == e_Rank){
+        QString s=singleton<leagueserverhandler>().map_at_toString(usermap[classes[index.internalId()]][index.row()].nick,leagueserverhandler::e_ranktooltip);
+        if(s.trimmed().isEmpty())
+            return QVariant();
+        return s;
     }
     return QVariant();
 }
@@ -494,7 +498,7 @@ void usermodel::buddyarrived() {
         buddyarrivedhelper.takeFirst();
     singleton<sound_handler>().play_buddyarrivedsound();
 }
-void usermodel::buddyleft() {    
+void usermodel::buddyleft() {
     singleton<sound_handler>().play_buddyleftsound();
 }
 void usermodel::usesettingswindow(const QString&) {

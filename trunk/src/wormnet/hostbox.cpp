@@ -29,7 +29,7 @@ hostbox::hostbox(QString c, QWidget *parent) :
 
     connect(ui.add, SIGNAL(clicked()),this, SLOT(addclicked()));
     connect(ui.ok, SIGNAL(clicked()),this, SLOT(okclicked()));
-    connect(ui.cancel, SIGNAL(clicked()),this, SLOT(cancelclicked()));
+    connect(ui.cancel, SIGNAL(clicked()),this, SLOT(cancelclicked()));    
 
     ui.chbsendhostinfotochan->setChecked(singleton<snpsettings>().map["chbsendhostinfotochan"].toBool());
     ui.leplayername->setText(singleton<snpsettings>().map["leplayername"].toString());
@@ -85,11 +85,11 @@ void hostbox::addclicked() {
 }
 void hostbox::okclicked() {
     sethostport(ui.lehostport->text());
-    singleton<snpsettings>().map["leplayername"].setValue<QString> (ui.leplayername->text());
+    singleton<snpsettings>().map["leplayername"].setValue<QString> (ui.leplayername->text().replace(" ","_"));
     singleton<snpsettings>().map["chbsendhostinfotochan"] = ui.chbsendhostinfotochan->isChecked();    
     singleton<snpsettings>().map["useacostumipforhosting"].setValue<bool> (ui.cbip->isChecked());
     singleton<snpsettings>().map["costumipforhosting"].setValue<QString>(ui.leip->text());
-    singleton<snpsettings>().map["legamename"]=ui.legamename->text();
+    singleton<snpsettings>().map["legamename"]=ui.legamename->text().replace(" ","_");
     gamename = ui.legamename->text();
     gamename.replace(" ", "_");
     pwd = ui.lepassword->text();

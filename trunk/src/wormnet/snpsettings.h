@@ -24,5 +24,6 @@ private:
         void installTranslationBySystemLocale();
         QString version;
         void validate();
+        void checkifexistsinstringlist(QString key,QString value);
 };
 #endif /* SNPSETTINGS_H_ */

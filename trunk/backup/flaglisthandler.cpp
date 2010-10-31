@@ -57,7 +57,7 @@ QVariant flaglisthandler::getflag(const userstruct &u) const{
 }
 //----------------------------------------------------------------------------------------------
 QString flaglisthandler::map_number_to_countrycode(const int i){
-    QString s;
+    QString s="??;
     switch(i){
         //written by steps
     case 0:
@@ -321,7 +321,7 @@ QString flaglisthandler::map_number_to_countrycode(const int i){
 }
 //----------------------------------------------------------------------------------------------
 int flaglisthandler::map_countrycode_to_number(const QString country){
-    int i=999;
+    int i=49;
     if (country == "UK")
         i = 0;
     else if (country == "AR")

@@ -24,7 +24,6 @@
 #include <dir.h>
 #endif
 volumeslider *volume;
-
 QStringList querylist;
 QMap<QString, QStringList> usergarbagemap;
 
@@ -32,8 +31,8 @@ void search_for_game_executables();
 void handle_prosnooper_buddys();
 void handle_wini_ini();
 void get_picutres();
-int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);    
+int main(int argc, char *argv[]) {    
+    QApplication a(argc, argv);
     a.setQuitOnLastWindowClosed(false);
     volume = new volumeslider;    
     a.setApplicationName("The Wheat Snooper");

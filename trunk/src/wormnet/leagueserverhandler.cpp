@@ -8,6 +8,7 @@
 #include"quithandler.h"
 #include"mainwindow.h"
 #include"mynetworkreply.h"
+#include"about.h"
 
 #include<QMessageBox>
 #include<QUrl>
@@ -33,8 +34,7 @@ void leagueserverhandler::login(QString n, QString p){
 void leagueserverhandler::myconnect(const QString n,const QString p){
     QUrl url=serveraddress+"testlogin.php?u="+n+"&p="+p;
     loginreply=qnam.get(QNetworkRequest(url));
-    connect(loginreply, SIGNAL(finished()),this, SLOT(loginFinished()));
-    connect(loginreply, SIGNAL(readyRead()),this, SLOT(loginReadyRead()));    
+    connect(loginreply, SIGNAL(finished()),this, SLOT(loginFinished()));      
     connecttimer.start(5000);
 }
 void leagueserverhandler::logintTimeOut(){        
@@ -57,8 +57,14 @@ void leagueserverhandler::loginFinished(){
         return;
     }   
     nick=sl.takeFirst();
-    if(nick.contains(" "))
-        QMessageBox::critical(0,"exception","nick in leagueserverhandler::finished contains whitespaces!!");
+    QRegExp regexp;
+    regexp.setPattern("([A-Z]|[a-z]|[0-9]|-|`){,15}");
+    if(!regexp.exactMatch(nick)){
+        QMessageBox::warning(0,QObject::tr("Warning"),tr("The server responses with an invalid nickname: '%1'\nIts not possible to login, please contact the server admin.").arg(nick));
+        qobjectwrapper<mainwindow>::ref().show();
+        qobjectwrapper<mainwindow>::ref().raise();
+        return;
+    }
     startrefresh();
     emit sigloginsuccess();
     loginreply->deleteLater();
@@ -94,18 +100,19 @@ void leagueserverhandler::reset(){
 void leagueserverhandler::refresh(){
     QUrl url;
     if(singleton<leagueserverhandler>().islogged())
-        url=serveraddress+"userlist.php?update="+leagueloginnick;
+        url=serveraddress+"userlist.php?update="+leagueloginnick+"&v="+about::version;
     else
-        url=serveraddress+"userlist.php";
+        url=serveraddress+"userlist.php?v="+about::version;
     refreshreply=qnam.get(QNetworkRequest(url));
-    connect(refreshreply, SIGNAL(finished()),this, SLOT(refreshFinished()));
-    connect(refreshreply, SIGNAL(readyRead()),this, SLOT(refreshReadyRead()));    
+    connect(refreshreply, SIGNAL(finished()),this, SLOT(refreshFinished()));    
 }
 void leagueserverhandler::refreshFinished(){
     static QStringList sl;
     if(refreshreply->error()!=QNetworkReply::NoError){
         myDebug()<<tr("Unable to get the user information from")+" "+servicename;
         map.clear();
+        refreshreply->deleteLater();
+        informationrefreshtimer.start(qMax(100*1000,singleton<settingswindow>().from_map("sbsecureloggingrepeatdelay").toInt()));
         return;
     }
     map.clear();
@@ -113,12 +120,22 @@ void leagueserverhandler::refreshFinished(){
         sl=s.split(" ",QString::SkipEmptyParts);
         if(sl.isEmpty())
             break;
-        map[sl.takeFirst()]=sl;
+        QString nick=sl.takeFirst();
+        QString s;
+        if(sl.size()>5)
+            s=QStringList(sl.mid(5)).join(" ");
+        map[nick]=sl.mid(0,5) + QStringList()<<s;
+        if(map[nick].size()>e_clan && map[nick][e_clan].trimmed()==".")
+            map[nick][e_clan]="";
     }
     refreshreply->deleteLater();
     informationrefreshtimer.start(singleton<settingswindow>().from_map("sbsecureloggingrepeatdelay").toInt());
 }
-void leagueserverhandler::setleague(const QString league, const QString server){
+void leagueserverhandler::setleague(const QString league, QString server){
+    if(!server.endsWith("/"))
+        server+="/";
+    if(!server.startsWith("http://"))
+        server="http://"+server;
     servicename=league;
     serveraddress=server;
 }
@@ -136,8 +153,7 @@ void leagueserverhandler::logout(){
     stoprefresh();
     QUrl url=serveraddress+"testlogin.php?logout="+leagueloginnick;
     logoutreply=qnam.get(QNetworkRequest(url));
-    connect(logoutreply, SIGNAL(finished()),this, SLOT(logoutFinished()));
-    connect(logoutreply, SIGNAL(readyRead()),this, SLOT(logoutReadyRead()));    
+    connect(logoutreply, SIGNAL(finished()),this, SLOT(logoutFinished()));        
 }
 void leagueserverhandler::logoutFinished(){
     logoutreply->deleteLater();    
@@ -169,11 +185,10 @@ bool leagueserverhandler::islogged(){
 //###################################
 //###################################
 //###################################
-void leagueserverhandler::profile(QString n){
-    QUrl url=serveraddress+"testlogin.php?profile="+n+";snooper";
+void leagueserverhandler::profile(QString s){
+    QUrl url=serveraddress+"testlogin.php?profile="+s+";snooper";
     profilereply=qnam.get(QNetworkRequest(url));
-    connect(profilereply, SIGNAL(finished()),this, SLOT(profileFinished()));
-    connect(profilereply, SIGNAL(readyRead()),this, SLOT(profileReadyRead()));    
+    connect(profilereply, SIGNAL(finished()),this, SLOT(profileFinished()));    
 }
 void leagueserverhandler::profileFinished(){
     if(profilereply->error() != QNetworkReply::NoError){

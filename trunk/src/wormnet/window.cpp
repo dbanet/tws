@@ -353,9 +353,15 @@ void window::useritempressed(const QModelIndex &index) {
         return;
     }
     if (QApplication::mouseButtons() == Qt::LeftButton && index.column()==usermodel::e_Clan){
-        QString s=singleton<netcoupler>().users.data(index.sibling(index.row(), usermodel::e_Clan)).toString();
+        QString s;
+        if(singleton<snpsettings>().map["spectateleagueserver"].toBool()){
+            QString nick=singleton<netcoupler>().users.data(index.sibling(index.row(), 0),Qt::DisplayRole).value<QString> ();
+            s=singleton<leagueserverhandler>().map_at_toString(nick,leagueserverhandler::e_clan);
+        }
+        if(s.isEmpty())
+            s=singleton<netcoupler>().users.data(index.sibling(index.row(), usermodel::e_Clan)).toString();
         if(singleton<clantowebpagemapper>().contains(s)){
-            s=singleton<clantowebpagemapper>().value(s);
+            s=singleton<clantowebpagemapper>().value(s);            
             QUrl u1;
             u1.setUrl(s);
             QDesktopServices::openUrl(u1);
@@ -365,8 +371,7 @@ void window::useritempressed(const QModelIndex &index) {
         return;
     QAction *a;
     QMenu menu;
-    QString user = singleton<netcoupler>().users.data(index.sibling(index.row(), 0),
-                                   Qt::DisplayRole).value<QString> ();
+    QString user = singleton<netcoupler>().users.data(index.sibling(index.row(), 0),Qt::DisplayRole).value<QString> ();
     if (index.internalId() == usermodel::e_Channel) {
         if(singleton<netcoupler>().users.data(index.sibling(index.row(), 0)).value<QString> ()==usermodel::tr("Querys")){
             menu.addAction(tr("Remove Querys"));
@@ -596,10 +601,10 @@ void window::hostitempressed(const QModelIndex &index) {
     }
 }
 void window::hboxok() {
-    QString flag;
+    int flag=49;
     foreach(userstruct u,singleton<netcoupler>().users.users) {
         if (u.nick == singleton<netcoupler>().nick) {
-            flag = QString::number(u.flag);
+            flag = u.flag;
         }
     }        
     singleton<netcoupler>().sendhostinfotoserverandhost(hbox->gamename, hbox->pwd, currentchannel, flag);

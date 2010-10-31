@@ -23,7 +23,7 @@ bool hoststruct::isvalid(){
 hoststruct::~hoststruct() {
     // TODO Auto-generated destructor stub
 }
-void hoststruct::sethost(QStringList &sl) {
+void hoststruct::sethost(QStringList &sl) {    
     valid=true;
     Q_ASSERT(sl.size()>=7);
     //wa://'+Edit1.Text+Port+'?gameid='+Edit3.Text+'&scheme='+Edit4.Text;
@@ -64,6 +64,18 @@ void hoststruct::sethost(QStringList &sl) {
         rest = sl.join(" ");
     }
 }
+void hoststruct::sethost(QString name,QString nick,QString ip,int flag,QString country,QString id,QString pwd,QString chan){
+    valid=true;
+    myname=name;
+    mynick=nick;
+    myip=ip;
+    myflag=flag;
+    mycountry=country;
+    myid=id;
+    mypwd=pwd;
+    mychan=chan;
+}
+
 QStringList preparehostlist(QString s){
     QStringList sl;
     int start;
@@ -102,4 +114,7 @@ bool hoststruct::compare(const hoststruct &h) const{
 }
 void hoststruct::setpwd(QString s){
     mypwd=s;
+}
+void hoststruct::setchan(QString s){
+    mychan=s;
 }
