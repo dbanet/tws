@@ -248,40 +248,38 @@ QString netcoupler::getmyhostip(){
         address=singleton<snpsettings>().map["costumipforhosting"].value<QString>();
     return address;
 }
-void netcoupler::processfinished(int , QProcess::ExitStatus e) {
-    if (false) {
-        http->closelasthost();
-        hostlifetimer.stop();
-        hostlifetimer.disconnect();
-        if (e == 0)
-            myDebug() << tr("joining/hosting a game finished normally");
-        else
-            myDebug() << tr("joining/hosting a game crashed");
-        if (setawayingame) {
-            if (wasaway){
-                isaway = 1;
-                return;
-            }
-            isaway = 0;
-            wasaway = 0;
-            if (!singleton<snpsettings>().map["awaymessage"].value<QStringList> ().isEmpty())
-                this->awaymessage
-                        = singleton<snpsettings>().map["awaymessage"].value<QStringList> ().last();
-            emit sigawaystringchanged();
-            foreach(QString s,qobjectwrapper<mainwindow>::ref().rememberwhogotaway.keys()) {
-                if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
-                    && !singleton<snpsettings>().map["ignorelist"].toStringList().contains(s, Qt::CaseInsensitive)) {
-                    sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
-                    sendrawcommand("PRIVMSG " + s + " :\001back\001");
-                } else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
-                    if (singleton<snpsettings>().map["buddylist"].toStringList().contains(s,Qt::CaseInsensitive))
-                        sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
-                    sendrawcommand("PRIVMSG " + s + " :\001back\001");
-                }
-            }
-        }
-        qobjectwrapper<mainwindow>::ref().rememberwhogotaway.clear();
-    }
+void netcoupler::processfinished(int , QProcess::ExitStatus e) {    
+//    http->closelasthost();
+//    hostlifetimer.stop();
+//    hostlifetimer.disconnect();
+//    if (e == 0)
+//        myDebug() << tr("joining/hosting a game finished normally");
+//    else
+//        myDebug() << tr("joining/hosting a game crashed");
+//    if (setawayingame) {
+//        if (wasaway){
+//            isaway = 1;
+//            return;
+//        }
+//        isaway = 0;
+//        wasaway = 0;
+//        if (!singleton<snpsettings>().map["awaymessage"].value<QStringList> ().isEmpty())
+//            this->awaymessage
+//                    = singleton<snpsettings>().map["awaymessage"].value<QStringList> ().last();
+//        emit sigawaystringchanged();
+//        foreach(QString s,qobjectwrapper<mainwindow>::ref().rememberwhogotaway.keys()) {
+//            if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
+//                && !singleton<snpsettings>().map["ignorelist"].toStringList().contains(s, Qt::CaseInsensitive)) {
+//                sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
+//                sendrawcommand("PRIVMSG " + s + " :\001back\001");
+//            } else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
+//                if (singleton<snpsettings>().map["buddylist"].toStringList().contains(s,Qt::CaseInsensitive))
+//                    sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
+//                sendrawcommand("PRIVMSG " + s + " :\001back\001");
+//            }
+//        }
+//    }
+//    qobjectwrapper<mainwindow>::ref().rememberwhogotaway.clear();
 }
 void netcoupler::readprocess() {
     qWarning() << qobject_cast<QProcess*> (sender())->readAll();
@@ -359,8 +357,7 @@ void netcoupler::usesettingswindow(const QString &s) {
         connect(&timer, SIGNAL(timeout()),this, SLOT(getwholist()));        
         timer.start(i);
     } else if (s == "cbsetawaywhilegaming" || s == "")
-        setawayingame
-                = singleton<settingswindow>().from_map("cbsetawaywhilegaming").value<bool> ();
+        setawayingame= singleton<settingswindow>().from_map("cbsetawaywhilegaming").value<bool> ();
     else if (s == "leawaystring" || s == "")
         awaystringwhilehosting = singleton<settingswindow>().from_map("leawaystring").value<
                                  QString> ();   
@@ -370,17 +367,17 @@ void netcoupler::settingswindowemitfunktion() { //signals are protected?!
     emit sigsettingswindowchanged();
 }
 void netcoupler::setaway() {
-    if (setawayingame && !singleton<settingswindow>().from_map("chbdisconnectongame").toBool()) {
-        if (!isaway){
-            isaway = 1;
-            wasaway=0;
-        }
-        else
-            wasaway = 1;
-        awaymessage = awaystringwhilehosting;
-        oldawaystring = awaymessage;
-        emit sigawaystringchanged();
-    }    
+//    if (setawayingame && !singleton<settingswindow>().from_map("chbdisconnectongame").toBool()) {
+//        if (!isaway){
+//            isaway = 1;
+//            wasaway=0;
+//        }
+//        else
+//            wasaway = 1;
+//        awaymessage = awaystringwhilehosting;
+//        oldawaystring = awaymessage;
+//        emit sigawaystringchanged();
+//    }
 }
 void netcoupler::refreshhostlist() {
     http->refreshhostlist();

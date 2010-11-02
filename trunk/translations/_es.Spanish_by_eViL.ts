@@ -1525,7 +1525,8 @@ Mensaje de error: %2</translation>
         <location filename="../src/wormnet/leagueserverhandler.cpp" line="63"/>
         <source>The server responses with an invalid nickname: &apos;%1&apos;
 Its not possible to login, please contact the server admin.</source>
-        <translation type="unfinished"></translation>
+        <translation>El servidor respondió con un nombre de usuario no válido: &apos;%1&apos;
+La conexión no es posible. Por favor contacta al administrador del servidor.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/leagueserverhandler.cpp" line="112"/>
@@ -1618,7 +1619,7 @@ Its not possible to login, please contact the server admin.</source>
         <location filename="../src/wormnet/mainwindow.cpp" line="64"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="562"/>
         <source>Apply</source>
-        <translation type="unfinished">Aplicar</translation>
+        <translation>Conectar</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="606"/>
@@ -2104,7 +2105,7 @@ Si lo dejas en blanco, probablemente no puedas crear o unirte a partidas.</trans
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="117"/>
         <source>Away String while gaming. (doesnt work atm)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mensaje de ausencia al jugar (no funciona actualmente)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="412"/>
