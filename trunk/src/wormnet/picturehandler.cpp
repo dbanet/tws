@@ -71,9 +71,7 @@ QVariant picturehandler::getflag(const userstruct &u) const{
         if(singleton<settingswindow>().from_map("cbonlyshowflagsfromverifiedusers").toBool())
             return QVariant();
     }
-    if(!flaglist.contains(u.country.toLower().trimmed())){
-        if(u.country.toLower().trimmed()!="??")
-            myDebug()<<"flag: "<<u.country.toLower().trimmed()<<" is missing. used by "<<u.nick;
+    if(!flaglist.contains(u.country.toLower().trimmed())){        
         return *flaglist["q"];
     }
     return *flaglist[u.country.toLower().trimmed()];

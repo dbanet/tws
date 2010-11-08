@@ -595,7 +595,7 @@ void mainwindow::disconnected(){
 //************************************************************************************************************************
 //************************************************************************************************************************
 void mainwindow::init_menus(){
-    traymenu = new QMenu(this);    
+    traymenu = new QMenu;
     connect(traymenu,SIGNAL(triggered(QAction*)),this,SLOT(traymenutriggered(QAction*)));
     ui.pbtraymenu->setMenu(traymenu);
     singleton<balloon_handler>().tray->setContextMenu(traymenu);

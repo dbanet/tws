@@ -1892,17 +1892,7 @@ verbunden</translation>
 <context>
     <name>netcoupler</name>
     <message>
-        <location filename="../src/wormnet/netcoupler.cpp" line="257"/>
-        <source>joining/hosting a game finished normally</source>
-        <translation>Das Spiel wurde normal beendet.</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/netcoupler.cpp" line="259"/>
-        <source>joining/hosting a game crashed</source>
-        <translation>Das Spiel ist abgestürzt.</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/netcoupler.cpp" line="292"/>
+        <location filename="../src/wormnet/netcoupler.cpp" line="290"/>
         <source>No executables are given.
 you must choose a game executable,
 for example wa.exe, to join a game.

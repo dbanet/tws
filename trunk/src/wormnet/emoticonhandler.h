@@ -12,19 +12,19 @@ class emoticonhandler : public QWidget
 public:
     emoticonhandler(QWidget *parent = 0);
     ~emoticonhandler();
-    QVector<QVariant> preparemsg(QString);
-    QVector<QVariant> preparemsgrec(QString,int i);
+    QVector<QVariant> preparemsg(QString);    
 private:
-	QStringList slhelper;
+    QVector<QVariant> preparemsgrec(QString,int i);
+    QStringList slhelper;
     Ui::emoticonhandlerClass ui;
     QMap<QString,QImage> map;
     QMap<QString,QMap<QString,QString> > filemap;
     QString scheme;
 private slots:
-	void indexofcbchanged(const QString&);
-	void myclose();
-	void add();
-	void remove();
+    void indexofcbchanged(const QString&);
+    void myclose();
+    void add();
+    void remove();
 };
 
 #endif // EMOTICONHANDLER_H
