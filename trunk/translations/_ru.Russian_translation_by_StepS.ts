@@ -1427,12 +1427,12 @@ CTCP означает &quot;Протокол от Клиента К Клиент
 <context>
     <name>ircnet</name>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="37"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="38"/>
         <source>Reconnecting</source>
         <translation>Переподключение...</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="43"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="44"/>
         <source>There was an error with the connection to Wormnet.</source>
         <translation>Ошибка при подключении к серверу.</translation>
     </message>

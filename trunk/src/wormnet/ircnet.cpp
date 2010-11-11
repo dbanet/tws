@@ -8,12 +8,13 @@
 #include"inihandlerclass.h"
 #include"snpsettings.h"
 #include"settingswindow.h"
-#include "about.h"
-#include "codecselectdia.h"
+#include"about.h"
+#include"codecselectdia.h"
 #include"global_functions.h"
 #include"myDebug.h"
 #include"picturehandler.h"
 #include"leagueserverhandler.h"
+#include"netcoupler.h"
 extern inihandlerclass inihandler;
 extern QMap<QString, QStringList> usergarbagemap;
 ircnet::ircnet(QString s, QObject *parent) :
@@ -86,13 +87,12 @@ void ircnet::tcpread() {
         }
         if (s.startsWith(servermessageindicator))
             readservermassege(s.remove(servermessageindicator).trimmed());
-        else if (s.startsWith("PING")) {
+        else if (s.startsWith("PING"))
             tcp_write("PONG");
-        } else if (s.startsWith("ERROR")) {
+        else if (s.startsWith("ERROR"))
             myDebug() << s;
-        } else {
-            readusermessage(s);
-        }
+        else
+            readusermessage(s);        
     }
 }
 void ircnet::readusermessage(QString &s) {
@@ -214,12 +214,12 @@ void ircnet::readservermassege(QString s) {
         case 433: //nickname allready in use
             if(singleton<snpsettings>().map["enablesecurelogging"].toBool())
                 QMessageBox::information(0,tr("Nickname collision!"),
-                                     tr("Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again."),
-                                     QMessageBox::Ok);
+                                         tr("Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again."),
+                                         QMessageBox::Ok);
             else
                 QMessageBox::information(0,tr("Nickname collision!"),
-                                     tr("Your nickname is already in use. You can wait some minutes or change your nickname and try again."),
-                                     QMessageBox::Ok);
+                                         tr("Your nickname is already in use. You can wait some minutes or change your nickname and try again."),
+                                         QMessageBox::Ok);
             tcp->disconnect();
             break;
 	case 412: //No text to send

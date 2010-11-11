@@ -1425,12 +1425,12 @@ Vous pouvez utiliser les commandes CTCP pour des sites de clan, des plaisanterie
 <context>
     <name>ircnet</name>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="37"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="38"/>
         <source>Reconnecting</source>
         <translation>Reconnexion</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="43"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="44"/>
         <source>There was an error with the connection to Wormnet.</source>
         <translation>Il y a eu une erreur pendant la connexion à WormNET.</translation>
     </message>
@@ -1453,12 +1453,12 @@ Vous pouvez utiliser les commandes CTCP pour des sites de clan, des plaisanterie
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="217"/>
         <source>Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Votre pseudo est déjà en cours d&apos;utilisation. Attendez quelques minutes ou cliquez sur le bouton &quot;Profil&quot; dans la connexion sécurisée puis réessayez.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="221"/>
         <source>Your nickname is already in use. You can wait some minutes or change your nickname and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Votre pseudo est déjà en cours d&apos;utilisation. Attendez quelques minutes ou changez de pseudo puis réessayez.</translation>
     </message>
 </context>
 <context>
@@ -1526,7 +1526,8 @@ Vous pouvez utiliser les commandes CTCP pour des sites de clan, des plaisanterie
         <location filename="../src/wormnet/leagueserverhandler.cpp" line="63"/>
         <source>The server responses with an invalid nickname: &apos;%1&apos;
 Its not possible to login, please contact the server admin.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le serveur dit que ce pseudo est invalide : &quot;%1&quot;
+Il n&apos;est pas possible de se connecter, contactez l&apos;administrateur du serveur.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/leagueserverhandler.cpp" line="112"/>
@@ -1686,7 +1687,7 @@ Pour redémarrer maintenant appuyez sur OK, sinon appuyez sur Annuler.</translat
         <location filename="../src/wormnet/mainwindow.cpp" line="64"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="562"/>
         <source>Apply</source>
-        <translation type="unfinished">Se connecter</translation>
+        <translation>Se connecter</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="608"/>
@@ -1825,7 +1826,7 @@ Voulez-vous continuer ?</translation>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="624"/>
         <source>Traymenu</source>
-        <translation type="unfinished"></translation>
+        <translation>Menu</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="264"/>
@@ -2139,7 +2140,7 @@ Si cette zone de texte est vide, Worms refusera probablement d&apos;héberger ou
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="117"/>
         <source>Away String while gaming. (doesnt work atm)</source>
-        <translation type="unfinished"></translation>
+        <translation>Message &quot;away&quot; pendant que vous jouez. (ne marche pas actuellement)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="256"/>
