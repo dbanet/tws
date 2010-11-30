@@ -76,7 +76,7 @@ mainwindow::mainwindow() {
     snpsetcontains("enablesecurelogging");
     snpsetcontains("whichuitype");
     snpsetcontains("countrycode");    
-    snpsetcontains("client");
+    snpsetcontains("information");
     snpsetcontains("clan");
     snpsetcontains("wormnetserverlist");    
     snpsetcontains("rank");
@@ -176,7 +176,7 @@ void mainwindow::chooseclicked() {
     singleton<snpsettings>().map["tus_login"] = ui.letuslogin->text();
     singleton<snpsettings>().map["countrycode"] = ui.flag->currentText();
     singleton<snpsettings>().map["rank"] = ui.rank->currentText();
-    singleton<snpsettings>().map["client"] = ui.client->text();
+    singleton<snpsettings>().map["information"] = ui.client->text();
     singleton<snpsettings>().map["enablesecurelogging"] = ui.cbenabletus->isChecked();
     singleton<snpsettings>().map["spectateleagueserver"]=ui.cbenabletus->isChecked();
 
@@ -370,7 +370,7 @@ void mainwindow::snpsetcontains(const QString &s) {
     }else if (s == "rank"){
         ui.rank->setCurrentIndex(singleton<snpsettings>().map["rank"].toString().toInt());
     }
-    else if (s == "client" && singleton<snpsettings>().map.contains(s))
+    else if (s == "information" && singleton<snpsettings>().map.contains(s))
         ui.client->setText(singleton<snpsettings>().map[s].value<QString> ());
     else if (s == "clan" && singleton<snpsettings>().map.contains(s)){
         QString clanstring=singleton<snpsettings>().map[s].value<QString> ();

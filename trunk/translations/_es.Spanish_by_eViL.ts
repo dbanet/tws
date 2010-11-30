@@ -1489,7 +1489,7 @@ Usa los comandos CTCP para sitios de clanes, bromas, fotos, enlaces de qfileuplo
     <message>
         <location filename="../src/wormnet/joinprvgame.ui" line="24"/>
         <source>Add icon</source>
-        <translation>Agregar icono</translation>
+        <translation>Agregar programa</translation>
     </message>
     <message>
         <location filename="../src/wormnet/joinprvgame.ui" line="31"/>

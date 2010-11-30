@@ -182,9 +182,9 @@ void snpsettings::validate(){
         singleton<snpsettings>().map["countrycode"]="49";
     if(singleton<snpsettings>().map["qss file"].toString().isEmpty())
         singleton<snpsettings>().map["qss file"]="black by lookias.qss";
-    if(singleton<snpsettings>().map["client"].toString().isEmpty() ||
-       singleton<snpsettings>().map["client"].toString().startsWith("The Wheat Snooper"))
-        singleton<snpsettings>().map["client"]="The Wheat Snooper "+about::version;
+    if(singleton<snpsettings>().map["information"].toString().isEmpty() ||
+       singleton<snpsettings>().map["information"].toString().startsWith("The Wheat Snooper"))
+        singleton<snpsettings>().map["information"]="The Wheat Snooper "+about::version;
     if(!map.contains("showinformation")){
         map["showinformation"]=true;
     }

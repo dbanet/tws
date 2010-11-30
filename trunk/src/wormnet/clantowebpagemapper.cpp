@@ -62,6 +62,8 @@ void clantowebpagemapper::httpFinished(){
         if(s.isEmpty())
             continue;
         QStringList temp=s.trimmed().split(" ");
+        if(temp.size()<2)
+            continue;
         QString s=temp.takeFirst().toLower();
         map[s]=temp.takeFirst();
         InformationMap[s]=temp.join(" ");

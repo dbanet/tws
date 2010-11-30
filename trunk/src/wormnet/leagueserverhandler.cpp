@@ -40,7 +40,7 @@ void leagueserverhandler::myconnect(const QString n,const QString p){
 void leagueserverhandler::logintTimeOut(){        
     qobject_cast<mynetworkreply*>(loginreply)->setError(QNetworkReply::TimeoutError);       //bad design?
 }
-void leagueserverhandler::loginFinished(){        
+void leagueserverhandler::loginFinished(){            
     connecttimer.stop();
     QStringList sl=QString(loginreply->readAll()).split(" ",QString::SkipEmptyParts);
     if(sl.isEmpty() || loginreply->error() != QNetworkReply::NoError){
@@ -56,9 +56,15 @@ void leagueserverhandler::loginFinished(){
         emit sigloginfailed();
         return;
     }   
+    if(sl.isEmpty()){
+        QMessageBox::warning(0,QObject::tr("Warning"),tr("The server responses with an invalid nickname: '%1'\nIts not possible to login, please contact the server admin.").arg(nick));
+        qobjectwrapper<mainwindow>::ref().show();
+        qobjectwrapper<mainwindow>::ref().raise();
+        return;
+    }
     nick=sl.takeFirst();
     QRegExp regexp;
-    regexp.setPattern("([A-Z]|[a-z]|[0-9]|-|`){,15}");
+    regexp.setPattern("([A-Z]|[a-z]|[0-9]|-|`){1,15}");
     if(!regexp.exactMatch(nick)){
         QMessageBox::warning(0,QObject::tr("Warning"),tr("The server responses with an invalid nickname: '%1'\nIts not possible to login, please contact the server admin.").arg(nick));
         qobjectwrapper<mainwindow>::ref().show();
@@ -155,10 +161,10 @@ void leagueserverhandler::logout(){
     logoutreply=qnam.get(QNetworkRequest(url));
     connect(logoutreply, SIGNAL(finished()),this, SLOT(logoutFinished()));        
 }
-void leagueserverhandler::logoutFinished(){
-    logoutreply->deleteLater();    
+void leagueserverhandler::logoutFinished(){       
     loggingstate=false;
     emit siglogout();
+    logoutreply->deleteLater();
 }
 int leagueserverhandler::map_at_toInt(const QString key,const int i){
     static bool b;

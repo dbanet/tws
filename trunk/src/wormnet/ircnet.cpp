@@ -67,7 +67,7 @@ void ircnet::connected() {
     int i=singleton<snpsettings>().map["rank"].value<QString> ().toInt();
     s.append(QString::number(i) + " ");
     s.append(flag+" ");
-    s.append(singleton<snpsettings>().map["client"].value<QString> ());
+    s.append(singleton<snpsettings>().map["information"].value<QString> ());
     tcp_write(s);
     tcp_write("list");
     emit sigconnected();
@@ -149,7 +149,10 @@ void ircnet::disconnected() {
 void ircnet::readservermassege(QString s) {
     static bool b=false;
     QStringList sl = s.split(" ");
-    Q_ASSERT_X(sl.size()>=3,"420",sl.join("\n").toAscii());
+    if(sl.size()<3){
+        sl.clear();
+        return;
+    }
     int command = sl.first().toInt(&b);
     if(!b)
         myDebug()<<sl<<"|"+servermessageindicator+"|";
@@ -265,7 +268,7 @@ void ircnet::who() {
     }
 }
 void ircnet::quit() {    
-    tcp_write("QUIT : The Wheat Snooper "+ about::version);
+    tcp_write("QUIT : The Wheat Snooper "+ singleton<snpsettings>().map["information"].toString());
 }
 void ircnet::tcp_write(const QString &msg){
     tcp->write(CodecSelectDia::codec->fromUnicode(msg)+"\n");
