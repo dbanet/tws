@@ -201,8 +201,7 @@ void chatwindow::sendnoticeaction() {
 
     const QString s = ui.lineEdit->text().remove(0, 3).remove("\n");
     if (s != "") {
-        singleton<netcoupler>().sendrawcommand(QString("NOTICE ") + chatpartner + " :\001ACTION "
-                            + s + " \001");
+        singleton<netcoupler>().sendrawcommand(QString("NOTICE ") + chatpartner + " :\001ACTION " + s + " \001");
         chat->appendnotice(singleton<netcoupler>().nick, chatpartner, "<" + s + ">");
         ui.lineEdit->clear();
     }

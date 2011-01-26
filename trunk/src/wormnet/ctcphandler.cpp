@@ -9,6 +9,9 @@
 #include"chatwindow.h"
 #include"ctcphandleratomic.h"
 #include"global_functions.h"
+#include"qobjectwrapper.h"
+#include"awayhandler.h"
+
 extern QMap<QString, QString> ctcpcontainer;
 QStringList ctcphandler::awayusers;
 ctcphandler::ctcphandler(){
@@ -23,12 +26,11 @@ bool ctcphandler::getctcp(const QString &user, const QString &msg) {
             awayusers << user;
         emit sigctcpcommand(s, user);
     } else if (s=="back") {
-        removeCI(this->awayusers, user);
+        removeCI(awayusers, user);
         emit sigctcpcommand("back", user);
     } else if (s=="status") {
-        if (singleton<netcoupler>().isaway)
-            singleton<netcoupler>().sendrawcommand("PRIVMSG " + user + " :\001away "
-                                + singleton<netcoupler>().awaymessage + "\001");
+        if (qobjectwrapper<awayhandler>::ref().isaway)
+            singleton<netcoupler>().sendrawcommand("PRIVMSG " + user + " :\001away " + qobjectwrapper<awayhandler>::ref().awaymessage + "\001");
         else
             singleton<netcoupler>().sendrawcommand("PRIVMSG " + user + " :\001back\001");
     } else if (singleton<ctctphandlerwidget>().atomicmap.keys().contains(s)) {

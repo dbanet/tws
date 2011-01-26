@@ -32,11 +32,7 @@ public:
     void partchannel(const QString&);       
     void sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,int flag);
     void refreshlist();
-    void refreshwho();
-    void setaway(const QString &);
-    QString awaymessage;
-    bool isaway;
-    bool wasaway;
+    void refreshwho();    
     QString getmyhostip();
     QString nick;
     usermodel users;
@@ -64,7 +60,6 @@ signals:
     void sigusergarbagepart(const QString&,const QString&);
     void sigusergarbagequit(const QString&,const QString&);
 
-    void sigawaystringchanged();
     void sigsettingswindowchanged();
     void siggotidletime(const QString&, int);
     void signosuchnick(const QString&);
@@ -86,10 +81,7 @@ private:
     QProcess *p;
 
     QTimer timer;
-
-    bool setawayingame;
-    QString awaystringwhilehosting;
-    QString oldawaystring;
+    QTimer loopTimer;           //to safe usergarbage every 30sec    
 
     QString getprocessstring();
     void startprocess(const QString&);
@@ -101,8 +93,7 @@ public slots:
     void getnotice(const QString&,const QString&,const QString&);
     void sendinfotochan(const QString &,const QString &);
     void refreshhostlist();
-private slots:
-    void setaway();
+private slots:    
     void usesettingswindow(const QString &s="");    
     void getchannellist(QStringList);
     void getircip(QString);
@@ -111,8 +102,7 @@ private slots:
     void getwholist();    
     void getscheme(QString,QString);    
 
-    void sendmessagetoallbuddys(const QString&);
-    void processfinished(int , QProcess::ExitStatus);
+    void sendmessagetoallbuddys(const QString&);    
     void readprocess();    
     void ircconnected();
     void ircdisconnected();
@@ -120,6 +110,8 @@ private slots:
     void getmywormnethost(hoststruct);
 
     friend class userstruct;
+
+    void loopTimerTimeout();
 };
 
 #endif // NETCOUPLER_H

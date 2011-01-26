@@ -19,12 +19,15 @@ class mainwindow : public QWidget
 
 public:      
     void appenddebugmessage(const QString &);
-    QString debugmsg;
-    QMap<QString,QString> rememberwhogotaway;
+    QString debugmsg;    
     QList< ::window * > windowlist;
     QList< ::chatwindow*> hiddenchatwindowshelper;
     void fillsnpsettings();
     void quit();
+
+    static QString toString(){
+        return "mainwindow";
+    }
 
 public slots:
     void returntologintab();
@@ -54,7 +57,8 @@ private:
 
     void setlanguage(const QString&);
     void init_menus();
-    void get_baseStyleSheet();           
+    void get_baseStyleSheet();
+    void handleAwayBox();
     QString baseStyleSheet;
 
     void joinGameSourge();    
@@ -110,7 +114,7 @@ private slots:
 
 protected:
     void changeEvent (QEvent*);
-    void closeEvent ( QCloseEvent * event );
+    void closeEvent ( QCloseEvent * event );    
 signals:
     void sigopenchatwindow(const QString&);
 

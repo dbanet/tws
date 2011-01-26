@@ -8,12 +8,13 @@
 #ifndef HOSTSTRUCT_H_
 #define HOSTSTRUCT_H_
 #include<QString>
+#include "picturehandler.h"
 class hoststruct {
 public:
 	hoststruct();
 	virtual ~hoststruct();
         void sethost(QStringList&);
-        void sethost(QString name,QString nick,QString ip,int flag,QString country,QString id="",QString pwd="",QString chan="");
+        void sethost(QString name,QString nick,QString ip,int flag,QString country,QString id="",QString pwd="",QString chan="", QString countrynumber="1");
         const QString &name() const{
             return myname;
         }       
@@ -26,15 +27,22 @@ public:
         const QString &id() const{
             return myid;
         }
-        const int &flag() const{
+        const int flag() const{
             return myflag;
         }
-        QString flagstring() const{
+        QString flagstring() const{           
             return QString::number(myflag);
         }
-        const QString &country() const{
-            return mycountry;
+        const QString country() const{
+            QString s=singleton<picturehandler>().map_hostnumber_to_countrycode(mycountrynumber);
+            if(s.isEmpty())
+                return mycountry;
+            else return s;
         }
+        const QString countrynumber(){
+            return mycountrynumber;
+        }
+
         const QString &joinstring() const{
             return myjoinstring;
         }
@@ -62,6 +70,7 @@ private:
         int myflag;		//int
         bool mywithkey;
         QString myid;
+        QString mycountrynumber;
         QString rest;		//1, 0/1 for key
         QString mycountry;
         QString myjoinstring;

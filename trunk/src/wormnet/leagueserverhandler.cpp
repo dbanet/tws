@@ -7,13 +7,14 @@
 #include"global_functions.h"
 #include"quithandler.h"
 #include"mainwindow.h"
-#include"mynetworkreply.h"
 #include"about.h"
 
 #include<QMessageBox>
 #include<QUrl>
 #include<QTimer>
 #include<QDesktopServices>
+#include<QNetworkRequest>
+#include<QNetworkReply>
 leagueserverhandler::leagueserverhandler()
 {   
     connecttimer.setSingleShot(true);
@@ -37,8 +38,8 @@ void leagueserverhandler::myconnect(const QString n,const QString p){
     connect(loginreply, SIGNAL(finished()),this, SLOT(loginFinished()));      
     connecttimer.start(5000);
 }
-void leagueserverhandler::logintTimeOut(){        
-    qobject_cast<mynetworkreply*>(loginreply)->setError(QNetworkReply::TimeoutError);       //bad design?
+void leagueserverhandler::logintTimeOut(){
+    loginFinished();
 }
 void leagueserverhandler::loginFinished(){            
     connecttimer.stop();

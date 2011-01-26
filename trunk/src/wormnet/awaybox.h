@@ -12,6 +12,7 @@ public:
     awaybox(QWidget *parent = 0);
     ~awaybox();
     static bool ison;
+
 private slots:
 	void okclicked();
 	void cancelclicked();
@@ -24,6 +25,7 @@ private:
     Ui::awayboxClass ui;
 protected:
 	void closeEvent ( QCloseEvent *);
+        bool eventFilter(QObject * o, QEvent *e);
 signals:
 	void sigok();
 };

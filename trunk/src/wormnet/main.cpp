@@ -11,6 +11,7 @@
 #include"codecselectdia.h"
 #include"clantowebpagemapper.h"
 #include"picturehandler.h"
+#include"awayhandler.h"
 #include"myDebug.h"
 
 #include<QtGui>
@@ -31,10 +32,10 @@ void search_for_game_executables();
 void handle_prosnooper_buddys();
 void handle_wini_ini();
 void get_picutres();
-int main(int argc, char *argv[]) {    
+int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     a.setQuitOnLastWindowClosed(false);
-    volume = new volumeslider;    
+    volume = new volumeslider;
     a.setApplicationName("The Wheat Snooper");
     chdir(qPrintable(QApplication::applicationDirPath()));
     singleton<snpsettings>().load();
@@ -59,13 +60,12 @@ int main(int argc, char *argv[]) {
     handle_prosnooper_buddys();
     handle_wini_ini();
 #endif                   
-    singleton<sound_handler>().init();
+    singleton<sound_handler>().init();    
+    qobjectwrapper<awayhandler>();
     qobjectwrapper<mainwindow> w;
-    volume->setvalue(singleton<snpsettings>().map["volumeslidervalue"].value<int> ());        
-    if (!singleton<snpsettings>().map["chbminimized"].value<bool> ()){
+    volume->setvalue(singleton<snpsettings>().map["volumeslidervalue"].value<int> ());
+    if (!singleton<snpsettings>().map["chbminimized"].toBool())
         w.ref().show();
-    }
-
     loadusergarbage();
     loadquerylist();       
     QTimer::singleShot(1000,&singleton<sound_handler>(),SLOT(play_startupsound()));    
@@ -143,9 +143,8 @@ void search_for_game_executables(){
             text = wa.fileName();
             test = 1;
         }
-        if (wormkit.exists()) {
-            text = text + "\n" + wormkit.fileName();
-        }
+        if (wormkit.exists())
+            text = text + "\n" + wormkit.fileName();        
         if (test)
             singleton<snpsettings>().map["joinstrings"] = text.split("\n",QString::SkipEmptyParts);
     }

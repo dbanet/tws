@@ -40,7 +40,7 @@ void hoststruct::sethost(QStringList &sl) {
         myid = sl.takeFirst();
         myjoinstring = "wa://" + myip + "?gameid=" + myid;
         myhoststring = QString("wa://") + "?gameid=" + myid;
-        rest = sl.join(" ");
+        mycountrynumber=sl.join(" ");
     } else {
         if (sl.size() >= 1)
             myname = sl.takeFirst();
@@ -64,13 +64,14 @@ void hoststruct::sethost(QStringList &sl) {
         rest = sl.join(" ");
     }
 }
-void hoststruct::sethost(QString name,QString nick,QString ip,int flag,QString country,QString id,QString pwd,QString chan){
+void hoststruct::sethost(QString name,QString nick,QString ip,int flag,QString country,QString id,QString pwd,QString chan, QString countrynumber){
     valid=true;
     myname=name;
     mynick=nick;
     myip=ip;
     myflag=flag;
     mycountry=country;
+    mycountrynumber=countrynumber;
     myid=id;
     mypwd=pwd;
     mychan=chan;

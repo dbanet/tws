@@ -164,7 +164,7 @@ void snoppanet::sendhostrequest(){
     QNetworkRequest hostrequest = inihandler.requestfromini("[http get host header]");
     QString s = htmladdress + "/wormageddonweb/Game.asp?Cmd=Create&Name=" + lasthost.name()
                 + "&HostIP=" + lasthost.ip() + "&Nick=" + lasthost.nick() + "&Pwd=" + lasthost.pwd() + "&Chan="
-                + QString(lasthost.chan()).remove("#") + "&Loc=" + lasthost.flagstring() + "&Type=0&Pass=0";
+                + QString(lasthost.chan()).remove("#") + "&Loc=" + lasthost.flagstring() + "&Type="+lasthost.countrynumber()+"&Pass=0";
     QString port=gethostport();
     if(port!="")
         s = htmladdress + "/wormageddonweb/Game.asp?Cmd=Create&Name=" + lasthost.name()

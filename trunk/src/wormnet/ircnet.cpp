@@ -268,7 +268,7 @@ void ircnet::who() {
     }
 }
 void ircnet::quit() {    
-    tcp_write("QUIT : The Wheat Snooper "+ singleton<snpsettings>().map["information"].toString());
+    tcp_write("QUIT : [The Wheat Snooper] "+ singleton<snpsettings>().map["information"].toString());
 }
 void ircnet::tcp_write(const QString &msg){
     tcp->write(CodecSelectDia::codec->fromUnicode(msg)+"\n");

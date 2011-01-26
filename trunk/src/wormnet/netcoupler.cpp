@@ -19,6 +19,8 @@
 #include"global_functions.h"
 #include"balloon_handler.h"
 #include"hostbox.h"
+#include"awayhandler.h"
+
 extern volumeslider *volume;
 extern inihandlerclass inihandler;
 namespace looki {
@@ -32,9 +34,8 @@ netcoupler::netcoupler() {
     connect(&users, SIGNAL(sigbuddyarrived()),&singleton<balloon_handler>(), SLOT(buddyarrived()));
     connect(&users, SIGNAL(sigbuddyleft()),&singleton<balloon_handler>(), SLOT(buddyleft()));
     connect(this,SIGNAL(sigconnected()),&singleton<balloon_handler>(),SLOT(connected()));
-    connect(this,SIGNAL(sigdisconnected()),&singleton<balloon_handler>(),SLOT(disconnected()));       
-    p->setProcessChannelMode(QProcess::MergedChannels);
-    connect(p, SIGNAL(finished (int , QProcess::ExitStatus)),this, SLOT(processfinished(int , QProcess::ExitStatus)));
+    connect(this,SIGNAL(sigdisconnected()),&singleton<balloon_handler>(),SLOT(disconnected()));    
+    p->setProcessChannelMode(QProcess::MergedChannels);    
     connect(p, SIGNAL(readyRead()),this, SLOT(readprocess()));    
     usesettingswindow("cbsetawaywhilegaming");
     usesettingswindow("leawaystring");
@@ -71,7 +72,9 @@ void netcoupler::start(QString nick){
         irc->start();
         usesettingswindow("sbwhorepead");
     }
-    isaway = 0;
+    qobjectwrapper<awayhandler>::ref().isaway = 0;
+    connect(&loopTimer,SIGNAL(timeout()),this,SLOT(loopTimerTimeout()));
+    loopTimer.start(30*1000);
 }
 netcoupler::~netcoupler() {        
     irc->deleteLater();
@@ -182,10 +185,6 @@ void netcoupler::sendmessagetoallbuddys(const QString &msg) {
         }
     }
 }
-void netcoupler::setaway(const QString &s) {
-    awaymessage = s;
-    isaway = 1;
-}
 void netcoupler::ircconnected(){
     emit sigconnected();
 }
@@ -229,7 +228,8 @@ void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &
     if (!singleton<snpsettings>().map["leplayername"].toString().isEmpty())
         nick=singleton<snpsettings>().map["leplayername"].toString();
     hoststruct h;
-    h.sethost(name,nick,getmyhostip(),flag,"??","",pwd,chan);
+    QString hostcountrynumber=singleton<picturehandler>().map_hostcountrycode_to_number(singleton<picturehandler>().map_number_to_countrycode(flag));
+    h.sethost(name,nick,getmyhostip(),flag,"??","",pwd,chan,hostcountrynumber);
     http->sendhost(h);
     connect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));
 }
@@ -247,39 +247,6 @@ QString netcoupler::getmyhostip(){
     if(singleton<snpsettings>().map["useacostumipforhosting"].value<bool> ())
         address=singleton<snpsettings>().map["costumipforhosting"].value<QString>();
     return address;
-}
-void netcoupler::processfinished(int , QProcess::ExitStatus e) {    
-//    http->closelasthost();
-//    hostlifetimer.stop();
-//    hostlifetimer.disconnect();
-//    if (e == 0)
-//        myDebug() << tr("joining/hosting a game finished normally");
-//    else
-//        myDebug() << tr("joining/hosting a game crashed");
-//    if (setawayingame) {
-//        if (wasaway){
-//            isaway = 1;
-//            return;
-//        }
-//        isaway = 0;
-//        wasaway = 0;
-//        if (!singleton<snpsettings>().map["awaymessage"].value<QStringList> ().isEmpty())
-//            this->awaymessage
-//                    = singleton<snpsettings>().map["awaymessage"].value<QStringList> ().last();
-//        emit sigawaystringchanged();
-//        foreach(QString s,qobjectwrapper<mainwindow>::ref().rememberwhogotaway.keys()) {
-//            if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
-//                && !singleton<snpsettings>().map["ignorelist"].toStringList().contains(s, Qt::CaseInsensitive)) {
-//                sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
-//                sendrawcommand("PRIVMSG " + s + " :\001back\001");
-//            } else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
-//                if (singleton<snpsettings>().map["buddylist"].toStringList().contains(s,Qt::CaseInsensitive))
-//                    sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
-//                sendrawcommand("PRIVMSG " + s + " :\001back\001");
-//            }
-//        }
-//    }
-//    qobjectwrapper<mainwindow>::ref().rememberwhogotaway.clear();
 }
 void netcoupler::readprocess() {
     qWarning() << qobject_cast<QProcess*> (sender())->readAll();
@@ -356,28 +323,11 @@ void netcoupler::usesettingswindow(const QString &s) {
         timer.disconnect();
         connect(&timer, SIGNAL(timeout()),this, SLOT(getwholist()));        
         timer.start(i);
-    } else if (s == "cbsetawaywhilegaming" || s == "")
-        setawayingame= singleton<settingswindow>().from_map("cbsetawaywhilegaming").value<bool> ();
-    else if (s == "leawaystring" || s == "")
-        awaystringwhilehosting = singleton<settingswindow>().from_map("leawaystring").value<
-                                 QString> ();   
+    }
     singleton<sound_handler>().init();
 }
 void netcoupler::settingswindowemitfunktion() { //signals are protected?!
     emit sigsettingswindowchanged();
-}
-void netcoupler::setaway() {
-//    if (setawayingame && !singleton<settingswindow>().from_map("chbdisconnectongame").toBool()) {
-//        if (!isaway){
-//            isaway = 1;
-//            wasaway=0;
-//        }
-//        else
-//            wasaway = 1;
-//        awaymessage = awaystringwhilehosting;
-//        oldawaystring = awaymessage;
-//        emit sigawaystringchanged();
-//    }
 }
 void netcoupler::refreshhostlist() {
     http->refreshhostlist();
@@ -391,8 +341,15 @@ void netcoupler::startprocess(const QString &s){
     }
     if(singleton<settingswindow>().from_map("chbdisconnectongame").toBool())
         qobjectwrapper<mainwindow>::ref().returntologintab();
+    if(singleton<settingswindow>().from_map("cbsetawaywhilegaming").toBool()){
+        qobjectwrapper<awayhandler>::ref().startLookingForGame();
+        qobjectwrapper<awayhandler>::ref().setawaywhilegameing();
+    }
     p->startDetached(s);
 }
 int netcoupler::ircstate(){
     return irc->state();
+}
+void netcoupler::loopTimerTimeout(){
+    safeusergarbage();
 }

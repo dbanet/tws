@@ -528,3 +528,42 @@ QString picturehandler::map_countrycode_to_number(QString country){
         i = 83;
     return QString::number(i);
 }
+QString picturehandler::map_hostcountrycode_to_number(QString country){
+    country=country.trimmed().toUpper();
+    QString s;
+    if(country=="DZ") s="1686592068";
+    else if(country=="AE") s="1686586689";
+    else if(country=="BY") s="1686591810";
+    else if(country=="BG") s="1686587202";
+    else if(country=="EG") s="1686587205";
+    else if(country=="GT") s="1686590535";
+    else if(country=="JM") s="1686588746";
+    else if(country=="KZ") s="1686592075";
+    else if(country=="KR") s="1686590027";
+    else if(country=="LT") s="1686590540";
+    else if(country=="MK") s="1686588237";
+    else if(country=="MH") s="1686587469";
+    else if(country=="PE") s="1686586704";
+    else if(country=="SA") s="1686585683";
+    else if(country=="TW") s="1686591316";
+    return s;
+}
+QString picturehandler::map_hostnumber_to_countrycode(QString number){
+    QString s;
+    if(s=="1686592068") s="DZ";
+    else if(s=="1686586689") s="AE";
+    else if(s=="1686591810") s="BY";
+    else if(s=="1686587202") s="BG";
+    else if(s=="1686587205") s="EG";
+    else if(s=="1686590535") s="GT";
+    else if(s=="1686588746") s="JM";
+    else if(s=="1686592075") s="KZ";
+    else if(s=="1686590027") s="KR";
+    else if(s=="1686590540") s="LT";
+    else if(s=="1686588237") s="MK";
+    else if(s=="1686587469") s="MH";
+    else if(s=="1686586704") s="PE";
+    else if(s=="1686585683") s="SA";
+    else if(s=="1686591316") s="TW";
+    return s;
+}

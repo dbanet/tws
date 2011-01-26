@@ -7,7 +7,7 @@
 #include<QTimer>
 #include<QNetworkAccessManager>
 #include"global_macros.h"
-#include"mynetworkreply.h"
+
 class QNetworkReply;
 class QTimer;
 class leagueserverhandler : public QObject
