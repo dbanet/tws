@@ -8,7 +8,7 @@
 emoticonhandler::emoticonhandler(QWidget *parent) :
 	QWidget(parent) {
 	ui.setupUi(this);
-        scheme=S_S.map["smileyscheme"].toString();
+        scheme=S_S.getstring("smileyscheme");
 	if(scheme.isEmpty()){
 		scheme="default";
 	}
@@ -127,7 +127,7 @@ void emoticonhandler::indexofcbchanged(const QString&) {
 	map.clear();
 	ui.listWidget->clear();
 	scheme = ui.cbscheme->currentText();
-        S_S.map["smileyscheme"]=scheme;
+        S_S.set("smileyscheme", scheme);
         S_S.safe();
 	foreach(QString s,filemap[scheme].keys()) {
 			if (QFile::exists(QApplication::applicationDirPath() + "/smileys/"
