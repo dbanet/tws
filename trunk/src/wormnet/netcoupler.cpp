@@ -40,7 +40,7 @@ netcoupler::netcoupler() {
     usesettingswindow("cbsetawaywhilegaming");
     usesettingswindow("leawaystring");
 
-    mutedusers = S_S.map["mutedusers"].toStringList();
+    mutedusers = S_S.getstringlist("mutedusers");
     connect(this, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
     connect(this, SIGNAL(sigsettingswindowchanged()),&users, SLOT(usesettingswindow()));
 }
@@ -177,11 +177,10 @@ void netcoupler::refreshwho() {
 
 }
 void netcoupler::sendmessagetoallbuddys(const QString &msg) {
-    foreach(QString s,S_S.map["buddylist"].value<QStringList>()) {
+    foreach(QString s,S_S.getstringlist("buddylist")) {
         if (users.users.contains(userstruct(userstruct::whoami(s)))) {
-            QString nick = users.users[users.users.indexOf(userstruct(
-                    userstruct::whoami(s)))].nick;
-            this->sendnotice(nick, msg);
+            QString nick = users.users[users.users.indexOf(userstruct(userstruct::whoami(s)))].nick;
+            sendnotice(nick, msg);
         }
     }
 }
@@ -225,8 +224,8 @@ void netcoupler::createhost(hoststruct h) {
 void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,int flag){
     looki::currentchannel=chan;
     QString nick=this->nick;
-    if (!S_S.map["leplayername"].toString().isEmpty())
-        nick=S_S.map["leplayername"].toString();
+    if (!S_S.getstring("leplayername").isEmpty())
+        nick=S_S.getstring("leplayername");
     hoststruct h;
     QString hostcountrynumber=singleton<picturehandler>().map_hostcountrycode_to_number(singleton<picturehandler>().map_number_to_countrycode(flag));
     h.sethost(name,nick,getmyhostip(),flag,"??","",pwd,chan,hostcountrynumber);
@@ -238,21 +237,21 @@ void netcoupler::getmywormnethost(hoststruct h){
     disconnect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));
     QString host = QString("wa://%1?gameid="+h.id()+"&scheme=%2").arg(address).arg(schememap[looki::currentchannel]);
     QString msg = QString(" is hosting a game: %1, %2").arg(h.name()).arg(host);
-    if (S_S.map["chbsendhostinfotochan"].toBool())
+    if (S_S.getbool("chbsendhostinfotochan"))
         sendinfotochan(looki::currentchannel, msg);
     createhost(h);
 }
 QString netcoupler::getmyhostip(){
     QString address=myip;
-    if(S_S.map["useacostumipforhosting"].value<bool> ())
-        address=S_S.map["costumipforhosting"].value<QString>();
+    if(S_S.getbool("useacostumipforhosting"))
+        address=S_S.getstring("costumipforhosting");
     return address;
 }
 void netcoupler::readprocess() {
     qWarning() << qobject_cast<QProcess*> (sender())->readAll();
 }
 QString netcoupler::getprocessstring() {
-    QStringList sl = S_S.map["joinstrings"].value<QStringList> ();
+    QStringList sl = S_S.getstringlist("joinstrings");
     if (sl.isEmpty())
         QMessageBox::warning(0, "", tr("No executables are given.\n"
                                        "you must choose a game executable,\n"
