@@ -84,7 +84,7 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QMap<QString,
         }
     }
     QStringList sl;
-    foreach(QString s,S_S.map["buddylist"].value<QStringList>()) {
+    foreach(QString s,S_S.getstringlist("buddylist")) {
         if (users.contains(userstruct(userstruct::whoami(s)))) {
             usermap[tr("Buddylist")].push_back(users[users.indexOf(
                     userstruct::whoami(s))]);
@@ -119,9 +119,8 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QMap<QString,
     usermap[GamesourgeChannelName];
 #endif
     usermap[usermodel::tr("Ignorelist")];
-    foreach(QString s,S_S.map["ignorelist"].value<QStringList>()) {
-        usermap[usermodel::tr("Ignorelist")].push_back(userstruct(
-                QStringList() << "" << "" << "" << "" << s));
+    foreach(QString s,S_S.getstringlist("ignorelist")) {
+        usermap[usermodel::tr("Ignorelist")].push_back(userstruct(QStringList() << "" << "" << "" << "" << s));
     }
     classes = usermap.keys();
     classes.move(classes.indexOf(tr("Buddylist")), 0);
@@ -146,12 +145,8 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QMap<QString,
 void usermodel::addbuddy(const QString &user) {
 
     emit layoutAboutToBeChanged();
-    if (!S_S.map["buddylist"].value<QStringList> ().contains(user,
-                                                                                  Qt::CaseInsensitive)
-        && !S_S.map["ignorelist"].value<QStringList> ().contains(user,
-                                                                                      Qt::CaseInsensitive)) {
-        S_S.map["buddylist"].setValue<QStringList> (
-                S_S.map["buddylist"].value<QStringList> () << user);
+    if (!containsCI(S_S.getstringlist("buddylist") ,user) && !containsCI(S_S.getstringlist("ignorelist"), user)) {
+        S_S.set("buddylist", S_S.getstringlist("buddylist") << user);
     }
     S_S.safe();
     emit layoutChanged();
@@ -160,7 +155,7 @@ void usermodel::addbuddy(const QString &user) {
 void usermodel::deletebuddy(const QString &s) {
 
     emit layoutAboutToBeChanged();
-    QStringList sl = S_S.map["buddylist"].value<QStringList> ();
+    QStringList sl = S_S.getstringlist("buddylist");
     QStringList::iterator i = sl.begin();
     QStringList temp;
     while (i != sl.end()) {
@@ -172,7 +167,7 @@ void usermodel::deletebuddy(const QString &s) {
     foreach(QString s,temp) {
         sl.removeAll(s);
     }
-    S_S.map["buddylist"] = sl;
+    S_S.set("buddylist", sl);
     S_S.safe();
     emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
@@ -180,12 +175,8 @@ void usermodel::deletebuddy(const QString &s) {
 void usermodel::addignore(const QString &s) {
 
     emit layoutAboutToBeChanged();
-    if (!S_S.map["ignorelist"].value<QStringList> ().contains(s,
-                                                                                   Qt::CaseInsensitive)
-        && !S_S.map["buddylist"].value<QStringList> ().contains(s,
-                                                                                     Qt::CaseInsensitive)) {
-        S_S.map["ignorelist"]
-                = S_S.map["ignorelist"].value<QStringList> () << s;
+    if (!containsCI(S_S.getstringlist("ignorelist"), s) && !containsCI(S_S.getstringlist("buddylist"), s)) {
+        S_S.set("ignorelist", S_S.getstringlist("ignorelist") << s);
     }
     S_S.safe();
     emit layoutChanged();
@@ -195,16 +186,16 @@ void usermodel::deleteignore(const QString &s) {
     emit layoutAboutToBeChanged();
     userstruct u;
     u.nick = s;
-    QStringList sl = S_S.map["ignorelist"].value<QStringList> ();
+    QStringList sl = S_S.getstringlist("ignorelist");
     sl.removeOne(s);
-    S_S.map["ignorelist"] = sl;
+    S_S.set("ignorelist", sl);
     usermap[usermodel::tr("Ignorelist")].removeOne(u);
     S_S.safe();
     emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
 int usermodel::columnCount(const QModelIndex & /*parent*/) const {
-    if(!S_S.map["showinformation"].toBool())
+    if(!S_S.getbool("showinformation"))
         return 4;
     return 5;
 }
@@ -254,14 +245,12 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
             if (classes[index.internalId()] == tr("Querys") && !users.contains(
                     userstruct::whoami(nick)))
                 return offlineicon;
-            else if (S_S.map["buddylist"].value<QStringList> ().contains(
-                    nick, Qt::CaseInsensitive)) {
+            else if (containsCI(S_S.getstringlist("buddylist"), nick)) {
                 if (containsCI(ctcphandler::awayusers, nick))
                     return awaybuddyicon;
                 else
                     return buddyicon;
-            } else if (S_S.map["ignorelist"].value<QStringList> ().contains(
-                    nick, Qt::CaseInsensitive)) {
+            } else if (containsCI(S_S.getstringlist("ignorelist"), nick)) {
                 if (containsCI(ctcphandler::awayusers, nick))
                     return awayignoreicon;
                 else
@@ -354,7 +343,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
     }
     if (index.internalId() != e_Channel) {
         if (role == Qt::BackgroundRole){
-            if(S_S.map["spectateleagueserver"].toBool()){
+            if(S_S.getbool("spectateleagueserver")){
                 if(singleton<leagueserverhandler>().contains_key(usermap[classes[index.internalId()]][index.row()].nick)){
                     if(!singleton<settingswindow>().from_map("cbdontshowagradientonverifiedusers").toBool()){
                         return QBrush(leagueuserhighlightgradient);
@@ -375,7 +364,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
                 return f;
             }
         } else if(index.column()==e_Clan){
-            if(S_S.map["spectateleagueserver"].toBool()){
+            if(S_S.getbool("spectateleagueserver")){
                 QString s=singleton<leagueserverhandler>().map_at_toString(usermap[classes[index.internalId()]][index.row()].nick,leagueserverhandler::e_clan);
                 if(!s.isEmpty()){
                     if(singleton<clantowebpagemapper>().contains(s)){
@@ -394,7 +383,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
 
             }
         }else if(index.column()==e_Nick){
-            if(!S_S.map["spectateleagueserver"].toBool())
+            if(!S_S.getbool("spectateleagueserver"))
                 return QVariant();
             if(!singleton<settingswindow>().from_map("cbunderlineverifiedusers").toBool())
                 return QVariant();
@@ -512,7 +501,7 @@ userstruct usermodel::getuserstructbyindex(const QModelIndex &index) {
 usermodel::~usermodel() {
 }
 QVariant usermodel::getrank(const userstruct &u) const{
-    if(S_S.map["spectateleagueserver"].toBool()){
+    if(S_S.getbool("spectateleagueserver")){
         QString s=singleton<leagueserverhandler>().map_at_toString(u.nick,leagueserverhandler::e_rank);
         if(!s.isEmpty())
             return *singleton<picturehandler>().getleaguerank(s);
@@ -523,9 +512,9 @@ QVariant usermodel::getrank(const userstruct &u) const{
 }
 QVariant usermodel::getclan(const userstruct &u) const{
     QString s;
-    if(S_S.map["spectateleagueserver"].toBool()){
+    if(S_S.getbool("spectateleagueserver")){
         s=singleton<leagueserverhandler>().map_at_toString(u.nick,leagueserverhandler::e_clan);
-        if (S_S.map["dissallowedclannames"].value<QStringList> ().contains(s,Qt::CaseInsensitive))
+        if (containsCI(S_S.getstringlist("dissallowedclannames"), s))
             return QVariant();
         if(!s.isEmpty())
             return s;
@@ -533,7 +522,7 @@ QVariant usermodel::getclan(const userstruct &u) const{
             return QVariant();
     }
     s=u.clan;
-    if (S_S.map["dissallowedclannames"].value<QStringList> ().contains(s,Qt::CaseInsensitive))
+    if (containsCI(S_S.getstringlist("dissallowedclannames"), s))
         return QVariant();
     else
         return s;
