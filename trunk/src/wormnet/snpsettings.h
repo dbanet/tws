@@ -27,10 +27,10 @@ public:
     void set(QString key, QVariant value);
     bool contains(QString key) const;
 
-    QByteArray getbytearray(QString key) const;        
+    QByteArray getbytearray(QString key) const;            
 
-    DECLARE_SINGLETON(snpsettings);
-private:                            
+    DECLARE_SINGLETON(snpsettings);    
+private:
     QMap<QString,QVariant> map;
     void installTranslationBySystemLocale();
     QString version;

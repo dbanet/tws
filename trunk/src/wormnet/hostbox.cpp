@@ -15,13 +15,13 @@ hostbox::hostbox(QString c, QWidget *parent) :
     ui.lgamename->setText(QObject::tr("Gamename"));
     ui.lgameip->setText(QObject::tr("GameIp"));
 
-    QStringList sl = S_S.map.value("joinstrings").value<QStringList> ();
+    QStringList sl = S_S.getstringlist("joinstrings");
     ui.icons->addItems(sl);
-    ui.cbip->setChecked(S_S.map["useacostumipforhosting"].value<bool> ());
-    ui.leip->setText(S_S.map["costumipforhosting"].value<QString>());
+    ui.cbip->setChecked(S_S.getbool("useacostumipforhosting"));
+    ui.leip->setText(S_S.getstring("costumipforhosting"));
 
     ui.legamename->setText(singleton<netcoupler>().nick);
-    QString gamename=S_S.map["legamename"].toString();        
+    QString gamename=S_S.getstring("legamename");
     if(!gamename.isEmpty())
         ui.legamename->setText(gamename);
     setWindowTitle(tr("Create a public game in")+" " + channel + ".");
@@ -31,8 +31,8 @@ hostbox::hostbox(QString c, QWidget *parent) :
     connect(ui.ok, SIGNAL(clicked()),this, SLOT(okclicked()));
     connect(ui.cancel, SIGNAL(clicked()),this, SLOT(cancelclicked()));    
 
-    ui.chbsendhostinfotochan->setChecked(S_S.map["chbsendhostinfotochan"].toBool());
-    ui.leplayername->setText(S_S.map["leplayername"].toString());
+    ui.chbsendhostinfotochan->setChecked(S_S.getbool("chbsendhostinfotochan"));
+    ui.leplayername->setText(S_S.getstring("leplayername"));
     ui.lehostport->setText(gethostport());
 
     ui.legamename->installEventFilter(this);
@@ -68,36 +68,36 @@ void hostbox::addclicked() {
     QString file = QFileDialog::getOpenFileName(this, tr(
             "Choose a Program."), "c:/", "*.exe *.com");
 #endif
-    QStringList sl = S_S.map.value("joinstrings").value<QStringList> ();
+    QStringList sl = S_S.getstringlist("joinstrings");
     if (file != "") {
         if (!sl.contains(file) && file != "") {
             sl.insert(0, file);
-            S_S.map["joinstrings"] = sl;
+            S_S.set("joinstrings", sl);
             ui.icons->clear();
             ui.icons->addItems(sl);
             S_S.safe();
         } else if (sl.contains(file) && file != "") {
             sl.move(sl.indexOf(file), 0);
-            S_S.map["joinstrings"] = sl;
+            S_S.set("joinstrings", sl);
             S_S.safe();
         }
     }
 }
 void hostbox::okclicked() {
     sethostport(ui.lehostport->text());
-    S_S.map["leplayername"].setValue<QString> (ui.leplayername->text().replace(" ","_"));
-    S_S.map["chbsendhostinfotochan"] = ui.chbsendhostinfotochan->isChecked();    
-    S_S.map["useacostumipforhosting"].setValue<bool> (ui.cbip->isChecked());
-    S_S.map["costumipforhosting"].setValue<QString>(ui.leip->text());
-    S_S.map["legamename"]=ui.legamename->text().replace(" ","_");
+    S_S.set("leplayername", ui.leplayername->text().replace(" ","_"));
+    S_S.set("chbsendhostinfotochan", ui.chbsendhostinfotochan->isChecked());
+    S_S.set("useacostumipforhosting", ui.cbip->isChecked());
+    S_S.set("costumipforhosting", ui.leip->text());
+    S_S.set("legamename", ui.legamename->text().replace(" ","_"));
     gamename = ui.legamename->text();
     gamename.replace(" ", "_");
     pwd = ui.lepassword->text();
     icon = ui.icons->currentText();
-    QStringList sl = S_S.map.value("joinstrings").value<QStringList> ();
+    QStringList sl = S_S.getstringlist("joinstrings");
     if (!sl.isEmpty()) {
         sl.move(sl.indexOf(ui.icons->currentText()), 0);
-        S_S.map["joinstrings"] = sl;
+        S_S.set("joinstrings", sl);
         emit sigok();
     }
     S_S.safe();
