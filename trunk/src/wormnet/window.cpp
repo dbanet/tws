@@ -111,7 +111,7 @@ window::window(netcoupler *n, QString s, int i) :
     connect(net, SIGNAL(siggotchanellist(QStringList)),this, SLOT(getuserscount(QStringList)));
     ui.msg->setFocus(Qt::MouseFocusReason);
 
-    QVariantList windowstates = S_S.map[currentchannel + ":"+ QString::number(whichuiison)].toList();
+    QVariantList windowstates = S_S.getlist(currentchannel + ":"+ QString::number(whichuiison));
     if (!windowstates.isEmpty()) {
         if (!windowstates.isEmpty())
             restoreGeometry(windowstates.takeFirst().toByteArray());
@@ -222,7 +222,7 @@ bool window::eventFilter(QObject *obj, QEvent *event) {
 void window::gotmsg(const QString &user, const QString &receiver,
                     const QString &msg) {
     if (!acceptignorys) {
-        if (!containsCI(S_S.map["ignorelist"].value<QStringList> (), user)) {
+        if (!containsCI(S_S.getstringlist("ignorelist"), user)) {
             if (compareCI(receiver, currentchannel)) {
                 chat->append(user, receiver, msg);
             }
@@ -236,7 +236,7 @@ void window::gotmsg(const QString &user, const QString &receiver,
 void window::gotnotice(const QString &user, const QString &receiver,
                        const QString &msg) {
 
-    if (!containsCI(S_S.map["ignorelist"].value<QStringList> (), user)) {
+    if (!containsCI(S_S.getstringlist("ignorelist"), user)) {
         if (containsCI(singleton<netcoupler>().channellist, receiver)) { //notice from user to a channel
             if (compareCI(receiver, currentchannel))
                 chat->appendnotice(user, receiver, msg); //only one channel will get the notice
@@ -325,8 +325,7 @@ void window::sendnoticeaction() {
         chat->moveSliderToMaximum();
     }
 }
-void window::closeEvent(QCloseEvent * /*event*/) {
-    S_S.map[this->currentchannel + ":" + QString::number(this->whichuiison)];
+void window::closeEvent(QCloseEvent * /*event*/) {    
     QVariantList windowstates;
     windowstates << saveGeometry();
     windowstates << ui.splitter1->saveState();
@@ -337,7 +336,7 @@ void window::closeEvent(QCloseEvent * /*event*/) {
     windowstates << ui.hosts->header()->sectionSize(4);
     windowstates << ui.users->header()->sectionSize(3);
     windowstates << ui.users->header()->sectionSize(4);
-    S_S.map[this->currentchannel + ":" + QString::number(whichuiison)]= windowstates;
+    S_S.set(currentchannel + ":" + QString::number(whichuiison), windowstates);
 }
 void window::useritempressed(const QModelIndex &index) {
     if (!index.isValid())
@@ -354,7 +353,7 @@ void window::useritempressed(const QModelIndex &index) {
     }
     if (QApplication::mouseButtons() == Qt::LeftButton && index.column()==usermodel::e_Clan){
         QString s;
-        if(S_S.map["spectateleagueserver"].toBool()){
+        if(S_S.getbool("spectateleagueserver")){
             QString nick=singleton<netcoupler>().users.data(index.sibling(index.row(), 0),Qt::DisplayRole).value<QString> ();
             s=singleton<leagueserverhandler>().map_at_toString(nick,leagueserverhandler::e_clan);
         }
@@ -382,7 +381,7 @@ void window::useritempressed(const QModelIndex &index) {
             }
         }
     } else if (index.column() == usermodel::e_Clan) {
-        QStringList sl = S_S.map["dissallowedclannames"].value<QStringList>();        
+        QStringList sl = S_S.getstringlist("dissallowedclannames");
         if (sl.contains(singleton<netcoupler>().users.getuserstructbyindex(index).clan,Qt::CaseInsensitive))
             menu.addAction(tr("Allow this clanname."));
         else
@@ -395,7 +394,7 @@ void window::useritempressed(const QModelIndex &index) {
             sl<< singleton<netcoupler>().users.getuserstructbyindex(index).clan;
         else
             showInformationAboutClan(singleton<netcoupler>().users.getuserstructbyindex(index).clan);
-        S_S.map["dissallowedclannames"].setValue<QStringList> (sl);
+        S_S.set("dissallowedclannames", sl);
         S_S.safe();
     } else if (singleton<netcoupler>().users.classes[index.internalId()] == usermodel::tr("Querys")) {
         QMenu menu;
@@ -415,19 +414,16 @@ void window::useritempressed(const QModelIndex &index) {
             "Buddylist") && singleton<netcoupler>().users.classes[index.internalId()]
                != usermodel::tr("Ignorelist")) {
         QMenu menu;
-        if (containsCI(S_S.map["buddylist"].value<QStringList> (),
-                       user)) {
+        if (containsCI(S_S.getstringlist("buddylist"), user)) {
             menu.addAction(tr("Remove this user from Buddylist."));
             menu.addSeparator();
             menu.addAction(tr("Show info about this user."))->setIcon(
                     chaticon);
             a = menu.exec(QCursor::pos());
-        } else if (containsCI(S_S.map["ignorelist"].value<
-                              QStringList> (), user)) {
+        } else if (containsCI(S_S.getstringlist("ignorelist"), user)) {
             menu.addAction(tr("Remove this user from Ignorelist."));
             menu.addSeparator();
-            menu.addAction(tr("Show info about this user."))->setIcon(
-                    chaticon);
+            menu.addAction(tr("Show info about this user."))->setIcon(chaticon);
             a = menu.exec(QCursor::pos());
         } else
             a = usermenu.exec(QCursor::pos());
@@ -493,7 +489,7 @@ void window::hostitemdblclicked(const QModelIndex &index) {
 }
 void window::getuserinfo(const QString &s) {
     QString msg;
-    if(S_S.map["spectateleagueserver"].toBool()){
+    if(S_S.getbool("spectateleagueserver")){
         QString url=singleton<leagueserverhandler>().map_at_toString(s,leagueserverhandler::e_webpage);
         if(!url.isEmpty()){
             QDesktopServices::openUrl(QUrl(url));
@@ -549,8 +545,7 @@ void window::hostitempressed(const QModelIndex &index) {
             QAction *a = joinmenu.exec(QCursor::pos());
             if (a != 0) {
                 if (a->text() == tr("Choose a Program to join this game.")) {
-                    QStringList sl = S_S.map.value("joinstrings").value<
-                                     QStringList> ();
+                    QStringList sl = S_S.getstringlist("joinstrings");
 #ifdef Q_WS_S60
                     QString file;
                     return;
@@ -568,9 +563,9 @@ void window::hostitempressed(const QModelIndex &index) {
 #endif
                     if (!sl.contains(file) && file != "") {
                         sl.insert(0, file);
-                        S_S.map["joinstrings"] = sl;
+                        S_S.set("joinstrings", sl);
                         joinmenu2.clear();
-                        foreach(QString s,S_S.map.value("joinstrings").value<QStringList>()) {
+                        foreach(QString s,S_S.getstringlist("joinstrings")) {
                             joinmenu2.addAction(s);
                         }
                         joinmenu2.addAction(tr(
@@ -578,7 +573,7 @@ void window::hostitempressed(const QModelIndex &index) {
                         S_S.safe();
                     } else if (sl.contains(file) && file != "") {
                         sl.move(sl.indexOf(file), 0);
-                        S_S.map["joinstrings"] = sl;
+                        S_S.set("joinstrings", sl);
                         S_S.safe();
                     }
                     QFile f(file);
@@ -590,10 +585,9 @@ void window::hostitempressed(const QModelIndex &index) {
                         myDebug() << s;
                     }
                 } else {
-                    QStringList sl = S_S.map["joinstrings"].value<
-                                     QStringList> ();
+                    QStringList sl = S_S.getstringlist("joinstrings");
                     sl.move(sl.indexOf(a->text()), 0);
-                    S_S.map["joinstrings"] = sl;
+                    S_S.set("joinstrings", sl);
                     singleton<netcoupler>().joingame(hostinfo, currentchannel, gamename);
                 }
             }
@@ -638,10 +632,9 @@ void window::usesettingswindow(const QString &s) {
 }
 void window::getjoinmenu() {
     joinmenu2.clear();
-    if (!S_S.map.value("joinstrings").value<QStringList> ().isEmpty()) {
-        foreach(QString s,S_S.map.value("joinstrings").value<QStringList>()) {
-            joinmenu2.addAction(s);
-        }
+    if (!S_S.getstringlist("joinstrings").isEmpty()) {
+        foreach(QString s,S_S.getstringlist("joinstrings"))
+            joinmenu2.addAction(s);        
     }
     joinmenu2.addAction(tr("Choose a Program to join this game."));
 }
@@ -656,7 +649,7 @@ void window::minimize() {
     this->hide();
 }
 void window::changealpha(int i) {
-    S_S.map["channeltransparency"] = i;
+    S_S.set("channeltransparency", i);
     if (i == 100)
         this->setWindowOpacity(1);
     else
