@@ -7,7 +7,7 @@ joinprvgame::joinprvgame(const QString &a,const QString &b)
 {
     this->setObjectName("normalwidget");
     ui.setupUi(this);
-    QStringList sl = S_S.map.value("joinstrings").value<QStringList> ();
+    QStringList sl = S_S.getstringlist("joinstrings");
     ui.icons->clear();
     ui.icons->addItems(sl);
     this->setWindowTitle(tr("Join game with."));
@@ -32,17 +32,17 @@ void joinprvgame::addclicked() {
     QString file = QFileDialog::getOpenFileName(this, tr(
             "Choose a Program."), "/home", "*.exe *.com");
 #endif
-    QStringList sl = S_S.map.value("joinstrings").value<QStringList> ();
+    QStringList sl = S_S.getstringlist("joinstrings");
     if (file != "") {
         if (!sl.contains(file) && file != "") {
             sl.insert(0, file);
-            S_S.map["joinstrings"] = sl;
+            S_S.set("joinstrings", sl);
             ui.icons->clear();
             ui.icons->addItems(sl);
             S_S.safe();
         } else if (sl.contains(file) && file != "") {
             sl.move(sl.indexOf(file), 0);
-            S_S.map["joinstrings"] = sl;
+            S_S.set("joinstrings", sl);
             S_S.safe();
         }
     }
