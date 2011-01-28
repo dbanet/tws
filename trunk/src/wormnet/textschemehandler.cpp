@@ -29,7 +29,7 @@ textschemehandler::textschemehandler(QWidget *parent) :
 	map["garbagejoinformat"] = &chathandler::garbagejoinformat;
 	map["garbagepartformat"] = &chathandler::garbagepartformat;
 	map["garbagequitformat"] = &chathandler::garbagequitformat;
-	map["garbageformat"] = &chathandler::garbageformat;
+        map["garbageformat"] = &chathandler::garbageformat;
         map["myselfformat"] = &chathandler::myselfformat;
 	ui.listWidget->addItems(map.keys());
 }

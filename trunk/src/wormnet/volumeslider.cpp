@@ -13,7 +13,7 @@ double volumeslider::value(){
 	return ui.horizontalSlider->value();
 }
 void volumeslider::setvalue(int i){
-	ui.horizontalSlider->setValue(i);
+        ui.horizontalSlider->setValue(i);
 }
 volumeslider::~volumeslider()
 {

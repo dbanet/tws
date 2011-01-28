@@ -21,7 +21,7 @@ void logbrowser::closeclicked(){
 }
 void logbrowser::chatclicked(){
 	if(!ui.listWidget->selectedItems().isEmpty()){
-	QString s=ui.listWidget->selectedItems().first()->text();
+        QString s=ui.listWidget->selectedItems().first()->text();
 	emit sigopenchatwindow(s);
 	}
 }

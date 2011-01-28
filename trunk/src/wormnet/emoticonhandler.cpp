@@ -24,7 +24,7 @@ emoticonhandler::emoticonhandler(QWidget *parent) :
 				f.close();
 			}
 		}
-	ui.cbscheme->setCurrentIndex(ui.cbscheme->findText(scheme));
+        ui.cbscheme->setCurrentIndex(ui.cbscheme->findText(scheme));
 	foreach(QString s,filemap[scheme].keys()) {
 			if (QFile::exists(QApplication::applicationDirPath() + "/smileys/"
 					+ scheme + "/" + filemap[scheme][s])) {
