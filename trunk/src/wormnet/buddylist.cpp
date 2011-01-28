@@ -4,8 +4,8 @@
 
 buddylist::buddylist(QWidget *parent) :
 	QWidget(parent) {
-	this->setObjectName("normalwidget");
-	this->setAttribute(Qt::WA_DeleteOnClose);
+	 setObjectName("normalwidget");
+	 setAttribute(Qt::WA_DeleteOnClose);
 	ui.setupUi(this);
 	connect(ui.close, SIGNAL(clicked()),this, SLOT(close()));
 	connect(ui.add, SIGNAL(clicked()),this, SLOT(add()));
@@ -20,7 +20,7 @@ void buddylist::add() {
 		ui.list->clear();
                 ui.list->addItems(S_S.getstringlist("buddylist"));
                 S_S.safe();
-	}
+        }
 }
 void buddylist::remove() {
 	QList<QListWidgetItem*> il = ui.list->selectedItems();

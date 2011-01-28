@@ -10,19 +10,18 @@ buttonlayout::buttonlayout(QWidget *parent) :
     ui.setupUi(this);    
     leaguemenu=new QMenu;
     ui.horizontalLayout->setAlignment(Qt::AlignLeft);
-    this->setObjectName("buttoenlayout");
+     setObjectName("buttoenlayout");
     connect(ui.pbrefresh, SIGNAL(clicked()),&singleton<netcoupler>(), SLOT(refreshhostlist()));
     connect(ui.pbhost, SIGNAL(clicked()),this, SIGNAL(pbhostclicked()));
     connect(ui.pbminimize, SIGNAL(clicked()),this, SIGNAL(pbminimizedclicked()));
     connect(ui.slideralpha,SIGNAL(valueChanged ( int )),this,SIGNAL(sigchangealpha(int)));
     connect(leaguemenu,SIGNAL(triggered(QAction*)),this,SLOT(leaguemenutriggered(QAction*)));
-    if(S_S.map["channeltransparency"].toInt()>=20){
-        ui.slideralpha->setValue(S_S.map["channeltransparency"].toInt());
-    }
+    if(S_S.getint("channeltransparency")>=20)
+        ui.slideralpha->setValue(S_S.getint("channeltransparency"));
     else
         ui.slideralpha->setValue(100);
     ui.chatwindowbuttonscrollArea->installEventFilter(this);
-    this->setMaximumHeight(23);   
+     setMaximumHeight(23);   
     if(singleton<settingswindow>().from_map("cbcostumword").toBool())
         ui.pbcostumwords->setText(QObject::tr("Costum words")+" "+QObject::tr("on"));
     else
@@ -49,23 +48,23 @@ bool buttonlayout::eventFilter(QObject *obj, QEvent *event) {
         if (event->type() == QEvent::Enter) {            
             if(ui.chatwindowbuttonscrollArea->width()<941){
                 ui.chatwindowbuttonscrollArea->setMaximumHeight(50);
-                this->setMaximumHeight(50);
+                 setMaximumHeight(50);
                 ui.chatwindowbuttonscrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
             }
         } else if (event->type() == QEvent::Leave) {
             ui.chatwindowbuttonscrollArea->setMaximumHeight(23);
-            this->setMaximumHeight(23);
+             setMaximumHeight(23);
             ui.chatwindowbuttonscrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         }
     }
     return QObject::eventFilter(obj, event);
 }
 void buttonlayout::hidebuttons() {
-    this->show();
+     show();
     emit sighideme();
 }
 void buttonlayout::showbuttons() {
-    this->hide();
+     hide();
     emit sigshowme();
 }
 buttonlayout::~buttonlayout() {
@@ -112,19 +111,19 @@ void buttonlayout::leaguemenutriggered(QAction *action){
     if(action==NULL)
         return;
     if(action->text()==tr("Off")){
-        S_S.map["spectatingneversettedoff"]=false;
+        S_S.set("spectatingneversettedoff", false);
         singleton<leagueserverhandler>().stoprefresh();
-        S_S.map["spectateleagueserver"]=false;
+        S_S.set("spectateleagueserver", false);
         return;
     }
     QString s=action->text();
-    S_S.map["spectateleagueserver"]=true;
+    S_S.set("spectateleagueserver", true);
     singleton<leagueserverhandler>().setleague(s,s);
     singleton<leagueserverhandler>().startrefresh();
 }
 void buttonlayout::fillleaguemenu(){
     leaguemenu->addAction(tr("Off"));
-    foreach(QString s,S_S.map["leagueservers"].value<QStringList>()){
+    foreach(QString s,S_S.getstringlist("leagueservers")){
         leaguemenu->addAction(s);
     }
     ui.pbspectate->setMenu(leaguemenu);

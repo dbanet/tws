@@ -18,8 +18,8 @@ charformatsettings::charformatsettings() {
 
 }
 void charformatsettings::load() {
-        myDebug()<<S_S.map["charformatfile"].toString();
-        QFile f(QApplication::applicationDirPath()+"/textschemes/" + S_S.map["charformatfile"].toString());
+        myDebug()<<S_S.getstring("charformatfile");
+        QFile f(QApplication::applicationDirPath()+"/textschemes/" + S_S.getstring("charformatfile"));
 	if (f.open(QFile::ReadOnly)) {
 		map.clear();
 		QDataStream ds(&f);
@@ -28,7 +28,7 @@ void charformatsettings::load() {
 	} else {
                 myDebug() << QObject::tr(
 				"cannot load textscheme file. I apply a random textscheme.");
-		QDir dir(QApplication::applicationDirPath()+"/textschemes");
+                QDir dir(QApplication::applicationDirPath()+"/textschemes");
 		QStringList sl = dir.entryList(QStringList("*.textscheme"),QDir::Files);
 		if (!sl.isEmpty()) {
 			QFile f(QApplication::applicationDirPath()+"/textschemes/" + sl.first());
@@ -44,9 +44,9 @@ void charformatsettings::load() {
 }
 void charformatsettings::safe() {
 	fontorcolorchanged=0;
-        QFile f("textschemes/" + S_S.map["charformatfile"].toString());
+        QFile f("textschemes/" + S_S.getstring("charformatfile"));
 	if (!f.open(QFile::WriteOnly | QFile::Truncate)) {
-            myDebug() << QObject::tr("cannot write file:")+" " << S_S.map["charformatfile"].toString();
+            myDebug() << QObject::tr("cannot write file:")+" " << S_S.getstring("charformatfile");
 	}
 	QDataStream ds(&f);
 	ds.setVersion(QDataStream::Qt_4_3);
