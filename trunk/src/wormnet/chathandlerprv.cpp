@@ -21,7 +21,7 @@
 #include"global_functions.h"
 QPointer<emoticonhandler> chathandlerprv::emot;
 chathandlerprv::chathandlerprv(QObject *parent, QTextBrowser *t, QString chan) :
-	chathandler(parent, t, chan) {
+        chathandler(parent, t, chan) {
     if (emot == 0)
         emot = new emoticonhandler;
     initialformatstarter();
@@ -31,7 +31,7 @@ void chathandlerprv::append(const QString &user, const QString &/*receiver*/,
     QString msgtemp = msg.simplified();
     QString time = QTime::currentTime().toString("hh:mm");
     cursor->insertText(time + ": ", timeformat);
-    if (!containsCI(S_S.map["buddylist"].value<QStringList> (), user)) {
+    if (!containsCI(S_S.getstringlist("buddylist"), user)) {
         if (msg.startsWith("\001ACTION")) {
             insertText("<" + user + " " + msgtemp + ">", actionformat,user);
         } else {

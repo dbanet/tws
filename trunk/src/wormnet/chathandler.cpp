@@ -160,7 +160,7 @@ void chathandler::append(const QString &user, const QString &receiver,
     msgtemp.remove("\n");
     QString time = QTime::currentTime().toString("hh:mm");
     cursor->insertText(time + ": ", timeformat);
-    if (!containsCI(S_S.map["buddylist"].value<QStringList> (), user)) {
+    if (!containsCI(S_S.getstringlist("buddylist"), user)) {
         if (compareCI(receiver, channel)) {
             if (msg.startsWith("\001ACTION")) {
                 msgtemp.remove(0, 7).remove("\001");
