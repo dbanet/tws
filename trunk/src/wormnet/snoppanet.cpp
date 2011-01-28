@@ -23,7 +23,7 @@ extern inihandlerclass inihandler;
 snoppanet::snoppanet(QObject *parent) :
 	QObject(parent) {        
     signalmapper = new QSignalMapper(this);
-    htmladdress = singleton<snpsettings>().map["wormnetserverlist"].value<QStringList>().first();
+    htmladdress = S_S.map["wormnetserverlist"].value<QStringList>().first();
     if(!htmladdress.startsWith("http://"))
         htmladdress="http://"+htmladdress;
     if(!htmladdress.endsWith("/"))

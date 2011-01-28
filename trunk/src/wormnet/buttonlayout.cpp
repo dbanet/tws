@@ -16,8 +16,8 @@ buttonlayout::buttonlayout(QWidget *parent) :
     connect(ui.pbminimize, SIGNAL(clicked()),this, SIGNAL(pbminimizedclicked()));
     connect(ui.slideralpha,SIGNAL(valueChanged ( int )),this,SIGNAL(sigchangealpha(int)));
     connect(leaguemenu,SIGNAL(triggered(QAction*)),this,SLOT(leaguemenutriggered(QAction*)));
-    if(singleton<snpsettings>().map["channeltransparency"].toInt()>=20){
-        ui.slideralpha->setValue(singleton<snpsettings>().map["channeltransparency"].toInt());
+    if(S_S.map["channeltransparency"].toInt()>=20){
+        ui.slideralpha->setValue(S_S.map["channeltransparency"].toInt());
     }
     else
         ui.slideralpha->setValue(100);
@@ -112,19 +112,19 @@ void buttonlayout::leaguemenutriggered(QAction *action){
     if(action==NULL)
         return;
     if(action->text()==tr("Off")){
-        singleton<snpsettings>().map["spectatingneversettedoff"]=false;
+        S_S.map["spectatingneversettedoff"]=false;
         singleton<leagueserverhandler>().stoprefresh();
-        singleton<snpsettings>().map["spectateleagueserver"]=false;
+        S_S.map["spectateleagueserver"]=false;
         return;
     }
     QString s=action->text();
-    singleton<snpsettings>().map["spectateleagueserver"]=true;
+    S_S.map["spectateleagueserver"]=true;
     singleton<leagueserverhandler>().setleague(s,s);
     singleton<leagueserverhandler>().startrefresh();
 }
 void buttonlayout::fillleaguemenu(){
     leaguemenu->addAction(tr("Off"));
-    foreach(QString s,singleton<snpsettings>().map["leagueservers"].value<QStringList>()){
+    foreach(QString s,S_S.map["leagueservers"].value<QStringList>()){
         leaguemenu->addAction(s);
     }
     ui.pbspectate->setMenu(leaguemenu);

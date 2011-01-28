@@ -59,15 +59,15 @@ void ircnet::connected() {
     QString s = inihandler.stringlistfromini("[irc register]").first();    
     sl = s.split(" ", QString::SkipEmptyParts);
     s = sl.takeFirst() + "  ";
-    s.append(singleton<snpsettings>().map["clan"].value<QString> () + " ");    
+    s.append(S_S.map["clan"].value<QString> () + " ");    
     s.append(sl.takeFirst() + " ");
     s.append(sl.takeFirst() + " :");
-    QString flag=singleton<snpsettings>().map["countrycode"].toString().toUpper();
+    QString flag=S_S.map["countrycode"].toString().toUpper();
     s.append(singleton<picturehandler>().map_countrycode_to_number(flag)+ " ");
-    int i=singleton<snpsettings>().map["rank"].value<QString> ().toInt();
+    int i=S_S.map["rank"].value<QString> ().toInt();
     s.append(QString::number(i) + " ");
     s.append(flag+" ");
-    s.append(singleton<snpsettings>().map["information"].value<QString> ());
+    s.append(S_S.map["information"].value<QString> ());
     tcp_write(s);
     tcp_write("list");
     emit sigconnected();
@@ -215,7 +215,7 @@ void ircnet::readservermassege(QString s) {
             }
             break;
         case 433: //nickname allready in use
-            if(singleton<snpsettings>().map["enablesecurelogging"].toBool())
+            if(S_S.map["enablesecurelogging"].toBool())
                 QMessageBox::information(0,tr("Nickname collision!"),
                                          tr("Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again."),
                                          QMessageBox::Ok);
@@ -268,7 +268,7 @@ void ircnet::who() {
     }
 }
 void ircnet::quit() {    
-    tcp_write("QUIT : [The Wheat Snooper] "+ singleton<snpsettings>().map["information"].toString());
+    tcp_write("QUIT : [The Wheat Snooper] "+ S_S.map["information"].toString());
 }
 void ircnet::tcp_write(const QString &msg){
     tcp->write(CodecSelectDia::codec->fromUnicode(msg)+"\n");

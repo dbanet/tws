@@ -39,16 +39,16 @@ void awayhandler::gamefinished() {
         singleton<balloon_handler>().set_normal_tray_icon();
         isaway = 0;
         wasaway = 0;
-        if (!singleton<snpsettings>().map["awaymessage"].toStringList().isEmpty())
-            awaymessage = singleton<snpsettings>().map["awaymessage"].value<QStringList>().last();
+        if (!S_S.map["awaymessage"].toStringList().isEmpty())
+            awaymessage = S_S.map["awaymessage"].value<QStringList>().last();
         emit sigawaystringchanged();
         foreach(QString s,rememberwhogotaway.keys()) {
             if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
-                && !singleton<snpsettings>().map["ignorelist"].toStringList().contains(s, Qt::CaseInsensitive)) {
+                && !S_S.map["ignorelist"].toStringList().contains(s, Qt::CaseInsensitive)) {
                 singleton<netcoupler>().sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
                 singleton<netcoupler>().sendrawcommand("PRIVMSG " + s + " :\001back\001");
             } else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
-                if (singleton<snpsettings>().map["buddylist"].toStringList().contains(s,Qt::CaseInsensitive))
+                if (S_S.map["buddylist"].toStringList().contains(s,Qt::CaseInsensitive))
                     singleton<netcoupler>().sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
                 singleton<netcoupler>().sendrawcommand("PRIVMSG " + s + " :\001back\001");
             }
@@ -91,10 +91,10 @@ void awayhandler::back(){
                             userstruct::whoami(s))].clan,"username"))
             singleton<netcoupler>().sendrawcommand("PRIVMSG " + s + " :\001back\001");
         if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
-            && !singleton<snpsettings>().map["ignorelist"].toStringList().contains(s, Qt::CaseInsensitive))
+            && !S_S.map["ignorelist"].toStringList().contains(s, Qt::CaseInsensitive))
             singleton<netcoupler>().sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
         else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
-            if (singleton<snpsettings>().map["buddylist"].toStringList().contains(s, Qt::CaseInsensitive))
+            if (S_S.map["buddylist"].toStringList().contains(s, Qt::CaseInsensitive))
                 singleton<netcoupler>().sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
         }
     }

@@ -1,5 +1,6 @@
-#include "buddylist.h"
+#include"buddylist.h"
 #include"snpsettings.h"
+#include"global_functions.h"
 
 buddylist::buddylist(QWidget *parent) :
 	QWidget(parent) {
@@ -9,31 +10,27 @@ buddylist::buddylist(QWidget *parent) :
 	connect(ui.close, SIGNAL(clicked()),this, SLOT(close()));
 	connect(ui.add, SIGNAL(clicked()),this, SLOT(add()));
 	connect(ui.remove, SIGNAL(clicked()),this, SLOT(remove()));
-        ui.list->addItems(singleton<snpsettings>().map["buddylist"].value<QStringList> ());
+        ui.list->addItems(S_S.getstringlist("buddylist"));
 }
 void buddylist::add() {
-        QStringList sl = singleton<snpsettings>().map["buddylist"].value<QStringList> ();
-	if (!sl.contains(ui.le->text(), Qt::CaseInsensitive)
-			&& !ui.le->text().isEmpty()) {
+        QStringList sl = S_S.getstringlist("buddylist");
+        if (!containsCI(sl, ui.le->text()) && !ui.le->text().isEmpty()) {
 		sl << ui.le->text();
-                singleton<snpsettings>().map["buddylist"].setValue<QStringList> (sl);
+                S_S.set("buddylist", sl);
 		ui.list->clear();
-                ui.list->addItems(singleton<snpsettings>().map["buddylist"].value<QStringList> ());
-                singleton<snpsettings>().safe();
+                ui.list->addItems(S_S.getstringlist("buddylist"));
+                S_S.safe();
 	}
 }
 void buddylist::remove() {
 	QList<QListWidgetItem*> il = ui.list->selectedItems();
 	if (il.size() > 0) {
 		QString s = il.first()->text();
-                QStringList sl = singleton<snpsettings>().map["buddylist"].value<QStringList> ();
+                QStringList sl = S_S.getstringlist("buddylist");
 		sl.removeAll(s);
-                singleton<snpsettings>().map["buddylist"].setValue<QStringList> (sl);
+                S_S.set("buddylist", sl);
 		ui.list->clear();
-                ui.list->addItems(singleton<snpsettings>().map["buddylist"].value<QStringList> ());
-                singleton<snpsettings>().safe();
+                ui.list->addItems(S_S.getstringlist("buddylist"));
+                S_S.safe();
 	}
-}
-buddylist::~buddylist() {
-
 }

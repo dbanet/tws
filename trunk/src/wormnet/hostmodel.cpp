@@ -39,7 +39,7 @@ void hostmodel::sethoststruct(QList<hoststruct> l, QString chan) {
         hostmap[chan].push_back(*i);
         if (!singleton<settingswindow>().from_map("chbshowbaloonwhenbuddyhosts").toBool())
             continue;
-        if (!singleton<snpsettings>().map["buddylist"].value<QStringList> ().contains(i->nick()))
+        if (!S_S.map["buddylist"].value<QStringList> ().contains(i->nick()))
             continue;
         sl << i->nick();
         if (buddyhosts[chan].contains(i->nick()))   //if the host was allready alerted
@@ -81,9 +81,9 @@ QVariant hostmodel::data(const QModelIndex & index, int role) const {
             QString
                     s =
                     hostmap[classes[index.internalId()]][index.row()].nick();
-            if (singleton<snpsettings>().map["buddylist"].value<QStringList> ().contains(s))
+            if (S_S.map["buddylist"].value<QStringList> ().contains(s))
                 return buddyhosticon;
-            else if (singleton<snpsettings>().map["ignorelist"].value<QStringList> ().contains(s))
+            else if (S_S.map["ignorelist"].value<QStringList> ().contains(s))
                 return ignorehosticon;
             else
                 return hosticon;

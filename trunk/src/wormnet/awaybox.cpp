@@ -15,10 +15,10 @@ awaybox::awaybox(QWidget *parent) :
     setWindowTitle(tr("Type in your awaymessage."));
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowIcon(QIcon("snppictures/tray.png"));
-    sl = singleton<snpsettings>().map["awaymessage"].value<QStringList>();
+    sl = S_S.getstringlist("awaymessage");
     counter=sl.size();
     i=counter-1;
-    if(!singleton<snpsettings>().map["awaymessage"].value<QStringList>().isEmpty()){
+    if(!S_S.getstringlist("awaymessage").isEmpty()){
         ui.textEdit->setText(sl[i]);
     }
     connect(ui.ok, SIGNAL(clicked()),this, SLOT(okclicked()));
@@ -36,8 +36,8 @@ void awaybox::okclicked() {
         sl<<ui.textEdit->toPlainText();
     else
         sl.move(sl.indexOf(ui.textEdit->toPlainText()),sl.size()-1);
-    singleton<snpsettings>().map["awaymessage"]=sl;
-    singleton<snpsettings>().safe();
+    S_S.set("awaymessage", sl);
+    S_S.safe();
     emit sigok();    
     close();
     qobjectwrapper<awayhandler>::ref().wasaway = 1;

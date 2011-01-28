@@ -35,11 +35,11 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     }
     this->setWindowTitle(tr("Chat with") + " " + s);
 
-    if (containsCI(singleton<snpsettings>().map["buddylist"].value<QStringList> (), chatpartner))
+    if (containsCI(S_S.map["buddylist"].value<QStringList> (), chatpartner))
         this->setWindowIcon(QIcon(QApplication::applicationDirPath()
                                   + QDir::separator() + "snppictures" + QDir::separator()
                                   + "buddyicon.png"));
-    else if (containsCI(singleton<snpsettings>().map["ignorelist"].value<QStringList> (),
+    else if (containsCI(S_S.map["ignorelist"].value<QStringList> (),
 			chatpartner))
         this->setWindowIcon(QIcon(QApplication::applicationDirPath()
                                   + QDir::separator() + "snppictures" + QDir::separator()
@@ -65,7 +65,7 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
         ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
     else
         ui.pbmute->setIcon(QIcon("snppictures/buttons/mutebutton.png"));
-    if (singleton<snpsettings>().map["buddylist"].value<QStringList> ().contains(
+    if (S_S.map["buddylist"].value<QStringList> ().contains(
             this->chatpartner, Qt::CaseInsensitive))
         ui.pbbuddy->setIcon(QIcon("snppictures/buttons/normal.png"));
     else
@@ -230,24 +230,24 @@ void chatwindow::pbmuteclicked() {
         singleton<netcoupler>().mutedusers << this->chatpartner;
         ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
     }
-    singleton<snpsettings>().map["mutedusers"] = singleton<netcoupler>().mutedusers;
+    S_S.map["mutedusers"] = singleton<netcoupler>().mutedusers;
 }
 void chatwindow::pbbuddyclicked() {
-    if (singleton<snpsettings>().map["buddylist"].value<QStringList> ().contains(
+    if (S_S.map["buddylist"].value<QStringList> ().contains(
             this->chatpartner, Qt::CaseInsensitive)) {
         ui.pbbuddy->setIcon(QIcon("snppictures/buttons/buddy.png"));
-        QStringList sl = singleton<snpsettings>().map["buddylist"].value<QStringList> ();
-        singleton<snpsettings>().map["buddylist"] = removeCI(sl, this->chatpartner);
-    } else if (singleton<snpsettings>().map["ignorelist"].value<QStringList> ().contains(
+        QStringList sl = S_S.map["buddylist"].value<QStringList> ();
+        S_S.map["buddylist"] = removeCI(sl, this->chatpartner);
+    } else if (S_S.map["ignorelist"].value<QStringList> ().contains(
             this->chatpartner)) {
-        QStringList sl = singleton<snpsettings>().map["ignorelist"].value<QStringList> ();
-        singleton<snpsettings>().map["ignorelist"] = removeCI(sl, this->chatpartner);
-        singleton<snpsettings>().map["buddylist"] = singleton<snpsettings>().map["buddylist"].value<QStringList> ()
+        QStringList sl = S_S.map["ignorelist"].value<QStringList> ();
+        S_S.map["ignorelist"] = removeCI(sl, this->chatpartner);
+        S_S.map["buddylist"] = S_S.map["buddylist"].value<QStringList> ()
                                                     << this->chatpartner;
         ui.pbbuddy->setIcon(QIcon("snppictures/buttons/normal.png"));
     } else {
         ui.pbbuddy->setIcon(QIcon("snppictures/buttons/normal.png"));
-        singleton<snpsettings>().map["buddylist"] = singleton<snpsettings>().map["buddylist"].value<QStringList> ()
+        S_S.map["buddylist"] = S_S.map["buddylist"].value<QStringList> ()
                                                     << this->chatpartner;
     }
 }

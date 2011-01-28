@@ -10,7 +10,6 @@ class buddylist : public QWidget
 
 public:
     buddylist(QWidget *parent = 0);
-    ~buddylist();
 
 private:
     Ui::buddylistClass ui;

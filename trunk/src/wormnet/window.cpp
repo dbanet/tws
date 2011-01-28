@@ -111,7 +111,7 @@ window::window(netcoupler *n, QString s, int i) :
     connect(net, SIGNAL(siggotchanellist(QStringList)),this, SLOT(getuserscount(QStringList)));
     ui.msg->setFocus(Qt::MouseFocusReason);
 
-    QVariantList windowstates = singleton<snpsettings>().map[currentchannel + ":"+ QString::number(whichuiison)].toList();
+    QVariantList windowstates = S_S.map[currentchannel + ":"+ QString::number(whichuiison)].toList();
     if (!windowstates.isEmpty()) {
         if (!windowstates.isEmpty())
             restoreGeometry(windowstates.takeFirst().toByteArray());
@@ -222,7 +222,7 @@ bool window::eventFilter(QObject *obj, QEvent *event) {
 void window::gotmsg(const QString &user, const QString &receiver,
                     const QString &msg) {
     if (!acceptignorys) {
-        if (!containsCI(singleton<snpsettings>().map["ignorelist"].value<QStringList> (), user)) {
+        if (!containsCI(S_S.map["ignorelist"].value<QStringList> (), user)) {
             if (compareCI(receiver, currentchannel)) {
                 chat->append(user, receiver, msg);
             }
@@ -236,7 +236,7 @@ void window::gotmsg(const QString &user, const QString &receiver,
 void window::gotnotice(const QString &user, const QString &receiver,
                        const QString &msg) {
 
-    if (!containsCI(singleton<snpsettings>().map["ignorelist"].value<QStringList> (), user)) {
+    if (!containsCI(S_S.map["ignorelist"].value<QStringList> (), user)) {
         if (containsCI(singleton<netcoupler>().channellist, receiver)) { //notice from user to a channel
             if (compareCI(receiver, currentchannel))
                 chat->appendnotice(user, receiver, msg); //only one channel will get the notice
@@ -326,7 +326,7 @@ void window::sendnoticeaction() {
     }
 }
 void window::closeEvent(QCloseEvent * /*event*/) {
-    singleton<snpsettings>().map[this->currentchannel + ":" + QString::number(this->whichuiison)];
+    S_S.map[this->currentchannel + ":" + QString::number(this->whichuiison)];
     QVariantList windowstates;
     windowstates << saveGeometry();
     windowstates << ui.splitter1->saveState();
@@ -337,7 +337,7 @@ void window::closeEvent(QCloseEvent * /*event*/) {
     windowstates << ui.hosts->header()->sectionSize(4);
     windowstates << ui.users->header()->sectionSize(3);
     windowstates << ui.users->header()->sectionSize(4);
-    singleton<snpsettings>().map[this->currentchannel + ":" + QString::number(whichuiison)]= windowstates;
+    S_S.map[this->currentchannel + ":" + QString::number(whichuiison)]= windowstates;
 }
 void window::useritempressed(const QModelIndex &index) {
     if (!index.isValid())
@@ -354,7 +354,7 @@ void window::useritempressed(const QModelIndex &index) {
     }
     if (QApplication::mouseButtons() == Qt::LeftButton && index.column()==usermodel::e_Clan){
         QString s;
-        if(singleton<snpsettings>().map["spectateleagueserver"].toBool()){
+        if(S_S.map["spectateleagueserver"].toBool()){
             QString nick=singleton<netcoupler>().users.data(index.sibling(index.row(), 0),Qt::DisplayRole).value<QString> ();
             s=singleton<leagueserverhandler>().map_at_toString(nick,leagueserverhandler::e_clan);
         }
@@ -382,7 +382,7 @@ void window::useritempressed(const QModelIndex &index) {
             }
         }
     } else if (index.column() == usermodel::e_Clan) {
-        QStringList sl = singleton<snpsettings>().map["dissallowedclannames"].value<QStringList>();        
+        QStringList sl = S_S.map["dissallowedclannames"].value<QStringList>();        
         if (sl.contains(singleton<netcoupler>().users.getuserstructbyindex(index).clan,Qt::CaseInsensitive))
             menu.addAction(tr("Allow this clanname."));
         else
@@ -395,8 +395,8 @@ void window::useritempressed(const QModelIndex &index) {
             sl<< singleton<netcoupler>().users.getuserstructbyindex(index).clan;
         else
             showInformationAboutClan(singleton<netcoupler>().users.getuserstructbyindex(index).clan);
-        singleton<snpsettings>().map["dissallowedclannames"].setValue<QStringList> (sl);
-        singleton<snpsettings>().safe();
+        S_S.map["dissallowedclannames"].setValue<QStringList> (sl);
+        S_S.safe();
     } else if (singleton<netcoupler>().users.classes[index.internalId()] == usermodel::tr("Querys")) {
         QMenu menu;
         menu.addAction(tr("Remove this Query."));
@@ -415,14 +415,14 @@ void window::useritempressed(const QModelIndex &index) {
             "Buddylist") && singleton<netcoupler>().users.classes[index.internalId()]
                != usermodel::tr("Ignorelist")) {
         QMenu menu;
-        if (containsCI(singleton<snpsettings>().map["buddylist"].value<QStringList> (),
+        if (containsCI(S_S.map["buddylist"].value<QStringList> (),
                        user)) {
             menu.addAction(tr("Remove this user from Buddylist."));
             menu.addSeparator();
             menu.addAction(tr("Show info about this user."))->setIcon(
                     chaticon);
             a = menu.exec(QCursor::pos());
-        } else if (containsCI(singleton<snpsettings>().map["ignorelist"].value<
+        } else if (containsCI(S_S.map["ignorelist"].value<
                               QStringList> (), user)) {
             menu.addAction(tr("Remove this user from Ignorelist."));
             menu.addSeparator();
@@ -493,7 +493,7 @@ void window::hostitemdblclicked(const QModelIndex &index) {
 }
 void window::getuserinfo(const QString &s) {
     QString msg;
-    if(singleton<snpsettings>().map["spectateleagueserver"].toBool()){
+    if(S_S.map["spectateleagueserver"].toBool()){
         QString url=singleton<leagueserverhandler>().map_at_toString(s,leagueserverhandler::e_webpage);
         if(!url.isEmpty()){
             QDesktopServices::openUrl(QUrl(url));
@@ -549,7 +549,7 @@ void window::hostitempressed(const QModelIndex &index) {
             QAction *a = joinmenu.exec(QCursor::pos());
             if (a != 0) {
                 if (a->text() == tr("Choose a Program to join this game.")) {
-                    QStringList sl = singleton<snpsettings>().map.value("joinstrings").value<
+                    QStringList sl = S_S.map.value("joinstrings").value<
                                      QStringList> ();
 #ifdef Q_WS_S60
                     QString file;
@@ -568,18 +568,18 @@ void window::hostitempressed(const QModelIndex &index) {
 #endif
                     if (!sl.contains(file) && file != "") {
                         sl.insert(0, file);
-                        singleton<snpsettings>().map["joinstrings"] = sl;
+                        S_S.map["joinstrings"] = sl;
                         joinmenu2.clear();
-                        foreach(QString s,singleton<snpsettings>().map.value("joinstrings").value<QStringList>()) {
+                        foreach(QString s,S_S.map.value("joinstrings").value<QStringList>()) {
                             joinmenu2.addAction(s);
                         }
                         joinmenu2.addAction(tr(
                                 "Choose a Program to join this game."));
-                        singleton<snpsettings>().safe();
+                        S_S.safe();
                     } else if (sl.contains(file) && file != "") {
                         sl.move(sl.indexOf(file), 0);
-                        singleton<snpsettings>().map["joinstrings"] = sl;
-                        singleton<snpsettings>().safe();
+                        S_S.map["joinstrings"] = sl;
+                        S_S.safe();
                     }
                     QFile f(file);
                     if (f.open(QFile::ReadOnly)) {
@@ -590,10 +590,10 @@ void window::hostitempressed(const QModelIndex &index) {
                         myDebug() << s;
                     }
                 } else {
-                    QStringList sl = singleton<snpsettings>().map["joinstrings"].value<
+                    QStringList sl = S_S.map["joinstrings"].value<
                                      QStringList> ();
                     sl.move(sl.indexOf(a->text()), 0);
-                    singleton<snpsettings>().map["joinstrings"] = sl;
+                    S_S.map["joinstrings"] = sl;
                     singleton<netcoupler>().joingame(hostinfo, currentchannel, gamename);
                 }
             }
@@ -638,8 +638,8 @@ void window::usesettingswindow(const QString &s) {
 }
 void window::getjoinmenu() {
     joinmenu2.clear();
-    if (!singleton<snpsettings>().map.value("joinstrings").value<QStringList> ().isEmpty()) {
-        foreach(QString s,singleton<snpsettings>().map.value("joinstrings").value<QStringList>()) {
+    if (!S_S.map.value("joinstrings").value<QStringList> ().isEmpty()) {
+        foreach(QString s,S_S.map.value("joinstrings").value<QStringList>()) {
             joinmenu2.addAction(s);
         }
     }
@@ -656,12 +656,12 @@ void window::minimize() {
     this->hide();
 }
 void window::changealpha(int i) {
-    singleton<snpsettings>().map["channeltransparency"] = i;
+    S_S.map["channeltransparency"] = i;
     if (i == 100)
         this->setWindowOpacity(1);
     else
         this->setWindowOpacity((double) i / 100);
-    singleton<snpsettings>().safe();
+    S_S.safe();
 }
 void window::showbuttons() {
     ui.buttonlayout->addWidget(buttons);

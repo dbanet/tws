@@ -107,7 +107,7 @@ void snpsettings::load(){
         }
     }
     QTranslator *trans=new QTranslator;
-    QString file=singleton<snpsettings>().map["language file"].value<QString> ().remove(".qm");
+    QString file=S_S.map["language file"].value<QString> ().remove(".qm");
     if (trans->load(file,"translations/")){
         qApp->installTranslator(trans);
     } else
@@ -140,13 +140,13 @@ void snpsettings::installTranslationBySystemLocale(){
         if(s.startsWith("_") && s.mid(1,2)==language){
             trans->load(s,"translations/");
             qApp->installTranslator(trans);
-            singleton<snpsettings>().map["language file"]=s;
+            S_S.map["language file"]=s;
             return;
         }
     }
     if(trans->load("_en.Standard.qm","translations/")){
         qApp->installTranslator(trans);
-        singleton<snpsettings>().map["language file"]="_en.Standard.qm";
+        S_S.map["language file"]="_en.Standard.qm";
     }
     return;
 }
@@ -176,18 +176,43 @@ void snpsettings::validate(){
     checkifexistsinstringlist("wormnetserverlist","worms.tom.ru");
     checkifexistsinstringlist("wormnetserverlist","http://steps.servegame.com");
 
-    if(singleton<snpsettings>().map["rank"].toString().isEmpty())
-        singleton<snpsettings>().map["rank"]="13";
-    if(singleton<snpsettings>().map["countrycode"].toString().isEmpty())
-        singleton<snpsettings>().map["countrycode"]="49";
-    if(singleton<snpsettings>().map["qss file"].toString().isEmpty())
-        singleton<snpsettings>().map["qss file"]="black by lookias.qss";
-    if(singleton<snpsettings>().map["information"].toString().isEmpty() ||
-       singleton<snpsettings>().map["information"].toString().startsWith("The Wheat Snooper"))
-        singleton<snpsettings>().map["information"]="The Wheat Snooper "+about::version;
+    if(S_S.map["rank"].toString().isEmpty())
+        S_S.map["rank"]="13";
+    if(S_S.map["countrycode"].toString().isEmpty())
+        S_S.map["countrycode"]="49";
+    if(S_S.map["qss file"].toString().isEmpty())
+        S_S.map["qss file"]="black by lookias.qss";
+    if(S_S.map["information"].toString().isEmpty() ||
+       S_S.map["information"].toString().startsWith("The Wheat Snooper"))
+        S_S.map["information"]="The Wheat Snooper "+about::version;
     if(!map.contains("showinformation")){
         map["showinformation"]=true;
     }
     if(!map.contains("spectatingneversettedoff"))
         map["spectatingneversettedoff"]=true;
+}
+
+QString snpsettings::getstring(QString key) const{
+    return map[key].toString();
+}
+QStringList snpsettings::getstringlist(QString key) const{
+    return map[key].toStringList();
+}
+bool snpsettings::getbool(QString key) const{
+    return map[key].toBool();
+}
+int snpsettings::getint(QString key) const{
+    return map[key].toInt();
+}
+QVariantList snpsettings::getlist(QString key) const{
+    return map[key].toList();
+}
+void snpsettings::set(QString key, QVariant value){
+    map[key]=value;
+}
+QByteArray snpsettings::getbytearray(QString key) const{
+    return map[key].toByteArray();
+}
+bool snpsettings::contains(QString key) const{
+    return map.contains(key);
 }

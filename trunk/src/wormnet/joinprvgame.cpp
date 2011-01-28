@@ -7,7 +7,7 @@ joinprvgame::joinprvgame(const QString &a,const QString &b)
 {
     this->setObjectName("normalwidget");
     ui.setupUi(this);
-    QStringList sl = singleton<snpsettings>().map.value("joinstrings").value<QStringList> ();
+    QStringList sl = S_S.map.value("joinstrings").value<QStringList> ();
     ui.icons->clear();
     ui.icons->addItems(sl);
     this->setWindowTitle(tr("Join game with."));
@@ -32,18 +32,18 @@ void joinprvgame::addclicked() {
     QString file = QFileDialog::getOpenFileName(this, tr(
             "Choose a Program."), "/home", "*.exe *.com");
 #endif
-    QStringList sl = singleton<snpsettings>().map.value("joinstrings").value<QStringList> ();
+    QStringList sl = S_S.map.value("joinstrings").value<QStringList> ();
     if (file != "") {
         if (!sl.contains(file) && file != "") {
             sl.insert(0, file);
-            singleton<snpsettings>().map["joinstrings"] = sl;
+            S_S.map["joinstrings"] = sl;
             ui.icons->clear();
             ui.icons->addItems(sl);
-            singleton<snpsettings>().safe();
+            S_S.safe();
         } else if (sl.contains(file) && file != "") {
             sl.move(sl.indexOf(file), 0);
-            singleton<snpsettings>().map["joinstrings"] = sl;
-            singleton<snpsettings>().safe();
+            S_S.map["joinstrings"] = sl;
+            S_S.safe();
         }
     }
 }

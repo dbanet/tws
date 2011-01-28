@@ -18,8 +18,8 @@ charformatsettings::charformatsettings() {
 
 }
 void charformatsettings::load() {
-        myDebug()<<singleton<snpsettings>().map["charformatfile"].toString();
-        QFile f(QApplication::applicationDirPath()+"/textschemes/" + singleton<snpsettings>().map["charformatfile"].toString());
+        myDebug()<<S_S.map["charformatfile"].toString();
+        QFile f(QApplication::applicationDirPath()+"/textschemes/" + S_S.map["charformatfile"].toString());
 	if (f.open(QFile::ReadOnly)) {
 		map.clear();
 		QDataStream ds(&f);
@@ -44,9 +44,9 @@ void charformatsettings::load() {
 }
 void charformatsettings::safe() {
 	fontorcolorchanged=0;
-        QFile f("textschemes/" + singleton<snpsettings>().map["charformatfile"].toString());
+        QFile f("textschemes/" + S_S.map["charformatfile"].toString());
 	if (!f.open(QFile::WriteOnly | QFile::Truncate)) {
-            myDebug() << QObject::tr("cannot write file:")+" " << singleton<snpsettings>().map["charformatfile"].toString();
+            myDebug() << QObject::tr("cannot write file:")+" " << S_S.map["charformatfile"].toString();
 	}
 	QDataStream ds(&f);
 	ds.setVersion(QDataStream::Qt_4_3);

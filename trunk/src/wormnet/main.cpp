@@ -38,16 +38,16 @@ int main(int argc, char *argv[]) {
     volume = new volumeslider;
     a.setApplicationName("The Wheat Snooper");
     chdir(qPrintable(QApplication::applicationDirPath()));
-    singleton<snpsettings>().load();
+    S_S.load();
     singleton<settingswindow>();
     singleton<clantowebpagemapper>().load();
     singleton<picturehandler>();
-    if(singleton<snpsettings>().map["textcodec"].toString().isEmpty()){
+    if(S_S.getstring("textcodec").isEmpty()){
         CodecSelectDia::codec=QTextCodec::codecForLocale();
-        singleton<snpsettings>().map["textcodec"]=CodecSelectDia::codec->name();
+        S_S.set("textcodec", CodecSelectDia::codec->name());
     }
     else
-        CodecSelectDia::codec=QTextCodec::codecForName(singleton<snpsettings>().map["textcodec"].toByteArray());            
+        CodecSelectDia::codec=QTextCodec::codecForName(S_S.map["textcodec"].toByteArray());
     singleton<charformatsettings>().load();           
     a.addLibraryPath(QApplication::applicationDirPath());
     a.setWindowIcon(QIcon(QApplication::applicationDirPath()
@@ -63,8 +63,8 @@ int main(int argc, char *argv[]) {
     singleton<sound_handler>().init();    
     qobjectwrapper<awayhandler>();
     qobjectwrapper<mainwindow> w;
-    volume->setvalue(singleton<snpsettings>().map["volumeslidervalue"].value<int> ());
-    if (!singleton<snpsettings>().map["chbminimized"].toBool())
+    volume->setvalue(S_S.map["volumeslidervalue"].value<int> ());
+    if (!S_S.map["chbminimized"].toBool())
         w.ref().show();
     loadusergarbage();
     loadquerylist();       
@@ -129,8 +129,8 @@ void handle_wini_ini(){
     winini.close();
 }
 void search_for_game_executables(){
-    if (!singleton<snpsettings>().map.contains("joinstrings")
-        || singleton<snpsettings>().map["joinstrings"].toStringList().isEmpty()) {
+    if (!S_S.map.contains("joinstrings")
+        || S_S.map["joinstrings"].toStringList().isEmpty()) {
         QSettings settings("Team17SoftwareLTD", "WormsArmageddon");
         QString gamedir(settings.value("PATH").toString());
         QFile wa;
@@ -146,21 +146,21 @@ void search_for_game_executables(){
         if (wormkit.exists())
             text = text + "\n" + wormkit.fileName();        
         if (test)
-            singleton<snpsettings>().map["joinstrings"] = text.split("\n",QString::SkipEmptyParts);
+            S_S.map["joinstrings"] = text.split("\n",QString::SkipEmptyParts);
     }
-    singleton<snpsettings>().safe();
+    S_S.safe();
 }
 
 void handle_prosnooper_buddys(){
     QSettings settings("HKEY_CURRENT_USER\\Software\\ProSnooper",
                        QSettings::NativeFormat);
     QString buddies = settings.value("Buddies").toString();
-    QStringList snpbuddies = singleton<snpsettings>().map["buddylist"].value<QStringList> ();
+    QStringList snpbuddies = S_S.map["buddylist"].value<QStringList> ();
     QStringList buddielist;
     if (!buddies.isEmpty())
         buddielist = buddies.split(",", QString::SkipEmptyParts);
-    singleton<snpsettings>().map["prosnooperbuddies"];
-    QStringList sl = singleton<snpsettings>().map["prosnooperbuddies"].value<QStringList> ();
+    S_S.map["prosnooperbuddies"];
+    QStringList sl = S_S.map["prosnooperbuddies"].value<QStringList> ();
     foreach(QString s,buddielist) {
         if (!sl.contains(s, Qt::CaseInsensitive)) {
             sl << s;
@@ -168,6 +168,6 @@ void handle_prosnooper_buddys(){
                 snpbuddies << s;
         }
     }
-    singleton<snpsettings>().map["prosnooperbuddies"] = sl;
-    singleton<snpsettings>().map["buddylist"] = snpbuddies;
+    S_S.map["prosnooperbuddies"] = sl;
+    S_S.map["buddylist"] = snpbuddies;
 }

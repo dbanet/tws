@@ -13,17 +13,31 @@
 #include"global_macros.h"
 class snpsettings {
 public:	
-	void load();
-	void safe();
-        void safeonquit();
-        void loadDefaults();
-	QMap<QString,QVariant> map;
+    void load();
+    void safe();
+    void safeonquit();
+    void loadDefaults();
 
-        DECLARE_SINGLETON(snpsettings);
-private:
-        void installTranslationBySystemLocale();
-        QString version;
-        void validate();
-        void checkifexistsinstringlist(QString key,QString value);
+    QString getstring(QString key) const;
+    QStringList getstringlist(QString key) const;
+    bool getbool(QString key) const;
+    int getint(QString key) const;
+    QVariantList getlist(QString key) const;
+
+    void set(QString key, QVariant value);
+    bool contains(QString key) const;
+
+    QByteArray getbytearray(QString key) const;    
+
+    DECLARE_SINGLETON(snpsettings);
+private:                        
+    QMap<QString,QVariant> map;
+    void installTranslationBySystemLocale();
+    QString version;
+    void validate();
+    void checkifexistsinstringlist(QString key,QString value);
 };
+namespace{
+    snpsettings &S_S=singleton<snpsettings>();
+}
 #endif /* SNPSETTINGS_H_ */

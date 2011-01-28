@@ -61,7 +61,7 @@ void picturehandler::fillranks(QComboBox *cb){
 }
 //----------------------------------------------------------------------------------------------
 QVariant picturehandler::getflag(const userstruct &u) const{
-    if(singleton<snpsettings>().map["spectateleagueserver"].toBool()){
+    if(S_S.map["spectateleagueserver"].toBool()){
         QString s=singleton<leagueserverhandler>().map_at_toString(u.nick,leagueserverhandler::e_flag);
         if(!s.isEmpty()){
             if(!flaglist.contains(s.toLower().trimmed()))

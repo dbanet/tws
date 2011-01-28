@@ -31,7 +31,7 @@ void chathandlerprv::append(const QString &user, const QString &/*receiver*/,
     QString msgtemp = msg.simplified();
     QString time = QTime::currentTime().toString("hh:mm");
     cursor->insertText(time + ": ", timeformat);
-    if (!containsCI(singleton<snpsettings>().map["buddylist"].value<QStringList> (), user)) {
+    if (!containsCI(S_S.map["buddylist"].value<QStringList> (), user)) {
         if (msg.startsWith("\001ACTION")) {
             insertText("<" + user + " " + msgtemp + ">", actionformat,user);
         } else {

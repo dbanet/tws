@@ -59,7 +59,7 @@ void sound_handler::init(){
     costumwordsound->setCurrentSource(
             singleton<settingswindow>().from_map("lecostumword").value<QString> ());
 
-    volumechange(singleton<snpsettings>().map["volumeslidervalue"].value<int>());
+    volumechange(S_S.map["volumeslidervalue"].value<int>());
 }
 void sound_handler::volumechange(int i) {
     startupsoundoutput->setVolume(double(i) / 10);
@@ -69,7 +69,7 @@ void sound_handler::volumechange(int i) {
     buddyarrivedsoundoutput->setVolume(double(i) / 10);
     buddyleftsoundoutput->setVolume(double(i) / 10);
     costumwordsoundsoundoutput->setVolume(double(i) / 10);
-    singleton<snpsettings>().map["volumeslidervalue"].setValue<int> (i);
+    S_S.map["volumeslidervalue"].setValue<int> (i);
 }
 
 void sound_handler::play_startupsound(){    
