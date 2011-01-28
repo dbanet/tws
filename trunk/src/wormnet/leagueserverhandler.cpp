@@ -82,9 +82,9 @@ void leagueserverhandler::loginFinished(){
     int number=sl.takeFirst().toInt(&b);
     if(!b)
         return;
-    if(S_S.map["tusloginmessagenumber"].toInt()==number)
+    if(S_S.getint("tusloginmessagenumber")==number)
         return;
-    S_S.map["tusloginmessagenumber"]=number;
+    S_S.set("tusloginmessagenumber", number);
     QDesktopServices::openUrl(QUrl(sl.takeFirst()));    
 }
 void leagueserverhandler::startrefresh(){
