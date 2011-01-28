@@ -35,19 +35,12 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     }
     this->setWindowTitle(tr("Chat with") + " " + s);
 
-    if (containsCI(S_S.map["buddylist"].value<QStringList> (), chatpartner))
-        this->setWindowIcon(QIcon(QApplication::applicationDirPath()
-                                  + QDir::separator() + "snppictures" + QDir::separator()
-                                  + "buddyicon.png"));
-    else if (containsCI(S_S.map["ignorelist"].value<QStringList> (),
-			chatpartner))
-        this->setWindowIcon(QIcon(QApplication::applicationDirPath()
-                                  + QDir::separator() + "snppictures" + QDir::separator()
-                                  + "ignoreicon.png"));
+    if (containsCI(S_S.getstringlist("buddylist"), chatpartner))
+        this->setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/buddyicon.png"));
+    else if (containsCI(S_S.getstringlist("ignorelist"), chatpartner))
+        this->setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/ignoreicon.png"));
     else
-        this->setWindowIcon(QIcon(QApplication::applicationDirPath()
-                                  + QDir::separator() + "snppictures" + QDir::separator()
-                                  + "usericon.png"));
+        this->setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/usericon.png"));
 
     connect(ui.send, SIGNAL(clicked()),ui.lineEdit, SIGNAL(returnPressed()));
     connect(ui.lineEdit, SIGNAL(returnPressed()),this, SLOT(sendmsg()));
@@ -65,8 +58,7 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
         ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
     else
         ui.pbmute->setIcon(QIcon("snppictures/buttons/mutebutton.png"));
-    if (S_S.map["buddylist"].value<QStringList> ().contains(
-            this->chatpartner, Qt::CaseInsensitive))
+    if (containsCI(S_S.getstringlist("buddylist"), chatpartner))
         ui.pbbuddy->setIcon(QIcon("snppictures/buttons/normal.png"));
     else
         ui.pbbuddy->setIcon(QIcon("snppictures/buttons/buddy.png"));
@@ -162,7 +154,7 @@ void chatwindow::sendmsg(QString str) {
     if (s != "") {
         if (s.startsWith(">!")) {
             singleton<netcoupler>().sendrawcommand(QString("PRIVMSG ") + chatpartner + " :\001"
-                                + s.remove(0, 2) + "\001");
+                                                   + s.remove(0, 2) + "\001");
             chat->append(singleton<netcoupler>().nick, chatpartner, "\001" + s + "\001");
         } else if (s.startsWith("/")) {
             chat->append(singleton<netcoupler>().nick, chatpartner, s);
@@ -175,7 +167,7 @@ void chatwindow::sendmsg(QString str) {
             chat->append(singleton<netcoupler>().nick, chatpartner, s);
         } else if (s.startsWith(">")) {
             singleton<netcoupler>().sendrawcommand(QString("PRIVMSG ") + chatpartner
-                                + " :\001ACTION " + s.remove(0, 1).remove("") + " \001\n");
+                                                   + " :\001ACTION " + s.remove(0, 1).remove("") + " \001\n");
             chat->append(singleton<netcoupler>().nick, chatpartner, "\001ACTION " + s + " \001");
         } else {
             singleton<netcoupler>().sendmessage(chatpartner, s);
@@ -230,25 +222,21 @@ void chatwindow::pbmuteclicked() {
         singleton<netcoupler>().mutedusers << this->chatpartner;
         ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
     }
-    S_S.map["mutedusers"] = singleton<netcoupler>().mutedusers;
+    S_S.set("mutedusers", singleton<netcoupler>().mutedusers);
 }
 void chatwindow::pbbuddyclicked() {
-    if (S_S.map["buddylist"].value<QStringList> ().contains(
-            this->chatpartner, Qt::CaseInsensitive)) {
+    if (containsCI(S_S.getstringlist("buddylist"), chatpartner)) {
         ui.pbbuddy->setIcon(QIcon("snppictures/buttons/buddy.png"));
-        QStringList sl = S_S.map["buddylist"].value<QStringList> ();
-        S_S.map["buddylist"] = removeCI(sl, this->chatpartner);
-    } else if (S_S.map["ignorelist"].value<QStringList> ().contains(
-            this->chatpartner)) {
-        QStringList sl = S_S.map["ignorelist"].value<QStringList> ();
-        S_S.map["ignorelist"] = removeCI(sl, this->chatpartner);
-        S_S.map["buddylist"] = S_S.map["buddylist"].value<QStringList> ()
-                                                    << this->chatpartner;
+        QStringList sl = S_S.getstringlist("buddylist");
+        S_S.set("buddylist", removeCI(sl, chatpartner));
+    } else if (containsCI(S_S.getstringlist("ignorelist"), chatpartner)) {
+        QStringList sl = S_S.getstringlist("ignorelist");
+        S_S.set("ignorelist", removeCI(sl, chatpartner));
+        S_S.set("buddylist", S_S.getstringlist("buddylist") << chatpartner);
         ui.pbbuddy->setIcon(QIcon("snppictures/buttons/normal.png"));
     } else {
         ui.pbbuddy->setIcon(QIcon("snppictures/buttons/normal.png"));
-        S_S.map["buddylist"] = S_S.map["buddylist"].value<QStringList> ()
-                                                    << this->chatpartner;
+        S_S.set("buddylist", S_S.getstringlist("buddylist") << chatpartner);
     }
 }
 void chatwindow::pblogclicked() {
