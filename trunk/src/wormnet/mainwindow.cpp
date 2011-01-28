@@ -56,7 +56,7 @@ QString GamesourgeChannelName="#GameSourgeWorms";
 mainwindow::mainwindow() {
     whichuitype = 1;
     ui.setupUi(this);
-    bool b=S_S.map["righttoleftwriting"].toBool();
+    bool b=S_S.getbool("righttoleftwriting");
     if(b)
         qApp->setLayoutDirection(Qt::RightToLeft);
     else
@@ -85,7 +85,7 @@ mainwindow::mainwindow() {
     snpsetcontains("leagueservers");
     snpsetcontains("showinformation");
 
-    ui.cbremember->setChecked(S_S.map["chbremember"].value<bool> ());
+    ui.cbremember->setChecked(S_S.getbool("chbremember"));
     if (ui.cbremember->isChecked()) {
         chooseclicked();
     }
@@ -114,14 +114,13 @@ mainwindow::mainwindow() {
     ui.lenick->setValidator(validator);
     ui.clan->setValidator(validator);
 
-    S_S.map["isarrangedbyonetab"] = false;
-    S_S.map["isarrangedbytwotabs"] = false;
-
+    S_S.set("isarrangedbyonetab", false);
+    S_S.set("isarrangedbytwotabs", false);
     debugmsg.clear();
 
     connect(&singleton<ctcphandler>(), SIGNAL(sigctcpcommand(const QString&,const QString&)),this, SLOT(gotctcpsignal(const QString&,const QString&)));
 
-    QVariantList windowstates = S_S.map["MainWindowGeometry"].toList();
+    QVariantList windowstates = S_S.getlist("MainWindowGeometry");
     if (!windowstates.isEmpty())
         restoreGeometry(windowstates.takeFirst().toByteArray());
     if(height()<530)
@@ -137,15 +136,15 @@ void mainwindow::currenttabchanged(int i){
     singleton<netcoupler>().stop();
 }
 void mainwindow::fillsnpsettings(){
-    S_S.map["chbremember"] = ui.cbremember->isChecked();
-    S_S.map["nickname"] = ui.lenick->text();
-    S_S.map["chbminimized"] = ui.chbminimized->isChecked();
-    S_S.map["chbautojoin"] = ui.chbautojoin->isChecked();
-    S_S.map["whichuitype"] = whichuitype;
-    S_S.map["countrycode"]=ui.flag->currentText();
-    S_S.map["rank"]=ui.rank->currentText();
+    S_S.set("chbremember", ui.cbremember->isChecked());
+    S_S.set("nickname", ui.lenick->text());
+    S_S.set("chbminimized", ui.chbminimized->isChecked());
+    S_S.set("chbautojoin", ui.chbautojoin->isChecked());
+    S_S.set("whichuitype", whichuitype);
+    S_S.set("countrycode", ui.flag->currentText());
+    S_S.set("rank", ui.rank->currentText());
     if (fontorcolorchanged == 1) {
-        S_S.map["charformatfile"] = "lastedited.textscheme";
+        S_S.set("charformatfile", "lastedited.textscheme");
         singleton<charformatsettings>().safe();
     }
 }
@@ -157,7 +156,7 @@ void mainwindow::get_baseStyleSheet(){
 }
 void mainwindow::connectToNetwork(){
     ui.tabWidget->setCurrentIndex(1);
-    if(S_S.map["enablesecurelogging"].toBool())
+    if(S_S.getbool("enablesecurelogging"))
         singleton<netcoupler>().start(singleton<leagueserverhandler>().nick);
     else
         singleton<netcoupler>().start(ui.lenick->text());
@@ -171,31 +170,31 @@ void mainwindow::chooseclicked() {
         QMessageBox::warning(this,tr("Nickname field is empty"),tr("Please choose a nickname."),QMessageBox::Ok);
         return;
     }
-    S_S.map["clan"] = ui.clan->text();
+    S_S.set("clan", ui.clan->text());
     if (ui.clan->text().isEmpty())
-        S_S.map["clan"]="Username";
-    S_S.map["rank"] = ui.rank->currentText();
-    S_S.map["nickname"] = ui.lenick->text();
-    S_S.map["tus_password"] = ui.letuspassword->text();
-    S_S.map["tus_login"] = ui.letuslogin->text();
-    S_S.map["countrycode"] = ui.flag->currentText();
-    S_S.map["rank"] = ui.rank->currentText();
-    S_S.map["information"] = ui.client->text();
-    S_S.map["enablesecurelogging"] = ui.cbenabletus->isChecked();
-    S_S.map["spectateleagueserver"]=ui.cbenabletus->isChecked();
+        S_S.set("clan", "Username");
+    S_S.set("rank", ui.rank->currentText());
+    S_S.set("nickname", ui.lenick->text());
+    S_S.set("tus_password", ui.letuspassword->text());
+    S_S.set("tus_login", ui.letuslogin->text());
+    S_S.set("countrycode", ui.flag->currentText());
+    S_S.set("rank", ui.rank->currentText());
+    S_S.set("information", ui.client->text());
+    S_S.set("enablesecurelogging", ui.cbenabletus->isChecked());
+    S_S.set("spectateleagueserver", ui.cbenabletus->isChecked());
 
-    S_S.map["wormnetserverlist"] = refreshcombobox(ui.cbServerList);
-    S_S.map["leagueservers"]= refreshcombobox(ui.cbleagueservers);
-    S_S.map["showinformation"]=ui.cbshowinformation->isChecked();
-    S_S.map["leagueservers:"+ui.cbleagueservers->currentText()]=QStringList()<<ui.letuslogin->text()<<ui.letuspassword->text();
+    S_S.set("wormnetserverlist", refreshcombobox(ui.cbServerList));
+    S_S.set("leagueservers", refreshcombobox(ui.cbleagueservers));
+    S_S.set("showinformation", ui.cbshowinformation->isChecked());
+    S_S.set("leagueservers:"+ui.cbleagueservers->currentText(), QStringList()<<ui.letuslogin->text()<<ui.letuspassword->text());
 
     S_S.safe();
-    if(S_S.map["enablesecurelogging"].toBool()){
+    if(S_S.getbool("enablesecurelogging")){
         setleague();
         singleton<leagueserverhandler>().login(ui.letuslogin->text(),ui.letuspassword->text());
     } else {
-        if(S_S.map["spectatingneversettedoff"].toBool()){
-            S_S.map["spectateleagueserver"]=true;
+        if(S_S.getbool("spectatingneversettedoff")){
+            S_S.set("spectateleagueserver", true);
             singleton<leagueserverhandler>().setleague("http://www.tus-wa.com/","http://www.tus-wa.com/");
             singleton<leagueserverhandler>().startrefresh();
         }
@@ -298,13 +297,13 @@ void mainwindow::quit() {
 void mainwindow::closeEvent(QCloseEvent *) {
     QVariantList windowstates;
     windowstates << saveGeometry();
-    S_S.map["MainWindowGeometry"]=windowstates;
+    S_S.set("MainWindowGeometry", windowstates);
     S_S.safe();
 }
 void mainwindow::returntologintab() {
     singleton<leagueserverhandler>().reset();
     joinonstartup = 0;
-    S_S.map["chbautojoin"] = ui.chbautojoin->isChecked();
+    S_S.set("chbautojoin", ui.chbautojoin->isChecked());
     S_S.safe();
     joinmenu->clear();
     currentchannellist.clear();
@@ -334,68 +333,64 @@ void mainwindow::changeEvent(QEvent * event) {
     QWidget::changeEvent(event);
 }
 void mainwindow::pbrememberjoinclicked() {
-    S_S.map["joinonstartup"] = ui.cbchannels->currentText();
-    ui.pbrememberjoin->setText(tr("Autojoin:")
-                               + "\n" + S_S.map["joinonstartup"].value<QString> ());
+    S_S.set("joinonstartup", ui.cbchannels->currentText());
+    ui.pbrememberjoin->setText(tr("Autojoin:") + "\n" + S_S.getstring("joinonstartup"));
     S_S.safe();
 }
 void mainwindow::snpsetcontains(const QString &s) {
-    if (s == "chbautojoin" && S_S.map.contains(s))
-        ui.chbautojoin->setChecked(S_S.map["chbautojoin"].value<bool> ());
+    if (s == "chbautojoin" && S_S.contains(s))
+        ui.chbautojoin->setChecked(S_S.getbool("chbautojoin"));
     else if (s == "qss file") {
-        QFile f(QApplication::applicationDirPath() + "/qss/" + S_S.map["qss file"].toString());
+        QFile f(QApplication::applicationDirPath() + "/qss/" + S_S.getstring("qss file"));
         if(!f.open(QFile::ReadOnly))
-            QMessageBox::warning(this,QObject::tr("Warning"),tr("Cant read the Skinfile:\n")+S_S.map["qss file"].toString());
+            QMessageBox::warning(this,QObject::tr("Warning"),tr("Cant read the Skinfile:\n")+S_S.getstring("qss file"));
         QString stylesheet = QLatin1String(f.readAll());
         qApp->setStyleSheet(baseStyleSheet+stylesheet);
-    } else if (s == "joinonstartup" && S_S.map.contains(s)
-        && S_S.map.contains("chbautojoin")) {
-        ui.pbrememberjoin->setText(
-                ui.pbrememberjoin->text().split("\n").first() + "\n"
-                + S_S.map["joinonstartup"].value<QString> ());
-        if (S_S.map["chbautojoin"].value<bool> ()) {
-            join(S_S.map["joinonstartup"].value<QString> ());
+    } else if (s == "joinonstartup" && S_S.contains(s) && S_S.contains("chbautojoin")) {
+        ui.pbrememberjoin->setText(ui.pbrememberjoin->text().split("\n").first() + "\n" + S_S.getstring("joinonstartup"));
+        if (S_S.getbool("chbautojoin")) {
+            join(S_S.getstring("joinonstartup"));
         }
     } else if (s == "chbminimized")
-        ui.chbminimized->setChecked(S_S.map["chbminimized"].value<bool> ());
-    else if (s == "nickname" && S_S.map.contains(s))
-        ui.lenick->setText(S_S.map["nickname"].value<QString> ());
-    else if (s == "tus_password" && S_S.map.contains("tus_password"))
-        ui.letuspassword->setText(S_S.map["tus_password"].value<QString> ());
-    else if (s == "tus_login" && S_S.map.contains("tus_login"))
-        ui.letuslogin->setText(S_S.map["tus_login"].value<QString> ());
+        ui.chbminimized->setChecked(S_S.getbool("chbminimized"));
+    else if (s == "nickname" && S_S.contains(s))
+        ui.lenick->setText(S_S.getstring("nickname"));
+    else if (s == "tus_password" && S_S.contains("tus_password"))
+        ui.letuspassword->setText(S_S.getstring("tus_password"));
+    else if (s == "tus_login" && S_S.contains("tus_login"))
+        ui.letuslogin->setText(S_S.getstring("tus_login"));
     else if (s == "countrycode"){
         QString language=QLocale::system().name().left(2);
-        int i=ui.flag->findText(S_S.map["countrycode"].toString());
+        int i=ui.flag->findText(S_S.getstring("countrycode"));
         if(i==-1)
             i=ui.flag->findText(language);
         ui.flag->setCurrentIndex(i);
     }else if (s == "rank"){
-        ui.rank->setCurrentIndex(S_S.map["rank"].toString().toInt());
+        ui.rank->setCurrentIndex(S_S.getint("rank"));
     }
-    else if (s == "information" && S_S.map.contains(s))
-        ui.client->setText(S_S.map[s].value<QString> ());
-    else if (s == "clan" && S_S.map.contains(s)){
-        QString clanstring=S_S.map[s].value<QString> ();
+    else if (s == "information" && S_S.contains(s))
+        ui.client->setText(S_S.getstring(s));
+    else if (s == "clan" && S_S.contains(s)){
+        QString clanstring=S_S.getstring(s);
         if(clanstring.toLower()=="username")
             ui.clan->setText("");
         else
             ui.clan->setText(clanstring);
     }
-    else if (s == "whichuitype" && S_S.map.contains(s))
-        whichuitype = S_S.map["whichuitype"].value<int> ();
+    else if (s == "whichuitype" && S_S.contains(s))
+        whichuitype = S_S.getint("whichuitype");
     else if (s == "wormnetserverlist"){
-        ui.cbServerList->addItems(S_S.map["wormnetserverlist"].value<QStringList> ());
+        ui.cbServerList->addItems(S_S.getstringlist("wormnetserverlist"));
     }
     else if (s == "leagueservers"){
-        ui.cbleagueservers->addItems(S_S.map["leagueservers"].value<QStringList>());
+        ui.cbleagueservers->addItems(S_S.getstringlist("leagueservers"));
     }
     else if(s=="enablesecurelogging"){
-        bool b=S_S.map["enablesecurelogging"].toBool();
+        bool b=S_S.getbool("enablesecurelogging");
         ui.cbenabletus->setChecked(b);
         on_cbenabletus_toggled(b);
     } else if(s=="showinformation"){
-        bool b=S_S.map["showinformation"].toBool();
+        bool b=S_S.getbool("showinformation");
         ui.cbshowinformation->setChecked(b);
     }
 }
@@ -421,8 +416,8 @@ void mainwindow::appenddebugmessage(const QString &msg) {
     debugmsg.clear();
 }
 void mainwindow::setlanguage(const QString &langfile) {
-    S_S.map["language file"] = langfile;
-    myDebug() << S_S.map["language file"].value<QString> ();
+    S_S.set("language file", langfile);
+    myDebug() << S_S.getstring("language file");
     S_S.safe();
     QMessageBox::StandardButton button = QMessageBox::question(this, tr(
             "Restart the application?"), tr(
@@ -472,7 +467,7 @@ void mainwindow::gotctcpsignal(const QString& command, const QString &user) {
 }
 void mainwindow::settextscheme(const QString &file) {
     myDebug() << tr("trying to apply new textscheme: ") + file;
-    S_S.map["charformatfile"] = file;
+    S_S.set("charformatfile", file);
     singleton<charformatsettings>().load();
     chathandler::initialformatstarter();
 }
@@ -694,11 +689,11 @@ void mainwindow::traymenutriggered(QAction *a) {
     } else if (a->text().contains(".qss")) {
         QFile f(QApplication::applicationDirPath() + "/qss/" + a->text());
         QString stylesheet;
-        if(a->text()==S_S.map["qss file"].toString())
+        if(a->text()==S_S.getstring("qss file"))
             return;
         if (f.open(QFile::ReadOnly)) {
             stylesheet = f.readAll();
-            S_S.map["qss file"] = a->text();
+            S_S.set("qss file", a->text());
             S_S.safe();
             safeusergarbage();
             safequerylist();
@@ -717,17 +712,17 @@ void mainwindow::traymenutriggered(QAction *a) {
         return;
     } else if (a->text() == "1") {
         whichuitype = 1;
-        S_S.map["whichuitype"] = whichuitype;
+        S_S.set("whichuitype", whichuitype);
         QMessageBox::information(0,tr("Information"),tr("You must reopen the channelwindows to change the layout."));
         return;
     } else if (a->text() == "2") {
         whichuitype = 2;
-        S_S.map["whichuitype"] = whichuitype;
+        S_S.set("whichuitype", whichuitype);
         QMessageBox::information(0,tr("Information"),tr("You must reopen the channelwindows to change the layout."));
         return;
     } else if (a->text() == "3") {
         whichuitype = 3;
-        S_S.map["whichuitype"] = whichuitype;
+        S_S.set("whichuitype", whichuitype);
         QMessageBox::information(0,tr("Information"),tr("You must reopen the channelwindows to change the layout."));
         return;
     } else if (a->text() == tr("Away mode")) {
@@ -767,7 +762,7 @@ void mainwindow::traymenutriggered(QAction *a) {
             QString file_name=f.fileName();
             if(!file_name.endsWith(".textscheme"))
                 file_name+=".textscheme";
-            S_S.map["charformatfile"] = file_name;
+            S_S.set("charformatfile", file_name);
             chathandler::initialformatsaver();
             textschememenu->addAction(file_name);
         }
@@ -860,8 +855,7 @@ void mainwindow::on_cbenabletus_toggled(bool checked)
     }
 }
 
-void mainwindow::on_pbeditleagueprofile_clicked()
-{
+void mainwindow::on_pbeditleagueprofile_clicked(){
     setleague();
     if(ui.letuslogin->text().isEmpty()){
         QMessageBox::information(0,QObject::tr("Information"),tr("Before you can view your profile, you must fill in a loginname."));
@@ -873,9 +867,8 @@ void mainwindow::on_pbeditleagueprofile_clicked()
 void mainwindow::leagueserverprofilepage(QString url){
     QDesktopServices::openUrl(QUrl(url));
 }
-void mainwindow::on_cbleagueservers_activated(QString s)
-{
-    QStringList sl=S_S.map["leagueservers:"+s].toStringList();
+void mainwindow::on_cbleagueservers_activated(QString s){
+    QStringList sl=S_S.getstringlist("leagueservers:"+s);
     if(sl.size()<2)
         return;
     ui.letuslogin->setText(sl.takeFirst());

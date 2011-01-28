@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
         S_S.set("textcodec", CodecSelectDia::codec->name());
     }
     else
-        CodecSelectDia::codec=QTextCodec::codecForName(S_S.map["textcodec"].toByteArray());
+        CodecSelectDia::codec=QTextCodec::codecForName(S_S.getbytearray("textcodec"));
     singleton<charformatsettings>().load();           
     a.addLibraryPath(QApplication::applicationDirPath());
     a.setWindowIcon(QIcon(QApplication::applicationDirPath()
@@ -63,8 +63,8 @@ int main(int argc, char *argv[]) {
     singleton<sound_handler>().init();    
     qobjectwrapper<awayhandler>();
     qobjectwrapper<mainwindow> w;
-    volume->setvalue(S_S.map["volumeslidervalue"].value<int> ());
-    if (!S_S.map["chbminimized"].toBool())
+    volume->setvalue(S_S.getint("volumeslidervalue"));
+    if (!S_S.getbool("chbminimized"))
         w.ref().show();
     loadusergarbage();
     loadquerylist();       
@@ -129,8 +129,7 @@ void handle_wini_ini(){
     winini.close();
 }
 void search_for_game_executables(){
-    if (!S_S.map.contains("joinstrings")
-        || S_S.map["joinstrings"].toStringList().isEmpty()) {
+    if (!S_S.contains("joinstrings") || S_S.getstringlist("joinstrings").isEmpty()) {
         QSettings settings("Team17SoftwareLTD", "WormsArmageddon");
         QString gamedir(settings.value("PATH").toString());
         QFile wa;
@@ -146,7 +145,7 @@ void search_for_game_executables(){
         if (wormkit.exists())
             text = text + "\n" + wormkit.fileName();        
         if (test)
-            S_S.map["joinstrings"] = text.split("\n",QString::SkipEmptyParts);
+            S_S.set("joinstrings", text.split("\n",QString::SkipEmptyParts));
     }
     S_S.safe();
 }
@@ -155,12 +154,11 @@ void handle_prosnooper_buddys(){
     QSettings settings("HKEY_CURRENT_USER\\Software\\ProSnooper",
                        QSettings::NativeFormat);
     QString buddies = settings.value("Buddies").toString();
-    QStringList snpbuddies = S_S.map["buddylist"].value<QStringList> ();
+    QStringList snpbuddies = S_S.getstringlist("buddylist");
     QStringList buddielist;
     if (!buddies.isEmpty())
-        buddielist = buddies.split(",", QString::SkipEmptyParts);
-    S_S.map["prosnooperbuddies"];
-    QStringList sl = S_S.map["prosnooperbuddies"].value<QStringList> ();
+        buddielist = buddies.split(",", QString::SkipEmptyParts);    
+    QStringList sl = S_S.getstringlist("prosnooperbuddies");
     foreach(QString s,buddielist) {
         if (!sl.contains(s, Qt::CaseInsensitive)) {
             sl << s;
@@ -168,6 +166,6 @@ void handle_prosnooper_buddys(){
                 snpbuddies << s;
         }
     }
-    S_S.map["prosnooperbuddies"] = sl;
-    S_S.map["buddylist"] = snpbuddies;
+    S_S.set("prosnooperbuddies", sl);
+    S_S.set("buddylist", snpbuddies);
 }
