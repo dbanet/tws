@@ -3,7 +3,7 @@
 #include"singleton.h"
 #include"balloon_handler.h"
 #include"settingswindow.h"
-#include"snpsettings.h"
+#include"sqlsettings.h"
 #include"global_functions.h"
 #include"quithandler.h"
 #include"mainwindow.h"
@@ -15,6 +15,7 @@
 #include<QDesktopServices>
 #include<QNetworkRequest>
 #include<QNetworkReply>
+
 leagueserverhandler::leagueserverhandler()
 {   
     connecttimer.setSingleShot(true);

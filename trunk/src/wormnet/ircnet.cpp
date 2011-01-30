@@ -1,12 +1,13 @@
-#include "ircnet.h"
 #include<QFile>
 #include<QApplication>
 #include<QDir>
 #include<QTime>
 #include<QMessageBox>
 #include<QTextCodec>
+
+#include"ircnet.h"
 #include"inihandlerclass.h"
-#include"snpsettings.h"
+#include"sqlsettings.h"
 #include"settingswindow.h"
 #include"about.h"
 #include"codecselectdia.h"

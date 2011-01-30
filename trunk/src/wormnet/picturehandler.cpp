@@ -1,10 +1,11 @@
-#include "picturehandler.h"
-#include"snpsettings.h"
+#include"picturehandler.h"
+#include"sqlsettings.h"
 #include"global_macros.h"
 #include"leagueserverhandler.h"
 #include"settingswindow.h"
 #include"myDebug.h"
 #include"global_functions.h"
+
 #include<QPixmap>
 #include<QDir>
 #include<QComboBox>

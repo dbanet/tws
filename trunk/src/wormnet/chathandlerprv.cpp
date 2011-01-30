@@ -5,20 +5,22 @@
  *      Author: looki
  */
 
-#include "chathandlerprv.h"
 #include<QTextBrowser>
-#include <QTextDocument>
+#include<QTextDocument>
 #include<QTime>
 #include<QColorDialog>
 #include<QScrollBar>
 #include<QMessageBox>
 #include<QDesktopServices>
+
+#include"chathandlerprv.h"
 #include"settingswindow.h"
-#include "snpsettings.h"
+#include"sqlsettings.h"
 #include"netcoupler.h"
 #include"joinprvgame.h"
-#include "emoticonhandler.h"
+#include"emoticonhandler.h"
 #include"global_functions.h"
+
 QPointer<emoticonhandler> chathandlerprv::emot;
 chathandlerprv::chathandlerprv(QObject *parent, QTextBrowser *t, QString chan) :
         chathandler(parent, t, chan) {

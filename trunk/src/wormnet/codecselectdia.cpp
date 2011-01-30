@@ -1,7 +1,9 @@
-#include "codecselectdia.h"
-#include "ui_codecselectdia.h"
 #include<QTextCodec>
-#include"snpsettings.h"
+
+#include"codecselectdia.h"
+#include"ui_codecselectdia.h"
+#include"sqlsettings.h"
+
 QTextCodec *CodecSelectDia::codec=0;
 CodecSelectDia::CodecSelectDia(QWidget *parent) :
     QDialog(parent),

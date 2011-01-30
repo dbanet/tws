@@ -1,16 +1,18 @@
-#include "hostmodel.h"
+#include"hostmodel.h"
 #include"netcoupler.h"
-#include "snpsettings.h"
+#include"sqlsettings.h"
 #include"settingswindow.h"
 #include"netcoupler.h"
-#include "sound_handler.h"
-#include "balloon_handler.h"
+#include"sound_handler.h"
+#include"balloon_handler.h"
 #include"global_functions.h"
 #include"myDebug.h"
-#include "picturehandler.h"
+#include"picturehandler.h"
+
 #include<QTime>
 #include<QPointer>
 #include<QApplication>
+
 hostmodel::hostmodel(QObject *parent) :
 	QAbstractItemModel(parent) {
 

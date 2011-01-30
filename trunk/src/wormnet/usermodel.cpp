@@ -1,14 +1,16 @@
-#include "usermodel.h"
-#include"snpsettings.h"
-#include"settingswindow.h"
 #include<QtGui>
+
+#include"usermodel.h"
+#include"sqlsettings.h"
+#include"settingswindow.h"
 #include"netcoupler.h"
 #include"ctcphandler.h"
-#include "sound_handler.h"
+#include"sound_handler.h"
 #include"global_functions.h"
 #include"clantowebpagemapper.h"
 #include"leagueserverhandler.h"
 #include"picturehandler.h"
+
 extern QStringList querylist;
 extern QString GamesourgeChannelName;
 QStringList usermodel::buddyarrivedhelper;
@@ -148,7 +150,6 @@ void usermodel::addbuddy(const QString &user) {
     if (!containsCI(S_S.getstringlist("buddylist") ,user) && !containsCI(S_S.getstringlist("ignorelist"), user)) {
         S_S.set("buddylist", S_S.getstringlist("buddylist") << user);
     }
-    S_S.safe();
     emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
@@ -168,17 +169,14 @@ void usermodel::deletebuddy(const QString &s) {
         sl.removeAll(s);
     }
     S_S.set("buddylist", sl);
-    S_S.safe();
     emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
 void usermodel::addignore(const QString &s) {
 
     emit layoutAboutToBeChanged();
-    if (!containsCI(S_S.getstringlist("ignorelist"), s) && !containsCI(S_S.getstringlist("buddylist"), s)) {
-        S_S.set("ignorelist", S_S.getstringlist("ignorelist") << s);
-    }
-    S_S.safe();
+    if (!containsCI(S_S.getstringlist("ignorelist"), s) && !containsCI(S_S.getstringlist("buddylist"), s))
+        S_S.set("ignorelist", S_S.getstringlist("ignorelist") << s);    
     emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
@@ -190,7 +188,6 @@ void usermodel::deleteignore(const QString &s) {
     sl.removeOne(s);
     S_S.set("ignorelist", sl);
     usermap[usermodel::tr("Ignorelist")].removeOne(u);
-    S_S.safe();
     emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }

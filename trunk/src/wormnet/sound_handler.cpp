@@ -1,12 +1,14 @@
-#include "sound_handler.h"
-#include "snpsettings.h"
-#include "singleton.h"
+#include"sound_handler.h"
+#include"sqlsettings.h"
+#include"singleton.h"
 #include"settingswindow.h"
 #include"netcoupler.h"
+
 #include<QApplication>
 #include<phonon/phonon>
 #include<QPointer>
 #include<QMessageBox>
+
 sound_handler::sound_handler(){    
     startupsound = new Phonon::MediaObject(this);   
     buddymsgsound = new Phonon::MediaObject(this);

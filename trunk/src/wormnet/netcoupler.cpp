@@ -2,11 +2,12 @@
 #include<QClipboard>
 #include<QTime>
 #include<QMessageBox>
+
 #include"netcoupler.h"
 #include"ircnet.h"
 #include"snoppanet.h"
 #include"inihandlerclass.h"
-#include"snpsettings.h"
+#include"sqlsettings.h"
 #include"window.h"
 #include"joinprvgame.h"
 #include"settingswindow.h"

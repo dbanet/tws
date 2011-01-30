@@ -1,5 +1,5 @@
 #include"quithandler.h"
-#include"snpsettings.h"
+#include"sqlsettings.h"
 #include"clantowebpagemapper.h"
 #include"charformatsettings.h"
 #include"balloon_handler.h"
@@ -10,6 +10,7 @@
 #include"leagueserverhandler.h"
 
 #include<QApplication>
+
 quithandler::quithandler(){
     connect(qApp,SIGNAL(aboutToQuit()),this,SLOT(beforequit()));
 }
@@ -26,9 +27,7 @@ void quithandler::inducequit(){
     singleton<netcoupler>().sendquit();
 }
 void quithandler::beforequit(){    
-    qobjectwrapper<mainwindow>::ref().quit();
-    S_S.safeonquit();
-    S_S.safe();
+    qobjectwrapper<mainwindow>::ref().quit();    
     singleton<clantowebpagemapper>().safe();
     bool b = singleton<settingswindow>().from_map("cbsafequerys").value<bool> ();
     if (b) {

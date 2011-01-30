@@ -1,5 +1,5 @@
 #include "awaybox.h"
-#include "snpsettings.h"
+#include "sqlsettings.h"
 #include "netcoupler.h"
 #include "qobjectwrapper.h"
 #include "awayhandler.h"
@@ -36,8 +36,7 @@ void awaybox::okclicked() {
         sl<<ui.textEdit->toPlainText();
     else
         sl.move(sl.indexOf(ui.textEdit->toPlainText()),sl.size()-1);
-    S_S.set("awaymessage", sl);
-    S_S.safe();
+    S_S.set("awaymessage", sl);    
     emit sigok();    
     close();
     qobjectwrapper<awayhandler>::ref().wasaway = 1;

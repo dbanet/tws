@@ -1,12 +1,14 @@
-#include "hostbox.h"
-#include "snpsettings.h"
+#include"hostbox.h"
+#include"sqlsettings.h"
 #include"netcoupler.h"
 #include"global_functions.h"
-#include <QFileDialog>
+
+#include<QFileDialog>
 #include<QPointer>
 #include<QKeyEvent>
 #include<QMessageBox>
 #include<QValidator>
+
 hostbox::hostbox(QString c, QWidget *parent) :
         QWidget(parent),channel(c) {
     ui.setupUi(this);
@@ -75,11 +77,9 @@ void hostbox::addclicked() {
             S_S.set("joinstrings", sl);
             ui.icons->clear();
             ui.icons->addItems(sl);
-            S_S.safe();
         } else if (sl.contains(file) && file != "") {
             sl.move(sl.indexOf(file), 0);
             S_S.set("joinstrings", sl);
-            S_S.safe();
         }
     }
 }
@@ -100,12 +100,11 @@ void hostbox::okclicked() {
         S_S.set("joinstrings", sl);
         emit sigok();
     }
-    S_S.safe();
-    this->close();
+    close();
 }
 void hostbox::cancelclicked() {
-    this->close();
-    this->deleteLater();
+    close();
+    deleteLater();
 }
 hostbox::~hostbox() {
 

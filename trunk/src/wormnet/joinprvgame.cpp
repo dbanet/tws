@@ -1,7 +1,9 @@
-#include "joinprvgame.h"
 #include<QStringList>
 #include<QFileDialog>
-#include "snpsettings.h"
+
+#include"joinprvgame.h"
+#include"sqlsettings.h"
+
 joinprvgame::joinprvgame(const QString &a,const QString &b)
     : chan(b),anchor(a)
 {
@@ -39,11 +41,9 @@ void joinprvgame::addclicked() {
             S_S.set("joinstrings", sl);
             ui.icons->clear();
             ui.icons->addItems(sl);
-            S_S.safe();
         } else if (sl.contains(file) && file != "") {
             sl.move(sl.indexOf(file), 0);
             S_S.set("joinstrings", sl);
-            S_S.safe();
         }
     }
 }

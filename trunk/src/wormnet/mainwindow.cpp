@@ -9,7 +9,7 @@
 #include"inihandlerclass.h"
 #include"chatwindow.h"
 #include"about.h"
-#include"snpsettings.h"
+#include"sqlsettings.h"
 #include"charformatsettings.h"
 #include"ui_window.h"
 #include"ui_window2.h"
@@ -188,7 +188,6 @@ void mainwindow::chooseclicked() {
     S_S.set("showinformation", ui.cbshowinformation->isChecked());
     S_S.set("leagueservers:"+ui.cbleagueservers->currentText(), QStringList()<<ui.letuslogin->text()<<ui.letuspassword->text());
 
-    S_S.safe();
     if(S_S.getbool("enablesecurelogging")){
         setleague();
         singleton<leagueserverhandler>().login(ui.letuslogin->text(),ui.letuspassword->text());
@@ -279,7 +278,6 @@ void mainwindow::join(const QString channel){
     connect(windowlist.last(), SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindow(const QString &)));
     connect(this, SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindow(const QString &)));
     connect(windowlist.last(), SIGNAL(sigwindowclosed(const QString&)),this, SLOT(windowremoved(const QString&)));
-    S_S.safe();
 }
 void mainwindow::quit() {
     foreach(chatwindow *w,::window::chatwindows) {
@@ -298,13 +296,11 @@ void mainwindow::closeEvent(QCloseEvent *) {
     QVariantList windowstates;
     windowstates << saveGeometry();
     S_S.set("MainWindowGeometry", windowstates);
-    S_S.safe();
 }
 void mainwindow::returntologintab() {
     singleton<leagueserverhandler>().reset();
     joinonstartup = 0;
     S_S.set("chbautojoin", ui.chbautojoin->isChecked());
-    S_S.safe();
     joinmenu->clear();
     currentchannellist.clear();
     ui.cbchannels->clear();
@@ -335,7 +331,6 @@ void mainwindow::changeEvent(QEvent * event) {
 void mainwindow::pbrememberjoinclicked() {
     S_S.set("joinonstartup", ui.cbchannels->currentText());
     ui.pbrememberjoin->setText(tr("Autojoin:") + "\n" + S_S.getstring("joinonstartup"));
-    S_S.safe();
 }
 void mainwindow::snpsetcontains(const QString &s) {
     if (s == "chbautojoin" && S_S.contains(s))
@@ -418,7 +413,6 @@ void mainwindow::appenddebugmessage(const QString &msg) {
 void mainwindow::setlanguage(const QString &langfile) {
     S_S.set("language file", langfile);
     myDebug() << S_S.getstring("language file");
-    S_S.safe();
     QMessageBox::StandardButton button = QMessageBox::question(this, tr(
             "Restart the application?"), tr(
                     "Changing the translation requires a program restart.\n"
@@ -694,7 +688,6 @@ void mainwindow::traymenutriggered(QAction *a) {
         if (f.open(QFile::ReadOnly)) {
             stylesheet = f.readAll();
             S_S.set("qss file", a->text());
-            S_S.safe();
             safeusergarbage();
             safequerylist();
             try{
@@ -773,7 +766,6 @@ void mainwindow::traymenutriggered(QAction *a) {
         playername *pl = new playername;
         pl->show();
     }
-    S_S.safe();
 }
 void mainwindow::handleAwayBox(){
     if (qobjectwrapper<awayhandler>::ref().isaway) {

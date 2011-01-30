@@ -1,6 +1,6 @@
 #include"window.h"
 #include"chatwindow.h"
-#include"snpsettings.h"
+#include"sqlsettings.h"
 #include"mainwindow.h"
 #include"chathandler.h"
 #include"hostbox.h"
@@ -23,6 +23,7 @@
 #include<QDate>
 #include<QScrollBar>
 #include<QDesktopServices>
+
 QList<chatwindow*> window::chatwindows;
 QStringList window::chatwindowstringlist;
 QList< ::window*> window::hiddenchannelwindowshelper;
@@ -395,7 +396,6 @@ void window::useritempressed(const QModelIndex &index) {
         else
             showInformationAboutClan(singleton<netcoupler>().users.getuserstructbyindex(index).clan);
         S_S.set("dissallowedclannames", sl);
-        S_S.safe();
     } else if (singleton<netcoupler>().users.classes[index.internalId()] == usermodel::tr("Querys")) {
         QMenu menu;
         menu.addAction(tr("Remove this Query."));
@@ -570,11 +570,9 @@ void window::hostitempressed(const QModelIndex &index) {
                         }
                         joinmenu2.addAction(tr(
                                 "Choose a Program to join this game."));
-                        S_S.safe();
                     } else if (sl.contains(file) && file != "") {
                         sl.move(sl.indexOf(file), 0);
                         S_S.set("joinstrings", sl);
-                        S_S.safe();
                     }
                     QFile f(file);
                     if (f.open(QFile::ReadOnly)) {
@@ -654,7 +652,6 @@ void window::changealpha(int i) {
         this->setWindowOpacity(1);
     else
         this->setWindowOpacity((double) i / 100);
-    S_S.safe();
 }
 void window::showbuttons() {
     ui.buttonlayout->addWidget(buttons);

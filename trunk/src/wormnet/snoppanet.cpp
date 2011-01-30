@@ -12,7 +12,7 @@
 #include<QTextDocumentFragment>
 
 #include"snoppanet.h"
-#include"snpsettings.h"
+#include"sqlsettings.h"
 #include"settingswindow.h"
 #include"hoststruct.h"
 #include"inihandlerclass.h"

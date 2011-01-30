@@ -5,9 +5,8 @@
  *      Author: looki
  */
 
-#include "chathandler.h"
 #include<QTextBrowser>
-#include <QTextDocument>
+#include<QTextDocument>
 #include<QTime>
 #include<QFontDialog>
 #include<QColorDialog>
@@ -17,15 +16,18 @@
 #include<QPointer>
 #include<QWheelEvent>
 #include<stdexcept>
-#include "charformatsettings.h"
-#include "snpsettings.h"
+
+#include"chathandler.h"
+#include"charformatsettings.h"
+#include"sqlsettings.h"
 #include"netcoupler.h"
 #include"joinprvgame.h"
 #include"settingswindow.h"
-#include "charformatsettings.h"
-#include "sound_handler.h"
+#include"charformatsettings.h"
+#include"sound_handler.h"
 #include"global_functions.h"
-#include "balloon_handler.h"
+#include"balloon_handler.h"
+
 QTextCharFormat chathandler::timeformat;
 QTextCharFormat chathandler::nickformat;
 QTextCharFormat chathandler::chatformat;

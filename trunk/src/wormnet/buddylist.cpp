@@ -1,5 +1,5 @@
 #include"buddylist.h"
-#include"snpsettings.h"
+#include "sqlsettings.h"
 #include"global_functions.h"
 
 buddylist::buddylist(QWidget *parent) :
@@ -19,7 +19,6 @@ void buddylist::add() {
                 S_S.set("buddylist", sl);
 		ui.list->clear();
                 ui.list->addItems(S_S.getstringlist("buddylist"));
-                S_S.safe();
         }
 }
 void buddylist::remove() {
@@ -31,6 +30,5 @@ void buddylist::remove() {
                 S_S.set("buddylist", sl);
 		ui.list->clear();
                 ui.list->addItems(S_S.getstringlist("buddylist"));
-                S_S.safe();
 	}
 }

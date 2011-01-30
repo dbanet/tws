@@ -1,11 +1,12 @@
-#include "chatwindow.h"
+#include"chatwindow.h"
 #include"netcoupler.h"
-#include "snpsettings.h"
+#include"sqlsettings.h"
 #include"settingswindow.h"
 #include"chathandlerprv.h"
 #include"ctcphandler.h"
-#include "sound_handler.h"
+#include"sound_handler.h"
 #include"global_functions.h"
+
 #include<QKeyEvent>
 #include<QDir>
 #include<QTime>
@@ -13,6 +14,7 @@
 #include<QStatusBar>
 #include<QMessageBox>
 #include<QDesktopWidget>
+
 extern QStringList querylist;
 extern QMap<QString, QStringList> usergarbagemap;
 chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :

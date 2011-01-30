@@ -1,10 +1,12 @@
-#include "emoticonhandler.h"
+#include"emoticonhandler.h"
 #include"settingswindow.h"
-#include "snpsettings.h"
+#include"sqlsettings.h"
 #include"myDebug.h"
+
 #include<QMessageBox>
 #include<QFileDialog>
 #include<QFile>
+
 emoticonhandler::emoticonhandler(QWidget *parent) :
 	QWidget(parent) {
 	ui.setupUi(this);
@@ -128,7 +130,6 @@ void emoticonhandler::indexofcbchanged(const QString&) {
 	ui.listWidget->clear();
 	scheme = ui.cbscheme->currentText();
         S_S.set("smileyscheme", scheme);
-        S_S.safe();
 	foreach(QString s,filemap[scheme].keys()) {
 			if (QFile::exists(QApplication::applicationDirPath() + "/smileys/"
 					+ scheme + "/" + filemap[scheme][s])) {

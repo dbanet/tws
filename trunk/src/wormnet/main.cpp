@@ -1,7 +1,7 @@
 #include"netcoupler.h"
 #include"window.h"
 #include"mainwindow.h"
-#include"snpsettings.h"
+#include"sqlsettings.h"
 #include"charformatsettings.h"
 #include"settingswindow.h"
 #include"volumeslider.h"
@@ -34,11 +34,11 @@ void handle_wini_ini();
 void get_picutres();
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
+    S_S.start();
     a.setQuitOnLastWindowClosed(false);
     volume = new volumeslider;
     a.setApplicationName("The Wheat Snooper");
     chdir(qPrintable(QApplication::applicationDirPath()));
-    S_S.load();
     singleton<settingswindow>();
     singleton<clantowebpagemapper>().load();
     singleton<picturehandler>();
@@ -147,9 +147,7 @@ void search_for_game_executables(){
         if (test)
             S_S.set("joinstrings", text.split("\n",QString::SkipEmptyParts));
     }
-    S_S.safe();
 }
-
 void handle_prosnooper_buddys(){
     QSettings settings("HKEY_CURRENT_USER\\Software\\ProSnooper",
                        QSettings::NativeFormat);

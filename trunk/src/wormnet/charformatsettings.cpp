@@ -5,9 +5,10 @@
  *      Author: looki
  */
 
-#include "charformatsettings.h"
-#include "snpsettings.h"
+#include"charformatsettings.h"
+#include"sqlsettings.h"
 #include"myDebug.h"
+
 #include<QFile>
 #include<QDir>
 #include<QApplication>
