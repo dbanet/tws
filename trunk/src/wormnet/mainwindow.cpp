@@ -270,8 +270,8 @@ void mainwindow::join(const QString channel){
         myDebug() << "joinclicked in mainwindow assert";
     windowlist.last()->show();
     windowlist.last()->raise();
-    if (qobjectwrapper<awayhandler>::ref().isaway) {
-        windowlist.last()->windowtitleaway = qobjectwrapper<awayhandler>::ref().awaymessage;
+    if (qobjectwrapper<awayhandler>::ref().away()) {
+        windowlist.last()->windowtitleaway = qobjectwrapper<awayhandler>::ref().message();
         windowlist.last()->mysetwindowtitle();
     }
     connect(windowlist.last(), SIGNAL(sigjoinchannel(const QString&)),this, SLOT(join(const QString&)));
@@ -431,14 +431,14 @@ void mainwindow::setlanguage(const QString &langfile) {
 }
 void mainwindow::awayboxok() {
     foreach(::window *w,windowlist) {
-        w->windowtitleaway = " " + tr("<away>:") +" "+ qobjectwrapper<awayhandler>::ref().awaymessage;
+        w->windowtitleaway = " " + tr("<away>:") +" "+ qobjectwrapper<awayhandler>::ref().message();
         w->mysetwindowtitle();
     }
 }
 void mainwindow::awaymessagechanged() {
-    if (qobjectwrapper<awayhandler>::ref().isaway) {
+    if (qobjectwrapper<awayhandler>::ref().away()) {
         foreach(::window *w,windowlist) {
-            w->windowtitleaway = " " + tr("<away>:") + " "+qobjectwrapper<awayhandler>::ref().awaymessage;
+            w->windowtitleaway = " " + tr("<away>:") + " "+qobjectwrapper<awayhandler>::ref().message();
             w->mysetwindowtitle();
         }
     } else {
@@ -488,15 +488,8 @@ void mainwindow::gotprvmsg(const QString &user, const QString &receiver, const Q
             << QDate::currentDate().toString("dd.MM") + " "
             + QTime::currentTime().toString("hh:mm") + " " + user
             + ">" + QString(msg).remove("\n").remove("\r");
-    if (qobjectwrapper<awayhandler>::ref().isaway) {
-        if (qobjectwrapper<awayhandler>::ref().rememberwhogotaway[user] != qobjectwrapper<awayhandler>::ref().awaymessage) {
-            singleton<netcoupler>().sendmessage(user, qobjectwrapper<awayhandler>::ref().awaymessage);
-            int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(user));
-            if (i != -1 && singleton<netcoupler>().users.users[i].clan != "Username")
-                singleton<netcoupler>().sendrawcommand("PRIVMSG " + user + " :\001away "
-                                                       + qobjectwrapper<awayhandler>::ref().awaymessage + "\001");
-        }
-        qobjectwrapper<awayhandler>::ref().rememberwhogotaway[user] = qobjectwrapper<awayhandler>::ref().awaymessage;
+    if (qobjectwrapper<awayhandler>::ref().away()) {
+        qobjectwrapper<awayhandler>::ref().sendaway(user);
     }
     if (!singleton<netcoupler>().users.usermap[usermodel::tr("Ignorelist")].count(
             userstruct::whoami(user))
@@ -766,7 +759,7 @@ void mainwindow::traymenutriggered(QAction *a) {
     }
 }
 void mainwindow::handleAwayBox(){
-    if (qobjectwrapper<awayhandler>::ref().isaway) {
+    if (qobjectwrapper<awayhandler>::ref().away()) {
         if (!awaybox::ison) {
             qobjectwrapper<awayhandler>::ref().back();
             awaymessagechanged();
@@ -780,14 +773,13 @@ void mainwindow::handleAwayBox(){
     }
 }
 void mainwindow::reconnect(){
+    disconnect(this,SLOT(reconnect()));
     foreach(::window *w, windowlist) {
         lastOpenedWindows<<w->currentchannel;
     }
     foreach(chatwindow *w,::window::chatwindows) {
         lastOpenedChatWindows<<w->chatpartner;
-    }
-    qobjectwrapper<awayhandler>::ref().isaway = 0;
-    singleton<balloon_handler>().set_normal_tray_icon();
+    }    
     returntologintab();
     singleton<netcoupler>().stop();
     QTimer::singleShot(2000, this, SLOT(chooseclicked()));

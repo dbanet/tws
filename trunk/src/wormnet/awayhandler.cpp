@@ -19,6 +19,8 @@ awayhandler::awayhandler(QObject *parent) :
 {
     connect(&lookingForGameTimer,SIGNAL(timeout()),this,SLOT(gameTimerTimeout()));
     connect(this,SIGNAL(siggameended()),this,SLOT(gamefinished()));
+    wasaway=0;
+    isaway=0;
 }
 awayhandler::~awayhandler(){}
 
@@ -34,24 +36,28 @@ void awayhandler::gamefinished() {
     if (singleton<settingswindow>().from_map("cbsetawaywhilegaming").toBool()) {
         if (wasaway) {
             isaway = 1;
+            wasaway=0;
+            awaymessage = S_S.getstringlist("awaymessage").last();
+            emit sigawaystringchanged();
             return;
         }
         singleton<balloon_handler>().set_normal_tray_icon();
         isaway = 0;
         wasaway = 0;
-        if (!S_S.getstringlist("awaymessage").isEmpty())
-            awaymessage = S_S.getstringlist("awaymessage").last();
         emit sigawaystringchanged();
-        foreach(QString s,rememberwhogotaway.keys()) {
-            if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
-                && !containsCI(S_S.getstringlist("ignorelist"), s)) {
+        sendBack();
+    }    
+}
+void awayhandler::sendBack(){
+    foreach(QString s,rememberwhogotaway.keys()) {
+        if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
+            && !containsCI(S_S.getstringlist("ignorelist"), s)) {
+            singleton<netcoupler>().sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
+            singleton<netcoupler>().sendrawcommand("PRIVMSG " + s + " :\001back\001");
+        } else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
+            if (containsCI(S_S.getstringlist("buddylist"), s))
                 singleton<netcoupler>().sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
-                singleton<netcoupler>().sendrawcommand("PRIVMSG " + s + " :\001back\001");
-            } else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
-                if (containsCI(S_S.getstringlist("buddylist"), s))
-                    singleton<netcoupler>().sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
-                singleton<netcoupler>().sendrawcommand("PRIVMSG " + s + " :\001back\001");
-            }
+            singleton<netcoupler>().sendrawcommand("PRIVMSG " + s + " :\001back\001");
         }
     }
     rememberwhogotaway.clear();
@@ -59,15 +65,13 @@ void awayhandler::gamefinished() {
 void awayhandler::setawaywhilegameing() {
 #ifdef Q_WS_WIN
     singleton<balloon_handler>().set_away_tray_icon();
-    if (singleton<settingswindow>().from_map("cbsetawaywhilegaming").toBool()) {
-        if (!isaway){
-            isaway = 1;
-            wasaway=0;
-        }
-        else
+    if (singleton<settingswindow>().from_map("cbsetawaywhilegaming").toBool()) {        
+        if (isaway)
             wasaway = 1;
+        else
+            wasaway = 0;
+        isaway = 1;
         awaymessage = singleton<settingswindow>().from_map("leawaystring").toString();
-        oldawaystring = awaymessage;
         emit sigawaystringchanged();
     }
 #endif
@@ -85,18 +89,20 @@ void awayhandler::back(){
     isaway = 0;
     wasaway = 0;
     singleton<balloon_handler>().set_normal_tray_icon();
-    foreach(QString s,rememberwhogotaway.keys()) {
-        if (singleton<netcoupler>().users.users.indexOf(userstruct::whoami(s))!= -1 && !compareCI(
-                    singleton<netcoupler>().users.users[singleton<netcoupler>().users.users.indexOf(
-                            userstruct::whoami(s))].clan,"username"))
-            singleton<netcoupler>().sendrawcommand("PRIVMSG " + s + " :\001back\001");
-        if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
-            && !containsCI(S_S.getstringlist("ignorelist"), s))
-            singleton<netcoupler>().sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
-        else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
-            if (containsCI(S_S.getstringlist("buddylist"), s))
-                singleton<netcoupler>().sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
-        }
+    sendBack();
+}
+bool awayhandler::away(){
+    return isaway;
+}
+QString awayhandler::message(){
+    return awaymessage;
+}
+void awayhandler::sendaway(const QString &user){
+    if (rememberwhogotaway[user] != qobjectwrapper<awayhandler>::ref().message()) {
+        singleton<netcoupler>().sendmessage(user, message());
+        int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(user));
+        if (i != -1 && singleton<netcoupler>().users.users[i].clan != "Username")
+            singleton<netcoupler>().sendrawcommand("PRIVMSG " + user + " :\001away " + message() + "\001");
     }
-    rememberwhogotaway.clear();
+    qobjectwrapper<awayhandler>::ref().rememberwhogotaway[user] = qobjectwrapper<awayhandler>::ref().message();
 }

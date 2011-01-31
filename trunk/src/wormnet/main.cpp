@@ -126,21 +126,21 @@ void handle_wini_ini(){
     winini.close();
 }
 void search_for_game_executables(){
-    if (!S_S.contains("joinstrings") || S_S.getstringlist("joinstrings").isEmpty()) {
+    if (S_S.getstringlist("joinstrings").isEmpty()) {
         QSettings settings("Team17SoftwareLTD", "WormsArmageddon");
         QString gamedir(settings.value("PATH").toString());
         QFile wa;
-        QFile wormkit;
-        wa.setFileName(gamedir + "/wa.exe");
+        QFile wormkit;        
         wormkit.setFileName(gamedir + "/WormKit.exe");
+        wa.setFileName(gamedir + "/wa.exe");
         QString text;
         bool test = 0;
-        if (wa.exists()) {
-            text = wa.fileName();
-            test = 1;
-        }
         if (wormkit.exists())
-            text = text + "\n" + wormkit.fileName();        
+            text = wormkit.fileName();
+        if (wa.exists()) {
+            text = text + "\n" + wa.fileName();
+            test = 1;
+        }        
         if (test)
             S_S.set("joinstrings", text.split("\n",QString::SkipEmptyParts));
     }

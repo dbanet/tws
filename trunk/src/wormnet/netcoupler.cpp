@@ -75,8 +75,7 @@ void netcoupler::start(QString s){
         irc->setip(ircip);
         irc->start();
         usesettingswindow("sbwhorepead");
-    }
-    qobjectwrapper<awayhandler>::ref().isaway = 0;
+    }    
     connect(&loopTimer,SIGNAL(timeout()),this,SLOT(loopTimerTimeout()));
     loopTimer.start(30*1000);
 }
@@ -198,12 +197,16 @@ void netcoupler::joingamelink(const QString &gamelink) {
     Q_CHECK_PTR(cast);
     looki::currentchannel = cast->chan;
     QString temp = getprocessstring();
+    if (temp == QString())
+        return;
     temp = temp + " \"" + gamelink + "\"";
     startprocess(temp);
 }
 void netcoupler::joingame(const QString &hostinfo, const QString &channel, const QString &gamename) {
     looki::currentchannel = channel;
     QString temp = getprocessstring();
+    if (temp == QString())
+        return;
     temp = temp + hostinfo;
     startprocess(temp);
     if (singleton<settingswindow>().from_map("chbactionwhenjoining").toBool())
@@ -213,7 +216,7 @@ void netcoupler::createhost(hoststruct h) {
     if (users.users.indexOf(userstruct::whoami(nick)) == -1)
         return;
     QString temp = getprocessstring();
-    if (temp == "")
+    if (temp == QString())
         return;
     QString s;
     if(!http->lasthost.pwd().isEmpty())
@@ -253,11 +256,13 @@ void netcoupler::readprocess() {
 }
 QString netcoupler::getprocessstring() {
     QStringList sl = S_S.getstringlist("joinstrings");
-    if (sl.isEmpty())
+    if (sl.isEmpty()){
         QMessageBox::warning(0, "", tr("No executables are given.\n"
                                        "you must choose a game executable,\n"
                                        "for example wa.exe, to join a game.\n"),
                              QMessageBox::Ok);
+        return QString();
+    }
 #ifdef Q_WS_MAC
     if (!sl.isEmpty()) {
         QString file = sl.first();

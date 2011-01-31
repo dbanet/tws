@@ -13,6 +13,7 @@ class window;
 class netcoupler;
 class chatwindow;
 class QMenu;
+
 class mainwindow : public QWidget
 {
     Q_OBJECT

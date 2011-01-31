@@ -11,17 +11,12 @@ class awayhandler : public QObject
     Q_OBJECT
 public:
     void startLookingForGame();
-
-    void setaway(const QString &);
-    QString awaymessage;
-    bool isaway;
-    bool wasaway;
-    QMap<QString,QString> rememberwhogotaway;
-    QString oldawaystring;
-    static QString toString(){
-        return "awayhandler";
-    }
-    void back();
+    bool away();
+    QString message();
+    void setaway(const QString &);    
+    void sendaway(const QString &user);
+    static QString toString(){return "awayhandler";}
+    void back();    
 
 public slots:
     void setawaywhilegameing();
@@ -37,6 +32,11 @@ private slots:
     void gameTimerTimeout();
     void gamefinished();
 private:
+    QMap<QString,QString> rememberwhogotaway;
+    QString awaymessage;
+    bool isaway;
+    bool wasaway;
+    void sendBack();
     friend class qobjectwrapper<awayhandler>;
 
 };

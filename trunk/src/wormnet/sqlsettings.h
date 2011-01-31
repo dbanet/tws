@@ -38,6 +38,8 @@ private:
     void before_get(QString key) const;
     void before_set(QString key, QVariant value) const;
 
+    void importOldSnpini(QString folder);
+
     QSqlQueryModel model;
 };
 namespace{

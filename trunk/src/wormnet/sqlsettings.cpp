@@ -23,7 +23,7 @@ void sqlsettings::start(){
     query.exec(QString("select * from %1").arg(TABLENAME));
     if(!query.next()){
         query.exec(QString("insert into %1(d_u_m_m_y) values(1);").arg(TABLENAME));
-        firstrun();
+        firstrun();        
         return;
     }    
     model.setQuery(QString("select * from %1").arg(TABLENAME));
@@ -36,7 +36,6 @@ void sqlsettings::start(){
     validate();
 }
 sqlsettings::~sqlsettings(){
-
 }
 void sqlsettings::firstrun() {
     installTranslationBySystemLocale();
@@ -48,9 +47,8 @@ void sqlsettings::firstrun() {
         QString folder;
         while(true){
             folder=QFileDialog::getExistingDirectory(0,QApplication::tr("Please choose the folder from the old Snooper.")
-                                                     ,QApplication::applicationDirPath());
-            folder+="/";
-            if(QFile::exists(folder+"snpini/settings.sql")){
+                                                     ,QApplication::applicationDirPath()+"/");
+            if(QFile::exists(folder+"snpini/settings.sql") || QFile::exists(folder+"snpini/snpini")){
                 break;
             } else{
                 int button=QMessageBox::warning(0,QObject::tr("Warning!"),QApplication::tr("This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?"),QMessageBox::Yes | QMessageBox::No);
@@ -58,26 +56,40 @@ void sqlsettings::firstrun() {
                     continue;
                 else {
                     loadDefaults();
+                    validate();
                     return;
                 }
             }
+        }        
+        if(QFile::exists("snpini/snpini") && !QFile::exists("snpini/settings.sql"))
+            importOldSnpini(folder);
+        else {
+            close();
+            QFile::remove("snpini/settings.sql");
+            QFile::copy(folder+"snpini/settings.sql","snpini/settings.sql");
+            open();
         }
-        QFile::remove("snpini/settings.sql");
-        QFile::copy(folder+"snpini/settings.sql","snpini/settings.sql");
         QFile::copy(folder+"snpini/settingswindowini","snpini/settingswindowini");
         QFile::copy(folder+"snpini/ctcp.ini","snpini/ctcp.ini");
         QFile::copy(folder+"snpini/clanpages","snpini/clanpages");
-
         QFile::copy(folder+"query/log","query/log");
         QFile::copy(folder+"query/querylist","query/querylist");
-        QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-        QString path=qApp->applicationDirPath()+"/snpini/settings.sql";
-        db.setDatabaseName(path);
-        db.open();
     } else
         loadDefaults();
     validate();
 }
+void sqlsettings::importOldSnpini(QString folder){
+    QMap<QString,QVariant> map;
+    QFile f(folder+"snpini/snpini");
+    f.open(QFile::ReadOnly);
+    QDataStream ds(&f);
+    ds.setVersion(QDataStream::Qt_4_3);
+    ds>>map;
+    foreach(QString s, map.keys()){
+        set(s,map[s]);
+    }
+}
+
 void sqlsettings::open(){
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     QString path=qApp->applicationDirPath()+"/snpini/settings.sql";
@@ -117,7 +129,7 @@ void sqlsettings::validate(){
     if(!contains("showinformation"))
         set("showinformation", true);
     if(!contains("spectatingneversettedoff"))
-        set("spectatingneversettedoff", true);
+        set("spectatingneversettedoff", true);    
 }
 void sqlsettings::checkifexistsinstringlist(QString key,QString value){
     QStringList sl=getstringlist(key);
@@ -233,6 +245,6 @@ void sqlsettings::before_get(QString key) const{
     //    qDebug()<<key;
 }
 void sqlsettings::before_set(QString key, QVariant value) const{
-//    qDebug()<<"set";
-//    qDebug()<<key<<"    "<<value;
+    //    qDebug()<<"set";
+    //    qDebug()<<key<<"    "<<value;
 }

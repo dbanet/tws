@@ -29,8 +29,8 @@ bool ctcphandler::getctcp(const QString &user, const QString &msg) {
         removeCI(awayusers, user);
         emit sigctcpcommand("back", user);
     } else if (s=="status") {
-        if (qobjectwrapper<awayhandler>::ref().isaway)
-            singleton<netcoupler>().sendrawcommand("PRIVMSG " + user + " :\001away " + qobjectwrapper<awayhandler>::ref().awaymessage + "\001");
+        if (qobjectwrapper<awayhandler>::ref().away())
+            singleton<netcoupler>().sendrawcommand("PRIVMSG " + user + " :\001away " + qobjectwrapper<awayhandler>::ref().message() + "\001");
         else
             singleton<netcoupler>().sendrawcommand("PRIVMSG " + user + " :\001back\001");
     } else if (singleton<ctctphandlerwidget>().atomicmap.keys().contains(s)) {

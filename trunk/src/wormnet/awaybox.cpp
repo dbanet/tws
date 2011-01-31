@@ -38,9 +38,7 @@ void awaybox::okclicked() {
         sl.move(sl.indexOf(ui.textEdit->toPlainText()),sl.size()-1);
     S_S.set("awaymessage", sl);    
     emit sigok();    
-    close();
-    qobjectwrapper<awayhandler>::ref().wasaway = 1;
-    qobjectwrapper<awayhandler>::ref().isaway = 1;
+    close();    
 }
 void awaybox::cancelclicked() {
     close();
