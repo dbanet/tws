@@ -6,13 +6,13 @@
 maintoolbox::maintoolbox(QString s,QWidget *parent)
     : QWidget(parent)
 {
-	this->setObjectName("normalwidget");
-	this->setWindowTitle(s);
+	 setObjectName("normalwidget");
+	 setWindowTitle(s);
 	layout=new QVBoxLayout;
 	tab=new mytabwidget;
 	layout->addWidget(tab);
 	tab->clear();
-	this->setLayout(layout);
+	 setLayout(layout);
 	connect(tab,SIGNAL(sigclosetab(int)),this,SLOT(closewindow(int)));
 }
 void maintoolbox::addwidget(QWidget *w){
@@ -33,7 +33,7 @@ void maintoolbox::closewindow(int i){
 	emit sigclosewindow(widgetlist[i]);
 	widgetlist.removeAt(i);
 	if(tab->count()==0)
-		this->hide();
+		 hide();
 }
 void maintoolbox::activateone(QWidget*){
 

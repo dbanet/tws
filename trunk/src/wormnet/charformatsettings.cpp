@@ -6,7 +6,7 @@
  */
 
 #include"charformatsettings.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"myDebug.h"
 
 #include<QFile>

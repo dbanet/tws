@@ -1,5 +1,5 @@
 #include"buddylist.h"
-#include "sqlsettings.h"
+#include "settings.h"
 #include"global_functions.h"
 
 buddylist::buddylist(QWidget *parent) :

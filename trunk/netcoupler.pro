@@ -68,7 +68,8 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/mynetworkreply.h \
     src/wormnet/qobjectwrapper.h \
     src/wormnet/awayhandler.h \
-    src/wormnet/sqlsettings.h
+    src/wormnet/sqlsettings.h \
+    src/wormnet/settings.h
 
 FORMS += src/wormnet/about.ui \
     src/wormnet/awaybox.ui \

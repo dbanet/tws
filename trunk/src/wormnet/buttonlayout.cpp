@@ -1,6 +1,6 @@
 #include"buttonlayout.h"
 #include"netcoupler.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"settingswindow.h"
 #include"leagueserverhandler.h"
 #include<QMenu>

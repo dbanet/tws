@@ -5,10 +5,10 @@ extern QMap<QString, QStringList> usergarbagemap;
 logbrowser::logbrowser(QWidget *parent)
     : QWidget(parent)
 {
-	this->setObjectName("normalwidget");
+	 setObjectName("normalwidget");
 	ui.setupUi(this);
-	this->setWindowTitle(tr("Log Browser"));
-	this->setAttribute(Qt::WA_DeleteOnClose);
+	 setWindowTitle(tr("Log Browser"));
+	 setAttribute(Qt::WA_DeleteOnClose);
 	foreach(QString s,usergarbagemap.keys()){
 		ui.listWidget->addItem(s);
 	}
@@ -17,7 +17,7 @@ logbrowser::logbrowser(QWidget *parent)
 
 }
 void logbrowser::closeclicked(){
-	this->close();
+	 close();
 }
 void logbrowser::chatclicked(){
 	if(!ui.listWidget->selectedItems().isEmpty()){

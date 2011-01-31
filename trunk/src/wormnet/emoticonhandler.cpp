@@ -1,6 +1,6 @@
 #include"emoticonhandler.h"
 #include"settingswindow.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"myDebug.h"
 
 #include<QMessageBox>
@@ -78,7 +78,7 @@ void emoticonhandler::myclose() {
 			f.close();
 		}
         singleton<settingswindow>().to_map("chbsmileys",ui.chbsmileys->isChecked());
-	this->close();
+	 close();
 }
 void emoticonhandler::add() {
 	if (ui.lineEdit->text().simplified() != "") {

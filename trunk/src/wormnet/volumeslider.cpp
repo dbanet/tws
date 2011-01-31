@@ -4,8 +4,8 @@ volumeslider::volumeslider(QFrame *parent)
     :QFrame(parent)
 {
 	ui.setupUi(this);
-	this->setWindowTitle(tr("Set the global volume."));
-	this->setObjectName("volumeslider");
+	 setWindowTitle(tr("Set the global volume."));
+	 setObjectName("volumeslider");
 	ui.horizontalSlider->setTracking(0);
 	connect(ui.horizontalSlider,SIGNAL(valueChanged(int)),this,SIGNAL(valueChanged(int)));
 }

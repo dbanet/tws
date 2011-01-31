@@ -9,7 +9,7 @@
 #include"inihandlerclass.h"
 #include"chatwindow.h"
 #include"about.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"charformatsettings.h"
 #include"ui_window.h"
 #include"ui_window2.h"
@@ -122,7 +122,7 @@ mainwindow::mainwindow() {
 
     QVariantList windowstates = S_S.getlist("MainWindowGeometry");
     if (!windowstates.isEmpty())
-        restoreGeometry(windowstates.takeFirst().toByteArray());
+        myDebug()<<"restoreGeometry(windowstates.takeFirst().toByteArray())"<<restoreGeometry(windowstates.takeFirst().toByteArray());
     if(height()<530)
         resize(width(),530);
 
@@ -285,7 +285,7 @@ void mainwindow::quit() {
         w->close();
         w->deleteLater();
     }
-    foreach(::window *w,this->windowlist) {
+    foreach(::window *w, windowlist) {
         Q_ASSERT(w!=0);
         w->close();
         w->deleteLater();
@@ -321,7 +321,7 @@ void mainwindow::returntologintab() {
 }
 void mainwindow::changeEvent(QEvent * event) {
     if (event->type() == QEvent::WindowStateChange) {
-        if (this->isMinimized()) {
+        if ( isMinimized()) {
             QTimer::singleShot(200, this, SLOT(close()));
             return;
         }
@@ -335,10 +335,10 @@ void mainwindow::pbrememberjoinclicked() {
 void mainwindow::snpsetcontains(const QString &s) {
     if (s == "chbautojoin" && S_S.contains(s))
         ui.chbautojoin->setChecked(S_S.getbool("chbautojoin"));
-    else if (s == "qss file") {
-        QFile f(QApplication::applicationDirPath() + "/qss/" + S_S.getstring("qss file"));
+    else if (s == "qss_file") {
+        QFile f(QApplication::applicationDirPath() + "/qss/" + S_S.getstring("qss_file"));
         if(!f.open(QFile::ReadOnly))
-            QMessageBox::warning(this,QObject::tr("Warning"),tr("Cant read the Skinfile:\n")+S_S.getstring("qss file"));
+            QMessageBox::warning(this,QObject::tr("Warning"),tr("Cant read the Skinfile:\n")+S_S.getstring("qss_file"));
         QString stylesheet = QLatin1String(f.readAll());
         qApp->setStyleSheet(baseStyleSheet+stylesheet);
     } else if (s == "joinonstartup" && S_S.contains(s) && S_S.contains("chbautojoin")) {
@@ -390,7 +390,7 @@ void mainwindow::snpsetcontains(const QString &s) {
     }
 }
 void mainwindow::windowremoved(const QString &s) {
-    this->currentchannellist.removeAll(s);
+     currentchannellist.removeAll(s);
     windowlist.removeAll(qobject_cast<channelwindow*> (sender()));
 }
 void mainwindow::usesettingswindow(const QString&) {
@@ -405,14 +405,13 @@ void mainwindow::chatwinowclosed() {
 void mainwindow::appenddebugmessage(const QString &msg) {
     debugmsg.append(msg);
     ui.labeltraydescription->insertPlainText(debugmsg);
-    foreach( ::window *w,windowlist) {
-        w->gotdebugmsg(debugmsg);
-    }
+    foreach( ::window *w,windowlist)
+        w->gotdebugmsg(debugmsg);    
     debugmsg.clear();
 }
 void mainwindow::setlanguage(const QString &langfile) {
-    S_S.set("language file", langfile);
-    myDebug() << S_S.getstring("language file");
+    S_S.set("language_file", langfile);
+    myDebug() << S_S.getstring("language_file");
     QMessageBox::StandardButton button = QMessageBox::question(this, tr(
             "Restart the application?"), tr(
                     "Changing the translation requires a program restart.\n"
@@ -477,8 +476,7 @@ void mainwindow::openchatwindowhidden(const QString &s) {
     mainwindow::hiddenchatwindowshelper << window::chatwindows.last();
     connect(window::chatwindows.last(), SIGNAL(closed()),this, SLOT(chatwinowclosed()));
 }
-void mainwindow::gotprvmsg(const QString &user, const QString &receiver,
-                           const QString &msg) {
+void mainwindow::gotprvmsg(const QString &user, const QString &receiver, const QString &msg) {
     bool ctcp_wants_it = 0;
     if (!msg.startsWith("\001ACTION", Qt::CaseInsensitive) && msg.startsWith(
             "\001")) {
@@ -616,7 +614,7 @@ void mainwindow::init_menus(){
     foreach(QString s,directory.entryList(QStringList("*.qss"),QDir::Files)) {
         stylemenu->addAction(s);
     }
-    snpsetcontains("qss file");
+    snpsetcontains("qss_file");
     snpsetcontains("chbautojoin");
     layoutmenu = traymenu->addMenu(tr("Layouts"));
     layoutmenu->setIcon(QIcon("snppictures/arrangementicon.png"));
@@ -657,17 +655,17 @@ void mainwindow::trayactivation(QSystemTrayIcon::ActivationReason reason) {
         if (!::window::hiddenchannelwindowshelper.isEmpty()) {
             ::window *w = ::window::hiddenchannelwindowshelper.takeLast();
             w->show();
-        } else if (!this->hiddenchatwindowshelper.isEmpty()) {
+        } else if (! hiddenchatwindowshelper.isEmpty()) {
             chatwindow *w = hiddenchatwindowshelper.takeLast();
             w->show();
             querylist.removeAll(w->chatpartner);
         } else {
-            if (this->isHidden()) {
-                this->show();
-                this->activateWindow();
-                this->raise();
-            } else if (this->isVisible())
-                this->close();
+            if ( isHidden()) {
+                 show();
+                 activateWindow();
+                 raise();
+            } else if ( isVisible())
+                 close();
         }
     }
 }
@@ -683,11 +681,11 @@ void mainwindow::traymenutriggered(QAction *a) {
     } else if (a->text().contains(".qss")) {
         QFile f(QApplication::applicationDirPath() + "/qss/" + a->text());
         QString stylesheet;
-        if(a->text()==S_S.getstring("qss file"))
+        if(a->text()==S_S.getstring("qss_file"))
             return;
         if (f.open(QFile::ReadOnly)) {
             stylesheet = f.readAll();
-            S_S.set("qss file", a->text());
+            S_S.set("qss_file", a->text());
             safeusergarbage();
             safequerylist();
             try{
@@ -782,7 +780,7 @@ void mainwindow::handleAwayBox(){
     }
 }
 void mainwindow::reconnect(){
-    foreach(::window *w,this->windowlist) {
+    foreach(::window *w, windowlist) {
         lastOpenedWindows<<w->currentchannel;
     }
     foreach(chatwindow *w,::window::chatwindows) {
@@ -794,13 +792,11 @@ void mainwindow::reconnect(){
     singleton<netcoupler>().stop();
     QTimer::singleShot(2000, this, SLOT(chooseclicked()));
 }
-void mainwindow::on_pbsettings_clicked()
-{
+void mainwindow::on_pbsettings_clicked(){
     singleton<settingswindow>().show();
 }
 
-void mainwindow::on_pbabout_clicked()
-{
+void mainwindow::on_pbabout_clicked(){
     about *ab = new about;
     ab->show();
 }
@@ -814,13 +810,11 @@ void mainwindow::joinGameSourge(){
     //    window->raise();
 }
 
-void mainwindow::on_pbjoin_clicked()
-{
+void mainwindow::on_pbjoin_clicked(){
     join(ui.cbchannels->currentText());
 }
 
-void mainwindow::on_cbenabletus_toggled(bool checked)
-{
+void mainwindow::on_cbenabletus_toggled(bool checked){
     if(checked) {
         ui.lenick->setEnabled(false);
         ui.rank->setEnabled(false);

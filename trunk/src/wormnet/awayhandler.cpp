@@ -1,7 +1,7 @@
 #include"awayhandler.h"
 #include"global_functions.h"
 #include"global_macros.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"settingswindow.h"
 #include"netcoupler.h"
 #include"singleton.h"

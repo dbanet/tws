@@ -1,7 +1,7 @@
 #include<QtGui>
 
 #include"usermodel.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"settingswindow.h"
 #include"netcoupler.h"
 #include"ctcphandler.h"
@@ -61,7 +61,7 @@ void usermodel::selectionchanged(const QModelIndex &index, const QWidget *w) {
 
     selectionwidgetmap.remove(currentselecteduser);
     currentselecteduser = data(index.sibling(index.row(), 0)).value<QString> ();
-    this->currentselectedchannel = index.internalId();
+     currentselectedchannel = index.internalId();
     selectionwidgetmap[currentselecteduser] = w;
 }
 void usermodel::setuserstruct(const QList<userstruct> &upar, QMap<QString,

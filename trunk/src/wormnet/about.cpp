@@ -3,9 +3,9 @@ QString about::version="2.5";
 about::about(QFrame *parent)
     : QFrame(parent)
 {
-	this->setObjectName("about");
+	 setObjectName("about");
 	ui.setupUi(this);
-	this->setAttribute(Qt::WA_DeleteOnClose);
+	 setAttribute(Qt::WA_DeleteOnClose);
 	ui.textBrowser->setOpenExternalLinks(1);
         QString s=QString("<p>"+tr("Version")+" %1<br>" +
                         tr("This Program was completely written by Lookias.")+"<br>"+

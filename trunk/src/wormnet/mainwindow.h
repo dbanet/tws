@@ -52,17 +52,13 @@ private:
 
     int whichuitype;
     bool joinonstartup;
-
     QRegExpValidator *validator;
-
     void setlanguage(const QString&);
     void init_menus();
     void get_baseStyleSheet();
     void handleAwayBox();
     QString baseStyleSheet;
-
     void joinGameSourge();    
-
     void connectToNetwork();
     void setleague();
     QStringList lastOpenedWindows;
@@ -82,34 +78,23 @@ private slots:
     void trayactivation(QSystemTrayIcon::ActivationReason);
     void traymenutriggered(QAction *);
     void pbrememberjoinclicked();
-
     void snpsetcontains(const QString&);
-
     void windowremoved(const QString&);
     void usesettingswindow(const QString &s="");
-
     void chatwinowclosed();    
-
     void awayboxok();
     void awaymessagechanged();
-
     void gotctcpsignal(const QString&,const QString&);
-
     void settextscheme(const QString&);
-
     void openchatwindowhidden(const QString &);
     void gotprvmsg(const QString &user, const QString &receiver,const QString &msg);
     void connected();
     void disconnected();
     void reconnect();
-
     void reopenChatWindowsAndChannelWindows();
-
     void leagueserverconnectionfailed();
     void leagueserverconnectionsuccess();
-
     void currenttabchanged(int);
-
     void leagueserverprofilepage(QString);    
 
 protected:

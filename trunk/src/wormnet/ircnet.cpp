@@ -7,7 +7,7 @@
 
 #include"ircnet.h"
 #include"inihandlerclass.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"settingswindow.h"
 #include"about.h"
 #include"codecselectdia.h"
@@ -52,9 +52,8 @@ void ircnet::connected() {
                 sendrawcommand("PASS ELSILRACLIHP ");
             else
                 sendrawcommand("PASS ELSILRACLIHP");
-        } else {
-            this->sendrawcommand(sl.first());
-        }
+        } else
+            sendrawcommand(sl.first());
     }
     tcp_write("NICK " + nick);
     QString s = inihandler.stringlistfromini("[irc register]").first();    

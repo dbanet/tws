@@ -2,7 +2,7 @@
 
 #include"codecselectdia.h"
 #include"ui_codecselectdia.h"
-#include"sqlsettings.h"
+#include"settings.h"
 
 QTextCodec *CodecSelectDia::codec=0;
 CodecSelectDia::CodecSelectDia(QWidget *parent) :

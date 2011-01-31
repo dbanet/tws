@@ -1,6 +1,6 @@
 #include"window.h"
 #include"chatwindow.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"mainwindow.h"
 #include"chathandler.h"
 #include"hostbox.h"
@@ -33,9 +33,9 @@ window::window(netcoupler *n, QString s, int i) :
 
     buttons = new buttonlayout(this);
     buttons->fillleaguemenu();
-    this->setAttribute(Qt::WA_DeleteOnClose);
-    this->setAttribute(Qt::WA_TranslucentBackground);
-    this->setObjectName("channelwindow");
+     setAttribute(Qt::WA_DeleteOnClose);
+     setAttribute(Qt::WA_TranslucentBackground);
+     setObjectName("channelwindow");
     net = n;
     if (i == 1)
         ui1.setupUi(this);
@@ -115,15 +115,15 @@ window::window(netcoupler *n, QString s, int i) :
     QVariantList windowstates = S_S.getlist(currentchannel + ":"+ QString::number(whichuiison));
     if (!windowstates.isEmpty()) {
         if (!windowstates.isEmpty())
-            restoreGeometry(windowstates.takeFirst().toByteArray());
+            myDebug()<<"restoreGeometry(windowstates.takeFirst().toByteArray());"<<restoreGeometry(windowstates.takeFirst().toByteArray());
         if (!windowstates.isEmpty())
-            ui.splitter1->restoreState(windowstates.takeFirst().toByteArray());
+            myDebug()<<"ui.splitter1->restoreState(windowstates.takeFirst().toByteArray());"<<ui.splitter1->restoreState(windowstates.takeFirst().toByteArray());
         if (!windowstates.isEmpty())
-            ui.splitter2->restoreState(windowstates.takeFirst().toByteArray());
+            myDebug()<<"ui.splitter2->restoreState(windowstates.takeFirst().toByteArray());"<<ui.splitter2->restoreState(windowstates.takeFirst().toByteArray());
         if (!windowstates.isEmpty())
-            ui.users->header()->restoreState(windowstates.takeFirst().toByteArray());
+            myDebug()<<"ui.users->header()->restoreState(windowstates.takeFirst().toByteArray());"<<ui.users->header()->restoreState(windowstates.takeFirst().toByteArray());
         if (!windowstates.isEmpty())
-            ui.hosts->header()->restoreState(windowstates.takeFirst().toByteArray());
+            myDebug()<<"ui.hosts->header()->restoreState(windowstates.takeFirst().toByteArray());"<<ui.hosts->header()->restoreState(windowstates.takeFirst().toByteArray());
         if (!windowstates.isEmpty())
             ui.hosts->header()->resizeSection(3,windowstates.takeFirst().toInt());
         if (!windowstates.isEmpty())
@@ -143,7 +143,7 @@ window::window(netcoupler *n, QString s, int i) :
     ui.hosts->header()->setResizeMode(3, QHeaderView::Fixed);
 
     usesettingswindow();
-    this->windowtitlechannel = this->currentchannel;
+     windowtitlechannel =  currentchannel;
 
 }
 void window::expandchannels() { //expand on startup
@@ -157,8 +157,8 @@ void window::expandchannels(QStringList) { //expand on startup
         ui.users->setExpanded(singleton<netcoupler>().users.indexbychannelname(usermodel::tr(
                 "Buddylist")), 1);
     if (ui.users->isExpanded(singleton<netcoupler>().users.index(singleton<netcoupler>().users.classes.indexOf(
-            this->currentchannel), 0)) && ui.hosts->isExpanded(
-                    singleton<netcoupler>().hosts.index(singleton<netcoupler>().hosts.classes.indexOf(this->currentchannel),
+             currentchannel), 0)) && ui.hosts->isExpanded(
+                    singleton<netcoupler>().hosts.index(singleton<netcoupler>().hosts.classes.indexOf( currentchannel),
                                      0))) {
         disconnect(net, SIGNAL(siggotchanellist(QStringList)),this, SLOT(expandchannels(QStringList)));
     } else
@@ -202,7 +202,7 @@ bool window::eventFilter(QObject *obj, QEvent *event) {
                     return false;
                 QString s = singleton<netcoupler>().users.data(index.sibling(index.row(), 0)).value<QString> ();
                 if (s != "")
-                    this->openchatwindow(s);
+                     openchatwindow(s);
                 return true;
             } else if (keyEvent->key() == Qt::Key_Space) {
                 QString s = singleton<netcoupler>().users.data(ui.users->currentIndex().sibling(
@@ -311,7 +311,7 @@ void window::sendnotice() {
     const QString s = ui.msg->text().remove(0, 2);
     if (s != "") {
         singleton<netcoupler>().sendnotice(currentchannel, s);
-        gotnotice(singleton<netcoupler>().nick, this->currentchannel, s);
+        gotnotice(singleton<netcoupler>().nick,  currentchannel, s);
         ui.msg->clear();
         chat->moveSliderToMaximum();
     }
@@ -319,7 +319,7 @@ void window::sendnotice() {
 void window::sendnoticeaction() {
     const QString s = ui.msg->text().remove(0, 3).remove("\n");
     if (s != "") {
-        singleton<netcoupler>().sendrawcommand(QString("NOTICE ") + this->currentchannel
+        singleton<netcoupler>().sendrawcommand(QString("NOTICE ") +  currentchannel
                             + " :\001ACTION " + s + " \001");
         gotnotice(singleton<netcoupler>().nick, currentchannel, "<" + s + ">");
         ui.msg->clear();
@@ -643,34 +643,34 @@ void window::openhbox() {
 }
 void window::minimize() {
     if (!hiddenchannelwindowshelper.contains(this))
-        this->hiddenchannelwindowshelper.push_back(this);
-    this->hide();
+         hiddenchannelwindowshelper.push_back(this);
+     hide();
 }
 void window::changealpha(int i) {
     S_S.set("channeltransparency", i);
     if (i == 100)
-        this->setWindowOpacity(1);
+         setWindowOpacity(1);
     else
-        this->setWindowOpacity((double) i / 100);
+         setWindowOpacity((double) i / 100);
 }
 void window::showbuttons() {
     ui.buttonlayout->addWidget(buttons);
 }
 void window::mysetwindowtitle() {
-    this->setWindowTitle(windowtitlechannel + " " + windowtitletime + " " + tr(
+     setWindowTitle(windowtitlechannel + " " + windowtitletime + " " + tr(
             "Users online") + windowtitleaway.simplified());
 }
 void window::getuserscount(QStringList sl) {
     QString s;
     foreach(QString str,sl) {
-        if (str.contains(this->currentchannel))
+        if (str.contains( currentchannel))
             s = str;
     }
     sl = s.split(" ", QString::SkipEmptyParts);
     if (sl.size() > 1) {
-        this->windowtitletime = sl[1];
+         windowtitletime = sl[1];
     }
-    this->mysetwindowtitle();
+     mysetwindowtitle();
 }
 window::~window() {
     ui.buttonlayout->removeWidget(buttons);

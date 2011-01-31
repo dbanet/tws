@@ -5,9 +5,9 @@
 QString playername::nick = "";
 playername::playername(QWidget *parent) :
 	QWidget(parent) {
-    this->setObjectName("normalwidget");
+     setObjectName("normalwidget");
     ui.setupUi(this);
-    this->setAttribute(Qt::WA_DeleteOnClose);
+     setAttribute(Qt::WA_DeleteOnClose);
     QStringList env = QProcess::systemEnvironment();
     QString systemroot;
     foreach(QString s,env) {
@@ -72,7 +72,7 @@ void playername::okclicked() {
             }
         }
     }
-    this->close();
+     close();
 }
 
 playername::~playername() {

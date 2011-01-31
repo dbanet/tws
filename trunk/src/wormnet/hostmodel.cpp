@@ -1,6 +1,6 @@
 #include"hostmodel.h"
 #include"netcoupler.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"settingswindow.h"
 #include"netcoupler.h"
 #include"sound_handler.h"

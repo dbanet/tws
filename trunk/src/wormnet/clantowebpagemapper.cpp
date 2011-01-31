@@ -1,6 +1,6 @@
 #include"clantowebpagemapper.h"
 #include"settingswindow.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"leagueserverhandler.h"
 
 #include<QFile>

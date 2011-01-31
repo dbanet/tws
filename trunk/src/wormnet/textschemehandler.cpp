@@ -8,9 +8,9 @@
 extern bool fontorcolorchanged;
 textschemehandler::textschemehandler(QWidget *parent) :
 	QWidget(parent) {
-	this->setObjectName("normalwidget");
-	this->setAttribute(Qt::WA_DeleteOnClose);
-	this->setWindowTitle(tr("Textscheme helper"));
+	 setObjectName("normalwidget");
+	 setAttribute(Qt::WA_DeleteOnClose);
+	 setWindowTitle(tr("Textscheme helper"));
 	ui.setupUi(this);
 	connect(ui.close, SIGNAL(clicked()),this, SLOT(closeclicked()));
 	connect(ui.font, SIGNAL(clicked()),this, SLOT(fontclicked()));
@@ -34,7 +34,7 @@ textschemehandler::textschemehandler(QWidget *parent) :
 	ui.listWidget->addItems(map.keys());
 }
 void textschemehandler::closeclicked() {
-	this->close();
+	 close();
 }
 void textschemehandler::fontclicked() {
 	if (!ui.listWidget->selectedItems().isEmpty()) {

@@ -19,7 +19,7 @@
 
 #include"chathandler.h"
 #include"charformatsettings.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"netcoupler.h"
 #include"joinprvgame.h"
 #include"settingswindow.h"
@@ -261,10 +261,10 @@ void chathandler::insertText(const QString &s, QTextCharFormat &t,QString user) 
         }
     } else if (containsCI(s, singleton<netcoupler>().nick)) {
         if (!t.anchorHref().startsWith("<notice>") && t.anchorHref() != "action")
-            singleton<sound_handler>().play_highlightningsound(user,qobject_cast<QWidget*> (this->parent()));
+            singleton<sound_handler>().play_highlightningsound(user,qobject_cast<QWidget*> ( parent()));
         cursor->insertText(s, t);
     } else if (containsOneCI(s, singleton<settingswindow>().from_map("combobox_wrapper").value<QStringList>(),&temp)) {
-        singleton<sound_handler>().play_costumwordsound(user,qobject_cast<QWidget*> (this->parent()));
+        singleton<sound_handler>().play_costumwordsound(user,qobject_cast<QWidget*> ( parent()));
         singleton<balloon_handler>().got_costum_word(temp,user);
         cursor->insertText(s, t);
     } else

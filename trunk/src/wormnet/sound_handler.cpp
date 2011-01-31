@@ -1,5 +1,5 @@
 #include"sound_handler.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"singleton.h"
 #include"settingswindow.h"
 #include"netcoupler.h"

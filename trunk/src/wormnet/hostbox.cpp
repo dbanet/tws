@@ -1,5 +1,5 @@
 #include"hostbox.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"netcoupler.h"
 #include"global_functions.h"
 
@@ -46,7 +46,7 @@ bool hostbox::eventFilter(QObject *obj, QEvent *event){
     QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
     if(keyEvent && keyEvent->type()==QEvent::KeyPress)
         if(keyEvent->key()==Qt::Key_Enter || keyEvent->key()==Qt::Key_Return){
-        this->okclicked();
+         okclicked();
         return true;
     }
     return QWidget::eventFilter(obj, event);

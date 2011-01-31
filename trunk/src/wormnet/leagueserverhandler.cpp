@@ -3,7 +3,7 @@
 #include"singleton.h"
 #include"balloon_handler.h"
 #include"settingswindow.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"global_functions.h"
 #include"quithandler.h"
 #include"mainwindow.h"

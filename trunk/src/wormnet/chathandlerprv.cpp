@@ -15,7 +15,7 @@
 
 #include"chathandlerprv.h"
 #include"settingswindow.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"netcoupler.h"
 #include"joinprvgame.h"
 #include"emoticonhandler.h"

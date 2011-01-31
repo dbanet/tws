@@ -1,6 +1,6 @@
 #include"chatwindow.h"
 #include"netcoupler.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"settingswindow.h"
 #include"chathandlerprv.h"
 #include"ctcphandler.h"
@@ -19,8 +19,8 @@ extern QStringList querylist;
 extern QMap<QString, QStringList> usergarbagemap;
 chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
 	QWidget(parent), chatpartner(s), net(n) {
-    this->setAttribute(Qt::WA_DeleteOnClose);
-    this->setObjectName("chatwindow");
+     setAttribute(Qt::WA_DeleteOnClose);
+     setObjectName("chatwindow");
     ui.setupUi(this);    
     ui.pbbuddy->setObjectName("chatwindowbutton");
     ui.pbctcp->setObjectName("chatwindowbutton");
@@ -30,19 +30,19 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     ui.pbfilter->setObjectName("chatwindowbutton");
     ui.lineEdit->installEventFilter(this);
     ui.chatwindowbuttonscrollArea->installEventFilter(this);
-    this->update();
+     update();
     chat = new chathandlerprv(this, ui.chat, chatpartner);
     foreach(QString s,usergarbagemap[chatpartner.toLower()]) {
         chat->appendgarbage(s);
     }
-    this->setWindowTitle(tr("Chat with") + " " + s);
+     setWindowTitle(tr("Chat with") + " " + s);
 
     if (containsCI(S_S.getstringlist("buddylist"), chatpartner))
-        this->setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/buddyicon.png"));
+         setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/buddyicon.png"));
     else if (containsCI(S_S.getstringlist("ignorelist"), chatpartner))
-        this->setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/ignoreicon.png"));
+         setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/ignoreicon.png"));
     else
-        this->setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/usericon.png"));
+         setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/usericon.png"));
 
     connect(ui.send, SIGNAL(clicked()),ui.lineEdit, SIGNAL(returnPressed()));
     connect(ui.lineEdit, SIGNAL(returnPressed()),this, SLOT(sendmsg()));
@@ -56,7 +56,7 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     connect(net, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
 
     singleton<sound_handler>().play_chatwindowopensound();    
-    if (singleton<netcoupler>().mutedusers.contains(this->chatpartner, Qt::CaseInsensitive))
+    if (singleton<netcoupler>().mutedusers.contains( chatpartner, Qt::CaseInsensitive))
         ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
     else
         ui.pbmute->setIcon(QIcon("snppictures/buttons/mutebutton.png"));
@@ -82,7 +82,7 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
 
     connect(net, SIGNAL(siggotidletime(const QString&, int)),this, SLOT(gotidletime(const QString&,int)));
     connect(net, SIGNAL(signosuchnick(const QString&)),this, SLOT(gotnosuchnick(const QString&)));
-    this->statusbar = new QStatusBar(this);
+     statusbar = new QStatusBar(this);
     ui.verticalLayout_2->addWidget(statusbar);
     statusbar->setMaximumHeight(20);
     if (singleton<netcoupler>().users.users.contains(userstruct::whoami(chatpartner))){
@@ -214,14 +214,14 @@ void chatwindow::getgamerwho(QString prefix) {
 void chatwindow::usesettingswindow(const QString&) {
 }
 void chatwindow::pbmuteclicked() {
-    if (singleton<netcoupler>().mutedusers.contains(this->chatpartner, Qt::CaseInsensitive)) {
+    if (singleton<netcoupler>().mutedusers.contains( chatpartner, Qt::CaseInsensitive)) {
         foreach(QString s,singleton<netcoupler>().mutedusers) {
-            if (compareCI(s, this->chatpartner))
+            if (compareCI(s,  chatpartner))
                 singleton<netcoupler>().mutedusers.removeAt(singleton<netcoupler>().mutedusers.indexOf(s));
         }
         ui.pbmute->setIcon(QIcon("snppictures/buttons/mutebutton.png"));
     } else {
-        singleton<netcoupler>().mutedusers << this->chatpartner;
+        singleton<netcoupler>().mutedusers <<  chatpartner;
         ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
     }
     S_S.set("mutedusers", singleton<netcoupler>().mutedusers);
@@ -252,17 +252,17 @@ void chatwindow::pblogclicked() {
     }
 }
 void chatwindow::pbidleclicked() {
-    singleton<netcoupler>().sendrawcommand("whois " + this->chatpartner);
+    singleton<netcoupler>().sendrawcommand("whois " +  chatpartner);
 }
 void chatwindow::gotidletime(const QString &user, int i) {
     QTime time(0, 0, 0);
     time = time.addSecs(i);
-    if (compareCI(user, this->chatpartner)) {
+    if (compareCI(user,  chatpartner)) {
         chat->appenddebug(tr("<This users idle time:")+" " +time.toString("hh:mm:ss"));
     }
 }
 void chatwindow::gotnosuchnick(const QString &s){
-    if(compareCI(this->chatpartner,s)){
+    if(compareCI( chatpartner,s)){
         chat->appenddebug(tr("This user is currently offline"));
         userisoffline=1;
     }
@@ -279,7 +279,7 @@ void chatwindow::setaway(bool b, const QString &msg) {
 }
 void chatwindow::channelmsg(const QString &user, const QString &receiver,
                             const QString &msg) {
-    if (user == this->chatpartner) {
+    if (user ==  chatpartner) {
         usergarbagemap[user.toLower()]
                 << QDate::currentDate().toString("dd.MM") + " "
                 + QTime::currentTime().toString("hh:mm") + " " + user

@@ -2,17 +2,17 @@
 #include<QFileDialog>
 
 #include"joinprvgame.h"
-#include"sqlsettings.h"
+#include"settings.h"
 
 joinprvgame::joinprvgame(const QString &a,const QString &b)
     : chan(b),anchor(a)
 {
-    this->setObjectName("normalwidget");
+     setObjectName("normalwidget");
     ui.setupUi(this);
     QStringList sl = S_S.getstringlist("joinstrings");
     ui.icons->clear();
     ui.icons->addItems(sl);
-    this->setWindowTitle(tr("Join game with."));
+     setWindowTitle(tr("Join game with."));
     connect(ui.add, SIGNAL(clicked()),this, SLOT(addclicked()));
     connect(ui.ok, SIGNAL(clicked()),this, SLOT(okclicked()));
     connect(ui.cancel, SIGNAL(clicked()),this, SLOT(cancelclicked()));
@@ -49,12 +49,12 @@ void joinprvgame::addclicked() {
 }
 void joinprvgame::okclicked(){
     emit sigjoingamelink(anchor);
-    this->close();
-    this->deleteLater();
+     close();
+     deleteLater();
 }
 void joinprvgame::cancelclicked(){
-    this->close();
-    this->deleteLater();
+     close();
+     deleteLater();
 }
 
 joinprvgame::~joinprvgame()

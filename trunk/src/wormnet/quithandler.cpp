@@ -1,5 +1,5 @@
 #include"quithandler.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"clantowebpagemapper.h"
 #include"charformatsettings.h"
 #include"balloon_handler.h"
@@ -42,7 +42,7 @@ void quithandler::quit(){
         singleton<leagueserverhandler>().logout();
         return;
     }
-    this->disconnect();    
+     disconnect();    
     qApp->quit();
     return;
 }

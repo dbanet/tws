@@ -23,7 +23,7 @@ settingswindow::settingswindow(){
     cw->setObjectName("combobox_wrapper");
     ui->costum_combobox_layout->addWidget(cw);
     QString s;
-    foreach(QObject *o,this->findChildren<QObject*>()) { //first loaded with default values then initialized with settingswindowini
+    foreach(QObject *o, findChildren<QObject*>()) { //first loaded with default values then initialized with settingswindowini
         s = o->objectName();
         if (s != "qt_spinbox_lineedit") {
             if (qobject_cast<QLineEdit*> (o) != 0) {
@@ -67,7 +67,7 @@ void settingswindow::load() {
     checkValidEntries();
     QObject *o;
     foreach(QString s,objectnames) {
-        o = this->findChild<QObject*> (s);
+        o =  findChild<QObject*> (s);
         Q_ASSERT(o!=0);
         if (qobject_cast<QLineEdit*> (o) != 0) {
             qobject_cast<QLineEdit*> (o)->setText(
@@ -93,7 +93,7 @@ void settingswindow::safe() {
 void settingswindow::ok() {
     QObject *o;
     foreach(QString s,objectnames) {
-        o = this->findChild<QObject*> (s);
+        o =  findChild<QObject*> (s);
         Q_ASSERT(o!=0);
         if (qobject_cast<QLineEdit*> (o) != 0) {
             map[s].setValue<QString> (qobject_cast<QLineEdit*> (o)->text());
@@ -111,7 +111,7 @@ void settingswindow::ok() {
     singleton<netcoupler>().settingswindowemitfunktion();
 }
 void settingswindow::cancel() {
-    this->close();
+     close();
 }
 void settingswindow::soundoptionbuttonslot() {
     QPushButton *pb = qobject_cast<QPushButton*> (sender());

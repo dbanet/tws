@@ -1,5 +1,5 @@
 #include "awaybox.h"
-#include "sqlsettings.h"
+#include "settings.h"
 #include "netcoupler.h"
 #include "qobjectwrapper.h"
 #include "awayhandler.h"

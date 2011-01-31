@@ -3,12 +3,12 @@
 ctcphandleratomic::ctcphandleratomic(QWidget *parent)
     : QWidget(parent)
 {
-	this->setObjectName("normalwidget");
+	 setObjectName("normalwidget");
 	ui.setupUi(this);
 	connect(ui.pushButton,SIGNAL(clicked()),this,SLOT(delclicked()));
 }
 void ctcphandleratomic::delclicked(){
-	this->deleteLater();
+	 deleteLater();
 }
 ctcphandleratomic::~ctcphandleratomic()
 {

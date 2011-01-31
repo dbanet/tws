@@ -3,9 +3,9 @@
 #include<QFile>
 #include<QDataStream>
 ctctphandlerwidget::ctctphandlerwidget(){
-    this->setObjectName("ctcphandler");
+     setObjectName("ctcphandler");
     ui.setupUi(this);
-    this->setWindowTitle(tr("ctcp handler."));
+     setWindowTitle(tr("ctcp handler."));
     QFile file("snpini/ctcp.ini");
 
     QString line;
@@ -72,7 +72,7 @@ void ctctphandlerwidget::safeandclose() {
         }
         atomiclist=atomicmap.values();
     }
-    this->close();
+     close();
 }
 void ctctphandlerwidget::pbhowtoclicked(){
     QTextEdit *te=new QTextEdit;

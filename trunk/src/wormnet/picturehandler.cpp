@@ -1,5 +1,5 @@
 #include"picturehandler.h"
-#include"sqlsettings.h"
+#include"settings.h"
 #include"global_macros.h"
 #include"leagueserverhandler.h"
 #include"settingswindow.h"

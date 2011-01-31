@@ -27,7 +27,7 @@ bool mytabwidget::eventFilter(QObject *obj, QEvent *e) {
 				QPoint p=QCursor::pos();
 				QAction *a=menu->exec(QCursor::pos());
 				if(a){
-					int i=tabBar()->tabAt(this->mapFromGlobal(p));
+					int i=tabBar()->tabAt( mapFromGlobal(p));
 					emit sigclosetab(i);
 					return true;
 				}
