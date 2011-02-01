@@ -55,7 +55,7 @@ private:
 signals:
 
 public slots:
-    void volumechange(int i);
+    void volumechange(int i, bool b=true);
 
 
 };

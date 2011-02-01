@@ -69,7 +69,8 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/qobjectwrapper.h \
     src/wormnet/awayhandler.h \
     src/wormnet/sqlsettings.h \
-    src/wormnet/settings.h
+    src/wormnet/settings.h \
+    src/wormnet/settingshelper.h
 
 FORMS += src/wormnet/about.ui \
     src/wormnet/awaybox.ui \
@@ -144,7 +145,8 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/quithandler.cpp \
     src/wormnet/mynetworkreply.cpp \
     src/wormnet/awayhandler.cpp \
-    src/wormnet/sqlsettings.cpp
+    src/wormnet/sqlsettings.cpp \
+    src/wormnet/settingshelper.cpp
 
 RC_FILE = src/wormnet/myapp.rc
 TRANSLATIONS += \

@@ -34,11 +34,11 @@ void handle_wini_ini();
 void get_picutres();
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
-    S_S.start();
+    chdir(qPrintable(QApplication::applicationDirPath()));
+    S_S.start("snpini/settings.sqlite3", "snpini/snpini");
     a.setQuitOnLastWindowClosed(false);
     volume = new volumeslider;
-    a.setApplicationName("The Wheat Snooper");
-    chdir(qPrintable(QApplication::applicationDirPath()));
+    a.setApplicationName("The Wheat Snooper");    
     singleton<settingswindow>();
     singleton<clantowebpagemapper>().load();
     singleton<picturehandler>();

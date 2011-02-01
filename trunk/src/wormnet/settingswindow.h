@@ -3,7 +3,9 @@
 
 #include<QtGui/QWidget>
 #include<QMap>
+
 #include"global_macros.h"
+#include"settings.h"
 namespace Ui{
     class settingswindowClass;
 }
@@ -14,14 +16,16 @@ class settingswindow : public QWidget
 public:
     QStringList objectnames;
     void safe();
-    void load();
-    const QVariant from_map(const QString&) const;
+    void load();        
     void to_map(const QString&, const QVariant&);
-private:
+    const QVariant from_map(const QString&) const;
+private:    
     Ui::settingswindowClass *ui;
     QMap<QString,QVariant> map;
     void loadDefaults();
-    void checkValidEntries();
+    void checkValidEntries();    
+
+    sqlsettings sql;
 private slots:
     void on_pbloaddefaultsounds_clicked();
     void on_pbloadsoundpack_clicked();

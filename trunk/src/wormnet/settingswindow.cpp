@@ -2,7 +2,8 @@
 #include"netcoupler.h"
 #include"combobox_wrapper.h"
 #include"myDebug.h"
-#include "ui_settingswindow.h"
+#include"ui_settingswindow.h"
+
 #include<QLineEdit>
 #include<QCheckBox>
 #include<QFile>
@@ -11,7 +12,10 @@
 #include<QFileDialog>
 #include<QPointer>
 #include<stdexcept>
+
 settingswindow::settingswindow(){
+    sql.start("snpini/settingswindow.sqlite3","snpini/settingswindowini");
+
     setObjectName("normalwidget");
     ui=new Ui::settingswindowClass;
     ui->setupUi(this);

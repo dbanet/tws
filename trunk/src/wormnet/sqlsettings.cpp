@@ -12,21 +12,20 @@
 const char *TABLENAME="settings";
 sqlsettings::sqlsettings(){    
 }
-void sqlsettings::start(){
+void sqlsettings::start(QString db, QString old){
+    databasename=db;
+    oldsettingsfile=old;
     if(!QDir().exists("query"))
         QDir().mkdir("query");
     if(!QDir().exists("snpini"))
-        QDir().mkdir("snpini");
+        QDir().mkdir("snpini");    
+    bool b=databasexists();
     open();
-    QSqlQuery query;
-    query.exec(QString("CREATE TABLE if not exists %1 (prime INTEGER PRIMARY KEY ASC, d_u_m_m_y bool);").arg(TABLENAME));
-    query.exec(QString("select * from %1").arg(TABLENAME));
-    if(!query.next()){
-        query.exec(QString("insert into %1(d_u_m_m_y) values(1);").arg(TABLENAME));
-        firstrun();        
-        return;
-    }    
-    model.setQuery(QString("select * from %1").arg(TABLENAME));
+    if(!language_file.isEmpty())
+        set("language_file",language_file);
+    if(!b)
+        loadDefaults();
+    model.setQuery(QString("select * from %1").arg(TABLENAME),(QSqlDatabase::database(databasename)));
     QTranslator *trans=new QTranslator;
     QString file=getstring("language_file").remove(".qm");
     if (trans->load(file,"translations/"))
@@ -35,52 +34,53 @@ void sqlsettings::start(){
         myDebug() << QObject::tr("The translationfile cannot be loaded! it might be corrupt.")+"  "+file;
     validate();
 }
-sqlsettings::~sqlsettings(){
-}
-void sqlsettings::firstrun() {
+sqlsettings::~sqlsettings(){}
+bool sqlsettings::databasexists(){
     installTranslationBySystemLocale();
+    if(QFile::exists(databasename))
+        return true;
+    if(QFile::exists(oldsettingsfile) && !QFile::exists(databasename))
+        return importOldSnpini(""),true;
     int button=QMessageBox::question(0,QObject::tr("Question")
                                      ,QApplication::tr("If you like to keep the settings from an older Snooper installation click yes.\n"
                                                        "If you use The Wheat Snooper at the first time just click No.")
                                      ,QMessageBox::Yes | QMessageBox::No);
     if(button==QMessageBox::Yes) {
         QString folder;
-        while(true){
+        while(true) {
             folder=QFileDialog::getExistingDirectory(0,QApplication::tr("Please choose the folder from the old Snooper.")
-                                                     ,QApplication::applicationDirPath()+"/");
-            if(QFile::exists(folder+"snpini/settings.sql") || QFile::exists(folder+"snpini/snpini")){
+                                                     ,QApplication::applicationDirPath());
+            folder += "/";
+            if(QFile::exists(folder+databasename) || QFile::exists(folder+oldsettingsfile)){
                 break;
-            } else{
+            } else {
                 int button=QMessageBox::warning(0,QObject::tr("Warning!"),QApplication::tr("This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?"),QMessageBox::Yes | QMessageBox::No);
                 if(button==QMessageBox::Yes)
                     continue;
-                else {
-                    loadDefaults();
-                    validate();
-                    return;
-                }
+                else
+                    return false;
             }
-        }        
-        if(QFile::exists("snpini/snpini") && !QFile::exists("snpini/settings.sql"))
-            importOldSnpini(folder);
-        else {
-            close();
-            QFile::remove("snpini/settings.sql");
-            QFile::copy(folder+"snpini/settings.sql","snpini/settings.sql");
-            open();
         }
+        if(QFile::exists(folder + oldsettingsfile) && !QFile::exists(folder + databasename))
+            importOldSnpini(folder);
+        else
+            QFile::copy(folder+databasename,databasename);
         QFile::copy(folder+"snpini/settingswindowini","snpini/settingswindowini");
         QFile::copy(folder+"snpini/ctcp.ini","snpini/ctcp.ini");
         QFile::copy(folder+"snpini/clanpages","snpini/clanpages");
         QFile::copy(folder+"query/log","query/log");
         QFile::copy(folder+"query/querylist","query/querylist");
     } else
-        loadDefaults();
-    validate();
+        return false;
+    return true;
 }
 void sqlsettings::importOldSnpini(QString folder){
+    open();
+    QSqlQuery query(QSqlDatabase::database(databasename));
+    query.exec(QString("CREATE TABLE if not exists %1 (prime INTEGER PRIMARY KEY ASC, d_u_m_m_y bool);").arg(TABLENAME));
+    query.exec(QString("insert into %1(d_u_m_m_y) values(1);").arg(TABLENAME));
     QMap<QString,QVariant> map;
-    QFile f(folder+"snpini/snpini");
+    QFile f(folder+oldsettingsfile);
     f.open(QFile::ReadOnly);
     QDataStream ds(&f);
     ds.setVersion(QDataStream::Qt_4_3);
@@ -89,17 +89,20 @@ void sqlsettings::importOldSnpini(QString folder){
         set(s,map[s]);
     }
 }
-
 void sqlsettings::open(){
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    QString path=qApp->applicationDirPath()+"/snpini/settings.sql";
-    db.setDatabaseName(path);
+    if(QSqlDatabase::database(databasename).isOpen())
+        return;
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE",databasename);
+    db.setDatabaseName(databasename);
     db.open();
 }
 void sqlsettings::close(){
     QSqlDatabase::database().close();
 }
 void sqlsettings::loadDefaults(){
+    QSqlQuery query(QSqlDatabase::database(databasename));
+    query.exec(QString("CREATE TABLE if not exists %1 (prime INTEGER PRIMARY KEY ASC, d_u_m_m_y bool);").arg(TABLENAME));
+    query.exec(QString("insert into %1(d_u_m_m_y) values(1);").arg(TABLENAME));
     set("volumeslidervalue",5);
     set("chbminimized", 0);
     set("dissallowedclannames", QStringList()<<"Username"<<"cybershadow"<<"WebSnoop"<<"HostingBuddy"<<"SheriffBot"<<"muzer"<<"Help"<<"Miranda"<<"Mirc"<<"wormatty"<<"simon"<<"darkone"<<"noclan"<<"baleegames");
@@ -146,13 +149,13 @@ void sqlsettings::installTranslationBySystemLocale(){
         if(s.startsWith("_") && s.mid(1,2)==language){
             trans->load(s,"translations/");
             qApp->installTranslator(trans);
-            set("language_file", s);
+            language_file=s;
             return;
         }
     }
     if(trans->load("_en.Standard.qm","translations/")){
         qApp->installTranslator(trans);
-        set("language_file", "_en.Standard.qm");
+        language_file="_en.Standard.qm";
     }
     return;
 }
@@ -192,11 +195,16 @@ QByteArray sqlsettings::getbytearray(QString key) const{
     before_get(key);    
     return model.record(0).value(key).toByteArray();
 }
+QVariant sqlsettings::get(QString key){
+    before_get(key);
+    return model.record(0).value(key);
+}
+
 void sqlsettings::set(QString key, QVariant value){
-    before_set(key, value);
-    if(key.contains(" "))
-        info(key);
-    QSqlQuery query;
+    if(get(key)==value)
+        return;
+    before_set(key, value);        
+    QSqlQuery query(QSqlDatabase::database(databasename));
     query.exec(QString("alter table %1 add %2 BLOB;").arg(TABLENAME).arg(key));
     if(value.type()==QVariant::List || value.type()==QVariant::StringList){        
         int size=0;
@@ -232,19 +240,20 @@ void sqlsettings::set(QString key, QVariant value){
         query.exec();
     } else {
         qDebug()<<"void sqlsettings::set(QString key, QVariant value)";
-        qDebug()<<value.type();
-        throw std::runtime_error("void sqlsettings::set(QString key, QVariant value)");
+        qDebug()<<QString("type: ") + value.type()+" key: "+ key + "value: "+value.toString();
+        //throw std::runtime_error("void sqlsettings::set(QString key, QVariant value)");
     }
-    model.setQuery(QString("select * from %1").arg(TABLENAME));
+    model.setQuery(QString("select * from %1").arg(TABLENAME),(QSqlDatabase::database(databasename)));
 }
 bool sqlsettings::contains(QString key) const {
     return !model.record(0).field(key).isNull();
 }
-void sqlsettings::before_get(QString key) const{
+void sqlsettings::before_get(QString &key) const{
     //    qDebug()<<"get";
     //    qDebug()<<key;
 }
-void sqlsettings::before_set(QString key, QVariant value) const{
+void sqlsettings::before_set(QString &key, QVariant value) const{
+    key.replace(" ","_");
     //    qDebug()<<"set";
     //    qDebug()<<key<<"    "<<value;
 }

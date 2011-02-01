@@ -61,9 +61,9 @@ void sound_handler::init(){
     costumwordsound->setCurrentSource(
             singleton<settingswindow>().from_map("lecostumword").value<QString> ());
 
-    volumechange(S_S.getint("volumeslidervalue"));
+    volumechange(S_S.getint("volumeslidervalue"),false);
 }
-void sound_handler::volumechange(int i) {
+void sound_handler::volumechange(int i, bool b) {
     startupsoundoutput->setVolume(double(i) / 10);
     chatwindowopensoundoutput->setVolume(double(i) / 10);
     normalmsgsoundoutput->setVolume(double(i) / 10);
@@ -71,7 +71,8 @@ void sound_handler::volumechange(int i) {
     buddyarrivedsoundoutput->setVolume(double(i) / 10);
     buddyleftsoundoutput->setVolume(double(i) / 10);
     costumwordsoundsoundoutput->setVolume(double(i) / 10);
-    S_S.set("volumeslidervalue", i);
+    if(b)
+        S_S.set("volumeslidervalue", i);
 }
 
 void sound_handler::play_startupsound(){    
