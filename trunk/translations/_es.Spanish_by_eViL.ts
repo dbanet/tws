@@ -83,22 +83,19 @@ Para idioma hebreo o árabe, por ejemplo.</translation>
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="38"/>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="44"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="45"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
         <translation>Si quieres mantener la configuración de una instalación anterior del snooper haz clic en Sí.
 Si vas a usar The Wheat Snooper por primera vez haz clic en No.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="44"/>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="50"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="51"/>
         <source>Please choose the folder from the old Snooper.</source>
         <translation>Selecciona la carpeta de la instalación anterior del snooper.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="51"/>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="56"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="57"/>
         <source>This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?</source>
         <translation>Esta carpeta no parece contener una instalación válida de The Wheat Snooper. ¿Quieres seleccionar otra carpeta?</translation>
     </message>
@@ -661,20 +658,17 @@ Skin_Base</translation>
         <translation>Hacen falta algunas imágenes</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="37"/>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="43"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="44"/>
         <source>Question</source>
         <translation>Pregunta</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="51"/>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="56"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="57"/>
         <source>Warning!</source>
         <translation>Advertencia</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snpsettings.cpp" line="114"/>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="35"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="34"/>
         <source>The translationfile cannot be loaded! it might be corrupt.</source>
         <translation>No se pudo cargar el archivo de traducción. Puede estar dañado.</translation>
     </message>
@@ -1952,12 +1946,12 @@ Si lo dejas en blanco, probablemente no puedas crear o unirte a partidas.</trans
 <context>
     <name>settingswindow</name>
     <message>
-        <location filename="../src/wormnet/settingswindow.cpp" line="120"/>
+        <location filename="../src/wormnet/settingswindow.cpp" line="124"/>
         <source>Choose a Sound (mp3 or wav) file for this event</source>
         <translation>Selecciona un archivo de sonido (mp3 o wav) para este evento</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.cpp" line="252"/>
+        <location filename="../src/wormnet/settingswindow.cpp" line="256"/>
         <source>Choose the directory from the soundpack.</source>
         <translation>Selecciona el directorio del paquete de sonidos</translation>
     </message>

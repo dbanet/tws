@@ -225,14 +225,13 @@ void snoppanet::readhostreply() {
         s=s.mid(1);
         s=htmladdress+s;
         inithosting(s);
-
-    } else if (startswithCI(s,"<NOTHING>\n")) {
+    } else if (startswithCI(s,"<NOTHING>")) {
         myDebug() << tr("Wormnet wont start this game, please try again at a later time.");
         hostreply->disconnect();
         hostreply->deleteLater();
         emit sighostwontstart();
     } else
-        myDebug()<<"No target for hostreply\n"<<s;
+        myDebug()<<tr("No target for hostreply\n")<<s;
 }
 void snoppanet::inithosting(QString url){
     QNetworkRequest request;

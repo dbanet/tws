@@ -19,8 +19,8 @@ extern QStringList querylist;
 extern QMap<QString, QStringList> usergarbagemap;
 chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
 	QWidget(parent), chatpartner(s), net(n) {
-     setAttribute(Qt::WA_DeleteOnClose);
-     setObjectName("chatwindow");
+    setAttribute(Qt::WA_DeleteOnClose);
+    setObjectName("chatwindow");
     ui.setupUi(this);    
     ui.pbbuddy->setObjectName("chatwindowbutton");
     ui.pbctcp->setObjectName("chatwindowbutton");
@@ -30,19 +30,21 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     ui.pbfilter->setObjectName("chatwindowbutton");
     ui.lineEdit->installEventFilter(this);
     ui.chatwindowbuttonscrollArea->installEventFilter(this);
-     update();
+    update();
     chat = new chathandlerprv(this, ui.chat, chatpartner);
-    foreach(QString s,usergarbagemap[chatpartner.toLower()]) {
-        chat->appendgarbage(s);
+    if(singleton<settingswindow>().from_map("cbsafequerys").value<bool> ()){
+        foreach(QString s,usergarbagemap[chatpartner.toLower()]) {
+            chat->appendgarbage(s);
+        }
     }
-     setWindowTitle(tr("Chat with") + " " + s);
+    setWindowTitle(tr("Chat with") + " " + s);
 
     if (containsCI(S_S.getstringlist("buddylist"), chatpartner))
-         setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/buddyicon.png"));
+        setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/buddyicon.png"));
     else if (containsCI(S_S.getstringlist("ignorelist"), chatpartner))
-         setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/ignoreicon.png"));
+        setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/ignoreicon.png"));
     else
-         setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/usericon.png"));
+        setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/usericon.png"));
 
     connect(ui.send, SIGNAL(clicked()),ui.lineEdit, SIGNAL(returnPressed()));
     connect(ui.lineEdit, SIGNAL(returnPressed()),this, SLOT(sendmsg()));
@@ -82,7 +84,7 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
 
     connect(net, SIGNAL(siggotidletime(const QString&, int)),this, SLOT(gotidletime(const QString&,int)));
     connect(net, SIGNAL(signosuchnick(const QString&)),this, SLOT(gotnosuchnick(const QString&)));
-     statusbar = new QStatusBar(this);
+    statusbar = new QStatusBar(this);
     ui.verticalLayout_2->addWidget(statusbar);
     statusbar->setMaximumHeight(20);
     if (singleton<netcoupler>().users.users.contains(userstruct::whoami(chatpartner))){

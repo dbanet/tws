@@ -13,19 +13,16 @@ class settingswindow : public QWidget
 {
     Q_OBJECT
     DECLARE_SINGLETON(settingswindow);
-public:
-    QStringList objectnames;
-    void safe();
+public:    
     void load();        
     void to_map(const QString&, const QVariant&);
     const QVariant from_map(const QString&) const;
 private:    
+    QStringList objectnames;
     Ui::settingswindowClass *ui;
-    QMap<QString,QVariant> map;
+    //QMap<QString,QVariant> map;
     void loadDefaults();
     void checkValidEntries();    
-
-    sqlsettings sql;
 private slots:
     void on_pbloaddefaultsounds_clicked();
     void on_pbloadsoundpack_clicked();

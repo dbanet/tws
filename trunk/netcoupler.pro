@@ -145,8 +145,7 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/quithandler.cpp \
     src/wormnet/mynetworkreply.cpp \
     src/wormnet/awayhandler.cpp \
-    src/wormnet/sqlsettings.cpp \
-    src/wormnet/settingshelper.cpp
+    src/wormnet/sqlsettings.cpp
 
 RC_FILE = src/wormnet/myapp.rc
 TRANSLATIONS += \

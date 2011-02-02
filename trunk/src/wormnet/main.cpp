@@ -35,11 +35,11 @@ void get_picutres();
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     chdir(qPrintable(QApplication::applicationDirPath()));
-    S_S.start("snpini/settings.sqlite3", "snpini/snpini");
+    S_S.start("snpini/settings.sqlite3");
+    singleton<settingswindow>();
     a.setQuitOnLastWindowClosed(false);
     volume = new volumeslider;
-    a.setApplicationName("The Wheat Snooper");    
-    singleton<settingswindow>();
+    a.setApplicationName("The Wheat Snooper");        
     singleton<clantowebpagemapper>().load();
     singleton<picturehandler>();
     if(S_S.getstring("textcodec").isEmpty()){

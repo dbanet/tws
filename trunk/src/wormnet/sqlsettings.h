@@ -10,7 +10,7 @@
 class sqlsettings
 {
 public:        
-    void start(QString db, QString old);
+    void start(QString db);
 
     QString getstring(QString key) const;
     QStringList getstringlist(QString key) const;
@@ -23,11 +23,16 @@ public:
 
     bool contains(QString key) const;       
 
+    void to_map(const QString&, const QVariant&);
+    QVariant from_map(const QString&) const;
+
+    QVariant get(QString key) const;
+
     DECLARE_SINGLETON(sqlsettings);
 
 private:
-    void loadDefaults();
-    QVariant get(QString key);
+    void loadsnpiniDefaults();
+    void loadsettingswindowDefaults();
     void validate();
     void installTranslationBySystemLocale();
     void checkifexistsinstringlist(QString key,QString value);
@@ -37,7 +42,7 @@ private:
     void before_get(QString &key) const;
     void before_set(QString &key, QVariant value) const;
 
-    void importOldSnpini(QString folder);
+    void importOldini(QString folder);
 
     QSqlQueryModel model;
 
@@ -45,9 +50,8 @@ private:
 
     QString language_file;
     QString databasename;
-    QString oldsettingsfile;
 
-    friend class settingswindow;
+    bool loadOldFile(QString file);
 };
 namespace{
     sqlsettings &S_S=singleton<sqlsettings>();

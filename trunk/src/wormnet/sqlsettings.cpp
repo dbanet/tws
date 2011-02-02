@@ -12,9 +12,8 @@
 const char *TABLENAME="settings";
 sqlsettings::sqlsettings(){    
 }
-void sqlsettings::start(QString db, QString old){
+void sqlsettings::start(QString db){
     databasename=db;
-    oldsettingsfile=old;
     if(!QDir().exists("query"))
         QDir().mkdir("query");
     if(!QDir().exists("snpini"))
@@ -24,7 +23,7 @@ void sqlsettings::start(QString db, QString old){
     if(!language_file.isEmpty())
         set("language_file",language_file);
     if(!b)
-        loadDefaults();
+        loadsnpiniDefaults();
     model.setQuery(QString("select * from %1").arg(TABLENAME),(QSqlDatabase::database(databasename)));
     QTranslator *trans=new QTranslator;
     QString file=getstring("language_file").remove(".qm");
@@ -34,13 +33,14 @@ void sqlsettings::start(QString db, QString old){
         myDebug() << QObject::tr("The translationfile cannot be loaded! it might be corrupt.")+"  "+file;
     validate();
 }
-sqlsettings::~sqlsettings(){}
+sqlsettings::~sqlsettings(){
+}
 bool sqlsettings::databasexists(){
     installTranslationBySystemLocale();
     if(QFile::exists(databasename))
         return true;
-    if(QFile::exists(oldsettingsfile) && !QFile::exists(databasename))
-        return importOldSnpini(""),true;
+    if(QFile::exists("snpini/snpini") && !QFile::exists(databasename))
+        return importOldini(""),true;
     int button=QMessageBox::question(0,QObject::tr("Question")
                                      ,QApplication::tr("If you like to keep the settings from an older Snooper installation click yes.\n"
                                                        "If you use The Wheat Snooper at the first time just click No.")
@@ -51,7 +51,7 @@ bool sqlsettings::databasexists(){
             folder=QFileDialog::getExistingDirectory(0,QApplication::tr("Please choose the folder from the old Snooper.")
                                                      ,QApplication::applicationDirPath());
             folder += "/";
-            if(QFile::exists(folder+databasename) || QFile::exists(folder+oldsettingsfile)){
+            if(QFile::exists(folder+databasename) || QFile::exists("snpini/snpini")){
                 break;
             } else {
                 int button=QMessageBox::warning(0,QObject::tr("Warning!"),QApplication::tr("This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?"),QMessageBox::Yes | QMessageBox::No);
@@ -61,11 +61,10 @@ bool sqlsettings::databasexists(){
                     return false;
             }
         }
-        if(QFile::exists(folder + oldsettingsfile) && !QFile::exists(folder + databasename))
-            importOldSnpini(folder);
+        if(QFile::exists(folder + "snpini/snpini") && !QFile::exists(folder + databasename))
+            importOldini(folder);
         else
-            QFile::copy(folder+databasename,databasename);
-        QFile::copy(folder+"snpini/settingswindowini","snpini/settingswindowini");
+            QFile::copy(folder+databasename,databasename);        
         QFile::copy(folder+"snpini/ctcp.ini","snpini/ctcp.ini");
         QFile::copy(folder+"snpini/clanpages","snpini/clanpages");
         QFile::copy(folder+"query/log","query/log");
@@ -74,20 +73,29 @@ bool sqlsettings::databasexists(){
         return false;
     return true;
 }
-void sqlsettings::importOldSnpini(QString folder){
+bool sqlsettings::loadOldFile(QString file){
+    QFile f(file);
+    if(!f.open(QFile::ReadOnly)){
+        myDebug()<<"Cant load: "<<file;
+        return false;
+    }
+    QDataStream ds(&f);
+    ds.setVersion(QDataStream::Qt_4_3);
+    QMap<QString, QVariant> map;
+    ds>>map;
+    foreach(QString s, map.keys())
+        set(s,map[s]);
+    return true;
+}
+void sqlsettings::importOldini(QString folder){
     open();
     QSqlQuery query(QSqlDatabase::database(databasename));
     query.exec(QString("CREATE TABLE if not exists %1 (prime INTEGER PRIMARY KEY ASC, d_u_m_m_y bool);").arg(TABLENAME));
-    query.exec(QString("insert into %1(d_u_m_m_y) values(1);").arg(TABLENAME));
-    QMap<QString,QVariant> map;
-    QFile f(folder+oldsettingsfile);
-    f.open(QFile::ReadOnly);
-    QDataStream ds(&f);
-    ds.setVersion(QDataStream::Qt_4_3);
-    ds>>map;
-    foreach(QString s, map.keys()){
-        set(s,map[s]);
-    }
+    query.exec(QString("insert into %1(d_u_m_m_y) values(1);").arg(TABLENAME));    
+    if(!loadOldFile(folder+"snpini/snpini"))
+        loadsnpiniDefaults();
+    if(!loadOldFile(folder+"snpini/settingswindowini"))
+        loadsettingswindowDefaults();
 }
 void sqlsettings::open(){
     if(QSqlDatabase::database(databasename).isOpen())
@@ -99,7 +107,7 @@ void sqlsettings::open(){
 void sqlsettings::close(){
     QSqlDatabase::database().close();
 }
-void sqlsettings::loadDefaults(){
+void sqlsettings::loadsnpiniDefaults(){
     QSqlQuery query(QSqlDatabase::database(databasename));
     query.exec(QString("CREATE TABLE if not exists %1 (prime INTEGER PRIMARY KEY ASC, d_u_m_m_y bool);").arg(TABLENAME));
     query.exec(QString("insert into %1(d_u_m_m_y) values(1);").arg(TABLENAME));
@@ -110,6 +118,56 @@ void sqlsettings::loadDefaults(){
     set("chbsendhostinfotochan", true);
     set("language_file", "_en.Standard.qm");
     installTranslationBySystemLocale();
+}
+void sqlsettings::loadsettingswindowDefaults(){
+    set("leawaystring", "I'm in a Game!");
+    set("lebackmessage", "I'm back.");
+
+    set("lestartup", "wav/startup.mp3");
+    set("lebuddyarrives", "wav/buddyarrives.mp3");
+    set("lebuddyleaves", "wav/buddyleaves.mp3");
+    set("lebuddychatmessage", "wav/buddymessage.mp3");
+    set("lebuddychatwindowsopened", "wav/buddychatwindowopened.mp3");
+    set("lenormalchatmessage", "wav/normalprivmsg.mp3");
+    set("lehighlightning", "wav/highlightningsound.mp3");
+    set("lecostumword", "wav/costumword.mp3");
+    set("lehostsound", "wav/buddyhosts.mp3");
+
+    set("cbalertmeonnotice", true);
+    set("cbalertfromnormal", true);
+    set("chbactionwhenjoining", true);
+    set("cbsetawaywhilegaming", true);
+    set("chbbacktonormals", true);
+    set("chbbacktobuddys", true);
+    set("cbignorysappearinchannel", true);
+    set("cbsafequerys", true);
+    set("cbopenbuddylistonstartup", true);
+    set("chbshowchannelchatinchatwindows", true);
+    set("cbservermessageinchannelwindows", true);
+    set("chbjoininfo", true);
+    set("chbpartinfo", true);
+    set("chbquitinfo", true);
+    set("chbbuddyballoonarives", true);
+    set("chbbuddyballoonleaves", true);
+    set("chbballoonprivmsg", true);
+    set("chbshowbaloonwhenbuddyhosts", true);
+    set("cbstartup", true);
+    set("cbbuddyarrives", true);
+    set("cbbuddyleaves", true);
+    set("cbplaybuddychatmessage", true);
+    set("cbplaybuddychatwindowopened", true);
+    set("cbplaynormalchatmessage", true);
+    set("cbhighlightning", true);
+    set("cbcostumword", true);
+    set("chbhostsound", true);
+
+    set("sbmaximumoftextblocksinlog", 60);
+    set("sbmaximumballonmessages", 3);
+    set("sbwhorepead", 3000);
+    set("sbhostrepead", 15000);
+    set("sbmaximumoftextblocks", 500);
+    set("sbsecureloggingrepeatdelay", 10*100);
+    set("cbonlyshowranksfromverifiedusers", true);
 }
 void sqlsettings::validate(){
     checkifexistsinstringlist("leagueservers","http://www.tus-wa.com/");
@@ -132,7 +190,30 @@ void sqlsettings::validate(){
     if(!contains("showinformation"))
         set("showinformation", true);
     if(!contains("spectatingneversettedoff"))
-        set("spectatingneversettedoff", true);    
+        set("spectatingneversettedoff", true);
+
+    if(getstring("lestartup").startsWith("wav/"))
+        set("lestartup", "wav/startup.mp3");
+    if(getstring("lebuddyarrives").startsWith("wav/"))
+        set("lebuddyarrives", "wav/buddyarrives.mp3");
+    if(getstring("lebuddyleaves").startsWith("wav/"))
+        set("lebuddyleaves", "wav/buddyleaves.mp3");
+    if(getstring("lebuddychatmessage").startsWith("wav/"))
+        set("lebuddychatmessage", "wav/buddymessage.mp3");
+    if(getstring("lebuddychatwindowsopened").startsWith("wav/"))
+        set("lebuddychatwindowsopened", "wav/buddychatwindowopened.mp3");
+    if(getstring("lenormalchatmessage").startsWith("wav/"))
+        set("lenormalchatmessage", "wav/normalprivmsg.mp3");
+    if(getstring("lehighlightning").startsWith("wav/"))
+        set("lehighlightning", "wav/highlightningsound.mp3");
+    if(getstring("lecostumword").startsWith("wav/"))
+        set("lecostumword", "wav/costumword.mp3");
+    if(getstring("lehostsound").startsWith("wav/"))
+        set("lehostsound", "wav/buddyhosts.mp3");
+    if(getint("sbsecureloggingrepeatdelay")==0)
+        set("sbsecureloggingrepeatdelay", 10*1000);
+    if(!contains("cbonlyshowranksfromverifiedusers"))
+        set("cbonlyshowranksfromverifiedusers", true);
 }
 void sqlsettings::checkifexistsinstringlist(QString key,QString value){
     QStringList sl=getstringlist(key);
@@ -195,7 +276,7 @@ QByteArray sqlsettings::getbytearray(QString key) const{
     before_get(key);    
     return model.record(0).value(key).toByteArray();
 }
-QVariant sqlsettings::get(QString key){
+QVariant sqlsettings::get(QString key) const{
     before_get(key);
     return model.record(0).value(key);
 }
@@ -203,8 +284,8 @@ QVariant sqlsettings::get(QString key){
 void sqlsettings::set(QString key, QVariant value){
     if(get(key)==value)
         return;
-    before_set(key, value);        
-    QSqlQuery query(QSqlDatabase::database(databasename));
+    before_set(key, value);
+    QSqlQuery query(QSqlDatabase::database(databasename));    
     query.exec(QString("alter table %1 add %2 BLOB;").arg(TABLENAME).arg(key));
     if(value.type()==QVariant::List || value.type()==QVariant::StringList){        
         int size=0;
@@ -252,8 +333,20 @@ void sqlsettings::before_get(QString &key) const{
     //    qDebug()<<"get";
     //    qDebug()<<key;
 }
-void sqlsettings::before_set(QString &key, QVariant value) const{
+void sqlsettings::before_set(QString &key, QVariant value) const{    
     key.replace(" ","_");
     //    qDebug()<<"set";
     //    qDebug()<<key<<"    "<<value;
+}
+//###########################################################################################################
+//########################                       ############################################################
+//########################    SETTINGSWINDOW     ############################################################
+//########################                       ############################################################
+//###########################################################################################################
+//###########################################################################################################
+void sqlsettings::to_map(const QString &key, const QVariant &value){
+    set(key,value);
+}
+QVariant sqlsettings::from_map(const QString &key) const{
+    return get(key);
 }
