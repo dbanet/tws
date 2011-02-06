@@ -33,7 +33,7 @@ void awayhandler::setaway(const QString &s) {
     isaway = 1;
 }
 void awayhandler::gamefinished() {
-    if (singleton<settingswindow>().from_map("cbsetawaywhilegaming").toBool()) {
+    if (S_S.getbool("cbsetawaywhilegaming")) {
         if (wasaway) {
             isaway = 1;
             wasaway=0;
@@ -50,13 +50,12 @@ void awayhandler::gamefinished() {
 }
 void awayhandler::sendBack(){
     foreach(QString s,rememberwhogotaway.keys()) {
-        if (singleton<settingswindow>().from_map("chbbacktonormals").toBool()
-            && !containsCI(S_S.getstringlist("ignorelist"), s)) {
-            singleton<netcoupler>().sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
+        if (S_S.getbool("chbbacktonormals") && !containsCI(S_S.getstringlist("ignorelist"), s)) {
+            singleton<netcoupler>().sendnotice(s,S_S.getstring("lebackmessage"));
             singleton<netcoupler>().sendrawcommand("PRIVMSG " + s + " :\001back\001");
-        } else if (singleton<settingswindow>().from_map("chbbacktobuddys").toBool()) {
+        } else if (S_S.getbool("chbbacktobuddys")) {
             if (containsCI(S_S.getstringlist("buddylist"), s))
-                singleton<netcoupler>().sendnotice(s,singleton<settingswindow>().from_map("lebackmessage").toString());
+                singleton<netcoupler>().sendnotice(s,S_S.getstring("lebackmessage"));
             singleton<netcoupler>().sendrawcommand("PRIVMSG " + s + " :\001back\001");
         }
     }
@@ -65,13 +64,13 @@ void awayhandler::sendBack(){
 void awayhandler::setawaywhilegameing() {
 #ifdef Q_WS_WIN
     singleton<balloon_handler>().set_away_tray_icon();
-    if (singleton<settingswindow>().from_map("cbsetawaywhilegaming").toBool()) {        
+    if (S_S.getbool("cbsetawaywhilegaming")) {
         if (isaway)
             wasaway = 1;
         else
             wasaway = 0;
         isaway = 1;
-        awaymessage = singleton<settingswindow>().from_map("leawaystring").toString();
+        awaymessage = S_S.getstring("leawaystring");
         emit sigawaystringchanged();
     }
 #endif

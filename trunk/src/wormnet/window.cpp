@@ -112,7 +112,7 @@ window::window(netcoupler *n, QString s, int i) :
     connect(net, SIGNAL(siggotchanellist(QStringList)),this, SLOT(getuserscount(QStringList)));
     ui.msg->setFocus(Qt::MouseFocusReason);
 
-    QVariantList windowstates = S_S.getlist(currentchannel + ":"+ QString::number(whichuiison));
+    QVariantList windowstates = S_S.getlist(currentchannel + QString::number(whichuiison));
     if (!windowstates.isEmpty()) {
         if (!windowstates.isEmpty())
             myDebug()<<"restoreGeometry(windowstates.takeFirst().toByteArray());"<<restoreGeometry(windowstates.takeFirst().toByteArray());
@@ -153,7 +153,7 @@ void window::expandchannels(QStringList) { //expand on startup
     ui.hosts->setExpanded(singleton<netcoupler>().hosts.indexbychannelname(currentchannel), 1);
     ui.users->setExpanded(singleton<netcoupler>().users.indexbychannelname(currentchannel), 1);
     ui.users->setExpanded(singleton<netcoupler>().users.indexbychannelname(usermodel::tr("Querys")), 1);
-    if (singleton<settingswindow>().from_map("cbopenbuddylistonstartup").value<bool> ())
+    if (S_S.getbool("cbopenbuddylistonstartup"))
         ui.users->setExpanded(singleton<netcoupler>().users.indexbychannelname(usermodel::tr(
                 "Buddylist")), 1);
     if (ui.users->isExpanded(singleton<netcoupler>().users.index(singleton<netcoupler>().users.classes.indexOf(
@@ -337,7 +337,7 @@ void window::closeEvent(QCloseEvent * /*event*/) {
     windowstates << ui.hosts->header()->sectionSize(4);
     windowstates << ui.users->header()->sectionSize(3);
     windowstates << ui.users->header()->sectionSize(4);
-    S_S.set(currentchannel + ":" + QString::number(whichuiison), windowstates);
+    S_S.set(currentchannel + QString::number(whichuiison), windowstates);
 }
 void window::useritempressed(const QModelIndex &index) {
     if (!index.isValid())
@@ -604,26 +604,24 @@ void window::hboxok() {
 }
 void window::usesettingswindow(const QString &s) {
     if (s == "cbalertmeonnotice" || s == "")
-        alertonnotice = singleton<settingswindow>().from_map("cbalertmeonnotice").value<bool> ();
+        alertonnotice = S_S.getbool("cbalertmeonnotice");
     if (s == "cbalertfromnormal" || s == "")
-        alertonprivmsg
-                = singleton<settingswindow>().from_map("cbalertfromnormal").value<bool> ();
+        alertonprivmsg = S_S.getbool("cbalertfromnormal");
     if (s == "cbignorysappearinchannel" || s == "")
-        acceptignorys = singleton<settingswindow>().from_map("cbignorysappearinchannel").value<
-                        bool> ();
+        acceptignorys = S_S.getbool("cbignorysappearinchannel");
     disconnect(net, SIGNAL(sigusergarbagejoin(const QString&,const QString&)),this, SLOT(gotgarbagejoin(const QString&,const QString&)));
     disconnect(net, SIGNAL(sigusergarbagepart(const QString&,const QString&)),this, SLOT(gotgarbagepart(const QString&,const QString&)));
     disconnect(net, SIGNAL(sigusergarbagequit(const QString&,const QString&)),this, SLOT(gotgarbagequit(const QString&,const QString&)));
     if (s == "chbjoininfo" || s == "") {
-        if (singleton<settingswindow>().from_map("chbjoininfo").value<bool> ())
+        if (S_S.getbool("chbjoininfo"))
             connect(net, SIGNAL(sigusergarbagejoin(const QString&,const QString&)),this, SLOT(gotgarbagejoin(const QString&,const QString&)));
     }
     if (s == "chbpartinfo" || s == "") {
-        if (singleton<settingswindow>().from_map("chbpartinfo").value<bool> ())
+        if (S_S.getbool("chbpartinfo"))
             connect(net, SIGNAL(sigusergarbagepart(const QString&,const QString&)),this, SLOT(gotgarbagepart(const QString&,const QString&)));
     }
     if (s == "chbquitinfo" || s == "") {
-        if (singleton<settingswindow>().from_map("chbquitinfo").value<bool> ())
+        if (S_S.getbool("chbquitinfo"))
             connect(net, SIGNAL(sigusergarbagequit(const QString&,const QString&)),this, SLOT(gotgarbagequit(const QString&,const QString&)));
     }
 

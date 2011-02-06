@@ -114,8 +114,8 @@ mainwindow::mainwindow() {
     ui.lenick->setValidator(validator);
     ui.clan->setValidator(validator);
 
-    S_S.set("isarrangedbyonetab", false);
-    S_S.set("isarrangedbytwotabs", false);
+    //    S_S.set("isarrangedbyonetab", false);
+    //    S_S.set("isarrangedbytwotabs", false);
     debugmsg.clear();
 
     connect(&singleton<ctcphandler>(), SIGNAL(sigctcpcommand(const QString&,const QString&)),this, SLOT(gotctcpsignal(const QString&,const QString&)));
@@ -180,15 +180,15 @@ void mainwindow::chooseclicked() {
     S_S.set("countrycode", ui.flag->currentText());
     S_S.set("rank", ui.rank->currentText());
     S_S.set("information", ui.client->text());
-    S_S.set("enablesecurelogging", ui.cbenabletus->isChecked());
-    S_S.set("spectateleagueserver", ui.cbenabletus->isChecked());
+    S_S.set("enablesecurelogging", ui.cbenabletus->isChecked());    
 
     S_S.set("wormnetserverlist", refreshcombobox(ui.cbServerList));
     S_S.set("leagueservers", refreshcombobox(ui.cbleagueservers));
     S_S.set("showinformation", ui.cbshowinformation->isChecked());
-    S_S.set("leagueservers:"+ui.cbleagueservers->currentText(), QStringList()<<ui.letuslogin->text()<<ui.letuspassword->text());
+    S_S.set("leagueservers"+ui.cbleagueservers->currentText(), QStringList()<<ui.letuslogin->text()<<ui.letuspassword->text());
 
     if(S_S.getbool("enablesecurelogging")){
+        S_S.set("spectateleagueserver", true);
         setleague();
         singleton<leagueserverhandler>().login(ui.letuslogin->text(),ui.letuspassword->text());
     } else {
@@ -196,7 +196,8 @@ void mainwindow::chooseclicked() {
             S_S.set("spectateleagueserver", true);
             singleton<leagueserverhandler>().setleague("http://www.tus-wa.com/","http://www.tus-wa.com/");
             singleton<leagueserverhandler>().startrefresh();
-        }
+        } else
+            S_S.set("spectateleagueserver", false);
         connectToNetwork();
     }
 }
@@ -390,7 +391,7 @@ void mainwindow::snpsetcontains(const QString &s) {
     }
 }
 void mainwindow::windowremoved(const QString &s) {
-     currentchannellist.removeAll(s);
+    currentchannellist.removeAll(s);
     windowlist.removeAll(qobject_cast<channelwindow*> (sender()));
 }
 void mainwindow::usesettingswindow(const QString&) {
@@ -499,19 +500,16 @@ void mainwindow::gotprvmsg(const QString &user, const QString &receiver, const Q
     }
     if (!containsCI(window::chatwindowstringlist, user)) {
         if ((singleton<netcoupler>().users.usermap[usermodel::tr("Buddylist")].count(
-                userstruct::whoami(user)) || mainwindow::windowlist.isEmpty()
-            || singleton<settingswindow>().from_map("chballwaysopenchatwindows").toBool())
+                userstruct::whoami(user)) || mainwindow::windowlist.isEmpty() || S_S.getbool("chballwaysopenchatwindows"))
             && !singleton<netcoupler>().users.usermap[usermodel::tr("Ignorelist")].count(
                     userstruct::whoami(user))) {
             Q_ASSERT(user!="");
-            if (singleton<settingswindow>().from_map("chbstartchatsminimized").toBool()) {
-                if (mainwindow::windowlist.isEmpty()) {
+            if (S_S.getbool("chbstartchatsminimized")) {
+                if (mainwindow::windowlist.isEmpty())
                     singleton<sound_handler>().play_normalmsgsound(user);
-                } else {
-                    foreach(::window *w,mainwindow::windowlist) {
-                        w->gotprvmsg(user, receiver, msg);
-                    }
-                }
+                else
+                    foreach(::window *w,mainwindow::windowlist)
+                        w->gotprvmsg(user, receiver, msg);                                    
                 openchatwindowhidden(user);
                 window::chatwindows.last()->gotmsg(user, receiver, msg);
                 if (!containsCI(querylist, user))
@@ -654,11 +652,11 @@ void mainwindow::trayactivation(QSystemTrayIcon::ActivationReason reason) {
             querylist.removeAll(w->chatpartner);
         } else {
             if ( isHidden()) {
-                 show();
-                 activateWindow();
-                 raise();
+                show();
+                activateWindow();
+                raise();
             } else if ( isVisible())
-                 close();
+                close();
         }
     }
 }
@@ -846,7 +844,7 @@ void mainwindow::leagueserverprofilepage(QString url){
     QDesktopServices::openUrl(QUrl(url));
 }
 void mainwindow::on_cbleagueservers_activated(QString s){
-    QStringList sl=S_S.getstringlist("leagueservers:"+s);
+    QStringList sl=S_S.getstringlist("leagueservers"+s);
     if(sl.size()<2)
         return;
     ui.letuslogin->setText(sl.takeFirst());

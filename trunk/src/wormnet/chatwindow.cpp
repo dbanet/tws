@@ -32,7 +32,7 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     ui.chatwindowbuttonscrollArea->installEventFilter(this);
     update();
     chat = new chathandlerprv(this, ui.chat, chatpartner);
-    if(singleton<settingswindow>().from_map("cbsafequerys").value<bool> ()){
+    if(S_S.getbool("cbsafequerys")){
         foreach(QString s,usergarbagemap[chatpartner.toLower()]) {
             chat->appendgarbage(s);
         }
@@ -287,7 +287,7 @@ void chatwindow::channelmsg(const QString &user, const QString &receiver,
                 + QTime::currentTime().toString("hh:mm") + " " + user
                 + " to " + receiver + ">"
                 + QString(msg).remove("\n").remove("\r");
-        if (singleton<settingswindow>().from_map("chbshowchannelchatinchatwindows").toBool()) {
+        if (S_S.getbool("chbshowchannelchatinchatwindows")) {
             chat->appendgarbage(QDate::currentDate().toString("dd.MM") + " "
                                 + QTime::currentTime().toString("hh:mm") + " " + user
                                 + " to " + receiver + ">"

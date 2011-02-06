@@ -42,24 +42,15 @@ sound_handler::sound_handler(){
     Phonon::createPath(costumwordsound, costumwordsoundsoundoutput);
 }
 void sound_handler::init(){
-    startupsound->setCurrentSource(
-            singleton<settingswindow>().from_map("lestartup").value<QString> ());    
-    normalmsgsound->setCurrentSource(
-            singleton<settingswindow>().from_map("lenormalchatmessage").value<QString> ());
-    buddymsgsound->setCurrentSource(
-            singleton<settingswindow>().from_map("lebuddychatmessage").value<QString> ());
-    chatwindowopensound->setCurrentSource(
-            singleton<settingswindow>().from_map("lebuddychatwindowsopened").value<QString> ());
-    buddyleftsound->setCurrentSource(
-            singleton<settingswindow>().from_map("lebuddyleaves").value<QString> ());
-    buddyarrivedsound->setCurrentSource(
-            singleton<settingswindow>().from_map("lebuddyarrives").value<QString> ());
-    highlightningsound->setCurrentSource(
-            singleton<settingswindow>().from_map("lehighlightning").value<QString> ());
-    buddyhostedsound->setCurrentSource(
-            singleton<settingswindow>().from_map("lehostsound").value<QString> ());
-    costumwordsound->setCurrentSource(
-            singleton<settingswindow>().from_map("lecostumword").value<QString> ());
+    startupsound->setCurrentSource(S_S.getstring("lestartup"));    
+    normalmsgsound->setCurrentSource(S_S.getstring("lenormalchatmessage"));
+    buddymsgsound->setCurrentSource(S_S.getstring("lebuddychatmessage"));
+    chatwindowopensound->setCurrentSource(S_S.getstring("lebuddychatwindowsopened"));
+    buddyleftsound->setCurrentSource(S_S.getstring("lebuddyleaves"));
+    buddyarrivedsound->setCurrentSource(S_S.getstring("lebuddyarrives"));
+    highlightningsound->setCurrentSource(S_S.getstring("lehighlightning"));
+    buddyhostedsound->setCurrentSource(S_S.getstring("lehostsound"));
+    costumwordsound->setCurrentSource(S_S.getstring("lecostumword"));
 
     volumechange(S_S.getint("volumeslidervalue"),false);
 }
@@ -74,9 +65,8 @@ void sound_handler::volumechange(int i, bool b) {
     if(b)
         S_S.set("volumeslidervalue", i);
 }
-
 void sound_handler::play_startupsound(){    
-    if (!singleton<settingswindow>().from_map("cbstartup").value<bool> ())
+    if (!S_S.getbool("cbstartup"))
         return;
     try{
         verify_if_played();
@@ -87,7 +77,7 @@ void sound_handler::play_startupsound(){
     startupsound->play();
 }
 void sound_handler::play_buddyarrivedsound(){
-    if (!singleton<settingswindow>().from_map("cbbuddyarrives").value<bool> ())
+    if (!S_S.getbool("cbbuddyarrives"))
         return;
     try{
         verify_if_played();
@@ -98,7 +88,7 @@ void sound_handler::play_buddyarrivedsound(){
     buddyarrivedsound->play();
 }
 void sound_handler::play_chatwindowopensound(){
-    if (!singleton<settingswindow>().from_map("cbplaybuddychatwindowopened").value<bool> ())
+    if (!S_S.getbool("cbplaybuddychatwindowopened"))
         return;
     try{
         verify_if_played();
@@ -109,7 +99,7 @@ void sound_handler::play_chatwindowopensound(){
     chatwindowopensound->play();
 }
 void sound_handler::play_normalmsgsound(const QString user){
-    if (!singleton<settingswindow>().from_map("cbplaynormalchatmessage").value<bool> ())
+    if (!S_S.getbool("cbplaynormalchatmessage"))
         return;
     try{
         verify_if_played(user);
@@ -120,7 +110,7 @@ void sound_handler::play_normalmsgsound(const QString user){
     normalmsgsound->play();
 }
 void sound_handler::play_buddymsgsound(const QString user){
-    if (!singleton<settingswindow>().from_map("cbplaybuddychatmessage").value<bool> ())
+    if (!S_S.getbool("cbplaybuddychatmessage"))
         return;
     try{
         verify_if_played(user);
@@ -131,7 +121,7 @@ void sound_handler::play_buddymsgsound(const QString user){
     buddymsgsound->play();
 }
 void sound_handler::play_buddyleftsound(){
-    if (!singleton<settingswindow>().from_map("cbbuddyleaves").value<bool> ())
+    if (!S_S.getbool("cbbuddyleaves"))
         return;
     try{
         verify_if_played();
@@ -142,7 +132,7 @@ void sound_handler::play_buddyleftsound(){
     buddyleftsound->play();
 }
 void sound_handler::play_highlightningsound(const QString user, QWidget *w){
-    if (!singleton<settingswindow>().from_map("cbhighlightning").value<bool> ())
+    if (!S_S.getbool("cbhighlightning"))
         return;
     try{
         verify_if_played(user);
@@ -154,7 +144,7 @@ void sound_handler::play_highlightningsound(const QString user, QWidget *w){
     QApplication::alert(w);
 }
 void sound_handler::play_buddyhostedsound(){
-    if (!singleton<settingswindow>().from_map("chbhostsound").toBool())
+    if (!S_S.getbool("chbhostsound"))
         return;
     try{
         verify_if_played();
@@ -165,12 +155,12 @@ void sound_handler::play_buddyhostedsound(){
     buddyhostedsound->play();
 }
 void sound_handler::play_costumwordsound(const QString user, QWidget *w){
-    if (!singleton<settingswindow>().from_map("cbcostumword").value<bool> ())
+    if (!S_S.getbool("cbcostumword"))
         return;
     try{
         verify_if_played(user);
     } catch(dont_play_sound_exception){
-        return;
+        return;    
     }
     costumwordsound->stop();
     costumwordsound->play();
@@ -179,7 +169,7 @@ void sound_handler::play_costumwordsound(const QString user, QWidget *w){
 void sound_handler::verify_if_played(const QString user) throw(dont_play_sound_exception){
     if(user.isEmpty())
         return;
-    if(singleton<settingswindow>().from_map("cbdontplaysound").toBool())
+    if(S_S.getbool("cbdontplaysound"))
         throw dont_play_sound_exception();    
     if (singleton<netcoupler>().mutedusers.contains(user, Qt::CaseInsensitive))
         throw dont_play_sound_exception();

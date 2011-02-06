@@ -3,55 +3,35 @@
 #include<QString>
 #include<QVariantList>
 #include<QDebug>
-#include<QSqlQueryModel>
 
 #include"global_macros.h"
+#include"database_base.h"
 
-class sqlsettings
+class sqlsettings: public database_base
 {
 public:        
     void start(QString db);
-
-    QString getstring(QString key) const;
-    QStringList getstringlist(QString key) const;
-    bool getbool(QString key) const;
-    int getint(QString key) const;
-    QVariantList getlist(QString key) const;
-    QByteArray getbytearray(QString key) const;
-
-    void set(QString key, QVariant value);
-
-    bool contains(QString key) const;       
-
-    void to_map(const QString&, const QVariant&);
-    QVariant from_map(const QString&) const;
-
-    QVariant get(QString key) const;
 
     DECLARE_SINGLETON(sqlsettings);
 
 private:
     void loadsnpiniDefaults();
-    void loadsettingswindowDefaults();
-    void validate();
-    void installTranslationBySystemLocale();
-    void checkifexistsinstringlist(QString key,QString value);
+    void loadsettingswindowDefaults();    
+    void installTranslationBySystemLocale();    
     void open();
-    void close();
-
-    void before_get(QString &key) const;
-    void before_set(QString &key, QVariant value) const;
+    void close();    
 
     void importOldini(QString folder);
 
-    QSqlQueryModel model;
-
     bool databasexists();
 
-    QString language_file;
-    QString databasename;
+    QString language_file;    
 
     bool loadOldFile(QString file);
+    void prepare(QString key,QVariant value);
+    void exec();
+
+    bool existingSettingsValid;
 };
 namespace{
     sqlsettings &S_S=singleton<sqlsettings>();

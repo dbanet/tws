@@ -342,16 +342,14 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
         if (role == Qt::BackgroundRole){
             if(S_S.getbool("spectateleagueserver")){
                 if(singleton<leagueserverhandler>().contains_key(usermap[classes[index.internalId()]][index.row()].nick)){
-                    if(!singleton<settingswindow>().from_map("cbdontshowagradientonverifiedusers").toBool()){
-                        return QBrush(leagueuserhighlightgradient);
-                    }
+                    if(!S_S.getbool("cbdontshowagradientonverifiedusers"))
+                        return QBrush(leagueuserhighlightgradient);                    
                 }
             }
-
         }
     }
     if(role==Qt::FontRole && index.internalId() != e_Channel){
-        if(singleton<settingswindow>().from_map("cbunderlinelinksandclans").toBool())
+        if(S_S.getbool("cbunderlinelinksandclans"))
             return QVariant();
         if(index.column()==e_Client){
             QString s=usermap[classes[index.internalId()]][index.row()].client;
@@ -382,7 +380,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
         }else if(index.column()==e_Nick){
             if(!S_S.getbool("spectateleagueserver"))
                 return QVariant();
-            if(!singleton<settingswindow>().from_map("cbunderlineverifiedusers").toBool())
+            if(!S_S.getbool("cbunderlineverifiedusers"))
                 return QVariant();
             QString nick =usermap[classes[index.internalId()]][index.row()].nick;
             if(singleton<leagueserverhandler>().contains_key(nick)){
@@ -455,7 +453,7 @@ bool operator<(const userstruct &u1, const userstruct &u2) {
 void usermodel::sort(int column, Qt::SortOrder order) {
 
     whichorder = column;
-    if(!singleton<settingswindow>().from_map("cbdontsortinchannels").toBool()){
+    if(!S_S.getbool("cbdontsortinchannels")){
         if (order == Qt::AscendingOrder) {
             QMap<QString, QList<userstruct> >::iterator i = usermap.begin();
             while (i != usermap.end()) {
@@ -502,7 +500,7 @@ QVariant usermodel::getrank(const userstruct &u) const{
         QString s=singleton<leagueserverhandler>().map_at_toString(u.nick,leagueserverhandler::e_rank);
         if(!s.isEmpty())
             return *singleton<picturehandler>().getleaguerank(s);
-        if(singleton<settingswindow>().from_map("cbonlyshowranksfromverifiedusers").toBool())
+        if(S_S.getbool("cbonlyshowranksfromverifiedusers"))
             return QVariant();
     }
     return *singleton<picturehandler>().getrank(u.rank);
@@ -515,7 +513,7 @@ QVariant usermodel::getclan(const userstruct &u) const{
             return QVariant();
         if(!s.isEmpty())
             return s;
-        if(singleton<settingswindow>().from_map("cbshowranksonlyfromsecureloggedusers").toBool())
+        if(S_S.getbool("cbshowranksonlyfromsecureloggedusers"))
             return QVariant();
     }
     s=u.clan;

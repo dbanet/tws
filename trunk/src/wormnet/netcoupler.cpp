@@ -209,7 +209,7 @@ void netcoupler::joingame(const QString &hostinfo, const QString &channel, const
         return;
     temp = temp + hostinfo;
     startprocess(temp);
-    if (singleton<settingswindow>().from_map("chbactionwhenjoining").toBool())
+    if (S_S.getbool("chbactionwhenjoining"))
         sendinfotochan(channel, " is joining a game: " + gamename);
 }
 void netcoupler::createhost(hoststruct h) {
@@ -324,7 +324,7 @@ void netcoupler::sendinfotochan(const QString &chan, const QString &msg) {
 }
 void netcoupler::usesettingswindow(const QString &s) {
     if (s == "sbwhorepead" || s == "") {
-        int i = singleton<settingswindow>().from_map("sbwhorepead").value<int> ();
+        int i = S_S.getint("sbwhorepead");
         timer.disconnect();
         connect(&timer, SIGNAL(timeout()),this, SLOT(getwholist()));        
         timer.start(i);
@@ -338,15 +338,15 @@ void netcoupler::refreshhostlist() {
     http->refreshhostlist();
 }
 void netcoupler::startprocess(const QString &s){    
-    if(singleton<settingswindow>().from_map("chbhidechannelwindowsongame").toBool()){
+    if(S_S.getbool("chbhidechannelwindowsongame")){
         foreach(window *w,qobjectwrapper<mainwindow>::ref().windowlist)
         {
             w->minimize();
         }
     }
-    if(singleton<settingswindow>().from_map("chbdisconnectongame").toBool())
+    if(S_S.getbool("chbdisconnectongame"))
         qobjectwrapper<mainwindow>::ref().returntologintab();
-    if(singleton<settingswindow>().from_map("cbsetawaywhilegaming").toBool()){
+    if(S_S.getbool("cbsetawaywhilegaming")){
         qobjectwrapper<awayhandler>::ref().startLookingForGame();
         qobjectwrapper<awayhandler>::ref().setawaywhilegameing();
     }

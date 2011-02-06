@@ -13,7 +13,7 @@
 #include<QPointer>
 #include<stdexcept>
 
-settingswindow::settingswindow(){    
+settingswindow::settingswindow() {
     setObjectName("normalwidget");
     ui=new Ui::settingswindowClass;
     ui->setupUi(this);
@@ -25,7 +25,7 @@ settingswindow::settingswindow(){
     cw->setObjectName("combobox_wrapper");
     ui->costum_combobox_layout->addWidget(cw);
     QString s;
-    foreach(QObject *o, findChildren<QObject*>()) { //first loaded with default values then initialized with settingswindowini
+    foreach(QObject *o, findChildren<QObject*>()) { //getting objectnames
         s = o->objectName();
         if (s != "qt_spinbox_lineedit")
             if (qobject_cast<QLineEdit*> (o) != 0
@@ -34,30 +34,6 @@ settingswindow::settingswindow(){
                 || qobject_cast<combobox_wrapper*> (o))
                 objectnames << s;
     }
-    load();
-    connect(ui->ok, SIGNAL(clicked()),this, SLOT(ok()));
-    connect(ui->cancel, SIGNAL(clicked()),this, SLOT(cancel()));
-    connect(ui->pbbuddychatmessage, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui->pbbuddychatwindowopened, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui->pbnormalchatmessage, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui->pbstartup, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui->pbbuddyarrives, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui->pbbuddyleaves, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui->pbhighlightning, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui->pbbuddyhosts, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    connect(ui->pbcostumword, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
-    ui->tabWidget->setCurrentIndex(0);   
-}
-void settingswindow::load() {
-    //    QFile f(QApplication::applicationDirPath() + "/snpini/settingswindowini");
-    //    if (!f.open(QFile::ReadOnly))
-    //        loadDefaults();
-    //    else {
-    //        QDataStream ds(&f);
-    //        ds.setVersion(QDataStream::Qt_4_3);
-    //        ds >> map;
-    //    }
-    //    checkValidEntries();
     QObject *o;
     foreach(QString key,objectnames) {
         o =  findChild<QObject*> (key);
@@ -71,16 +47,20 @@ void settingswindow::load() {
         }   else if (qobject_cast<combobox_wrapper*> (o)) {
             qobject_cast<combobox_wrapper*> (o)->set(S_S.getstringlist(key));
         }
-    }   
+    }
+    connect(ui->ok, SIGNAL(clicked()),this, SLOT(ok()));
+    connect(ui->cancel, SIGNAL(clicked()),this, SLOT(cancel()));
+    connect(ui->pbbuddychatmessage, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbbuddychatwindowopened, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbnormalchatmessage, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbstartup, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbbuddyarrives, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbbuddyleaves, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbhighlightning, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbbuddyhosts, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    connect(ui->pbcostumword, SIGNAL(clicked()),this, SLOT(soundoptionbuttonslot()));
+    ui->tabWidget->setCurrentIndex(0);   
 }
-//void settingswindow::safe() {
-//    QFile f(QApplication::applicationDirPath() + "/snpini/settingswindowini");
-//    if (f.open(QFile::WriteOnly | QFile::Truncate)) {
-//        QDataStream ds(&f);
-//        ds.setVersion(QDataStream::Qt_4_3);
-//        ds << map;
-//    }
-//}
 void settingswindow::ok() {
     QObject *o;
     foreach(QString s,objectnames) {
@@ -95,7 +75,6 @@ void settingswindow::ok() {
         else if (qobject_cast<combobox_wrapper*> (o))
             S_S.set(s, qobject_cast<combobox_wrapper*> (o)->get());
     }
-    //safe();
     close();
     singleton<netcoupler>().settingswindowemitfunktion();
 }
@@ -134,10 +113,7 @@ void settingswindow::soundoptionbuttonslot() {
 settingswindow::~settingswindow() {
 
 }
-const QVariant settingswindow::from_map(const QString &key) const{
-    return S_S.get(key);
-}
-void settingswindow::to_map(const QString &s, const QVariant &v){
+void settingswindow::set(const QString &s, const QVariant &v){
     S_S.set(s, v);
     if(s=="cbcostumword")
         ui->cbcostumword->setChecked(v.toBool());
@@ -151,92 +127,8 @@ void settingswindow::to_map(const QString &s, const QVariant &v){
         ui->cbdontsortinchannels->setChecked(v.toBool());
     else
         throw std::runtime_error("\nvoid settingswindow::to_map(const QString &s, const QVariant &v)\n");
-    //safe();
 }
-void settingswindow::loadDefaults(){
-    //    map["leawaystring"].setValue<QString>("I'm in a Game!");
-    //    map["lebackmessage"].setValue<QString>("I'm back.");
-
-    //    map["lestartup"].setValue<QString>("wav/startup.mp3");
-    //    map["lebuddyarrives"].setValue<QString>("wav/buddyarrives.mp3");
-    //    map["lebuddyleaves"].setValue<QString>("wav/buddyleaves.mp3");
-    //    map["lebuddychatmessage"].setValue<QString>("wav/buddymessage.mp3");
-    //    map["lebuddychatwindowsopened"].setValue<QString>("wav/buddychatwindowopened.mp3");
-    //    map["lenormalchatmessage"].setValue<QString>("wav/normalprivmsg.mp3");
-    //    map["lehighlightning"].setValue<QString>("wav/highlightningsound.mp3");
-    //    map["lecostumword"].setValue<QString>("wav/costumword.mp3");
-    //    map["lehostsound"].setValue<QString>("wav/buddyhosts.mp3");
-
-    //    map["cbalertmeonnotice"].setValue<bool>(true);
-    //    map["cbalertfromnormal"].setValue<bool>(true);
-    //    map["chbactionwhenjoining"].setValue<bool>(true);
-    //    map["cbsetawaywhilegaming"].setValue<bool>(true);
-    //    map["chbbacktonormals"].setValue<bool>(true);
-    //    map["chbbacktobuddys"].setValue<bool>(true);
-    //    map["cbignorysappearinchannel"].setValue<bool>(true);
-    //    map["cbsafequerys"].setValue<bool>(true);
-    //    map["cbopenbuddylistonstartup"].setValue<bool>(true);
-    //    map["chbshowchannelchatinchatwindows"].setValue<bool>(true);
-    //    map["cbservermessageinchannelwindows"].setValue<bool>(true);
-    //    map["chbjoininfo"].setValue<bool>(true);
-    //    map["chbpartinfo"].setValue<bool>(true);
-    //    map["chbquitinfo"].setValue<bool>(true);
-    //    map["chbbuddyballoonarives"].setValue<bool>(true);
-    //    map["chbbuddyballoonleaves"].setValue<bool>(true);
-    //    map["chbballoonprivmsg"].setValue<bool>(true);
-    //    map["chbshowbaloonwhenbuddyhosts"].setValue<bool>(true);
-    //    map["cbstartup"].setValue<bool>(true);
-    //    map["cbbuddyarrives"].setValue<bool>(true);
-    //    map["cbbuddyleaves"].setValue<bool>(true);
-    //    map["cbplaybuddychatmessage"].setValue<bool>(true);
-    //    map["cbplaybuddychatwindowopened"].setValue<bool>(true);
-    //    map["cbplaynormalchatmessage"].setValue<bool>(true);
-    //    map["cbhighlightning"].setValue<bool>(true);
-    //    map["cbcostumword"].setValue<bool>(true);
-    //    map["chbhostsound"].setValue<bool>(true);
-
-    //    map["sbmaximumoftextblocksinlog"].setValue<int>(60);
-    //    map["sbmaximumballonmessages"].setValue<int>(3);
-    //    map["sbwhorepead"].setValue<int>(3000);
-    //    map["sbhostrepead"].setValue<int>(15000);
-    //    map["sbmaximumoftextblocks"].setValue<int>(500);
-    //    map["sbsecureloggingrepeatdelay"].setValue<int>(10*100);
-    //    map["cbonlyshowranksfromverifiedusers"]=true;
-}
-void settingswindow::checkValidEntries(){
-    //    if(map["lestartup"].toString().startsWith("wav/"))
-    //        map["lestartup"].setValue<QString>("wav/startup.mp3");
-
-    //    if(map["lebuddyarrives"].toString().startsWith("wav/"))
-    //        map["lebuddyarrives"].setValue<QString>("wav/buddyarrives.mp3");
-
-    //    if(map["lebuddyleaves"].toString().startsWith("wav/"))
-    //        map["lebuddyleaves"].setValue<QString>("wav/buddyleaves.mp3");
-
-    //    if(map["lebuddychatmessage"].toString().startsWith("wav/"))
-    //        map["lebuddychatmessage"].setValue<QString>("wav/buddymessage.mp3");
-
-    //    if(map["lebuddychatwindowsopened"].toString().startsWith("wav/"))
-    //        map["lebuddychatwindowsopened"].setValue<QString>("wav/buddychatwindowopened.mp3");
-
-    //    if(map["lenormalchatmessage"].toString().startsWith("wav/"))
-    //        map["lenormalchatmessage"].setValue<QString>("wav/normalprivmsg.mp3");
-
-    //    if(map["lehighlightning"].toString().startsWith("wav/"))
-    //        map["lehighlightning"].setValue<QString>("wav/highlightningsound.mp3");
-
-    //    if(map["lecostumword"].toString().startsWith("wav/"))
-    //        map["lecostumword"].setValue<QString>("wav/costumword.mp3");
-
-    //    if(map["lehostsound"].toString().startsWith("wav/"))
-    //        map["lehostsound"].setValue<QString>("wav/buddyhosts.mp3");
-    //    if(map["sbsecureloggingrepeatdelay"].toInt()==0)
-    //        map["sbsecureloggingrepeatdelay"].setValue<int>(10*1000);
-    //    if(!map.contains("cbonlyshowranksfromverifiedusers"))
-    //        map["cbonlyshowranksfromverifiedusers"]=true;
-}
-void settingswindow::on_pbloadsoundpack_clicked()
-{
+void settingswindow::on_pbloadsoundpack_clicked(){
     QString s=QFileDialog::getExistingDirectory(this,tr("Choose the directory from the soundpack."),"sounpacks");
     if(s.isEmpty())
         return;
@@ -264,8 +156,7 @@ void settingswindow::on_pbloadsoundpack_clicked()
     }
 
 }
-void settingswindow::on_pbloaddefaultsounds_clicked()
-{
+void settingswindow::on_pbloaddefaultsounds_clicked(){
     QDir dir("wav");
     foreach(QString s,dir.entryList(QStringList()<<"*.*",QDir::Files)){
         if(s.contains("startup"))

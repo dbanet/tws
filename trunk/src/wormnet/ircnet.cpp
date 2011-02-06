@@ -103,9 +103,8 @@ void ircnet::readusermessage(QString &s) {
     QString command = sl.takeFirst();
     QString receiver = sl.takeFirst().remove("\r").remove(":");    
     if(command=="QUIT"){
-        foreach(QString s,joinlist.keys()) {
-            joinlist[s].removeAll(user);
-        }
+        foreach(QString s,joinlist.keys())
+            joinlist[s].removeAll(user);        
         gotusergarbage(user, garbage);
         emit sigusergarbagequit(user, garbage);
     } else if(command=="PRIVMSG"){
@@ -120,21 +119,17 @@ void ircnet::readusermessage(QString &s) {
         joinlist[receiver] << user;
         gotusergarbage(user, garbage);
         emit sigusergarbagejoin(user, garbage);
-    } else if(command=="NOTICE"){
+    } else if(command=="NOTICE")
         emit signotice(user, receiver, sl.join(" ").remove(0, 1));
-    }else
+    else
         myDebug() << tr("Servermessage: ") << s;
 }
 void ircnet::gotusergarbage(QString &user, QString &s) {
-    if (usergarbagemap[user.toLower()].size()
-        < singleton<settingswindow>().from_map("sbmaximumoftextblocksinlog").toInt())
-        usergarbagemap[user.toLower()]
-                << QDate::currentDate().toString("dd.MM") + " "
+    if (usergarbagemap[user.toLower()].size() < S_S.getint("sbmaximumoftextblocksinlog"))
+        usergarbagemap[user.toLower()]<< QDate::currentDate().toString("dd.MM") + " "
                 + QTime::currentTime().toString("hh:mm") + " " + s;
     else {
-        usergarbagemap[user.toLower()] = usergarbagemap[user.toLower()].mid(
-                singleton<settingswindow>().from_map("sbmaximumoftextblocksinlog").toInt() * 2
-                / 3);
+        usergarbagemap[user.toLower()] = usergarbagemap[user.toLower()].mid(S_S.getint("sbmaximumoftextblocksinlog") * 2/ 3);
         usergarbagemap[user.toLower()]
                 << QDate::currentDate().toString("dd.MM") + " "
                 + QTime::currentTime().toString("hh:mm") + " " + s;

@@ -39,7 +39,7 @@ void hostmodel::sethoststruct(QList<hoststruct> l, QString chan) {
     while (i != l.begin()) {
         i--;
         hostmap[chan].push_back(*i);
-        if (!singleton<settingswindow>().from_map("chbshowbaloonwhenbuddyhosts").toBool())
+        if (!S_S.getbool("chbshowbaloonwhenbuddyhosts"))
             continue;
         if (!S_S.getstringlist("buddylist").contains(i->nick()))
             continue;
@@ -57,7 +57,7 @@ void hostmodel::sethoststruct(QList<hoststruct> l, QString chan) {
             hostmap[chan].count() - 1, 4, classes.indexOf(chan)));
 }
 int hostmodel::columnCount(const QModelIndex & /*parent*/) const {
-    if(!singleton<settingswindow>().from_map("cbshowipofhosts").toBool())
+    if(!S_S.getbool("cbshowipofhosts"))
         return 4;
     return 5;
 }

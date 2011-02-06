@@ -22,22 +22,22 @@ buttonlayout::buttonlayout(QWidget *parent) :
         ui.slideralpha->setValue(100);
     ui.chatwindowbuttonscrollArea->installEventFilter(this);
      setMaximumHeight(23);   
-    if(singleton<settingswindow>().from_map("cbcostumword").toBool())
+    if(S_S.getbool("cbcostumword"))
         ui.pbcostumwords->setText(QObject::tr("Costum words")+" "+QObject::tr("on"));
     else
         ui.pbcostumwords->setText(QObject::tr("Costum words") +" "+QObject::tr("off"));
 
-    if(singleton<settingswindow>().from_map("cbdontplaysound").toBool())
+    if(S_S.getbool("cbdontplaysound"))
         ui.pbsound->setText(QObject::tr("Sound")+" "+QObject::tr("off"));
     else
         ui.pbsound->setText(QObject::tr("Sound")+" "+QObject::tr("on"));
 
-    if(singleton<settingswindow>().from_map("cbdontshowballoons").toBool())
+    if(S_S.getbool("cbdontshowballoons"))
         ui.pbballoon->setText(QObject::tr("Balloons")+" "+QObject::tr("off"));
     else
         ui.pbballoon->setText(QObject::tr("Balloons")+" "+QObject::tr("on"));
 
-    if(singleton<settingswindow>().from_map("cbdontsortinchannels").toBool())
+    if(S_S.getbool("cbdontsortinchannels"))
         ui.pbsort->setText(QObject::tr("Sorting")+" "+QObject::tr("off"));
     else
         ui.pbsort->setText(QObject::tr("Sorting")+" "+QObject::tr("on"));
@@ -72,8 +72,8 @@ buttonlayout::~buttonlayout() {
 }
 void buttonlayout::on_pbcostumwords_clicked()
 {
-    bool b=singleton<settingswindow>().from_map("cbcostumword").value<bool> ();
-    singleton<settingswindow>().to_map("cbcostumword",!b);
+    bool b=S_S.getbool("cbcostumword");
+    singleton<settingswindow>().set("cbcostumword",!b);
     if(!b)
         ui.pbcostumwords->setText(QObject::tr("Costum words")+" "+QObject::tr("on"));
     else
@@ -81,8 +81,8 @@ void buttonlayout::on_pbcostumwords_clicked()
 }
 void buttonlayout::on_pbsound_clicked()
 {
-    bool b=singleton<settingswindow>().from_map("cbdontplaysound").toBool();
-    singleton<settingswindow>().to_map("cbdontplaysound",!b);
+    bool b=S_S.getbool("cbdontplaysound");
+    singleton<settingswindow>().set("cbdontplaysound",!b);
     if(!b)
         ui.pbsound->setText(QObject::tr("Sound")+" "+QObject::tr("off"));
     else
@@ -91,8 +91,8 @@ void buttonlayout::on_pbsound_clicked()
 }
 void buttonlayout::on_pbballoon_clicked()
 {
-    bool b=singleton<settingswindow>().from_map("cbdontshowballoons").toBool();
-    singleton<settingswindow>().to_map("cbdontshowballoons",!b);
+    bool b=S_S.getbool("cbdontshowballoons");
+    singleton<settingswindow>().set("cbdontshowballoons",!b);
     if(!b)
         ui.pbballoon->setText(QObject::tr("Balloons")+" "+QObject::tr("off"));
     else
@@ -100,8 +100,8 @@ void buttonlayout::on_pbballoon_clicked()
 }
 void buttonlayout::on_pbsort_clicked()
 {
-    bool b=singleton<settingswindow>().from_map("cbdontsortinchannels").toBool();
-    singleton<settingswindow>().to_map("cbdontsortinchannels",!b);
+    bool b=S_S.getbool("cbdontsortinchannels");
+    singleton<settingswindow>().set("cbdontsortinchannels",!b);
     if(!b)
         ui.pbsort->setText(QObject::tr("Sorting")+" "+QObject::tr("off"));
     else

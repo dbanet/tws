@@ -83,19 +83,19 @@ For hebreic and arabic for example.</source>
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="45"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="57"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
         <translation>Если вы хотите импортировать старые настройки, нажмите Да.
 Если вы используете Wheat Snooper в первый раз, нажмите Нет.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="51"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="63"/>
         <source>Please choose the folder from the old Snooper.</source>
         <translation>Пожалуйста, выберите старую папку программы</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="57"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="69"/>
         <source>This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?</source>
         <translation>Эта папка, возможно, не является правильной папкой установки The Wheat Snooper. Продолжить?</translation>
     </message>
@@ -659,17 +659,17 @@ Skin_Base</translation>
         <translation>Не хватает некоторых картинок!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="44"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="56"/>
         <source>Question</source>
         <translation>Вопрос</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="57"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="69"/>
         <source>Warning!</source>
         <translation>Внимание!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="34"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="33"/>
         <source>The translationfile cannot be loaded! it might be corrupt.</source>
         <translation>Невозможно загрузить файл языка интерфейса! Возможно, он поврежден.</translation>
     </message>
@@ -773,9 +773,9 @@ Skin_Base</translation>
         <translation>Сортировка</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chatwindow.cpp" line="89"/>
-        <location filename="../src/wormnet/chatwindow.cpp" line="136"/>
-        <location filename="../src/wormnet/chatwindow.cpp" line="277"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="91"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="138"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="279"/>
         <source>Online</source>
         <translation>В сети</translation>
     </message>
@@ -1077,28 +1077,28 @@ Skin_Base</translation>
 <context>
     <name>chatwindow</name>
     <message>
-        <location filename="../src/wormnet/chatwindow.cpp" line="38"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="40"/>
         <source>Chat with</source>
         <translation>Разговор с</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chatwindow.cpp" line="246"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="248"/>
         <source>Choose a file.</source>
         <translation>Выбрать файл.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chatwindow.cpp" line="93"/>
-        <location filename="../src/wormnet/chatwindow.cpp" line="134"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="95"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="136"/>
         <source>Was offline when this window opened.</source>
         <translation>Был не в сети, когда это окно открылось.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chatwindow.cpp" line="261"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="263"/>
         <source>&lt;This users idle time:</source>
         <translation>&lt;Время отсутствия этого пользователя:</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chatwindow.cpp" line="266"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="268"/>
         <source>This user is currently offline</source>
         <translation>Этот игрок не в сети</translation>
     </message>
@@ -1946,12 +1946,12 @@ If this string is empty, worms will probably not host or join a game.</source>
 <context>
     <name>settingswindow</name>
     <message>
-        <location filename="../src/wormnet/settingswindow.cpp" line="124"/>
+        <location filename="../src/wormnet/settingswindow.cpp" line="88"/>
         <source>Choose a Sound (mp3 or wav) file for this event</source>
         <translation>Выберите звук (mp3 или wav) для этого события</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.cpp" line="256"/>
+        <location filename="../src/wormnet/settingswindow.cpp" line="135"/>
         <source>Choose the directory from the soundpack.</source>
         <translation>Выберите папку с набором звуков</translation>
     </message>
@@ -2331,9 +2331,15 @@ Note: A reconnect is required to apply these settings.</source>
         <translation>Потеряна связь с игровым сервером!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snoppanet.cpp" line="230"/>
+        <location filename="../src/wormnet/snoppanet.cpp" line="229"/>
         <source>Wormnet wont start this game, please try again at a later time.</source>
         <translation>Невозможно поместить хост на вормнет, пожалуйста, попробуйте позже.</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/snoppanet.cpp" line="234"/>
+        <source>No target for hostreply
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

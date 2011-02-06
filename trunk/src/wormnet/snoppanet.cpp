@@ -29,8 +29,7 @@ snoppanet::snoppanet(QObject *parent) :
     if(!htmladdress.endsWith("/"))
         htmladdress=htmladdress+"/";
     gameliststarts = 0;
-    int delay = singleton<settingswindow>().from_map("sbhostrepead").value<int> ();
-    hosttimer.start(delay);
+    hosttimer.start(S_S.getint("sbhostrepead"));
 }
 
 snoppanet::~snoppanet() {   

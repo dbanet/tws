@@ -69,12 +69,11 @@ QVariant picturehandler::getflag(const userstruct &u) const{
                 return *flaglist["q"];
             return *flaglist[s.toLower().trimmed()];
         }
-        if(singleton<settingswindow>().from_map("cbonlyshowflagsfromverifiedusers").toBool())
+        if(S_S.getbool("cbonlyshowflagsfromverifiedusers"))
             return QVariant();
     }
-    if(!flaglist.contains(u.country.toLower().trimmed())){        
-        return *flaglist["q"];
-    }
+    if(!flaglist.contains(u.country.toLower().trimmed()))
+        return *flaglist["q"];    
     return *flaglist[u.country.toLower().trimmed()];
 }
 //----------------------------------------------------------------------------------------------

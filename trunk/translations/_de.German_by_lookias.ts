@@ -82,19 +82,19 @@ For hebreic and arabic for example.</source>
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="45"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="57"/>
         <source>If you like to keep the settings from an older Snooper installation click yes.
 If you use The Wheat Snooper at the first time just click No.</source>
         <translation>Der Snooper kann die Einstellungen von einer alten version übernehmen. Wenn du das möchtest klicke Ja.
 Wenn du das erste mal den Wheat Snooper benutzt das klicke auf Nein.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="51"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="63"/>
         <source>Please choose the folder from the old Snooper.</source>
         <translation>Bitte wähle das Verzeichnis wo der alte Wheat Snooper zu finden ist.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="57"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="69"/>
         <source>This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?</source>
         <translation>Dieses Verszeichnis enthält keine korrekte Installation des Wheat Snoopers. Willst du weitere Orte durchsuchen?</translation>
     </message>
@@ -657,17 +657,17 @@ Skin_base</translation>
         <translation>Einige Bilder fehlen!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="44"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="56"/>
         <source>Question</source>
         <translation>Frage</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="57"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="69"/>
         <source>Warning!</source>
         <translation>Warnung!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="34"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="33"/>
         <source>The translationfile cannot be loaded! it might be corrupt.</source>
         <translation>Die übersetzungsdatei kann nicht geladen wirden. Sie könnte beschädigt sein.</translation>
     </message>
@@ -771,9 +771,9 @@ Skin_base</translation>
         <translation>Sortieren</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chatwindow.cpp" line="89"/>
-        <location filename="../src/wormnet/chatwindow.cpp" line="136"/>
-        <location filename="../src/wormnet/chatwindow.cpp" line="277"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="91"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="138"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="279"/>
         <source>Online</source>
         <translation>Online</translation>
     </message>
@@ -1075,28 +1075,28 @@ Skin_base</translation>
 <context>
     <name>chatwindow</name>
     <message>
-        <location filename="../src/wormnet/chatwindow.cpp" line="38"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="40"/>
         <source>Chat with</source>
         <translation>Chatte mit</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chatwindow.cpp" line="246"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="248"/>
         <source>Choose a file.</source>
         <translation>Wähle eine Datei</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chatwindow.cpp" line="93"/>
-        <location filename="../src/wormnet/chatwindow.cpp" line="134"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="95"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="136"/>
         <source>Was offline when this window opened.</source>
         <translation>Dieser Teilnehmer war offline als dieses Fenster geöffnet wurde.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chatwindow.cpp" line="261"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="263"/>
         <source>&lt;This users idle time:</source>
         <translation>&lt;Die Zeit die dieser Bentuzer untätig ist:</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chatwindow.cpp" line="266"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="268"/>
         <source>This user is currently offline</source>
         <translation>Dieser Benutzer ist zur Zeit Offline.</translation>
     </message>
@@ -1939,12 +1939,12 @@ Dieser Name sollte nie leer sein.</translation>
 <context>
     <name>settingswindow</name>
     <message>
-        <location filename="../src/wormnet/settingswindow.cpp" line="124"/>
+        <location filename="../src/wormnet/settingswindow.cpp" line="88"/>
         <source>Choose a Sound (mp3 or wav) file for this event</source>
         <translation>Wähle eine Sound (wav or mp3) Datei für dieses Ereignis</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/settingswindow.cpp" line="256"/>
+        <location filename="../src/wormnet/settingswindow.cpp" line="135"/>
         <source>Choose the directory from the soundpack.</source>
         <translation>Wähle das Verzeichnis eines Soundpacks.</translation>
     </message>
@@ -2326,9 +2326,15 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
         <translation>Die Verbindung zum Spieleserver wurde unterbrochen.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snoppanet.cpp" line="230"/>
+        <location filename="../src/wormnet/snoppanet.cpp" line="229"/>
         <source>Wormnet wont start this game, please try again at a later time.</source>
         <translation>Wormnet wird dieses Spiel nicht anzeigen, versuche es später noch einmal.</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/snoppanet.cpp" line="234"/>
+        <source>No target for hostreply
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

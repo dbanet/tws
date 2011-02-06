@@ -263,7 +263,7 @@ void chathandler::insertText(const QString &s, QTextCharFormat &t,QString user) 
         if (!t.anchorHref().startsWith("<notice>") && t.anchorHref() != "action")
             singleton<sound_handler>().play_highlightningsound(user,qobject_cast<QWidget*> ( parent()));
         cursor->insertText(s, t);
-    } else if (containsOneCI(s, singleton<settingswindow>().from_map("combobox_wrapper").value<QStringList>(),&temp)) {
+    } else if (containsOneCI(s, S_S.getstringlist("combobox_wrapper"),&temp)) {
         singleton<sound_handler>().play_costumwordsound(user,qobject_cast<QWidget*> ( parent()));
         singleton<balloon_handler>().got_costum_word(temp,user);
         cursor->insertText(s, t);
@@ -439,7 +439,7 @@ void chathandler::contextrequest(const QPoint &p) {
 }
 void chathandler::usesettingswindow(const QString &s) {
     if (s == "sbmaximumoftextblocks" || s == "") {
-        int i = singleton<settingswindow>().from_map("sbmaximumoftextblocks").value<int> ();
+        int i = S_S.getint("sbmaximumoftextblocks");
         doc->setMaximumBlockCount(i);
     }
 }

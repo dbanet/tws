@@ -38,7 +38,7 @@ emoticonhandler::emoticonhandler(QWidget *parent) :
 				ui.listWidget->addItem(item);
 			}
 		}
-        ui.chbsmileys->setChecked(singleton<settingswindow>().from_map("chbsmileys").toBool());
+        ui.chbsmileys->setChecked(S_S.getbool("chbsmileys"));
 	connect(ui.close, SIGNAL(clicked()),this, SLOT(myclose()));
 	connect(ui.add, SIGNAL(clicked()),this, SLOT(add()));
 	connect(ui.remove, SIGNAL(clicked()),this, SLOT(remove()));
@@ -77,7 +77,7 @@ void emoticonhandler::myclose() {
 			}
 			f.close();
 		}
-        singleton<settingswindow>().to_map("chbsmileys",ui.chbsmileys->isChecked());
+        singleton<settingswindow>().set("chbsmileys",ui.chbsmileys->isChecked());
 	 close();
 }
 void emoticonhandler::add() {

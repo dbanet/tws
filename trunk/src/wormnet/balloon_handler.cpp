@@ -14,7 +14,7 @@ balloon_handler::balloon_handler()
     tray->show();
     balloonhelper << QTime::currentTime().toString("hh:mm") + ":"
             + QObject::tr("The Wheat Snooper version ")+about::version+QObject::tr(" started!");
-    if(!singleton<settingswindow>().from_map("cbdontshowballoons").toBool())
+    if(!S_S.getbool("cbdontshowballoons"))
         tray->showMessage(tr("Notifications."), balloonhelper.join("\n"));
 }
 balloon_handler::~balloon_handler()
@@ -22,11 +22,11 @@ balloon_handler::~balloon_handler()
     delete tray;
 }
 void balloon_handler::showballoon(){
-    if(!singleton<settingswindow>().from_map("cbdontshowballoons").toBool())
+    if(!S_S.getbool("cbdontshowballoons"))
         tray->showMessage(tr("Notifications."), balloonhelper.join("\n"));
-    if (! (balloonhelper.size() > singleton<settingswindow>().from_map("sbmaximumballonmessages").toInt()))
+    if (! (balloonhelper.size() > S_S.getint("sbmaximumballonmessages")))
         return;
-    int max_size=singleton<settingswindow>().from_map("sbmaximumballonmessages").toInt();
+    int max_size=S_S.getint("sbmaximumballonmessages");
     balloonhelper = balloonhelper.mid(balloonhelper.size()- max_size);
 }
 void balloon_handler::disconnected(){
@@ -43,21 +43,21 @@ void balloon_handler::connectedtoleagueserver(QString servicename){
 }
 
 void balloon_handler::buddyleft() {
-    if (!singleton<settingswindow>().from_map("chbbuddyballoonleaves").toBool())
+    if (!S_S.getbool("chbbuddyballoonleaves"))
         return;
     balloonhelper << usermodel::buddylefthelper;
     usermodel::buddylefthelper.clear();
     showballoon();
 }
 void balloon_handler::buddyarrived() {
-    if (!singleton<settingswindow>().from_map("chbbuddyballoonarives").toBool())
+    if (!S_S.getbool("chbbuddyballoonarives"))
         return;
     balloonhelper << usermodel::buddyarrivedhelper;
     usermodel::buddyarrivedhelper.clear();
     showballoon();
 }
 void balloon_handler::got_privmsg(const QString user, const QString msg){
-    if(!singleton<settingswindow>().from_map("chbballoonprivmsg").toBool())
+    if(!S_S.getbool("chbballoonprivmsg"))
         return;
     balloonhelper << QTime::currentTime().toString("hh:mm") + ":" + user + tr(" said: ") + msg;
     showballoon();
@@ -73,7 +73,7 @@ void balloon_handler::got_game(const QString playername, const QString gamename)
     showballoon();
 }
 void balloon_handler::got_costum_word(const QString word, const QString user){
-    if (!singleton<settingswindow>().from_map("cbcostumword").value<bool> ())
+    if (!S_S.getbool("cbcostumword"))
         return;
     balloonhelper<< QTime::currentTime().toString("hh:mm") + ":"
             +"... " +  word + " ..." + tr("was highlighted by ")+ user;

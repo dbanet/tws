@@ -29,7 +29,7 @@ void quithandler::inducequit(){
 void quithandler::beforequit(){    
     qobjectwrapper<mainwindow>::ref().quit();    
     singleton<clantowebpagemapper>().safe();
-    bool b = singleton<settingswindow>().from_map("cbsafequerys").value<bool> ();
+    bool b = S_S.getbool("cbsafequerys");
     if (b) {
         safeusergarbage();
         safequerylist();

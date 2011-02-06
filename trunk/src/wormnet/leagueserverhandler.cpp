@@ -120,7 +120,7 @@ void leagueserverhandler::refreshFinished(){
         myDebug()<<tr("Unable to get the user information from")+" "+servicename;
         map.clear();
         refreshreply->deleteLater();
-        informationrefreshtimer.start(qMax(100*1000,singleton<settingswindow>().from_map("sbsecureloggingrepeatdelay").toInt()));
+        informationrefreshtimer.start(qMax(100*1000,S_S.getint("sbsecureloggingrepeatdelay")));
         return;
     }
     map.clear();
@@ -137,7 +137,7 @@ void leagueserverhandler::refreshFinished(){
             map[nick][e_clan]="";
     }
     refreshreply->deleteLater();
-    informationrefreshtimer.start(singleton<settingswindow>().from_map("sbsecureloggingrepeatdelay").toInt());
+    informationrefreshtimer.start(S_S.getint("sbsecureloggingrepeatdelay"));
 }
 void leagueserverhandler::setleague(const QString league, QString server){
     if(!server.endsWith("/"))
