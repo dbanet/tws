@@ -8,8 +8,7 @@
 #include <QKeyEvent>
 #include <QEvent>
 bool awaybox::ison=0;
-awaybox::awaybox(QWidget *parent) :
-	QWidget(parent) {
+awaybox::awaybox(QWidget *parent):QWidget(parent) {
     setObjectName("awaybox");
     ui.setupUi(this);
     setWindowTitle(tr("Type in your awaymessage."));
@@ -28,7 +27,6 @@ awaybox::awaybox(QWidget *parent) :
     ison=1;
     ui.textEdit->installEventFilter(this);
     //connect(ui.cancel,SIGNAL(clicked()),this,SLOT(cancelclicked()));
-
 }
 void awaybox::okclicked() {
     qobjectwrapper<awayhandler>::ref().setaway(ui.textEdit->toPlainText());

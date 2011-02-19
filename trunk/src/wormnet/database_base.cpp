@@ -75,7 +75,7 @@ bool database_base::appendList(QString key, QVariant value, QSqlQuery &query){
         query.addBindValue(v);
         query.exec();
     }
-    qDebug()<<key<<"# "<<value.value<T>()<<"# "<<get(key);
+    //qDebug()<<key<<"# "<<value.value<T>()<<"# "<<get(key);
     return true;
 }
 void database_base::set(QString key, QVariant value){
@@ -107,9 +107,9 @@ bool database_base::contains(QString key) const {
 }
 void database_base::before_get(QString &key) const{
     key=makeValidColumnName(key);
-    qDebug()<<"get";
-    qDebug()<<key;
-    qDebug()<<"#########";
+//    qDebug()<<"get";
+//    qDebug()<<key;
+//    qDebug()<<"#########";
 }
 void database_base::before_set(QString &key, QVariant value) const{
     key=makeValidColumnName(key);
