@@ -45,7 +45,7 @@ QPixmap *picturehandler::getflag(QString country){
 }
 //----------------------------------------------------------------------------------------------
 void picturehandler::fillflags(QComboBox *cb){
-    QMap<QString,QPixmap*>::ConstIterator it=flaglist.begin();
+    QHash<QString,QPixmap*>::ConstIterator it=flaglist.begin();
     while(it!=flaglist.end()){
         cb->addItem(**it,it.key());
         it++;
@@ -62,14 +62,14 @@ void picturehandler::fillranks(QComboBox *cb){
 }
 //----------------------------------------------------------------------------------------------
 QVariant picturehandler::getflag(const userstruct &u) const{
-    if(S_S.getbool("spectateleagueserver")){
+    if(S_S.spectateleagueserver){
         QString s=singleton<leagueserverhandler>().map_at_toString(u.nick,leagueserverhandler::e_flag);
         if(!s.isEmpty()){
             if(!flaglist.contains(s.toLower().trimmed()))
                 return *flaglist["q"];
             return *flaglist[s.toLower().trimmed()];
         }
-        if(S_S.getbool("cbonlyshowflagsfromverifiedusers"))
+        if(S_S.cbonlyshowflagsfromverifiedusers)
             return QVariant();
     }
     if(!flaglist.contains(u.country.toLower().trimmed()))

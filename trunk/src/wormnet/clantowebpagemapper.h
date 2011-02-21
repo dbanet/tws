@@ -2,7 +2,7 @@
 #define CLANTOWEBPAGEMAPPER_H
 #include "global_macros.h"
 #include"userstruct.h"
-#include<QMap>
+#include<QHash>
 #include<QObject>
 #include<QNetworkAccessManager>
 class QNetworkReply;
@@ -21,8 +21,8 @@ private slots:
     void httpFinished();
     void httpReadyRead();
 private:
-    QMap<QString,QString> InformationMap;
-    QMap<QString,QString> map;
+    QHash<QString,QString> InformationMap;
+    QHash<QString,QString> map;
     QNetworkAccessManager qnam;
     QNetworkReply *reply;
     QString file;

@@ -115,15 +115,15 @@ window::window(netcoupler *n, QString s, int i) :
     QVariantList windowstates = S_S.getlist(currentchannel + QString::number(whichuiison));
     if (!windowstates.isEmpty()) {
         if (!windowstates.isEmpty())
-            myDebug()<<"restoreGeometry(windowstates.takeFirst().toByteArray());"<<restoreGeometry(windowstates.takeFirst().toByteArray());
+            restoreGeometry(windowstates.takeFirst().toByteArray());
         if (!windowstates.isEmpty())
-            myDebug()<<"ui.splitter1->restoreState(windowstates.takeFirst().toByteArray());"<<ui.splitter1->restoreState(windowstates.takeFirst().toByteArray());
+            ui.splitter1->restoreState(windowstates.takeFirst().toByteArray());
         if (!windowstates.isEmpty())
-            myDebug()<<"ui.splitter2->restoreState(windowstates.takeFirst().toByteArray());"<<ui.splitter2->restoreState(windowstates.takeFirst().toByteArray());
+            ui.splitter2->restoreState(windowstates.takeFirst().toByteArray());
         if (!windowstates.isEmpty())
-            myDebug()<<"ui.users->header()->restoreState(windowstates.takeFirst().toByteArray());"<<ui.users->header()->restoreState(windowstates.takeFirst().toByteArray());
+            ui.users->header()->restoreState(windowstates.takeFirst().toByteArray());
         if (!windowstates.isEmpty())
-            myDebug()<<"ui.hosts->header()->restoreState(windowstates.takeFirst().toByteArray());"<<ui.hosts->header()->restoreState(windowstates.takeFirst().toByteArray());
+            ui.hosts->header()->restoreState(windowstates.takeFirst().toByteArray());
         if (!windowstates.isEmpty())
             ui.hosts->header()->resizeSection(3,windowstates.takeFirst().toInt());
         if (!windowstates.isEmpty())
@@ -153,9 +153,8 @@ void window::expandchannels(QStringList) { //expand on startup
     ui.hosts->setExpanded(singleton<netcoupler>().hosts.indexbychannelname(currentchannel), 1);
     ui.users->setExpanded(singleton<netcoupler>().users.indexbychannelname(currentchannel), 1);
     ui.users->setExpanded(singleton<netcoupler>().users.indexbychannelname(usermodel::tr("Querys")), 1);
-    if (S_S.getbool("cbopenbuddylistonstartup"))
-        ui.users->setExpanded(singleton<netcoupler>().users.indexbychannelname(usermodel::tr(
-                "Buddylist")), 1);
+    if (S_S.cbopenbuddylistonstartup)
+        ui.users->setExpanded(singleton<netcoupler>().users.indexbychannelname(usermodel::tr("Buddylist")), 1);
     if (ui.users->isExpanded(singleton<netcoupler>().users.index(singleton<netcoupler>().users.classes.indexOf(
              currentchannel), 0)) && ui.hosts->isExpanded(
                     singleton<netcoupler>().hosts.index(singleton<netcoupler>().hosts.classes.indexOf( currentchannel),
@@ -223,7 +222,7 @@ bool window::eventFilter(QObject *obj, QEvent *event) {
 void window::gotmsg(const QString &user, const QString &receiver,
                     const QString &msg) {
     if (!acceptignorys) {
-        if (!containsCI(S_S.getstringlist("ignorelist"), user)) {
+        if (!containsCI(S_S.ignorelist, user)) {
             if (compareCI(receiver, currentchannel)) {
                 chat->append(user, receiver, msg);
             }
@@ -237,7 +236,7 @@ void window::gotmsg(const QString &user, const QString &receiver,
 void window::gotnotice(const QString &user, const QString &receiver,
                        const QString &msg) {
 
-    if (!containsCI(S_S.getstringlist("ignorelist"), user)) {
+    if (!containsCI(S_S.ignorelist, user)) {
         if (containsCI(singleton<netcoupler>().channellist, receiver)) { //notice from user to a channel
             if (compareCI(receiver, currentchannel))
                 chat->appendnotice(user, receiver, msg); //only one channel will get the notice
@@ -354,7 +353,7 @@ void window::useritempressed(const QModelIndex &index) {
     }
     if (QApplication::mouseButtons() == Qt::LeftButton && index.column()==usermodel::e_Clan){
         QString s;
-        if(S_S.getbool("spectateleagueserver")){
+        if(S_S.spectateleagueserver){
             QString nick=singleton<netcoupler>().users.data(index.sibling(index.row(), 0),Qt::DisplayRole).value<QString> ();
             s=singleton<leagueserverhandler>().map_at_toString(nick,leagueserverhandler::e_clan);
         }
@@ -382,7 +381,7 @@ void window::useritempressed(const QModelIndex &index) {
             }
         }
     } else if (index.column() == usermodel::e_Clan) {
-        QStringList sl = S_S.getstringlist("dissallowedclannames");
+        QStringList sl = S_S.dissallowedclannames;
         if (sl.contains(singleton<netcoupler>().users.getuserstructbyindex(index).clan,Qt::CaseInsensitive))
             menu.addAction(tr("Allow this clanname."));
         else
@@ -414,13 +413,13 @@ void window::useritempressed(const QModelIndex &index) {
             "Buddylist") && singleton<netcoupler>().users.classes[index.internalId()]
                != usermodel::tr("Ignorelist")) {
         QMenu menu;
-        if (containsCI(S_S.getstringlist("buddylist"), user)) {
+        if (containsCI(S_S.buddylist, user)) {
             menu.addAction(tr("Remove this user from Buddylist."));
             menu.addSeparator();
             menu.addAction(tr("Show info about this user."))->setIcon(
                     chaticon);
             a = menu.exec(QCursor::pos());
-        } else if (containsCI(S_S.getstringlist("ignorelist"), user)) {
+        } else if (containsCI(S_S.ignorelist, user)) {
             menu.addAction(tr("Remove this user from Ignorelist."));
             menu.addSeparator();
             menu.addAction(tr("Show info about this user."))->setIcon(chaticon);
@@ -489,7 +488,7 @@ void window::hostitemdblclicked(const QModelIndex &index) {
 }
 void window::getuserinfo(const QString &s) {
     QString msg;
-    if(S_S.getbool("spectateleagueserver")){
+    if(S_S.spectateleagueserver){
         QString url=singleton<leagueserverhandler>().map_at_toString(s,leagueserverhandler::e_webpage);
         if(!url.isEmpty()){
             QDesktopServices::openUrl(QUrl(url));
@@ -545,7 +544,7 @@ void window::hostitempressed(const QModelIndex &index) {
             QAction *a = joinmenu.exec(QCursor::pos());
             if (a != 0) {
                 if (a->text() == tr("Choose a Program to join this game.")) {
-                    QStringList sl = S_S.getstringlist("joinstrings");
+                    QStringList sl = S_S.joinstrings;
 #ifdef Q_WS_S60
                     QString file;
                     return;
@@ -565,7 +564,7 @@ void window::hostitempressed(const QModelIndex &index) {
                         sl.insert(0, file);
                         S_S.set("joinstrings", sl);
                         joinmenu2.clear();
-                        foreach(QString s,S_S.getstringlist("joinstrings")) {
+                        foreach(QString s,S_S.joinstrings) {
                             joinmenu2.addAction(s);
                         }
                         joinmenu2.addAction(tr(
@@ -583,7 +582,7 @@ void window::hostitempressed(const QModelIndex &index) {
                         myDebug() << s;
                     }
                 } else {
-                    QStringList sl = S_S.getstringlist("joinstrings");
+                    QStringList sl = S_S.joinstrings;
                     sl.move(sl.indexOf(a->text()), 0);
                     S_S.set("joinstrings", sl);
                     singleton<netcoupler>().joingame(hostinfo, currentchannel, gamename);
@@ -604,32 +603,32 @@ void window::hboxok() {
 }
 void window::usesettingswindow(const QString &s) {
     if (s == "cbalertmeonnotice" || s == "")
-        alertonnotice = S_S.getbool("cbalertmeonnotice");
+        alertonnotice = S_S.cbalertmeonnotice;
     if (s == "cbalertfromnormal" || s == "")
-        alertonprivmsg = S_S.getbool("cbalertfromnormal");
+        alertonprivmsg = S_S.cbalertfromnormal;
     if (s == "cbignorysappearinchannel" || s == "")
-        acceptignorys = S_S.getbool("cbignorysappearinchannel");
+        acceptignorys = S_S.cbignorysappearinchannel;
     disconnect(net, SIGNAL(sigusergarbagejoin(const QString&,const QString&)),this, SLOT(gotgarbagejoin(const QString&,const QString&)));
     disconnect(net, SIGNAL(sigusergarbagepart(const QString&,const QString&)),this, SLOT(gotgarbagepart(const QString&,const QString&)));
     disconnect(net, SIGNAL(sigusergarbagequit(const QString&,const QString&)),this, SLOT(gotgarbagequit(const QString&,const QString&)));
     if (s == "chbjoininfo" || s == "") {
-        if (S_S.getbool("chbjoininfo"))
+        if (S_S.chbjoininfo)
             connect(net, SIGNAL(sigusergarbagejoin(const QString&,const QString&)),this, SLOT(gotgarbagejoin(const QString&,const QString&)));
     }
     if (s == "chbpartinfo" || s == "") {
-        if (S_S.getbool("chbpartinfo"))
+        if (S_S.chbpartinfo)
             connect(net, SIGNAL(sigusergarbagepart(const QString&,const QString&)),this, SLOT(gotgarbagepart(const QString&,const QString&)));
     }
     if (s == "chbquitinfo" || s == "") {
-        if (S_S.getbool("chbquitinfo"))
+        if (S_S.chbquitinfo)
             connect(net, SIGNAL(sigusergarbagequit(const QString&,const QString&)),this, SLOT(gotgarbagequit(const QString&,const QString&)));
     }
 
 }
 void window::getjoinmenu() {
     joinmenu2.clear();
-    if (!S_S.getstringlist("joinstrings").isEmpty()) {
-        foreach(QString s,S_S.getstringlist("joinstrings"))
+    if (!S_S.joinstrings.isEmpty()) {
+        foreach(QString s,S_S.joinstrings)
             joinmenu2.addAction(s);        
     }
     joinmenu2.addAction(tr("Choose a Program to join this game."));

@@ -12,7 +12,7 @@
 #include<QFile>
 #include<QDir>
 #include<QApplication>
-QMap<QString, QVariant> charformatsettings::map;
+QHash<QString, QVariant> charformatsettings::map;
 extern bool fontorcolorchanged;
 charformatsettings::charformatsettings() {
 	// TODO Auto-generated constructor stub
@@ -27,8 +27,7 @@ void charformatsettings::load() {
 		ds.setVersion(QDataStream::Qt_4_3);
 		ds >> map;
 	} else {
-                myDebug() << QObject::tr(
-				"cannot load textscheme file. I apply a random textscheme.");
+                myDebug() << QObject::tr("cannot load textscheme file. I apply a random textscheme.");
                 QDir dir(QApplication::applicationDirPath()+"/textschemes");
 		QStringList sl = dir.entryList(QStringList("*.textscheme"),QDir::Files);
 		if (!sl.isEmpty()) {

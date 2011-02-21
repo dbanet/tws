@@ -76,8 +76,8 @@ void clantowebpagemapper::httpReadyRead(){
 }
 QString clantowebpagemapper::getInformation(const userstruct &u){
     QString clan=u.clan.toLower();
-    if(S_S.getbool("spectateleagueserver")){
-        if(S_S.getbool("cbshowranksonlyfromsecureloggedusers"))
+    if(S_S.spectateleagueserver){
+        if(S_S.cbshowranksonlyfromsecureloggedusers)
             clan=singleton<leagueserverhandler>().map_at_toString(u.nick,leagueserverhandler::e_clan);        
     }
     if(!InformationMap.contains(clan))

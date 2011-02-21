@@ -3,7 +3,7 @@
 #include"myDebug.h"
 #include<QString>
 #include<QStringList>
-extern QMap<QString, QStringList> usergarbagemap;
+extern QHash<QString, QStringList> usergarbagemap;
 extern QStringList querylist;
 class QPixmap;
 class QComboBox;
@@ -18,6 +18,7 @@ void safequerylist();
 void loadquerylist();
 void info(const QString &);
 void info(int);
+void fillString(QString &s, QString ss, int length);
 namespace {
     bool compareCI(const QString &s1, const QString &s2) {
         return s1.toLower() == s2.toLower();
@@ -67,7 +68,7 @@ namespace {
     }                               
     //----------------------------------------------------------------------------------------------
     QString makeValidColumnName(QString s){
-        return s.remove(".").remove(":").remove("/").replace(" ","_").remove("-");
+        return s.remove('.').remove(':').remove('/').replace(' ','_').remove('-').remove('#');
     }
     //----------------------------------------------------------------------------------------------
 

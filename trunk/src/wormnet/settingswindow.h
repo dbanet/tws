@@ -2,7 +2,6 @@
 #define SETTINGSWINDOW_H
 
 #include<QtGui/QWidget>
-#include<QMap>
 
 #include"global_macros.h"
 #include"settings.h"

@@ -39,9 +39,9 @@ void hostmodel::sethoststruct(QList<hoststruct> l, QString chan) {
     while (i != l.begin()) {
         i--;
         hostmap[chan].push_back(*i);
-        if (!S_S.getbool("chbshowbaloonwhenbuddyhosts"))
+        if (!S_S.chbshowbaloonwhenbuddyhosts)
             continue;
-        if (!S_S.getstringlist("buddylist").contains(i->nick()))
+        if (!S_S.buddylist.contains(i->nick()))
             continue;
         sl << i->nick();
         if (buddyhosts[chan].contains(i->nick()))   //if the host was allready alerted
@@ -57,7 +57,7 @@ void hostmodel::sethoststruct(QList<hoststruct> l, QString chan) {
             hostmap[chan].count() - 1, 4, classes.indexOf(chan)));
 }
 int hostmodel::columnCount(const QModelIndex & /*parent*/) const {
-    if(!S_S.getbool("cbshowipofhosts"))
+    if(!S_S.cbshowipofhosts)
         return 4;
     return 5;
 }
@@ -83,9 +83,9 @@ QVariant hostmodel::data(const QModelIndex & index, int role) const {
             QString
                     s =
                     hostmap[classes[index.internalId()]][index.row()].nick();
-            if (S_S.getstringlist("buddylist").contains(s))
+            if (S_S.buddylist.contains(s))
                 return buddyhosticon;
-            else if (S_S.getstringlist("ignorelist").contains(s))
+            else if (S_S.ignorelist.contains(s))
                 return ignorehosticon;
             else
                 return hosticon;

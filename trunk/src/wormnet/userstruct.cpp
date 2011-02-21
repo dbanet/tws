@@ -14,7 +14,6 @@
 #include<QHostInfo>
 #include<QPointer>
 bool *userstruct::boolhelper = new bool;
-QMap<int, QString> userstruct::temp;
 bool userstruct::addressischecked=0;
 userstruct::userstruct():flag(49),rank(12) {
 }

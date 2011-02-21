@@ -14,7 +14,7 @@ public:
     usermodel(QObject * parent = 0);
     ~usermodel();
 
-    void setuserstruct(const QList<userstruct>&, QMap<QString,QStringList>);
+    void setuserstruct(const QList<userstruct>&, QHash<QString,QStringList>);
     int columnCount(const QModelIndex & parent = QModelIndex()) const;
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
@@ -37,7 +37,7 @@ public:
     QModelIndex indexbychannelname(QString);
     QStringList classes;
     QStringList usermap_channellist_helper;
-    QMap<QString,QList<userstruct> > usermap;
+    QHash<QString,QList<userstruct> > usermap;
     QList<userstruct> users;
     static QStringList buddyarrivedhelper;
     static QStringList buddylefthelper;

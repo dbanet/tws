@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include<QStringList>
-#include<QMap>
+#include<QHash>
 #include<QTimer>
 #include<QNetworkAccessManager>
 #include"global_macros.h"
@@ -61,7 +61,7 @@ private:
     QTimer connecttimer;
     QTimer informationrefreshtimer;
 
-    QMap<QString,QStringList> map;
+    QHash<QString,QStringList> map;
 
     QString serveraddress;
     bool loggingstate;

@@ -97,7 +97,7 @@ void safeusergarbage() {
         return;
     QDataStream ds(&f);
     ds.setVersion(QDataStream::Qt_4_3);
-    QMap<QString, QStringList>::iterator i;
+    QHash<QString, QStringList>::iterator i;
     for (i = usergarbagemap.begin(); i != usergarbagemap.end(); ++i) {
         ds << i.key() << i.value();
     }
@@ -144,5 +144,10 @@ void info(int i){
     QMessageBox::information(0,"Debug info",QString::number(i));
 }
 //----------------------------------------------------------------------------------------------
+void fillString(QString &s, QString ss, int length){
+    s.clear();
+    for(int i=0;i<length;i++)
+        s+=ss;
+}
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------

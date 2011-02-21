@@ -27,7 +27,7 @@ public:
     void quit();
     int state();
     QList<userstruct> wholist;
-    QMap<QString,QStringList> joinlist;
+    QHash<QString,QStringList> joinlist;
     QString nick;
 public slots:
     void start();

@@ -25,7 +25,7 @@ public:
 
 	QString joininfo(const QModelIndex &);
 	QString gamename(const QModelIndex &index);
-	QMap<QString,QList<hoststruct> > hostmap;
+        QHash<QString,QList<hoststruct> > hostmap;
 	QStringList classes;
 private:
 	QStringList stringnamelist;
@@ -34,7 +34,7 @@ private:
 	QPixmap buddyhosticon;
 	QPixmap ignorehosticon;
 
-	QMap<QString,QStringList> buddyhosts;
+        QHash<QString,QStringList> buddyhosts;
 };
 
 #endif // HOSTMODEL_H

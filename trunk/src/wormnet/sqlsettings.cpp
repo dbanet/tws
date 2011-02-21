@@ -1,6 +1,7 @@
 #include"sqlsettings.h"
 #include"myDebug.h"
 #include"global_functions.h"
+#include"progressdialog.h"
 
 #include<QtSql>
 #include<stdexcept>
@@ -23,12 +24,17 @@ void sqlsettings::start(QString db){
     database_base::open();
     if(!language_file.isEmpty())
         prepare("language_file",language_file);
+    progressdialog *progress=NULL;
     if(!b){
+        progress=new progressdialog;
+        progress->show();
+        progress->raise();
+        qApp->processEvents();
         existingSettingsValid=false;
         loadsnpiniDefaults();
         loadsettingswindowDefaults();
-    }    
-    exec();
+        exec();
+    }        
     close();    
     QTranslator *trans=new QTranslator;
     QString file=getstring("language_file").remove(".qm");
@@ -37,6 +43,8 @@ void sqlsettings::start(QString db){
     else
         myDebug() << QObject::tr("The translationfile cannot be loaded! it might be corrupt.")+"  "+file;                
     validate();        
+    if(progress)
+        progress->close();
 }
 sqlsettings::~sqlsettings(){
 }
@@ -54,7 +62,7 @@ void sqlsettings::open(){
         query.exec(QString("insert into %1(d_u_m_m_y) values(1);").arg(TABLENAME));
 }
 void sqlsettings::close(){
-    QSqlDatabase::database().close();
+    QSqlDatabase::database(cacheddbname).close();
 }
 bool sqlsettings::databasexists(){
     installTranslationBySystemLocale();
@@ -214,19 +222,20 @@ void sqlsettings::prepare(QString key,QVariant value){
         for(int i=0;i<size;i++)
             query.exec(QString("insert into %1(d_u_m_m_y) values(1);").arg(TABLENAME));
         int counter = 1;
-        if(value.type()==QVariant::List)
+        if(value.type()==QVariant::List){
             foreach(QVariant v,value.toList()){
-            query.prepare(QString("update %1 set %2=:value where prime=%3;").arg(TABLENAME).arg(key).arg(counter++));
-            query.bindValue("value",v);
-            query.exec();
-        }
-        else if(value.type()==QVariant::StringList)
-            foreach(QString v,value.toStringList()){
-            query.prepare(QString("update %1 set %2=:value where prime=%3;").arg(TABLENAME).arg(key).arg(counter++));
-            query.bindValue("value",v);
-            query.exec();
-        }
-        query.exec(QString("update %1 set %2=NULL where prime=%3;").arg(TABLENAME).arg(key).arg(counter++));
+                query.prepare(QString("update %1 set %2=? where prime=%3;").arg(TABLENAME).arg(key).arg(counter++));
+                query.addBindValue(v);
+                query.exec();
+            }
+        } else if(value.type()==QVariant::StringList){
+            foreach(QString v,value.toStringList()){                
+                query.prepare(QString("update %1 set %2=? where prime=%3;").arg(TABLENAME).arg(key).arg(counter++));
+                query.addBindValue(v);
+                query.exec();
+            }
+        }       
+        query.exec(QString("update %1 set %2=NULL where prime=%3;").arg(TABLENAME).arg(key).arg(counter));
     } else if(value.type()== QVariant::Int || value.type()== QVariant::Bool || value.type()== QVariant::ByteArray || value.type()== QVariant::Double || value.type()== QVariant::String){
         query.prepare(QString("update %1 set %2=:value where prime=1;").arg(TABLENAME).arg(key));
         query.bindValue("value",value);
@@ -237,46 +246,45 @@ void sqlsettings::prepare(QString key,QVariant value){
         qDebug()<<" key: "+ key;
         qDebug()<<"value: "+value.toString();
         qDebug()<<value.isNull();
-        //throw std::runtime_error("void database_base::prepare(QString key, QVariant value)");
+        throw std::runtime_error("void database_base::prepare(QString key, QVariant value)");
     }
+    if(query.lastError().isValid())
+        qDebug()<<query.lastQuery()<<":\n"<<query.lastError().text()<<"\n#####################";
 }
 void sqlsettings::exec(){
     if(existingSettingsValid)
         return;
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE",databasename);
-    db.setDatabaseName(databasename);
-    db.open();
-
+    if(!isOpen()){
+        QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE",databasename);
+        db.setDatabaseName(databasename);
+        db.open();
+    }
     QSqlQueryModel model;
     model.setQuery(QString("select * from %1;").arg(TABLENAME),QSqlDatabase::database(cacheddbname));
     QSqlRecord record=model.record(0);
-    QSqlQuery query(db);        
-    QStringList sl;
-    QString questionmarks;
+    QSqlQuery query(QSqlDatabase::database(databasename));
+    QStringList sl;    
     for(int i=0;i<record.count();i++){
-        sl<<record.field(i).name().replace(" ","_");
-        questionmarks+="?,";
+        sl<<makeValidColumnName(record.field(i).name());
+        query.exec(QString("alter table %1 add %2 BLOB;").arg(TABLENAME).arg(sl.last()));
+        qApp->processEvents();
     }
     sl.removeDuplicates();
     sl.removeAll("d_u_m_m_y");
     sl.removeAll("prime");
-    sl.replaceInStrings("BLOB","d_u_m_m_y_2");
-    questionmarks=questionmarks.left(questionmarks.size()-5);
-    QString s=QString("create table %1 (prime INTEGER PRIMARY KEY ASC, d_u_m_m_y bool, %2 blob);")
-              .arg(TABLENAME)
-              .arg(sl.join(" blob, "));
-    query.exec(s);
-    if(query.lastError().isValid())
-        qDebug()<<query.lastError().text()<<"\n#####################";
+    sl.replaceInStrings("BLOB","d_u_m_m_y_2");        
 
     for(int i=0;i<model.rowCount();i++){
-        s=QString("insert into %1(%2) values(%3);").arg(TABLENAME).arg(sl.join(", ")).arg(questionmarks);
+        query.exec(QString("insert into %1(d_u_m_m_y) values(1);").arg(TABLENAME));
+        QString s=QString("update %1 set %2 where prime=%3;").arg(TABLENAME).arg(sl.join("=?, ")+"=?").arg(i+1);
         query.prepare(s);
-        for(int j=0;j<record.count()-2;j++)
+        for(int j=0;j<sl.size();j++){
             query.addBindValue(model.record(i).value(j+2));
-        query.exec();
+        }
+        query.exec();        
+        qApp->processEvents();
         if(query.lastError().isValid())
-            qDebug()<<query.lastError().text()<<"\n#####################";
-    }           
-    db.close();
+            qDebug()<<query.lastQuery()<<":\n"<<query.lastError().text()<<"\n#####################";
+    }             
+    sethash();
 }

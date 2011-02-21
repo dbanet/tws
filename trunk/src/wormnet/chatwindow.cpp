@@ -16,7 +16,7 @@
 #include<QDesktopWidget>
 
 extern QStringList querylist;
-extern QMap<QString, QStringList> usergarbagemap;
+extern QHash<QString, QStringList> usergarbagemap;
 chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
 	QWidget(parent), chatpartner(s), net(n) {
     setAttribute(Qt::WA_DeleteOnClose);
@@ -32,16 +32,16 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
     ui.chatwindowbuttonscrollArea->installEventFilter(this);
     update();
     chat = new chathandlerprv(this, ui.chat, chatpartner);
-    if(S_S.getbool("cbsafequerys")){
+    if(S_S.cbsafequerys){
         foreach(QString s,usergarbagemap[chatpartner.toLower()]) {
             chat->appendgarbage(s);
         }
     }
     setWindowTitle(tr("Chat with") + " " + s);
 
-    if (containsCI(S_S.getstringlist("buddylist"), chatpartner))
+    if (containsCI(S_S.buddylist, chatpartner))
         setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/buddyicon.png"));
-    else if (containsCI(S_S.getstringlist("ignorelist"), chatpartner))
+    else if (containsCI(S_S.ignorelist, chatpartner))
         setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/ignoreicon.png"));
     else
         setWindowIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/usericon.png"));
@@ -62,7 +62,7 @@ chatwindow::chatwindow(netcoupler *n, const QString &s, QWidget *parent) :
         ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
     else
         ui.pbmute->setIcon(QIcon("snppictures/buttons/mutebutton.png"));
-    if (containsCI(S_S.getstringlist("buddylist"), chatpartner))
+    if (containsCI(S_S.buddylist, chatpartner))
         ui.pbbuddy->setIcon(QIcon("snppictures/buttons/normal.png"));
     else
         ui.pbbuddy->setIcon(QIcon("snppictures/buttons/buddy.png"));
@@ -229,18 +229,18 @@ void chatwindow::pbmuteclicked() {
     S_S.set("mutedusers", singleton<netcoupler>().mutedusers);
 }
 void chatwindow::pbbuddyclicked() {
-    if (containsCI(S_S.getstringlist("buddylist"), chatpartner)) {
+    if (containsCI(S_S.buddylist, chatpartner)) {
         ui.pbbuddy->setIcon(QIcon("snppictures/buttons/buddy.png"));
-        QStringList sl = S_S.getstringlist("buddylist");
+        QStringList sl = S_S.buddylist;
         S_S.set("buddylist", removeCI(sl, chatpartner));
-    } else if (containsCI(S_S.getstringlist("ignorelist"), chatpartner)) {
-        QStringList sl = S_S.getstringlist("ignorelist");
+    } else if (containsCI(S_S.ignorelist, chatpartner)) {
+        QStringList sl = S_S.ignorelist;
         S_S.set("ignorelist", removeCI(sl, chatpartner));
-        S_S.set("buddylist", S_S.getstringlist("buddylist") << chatpartner);
+        S_S.set("buddylist", S_S.buddylist << chatpartner);
         ui.pbbuddy->setIcon(QIcon("snppictures/buttons/normal.png"));
     } else {
         ui.pbbuddy->setIcon(QIcon("snppictures/buttons/normal.png"));
-        S_S.set("buddylist", S_S.getstringlist("buddylist") << chatpartner);
+        S_S.set("buddylist", S_S.buddylist << chatpartner);
     }
 }
 void chatwindow::pblogclicked() {
@@ -287,7 +287,7 @@ void chatwindow::channelmsg(const QString &user, const QString &receiver,
                 + QTime::currentTime().toString("hh:mm") + " " + user
                 + " to " + receiver + ">"
                 + QString(msg).remove("\n").remove("\r");
-        if (S_S.getbool("chbshowchannelchatinchatwindows")) {
+        if (S_S.chbshowchannelchatinchatwindows) {
             chat->appendgarbage(QDate::currentDate().toString("dd.MM") + " "
                                 + QTime::currentTime().toString("hh:mm") + " " + user
                                 + " to " + receiver + ">"

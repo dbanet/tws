@@ -83,7 +83,7 @@ void leagueserverhandler::loginFinished(){
     int number=sl.takeFirst().toInt(&b);
     if(!b)
         return;
-    if(S_S.getint("tusloginmessagenumber")==number)
+    if(S_S.tusloginmessagenumber==number)
         return;
     S_S.set("tusloginmessagenumber", number);
     QDesktopServices::openUrl(QUrl(sl.takeFirst()));    
@@ -120,7 +120,7 @@ void leagueserverhandler::refreshFinished(){
         myDebug()<<tr("Unable to get the user information from")+" "+servicename;
         map.clear();
         refreshreply->deleteLater();
-        informationrefreshtimer.start(qMax(100*1000,S_S.getint("sbsecureloggingrepeatdelay")));
+        informationrefreshtimer.start(qMax(100*1000,S_S.sbsecureloggingrepeatdelay));
         return;
     }
     map.clear();
@@ -137,7 +137,7 @@ void leagueserverhandler::refreshFinished(){
             map[nick][e_clan]="";
     }
     refreshreply->deleteLater();
-    informationrefreshtimer.start(S_S.getint("sbsecureloggingrepeatdelay"));
+    informationrefreshtimer.start(S_S.sbsecureloggingrepeatdelay);
 }
 void leagueserverhandler::setleague(const QString league, QString server){
     if(!server.endsWith("/"))

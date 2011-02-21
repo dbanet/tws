@@ -14,7 +14,7 @@ public:
 
 private:
 	Ui::textschemehandlerClass ui;
-	QMap<QString,QTextCharFormat*> map;
+        QHash<QString,QTextCharFormat*> map;
 private slots:
 	void closeclicked();
 	void fontclicked();

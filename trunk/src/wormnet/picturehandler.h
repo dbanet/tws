@@ -3,7 +3,7 @@
 
 #include"global_macros.h"
 #include"userstruct.h"
-#include<QMap>
+#include<QHash>
 class QPixmap;
 class QComboBox;
 class picturehandler
@@ -26,9 +26,9 @@ public:
 
     DECLARE_SINGLETON(picturehandler);
 private:
-    QMap<QString, QPixmap*> flaglist;
+    QHash<QString, QPixmap*> flaglist;
     QList<QPixmap*> ranklist;
-    QMap<QString, QPixmap*> leagueranklist;
+    QHash<QString, QPixmap*> leagueranklist;
 };
 
 #endif // PICTUREHANDLER_H

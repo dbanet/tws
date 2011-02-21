@@ -19,7 +19,7 @@ class charformatsettings {
 public:
 	void load();
 	void safe();
-	static QMap<QString,QVariant> map;
+        static QHash<QString,QVariant> map;
 };
 /*void operator<<(QDataStream &ds,const QMap<QString,QVariant> &m){
 	QMap<QString,QVariant>::const_iterator i=m.begin();

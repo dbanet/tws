@@ -64,9 +64,7 @@ void usermodel::selectionchanged(const QModelIndex &index, const QWidget *w) {
      currentselectedchannel = index.internalId();
     selectionwidgetmap[currentselecteduser] = w;
 }
-void usermodel::setuserstruct(const QList<userstruct> &upar, QMap<QString,
-                              QStringList> joinlist) {
-
+void usermodel::setuserstruct(const QList<userstruct> &upar, QHash<QString,QStringList> joinlist) {
     emit layoutAboutToBeChanged();
     users = upar;
     usermap.clear();
@@ -86,7 +84,7 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QMap<QString,
         }
     }
     QStringList sl;
-    foreach(QString s,S_S.getstringlist("buddylist")) {
+    foreach(QString s,S_S.buddylist) {
         if (users.contains(userstruct(userstruct::whoami(s)))) {
             usermap[tr("Buddylist")].push_back(users[users.indexOf(
                     userstruct::whoami(s))]);
@@ -121,7 +119,7 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QMap<QString,
     usermap[GamesourgeChannelName];
 #endif
     usermap[usermodel::tr("Ignorelist")];
-    foreach(QString s,S_S.getstringlist("ignorelist")) {
+    foreach(QString s,S_S.ignorelist) {
         usermap[usermodel::tr("Ignorelist")].push_back(userstruct(QStringList() << "" << "" << "" << "" << s));
     }
     classes = usermap.keys();
@@ -147,8 +145,8 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QMap<QString,
 void usermodel::addbuddy(const QString &user) {
 
     emit layoutAboutToBeChanged();
-    if (!containsCI(S_S.getstringlist("buddylist") ,user) && !containsCI(S_S.getstringlist("ignorelist"), user)) {
-        S_S.set("buddylist", S_S.getstringlist("buddylist") << user);
+    if (!containsCI(S_S.buddylist ,user) && !containsCI(S_S.ignorelist, user)) {
+        S_S.set("buddylist", S_S.buddylist << user);
     }
     emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
@@ -156,7 +154,7 @@ void usermodel::addbuddy(const QString &user) {
 void usermodel::deletebuddy(const QString &s) {
 
     emit layoutAboutToBeChanged();
-    QStringList sl = S_S.getstringlist("buddylist");
+    QStringList sl = S_S.buddylist;
     QStringList::iterator i = sl.begin();
     QStringList temp;
     while (i != sl.end()) {
@@ -175,8 +173,8 @@ void usermodel::deletebuddy(const QString &s) {
 void usermodel::addignore(const QString &s) {
 
     emit layoutAboutToBeChanged();
-    if (!containsCI(S_S.getstringlist("ignorelist"), s) && !containsCI(S_S.getstringlist("buddylist"), s))
-        S_S.set("ignorelist", S_S.getstringlist("ignorelist") << s);    
+    if (!containsCI(S_S.ignorelist, s) && !containsCI(S_S.buddylist, s))
+        S_S.set("ignorelist", S_S.ignorelist << s);
     emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
@@ -184,7 +182,7 @@ void usermodel::deleteignore(const QString &s) {
     emit layoutAboutToBeChanged();
     userstruct u;
     u.nick = s;
-    QStringList sl = S_S.getstringlist("ignorelist");
+    QStringList sl = S_S.ignorelist;
     sl.removeOne(s);
     S_S.set("ignorelist", sl);
     usermap[usermodel::tr("Ignorelist")].removeOne(u);
@@ -192,7 +190,7 @@ void usermodel::deleteignore(const QString &s) {
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
 int usermodel::columnCount(const QModelIndex & /*parent*/) const {
-    if(!S_S.getbool("showinformation"))
+    if(!S_S.showinformation)
         return 4;
     return 5;
 }
@@ -242,12 +240,12 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
             if (classes[index.internalId()] == tr("Querys") && !users.contains(
                     userstruct::whoami(nick)))
                 return offlineicon;
-            else if (containsCI(S_S.getstringlist("buddylist"), nick)) {
+            else if (containsCI(S_S.buddylist, nick)) {
                 if (containsCI(ctcphandler::awayusers, nick))
                     return awaybuddyicon;
                 else
                     return buddyicon;
-            } else if (containsCI(S_S.getstringlist("ignorelist"), nick)) {
+            } else if (containsCI(S_S.ignorelist, nick)) {
                 if (containsCI(ctcphandler::awayusers, nick))
                     return awayignoreicon;
                 else
@@ -340,16 +338,16 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
     }
     if (index.internalId() != e_Channel) {
         if (role == Qt::BackgroundRole){
-            if(S_S.getbool("spectateleagueserver")){
+            if(S_S.spectateleagueserver){
                 if(singleton<leagueserverhandler>().contains_key(usermap[classes[index.internalId()]][index.row()].nick)){
-                    if(!S_S.getbool("cbdontshowagradientonverifiedusers"))
+                    if(!S_S.cbdontshowagradientonverifiedusers)
                         return QBrush(leagueuserhighlightgradient);                    
                 }
             }
         }
     }
     if(role==Qt::FontRole && index.internalId() != e_Channel){
-        if(S_S.getbool("cbunderlinelinksandclans"))
+        if(S_S.cbunderlinelinksandclans)
             return QVariant();
         if(index.column()==e_Client){
             QString s=usermap[classes[index.internalId()]][index.row()].client;
@@ -359,7 +357,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
                 return f;
             }
         } else if(index.column()==e_Clan){
-            if(S_S.getbool("spectateleagueserver")){
+            if(S_S.spectateleagueserver){
                 QString s=singleton<leagueserverhandler>().map_at_toString(usermap[classes[index.internalId()]][index.row()].nick,leagueserverhandler::e_clan);
                 if(!s.isEmpty()){
                     if(singleton<clantowebpagemapper>().contains(s)){
@@ -378,9 +376,9 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
 
             }
         }else if(index.column()==e_Nick){
-            if(!S_S.getbool("spectateleagueserver"))
+            if(!S_S.spectateleagueserver)
                 return QVariant();
-            if(!S_S.getbool("cbunderlineverifiedusers"))
+            if(!S_S.cbunderlineverifiedusers)
                 return QVariant();
             QString nick =usermap[classes[index.internalId()]][index.row()].nick;
             if(singleton<leagueserverhandler>().contains_key(nick)){
@@ -453,15 +451,15 @@ bool operator<(const userstruct &u1, const userstruct &u2) {
 void usermodel::sort(int column, Qt::SortOrder order) {
 
     whichorder = column;
-    if(!S_S.getbool("cbdontsortinchannels")){
+    if(!S_S.cbdontsortinchannels){
         if (order == Qt::AscendingOrder) {
-            QMap<QString, QList<userstruct> >::iterator i = usermap.begin();
+            QHash<QString, QList<userstruct> >::iterator i = usermap.begin();
             while (i != usermap.end()) {
                 qStableSort(i->begin(), i->end());
                 i++;
             }
         } else if (order == Qt::DescendingOrder) {
-            QMap<QString, QList<userstruct> >::iterator i = usermap.begin();
+            QHash<QString, QList<userstruct> >::iterator i = usermap.begin();
             while (i != usermap.end()) {
                 qStableSort(i->begin(), i->end(), qGreater<userstruct> ());
                 i++;
@@ -496,28 +494,28 @@ userstruct usermodel::getuserstructbyindex(const QModelIndex &index) {
 usermodel::~usermodel() {
 }
 QVariant usermodel::getrank(const userstruct &u) const{
-    if(S_S.getbool("spectateleagueserver")){
+    if(S_S.spectateleagueserver){
         QString s=singleton<leagueserverhandler>().map_at_toString(u.nick,leagueserverhandler::e_rank);
         if(!s.isEmpty())
             return *singleton<picturehandler>().getleaguerank(s);
-        if(S_S.getbool("cbonlyshowranksfromverifiedusers"))
+        if(S_S.cbonlyshowranksfromverifiedusers)
             return QVariant();
     }
     return *singleton<picturehandler>().getrank(u.rank);
 }
 QVariant usermodel::getclan(const userstruct &u) const{
     QString s;
-    if(S_S.getbool("spectateleagueserver")){
+    if(S_S.spectateleagueserver){
         s=singleton<leagueserverhandler>().map_at_toString(u.nick,leagueserverhandler::e_clan);
-        if (containsCI(S_S.getstringlist("dissallowedclannames"), s))
+        if (containsCI(S_S.dissallowedclannames, s))
             return QVariant();
         if(!s.isEmpty())
             return s;
-        if(S_S.getbool("cbshowranksonlyfromsecureloggedusers"))
+        if(S_S.cbshowranksonlyfromsecureloggedusers)
             return QVariant();
     }
     s=u.clan;
-    if (containsCI(S_S.getstringlist("dissallowedclannames"), s))
+    if (containsCI(S_S.dissallowedclannames, s))
         return QVariant();
     else
         return s;

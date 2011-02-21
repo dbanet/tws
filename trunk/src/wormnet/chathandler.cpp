@@ -162,7 +162,7 @@ void chathandler::append(const QString &user, const QString &receiver,
     msgtemp.remove("\n");
     QString time = QTime::currentTime().toString("hh:mm");
     cursor->insertText(time + ": ", timeformat);
-    if (!containsCI(S_S.getstringlist("buddylist"), user)) {
+    if (!containsCI(S_S.buddylist, user)) {
         if (compareCI(receiver, channel)) {
             if (msg.startsWith("\001ACTION")) {
                 msgtemp.remove(0, 7).remove("\001");
@@ -263,7 +263,7 @@ void chathandler::insertText(const QString &s, QTextCharFormat &t,QString user) 
         if (!t.anchorHref().startsWith("<notice>") && t.anchorHref() != "action")
             singleton<sound_handler>().play_highlightningsound(user,qobject_cast<QWidget*> ( parent()));
         cursor->insertText(s, t);
-    } else if (containsOneCI(s, S_S.getstringlist("combobox_wrapper"),&temp)) {
+    } else if (containsOneCI(s, S_S.combobox_wrapper,&temp)) {
         singleton<sound_handler>().play_costumwordsound(user,qobject_cast<QWidget*> ( parent()));
         singleton<balloon_handler>().got_costum_word(temp,user);
         cursor->insertText(s, t);
@@ -439,7 +439,7 @@ void chathandler::contextrequest(const QPoint &p) {
 }
 void chathandler::usesettingswindow(const QString &s) {
     if (s == "sbmaximumoftextblocks" || s == "") {
-        int i = S_S.getint("sbmaximumoftextblocks");
+        int i = S_S.sbmaximumoftextblocks;
         doc->setMaximumBlockCount(i);
     }
 }

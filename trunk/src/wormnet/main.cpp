@@ -26,7 +26,7 @@
 #endif
 volumeslider *volume;
 QStringList querylist;
-QMap<QString, QStringList> usergarbagemap;
+QHash<QString, QStringList> usergarbagemap;
 
 void search_for_game_executables();
 void handle_prosnooper_buddys();
@@ -153,7 +153,7 @@ void handle_prosnooper_buddys(){
     QStringList buddielist;
     if (!buddies.isEmpty())
         buddielist = buddies.split(",", QString::SkipEmptyParts);    
-    QStringList sl = S_S.getstringlist("prosnooperbuddies");
+    QStringList sl = S_S.prosnooperbuddies;
     foreach(QString s,buddielist) {
         if (!sl.contains(s, Qt::CaseInsensitive)) {
             sl << s;

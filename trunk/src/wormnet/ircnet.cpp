@@ -17,7 +17,7 @@
 #include"leagueserverhandler.h"
 #include"netcoupler.h"
 extern inihandlerclass inihandler;
-extern QMap<QString, QStringList> usergarbagemap;
+extern QHash<QString, QStringList> usergarbagemap;
 ircnet::ircnet(QString s, QObject *parent) :
 	QObject(parent), tcp(new QTcpSocket(this)) {    
     nick = s;
@@ -59,15 +59,15 @@ void ircnet::connected() {
     QString s = inihandler.stringlistfromini("[irc register]").first();    
     sl = s.split(" ", QString::SkipEmptyParts);
     s = sl.takeFirst() + "  ";
-    s.append(S_S.getstring("clan") + " ");
+    s.append(S_S.clan + " ");
     s.append(sl.takeFirst() + " ");
     s.append(sl.takeFirst() + " :");
-    QString flag=S_S.getstring("countrycode").toUpper();
+    QString flag=S_S.countrycode.toUpper();
     s.append(singleton<picturehandler>().map_countrycode_to_number(flag)+ " ");
-    int i=S_S.getint("rank");
+    int i=S_S.rank;
     s.append(QString::number(i) + " ");
     s.append(flag+" ");
-    s.append(S_S.getstring("information"));
+    s.append(S_S.information);
     tcp_write(s);
     tcp_write("list");
     emit sigconnected();
@@ -125,11 +125,11 @@ void ircnet::readusermessage(QString &s) {
         myDebug() << tr("Servermessage: ") << s;
 }
 void ircnet::gotusergarbage(QString &user, QString &s) {
-    if (usergarbagemap[user.toLower()].size() < S_S.getint("sbmaximumoftextblocksinlog"))
+    if (usergarbagemap[user.toLower()].size() < S_S.sbmaximumoftextblocksinlog)
         usergarbagemap[user.toLower()]<< QDate::currentDate().toString("dd.MM") + " "
                 + QTime::currentTime().toString("hh:mm") + " " + s;
     else {
-        usergarbagemap[user.toLower()] = usergarbagemap[user.toLower()].mid(S_S.getint("sbmaximumoftextblocksinlog") * 2/ 3);
+        usergarbagemap[user.toLower()] = usergarbagemap[user.toLower()].mid(S_S.sbmaximumoftextblocksinlog * 2/ 3);
         usergarbagemap[user.toLower()]
                 << QDate::currentDate().toString("dd.MM") + " "
                 + QTime::currentTime().toString("hh:mm") + " " + s;
@@ -210,7 +210,7 @@ void ircnet::readservermassege(QString s) {
             }
             break;
         case 433: //nickname allready in use
-            if(S_S.getint("enablesecurelogging"))
+            if(S_S.enablesecurelogging)
                 QMessageBox::information(0,tr("Nickname collision!"),
                                          tr("Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again."),
                                          QMessageBox::Ok);
@@ -263,7 +263,7 @@ void ircnet::who() {
     }
 }
 void ircnet::quit() {    
-    tcp_write("QUIT : [The Wheat Snooper] "+ S_S.getstring("information"));
+    tcp_write("QUIT : [The Wheat Snooper] "+ S_S.information);
 }
 void ircnet::tcp_write(const QString &msg){
     tcp->write(CodecSelectDia::codec->fromUnicode(msg)+"\n");

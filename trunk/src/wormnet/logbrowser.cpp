@@ -1,7 +1,7 @@
 #include "logbrowser.h"
 #include"netcoupler.h"
 #include<QPointer>
-extern QMap<QString, QStringList> usergarbagemap;
+extern QHash<QString, QStringList> usergarbagemap;
 logbrowser::logbrowser(QWidget *parent)
     : QWidget(parent)
 {

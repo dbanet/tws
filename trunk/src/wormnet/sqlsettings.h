@@ -23,9 +23,7 @@ private:
 
     void importOldini(QString folder);
 
-    bool databasexists();
-
-    QString language_file;    
+    bool databasexists(); 
 
     bool loadOldFile(QString file);
     void prepare(QString key,QVariant value);

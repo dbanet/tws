@@ -33,12 +33,12 @@ void chathandlerprv::append(const QString &user, const QString &/*receiver*/,
     QString msgtemp = msg.simplified();
     QString time = QTime::currentTime().toString("hh:mm");
     cursor->insertText(time + ": ", timeformat);
-    if (!containsCI(S_S.getstringlist("buddylist"), user)) {
+    if (!containsCI(S_S.buddylist, user)) {
         if (msg.startsWith("\001ACTION")) {
             insertText("<" + user + " " + msgtemp + ">", actionformat,user);
         } else {
             cursor->insertText(user + "> ", nickformat);
-            if (S_S.getbool("chbsmileys") || isClickableLink(msg) || containsCI(msg, "wa://")) {
+            if (S_S.chbsmileys || isClickableLink(msg) || containsCI(msg, "wa://")) {
                 if(user==singleton<netcoupler>().nick)
                     insertText(msgtemp, myselfformat,user);
                 else
@@ -61,7 +61,7 @@ void chathandlerprv::append(const QString &user, const QString &/*receiver*/,
             insertText("<" + user + " " + msgtemp + ">", buddyformat,user);
         } else {
             cursor->insertText(user + "> ", nickformat);
-            if (S_S.getbool("chbsmileys") || isClickableLink(msg) || containsCI(msg, "wa://")) {
+            if (S_S.chbsmileys || isClickableLink(msg) || containsCI(msg, "wa://")) {
                 insertText(msgtemp, buddyformat,user);
             } else {
                 foreach(QVariant v,emot->preparemsg(msgtemp)) {

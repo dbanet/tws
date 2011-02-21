@@ -66,6 +66,7 @@ private:
     QStringList lastOpenedChatWindows;
 
 private slots:    
+    void on_chbautojoin_clicked(bool checked);
     void on_cbleagueservers_activated(QString );
     void on_pbeditleagueprofile_clicked();
     void on_cbenabletus_toggled(bool checked);

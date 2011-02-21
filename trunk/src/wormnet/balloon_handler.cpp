@@ -14,7 +14,7 @@ balloon_handler::balloon_handler()
     tray->show();
     balloonhelper << QTime::currentTime().toString("hh:mm") + ":"
             + QObject::tr("The Wheat Snooper version ")+about::version+QObject::tr(" started!");
-    if(!S_S.getbool("cbdontshowballoons"))
+    if(!S_S.cbdontshowballoons)
         tray->showMessage(tr("Notifications."), balloonhelper.join("\n"));
 }
 balloon_handler::~balloon_handler()
@@ -22,11 +22,11 @@ balloon_handler::~balloon_handler()
     delete tray;
 }
 void balloon_handler::showballoon(){
-    if(!S_S.getbool("cbdontshowballoons"))
+    if(!S_S.cbdontshowballoons)
         tray->showMessage(tr("Notifications."), balloonhelper.join("\n"));
-    if (! (balloonhelper.size() > S_S.getint("sbmaximumballonmessages")))
+    if (! (balloonhelper.size() > S_S.sbmaximumballonmessages))
         return;
-    int max_size=S_S.getint("sbmaximumballonmessages");
+    int max_size=S_S.sbmaximumballonmessages;
     balloonhelper = balloonhelper.mid(balloonhelper.size()- max_size);
 }
 void balloon_handler::disconnected(){
@@ -43,21 +43,21 @@ void balloon_handler::connectedtoleagueserver(QString servicename){
 }
 
 void balloon_handler::buddyleft() {
-    if (!S_S.getbool("chbbuddyballoonleaves"))
+    if (!S_S.chbbuddyballoonleaves)
         return;
     balloonhelper << usermodel::buddylefthelper;
     usermodel::buddylefthelper.clear();
     showballoon();
 }
 void balloon_handler::buddyarrived() {
-    if (!S_S.getbool("chbbuddyballoonarives"))
+    if (!S_S.chbbuddyballoonarives)
         return;
     balloonhelper << usermodel::buddyarrivedhelper;
     usermodel::buddyarrivedhelper.clear();
     showballoon();
 }
 void balloon_handler::got_privmsg(const QString user, const QString msg){
-    if(!S_S.getbool("chbballoonprivmsg"))
+    if(!S_S.chbballoonprivmsg)
         return;
     balloonhelper << QTime::currentTime().toString("hh:mm") + ":" + user + tr(" said: ") + msg;
     showballoon();
@@ -73,7 +73,7 @@ void balloon_handler::got_game(const QString playername, const QString gamename)
     showballoon();
 }
 void balloon_handler::got_costum_word(const QString word, const QString user){
-    if (!S_S.getbool("cbcostumword"))
+    if (!S_S.cbcostumword)
         return;
     balloonhelper<< QTime::currentTime().toString("hh:mm") + ":"
             +"... " +  word + " ..." + tr("was highlighted by ")+ user;
