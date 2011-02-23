@@ -50,6 +50,8 @@ public:
 	static QTextCharFormat garbagequitformat;
 	static QTextCharFormat garbageformat;
         static QTextCharFormat myselfformat;
+
+        bool eventFilter(QObject *obj, QEvent *event);
 protected:
 	QTextBrowser *tb;
 	QTextDocument *doc;
@@ -61,9 +63,7 @@ protected:
 	QMenu noticemenu;
 	QMenu debugmenu;
 
-	static void initialformat(QTextCharFormat&,const QString&,const QString&);
-        bool eventFilter(QObject *obj, QEvent *event);
-
+	static void initialformat(QTextCharFormat&,const QString&,const QString&);        
 protected slots:
 	virtual void contextrequest(const QPoint&);
 	void anchorclicked(const QUrl&);

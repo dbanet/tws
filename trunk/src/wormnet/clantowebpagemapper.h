@@ -6,13 +6,9 @@
 #include<QObject>
 #include<QNetworkAccessManager>
 class QNetworkReply;
-class clantowebpagemapper: public QObject
-{
+class clantowebpagemapper: public QObject{
     Q_OBJECT
 public:
-    void load();
-    void safe();
-    void loadDefaults();
     bool contains(const QString &key);
     QString value(const QString &key);
     void refresh();

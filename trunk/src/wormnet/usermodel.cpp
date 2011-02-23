@@ -61,16 +61,44 @@ void usermodel::selectionchanged(const QModelIndex &index, const QWidget *w) {
 
     selectionwidgetmap.remove(currentselecteduser);
     currentselecteduser = data(index.sibling(index.row(), 0)).value<QString> ();
-     currentselectedchannel = index.internalId();
+    currentselectedchannel = index.internalId();
     selectionwidgetmap[currentselecteduser] = w;
+}
+void usermodel::checkBuddysIgnoresQuerys(){
+    QStringList sl;
+    foreach(QString s,S_S.buddylist) {
+        if (users.contains(userstruct(userstruct::whoami(s)))) {
+            usermap[tr("Buddylist")].push_back(users[users.indexOf(userstruct::whoami(s))]);
+            sl << s;
+            if (currentbuddylist.removeAll(s) == 0) { //a buddy arrived
+                buddyarrivedhelper<< QTime::currentTime().toString("hh:mm") + ":" + s+tr(" connected to wormnet.");
+                emit sigbuddyarrived();
+            }
+        }
+    }
+    if (currentbuddylist.size() != 0){ //buddy left
+        foreach(QString s,currentbuddylist)
+            buddylefthelper<< QTime::currentTime().toString("hh:mm") + ":" + s+tr(" left wormnet.");
+        emit sigbuddyleft();
+        foreach(QString s,currentbuddylist)
+            removeCI(ctcphandler::awayusers,s);
+    }
+    currentbuddylist = sl;
+    foreach(QString s,querylist) {
+        if (users.contains(userstruct(userstruct::whoami(s))) )
+            usermap[tr("Querys")].push_back(users[users.indexOf(userstruct::whoami(s))]);
+        else
+            usermap[tr("Querys")].push_back(userstruct(QStringList() << ""<< "" << "" << "" << s));
+    }
+    foreach(QString s,S_S.ignorelist)
+        usermap[usermodel::tr("Ignorelist")].push_back(userstruct(QStringList() << "" << "" << "" << "" << s));
 }
 void usermodel::setuserstruct(const QList<userstruct> &upar, QHash<QString,QStringList> joinlist) {
     emit layoutAboutToBeChanged();
     users = upar;
     usermap.clear();
-    foreach(QString s,usermap_channellist_helper){
-        usermap[s];
-    }
+    foreach(QString s,usermap_channellist_helper)
+        usermap[s];    
     foreach(userstruct u,users) {
         joinlist[u.chan].removeAll(u.nick);
         usermap[u.chan].push_back(u);
@@ -83,59 +111,28 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QHash<QString,QStri
                 usermap[channel].push_back(users[i]);
         }
     }
-    QStringList sl;
-    foreach(QString s,S_S.buddylist) {
-        if (users.contains(userstruct(userstruct::whoami(s)))) {
-            usermap[tr("Buddylist")].push_back(users[users.indexOf(
-                    userstruct::whoami(s))]);
-            sl << s;
-            if (currentbuddylist.removeAll(s) == 0) { //a buddy arrived
-                buddyarrivedhelper<< QTime::currentTime().toString("hh:mm") + ":" + s+tr(" connected to wormnet.");
-                emit sigbuddyarrived();
-            }
-        }
-    }
-    if (currentbuddylist.size() != 0){ //buddy left
-        foreach(QString s,currentbuddylist){
-            buddylefthelper<< QTime::currentTime().toString("hh:mm") + ":" + s+tr(" left wormnet.");
-        }
-        emit sigbuddyleft();
-        foreach(QString s,currentbuddylist){
-            removeCI(ctcphandler::awayusers,s);
-        }
-    }
-    currentbuddylist = sl;
-    foreach(QString s,querylist) {
-        if ( users.contains(userstruct(userstruct::whoami(s))) )
-            usermap[tr("Querys")].push_back(users[users.indexOf(
-                    userstruct::whoami(s))]);
-        else
-            usermap[tr("Querys")].push_back(userstruct(QStringList() << ""
-                                                       << "" << "" << "" << s));
-    }
+    checkBuddysIgnoresQuerys();
+    classes.clear();
+    classes<<tr("Buddylist");
+    classes<<tr("Querys");
+    classes<<usermap.keys();
+    if(classes.contains("#AnythingGoes"))
+        classes.move(classes.indexOf("#AnythingGoes"),2);
     usermap[tr("Buddylist")];
     usermap[tr("Querys")];
-#ifdef WITH_GAMESURGE_SUPPORT
-    usermap[GamesourgeChannelName];
-#endif
     usermap[usermodel::tr("Ignorelist")];
-    foreach(QString s,S_S.ignorelist) {
-        usermap[usermodel::tr("Ignorelist")].push_back(userstruct(QStringList() << "" << "" << "" << "" << s));
-    }
-    classes = usermap.keys();
-    classes.move(classes.indexOf(tr("Buddylist")), 0);
-    classes.move(classes.indexOf(tr("Querys")), 1);
-#ifdef WITH_GAMESURGE_SUPPORT
-    classes.move(classes.indexOf(GamesourgeChannelName), classes.length()-1);
-#endif
+    //#ifdef WITH_GAMESURGE_SUPPORT
+    //    usermap[GamesourgeChannelName];
+    //#endif
+    //#ifdef WITH_GAMESURGE_SUPPORT
+    //    classes.move(classes.indexOf(GamesourgeChannelName), classes.length()-1);
+    //#endif
     sort(sortsection, sortorder);
     if (currentselectedchannel > -1 && currentselectedchannel < classes.size()) {
-        int row = usermap[classes[currentselectedchannel]].indexOf(
-                userstruct::whoami(currentselecteduser));
+        int row = usermap[classes[currentselectedchannel]].indexOf(userstruct::whoami(currentselecteduser));
         if (row == -1) {
             currentselectedchannel = -1;
-            emit sigselectitem(QModelIndex(),
-                               selectionwidgetmap[currentselecteduser]);
+            emit sigselectitem(QModelIndex(),selectionwidgetmap[currentselecteduser]);
         } else {
             QModelIndex in = createIndex(row, 0, currentselectedchannel);
             emit sigselectitem(in, selectionwidgetmap[currentselecteduser]);
@@ -183,7 +180,7 @@ void usermodel::deleteignore(const QString &s) {
     userstruct u;
     u.nick = s;
     QStringList sl = S_S.ignorelist;
-    sl.removeOne(s);
+    sl.removeAll(s);
     S_S.set("ignorelist", sl);
     usermap[usermodel::tr("Ignorelist")].removeOne(u);
     emit layoutChanged();
@@ -198,9 +195,8 @@ int usermodel::rowCount(const QModelIndex & parent) const {
 
     if (!parent.isValid())
         return classes.count();
-    if (parent.internalId() == e_Channel) {
-        return usermap[classes[parent.row()]].count();
-    }
+    if (parent.internalId() == e_Channel)
+        return usermap[classes[parent.row()]].count();    
     return 0;
 }
 QModelIndex usermodel::index(int row, int column, const QModelIndex & parent) const {

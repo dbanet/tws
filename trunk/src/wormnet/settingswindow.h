@@ -12,9 +12,9 @@ class settingswindow : public QWidget
 {
     Q_OBJECT
     DECLARE_SINGLETON(settingswindow);
-public:         
+public:
     void set(const QString&, const QVariant&);
-private:    
+private:
     QStringList objectnames;
     Ui::settingswindowClass *ui;  
 private slots:

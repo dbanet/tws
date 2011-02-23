@@ -17,20 +17,20 @@ quithandler::quithandler(){
 quithandler::~quithandler(){}
 
 void quithandler::inducequit(){    
+    S_S.transaction();
     beforequit();    
-    int state=singleton<netcoupler>().ircstate();    
-    if(state!=QAbstractSocket::ConnectedState){
+    S_S.commit();
+    int state=singleton<netcoupler>().ircstate();        
+    if(state==QAbstractSocket::ConnectedState)
         quit();
-        return;
+    else {
+        connect(&singleton<netcoupler>(),SIGNAL(sigdisconnected()),this,SLOT(quit()));
+        singleton<netcoupler>().sendquit();
     }
-    connect(&singleton<netcoupler>(),SIGNAL(sigdisconnected()),this,SLOT(quit()));
-    singleton<netcoupler>().sendquit();
 }
 void quithandler::beforequit(){    
-    qobjectwrapper<mainwindow>::ref().quit();    
-    singleton<clantowebpagemapper>().safe();
-    bool b = S_S.getbool("cbsafequerys");
-    if (b) {
+    qobjectwrapper<mainwindow>::ref().quit();        
+    if (S_S.getbool("cbsafequerys")) {
         safeusergarbage();
         safequerylist();
     }
@@ -42,7 +42,7 @@ void quithandler::quit(){
         singleton<leagueserverhandler>().logout();
         return;
     }
-     disconnect();    
+    disconnect();
     qApp->quit();
     return;
 }

@@ -13,7 +13,7 @@ myDebugClass &myDebugClass::operator<<(const QString &msg){
         qDebug()<<msg;
         return *this;
     }
-    if(!S_S.cbservermessageinchannelwindows)
+    if(!S_S.getbool("cbservermessageinchannelwindows"))
         return *this;    
     qobjectwrapper<mainwindow>::ref().appenddebugmessage(QString(msg).simplified()+"\n");
     return *this;
@@ -23,7 +23,7 @@ myDebugClass &myDebugClass::operator<<(const QStringList &msg){
         qDebug()<<msg;
         return *this;
     }
-    if(!S_S.cbservermessageinchannelwindows)
+    if(!S_S.getbool("cbservermessageinchannelwindows"))
         return *this;    
     qobjectwrapper<mainwindow>::ref().appenddebugmessage("("+msg.join(",").simplified()+")\n");
     return *this;
@@ -34,7 +34,7 @@ myDebugClass &myDebugClass::operator<<(const int &i){
         qDebug()<<i;
         return *this;
     }
-    if(!S_S.cbservermessageinchannelwindows)
+    if(!S_S.getbool("cbservermessageinchannelwindows"))
         return *this;    
     qobjectwrapper<mainwindow>::ref().appenddebugmessage(QString::number(i).simplified()+"\n");
     return *this;

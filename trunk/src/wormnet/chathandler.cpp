@@ -88,12 +88,15 @@ chathandler::chathandler(QObject *parent, QTextBrowser *t, QString chan) :
     connect(&singleton<netcoupler>(), SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
     connect(tb,SIGNAL(selectionChanged()),this,SLOT(selectionChanged()));
 }
-bool chathandler::eventFilter(QObject *obj, QEvent *event){       
-    if(obj!=tb)
-        return false;    
-    if(event->type()==QEvent::Wheel){
+bool chathandler::eventFilter(QObject *obj, QEvent *event){                 
+    if(obj==tb && event->type()==QEvent::Wheel)
         slidermoved(tb->verticalScrollBar()->value());
-        return true;
+    else if(obj->metaObject()->className()==QString("QLineEdit") && event->type() == QEvent::KeyPress){
+        QKeyEvent *keyEvent = static_cast<QKeyEvent*> (event);
+        if (keyEvent->key() == Qt::Key_Up)
+            qApp->postEvent(obj,new QKeyEvent(QEvent::KeyPress,Qt::Key_Z,Qt::ControlModifier));
+        else if (keyEvent->key() == Qt::Key_Down)
+            qApp->postEvent(obj,new QKeyEvent(QEvent::KeyPress,Qt::Key_Z,Qt::ShiftModifier | Qt::ControlModifier));
     }
     return false;
 }
@@ -109,12 +112,9 @@ void chathandler::initialformatstarter() {
     initialformat(waformat, "waformatfont", "waformatcolor");
     initialformat(noticeformat, "noticeformatfont", "noticeformatcolor");
     initialformat(debugformat, "debugformatfont", "debugformatcolor");
-    initialformat(garbagejoinformat, "garbagejoinformatfont",
-                  "garbagejoinformatcolor");
-    initialformat(garbagepartformat, "garbagepartformatfont",
-                  "garbagepartformatcolor");
-    initialformat(garbagequitformat, "garbagequitformatfont",
-                  "garbagequitformatcolor");
+    initialformat(garbagejoinformat, "garbagejoinformatfont","garbagejoinformatcolor");
+    initialformat(garbagepartformat, "garbagepartformatfont","garbagepartformatcolor");
+    initialformat(garbagequitformat, "garbagequitformatfont","garbagequitformatcolor");
     initialformat(garbageformat, "garbageformatfont", "garbageformatcolor");
     initialformat(myselfformat, "myselfformatfont", "myselfformatcolor");
     garbagejoinformat.setAnchorHref("garbagejoin");
@@ -132,8 +132,7 @@ void chathandler::initialformatstarter() {
 void chathandler::initialformatsaver() {
     singleton<charformatsettings>().safe();
 }
-void chathandler::initialformat(QTextCharFormat &c, const QString &font,
-                                const QString &color) {
+void chathandler::initialformat(QTextCharFormat &c, const QString &font,const QString &color) {
     if (singleton<charformatsettings>().map.contains(font))
         c.setFont(singleton<charformatsettings>().map[font].value<QFont> ());
     else
@@ -280,9 +279,8 @@ void chathandler::slidermoved(int i) {
     }
     if (i == tb->verticalScrollBar()->maximum())
         slideratmaximum = 1;
-    else {        
-        slideratmaximum = 0;
-    }
+    else
+        slideratmaximum = 0;    
 }
 //void chathandler::slidermovedbyaction(int i) {
 //    if (i > 0 && i < 5) {
@@ -439,7 +437,7 @@ void chathandler::contextrequest(const QPoint &p) {
 }
 void chathandler::usesettingswindow(const QString &s) {
     if (s == "sbmaximumoftextblocks" || s == "") {
-        int i = S_S.sbmaximumoftextblocks;
+        int i = S_S.getint("sbmaximumoftextblocks");
         doc->setMaximumBlockCount(i);
     }
 }

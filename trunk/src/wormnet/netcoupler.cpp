@@ -41,7 +41,6 @@ netcoupler::netcoupler() {
     usesettingswindow("cbsetawaywhilegaming");
     usesettingswindow("leawaystring");
 
-    mutedusers = S_S.mutedusers;
     connect(this, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
     connect(this, SIGNAL(sigsettingswindowchanged()),&users, SLOT(usesettingswindow()));
 
@@ -102,9 +101,8 @@ void netcoupler::partchannel(const QString &s) {
 }
 void netcoupler::getchannellist(QStringList sl) {
     channellist.clear();
-    foreach(QString s,sl) {
-        channellist << s.split(" ").first();
-    }
+    foreach(QString s,sl)
+        channellist << s.split(" ").first();    
     foreach(QString s, channellist) {
         if(!users.usermap_channellist_helper.contains(s,Qt::CaseInsensitive))
             users.usermap_channellist_helper.push_back(s);
@@ -171,6 +169,8 @@ void netcoupler::refreshlist() {
     irc->refreshlist();
 }
 void netcoupler::sendquit() {
+    if(irc==NULL)
+        return;
     irc->quit();
 }
 void netcoupler::getscheme(QString chan, QString scheme) {
@@ -211,7 +211,7 @@ void netcoupler::joingame(const QString &hostinfo, const QString &channel, const
         return;
     temp = temp + hostinfo;
     startprocess(temp);
-    if (S_S.chbactionwhenjoining)
+    if (S_S.getbool("chbactionwhenjoining"))
         sendinfotochan(channel, " is joining a game: " + gamename);
 }
 void netcoupler::createhost(hoststruct h) {
@@ -230,8 +230,8 @@ void netcoupler::createhost(hoststruct h) {
 void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,int flag){
     looki::currentchannel=chan;
     QString s=nick;
-    if (!S_S.leplayername.isEmpty())
-        s=S_S.leplayername;
+    if (!S_S.getstring("leplayername").isEmpty())
+        s=S_S.getstring("leplayername");
     hoststruct h;
     QString hostcountrynumber=singleton<picturehandler>().map_hostcountrycode_to_number(singleton<picturehandler>().map_number_to_countrycode(flag));
     h.sethost(name,s,getmyhostip(),flag,"??","",pwd,chan,hostcountrynumber);
@@ -243,21 +243,21 @@ void netcoupler::getmywormnethost(hoststruct h){
     disconnect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));
     QString host = QString("wa://%1?gameid="+h.id()+"&scheme=%2").arg(address).arg(schememap[looki::currentchannel]);
     QString msg = QString(" is hosting a game: %1, %2").arg(h.name()).arg(host);
-    if (S_S.chbsendhostinfotochan)
+    if (S_S.getbool("chbsendhostinfotochan"))
         sendinfotochan(looki::currentchannel, msg);
     createhost(h);
 }
 QString netcoupler::getmyhostip(){
     QString address=myip;
-    if(S_S.useacostumipforhosting)
-        address=S_S.costumipforhosting;
+    if(S_S.getbool("useacostumipforhosting"))
+        address=S_S.getstring("costumipforhosting");
     return address;
 }
 void netcoupler::readprocess() {
     qWarning() << qobject_cast<QProcess*> (sender())->readAll();
 }
 QString netcoupler::getprocessstring() {
-    QStringList sl = S_S.joinstrings;
+    QStringList sl = S_S.getstringlist("joinstrings");
     if (sl.isEmpty()){
         QMessageBox::warning(0, "", tr("No executables are given.\n"
                                        "you must choose a game executable,\n"
@@ -326,10 +326,9 @@ void netcoupler::sendinfotochan(const QString &chan, const QString &msg) {
 }
 void netcoupler::usesettingswindow(const QString &s) {
     if (s == "sbwhorepead" || s == "") {
-        int i = S_S.sbwhorepead;
         timer.disconnect();
         connect(&timer, SIGNAL(timeout()),this, SLOT(getwholist()));        
-        timer.start(i);
+        timer.start(S_S.getint("sbwhorepead"));
     }
     singleton<sound_handler>().init();
 }
@@ -340,15 +339,13 @@ void netcoupler::refreshhostlist() {
     http->refreshhostlist();
 }
 void netcoupler::startprocess(const QString &s){    
-    if(S_S.chbhidechannelwindowsongame){
-        foreach(window *w,qobjectwrapper<mainwindow>::ref().windowlist)
-        {
-            w->minimize();
-        }
+    if(S_S.getbool("chbhidechannelwindowsongame")){
+        foreach(window *w,qobjectwrapper<mainwindow>::ref().windowlist)        
+            w->minimize();       
     }
-    if(S_S.chbdisconnectongame)
+    if(S_S.getbool("chbdisconnectongame"))
         qobjectwrapper<mainwindow>::ref().returntologintab();
-    if(S_S.cbsetawaywhilegaming){
+    if(S_S.getbool("cbsetawaywhilegaming")){
         qobjectwrapper<awayhandler>::ref().startLookingForGame();
         qobjectwrapper<awayhandler>::ref().setawaywhilegameing();
     }
@@ -363,4 +360,10 @@ int netcoupler::ircstate(){
 }
 void netcoupler::loopTimerTimeout(){
     safeusergarbage();
+}
+bool netcoupler::buddylistcontains(QString user){
+    return users.usermap[usermodel::tr("Buddylist")].count(userstruct::whoami(user));
+}
+bool netcoupler::ignorelistcontains(QString user){
+    return users.usermap[usermodel::tr("Ignorelist")].count(userstruct::whoami(user));
 }

@@ -1,9 +1,10 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include <QtGui/QWidget>
+#include<QtGui/QWidget>
 #include<QMenu>
 #include<QPointer>
+
 #include"ui_window.h"
 #include"ui_window2.h"
 #include"ui_window3.h"
@@ -20,7 +21,7 @@ class window : public QWidget
     Q_OBJECT
 
 public:
-    window(netcoupler*,QString s,int i=1);
+    window(QString s,int i=1);
     ~window();
     const QString currentchannel;
     static QList<chatwindow*> chatwindows;
@@ -41,8 +42,7 @@ private slots:
     void gotgarbagejoin(const QString&,const QString&);
     void gotgarbagepart(const QString&,const QString&);
     void gotgarbagequit(const QString&,const QString&);
-    void sendmsg();
-    void sendnotice();
+    void sendmsg();    
     void useritempressed(const QModelIndex&);
     void useritemdblclicked(const QModelIndex&);
     void getuserinfo(const QString&);
@@ -50,7 +50,6 @@ private slots:
 
     void hostitempressed(const QModelIndex&);
     void hostitemdblclicked(const QModelIndex&);
-
 
     void hboxok();
 
@@ -68,7 +67,6 @@ private slots:
     void getuserscount(QStringList);
 
 private:
-    netcoupler *net;
     uihelper ui;
     Ui::windowClass ui1;
     Ui::Form ui2;
@@ -82,7 +80,6 @@ private:
 
     QPointer<hostbox> hbox;
 
-    void sendnoticeaction();
     void showInformationAboutClan(QString);
 
     bool alertonnotice;
@@ -94,6 +91,9 @@ private:
 
     QString windowtitletime;
     QString windowtitlechannel;
+
+    void sendnotice();
+    void sendnoticeaction();
 signals:
     void sigwindowclosed(const QString&);
     void sigalert(QWidget*);

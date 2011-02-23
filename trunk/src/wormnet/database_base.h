@@ -8,7 +8,7 @@
 class database_base
 {
 public:
-    database_base(QString db);
+    database_base();
 
     QString getstring(QString key) const;
     QStringList getstringlist(QString key) const;
@@ -18,108 +18,48 @@ public:
     QByteArray getbytearray(QString key) const;
 
     void set(QString key, QVariant value);
+    void set(QString key, QStringList sl);
+    void set(QString key, QVariantList list);
+    void remove(QString key, QString s);
+    void append(QString key, QString s);
 
     bool contains(QString key) const;
 
     bool isOpen();
 
+    void transaction();
+    void commit();
+
     QStringList dissallowedclannames;
     QStringList buddylist;
-    QStringList ignorelist;
-    QStringList joinstrings;
-    QStringList wormnetserverlist;
-    QStringList leagueservers;
-    QStringList prosnooperbuddies;
-    QStringList combobox_wrapper;
-    QStringList mutedusers;
+    QStringList ignorelist;     
+    QStringList combobox_wrapper;                  
 
-    QString language_file;
-    QString qss_file;
-    QString joinonstartup;
-    QString nickname;
-    QString tus_password;
-    QString tus_login;
-    QString countrycode;
-    QString leplayername;
-    QString costumipforhosting;
-    QString clan;
-    QString information;
-    QString lenormalchatmessage;
-    QString lebuddychatmessage;
-    QString lebuddychatwindowsopened;
-    QString lebuddyleaves;
-    QString lebuddyarrives;
-    QString lehighlightning;
-    QString lehostsound;
-    QString lecostumword;
-    QString lestartup;
+    int sbmaximumoftextblocksinlog;    
+    int sbsecureloggingrepeatdelay;    
 
-    int volumeslidervalue;
-    int rank;
-    int whichuitype;
-    int sbmaximumoftextblocks;
-    int sbwhorepead;
-    int sbmaximumoftextblocksinlog;
-    int sbhostrepead;
-    int channeltransparency;
-    int tusloginmessagenumber;
-    int sbsecureloggingrepeatdelay;
-
-    bool cbdontplaysound;
-    bool cbcostumword;
-    bool chbhostsound;
-    bool cbhighlightning;
-    bool cbbuddyleaves;
-    bool cbplaybuddychatmessage;
-    bool cbplaynormalchatmessage;
-    bool cbplaybuddychatwindowopened;
-    bool cbbuddyarrives;
-    bool cbstartup;
-    bool cbdontsortinchannels;
-    bool cbdontshowballoons;
-    bool cbsetawaywhilegaming;
-    bool chbdisconnectongame;
-    bool chbhidechannelwindowsongame;
-    bool useacostumipforhosting;
-    bool chbsendhostinfotochan;
-    bool chbactionwhenjoining;
-    bool chbsmileys;
     bool showinformation;
-    bool enablesecurelogging;
-    bool spectateleagueserver;
-    bool cbalertmeonnotice;
-    bool cbalertfromnormal;
-    bool cbignorysappearinchannel;
     bool chbjoininfo;
     bool chbpartinfo;
     bool chbquitinfo;
-    bool cbopenbuddylistonstartup;
+    bool spectateleagueserver;
     bool cbdontshowagradientonverifiedusers;
     bool cbunderlinelinksandclans;
     bool cbunderlineverifiedusers;
     bool cbonlyshowranksfromverifiedusers;
-    bool cbshowranksonlyfromsecureloggedusers;
-    bool chbshowbaloonwhenbuddyhosts;
+    bool cbshowranksonlyfromsecureloggedusers;    
     bool cbshowipofhosts;
-    bool cbsafequerys;
-    bool chbshowchannelchatinchatwindows;
-    bool chballwaysopenchatwindows;
-    bool chbstartchatsminimized;
-    bool chbminimized;
-    bool chbautojoin;
-    bool cbonlyshowflagsfromverifiedusers;
-    bool cbservermessageinchannelwindows;
-//##########        
-    int sbmaximumballonmessages;
-    bool chbbuddyballoonleaves;
-    bool chbbuddyballoonarives;
-    bool chbballoonprivmsg;
+    bool cbsafequerys;        
+    bool cbonlyshowflagsfromverifiedusers;        
+    bool chbshowbaloonwhenbuddyhosts;
+    bool cbdontsortinchannels;
+//##########            
 
 protected:    
-    void open();
-    void sethash();
+    void open();    
     QString databasename;
     void validate();    
+    QSqlDatabase db();
 private:    
     template<typename T>
     bool appendList(QString key, QVariant value, QSqlQuery &query);
@@ -128,6 +68,7 @@ private:
     void before_set(QString &key, QVariant value) const;
     QVariant get(QString key) const;        
     QHash<QString,QVariantList> hash;    
+    void sethash();
     QSqlQueryModel model;
 
     friend class settingswindow;    

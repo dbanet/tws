@@ -1,8 +1,6 @@
 #include"hostmodel.h"
-#include"netcoupler.h"
 #include"settings.h"
 #include"settingswindow.h"
-#include"netcoupler.h"
 #include"sound_handler.h"
 #include"balloon_handler.h"
 #include"global_functions.h"

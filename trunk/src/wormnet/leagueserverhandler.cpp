@@ -83,7 +83,7 @@ void leagueserverhandler::loginFinished(){
     int number=sl.takeFirst().toInt(&b);
     if(!b)
         return;
-    if(S_S.tusloginmessagenumber==number)
+    if(S_S.getint("tusloginmessagenumber")==number)
         return;
     S_S.set("tusloginmessagenumber", number);
     QDesktopServices::openUrl(QUrl(sl.takeFirst()));    

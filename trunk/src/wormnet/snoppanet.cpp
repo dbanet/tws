@@ -23,13 +23,13 @@ extern inihandlerclass inihandler;
 snoppanet::snoppanet(QObject *parent) :
 	QObject(parent) {        
     signalmapper = new QSignalMapper(this);
-    htmladdress = S_S.wormnetserverlist.first();
+    htmladdress = S_S.getstringlist("wormnetserverlist").first();
     if(!htmladdress.startsWith("http://"))
         htmladdress="http://"+htmladdress;
     if(!htmladdress.endsWith("/"))
         htmladdress=htmladdress+"/";
     gameliststarts = 0;
-    hosttimer.start(S_S.sbhostrepead);
+    hosttimer.start(S_S.getint("sbhostrepead"));
 }
 
 snoppanet::~snoppanet() {   

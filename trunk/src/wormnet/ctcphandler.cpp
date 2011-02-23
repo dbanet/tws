@@ -36,8 +36,7 @@ bool ctcphandler::getctcp(const QString &user, const QString &msg) {
     } else if (singleton<ctctphandlerwidget>().atomicmap.keys().contains(s)) {
         if(!singleton<ctctphandlerwidget>().atomicmap[s]->ui.cbenable->isChecked())
             return false;
-        QString str =
-                singleton<ctctphandlerwidget>().atomicmap[s]->ui.textEdit->toPlainText();
+        QString str =singleton<ctctphandlerwidget>().atomicmap[s]->ui.textEdit->toPlainText();
         singleton<netcoupler>().senduncheckedmessage(user, str);
     } else{
         return false;

@@ -17,6 +17,7 @@ void loadusergarbage();
 void safequerylist();
 void loadquerylist();
 void info(const QString &);
+void info(const QStringList &);
 void info(int);
 void fillString(QString &s, QString ss, int length);
 namespace {
@@ -34,7 +35,7 @@ namespace {
     //----------------------------------------------------------------------------------------------
     bool containsCI(const QStringList &sl, const QString &s2) {
         return sl.contains(s2, Qt::CaseInsensitive);
-    }    
+    }
     //----------------------------------------------------------------------------------------------
     bool containsOneCI(const QString &s, const QStringList &sl, QString *arg) {
         foreach(QString str,sl){
@@ -65,9 +66,10 @@ namespace {
         if(s.startsWith("http://",Qt::CaseInsensitive) || s.startsWith("www.",Qt::CaseInsensitive) || s.startsWith("ftp://",Qt::CaseInsensitive) || s.startsWith("https://",Qt::CaseInsensitive))
             return true;
         return false;
-    }                               
+    }
     //----------------------------------------------------------------------------------------------
     QString makeValidColumnName(QString s){
+        //return s.remove(":");
         return s.remove('.').remove(':').remove('/').replace(' ','_').remove('-').remove('#');
     }
     //----------------------------------------------------------------------------------------------

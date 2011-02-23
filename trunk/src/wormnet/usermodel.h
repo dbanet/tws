@@ -48,6 +48,7 @@ private:
     QMap<QString,const QWidget*> selectionwidgetmap;
     QVariant getrank(const userstruct &) const;
     QVariant getclan(const userstruct &) const;
+    void checkBuddysIgnoresQuerys();
 
     QStringList stringnamelist;
     bool *boolean;

@@ -1,6 +1,5 @@
 #include "awaybox.h"
 #include "settings.h"
-#include "netcoupler.h"
 #include "qobjectwrapper.h"
 #include "awayhandler.h"
 #include "global_functions.h"

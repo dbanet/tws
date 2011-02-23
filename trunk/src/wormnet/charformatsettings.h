@@ -7,7 +7,6 @@
 
 #ifndef charformatsettings_H_
 #define charformatsettings_H_
-#include<QMap>
 #include<QString>
 #include<QVariant>
 #include<QDataStream>

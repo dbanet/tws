@@ -13,7 +13,7 @@ class chatwindow : public QWidget
     Q_OBJECT
 
 public:
-    chatwindow(netcoupler*, const QString&, QWidget *parent = 0);
+    chatwindow(const QString&, QWidget *parent = 0);
     QString chatpartner;
     void getgamerwho(QString prefix=QString());
     ~chatwindow();
@@ -21,9 +21,7 @@ public:
     void setaway(bool,const QString &msg="");
 private slots:
     void on_pbresize_clicked();
-    void sendmsg(QString s="");
-    void sendnotice();
-    void sendnoticeaction();
+    void sendmsg();
     void garbagemapchanged(const QString&,const QString&);
     void usesettingswindow(const QString &s="");
     void pbmuteclicked();
@@ -36,8 +34,9 @@ private slots:
     void channelmsg(const QString&,const QString&,const QString&);
     void filtergarbage();
 private:
+    void sendnotice();
+    void sendnoticeaction();
     QPointer<chathandlerprv> chat;		//handles the whole textbrowser
-    netcoupler *net;
     Ui::chatwindowClass ui;
 
     QStatusBar *statusbar;

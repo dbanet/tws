@@ -123,8 +123,6 @@ mainwindow::mainwindow() {
         restoreGeometry(windowstates.takeFirst().toByteArray());
     if(height()<530)
         resize(width(),530);
-
-    qApp->installEventFilter(this);
 }
 mainwindow::~mainwindow() {
 }
@@ -154,7 +152,7 @@ void mainwindow::get_baseStyleSheet(){
 }
 void mainwindow::connectToNetwork(){
     ui.tabWidget->setCurrentIndex(1);
-    if(S_S.enablesecurelogging)
+    if(S_S.getbool("enablesecurelogging"))
         singleton<netcoupler>().start(singleton<leagueserverhandler>().nick);
     else
         singleton<netcoupler>().start(ui.lenick->text());
@@ -183,9 +181,9 @@ void mainwindow::chooseclicked() {
     S_S.set("wormnetserverlist", refreshcombobox(ui.cbServerList));
     S_S.set("leagueservers", refreshcombobox(ui.cbleagueservers));
     S_S.set("showinformation", ui.cbshowinformation->isChecked());
-    S_S.set("leagueservers"+ui.cbleagueservers->currentText(), QStringList()<<ui.letuslogin->text()<<ui.letuspassword->text());
+    S_S.set("leagueservers"+makeValidColumnName(ui.cbleagueservers->currentText()), QStringList()<<ui.letuslogin->text()<<ui.letuspassword->text());
 
-    if(S_S.enablesecurelogging){
+    if(S_S.getbool("enablesecurelogging")){
         S_S.set("spectateleagueserver", true);
         setleague();
         singleton<leagueserverhandler>().login(ui.letuslogin->text(),ui.letuspassword->text());
@@ -256,13 +254,13 @@ void mainwindow::join(const QString channel){
     currentchannellist << channel;
     singleton<netcoupler>().joinchannel(channel);
     if (whichuitype == 1) {
-        windowlist.push_back(new ::window(&singleton<netcoupler>(), channel, whichuitype));
+        windowlist.push_back(new ::window(channel, whichuitype));
         windowlist.last()->setObjectName("channelwindow");
     } else if (whichuitype == 2) {
-        windowlist.push_back(new ::window(&singleton<netcoupler>(), channel, whichuitype));
+        windowlist.push_back(new ::window(channel, whichuitype));
         windowlist.last()->setObjectName("channelwindow");
     } else if (whichuitype == 3) {
-        windowlist.push_back(new ::window(&singleton<netcoupler>(), channel, whichuitype));
+        windowlist.push_back(new ::window(channel, whichuitype));
         windowlist.last()->setObjectName("channelwindow");
     } else
         myDebug() << "joinclicked in mainwindow assert";
@@ -330,38 +328,37 @@ void mainwindow::changeEvent(QEvent * event) {
 }
 void mainwindow::pbrememberjoinclicked() {
     S_S.set("joinonstartup", ui.cbchannels->currentText());
-    ui.pbrememberjoin->setText(tr("Autojoin:") + "\n" + S_S.joinonstartup);
+    ui.pbrememberjoin->setText(tr("Autojoin:") + "\n" + S_S.getstring("joinonstartup"));
 }
 void mainwindow::snpsetcontains(const QString &s) {
     if (s == "chbautojoin" && S_S.contains(s))
-        ui.chbautojoin->setChecked(S_S.chbautojoin);
+        ui.chbautojoin->setChecked(S_S.getbool("chbautojoin"));
     else if (s == "qss_file") {
-        QFile f(QApplication::applicationDirPath() + "/qss/" + S_S.qss_file);
+        QFile f(QApplication::applicationDirPath() + "/qss/" + S_S.getstring("qss_file"));
         if(!f.open(QFile::ReadOnly))
-            QMessageBox::warning(this,QObject::tr("Warning"),tr("Cant read the Skinfile:\n")+S_S.qss_file);
+            QMessageBox::warning(this,QObject::tr("Warning"),tr("Cant read the Skinfile:\n")+S_S.getstring("qss_file"));
         QString stylesheet = QLatin1String(f.readAll());
         qApp->setStyleSheet(baseStyleSheet+stylesheet);
     } else if (s == "joinonstartup" && S_S.contains(s) && S_S.contains("chbautojoin")) {
-        ui.pbrememberjoin->setText(ui.pbrememberjoin->text().split("\n").first() + "\n" + S_S.joinonstartup);
-        if (S_S.chbautojoin) {
-            join(S_S.joinonstartup);
-        }
+        ui.pbrememberjoin->setText(ui.pbrememberjoin->text().split("\n").first() + "\n" + S_S.getstring("joinonstartup"));
+        if (S_S.getbool("chbautojoin"))
+            join(S_S.getstring("joinonstartup"));
     } else if (s == "chbminimized")
-        ui.chbminimized->setChecked(S_S.chbminimized);
+        ui.chbminimized->setChecked(S_S.getbool("chbminimized"));
     else if (s == "nickname" && S_S.contains(s))
-        ui.lenick->setText(S_S.nickname);
+        ui.lenick->setText(S_S.getstring("nickname"));
     else if (s == "tus_password" && S_S.contains("tus_password"))
-        ui.letuspassword->setText(S_S.tus_password);
+        ui.letuspassword->setText(S_S.getstring("tus_password"));
     else if (s == "tus_login" && S_S.contains("tus_login"))
-        ui.letuslogin->setText(S_S.tus_login);
+        ui.letuslogin->setText(S_S.getstring("tus_login"));
     else if (s == "countrycode"){
         QString language=QLocale::system().name().left(2);
-        int i=ui.flag->findText(S_S.countrycode);
+        int i=ui.flag->findText(S_S.getstring("countrycode"));
         if(i==-1)
             i=ui.flag->findText(language);
         ui.flag->setCurrentIndex(i);
     }else if (s == "rank"){
-        ui.rank->setCurrentIndex(S_S.rank);
+        ui.rank->setCurrentIndex(S_S.getint("rank"));
     }
     else if (s == "information" && S_S.contains(s))
         ui.client->setText(S_S.getstring(s));
@@ -373,19 +370,18 @@ void mainwindow::snpsetcontains(const QString &s) {
             ui.clan->setText(clanstring);
     }
     else if (s == "whichuitype" && S_S.contains(s))
-        whichuitype = S_S.whichuitype;
-    else if (s == "wormnetserverlist"){
-        ui.cbServerList->addItems(S_S.wormnetserverlist);
-    }
+        whichuitype = S_S.getint("whichuitype");
+    else if (s == "wormnetserverlist")
+        ui.cbServerList->addItems(S_S.getstringlist("wormnetserverlist"));
     else if (s == "leagueservers"){
-        ui.cbleagueservers->addItems(S_S.leagueservers);
+        ui.cbleagueservers->addItems(S_S.getstringlist("leagueservers"));
     }
     else if(s=="enablesecurelogging"){
-        bool b=S_S.enablesecurelogging;
+        bool b=S_S.getbool("enablesecurelogging");
         ui.cbenabletus->setChecked(b);
         on_cbenabletus_toggled(b);
     } else if(s=="showinformation"){
-        bool b=S_S.showinformation;
+        bool b=S_S.getbool("showinformation");
         ui.cbshowinformation->setChecked(b);
     }
 }
@@ -411,7 +407,7 @@ void mainwindow::appenddebugmessage(const QString &msg) {
 }
 void mainwindow::setlanguage(const QString &langfile) {
     S_S.set("language_file", langfile);
-    myDebug() << S_S.language_file;
+    myDebug() << S_S.getstring("language_file");
     QMessageBox::StandardButton button = QMessageBox::question(this, tr(
             "Restart the application?"), tr(
                     "Changing the translation requires a program restart.\n"
@@ -466,44 +462,32 @@ void mainwindow::settextscheme(const QString &file) {
 }
 void mainwindow::openchatwindow(const QString &s) {
     window::chatwindowstringlist << s;
-    window::chatwindows.push_back(new chatwindow(&singleton<netcoupler>(), s));
+    window::chatwindows.push_back(new chatwindow(s));
     window::chatwindows.last()->show();
     connect(window::chatwindows.last(), SIGNAL(closed()),this, SLOT(chatwinowclosed()));
 }
 void mainwindow::openchatwindowhidden(const QString &s) {
     window::chatwindowstringlist << s;
-    window::chatwindows.push_back(new chatwindow(&singleton<netcoupler>(), s));
+    window::chatwindows.push_back(new chatwindow(s));
     mainwindow::hiddenchatwindowshelper << window::chatwindows.last();
     connect(window::chatwindows.last(), SIGNAL(closed()),this, SLOT(chatwinowclosed()));
 }
 void mainwindow::gotprvmsg(const QString &user, const QString &receiver, const QString &msg) {
-    bool ctcp_wants_it = 0;
-    if (!msg.startsWith("\001ACTION", Qt::CaseInsensitive) && msg.startsWith(
-            "\001")) {
-        ctcp_wants_it = singleton<ctcphandler>().getctcp(user, msg);
-    }
-    if (ctcp_wants_it)
-        return;
-    usergarbagemap[user.toLower()]
-            << QDate::currentDate().toString("dd.MM") + " "
+    usergarbagemap[user.toLower()] << QDate::currentDate().toString("dd.MM") + " "
             + QTime::currentTime().toString("hh:mm") + " " + user
             + ">" + QString(msg).remove("\n").remove("\r");
-    if (qobjectwrapper<awayhandler>::ref().away()) {
+    if (qobjectwrapper<awayhandler>::ref().away())
         qobjectwrapper<awayhandler>::ref().sendaway(user);
-    }
-    if (!singleton<netcoupler>().users.usermap[usermodel::tr("Ignorelist")].count(
-            userstruct::whoami(user))
-        && !::window::chatwindowstringlist.contains(user,
-                                                    Qt::CaseInsensitive)) {
+
+    if (!msg.startsWith("\001ACTION", Qt::CaseInsensitive) && msg.startsWith("\001")){
+        if(singleton<ctcphandler>().getctcp(user, msg))
+            return;
+    } if (!containsCI(window::chatwindowstringlist, user)) {
         singleton<balloon_handler>().got_privmsg(user, msg);
-    }
-    if (!containsCI(window::chatwindowstringlist, user)) {
-        if ((singleton<netcoupler>().users.usermap[usermodel::tr("Buddylist")].count(
-                userstruct::whoami(user)) || mainwindow::windowlist.isEmpty() || S_S.chballwaysopenchatwindows)
-            && !singleton<netcoupler>().users.usermap[usermodel::tr("Ignorelist")].count(
-                    userstruct::whoami(user))) {
+        if (mainwindow::windowlist.isEmpty() || S_S.getbool("chballwaysopenchatwindows") ||
+            (singleton<netcoupler>().buddylistcontains(user) && !singleton<netcoupler>().ignorelistcontains(user))) {
             Q_ASSERT(user!="");
-            if (S_S.chbstartchatsminimized) {
+            if (S_S.getbool("chbstartchatsminimized")) {
                 if (mainwindow::windowlist.isEmpty())
                     singleton<sound_handler>().play_normalmsgsound(user);
                 else
@@ -519,9 +503,8 @@ void mainwindow::gotprvmsg(const QString &user, const QString &receiver, const Q
             }
         }
     } else {
-        foreach(chatwindow *w,::window::chatwindows) {
+        foreach(chatwindow *w,::window::chatwindows)
             w->gotmsg(user, receiver, msg);
-        }
         return;
     }
     foreach(::window *w,mainwindow::windowlist) {
@@ -671,7 +654,7 @@ void mainwindow::traymenutriggered(QAction *a) {
     } else if (a->text().contains(".qss")) {
         QFile f(QApplication::applicationDirPath() + "/qss/" + a->text());
         QString stylesheet;
-        if(a->text()==S_S.qss_file)
+        if(a->text()==S_S.getstring("qss_file"))
             return;
         if (f.open(QFile::ReadOnly)) {
             stylesheet = f.readAll();

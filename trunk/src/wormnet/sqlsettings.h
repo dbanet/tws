@@ -10,7 +10,7 @@
 class sqlsettings: public database_base
 {
 public:        
-    void start(QString db);
+    void start(QString arg);
 
     DECLARE_SINGLETON(sqlsettings);
 
@@ -18,18 +18,13 @@ private:
     void loadsnpiniDefaults();
     void loadsettingswindowDefaults();    
     void installTranslationBySystemLocale();    
-    void open();
-    void close();    
 
-    void importOldini(QString folder);
+    void importOldini(QString folder=QString());
 
     bool databasexists(); 
 
     bool loadOldFile(QString file);
-    void prepare(QString key,QVariant value);
-    void exec();
-
-    bool existingSettingsValid;
+    void keepSettings();
 };
 namespace{
     sqlsettings &S_S=singleton<sqlsettings>();

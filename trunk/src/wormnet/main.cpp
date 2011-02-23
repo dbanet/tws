@@ -1,4 +1,3 @@
-#include"netcoupler.h"
 #include"window.h"
 #include"mainwindow.h"
 #include"settings.h"
@@ -40,7 +39,7 @@ int main(int argc, char *argv[]) {
     a.setQuitOnLastWindowClosed(false);
     volume = new volumeslider;
     a.setApplicationName("The Wheat Snooper");        
-    singleton<clantowebpagemapper>().load();
+    singleton<clantowebpagemapper>().refresh();
     singleton<picturehandler>();
     if(S_S.getstring("textcodec").isEmpty()){
         CodecSelectDia::codec=QTextCodec::codecForLocale();
@@ -153,7 +152,7 @@ void handle_prosnooper_buddys(){
     QStringList buddielist;
     if (!buddies.isEmpty())
         buddielist = buddies.split(",", QString::SkipEmptyParts);    
-    QStringList sl = S_S.prosnooperbuddies;
+    QStringList sl = S_S.getstringlist("prosnooperbuddies");
     foreach(QString s,buddielist) {
         if (!sl.contains(s, Qt::CaseInsensitive)) {
             sl << s;

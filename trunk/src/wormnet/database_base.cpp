@@ -6,7 +6,7 @@
 #include<QtSql>
 #include<stdexcept>
 const char *TABLENAME="settings";
-database_base::database_base(QString db): databasename(db){
+database_base::database_base(){
 }
 QStringList database_base::getstringlist(QString key) const{
     before_get(key);
@@ -62,28 +62,51 @@ QVariant database_base::get(QString key) const{
         return list;
 }
 template<typename T>
-bool database_base::appendList(QString key, QVariant value, QSqlQuery &query){
-    if(value.value<T>().isEmpty())
-        return false;
-    int size=0;
-    size=value.value<T>().size()-model.rowCount();
+bool database_base::appendList(QString key, QVariant value, QSqlQuery &query){    
+    if(value.value<T>().isEmpty()){
+        query.exec(QString("update %1 set '%2'=NULL where prime=1;").arg(TABLENAME).arg(key));
+        return true;
+    }
+    int size=value.value<T>().size()-model.rowCount();
     for(int i=0;i<size;i++)
         query.exec(QString("insert into %1(d_u_m_m_y) values(1);").arg(TABLENAME));
     int counter = 1;
     typedef typename T::value_type type;
     foreach(type v,value.value<T>()){
-        query.prepare(QString("update %1 set %2=? where prime=%3;").arg(TABLENAME).arg(key).arg(counter++));
+        query.prepare(QString("update %1 set '%2'=? where prime=%3;").arg(TABLENAME).arg(key).arg(counter++));
         query.addBindValue(v);
         query.exec();
-    }
-    query.exec(QString("update %1 set %2=NULL where prime=%3;").arg(TABLENAME).arg(key).arg(counter));
+    }    
+    if(query.lastError().isValid())
+        qDebug()<<query.lastQuery()<<": \n"<<query.lastError().text()<<"\n#####################";
+    query.exec(QString("update %1 set '%2'=NULL where prime=%3;").arg(TABLENAME).arg(key).arg(counter));
     return true;
 }
-void database_base::set(QString key, QVariant value){
-    before_set(key, value);    
-    if(get(key)==value || key.isEmpty() || value.isNull())
+void database_base::append(QString key, QString s){
+    if(getstringlist(key).contains(s))
         return;
-    QSqlQuery query(QSqlDatabase::database(databasename));
+    set(key,QStringList(getstringlist(key))<<s);
+}
+void database_base::remove(QString key, QString s){
+    set(key,QStringList(getstringlist(key)).removeAll(s));
+}
+void database_base::set(QString key, QVariantList list){    
+    if(list.isEmpty())
+        set(key,QVariant());
+    else
+        set(key,QVariant(list));
+}
+void database_base::set(QString key, QStringList sl){
+    if(sl.isEmpty())
+        set(key,QVariant());
+    else
+        set(key,QVariant(sl));
+}
+void database_base::set(QString key, QVariant value){
+    if(get(key)==value || key.isEmpty())
+        return;
+    before_set(key, value);
+    QSqlQuery query(db());
     if(model.record(0).field(key).isNull())
         query.exec(QString("alter table %1 add '%2' BLOB;").arg(TABLENAME).arg(key));
     if(value.type()==QVariant::List)
@@ -94,6 +117,8 @@ void database_base::set(QString key, QVariant value){
         query.prepare(QString("update %1 set '%2'=? where prime=1;").arg(TABLENAME).arg(key));
         query.addBindValue(value);
         query.exec();
+    } else if(value.isNull()) {
+        query.exec(QString("update %1 set '%2'=NULL where prime=1;").arg(TABLENAME).arg(key));
     } else {
         qDebug()<<"void database_base::set(QString key, QVariant value)";
         qDebug()<<QString("type: ") + value.type()+" key: "+ key + "value: "+value.toString();
@@ -102,19 +127,21 @@ void database_base::set(QString key, QVariant value){
     if(query.lastError().isValid())
         qDebug()<<query.lastQuery()<<": \n"<<query.lastError().text()<<"\n#####################";
     sethash();    
-    qApp->processEvents();
 }
 bool database_base::contains(QString key) const {
     return hash.keys().contains(key);
 }
 void database_base::before_get(QString &key) const{
-    key=makeValidColumnName(key);
-    qDebug()<<"get";
-    qDebug()<<key;
-    qDebug()<<"#########";
+    //key=makeValidColumnName(key);
+//        qDebug()<<"get";
+//        qDebug()<<key;
+//        qDebug()<<"#########";
 }
 void database_base::before_set(QString &key, QVariant value) const{
-    key=makeValidColumnName(key);    
+    //key=makeValidColumnName(key);
+//    qDebug()<<"set";
+//    qDebug()<<key<<value<<get(key);
+//    qDebug()<<"#########";
 }
 void database_base::open(){
     if(isOpen())
@@ -122,12 +149,17 @@ void database_base::open(){
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE",databasename);
     db.setDatabaseName(databasename);
     db.open();
-    QSqlQuery query(QSqlDatabase::database(databasename));
+    QSqlQuery query(db);
     query.exec(QString("CREATE TABLE if not exists %1 (prime INTEGER PRIMARY KEY ASC, d_u_m_m_y bool);").arg(TABLENAME));
     query.exec(QString("select d_u_m_m_y from %1").arg(TABLENAME));
     if(!query.next())
         query.exec(QString("insert into %1(d_u_m_m_y) values(1);").arg(TABLENAME));
     sethash();
+}
+QSqlDatabase database_base::db(){
+    if(!isOpen())
+        open();
+    return QSqlDatabase::database(databasename);
 }
 void database_base::sethash(){
     if(!isOpen()){
@@ -180,94 +212,25 @@ void database_base::variantListToInt(int &i,const QString key){
 void database_base::update(){
     variantListToStringList(dissallowedclannames, "dissallowedclannames");
     variantListToStringList(buddylist, "buddylist");
-    variantListToStringList(ignorelist, "ignorelist");
-    variantListToStringList(joinstrings, "joinstrings");
-    variantListToStringList(wormnetserverlist, "wormnetserverlist");
-    variantListToStringList(leagueservers, "leagueservers");
-    variantListToStringList(prosnooperbuddies, "prosnooperbuddies");
-    variantListToStringList(combobox_wrapper, "combobox_wrapper");
-    variantListToStringList(mutedusers, "mutedusers");
-
-    variantListToString(language_file,"language_file");
-    variantListToString(qss_file,"qss_file");
-    variantListToString(joinonstartup,"joinonstartup");
-    variantListToString(nickname,"nickname");
-    variantListToString(tus_password,"tus_password");
-    variantListToString(tus_login,"tus_login");
-    variantListToString(countrycode,"countrycode");
-    variantListToString(leplayername,"leplayername");
-    variantListToString(costumipforhosting,"costumipforhosting");
-    variantListToString(clan,"clan");
-    variantListToString(information,"information");
-    variantListToString(lenormalchatmessage,"lenormalchatmessage");
-    variantListToString(lebuddychatmessage,"lebuddychatmessage");
-    variantListToString(lebuddychatwindowsopened,"lebuddychatwindowsopened");
-    variantListToString(lebuddyleaves,"lebuddyleaves");
-    variantListToString(lebuddyarrives,"lebuddyarrives");
-    variantListToString(lehighlightning,"lehighlightning");
-    variantListToString(lehostsound,"lehostsound");
-    variantListToString(lecostumword,"lecostumword");
-    variantListToString(lestartup,"lestartup");
-
-    variantListToBool(cbdontplaysound,"cbdontplaysound");
-    variantListToBool(cbcostumword,"cbcostumword");
-    variantListToBool(chbhostsound,"chbhostsound");
-    variantListToBool(cbhighlightning,"cbhighlightning");
-    variantListToBool(cbbuddyleaves,"cbbuddyleaves");
-    variantListToBool(cbplaybuddychatmessage,"cbplaybuddychatmessage");
-    variantListToBool(cbplaynormalchatmessage,"cbplaynormalchatmessage");
-    variantListToBool(cbplaybuddychatwindowopened,"cbplaybuddychatwindowopened");
-    variantListToBool(cbbuddyarrives,"cbbuddyarrives");
-    variantListToBool(cbstartup,"cbstartup");
-    variantListToBool(cbdontsortinchannels,"cbdontsortinchannels");
-    variantListToBool(cbdontshowballoons,"cbdontshowballoons");
-    variantListToBool(cbsetawaywhilegaming,"cbsetawaywhilegaming");
-    variantListToBool(chbdisconnectongame,"chbdisconnectongame");
-    variantListToBool(chbhidechannelwindowsongame,"chbhidechannelwindowsongame");
-    variantListToBool(useacostumipforhosting,"useacostumipforhosting");
-    variantListToBool(chbsendhostinfotochan,"chbsendhostinfotochan");
-    variantListToBool(chbactionwhenjoining,"chbactionwhenjoining");
-    variantListToBool(chbsmileys,"chbsmileys");
-    variantListToBool(showinformation,"showinformation");
-    variantListToBool(enablesecurelogging,"enablesecurelogging");
-    variantListToBool(spectateleagueserver,"spectateleagueserver");
-    variantListToBool(cbalertmeonnotice,"cbalertmeonnotice");
-    variantListToBool(cbalertfromnormal,"cbalertfromnormal");
-    variantListToBool(cbignorysappearinchannel,"cbignorysappearinchannel");
+    variantListToStringList(ignorelist, "ignorelist");        
+    variantListToStringList(combobox_wrapper, "combobox_wrapper");    
+    variantListToBool(showinformation,"showinformation");    
     variantListToBool(chbjoininfo,"chbjoininfo");
     variantListToBool(chbpartinfo,"chbpartinfo");
-    variantListToBool(chbquitinfo,"chbquitinfo");
-    variantListToBool(cbopenbuddylistonstartup,"cbopenbuddylistonstartup");
+    variantListToBool(chbquitinfo,"chbquitinfo");   
     variantListToBool(cbdontshowagradientonverifiedusers,"cbdontshowagradientonverifiedusers");
     variantListToBool(cbunderlinelinksandclans,"cbunderlinelinksandclans");
     variantListToBool(cbunderlineverifiedusers,"cbunderlineverifiedusers");
     variantListToBool(cbonlyshowranksfromverifiedusers,"cbonlyshowranksfromverifiedusers");
-    variantListToBool(cbshowranksonlyfromsecureloggedusers,"cbshowranksonlyfromsecureloggedusers");
-    variantListToBool(chbshowbaloonwhenbuddyhosts,"chbshowbaloonwhenbuddyhosts");
+    variantListToBool(cbshowranksonlyfromsecureloggedusers,"cbshowranksonlyfromsecureloggedusers");    
     variantListToBool(cbshowipofhosts,"cbshowipofhosts");
-    variantListToBool(cbsafequerys,"cbsafequerys");
-    variantListToBool(chbshowchannelchatinchatwindows,"chbshowchannelchatinchatwindows");
-    variantListToBool(chballwaysopenchatwindows,"chballwaysopenchatwindows");
-    variantListToBool(chbstartchatsminimized,"chbstartchatsminimized");
-    variantListToBool(chbminimized,"chbminimized");
-    variantListToBool(chbautojoin,"chbautojoin");
-    variantListToBool(cbonlyshowflagsfromverifiedusers,"cbonlyshowflagsfromverifiedusers");
-    variantListToBool(cbservermessageinchannelwindows,"cbservermessageinchannelwindows");
-    variantListToBool(chbbuddyballoonleaves,"chbbuddyballoonleaves");
-    variantListToBool(chbbuddyballoonarives,"chbbuddyballoonarives");
-    variantListToBool(chbballoonprivmsg,"chbballoonprivmsg");
-
-    variantListToInt(volumeslidervalue,"volumeslidervalue");
-    variantListToInt(rank,"rank");
-    variantListToInt(whichuitype,"whichuitype");
-    variantListToInt(sbmaximumoftextblocks,"sbmaximumoftextblocks");
-    variantListToInt(sbwhorepead,"sbwhorepead");
-    variantListToInt(sbmaximumoftextblocksinlog,"sbmaximumoftextblocksinlog");
-    variantListToInt(sbhostrepead,"sbhostrepead");
-    variantListToInt(channeltransparency,"channeltransparency");
-    variantListToInt(tusloginmessagenumber,"tusloginmessagenumber");
+    variantListToBool(cbsafequerys,"cbsafequerys");    
+    variantListToBool(cbonlyshowflagsfromverifiedusers,"cbonlyshowflagsfromverifiedusers");    
+    variantListToBool(spectateleagueserver,"spectateleagueserver");
+    variantListToBool(chbshowbaloonwhenbuddyhosts,"chbshowbaloonwhenbuddyhosts");
+    variantListToInt(sbmaximumoftextblocksinlog,"sbmaximumoftextblocksinlog");    
     variantListToInt(sbsecureloggingrepeatdelay,"sbsecureloggingrepeatdelay");
-    variantListToInt(sbmaximumballonmessages,"sbmaximumballonmessages");
+    variantListToBool(cbdontsortinchannels,"cbdontsortinchannels");
 }
 void database_base::validate(){
     checkifexistsinstringlist("leagueservers","http://www.tus-wa.com/");
@@ -324,4 +287,10 @@ void database_base::checkifexistsinstringlist(QString key,QString value){
         return;
     sl<<value;
     set(key, sl);
+}
+void database_base::transaction(){
+    db().transaction();
+}
+void database_base::commit(){
+    db().commit();
 }

@@ -62,6 +62,7 @@ settingswindow::settingswindow() {
     ui->tabWidget->setCurrentIndex(0);   
 }
 void settingswindow::ok() {
+    S_S.transaction();
     QObject *o;
     foreach(QString s,objectnames) {
         o =  findChild<QObject*> (s);
@@ -77,6 +78,7 @@ void settingswindow::ok() {
     }
     close();
     singleton<netcoupler>().settingswindowemitfunktion();
+    S_S.commit();
 }
 void settingswindow::cancel() {
     close();

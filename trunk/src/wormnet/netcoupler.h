@@ -32,7 +32,9 @@ public:
     void partchannel(const QString&);       
     void sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,int flag);
     void refreshlist();
-    void refreshwho();    
+    void refreshwho();
+    bool buddylistcontains(QString user);
+    bool ignorelistcontains(QString user);
     QString getmyhostip();
     QString nick;
     usermodel users;
@@ -42,7 +44,6 @@ public:
 
     void settingswindowemitfunktion();
 
-    QStringList mutedusers;    
     void sendquit();
     int ircstate();
 
