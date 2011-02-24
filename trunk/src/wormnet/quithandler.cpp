@@ -29,11 +29,9 @@ void quithandler::inducequit(){
     }
 }
 void quithandler::beforequit(){    
-    qobjectwrapper<mainwindow>::ref().quit();        
-    if (S_S.getbool("cbsafequerys")) {
-        safeusergarbage();
-        safequerylist();
-    }
+    qobjectwrapper<mainwindow>::ref().quit();            
+    safeusergarbage();
+    safequerylist();
     singleton<balloon_handler>().hide_tray();
 }
 void quithandler::quit(){

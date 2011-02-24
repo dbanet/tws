@@ -25,7 +25,7 @@ public:
     void who();
     void partchannel(const QString&);
     void quit();
-    int state();
+    int state() const;
     QList<userstruct> wholist;
     QHash<QString,QStringList> joinlist;
     QString nick;

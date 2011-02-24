@@ -20,7 +20,6 @@ private slots:
 	void fontclicked();
 	void colorclicked();
 	void showclicked();
-
 };
 
 #endif // TEXTSCHEMEHANDLER_H

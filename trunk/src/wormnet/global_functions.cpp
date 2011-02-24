@@ -5,7 +5,9 @@
 #include<QApplication>
 #include<QMessageBox>
 #include<QDir>
+
 #include"global_functions.h"
+#include"settings.h"
 
 //----------------------------------------------------------------------------------------------
 QStringList refreshcombobox(QComboBox *cb){
@@ -92,6 +94,8 @@ QString gethostport() {
 }
 //----------------------------------------------------------------------------------------------
 void safeusergarbage() {
+    if(!S_S.getbool("cbsafequerys"))
+        return;
     QFile f(QApplication::applicationDirPath() + "/query/log");
     if (!f.open(QFile::WriteOnly | QFile::Truncate))
         return;
@@ -104,6 +108,8 @@ void safeusergarbage() {
 }
 //----------------------------------------------------------------------------------------------
 void loadusergarbage() {
+    if(!S_S.getbool("cbsafequerys"))
+        return;
     QFile f(QApplication::applicationDirPath() + "/query/log");
     QString s;
     QStringList sl;
@@ -118,6 +124,8 @@ void loadusergarbage() {
 }
 //----------------------------------------------------------------------------------------------
 void safequerylist() {
+    if(!S_S.getbool("cbsafequerys"))
+        return;
     QFile f(QApplication::applicationDirPath() + "/query/querylist");
     if (!f.open(QFile::WriteOnly | QFile::Truncate))
         return;
@@ -127,6 +135,8 @@ void safequerylist() {
 }
 //----------------------------------------------------------------------------------------------
 void loadquerylist() {
+    if(!S_S.getbool("cbsafequerys"))
+        return;
     QFile f(QApplication::applicationDirPath() + "/query/querylist");
     if (!f.open(QFile::ReadOnly))
         return;
@@ -142,6 +152,7 @@ void info(const QString &msg){
 //----------------------------------------------------------------------------------------------
 void info(int i){
     QMessageBox::information(0,"Debug info",QString::number(i));
+    myDebug()<<i;
 }
 //----------------------------------------------------------------------------------------------
 void fillString(QString &s, QString ss, int length){

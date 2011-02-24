@@ -72,7 +72,8 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/settings.h \
     src/wormnet/settingshelper.h \
     src/wormnet/database_base.h \
-    src/wormnet/progressdialog.h
+    src/wormnet/progressdialog.h \
+    src/wormnet/usermessage.h
 
 FORMS += src/wormnet/about.ui \
     src/wormnet/awaybox.ui \

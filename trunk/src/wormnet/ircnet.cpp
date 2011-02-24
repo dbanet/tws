@@ -268,7 +268,7 @@ void ircnet::quit() {
 void ircnet::tcp_write(const QString &msg){
     tcp->write(CodecSelectDia::codec->fromUnicode(msg)+"\n");
 }
-int ircnet::state(){
+int ircnet::state() const{
     return tcp->state();
 }
 

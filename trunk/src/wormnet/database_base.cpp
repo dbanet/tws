@@ -289,8 +289,10 @@ void database_base::checkifexistsinstringlist(QString key,QString value){
     set(key, sl);
 }
 void database_base::transaction(){
-    db().transaction();
+    if(!db().transaction())
+        myDebug()<<"################void database_base::transaction(){";
 }
 void database_base::commit(){
-    db().commit();
+    if(!db().commit())
+        myDebug()<<"#################void database_base::commit(){";
 }

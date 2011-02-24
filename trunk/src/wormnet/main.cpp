@@ -11,7 +11,6 @@
 #include"clantowebpagemapper.h"
 #include"picturehandler.h"
 #include"awayhandler.h"
-#include"myDebug.h"
 
 #include<QtGui>
 #include<QApplication>

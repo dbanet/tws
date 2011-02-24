@@ -38,10 +38,9 @@ netcoupler::netcoupler() {
     connect(this,SIGNAL(sigdisconnected()),&singleton<balloon_handler>(),SLOT(disconnected()));    
     p->setProcessChannelMode(QProcess::MergedChannels);    
     connect(p, SIGNAL(readyRead()),this, SLOT(readprocess()));    
-    usesettingswindow("cbsetawaywhilegaming");
-    usesettingswindow("leawaystring");
 
-    connect(this, SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
+
+    connect(this, SIGNAL(sigsettingswindowchanged()),this, SLOT(initSoundAndStartWho()));
     connect(this, SIGNAL(sigsettingswindowchanged()),&users, SLOT(usesettingswindow()));
 
     irc=NULL;
@@ -73,7 +72,7 @@ void netcoupler::start(QString s){
         ircip = sl.first();
         irc->setip(ircip);
         irc->start();
-        usesettingswindow("sbwhorepead");
+        initSoundAndStartWho();
     }    
     connect(&loopTimer,SIGNAL(timeout()),this,SLOT(loopTimerTimeout()));
     loopTimer.start(30*1000);
@@ -112,7 +111,7 @@ void netcoupler::getchannellist(QStringList sl) {
 void netcoupler::getircip(QString s) {
     irc->setip(s);
     irc->start();
-    usesettingswindow("sbwhorepead");
+    initSoundAndStartWho();
 }
 void netcoupler::gethostlist(QList<hoststruct> l, QString s) {
     refreshlist();
@@ -324,12 +323,10 @@ void netcoupler::sendinfotochan(const QString &chan, const QString &msg) {
     command = QString("\001ACTION %1 \001").arg(msg);
     getmsg(nick, chan, command);
 }
-void netcoupler::usesettingswindow(const QString &s) {
-    if (s == "sbwhorepead" || s == "") {
-        timer.disconnect();
-        connect(&timer, SIGNAL(timeout()),this, SLOT(getwholist()));        
-        timer.start(S_S.getint("sbwhorepead"));
-    }
+void netcoupler::initSoundAndStartWho() {
+    timer.disconnect();
+    connect(&timer, SIGNAL(timeout()),this, SLOT(getwholist()));
+    timer.start(S_S.getint("sbwhorepead"));
     singleton<sound_handler>().init();
 }
 void netcoupler::settingswindowemitfunktion() { //signals are protected?!

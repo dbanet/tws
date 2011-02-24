@@ -15,7 +15,7 @@
 //        a.set("volumeslidervalue",5);
 //        a.set("chbminimized", 0);
 //        a.set("dissallowedclannames", QStringList()<<"Username"<<"cybershadow"<<"WebSnoop"<<"HostingBuddy"<<"SheriffBot"<<"muzer"<<"Help"<<"Miranda"<<"Mirc"<<"wormatty"<<"simon"<<"darkone"<<"noclan"<<"baleegames");
-//        a.set("charformatfile", "comic by lookias.textscheme");
+//        a.set("textscheme", "comic by lookias.textscheme");
 //        a.set("chbsendhostinfotochan", true);
 //        a.set("language_file", "_en.Standard.qm");
 //        installTranslationBySystemLocale();

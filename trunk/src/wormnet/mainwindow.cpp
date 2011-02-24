@@ -140,7 +140,7 @@ void mainwindow::fillsnpsettings(){
     S_S.set("countrycode", ui.flag->currentText());
     S_S.set("rank", ui.rank->currentText());
     if (fontorcolorchanged == 1) {
-        S_S.set("charformatfile", "lastedited.textscheme");
+        S_S.set("textscheme", "lastedited.textscheme");
         singleton<charformatsettings>().safe();
     }
 }
@@ -456,7 +456,7 @@ void mainwindow::gotctcpsignal(const QString& command, const QString &user) {
 }
 void mainwindow::settextscheme(const QString &file) {
     myDebug() << tr("trying to apply new textscheme: ") + file;
-    S_S.set("charformatfile", file);
+    S_S.set("textscheme", file);
     singleton<charformatsettings>().load();
     chathandler::initialformatstarter();
 }
@@ -726,7 +726,7 @@ void mainwindow::traymenutriggered(QAction *a) {
             QString file_name=f.fileName();
             if(!file_name.endsWith(".textscheme"))
                 file_name+=".textscheme";
-            S_S.set("charformatfile", file_name);
+            S_S.set("textscheme", file_name);
             chathandler::initialformatsaver();
             textschememenu->addAction(file_name);
         }

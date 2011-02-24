@@ -95,7 +95,7 @@ public slots:
     void sendinfotochan(const QString &,const QString &);
     void refreshhostlist();
 private slots:    
-    void usesettingswindow(const QString &s="");    
+    void initSoundAndStartWho();
     void getchannellist(QStringList);
     void getircip(QString);
     void gethostlist(QList<hoststruct>,QString);
