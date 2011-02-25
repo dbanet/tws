@@ -13,23 +13,26 @@
 #include<QTextCharFormat>
 #include<QTextCursor>
 #include<QMenu>
-#include<QPointer>
+
 #include "chathandler.h"
 #include "emoticonhandler.h"
 class QTextBrowser;
 class QTextDocument;
-class emoticonhandler;
+
+class usermessage;
 class chathandlerprv: public chathandler {
-	Q_OBJECT
+        Q_OBJECT
 public:
-	chathandlerprv(QObject*,QTextBrowser*,QString);
-	virtual ~chathandlerprv();
-	void append(const QString&,const QString&,const QString&);
+        chathandlerprv(QObject*,QTextBrowser*,QString);
+        virtual ~chathandlerprv();
+        void append(const usermessage &u);
         void appendgarbage(const QString&);
+        void appendgarbage(const usermessage &u);
         void appendhistory(const QString&);
-	static QPointer<emoticonhandler> emot;
-private:
 private slots:
+        void opencontextmenu(const QPoint &);
+private:
+        QList<QPair<QVariant, QTextCharFormat> > getSegmentation(QString s, QTextCharFormat format);
 };
 
 #endif /* chathandlerprv_H_ */

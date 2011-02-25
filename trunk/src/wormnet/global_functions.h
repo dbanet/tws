@@ -20,6 +20,7 @@ void info(const QString &);
 void info(const QStringList &);
 void info(int);
 void fillString(QString &s, QString ss, int length);
+
 namespace {
     bool compareCI(const QString &s1, const QString &s2) {
         return s1.toLower() == s2.toLower();

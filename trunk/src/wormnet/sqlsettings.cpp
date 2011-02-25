@@ -152,6 +152,7 @@ void sqlsettings::loadsettingswindowDefaults(){
     set("sbmaximumoftextblocks", 500);
     set("sbsecureloggingrepeatdelay", 10*100);
     set("cbonlyshowranksfromverifiedusers", true);
+    set("showsmileysinchannels", true);
 }
 void sqlsettings::installTranslationBySystemLocale(){
     QTranslator *trans=new QTranslator;

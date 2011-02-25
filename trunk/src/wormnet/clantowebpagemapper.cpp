@@ -36,7 +36,7 @@ void clantowebpagemapper::httpFinished(){
     foreach(QString s,sl){
         if(s.isEmpty())
             continue;
-        QStringList temp=s.trimmed().split(" ");
+        QStringList temp=s.simplified().split(" ");
         if(temp.size()<2)
             continue;
         QString s=temp.takeFirst().toLower();

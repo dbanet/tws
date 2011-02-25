@@ -283,5 +283,10 @@
         <file>flags/che.png</file>
         <file>flags/sco.png</file>
         <file>ranks/nnn.png</file>
+        <file>ranks/WSRank_admin.png</file>
+        <file>ranks/WSRank_adminPlay.png</file>
+        <file>ranks/WSRank_nnnPlay.png</file>
+        <file>ranks/WSRank_oil.png</file>
+        <file>ranks/WSRank_oilPlay.png</file>
     </qresource>
 </RCC>

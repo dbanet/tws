@@ -133,7 +133,7 @@ void leagueserverhandler::refreshFinished(){
         if(sl.size()>5)
             s=QStringList(sl.mid(5)).join(" ");
         map[nick]=sl.mid(0,5) + QStringList()<<s;
-        if(map[nick].size()>e_clan && map[nick][e_clan].trimmed()==".")
+        if(map[nick].size()>e_clan && map[nick][e_clan].simplified()==".")
             map[nick][e_clan]="";
     }
     refreshreply->deleteLater();

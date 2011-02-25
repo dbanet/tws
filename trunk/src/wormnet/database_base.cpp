@@ -280,6 +280,10 @@ void database_base::validate(){
         set("cbonlyshowranksfromverifiedusers", true);
     if(getint("whichuitype")<1 || getint("whichuitype")>3)
         set("whichuitype",1);
+    if(!contains("showsmileysinchannels"))
+        set("showsmileysinchannels",true);
+    if(!contains("chbsmileysinchatwindows"))
+        set("chbsmileysinchatwindows",true);
 }
 void database_base::checkifexistsinstringlist(QString key,QString value){
     QStringList sl=getstringlist(key);

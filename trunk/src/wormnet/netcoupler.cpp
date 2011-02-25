@@ -61,6 +61,7 @@ void netcoupler::start(QString s){
     connect(irc, SIGNAL(siggetlist(QStringList)),this, SLOT(getchannellist(QStringList)));
     connect(irc, SIGNAL(sigmsg(const QString&,const QString&,const QString&)),this, SLOT(getmsg(const QString&,const QString&,const QString&)));
     connect(irc, SIGNAL(signotice(const QString&,const QString&,const QString&)),this, SLOT(getnotice(const QString&,const QString&,const QString&)));
+    connect(irc, SIGNAL(siggotusermessage(const usermessage&)),this,SLOT(getusermessage(const usermessage&)));
     connect(irc, SIGNAL(siggotidletime(const QString&, int)),this, SIGNAL(siggotidletime(const QString&, int)));
     connect(irc, SIGNAL(signosuchnick(const QString&)),this, SIGNAL(signosuchnick(const QString&)));
     connect(http, SIGNAL(sighostlist(QList<hoststruct>,QString)),this, SLOT(gethostlist(QList<hoststruct>,QString)));
@@ -137,8 +138,17 @@ void netcoupler::getmsg(const QString &user, const QString &receiver, const QStr
 void netcoupler::getnotice(const QString &user, const QString &receiver, const QString &msg) {
     emit siggotnotice(user, receiver, msg);
 }
+void netcoupler::getusermessage(const usermessage &u){
+    QString s;
+    if(u.has_type(e_PRIVMSG))
+        s=QDate::currentDate().toString("dd.MM") + " " + QTime::currentTime().toString("hh:mm") + " ";
+    else
+        s=QDate::currentDate().toString("dd.MM") + " " + QTime::currentTime().toString("hh:mm") + "NOTICE : ";
+    usergarbagemap[u.user().toLower()] << s + u.user() + ">" + u.msg().simplified();
+    emit siggotusermessage(u);
+}
 void netcoupler::sendmessage(const QString &receiver, const QString &msg) {
-    irc->sendmessage(msg, receiver);
+    irc->sendprvmessage(msg, receiver);
 }
 void netcoupler::senduncheckedmessage(const QString &user, const QString &msg) {
     if (msg.startsWith(">!")) {
@@ -157,6 +167,11 @@ void netcoupler::senduncheckedmessage(const QString &user, const QString &msg) {
     } else {
         sendmessage(user, msg);
     }
+}
+void netcoupler::sendusermessage(const usermessage &u){
+    if(irc==NULL)
+        return;
+    irc->sendusermessage(u);
 }
 void netcoupler::sendnotice(const QString &receiver, const QString &msg) {
     irc->sendnotice(msg, receiver);

@@ -27,25 +27,20 @@
 #include"sound_handler.h"
 #include"global_functions.h"
 #include"balloon_handler.h"
+#include"usermessage.h"
+#include"emoticonhandler.h"
 
-QTextCharFormat chathandler::timeformat;
-QTextCharFormat chathandler::nickformat;
-QTextCharFormat chathandler::chatformat;
-QTextCharFormat chathandler::actionformat;
-QTextCharFormat chathandler::buddyformat;
-QTextCharFormat chathandler::noticeformat;
-QTextCharFormat chathandler::prvformat;
-QTextCharFormat chathandler::httpformat;
-QTextCharFormat chathandler::waformat;
-QTextCharFormat chathandler::debugformat;
-QTextCharFormat chathandler::garbagejoinformat;
-QTextCharFormat chathandler::garbagepartformat;
-QTextCharFormat chathandler::garbagequitformat;
-QTextCharFormat chathandler::garbageformat;
-QTextCharFormat chathandler::myselfformat;
+int chathandler::whatsthispropertyId=0x100000;
+int chathandler::userpropertyId=0x100000+1;
+int chathandler::linkpropertyId=0x100000+2;
+
+QPointer<emoticonhandler> chathandler::emot;
+QHash<int, QTextCharFormat> chathandler::hash;
+
 extern bool fontorcolorchanged;
-chathandler::chathandler(QObject *parent, QTextBrowser *t, QString chan) :
+chathandler::chathandler(QObject *parent, QTextBrowser *t, QString chan) :        
         QObject(parent), channel(chan), slideratmaximum(true),gotFirstMessage(false), tb(t) {
+    emot = new emoticonhandler;
     tb->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     tb->setContextMenuPolicy(Qt::CustomContextMenu);
     tb->setOpenLinks(0);
@@ -58,31 +53,22 @@ chathandler::chathandler(QObject *parent, QTextBrowser *t, QString chan) :
     connect(tb, SIGNAL(customContextMenuRequested ( const QPoint &)),this, SLOT(contextrequest(const QPoint&)));
     connect(tb, SIGNAL(anchorClicked (const QUrl&)),this, SLOT(anchorclicked(const QUrl&)));
 
+    initialformatstarter();
     QAction *a;
     fontmenu.addAction(tr("Set the font for this texttype"));
     fontmenu.addAction(tr("Set the color for this texttype"));
-    a = nickmenu.addAction(tr("Chat with this user"));
+
+    a = chatmenu.addAction(tr("Chat with this user"));
     a->setIcon(QIcon("snppictures/Chat_Icon.png"));
-    nickmenu.addSeparator();
-    nickmenu.addAction(tr("Set the font for this texttype"));
-    nickmenu.addAction(tr("Set the color for this texttype"));
-    a = prvmenu.addAction(tr("Chat with this user"));
-    a->setIcon(QIcon("snppictures/Chat_Icon.png"));
-    prvmenu.addSeparator();
-    prvmenu.addAction(tr("Set the font for this texttype"));
-    prvmenu.addAction(tr("Set the color for this texttype"));
+    chatmenu.addSeparator();
+    chatmenu.addAction(tr("Set the font for this texttype"));
+    chatmenu.addAction(tr("Set the color for this texttype"));
+
     wamenu.addAction(tr("Play this game."));
     wamenu.addAction(tr("Show game info."));
     wamenu.addSeparator();
     wamenu.addAction(tr("Set the font for this texttype"));
     wamenu.addAction(tr("Set the color for this texttype"));
-    a = noticemenu.addAction(tr("Chat with this user"));
-    a->setIcon(QIcon("snppictures/Chat_Icon.png"));
-    noticemenu.addSeparator();
-    noticemenu.addAction(tr("Set the font for this texttype"));
-    noticemenu.addAction(tr("Set the color for this texttype"));
-    debugmenu.addAction(tr("Set the font for this texttype"));
-    debugmenu.addAction(tr("Set the color for this texttype"));
 
     connect(tb->verticalScrollBar(), SIGNAL(valueChanged(int)),this, SLOT(slidermoved(int)));
     connect(&singleton<netcoupler>(), SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
@@ -102,47 +88,29 @@ bool chathandler::eventFilter(QObject *obj, QEvent *event){
 }
 
 void chathandler::initialformatstarter() {
-    initialformat(timeformat, "timeformatfont", "timeformatcolor");
-    initialformat(chatformat, "chatformatfont", "chatformatcolor");
-    initialformat(actionformat, "actionformatfont", "actionformatcolor");
-    initialformat(buddyformat, "buddyformatfont", "buddyformatcolor");
-    initialformat(nickformat, "nickformatfont", "nickformatcolor");
-    initialformat(prvformat, "prvformatfont", "prvformatcolor");
-    initialformat(httpformat, "httpformatfont", "httpformatcolor");
-    initialformat(waformat, "waformatfont", "waformatcolor");
-    initialformat(noticeformat, "noticeformatfont", "noticeformatcolor");
-    initialformat(debugformat, "debugformatfont", "debugformatcolor");
-    initialformat(garbagejoinformat, "garbagejoinformatfont","garbagejoinformatcolor");
-    initialformat(garbagepartformat, "garbagepartformatfont","garbagepartformatcolor");
-    initialformat(garbagequitformat, "garbagequitformatfont","garbagequitformatcolor");
-    initialformat(garbageformat, "garbageformatfont", "garbageformatcolor");
-    initialformat(myselfformat, "myselfformatfont", "myselfformatcolor");
-    garbagejoinformat.setAnchorHref("garbagejoin");
-    garbagequitformat.setAnchorHref("garbagequit");
-    garbagepartformat.setAnchorHref("garbagepart");
-    timeformat.setAnchorHref("time");
-    chatformat.setAnchorHref("chat");
-    actionformat.setAnchorHref("action");
-    buddyformat.setAnchorHref("buddy");
-    debugformat.setAnchorHref("debug");
-    garbageformat.setAnchorHref("garbage");
-    myselfformat.setAnchorHref("myself");
-    nickformat.setAnchorHref("nick");
+    for(int i=0;i<18;i++){
+        hash[i].setProperty(whatsthispropertyId, i);
+        initialformat(hash[i]);
+    }
 }
 void chathandler::initialformatsaver() {
     singleton<charformatsettings>().safe();
 }
-void chathandler::initialformat(QTextCharFormat &c, const QString &font,const QString &color) {
+QStringList formatstrings=QStringList()<<"nick"<<"myself"<<"garbage"<<"time"<<"garbagejoin" <<"garbagepart"
+                          <<"garbagequit" <<"chat" <<"action" <<"buddy" <<"debug" <<"ctcp" <<"raw"
+                          <<"prv"<<"notice"<<"noticeaction"<<"wa"<<"http";
+void chathandler::initialformat(QTextCharFormat &format){                                   //provisorium TODO
+    QString font=formatstrings[format.intProperty(whatsthispropertyId)]+"formatfont";
+    QString color=formatstrings[format.intProperty(whatsthispropertyId)]+"formatcolor";
+
     if (singleton<charformatsettings>().map.contains(font))
-        c.setFont(singleton<charformatsettings>().map[font].value<QFont> ());
+        format.setFont(singleton<charformatsettings>().map[font].value<QFont> ());
     else
-        c.setFont(QFont());
+        format.setFont(QFont());
     if (singleton<charformatsettings>().map.contains(color))
-        c.setForeground(singleton<charformatsettings>().map[color].value<QColor> ());
+        format.setForeground(singleton<charformatsettings>().map[color].value<QColor> ());
     else
-        c.setForeground(QColor());
-    c.setProperty(1, font);
-    c.setProperty(2, color);
+        format.setForeground(QColor());
 }
 void chathandler::anchorclicked(const QUrl &u) {
     QString s=u.toString();
@@ -154,92 +122,183 @@ void chathandler::anchorclicked(const QUrl &u) {
         QDesktopServices::openUrl(u1);
     }
 }
-void chathandler::append(const QString &user, const QString &receiver,
-                         const QString &msg) {    
-    QString msgtemp = msg;
-    msgtemp.remove("\r");
-    msgtemp.remove("\n");
+void chathandler::append(const usermessage &u){
+    typedef QPair<QVariant, QTextCharFormat> pair;
+    QList<pair> text;
     QString time = QTime::currentTime().toString("hh:mm");
-    cursor->insertText(time + ": ", timeformat);
-    if (!containsCI(S_S.buddylist, user)) {
-        if (compareCI(receiver, channel)) {
-            if (msg.startsWith("\001ACTION")) {
-                msgtemp.remove(0, 7).remove("\001");
-                insertText("<" + user + " " + msgtemp + +">", actionformat,user);
-            } else {
-                nickformat.setAnchorHref("<nick> " + user);
-                cursor->insertText(user + "> ", nickformat);
-                if(user==singleton<netcoupler>().nick)
-                    insertText(msgtemp, myselfformat,user);
-                else
-                    insertText(msgtemp, chatformat,user);
-            }
-        } else {
-            if (msg.startsWith("\001ACTION")) {
-                msgtemp.remove(0, 7).remove("\001");
-                insertText("<" + user + " " + msgtemp + ">", actionformat,user);
-            } else {
-                prvformat.setAnchorHref("<prv> " + user);
-                cursor->insertText(user + " to " + receiver + ">", prvformat);
-                insertText(msgtemp, prvformat,user);
-            }
+    text<<makepair(time + ":", hash[e_time]);
+    QTextCharFormat format=getRightFormat(u);
+    format.setProperty(userpropertyId,u.user());
+    hash[e_nick].setProperty(userpropertyId,u.user());
+    QString suffix;
+    if(u.has_type(e_CTCP)) {
+        text<<makepair(u.user() + " CTCP: ",hash[e_nick]);
+    }
+    else if(u.has_type(e_RAWCOMMAND))
+        text<<makepair(u.user() + " RAW: ",hash[e_nick]);
+    else if (u.has_type(e_PRIVMSG)){
+        if(u.has_type(e_ACTION)){
+            text<<makepair("< " + u.user() + " ",format);
+            suffix=">";
         }
-    } else {
-        if (msg.startsWith("\001ACTION")) {
-            msgtemp.remove(0, 7).remove("\001");
-            insertText("<" + user + " " + msgtemp + ">", buddyformat,user);
-        } else {
-            nickformat.setAnchorHref("<nick> " + user);
-            cursor->insertText(user + "> ", nickformat);
-            if(user==singleton<netcoupler>().nick)
-                insertText(msgtemp, myselfformat,user);
-            else
-                insertText(msgtemp, buddyformat,user);
+        else
+            text<<makepair(u.user()+">",hash[e_nick]);
+    } else if(u.has_type(e_NOTICE)){
+        if(u.has_type(e_ACTION)){
+            text<<makepair("<<< " + u.user() + " ",format);
+            suffix=">>>";
         }
+        else{
+            text<<makepair("<< " + u.user() + " ",format);
+            suffix=">>";
+        }
+    }
+    text<<getSegmentation(u.msg(), format);
+    text<<makepair(suffix,format);
+
+    foreach(pair p, text){
+        if(p.first.type() == QVariant::String) {
+            cursor->insertText(p.first.toString()+ " ",p.second);
+        }
+        else if(p.first.type() == QVariant::Image){
+            cursor->insertImage(p.first.value<QImage>());
+            cursor->insertText(" ");
+        } else
+            myDebug()<<"##################void chathandlerprv::append(const usermessage &u)";
     }
     cursor->insertText("\n");
     if (slideratmaximum)
         tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
 }
+//void chathandler::append(const QString &user, const QString &receiver,
+//                         const QString &msg) {
+//    QString msgtemp = msg;
+//    msgtemp.remove("\r");
+//    msgtemp.remove("\n");
+//    QString time = QTime::currentTime().toString("hh:mm");
+//    cursor->insertText(time + ": ", hash[e_time]);
+//    if (!containsCI(S_S.buddylist, user)) {
+//        if (compareCI(receiver, channel)) {
+//            if (msg.startsWith("\001ACTION")) {
+//                msgtemp.remove(0, 7).remove("\001");
+//                insertText("<" + user + " " + msgtemp + +">", hash[e_action],user);
+//            } else {
+//                hash[e_nick].setAnchorHref("<nick> " + user);
+//                cursor->insertText(user + "> ", hash[e_nick]);
+//                if(user==singleton<netcoupler>().nick)
+//                    insertText(msgtemp, hash[e_myself],user);
+//                else
+//                    insertText(msgtemp, hash[e_chat],user);
+//            }
+//        } else {
+//            if (msg.startsWith("\001ACTION")) {
+//                msgtemp.remove(0, 7).remove("\001");
+//                insertText("<" + user + " " + msgtemp + ">", hash[e_action],user);
+//            } else {
+//                hash[e_prv].setAnchorHref("<prv> " + user);
+//                cursor->insertText(user + " to " + receiver + ">", hash[e_prv]);
+//                insertText(msgtemp, hash[e_prv],user);
+//            }
+//        }
+//    } else {
+//        if (msg.startsWith("\001ACTION")) {
+//            msgtemp.remove(0, 7).remove("\001");
+//            insertText("<" + user + " " + msgtemp + ">", hash[e_buddy],user);
+//        } else {
+//            hash[e_nick].setAnchorHref("<nick> " + user);
+//            cursor->insertText(user + "> ", hash[e_nick]);
+//            if(user==singleton<netcoupler>().nick)
+//                insertText(msgtemp, hash[e_myself],user);
+//            else
+//                insertText(msgtemp, hash[e_buddy],user);
+//        }
+//    }
+//    cursor->insertText("\n");
+//    if (slideratmaximum)
+//        tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
+//}
 void chathandler::appendnotice(const QString &user, const QString &receiver,
                                const QString &msg) {
     QString msgtemp = msg;
     msgtemp.remove("\r");
     msgtemp.remove("\n");
     QString time = QTime::currentTime().toString("hh:mm");
-    cursor->insertText(time + ":", timeformat);
-    noticeformat.setAnchorHref("<notice> " + user);
+    cursor->insertText(time + ":", hash[e_time]);
+    hash[e_notice].setAnchorHref("<notice> " + user);
     if (msg.startsWith("\001ACTION")) {
         msgtemp.remove(0, 7).remove("\001");
         insertText(tr("Notice from") + " " + user + " " + tr("to") + " "
-                   + receiver + "> <" + msgtemp + ">", noticeformat,user);
+                   + receiver + "> <" + msgtemp + ">", hash[e_notice],user);
     } else {
         insertText(tr("Notice from") + " " + user + " " + tr("to") + " "
-                   + receiver + "> " + msgtemp.remove("\001") + " ", noticeformat,user);
+                   + receiver + "> " + msgtemp.remove("\001") + " ", hash[e_notice],user);
     }
     cursor->insertText("\n");
     if (slideratmaximum)
         tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
 }
 void chathandler::appenddebug(const QString &msg) {
-    cursor->insertText(msg + "\n", debugformat);
+    cursor->insertText(msg + "\n", hash[e_debug]);
     if (slideratmaximum)
         tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
 }
 void chathandler::appendjoingarbage(const QString &msg) {
-    cursor->insertText(msg + "\n", garbagejoinformat);
+    cursor->insertText(msg + "\n", hash[e_garbagejoin]);
     if (slideratmaximum)
         tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
 }
 void chathandler::appendpartgarbage(const QString &msg) {
-    cursor->insertText(msg + "\n", garbagepartformat);
+    cursor->insertText(msg + "\n", hash[e_garbagepart]);
     if (slideratmaximum)
         tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
 }
 void chathandler::appendquitgarbage(const QString &msg) {
-    cursor->insertText(msg + "\n", garbagequitformat);
+    cursor->insertText(msg + "\n", hash[e_garbagequit]);
     if (slideratmaximum)
         tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
+}
+QList<QPair<QVariant, QTextCharFormat> > chathandler::getSegmentation(QString s, QTextCharFormat format){
+    QStringList sl=s.split(" ", QString::SkipEmptyParts);
+    QList<QPair<QVariant, QTextCharFormat> > text;
+    foreach(s,sl){
+        if(isClickableLink(s)){
+            hash[e_http].setAnchorHref(s);
+            text<<makepair(s, hash[e_http]);
+        } else if(startswithCI(s, "wa://")){
+            hash[e_wa].setAnchorHref(s);
+            hash[e_wa].setProperty(linkpropertyId, s);
+            text<<makepair(tr("GAMELINK"), hash[e_wa]);
+        } else {
+            if(S_S.getbool("showsmileysinchannels"))
+                text<<makepair(emot->contains(s),format);
+            else
+                text<<makepair(s,format);
+        }
+    }
+    return text;
+}
+QTextCharFormat chathandler::getRightFormat(const usermessage &u){
+    QTextCharFormat format;
+    if (!containsCI(S_S.buddylist, u.user()))
+        format = hash[e_chat];
+    else
+        format = hash[e_buddy];
+    if(u.user()==singleton<netcoupler>().nick)
+        format=hash[e_myself];
+    if(u.has_type(e_PRIVMSG) && u.has_type(e_ACTION)){
+        format=hash[e_action];
+    }
+    else if(u.has_type(e_NOTICE)){
+        if(u.has_type(e_ACTION))
+            format=hash[e_noticeaction];
+        else
+            format=hash[e_notice];
+    }
+    else if(u.has_type(e_CTCP))
+        format=hash[e_ctcp];
+    else if(u.has_type(e_RAWCOMMAND))
+        format=hash[e_raw];
+    return format;
 }
 void chathandler::insertText(const QString &s, QTextCharFormat &t,QString user) {
     QString temp;
@@ -249,11 +308,11 @@ void chathandler::insertText(const QString &s, QTextCharFormat &t,QString user) 
             QString strtemp = str;
             str = str + " ";
             if (isClickableLink(str)) {
-                httpformat.setAnchorHref(strtemp);
-                cursor->insertText(str, httpformat);
+                hash[e_http].setAnchorHref(strtemp);
+                cursor->insertText(str, hash[e_http]);
             } else if (startswithCI(str, "wa://")) {
-                waformat.setAnchorHref(str);
-                cursor->insertText(tr("GAMELINK"), waformat);
+                hash[e_wa].setAnchorHref(str);
+                cursor->insertText(tr("GAMELINK"), hash[e_wa]);
             } else {
                 cursor->insertText(str, t);
             }
@@ -292,148 +351,87 @@ void chathandler::slidermoved(int i) {
 //    }
 //}
 void chathandler::setschememap(QTextCharFormat *c, QFont f) {
-    singleton<charformatsettings>().map[c->property(1).toString()] = f;
+    singleton<charformatsettings>().map[c->stringProperty(whatsthispropertyId)+"font"] = f;
     c->setFont(f);
     fontorcolorchanged = 1;
 }
 void chathandler::setschememap(QTextCharFormat *c, QColor f) {
     if (f.isValid()) {
-        singleton<charformatsettings>().map[c->property(2).toString()] = f;
+        singleton<charformatsettings>().map[c->stringProperty(whatsthispropertyId)+"color"] = f;
         c->setForeground(f);
         fontorcolorchanged = 1;
     }
 }
-void chathandler::get_new_font_and_color(QTextCharFormat *tempformat,QAction *a){
+void chathandler::setschememap(int i,QFont f){
+    singleton<charformatsettings>().map[formatstrings[i]+"formatfont"] = f;
+    hash[i].setFont(f);
+    fontorcolorchanged = 1;
+}
+void chathandler::setschememap(int i,QColor c){
+    if (!c.isValid())
+        return;
+    singleton<charformatsettings>().map[formatstrings[i]+"formatcolor"] = c;
+    hash[i].setForeground(c);
+    fontorcolorchanged = 1;
+}
+void chathandler::get_new_font_and_color(QTextCharFormat *format){
+    QAction *a = fontmenu.exec(QCursor::pos());
     if (a != 0) {
         if (a->text() == tr("Set the font for this texttype")) {
             bool *b = new bool;
-            QFont f = QFontDialog::getFont(b, tempformat->font(), 0);
-            if (*b) {
-                setschememap(tempformat, f);
-            }
+            QFont f = QFontDialog::getFont(b, format->font(), 0);
+            if (*b)
+                setschememap(format->intProperty(whatsthispropertyId), f);
         } else if (a->text() == tr("Set the color for this texttype")) {
-            QColor f = QColorDialog::getColor(
-                    tempformat->foreground().color(), 0);
-            setschememap(tempformat, f);
+            QColor f = QColorDialog::getColor(format->foreground().color(), 0);
+            setschememap(format->intProperty(whatsthispropertyId), f);
         }
     }
 }
-
-void chathandler::contextrequest(const QPoint &p) {
-    if (tb->anchorAt(p) != "") {
-        QString anchor = tb->anchorAt(p);
-        QTextCharFormat *tempformat;
-        if (anchor == "nick") {
-            get_new_font_and_color(&nickformat,fontmenu.exec(QCursor::pos()));
-        } else if (anchor == "myself") {
-            get_new_font_and_color(&myselfformat,fontmenu.exec(QCursor::pos()));
-        } else if (anchor == "garbage") {
-            get_new_font_and_color(&garbageformat,fontmenu.exec(QCursor::pos()));
-        } else if (anchor == "time") {
-            get_new_font_and_color(&timeformat,fontmenu.exec(QCursor::pos()));
-        } else if (anchor == "garbagejoin") {
-            get_new_font_and_color(&garbagejoinformat,fontmenu.exec(QCursor::pos()));
-        } else if (anchor == "garbagepart") {
-            get_new_font_and_color(&garbagepartformat,fontmenu.exec(QCursor::pos()));
-        } else if (anchor == "garbagequit") {
-            get_new_font_and_color(&garbagequitformat,fontmenu.exec(QCursor::pos()));
-        } else if (anchor == "chat") {
-            get_new_font_and_color(&chatformat,fontmenu.exec(QCursor::pos()));
-        } else if (anchor == "action") {
-            get_new_font_and_color(&actionformat,fontmenu.exec(QCursor::pos()));
-        } else if (anchor == "buddy") {
-            get_new_font_and_color(&buddyformat,fontmenu.exec(QCursor::pos()));
-        } else if (anchor == "debug") {
-            get_new_font_and_color(&debugformat,debugmenu.exec(QCursor::pos()));
-        } else if (isClickableLink(anchor)) {
-            get_new_font_and_color(&httpformat,fontmenu.exec(QCursor::pos()));
-        } else if (containsCI(anchor, "wa://")) {
-            QAction *a = wamenu.exec(QCursor::pos());
-            if (a != 0) {
-                if (a->text() == tr("Set the font for this texttype")) {
-                    bool *b = new bool;
-                    tempformat = &waformat;
-                    QFont f = QFontDialog::getFont(b, waformat.font(), tb);
-                    if (*b) {
-                        setschememap(tempformat, f);
-                    }
-                } else if (a->text() == tr("Set the color for this texttype")) {
-                    tempformat = &waformat;
-                    QColor f = QColorDialog::getColor(
-                            waformat.foreground().color(), 0);
-                    setschememap(tempformat, f);
-                } else if (a->text() == tr("Show game info.")) {
-                    QMessageBox::information(0,
-                                             tr("Info about this gamelink."), anchor);
-                } else {
-                    joinprvgame *prv = new joinprvgame(anchor, channel);
-                    prv->show();
-                    connect(prv, SIGNAL(sigjoingamelink(const QString&)),&singleton<netcoupler>(), SLOT(joingamelink(const QString&)));
-                }
-            }
-        } else if (anchor.startsWith("<prv>")) {
-            QAction *a = prvmenu.exec(QCursor::pos());
-            if (a != 0) {
-                if (a->text() == tr("Set the font for this texttype")) {
-                    bool *b = new bool;
-                    tempformat = &prvformat;
-                    QFont f = QFontDialog::getFont(b, prvformat.font(), tb);
-                    if (*b) {
-                        setschememap(tempformat, f);
-                    }
-                } else if (a->text() == tr("Set the color for this texttype")) {
-                    tempformat = &prvformat;
-                    QColor f = QColorDialog::getColor(
-                            prvformat.foreground().color(), 0);
-                    setschememap(tempformat, f);
-                } else {
-                    emit sigopenchatwindow(anchor.split(" ").last());
-                }
-            }
-        } else if (anchor.startsWith("<nick>")) {
-            QAction *a = nickmenu.exec(QCursor::pos());
-            if (a != 0) {
-                if (a->text() == tr("Set the font for this texttype")) {
-                    bool *b = new bool;
-                    tempformat = &nickformat;
-                    QFont f = QFontDialog::getFont(b, nickformat.font(), tb);
-                    if (*b) {
-                        setschememap(tempformat, f);
-                    }
-                } else if (a->text() == tr("Set the color for this texttype")) {
-                    tempformat = &nickformat;
-                    QColor f = QColorDialog::getColor(
-                            nickformat.foreground().color(), 0);
-                    setschememap(tempformat, f);
-                } else {
-                    emit sigopenchatwindow(anchor.split(" ").last());
-                }
-            }
-        } else if (anchor.startsWith("<notice>")) {
-            QAction *a = noticemenu.exec(QCursor::pos());
-            if (a != 0) {
-                if (a->text() == tr("Set the font for this texttype")) {
-                    bool *b = new bool;
-                    tempformat = &noticeformat;
-                    QFont f = QFontDialog::getFont(b, noticeformat.font(), tb);
-                    if (*b) {
-                        setschememap(tempformat, f);
-                    }
-                } else if (a->text() == tr("Set the color for this texttype")) {
-                    tempformat = &noticeformat;
-                    QColor f = QColorDialog::getColor(
-                            noticeformat.foreground().color(), 0);
-                    setschememap(tempformat, f);
-                } else {
-                    emit sigopenchatwindow(anchor.split(" ").last());
-                }
-
-            }
-        } else{
-            myDebug() << anchor;
-            throw std::runtime_error("void chathandler::contextrequest(const QPoint &p)");
+void chathandler::get_new_font_and_color_with_chatwindow(QTextCharFormat *format){
+    QAction *a = chatmenu.exec(QCursor::pos());
+    if (a != 0) {
+        if (a->text() == tr("Set the font for this texttype")) {
+            bool *b = new bool;
+            QFont f = QFontDialog::getFont(b, format->font(), tb);
+            if (*b)
+                setschememap(format->intProperty(whatsthispropertyId), f);
+        } else if (a->text() == tr("Set the color for this texttype")) {
+            QColor f = QColorDialog::getColor(format->foreground().color(), 0);
+            setschememap(format->intProperty(whatsthispropertyId), f);
+        } else
+            emit sigopenchatwindow(format->stringProperty(userpropertyId));
+    }
+}
+void chathandler::get_new_font_and_color_with_walink(QTextCharFormat *format){
+    QAction *a = wamenu.exec(QCursor::pos());
+    if (a != 0) {
+        if (a->text() == tr("Set the font for this texttype")) {
+            bool *b = new bool;
+            QFont f = QFontDialog::getFont(b, format->font(), tb);
+            if (*b)
+                setschememap(format->intProperty(whatsthispropertyId), f);
+        } else if (a->text() == tr("Set the color for this texttype")) {
+            QColor f = QColorDialog::getColor(format->foreground().color(), 0);
+            setschememap(format->intProperty(whatsthispropertyId), f);
+        } else if (a->text() == tr("Show game info.")) {
+            QMessageBox::information(0,tr("Info about this gamelink."), format->anchorHref());
+        } else {
+            joinprvgame *prv = new joinprvgame(format->anchorHref(), channel);
+            prv->show();
+            connect(prv, SIGNAL(sigjoingamelink(const QString&)),&singleton<netcoupler>(), SLOT(joingamelink(const QString&)));
         }
     }
+}
+void chathandler::contextrequest(const QPoint &p) {
+    QTextCharFormat format=tb->cursorForPosition(p).charFormat();
+    int whatsthis=format.intProperty(whatsthispropertyId);
+    if(whatsthis==e_wa)
+        get_new_font_and_color_with_walink(&format);
+    else if(whatsthis == e_prv || whatsthis == e_action || whatsthis == e_nick || whatsthis == e_notice || whatsthis == e_noticeaction || whatsthis == e_chat)
+        get_new_font_and_color_with_chatwindow(&format);
+    else
+        get_new_font_and_color(&format);
 }
 void chathandler::usesettingswindow(const QString &s) {
     if (s == "sbmaximumoftextblocks" || s == "") {
@@ -450,4 +448,7 @@ void chathandler::selectionChanged(){
 void chathandler::moveSliderToMaximum(){
     tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
     slideratmaximum=true;
+}
+QPair<QVariant, QTextCharFormat> chathandler::makepair(QVariant v, QTextCharFormat format){
+    return qMakePair<QVariant, QTextCharFormat>(v,format);
 }

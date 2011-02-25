@@ -12,9 +12,10 @@ class emoticonhandler : public QWidget
 public:
     emoticonhandler(QWidget *parent = 0);
     ~emoticonhandler();
-    QVector<QVariant> preparemsg(QString);    
+//    QVector<QVariant> preparemsg(QString);
+    QVariant contains(QString s);
 private:
-    QVector<QVariant> preparemsgrec(QString,int i);
+//    QVector<QVariant> preparemsgrec(QString,int i);
     QStringList slhelper;
     Ui::emoticonhandlerClass ui;
     QMap<QString,QImage> map;

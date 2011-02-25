@@ -6,6 +6,7 @@
 #include"ctcphandler.h"
 #include"sound_handler.h"
 #include"global_functions.h"
+#include"usermessage.h"
 
 #include<QKeyEvent>
 #include<QDir>
@@ -94,8 +95,8 @@ chatwindow::chatwindow(const QString &s, QWidget *parent) :
     else{
         statusbar->showMessage(tr("Was offline when this window opened."));
         userisoffline=1;
-    }
-    connect(&singleton<netcoupler>(), SIGNAL(siggotmsg(const QString&,const QString&,const QString&)),this, SLOT(channelmsg(const QString&,const QString&,const QString&)));
+    }    
+    connect(&singleton<netcoupler>(), SIGNAL(siggotusermessage(const usermessage&)), this,SLOT(getusermessage(const usermessage&)));
 }
 bool chatwindow::eventFilter(QObject *obj, QEvent *event) {
     if (qobject_cast<QScrollArea*> (obj) == ui.chatwindowbuttonscrollArea) {
@@ -119,42 +120,59 @@ void chatwindow::garbagemapchanged(const QString &user, const QString &s) {
         chat->appendgarbage(s);
     }
 }
-void chatwindow::gotmsg(const QString &user, const QString &receiver,
-                        const QString &msg) {    
-    if (compareCI(user, chatpartner)) {
-        chat->append(user, receiver, msg);
+void chatwindow::getusermessage(const usermessage &u){
+    if(u.receiver() == singleton<netcoupler>().nick && u.user() == chatpartner){
+        chat->append(u);
         QApplication::alert(this);
         emit sigalert(this);
-        if (singleton<netcoupler>().users.usermap[usermodel::tr("Buddylist")].count(userstruct::whoami(user)))
-            singleton<sound_handler>().play_buddymsgsound(user);
+        if (singleton<netcoupler>().buddylistcontains(u.user()))
+            singleton<sound_handler>().play_buddymsgsound(u.user());
         else
-            singleton<sound_handler>().play_normalmsgsound(user);        
+            singleton<sound_handler>().play_normalmsgsound(u.user());
         if (statusbar->currentMessage() == tr("Was offline when this window opened."))
             statusbar->showMessage(QObject::tr("Online"));
+    } else if(u.user() == chatpartner && S_S.getbool("chbshowchannelchatinchatwindows")){
+        chat->appendgarbage(u);
+        return;
     }
 }
 void chatwindow::sendmsg() {
     QString s = ui.lineEdit->text();
-    if (s == "")
+    if (s.isEmpty())
         return;
     if (s.startsWith(">!")) {
         s.remove(0, 2);
-        chat->append(singleton<netcoupler>().nick, chatpartner, "\001" + s);
-        singleton<netcoupler>().sendrawcommand(QString("PRIVMSG ") + chatpartner + " :\001" + s + "\001");
+        usermessage u(s, e_PRIVMSG, singleton<netcoupler>().nick, chatpartner);
+        u.add_type(e_CTCP);
+        chat->append(u);
+        singleton<netcoupler>().sendusermessage(u);
     } else if (s.startsWith("/")) {
-        chat->append(singleton<netcoupler>().nick, chatpartner, s);
-        singleton<netcoupler>().sendrawcommand(s.remove(0, 1));
-    } else if (s.startsWith(">>>"))
-        sendnoticeaction();
-    else if (s.startsWith(">>"))
-        sendnotice();
-    else if (s.startsWith(">")) {
-        s.remove(0, 1).remove("");
-        chat->append(singleton<netcoupler>().nick, chatpartner, "\001ACTION " + s + " \001");
-        singleton<netcoupler>().sendrawcommand(QString("PRIVMSG ") + chatpartner + " :\001ACTION " + s + " \001\n");
+        s.remove(0, 1);
+        usermessage u(s, e_PRIVMSG, singleton<netcoupler>().nick, chatpartner);
+        u.add_type(e_RAWCOMMAND);
+        chat->append(u);
+        singleton<netcoupler>().sendusermessage(u);
+    } else if (s.startsWith(">>>")){
+        s.remove(0, 3);
+        usermessage u(s, e_NOTICE, singleton<netcoupler>().nick, chatpartner);
+        u.add_type(e_ACTION);
+        chat->append(u);
+        singleton<netcoupler>().sendusermessage(u);
+    } else if (s.startsWith(">>")){
+        s.remove(0, 2);
+        usermessage u(s, e_NOTICE, singleton<netcoupler>().nick, chatpartner);
+        chat->append(u);
+        singleton<netcoupler>().sendusermessage(u);
+    } else if (s.startsWith(">")) {
+        s.remove(0, 1);
+        usermessage u(s, e_PRIVMSG, singleton<netcoupler>().nick, chatpartner);
+        u.add_type(e_ACTION);
+        chat->append(u);
+        singleton<netcoupler>().sendusermessage(u);
     } else {
-        chat->append(singleton<netcoupler>().nick, chatpartner, s);
-        singleton<netcoupler>().sendmessage(chatpartner, s);
+        usermessage u(s, e_PRIVMSG, singleton<netcoupler>().nick, chatpartner);
+        chat->append(u);
+        singleton<netcoupler>().sendusermessage(u);
     }
     usergarbagemap[chatpartner.toLower()] << QDate::currentDate().toString(
             "dd.MM") + " " + QTime::currentTime().toString("hh:mm") + " "
@@ -162,33 +180,14 @@ void chatwindow::sendmsg() {
     ui.lineEdit->clear();
     chat->moveSliderToMaximum();
 }
-void chatwindow::sendnotice() {
-
-    const QString s = ui.lineEdit->text().remove(0, 2).remove("\n");
-    if (s == "")
-        return;
-    singleton<netcoupler>().sendnotice(chatpartner, s);
-    chat->appendnotice(singleton<netcoupler>().nick, chatpartner, s);
-    ui.lineEdit->clear();
-}
-void chatwindow::sendnoticeaction() {
-
-    const QString s = ui.lineEdit->text().remove(0, 3).remove("\n");
-    if (s == "")
-        return;
-    singleton<netcoupler>().sendrawcommand(QString("NOTICE ") + chatpartner + " :\001ACTION " + s + " \001");
-    chat->appendnotice(singleton<netcoupler>().nick, chatpartner, "<" + s + ">");
-    ui.lineEdit->clear();
-}
 void chatwindow::closeEvent(QCloseEvent *) {
 }
 void chatwindow::getgamerwho(QString prefix) {
-
     int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(chatpartner));
     if (i > -1) {
         userstruct u = singleton<netcoupler>().users.users[i];
-        chat->append(chatpartner, singleton<netcoupler>().nick, prefix+" GAMERWHO:\n"
-                     + u.returnwho().join(" | "));
+        QString s=prefix+" GAMERWHO:\n"+ u.returnwho().join(" | ");
+        chat->append(usermessage(s, e_PRIVMSG, singleton<netcoupler>().nick, chatpartner));
     }
 }
 void chatwindow::usesettingswindow(const QString&) {
@@ -254,22 +253,6 @@ void chatwindow::setaway(bool b, const QString &msg) {
         statusbar->showMessage(QString(msg).remove(0, 5).remove("\001"));
     } else {
         statusbar->showMessage(QObject::tr("Online"));
-    }
-}
-void chatwindow::channelmsg(const QString &user, const QString &receiver,
-                            const QString &msg) {
-    if (user ==  chatpartner) {
-        usergarbagemap[user.toLower()]
-                << QDate::currentDate().toString("dd.MM") + " "
-                + QTime::currentTime().toString("hh:mm") + " " + user
-                + " to " + receiver + ">"
-                + QString(msg).remove("\n").remove("\r");
-        if (S_S.getbool("chbshowchannelchatinchatwindows")) {
-            chat->appendgarbage(QDate::currentDate().toString("dd.MM") + " "
-                                + QTime::currentTime().toString("hh:mm") + " " + user
-                                + " to " + receiver + ">"
-                                + QString(msg).remove("\n").remove("\r"));
-        }
     }
 }
 void chatwindow::filtergarbage() {

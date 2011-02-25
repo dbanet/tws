@@ -46,7 +46,7 @@ void snoppanet::start() {
 void snoppanet::readircip() {
     temp.append(reply->readAll());
     if (temp.contains(">") && temp.contains("<CONNECT ")) {
-        temp = temp.remove("<CONNECT ").remove(">").trimmed();
+        temp = temp.remove("<CONNECT ").remove(">").simplified();
         ircip = temp;
         emit sigircip(ircip);
         temp.clear();
@@ -113,7 +113,7 @@ void snoppanet::readgamelist(int i) {
         QStringList sl = templist[i].split("\n", QString::SkipEmptyParts);
         templist[i].clear();
         Q_ASSERT(sl.size()>=2);
-        while(sl.last().trimmed().isEmpty())
+        while(sl.last().simplified().isEmpty())
             sl.takeLast();
         sl.takeFirst();
         sl.takeLast();

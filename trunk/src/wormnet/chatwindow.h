@@ -7,6 +7,7 @@
 #include "ctctphandlerwidget.h"
 class netcoupler;
 class chathandlerprv;
+class usermessage;
 class QStatusBar;
 class chatwindow : public QWidget
 {
@@ -14,12 +15,12 @@ class chatwindow : public QWidget
 
 public:
     chatwindow(const QString&, QWidget *parent = 0);
+    ~chatwindow();
     QString chatpartner;
     void getgamerwho(QString prefix=QString());
-    ~chatwindow();
-    void gotmsg(const QString&,const QString&,const QString&);
-    void setaway(bool,const QString &msg="");
-private slots:
+    void setaway(bool,const QString &msg="");    
+private slots:    
+    void getusermessage(const usermessage &u);
     void on_pbresize_clicked();
     void sendmsg();
     void garbagemapchanged(const QString&,const QString&);
@@ -31,16 +32,12 @@ private slots:
     void pbctcpclicked();
     void gotidletime(const QString&,int);
     void gotnosuchnick(const QString&);
-    void channelmsg(const QString&,const QString&,const QString&);
-    void filtergarbage();
+    void filtergarbage();    
 private:
-    void sendnotice();
-    void sendnoticeaction();
     QPointer<chathandlerprv> chat;		//handles the whole textbrowser
     Ui::chatwindowClass ui;
 
-    QStatusBar *statusbar;
-    //bool mouseisinbuttonscrollarea;
+    QStatusBar *statusbar;    
     bool userisoffline;
 protected:
     void closeEvent ( QCloseEvent *);

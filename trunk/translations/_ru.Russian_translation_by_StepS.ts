@@ -586,22 +586,22 @@ Do you want to delete it anyway</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="89"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="91"/>
         <source>is missing or locked, please run worms, one time, without the snooper. it will then create the file!</source>
         <translation>отсутствует или заблокирован, пожалуйста, запустите игру один раз без снупера, и она создаст файл!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/charformatsettings.cpp" line="30"/>
+        <location filename="../src/wormnet/charformatsettings.cpp" line="29"/>
         <source>cannot load textscheme file. I apply a random textscheme.</source>
         <translation>невозможно загрузить файл текстовой таблицы. Применена случайная текстовая таблица.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/charformatsettings.cpp" line="42"/>
+        <location filename="../src/wormnet/charformatsettings.cpp" line="39"/>
         <source>There is no textscheme file available.</source>
         <translation>У вас нет файлов текстовых таблиц.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/charformatsettings.cpp" line="49"/>
+        <location filename="../src/wormnet/charformatsettings.cpp" line="46"/>
         <source>cannot write file:</source>
         <translation>Невозможно записать файл:</translation>
     </message>
@@ -1429,28 +1429,28 @@ CTCP означает &quot;Протокол от Клиента К Клиент
         <translation>Ошибка при подключении к серверу.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="125"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="127"/>
         <source>Servermessage: </source>
         <translation>Сообщение сервера: </translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="140"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="142"/>
         <source>disconnected from irc server.</source>
         <translation>Потеряна связь с IRC-сервером!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="214"/>
-        <location filename="../src/wormnet/ircnet.cpp" line="218"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="216"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="220"/>
         <source>Nickname collision!</source>
         <translation>Никнейм уже занят!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="215"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="217"/>
         <source>Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="219"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="221"/>
         <source>Your nickname is already in use. You can wait some minutes or change your nickname and try again.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1904,7 +1904,7 @@ The Wheat Snooper сохранит настройки на следующий з
 <context>
     <name>netcoupler</name>
     <message>
-        <location filename="../src/wormnet/netcoupler.cpp" line="262"/>
+        <location filename="../src/wormnet/netcoupler.cpp" line="261"/>
         <source>No executables are given.
 you must choose a game executable,
 for example wa.exe, to join a game.
@@ -2364,7 +2364,7 @@ Note: A reconnect is required to apply these settings.</source>
         <translation>Помощник по текстовой таблице</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.cpp" line="71"/>
+        <location filename="../src/wormnet/textschemehandler.cpp" line="68"/>
         <source>This is a teststring &gt; ? ! &lt; @ THIS IS A TESTSTRING! 0123456789 xD ,) :) ;P :P :E :D :C ;o :o o0 o_0 ,0.0,</source>
         <translation>Это тестовая строка &gt; ? ! &lt; @ THIS IS A TESTSTRING! 0123456789 xD ,) :) ;P :P :E :D :C ;o :o o0 o_0 ,0.0,</translation>
     </message>

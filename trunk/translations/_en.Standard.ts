@@ -573,22 +573,22 @@ Do you want to delete it anyway</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/wormnet/charformatsettings.cpp" line="30"/>
+        <location filename="../src/wormnet/charformatsettings.cpp" line="29"/>
         <source>cannot load textscheme file. I apply a random textscheme.</source>
         <translation>Cannot load a textscheme file. A random one was selected.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/charformatsettings.cpp" line="42"/>
+        <location filename="../src/wormnet/charformatsettings.cpp" line="39"/>
         <source>There is no textscheme file available.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/charformatsettings.cpp" line="49"/>
+        <location filename="../src/wormnet/charformatsettings.cpp" line="46"/>
         <source>cannot write file:</source>
         <translation>Can&apos;t write the file:</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="89"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="91"/>
         <source>is missing or locked, please run worms, one time, without the snooper. it will then create the file!</source>
         <translation>is deleted or locked, please run WA once, without the snooper, it will then create the file!</translation>
     </message>
@@ -1415,28 +1415,28 @@ Use CTCP commands for clansites, jokes, pictures etc.</translation>
         <translation>There was an error during connection to the WormNET.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="125"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="127"/>
         <source>Servermessage: </source>
         <translation>Server message: </translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="140"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="142"/>
         <source>disconnected from irc server.</source>
         <translation>Disconnected from IRC server!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="214"/>
-        <location filename="../src/wormnet/ircnet.cpp" line="218"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="216"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="220"/>
         <source>Nickname collision!</source>
         <translation>Nickname collision!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="215"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="217"/>
         <source>Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="219"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="221"/>
         <source>Your nickname is already in use. You can wait some minutes or change your nickname and try again.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1891,7 +1891,7 @@ Do you want to continue?</translation>
 <context>
     <name>netcoupler</name>
     <message>
-        <location filename="../src/wormnet/netcoupler.cpp" line="262"/>
+        <location filename="../src/wormnet/netcoupler.cpp" line="261"/>
         <source>No executables are given.
 you must choose a game executable,
 for example wa.exe, to join a game.
@@ -2351,7 +2351,7 @@ Note: to apply these settings, you must reconnect to WormNET.</translation>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.cpp" line="71"/>
+        <location filename="../src/wormnet/textschemehandler.cpp" line="68"/>
         <source>This is a teststring &gt; ? ! &lt; @ THIS IS A TESTSTRING! 0123456789 xD ,) :) ;P :P :E :D :C ;o :o o0 o_0 ,0.0,</source>
         <translation></translation>
     </message>

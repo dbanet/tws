@@ -72,12 +72,12 @@ void ircnet::connected() {
     emit sigconnected();
     who();
 }
-void ircnet::tcpread() {
+void ircnet::tcpread() {    //arrives like this msg\msg\n...\n...\n
     ircreadstring.append(CodecSelectDia::codec->toUnicode(tcp->readAll()));
     QStringList sl = ircreadstring.split("\n");
     ircreadstring = sl.takeLast(); //is "" or incomplete
     foreach(QString s,sl) {
-        s=s.trimmed();
+        s=s.simplified();
         if(s.isEmpty())
             continue;
         if(!firstMessageArrived){
@@ -85,7 +85,7 @@ void ircnet::tcpread() {
             firstMessageArrived=true;
         }
         if (s.startsWith(servermessageindicator))
-            readservermassege(s.remove(servermessageindicator).trimmed());
+            readservermassege(s.remove(servermessageindicator).simplified());
         else if (s.startsWith("PING"))
             tcp_write("PONG");
         else if (s.startsWith("ERROR"))
@@ -109,6 +109,7 @@ void ircnet::readusermessage(QString &s) {
     } else if(command=="PRIVMSG"){
         QString s=sl.join(" ").remove(0, 1);
         emit sigmsg(user, receiver, s);
+        emit siggotusermessage(usermessage(s,e_PRIVMSG, user, receiver));
     } else if(command=="PART"){
         if (user.toLower() == nick.toLower())
             joinlist[receiver].clear();
@@ -119,9 +120,10 @@ void ircnet::readusermessage(QString &s) {
         joinlist[receiver] << user;
         gotusergarbage(user, garbage);
         emit sigusergarbagejoin(user, garbage);
-    } else if(command=="NOTICE")
+    } else if(command=="NOTICE"){
+        emit siggotusermessage(usermessage(sl.join(" ").remove(0, 1), e_NOTICE, user, receiver));
         emit signotice(user, receiver, sl.join(" ").remove(0, 1));
-    else
+    } else
         myDebug() << tr("Servermessage: ") << s;
 }
 void ircnet::gotusergarbage(QString &user, QString &s) {
@@ -237,7 +239,15 @@ void ircnet::joinchannel(const QString &chan) {
 void ircnet::partchannel(const QString &chan) {
     tcp_write("PART " + chan);
 }
-void ircnet::sendmessage(const QString &msg, const QString &receiver) {
+void ircnet::sendctcp(const QString &msg, const QString &receiver){
+    QString s = msg;
+    s.replace("\n", " ");
+    tcp_write("PRIVMSG " + receiver + " :\001" + s + "\001");
+}
+void ircnet::sendrawcommand(const QString &raw) {
+    tcp_write(raw);
+}
+void ircnet::sendprvmessage(const QString &msg, const QString &receiver) {
     QString s = msg;
     s.replace("\n", " ");
     tcp_write("PRIVMSG " + receiver + " :" + s);
@@ -247,8 +257,30 @@ void ircnet::sendnotice(const QString &msg, const QString &receiver) {
     s.replace("\n", " ");
     tcp_write("NOTICE " + receiver + " :" + s);
 }
-void ircnet::sendrawcommand(const QString &raw) {
-    tcp_write(raw);
+void ircnet::sendnoticeaction(const QString &msg, const QString &receiver){
+    QString s = msg;
+    s.replace("\n", " ");
+    tcp_write("NOTICE " + receiver + " :\001ACTION " + s);
+}
+void ircnet::sendusermessage(const usermessage &u){
+    if(u.has_type(e_RAWCOMMAND))
+        tcp_write(u.msg());
+    else if(u.has_type(e_CTCP))
+        tcp_write("PRIVMSG " + u.receiver() + " :\001" + u.msg() + "\001");
+    else if(u.has_type(e_PRIVMSG)){
+        if(u.has_type(e_ACTION))
+            tcp_write("PRIVMSG " + u.receiver() + " :\001ACTION " + u.msg());
+        else
+            tcp_write("PRIVMSG " + u.receiver() + " :" + u.msg());
+    }
+    else if (u.has_type(e_NOTICE)){
+        if(u.has_type(e_ACTION))
+            tcp_write("NOTICE " + u.receiver() + " :\001ACTION " + u.msg());
+        else
+            tcp_write("NOTICE " + u.receiver() + " :" + u.msg());
+    }
+    else
+        myDebug()<<"##################void netcoupler::sendusermessage(const usermessage &u)";
 }
 void ircnet::refreshlist() {
     if (justgetlist == false) {

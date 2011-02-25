@@ -119,8 +119,8 @@ void settingswindow::set(const QString &s, const QVariant &v){
     S_S.set(s, v);
     if(s=="cbcostumword")
         ui->cbcostumword->setChecked(v.toBool());
-    else if(s=="chbsmileys")
-        ui->chbsmileys->setChecked(v.toBool());
+    else if(s=="chbsmileysinchatwindows")
+        ui->chbsmileysinchatwindows->setChecked(v.toBool());
     else if(s=="cbdontplaysound")
         ui->cbdontplaysound->setChecked(v.toBool());
     else if(s=="cbdontshowballoons")

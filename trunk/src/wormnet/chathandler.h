@@ -13,14 +13,19 @@
 #include<QTextCharFormat>
 #include<QTextCursor>
 #include<QMenu>
+#include<QPointer>
+
 class QTextBrowser;
 class QTextDocument;
+class usermessage;
+class emoticonhandler;
+
 class chathandler: public QObject {
 	Q_OBJECT
 public:
 	chathandler(QObject*,QTextBrowser*,QString);
-	virtual ~chathandler();
-	void append(const QString&,const QString&,const QString&);
+	virtual ~chathandler();        
+        void append(const usermessage &u);
 	void appendnotice(const QString&,const QString&,const QString&);
 	void appenddebug(const QString&);
 	void appendpartgarbage(const QString&);
@@ -28,42 +33,38 @@ public:
 	void appendquitgarbage(const QString&);
 	const QString channel;
 	static void initialformatsaver();
-	static void initialformatstarter();
+        static void initialformatstarter();
         void insertText(const QString&,QTextCharFormat&,QString user=QString());
 
         void moveSliderToMaximum();
 
 	bool slideratmaximum;     
         bool gotFirstMessage;
-	static QTextCharFormat timeformat;
-	static QTextCharFormat nickformat;
-	static QTextCharFormat chatformat;
-	static QTextCharFormat actionformat;
-	static QTextCharFormat buddyformat;
-	static QTextCharFormat noticeformat;
-	static QTextCharFormat prvformat;
-	static QTextCharFormat httpformat;
-	static QTextCharFormat waformat;
-	static QTextCharFormat debugformat;
-	static QTextCharFormat garbagejoinformat;
-	static QTextCharFormat garbagepartformat;
-	static QTextCharFormat garbagequitformat;
-	static QTextCharFormat garbageformat;
-        static QTextCharFormat myselfformat;
+        static QHash<int, QTextCharFormat> hash;
+
+        static QPointer<emoticonhandler> emot;
 
         bool eventFilter(QObject *obj, QEvent *event);
 protected:
 	QTextBrowser *tb;
 	QTextDocument *doc;
-	QTextCursor *cursor;
+        QTextCursor *cursor;
 	QMenu fontmenu;
-	QMenu nickmenu;
-	QMenu wamenu;
-	QMenu prvmenu;
-	QMenu noticemenu;
-	QMenu debugmenu;
+        QMenu chatmenu;
+	QMenu wamenu;        
 
-	static void initialformat(QTextCharFormat&,const QString&,const QString&);        
+        QList<QPair<QVariant, QTextCharFormat> > getSegmentation(QString s, QTextCharFormat format);
+        QTextCharFormat getRightFormat(const usermessage &u);
+        static void initialformat(QTextCharFormat &format);
+        QPair<QVariant, QTextCharFormat> makepair(QVariant v, QTextCharFormat format);
+
+        static int whatsthispropertyId;
+        static int userpropertyId;
+        static int linkpropertyId;
+
+        void get_new_font_and_color(QTextCharFormat *format);
+        void get_new_font_and_color_with_chatwindow(QTextCharFormat *format);
+        void get_new_font_and_color_with_walink(QTextCharFormat *format);
 protected slots:
 	virtual void contextrequest(const QPoint&);
 	void anchorclicked(const QUrl&);
@@ -72,12 +73,13 @@ protected slots:
 	void usesettingswindow(const QString &s="");
 	void setschememap(QTextCharFormat*,QFont font);
         void setschememap(QTextCharFormat*,QColor color);
+        void setschememap(int i,QFont font);
+        void setschememap(int i,QColor color);
 
         void selectionChanged();
 signals:
 	void sigopenchatwindow(const QString&);
 private:
-        void get_new_font_and_color(QTextCharFormat *tempformat,QAction*);
 };
 
 #endif /* CHATHANDLER_H_ */

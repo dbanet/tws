@@ -584,22 +584,22 @@ Wirklich löschen?</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="89"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="91"/>
         <source>is missing or locked, please run worms, one time, without the snooper. it will then create the file!</source>
         <translation> ist nicht vorhanden oder wird geblockt, bitte starte worms einmal per hand, damit die datei erstellt wird.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/charformatsettings.cpp" line="30"/>
+        <location filename="../src/wormnet/charformatsettings.cpp" line="29"/>
         <source>cannot load textscheme file. I apply a random textscheme.</source>
         <translation>Kann die textscheme Datei nicht laden, Werde eine zufällige datei auswählen.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/charformatsettings.cpp" line="42"/>
+        <location filename="../src/wormnet/charformatsettings.cpp" line="39"/>
         <source>There is no textscheme file available.</source>
         <translation>Es gibt keine Textscheme dateien.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/charformatsettings.cpp" line="49"/>
+        <location filename="../src/wormnet/charformatsettings.cpp" line="46"/>
         <source>cannot write file:</source>
         <translation>Kann die Datei nicht besschreiben:</translation>
     </message>
@@ -1423,28 +1423,28 @@ CTCP kannst du für Clanseiten-Links, Witze, Bilder-Links, QFileUpload-Links und
         <translation>Es gibt ein Problm mit der Verbindung zum Wormnet.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="125"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="127"/>
         <source>Servermessage: </source>
         <translation>Servernachricht: </translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="140"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="142"/>
         <source>disconnected from irc server.</source>
         <translation>Vom IRC Server getrennt</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="214"/>
-        <location filename="../src/wormnet/ircnet.cpp" line="218"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="216"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="220"/>
         <source>Nickname collision!</source>
         <translation>Namens Kollision</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="215"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="217"/>
         <source>Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again.</source>
         <translation>Dein Nick wird bereits benutzt. Das Problem ergibt sich normalerweise von selbst in ein paar Minuten. Wenn nicht dann klicke bei sichere Verbindung auf Profil und ändere dort deinen Wormnet Nick.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="219"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="221"/>
         <source>Your nickname is already in use. You can wait some minutes or change your nickname and try again.</source>
         <translation>Dein Nick wird bereits benutzt. Das Problem ergibt sich normalerweise von selbst in ein paar Minuten. Wenn nicht ändere deinen Wormnet Nick und versuche es erneut.</translation>
     </message>
@@ -1899,7 +1899,7 @@ verbunden</translation>
 <context>
     <name>netcoupler</name>
     <message>
-        <location filename="../src/wormnet/netcoupler.cpp" line="262"/>
+        <location filename="../src/wormnet/netcoupler.cpp" line="261"/>
         <source>No executables are given.
 you must choose a game executable,
 for example wa.exe, to join a game.
@@ -2359,7 +2359,7 @@ Bedenke: Um diese Einstellungen zu übernehmen, musst du dich neu einwählen.</t
         <translation>Textschema Helfer</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.cpp" line="71"/>
+        <location filename="../src/wormnet/textschemehandler.cpp" line="68"/>
         <source>This is a teststring &gt; ? ! &lt; @ THIS IS A TESTSTRING! 0123456789 xD ,) :) ;P :P :E :D :C ;o :o o0 o_0 ,0.0,</source>
         <translation></translation>
     </message>

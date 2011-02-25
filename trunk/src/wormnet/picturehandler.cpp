@@ -18,7 +18,7 @@ picturehandler::picturehandler(){
     int i=0;
     foreach(QString f,dir.entryList(QStringList()<<"*.png",QDir::Files,QDir::Name)) {
         s=f;
-        flaglist[s.remove(".png").toLower().trimmed()]=new QPixmap(dir.path() + "/" + f);
+        flaglist[s.remove(".png").toLower().simplified()]=new QPixmap(dir.path() + "/" + f);
         i++;
     }
     dir.setPath(QApplication::applicationDirPath() + "/snppictures/ranks");
@@ -39,9 +39,9 @@ picturehandler::picturehandler(){
 picturehandler::~picturehandler(){}
 //----------------------------------------------------------------------------------------------
 QPixmap *picturehandler::getflag(QString country){
-    if(!flaglist.contains(country.toLower().trimmed()))
+    if(!flaglist.contains(country.toLower().simplified()))
         return flaglist["q"];
-    return flaglist[country.toLower().trimmed()];
+    return flaglist[country.toLower().simplified()];
 }
 //----------------------------------------------------------------------------------------------
 void picturehandler::fillflags(QComboBox *cb){
@@ -65,16 +65,16 @@ QVariant picturehandler::getflag(const userstruct &u) const{
     if(S_S.spectateleagueserver){
         QString s=singleton<leagueserverhandler>().map_at_toString(u.nick,leagueserverhandler::e_flag);
         if(!s.isEmpty()){
-            if(!flaglist.contains(s.toLower().trimmed()))
+            if(!flaglist.contains(s.toLower().simplified()))
                 return *flaglist["q"];
-            return *flaglist[s.toLower().trimmed()];
+            return *flaglist[s.toLower().simplified()];
         }
         if(S_S.cbonlyshowflagsfromverifiedusers)
             return QVariant();
     }
-    if(!flaglist.contains(u.country.toLower().trimmed()))
+    if(!flaglist.contains(u.country.toLower().simplified()))
         return *flaglist["q"];    
-    return *flaglist[u.country.toLower().trimmed()];
+    return *flaglist[u.country.toLower().simplified()];
 }
 //----------------------------------------------------------------------------------------------
 QPixmap *picturehandler::getrank(int i){
@@ -356,7 +356,7 @@ QString picturehandler::map_number_to_countrycode(const int i){
 }
 //----------------------------------------------------------------------------------------------
 QString picturehandler::map_countrycode_to_number(QString country){
-    country=country.trimmed().toUpper();
+    country=country.simplified().toUpper();
     int i=49;
     if (country == "UK")
         i = 0;
@@ -529,7 +529,7 @@ QString picturehandler::map_countrycode_to_number(QString country){
     return QString::number(i);
 }
 QString picturehandler::map_hostcountrycode_to_number(QString country){
-    country=country.trimmed().toUpper();
+    country=country.simplified().toUpper();
     QString s;
     if(country=="DZ") s="1686592068";
     else if(country=="AE") s="1686586689";

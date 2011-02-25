@@ -12,6 +12,7 @@
 class window;
 class netcoupler;
 class chatwindow;
+class usermessage;
 class QMenu;
 
 class mainwindow : public QWidget
@@ -89,7 +90,7 @@ private slots:
     void gotctcpsignal(const QString&,const QString&);
     void settextscheme(const QString&);
     void openchatwindowhidden(const QString &);
-    void gotprvmsg(const QString &user, const QString &receiver,const QString &msg);
+    //void gotprvmsg(const QString &user, const QString &receiver,const QString &msg);
     void connected();
     void disconnected();
     void reconnect();

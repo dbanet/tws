@@ -585,22 +585,22 @@ Voulez-vous quand même l&apos;effacer </translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="89"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="91"/>
         <source>is missing or locked, please run worms, one time, without the snooper. it will then create the file!</source>
         <translation>est manquant ou verouillé, merci de démarrer Worms, tout d&apos;abord, sans le snooper. Cela va créer le fichier !</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/charformatsettings.cpp" line="30"/>
+        <location filename="../src/wormnet/charformatsettings.cpp" line="29"/>
         <source>cannot load textscheme file. I apply a random textscheme.</source>
         <translation>Je n&apos;arrive pas à charger le fichier de décoration de texte. Je vais appliquer une décoration aléatoire.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/charformatsettings.cpp" line="42"/>
+        <location filename="../src/wormnet/charformatsettings.cpp" line="39"/>
         <source>There is no textscheme file available.</source>
         <translation>Il n&apos;y a aucun fichier de décoration de texte correct.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/charformatsettings.cpp" line="49"/>
+        <location filename="../src/wormnet/charformatsettings.cpp" line="46"/>
         <source>cannot write file:</source>
         <translation>Le logiciel ne peut pas écrire ce fichier :</translation>
     </message>
@@ -1427,28 +1427,28 @@ Vous pouvez utiliser les commandes CTCP pour des sites de clan, des plaisanterie
         <translation>Il y a eu une erreur pendant la connexion à WormNET.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="125"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="127"/>
         <source>Servermessage: </source>
         <translation>Message du serveur :</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="140"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="142"/>
         <source>disconnected from irc server.</source>
         <translation>Déconnecté d&apos;IRC.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="214"/>
-        <location filename="../src/wormnet/ircnet.cpp" line="218"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="216"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="220"/>
         <source>Nickname collision!</source>
         <translation>Conflit entre pseudos !</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="215"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="217"/>
         <source>Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again.</source>
         <translation>Votre pseudo est déjà en cours d&apos;utilisation. Attendez quelques minutes ou cliquez sur le bouton &quot;Profil&quot; dans la connexion sécurisée puis réessayez.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="219"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="221"/>
         <source>Your nickname is already in use. You can wait some minutes or change your nickname and try again.</source>
         <translation>Votre pseudo est déjà en cours d&apos;utilisation. Attendez quelques minutes ou changez de pseudo puis réessayez.</translation>
     </message>
@@ -1904,7 +1904,7 @@ Voulez-vous continuer ?</translation>
 <context>
     <name>netcoupler</name>
     <message>
-        <location filename="../src/wormnet/netcoupler.cpp" line="262"/>
+        <location filename="../src/wormnet/netcoupler.cpp" line="261"/>
         <source>No executables are given.
 you must choose a game executable,
 for example wa.exe, to join a game.
@@ -2364,7 +2364,7 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
         <translation>Aide décoration de texte</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/textschemehandler.cpp" line="71"/>
+        <location filename="../src/wormnet/textschemehandler.cpp" line="68"/>
         <source>This is a teststring &gt; ? ! &lt; @ THIS IS A TESTSTRING! 0123456789 xD ,) :) ;P :P :E :D :C ;o :o o0 o_0 ,0.0,</source>
         <translation>Ceci est un texte de test &gt; ? ! &lt; @ CECI EST UN TEXTE DE TEST ! 0123456789 xD ,) :) ;P :P :E :D :C ;o :o o0 o_0 ,0.0, ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</translation>
     </message>

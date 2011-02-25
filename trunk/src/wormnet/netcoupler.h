@@ -13,6 +13,7 @@
 class ircnet;
 class snoppanet;
 class QProcess;
+class usermessage;
 class netcoupler : public QObject
 {
     Q_OBJECT
@@ -23,11 +24,12 @@ public:
     };
 
     void start(QString nick);
-    void stop();
-    void sendmessage(const QString&,const QString&);
+    void stop();    
     void senduncheckedmessage(const QString&,const QString&);
     void sendnotice(const QString&,const QString&);
     void sendrawcommand(const QString&);
+    void sendusermessage(const usermessage &u);
+    void sendmessage(const QString&,const QString&);
     void joinchannel(const QString&);
     void partchannel(const QString&);       
     void sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,int flag);
@@ -55,6 +57,7 @@ signals:
     void siggotmsg(const QString&,const QString&,const QString&);
     void siggotnotice(const QString&,const QString&,const QString&);
     void siggotprivmsg(const QString&,const QString&,const QString&);
+    void siggotusermessage(const usermessage &u);
     void siggotchanellist(QStringList);
     void sigusergarbage(const QString&,const QString&);
     void sigusergarbagejoin(const QString&,const QString&);
@@ -90,8 +93,7 @@ private:
     QString myip;
 public slots:
     void joingamelink(const QString &);
-    void joingame(const QString &,const QString&,const QString&);
-    void getnotice(const QString&,const QString&,const QString&);
+    void joingame(const QString &,const QString&,const QString&);    
     void sendinfotochan(const QString &,const QString &);
     void refreshhostlist();
 private slots:    
@@ -99,7 +101,9 @@ private slots:
     void getchannellist(QStringList);
     void getircip(QString);
     void gethostlist(QList<hoststruct>,QString);
-    void getmsg(const QString&,const QString&,const QString&);
+    void getmsg(const QString&,const QString&,const QString&);    
+    void getnotice(const QString&,const QString&,const QString&);
+    void getusermessage(const usermessage &u);
     void getwholist();    
     void getscheme(QString,QString);    
 

@@ -27,7 +27,6 @@ public:
     static QList<chatwindow*> chatwindows;
     static QStringList chatwindowstringlist;
     void gotdebugmsg(const QString&);
-    void gotprvmsg(const QString&,const QString&,const QString&);
 
     buttonlayout *buttons;
     static QList< ::window*> hiddenchannelwindowshelper;
@@ -35,10 +34,9 @@ public:
     QString windowtitleaway;
     void mysetwindowtitle();
 public slots:
-    void minimize();
+    void minimize();    
 private slots:
-    void gotmsg(const QString&,const QString&,const QString&);
-    void gotnotice(const QString&,const QString&,const QString&);
+    void getusermessage(const usermessage &u);
     void gotgarbagejoin(const QString&,const QString&);
     void gotgarbagepart(const QString&,const QString&);
     void gotgarbagequit(const QString&,const QString&);
@@ -80,11 +78,7 @@ private:
 
     QPointer<hostbox> hbox;
 
-    void showInformationAboutClan(QString);
-
-    bool alertonnotice;
-    bool alertonprivmsg;
-    bool acceptignorys;
+    void showInformationAboutClan(QString);    
 
     QIcon chaticon;
     int whichuiison;
@@ -92,14 +86,11 @@ private:
     QString windowtitletime;
     QString windowtitlechannel;
 
-    void sendnotice();
-    void sendnoticeaction();
 signals:
     void sigwindowclosed(const QString&);
     void sigalert(QWidget*);
     void sigjoinchannel(const QString&);
     void sigopenchatwindow(const QString&);
-    //void sigopenmmconvo();
 protected:
     void closeEvent ( QCloseEvent * event );
     bool eventFilter(QObject *obj, QEvent *event);		//for the linedit in ui

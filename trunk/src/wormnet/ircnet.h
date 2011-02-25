@@ -5,7 +5,9 @@
 #include<QTcpSocket>
 #include<QStringList>
 #include<QTimer>
+
 #include"userstruct.h"
+#include"usermessage.h"
 class ircnet : public QObject
 {
     Q_OBJECT
@@ -17,9 +19,15 @@ public:
 //    };
 
     void joinchannel(const QString&);
-    void sendmessage(const QString&, const QString&);
+
+    void sendprvmessage(const QString&, const QString&);
     void sendnotice(const QString&, const QString&);
+    void sendnoticeaction(const QString&, const QString&);
     void sendrawcommand(const QString&);
+    void sendctcp(const QString&, const QString&);
+
+    void sendusermessage(const usermessage &u);
+
     void setip(const QString&);
     void refreshlist();
     void who();
@@ -36,8 +44,9 @@ public slots:
     void disconnected();
     void tcpread();
 signals: //public signals:
-    void sigmsg(const QString&,const QString&,const QString&);
-    void signotice(const QString&,const QString&,const QString&);
+    void sigmsg(const QString &user,const QString &receiver,const QString &msg);
+    void signotice(const QString &user,const QString &receiver,const QString &msg);
+    void siggotusermessage(const usermessage &u);
     void siggetlist(QStringList);
     //private signals:
     void sigconnected();

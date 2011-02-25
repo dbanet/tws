@@ -292,7 +292,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
             case e_Client:
                 {
                     if (role == Qt::DisplayRole)
-                        return usermap[classes[index.internalId()]][index.row()].client.trimmed();
+                        return usermap[classes[index.internalId()]][index.row()].client.simplified();
                     break;
                 }
             }
@@ -392,7 +392,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
         return singleton<leagueserverhandler>().map_at_toString(usermap[classes[index.internalId()]][index.row()].nick,leagueserverhandler::e_truenick);
     }else if(role==Qt::ToolTipRole && index.internalId() != e_Channel && index.column() == e_Rank){
         QString s=singleton<leagueserverhandler>().map_at_toString(usermap[classes[index.internalId()]][index.row()].nick,leagueserverhandler::e_ranktooltip);
-        if(s.trimmed().isEmpty())
+        if(s.simplified().isEmpty())
             return QVariant();
         return s;
     }
