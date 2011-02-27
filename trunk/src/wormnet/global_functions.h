@@ -3,7 +3,9 @@
 #include"myDebug.h"
 #include<QString>
 #include<QStringList>
-extern QHash<QString, QStringList> usergarbagemap;
+
+#include"usermessage.h"
+
 extern QStringList querylist;
 class QPixmap;
 class QComboBox;
@@ -14,6 +16,11 @@ void sethostport(const QString &port);
 QString gethostport();
 void safeusergarbage();
 void loadusergarbage();
+void appendhistory(usermessage u);
+const QHash<QString, QList<usermessage> > history();
+const QList<usermessage> history(usermessage u);
+const QList<usermessage> history(QString user);
+QString time();
 void safequerylist();
 void loadquerylist();
 void info(const QString &);

@@ -18,15 +18,9 @@ public:
 //        QUIT=1,PRIVMSG,PART,JOIN,NOTICE
 //    };
 
-    void joinchannel(const QString&);
+    void joinchannel(const QString&);    
 
-    void sendprvmessage(const QString&, const QString&);
-    void sendnotice(const QString&, const QString&);
-    void sendnoticeaction(const QString&, const QString&);
-    void sendrawcommand(const QString&);
-    void sendctcp(const QString&, const QString&);
-
-    void sendusermessage(const usermessage &u);
+    void sendusermessage(const usermessage u);
 
     void setip(const QString&);
     void refreshlist();
@@ -45,16 +39,11 @@ public slots:
     void tcpread();
 signals: //public signals:
     void sigmsg(const QString &user,const QString &receiver,const QString &msg);
-    void signotice(const QString &user,const QString &receiver,const QString &msg);
-    void siggotusermessage(const usermessage &u);
+    void siggotusermessage(const usermessage u);
     void siggetlist(QStringList);
     //private signals:
     void sigconnected();
-    void sigdisconnected();
-    void sigusergarbage(const QString&,const QString&);
-    void sigusergarbagejoin(const QString&,const QString&);
-    void sigusergarbagepart(const QString&,const QString&);
-    void sigusergarbagequit(const QString&,const QString&);
+    void sigdisconnected();   
     void siggotidletime(const QString&, int);
     void signosuchnick(const QString&);
     void sigconnectingfailed();
@@ -72,11 +61,10 @@ private:
     QTcpSocket *tcp;
     QTimer reconnecttimer;
     void readservermassege(QString);
-    void readusermessage(QString &);
-    void gotusergarbage(QString&,QString&);
+    void readusermessage(QString &);        
 
     bool whoreceivedcompletely;
-    void tcp_write(const QString &msg);
+    void tcp_write(const QString &msg);    
 
 private slots:
     void tcpError(QAbstractSocket::SocketError);

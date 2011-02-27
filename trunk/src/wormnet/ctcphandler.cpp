@@ -11,38 +11,42 @@
 #include"global_functions.h"
 #include"qobjectwrapper.h"
 #include"awayhandler.h"
+#include"usermessage.h"
+#include"window.h"
 
 extern QMap<QString, QString> ctcpcontainer;
 QStringList ctcphandler::awayusers;
 ctcphandler::ctcphandler(){
     bookedcommands << "away" << "back";
 }
-bool ctcphandler::getctcp(const QString &user, const QString &msg) {
-    QString s = QString(msg).remove(0, 1);
-    s.remove("\001");
-    s=s.simplified();
-    if (s.startsWith("away")) {
-        if (!awayusers.contains(user, Qt::CaseInsensitive))
-            awayusers << user;
-        emit sigctcpcommand(s, user);
-    } else if (s=="back") {
-        removeCI(awayusers, user);
-        emit sigctcpcommand("back", user);
-    } else if (s=="status") {
-        if (qobjectwrapper<awayhandler>::ref().away())
-            singleton<netcoupler>().sendrawcommand("PRIVMSG " + user + " :\001away " + qobjectwrapper<awayhandler>::ref().message() + "\001");
-        else
-            singleton<netcoupler>().sendrawcommand("PRIVMSG " + user + " :\001back\001");
-    } else if (singleton<ctctphandlerwidget>().atomicmap.keys().contains(s)) {
-        if(!singleton<ctctphandlerwidget>().atomicmap[s]->ui.cbenable->isChecked())
+bool ctcphandler::getctcp(const usermessage u){
+    if (u.msg().startsWith("away")) {
+        if (!awayusers.contains(u.user(), Qt::CaseInsensitive)){
+            awayusers << u.user();
+            foreach(chatwindow *w, ::window::chatwindows){
+                if(w->chatpartner == u.user()){
+                    w->setaway(1,u.msg());
+                    break;
+                }
+            }
+        }
+    } else if (u.msg()=="back") {
+        foreach(chatwindow *w, ::window::chatwindows){
+            if(w->chatpartner == u.user()){
+                w->setaway(0);
+                break;
+            }
+        }
+        removeCI(awayusers, u.user());
+    } else if (singleton<ctctphandlerwidget>().atomicmap.keys().contains(u.msg())) {
+        if(!singleton<ctctphandlerwidget>().atomicmap[u.msg()]->ui.cbenable->isChecked())
             return false;
-        QString str =singleton<ctctphandlerwidget>().atomicmap[s]->ui.textEdit->toPlainText();
-        singleton<netcoupler>().senduncheckedmessage(user, str);
-    } else{
+        QString s =singleton<ctctphandlerwidget>().atomicmap[u.msg()]->ui.textEdit->toPlainText();
+        usermessage uu=usermessage::create(s, u.receiver(), u.user());
+        singleton<netcoupler>().sendusermessage(uu);
+    } else
         return false;
-    }
     return true;
 }
-ctcphandler::~ctcphandler() {
-    // TODO Auto-generated destructor stub
-}
+
+ctcphandler::~ctcphandler() {}

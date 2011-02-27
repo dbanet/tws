@@ -11,12 +11,14 @@
 #include<QStringList>
 #include<QMap>
 #include"global_macros.h"
+
+class chatwindow;
+class usermessage;
 class ctcphandler:public QObject {
     Q_OBJECT
     DECLARE_SINGLETON(ctcphandler);
 public:
-    bool getctcp(const QString&,const QString&);
-    void typing(const QString&);
+    bool getctcp(const usermessage u);
     static QStringList awayusers;
     static QMap<QString,QString>  ctcpcontainer;
     QStringList bookedcommands;

@@ -151,7 +151,8 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/awayhandler.cpp \
     src/wormnet/sqlsettings.cpp \
     src/wormnet/database_base.cpp \
-    src/wormnet/progressdialog.cpp
+    src/wormnet/progressdialog.cpp \
+    src/wormnet/usermessage.cpp
 
 RC_FILE = src/wormnet/myapp.rc
 TRANSLATIONS += \

@@ -284,6 +284,8 @@ void database_base::validate(){
         set("showsmileysinchannels",true);
     if(!contains("chbsmileysinchatwindows"))
         set("chbsmileysinchatwindows",true);
+    if(!contains("cbshowballoons"))
+        set("cbshowballoons", true);
 }
 void database_base::checkifexistsinstringlist(QString key,QString value){
     QStringList sl=getstringlist(key);

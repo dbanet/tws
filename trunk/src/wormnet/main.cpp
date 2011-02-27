@@ -24,7 +24,6 @@
 #endif
 volumeslider *volume;
 QStringList querylist;
-QHash<QString, QStringList> usergarbagemap;
 
 void search_for_game_executables();
 void handle_prosnooper_buddys();

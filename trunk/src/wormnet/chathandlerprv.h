@@ -21,18 +21,15 @@ class QTextDocument;
 
 class usermessage;
 class chathandlerprv: public chathandler {
-        Q_OBJECT
+    Q_OBJECT
 public:
-        chathandlerprv(QObject*,QTextBrowser*,QString);
-        virtual ~chathandlerprv();
-        void append(const usermessage &u);
-        void appendgarbage(const QString&);
-        void appendgarbage(const usermessage &u);
-        void appendhistory(const QString&);
+    chathandlerprv(QObject*,QTextBrowser*,QString);
+    virtual ~chathandlerprv();    
 private slots:
-        void opencontextmenu(const QPoint &);
+    void opencontextmenu(const QPoint &);
 private:
-        QList<QPair<QVariant, QTextCharFormat> > getSegmentation(QString s, QTextCharFormat format);
+    virtual QList<QPair<QVariant, QTextCharFormat> > getSegmentation(QString s, QTextCharFormat format);
+    virtual QTextCharFormat getRightFormat(const usermessage u);
 };
 
 #endif /* chathandlerprv_H_ */

@@ -32,14 +32,11 @@ public:
     static QList< ::window*> hiddenchannelwindowshelper;
     QPointer<chathandler> chat;		//handles the whole textbrowser
     QString windowtitleaway;
-    void mysetwindowtitle();
+    void mysetwindowtitle();    
+    void getusermessage(const usermessage u);
 public slots:
-    void minimize();    
-private slots:
-    void getusermessage(const usermessage &u);
-    void gotgarbagejoin(const QString&,const QString&);
-    void gotgarbagepart(const QString&,const QString&);
-    void gotgarbagequit(const QString&,const QString&);
+    void minimize();        
+private slots:        
     void sendmsg();    
     void useritempressed(const QModelIndex&);
     void useritemdblclicked(const QModelIndex&);
@@ -52,9 +49,7 @@ private slots:
     void hboxok();
 
     void userselectionchanged(const QItemSelection&,const QItemSelection&);
-    void setselection(const QModelIndex&,const QWidget*);
-
-    void usesettingswindow(const QString &s="");
+    void setselection(const QModelIndex&,const QWidget*);    
 
     void expandchannels(QStringList sl);	//expand on startup
     void expandchannels();
@@ -88,7 +83,6 @@ private:
 
 signals:
     void sigwindowclosed(const QString&);
-    void sigalert(QWidget*);
     void sigjoinchannel(const QString&);
     void sigopenchatwindow(const QString&);
 protected:

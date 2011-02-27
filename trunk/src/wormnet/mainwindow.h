@@ -4,6 +4,7 @@
 #include"ui_mainwindow.h"
 #include"maintoolbox.h"
 #include"qobjectwrapper.h"
+#include"usermessage.h"
 
 #include <QtGui/QWidget>
 #include<QList>
@@ -12,7 +13,6 @@
 class window;
 class netcoupler;
 class chatwindow;
-class usermessage;
 class QMenu;
 
 class mainwindow : public QWidget
@@ -87,10 +87,9 @@ private slots:
     void chatwinowclosed();    
     void awayboxok();
     void awaymessagechanged();
-    void gotctcpsignal(const QString&,const QString&);
     void settextscheme(const QString&);
-    void openchatwindowhidden(const QString &);
-    //void gotprvmsg(const QString &user, const QString &receiver,const QString &msg);
+    void openchatwindowhidden(const QString &);    
+    void gotusermsg(const usermessage u);
     void connected();
     void disconnected();
     void reconnect();

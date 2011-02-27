@@ -19,12 +19,11 @@ public:
     QString chatpartner;
     void getgamerwho(QString prefix=QString());
     void setaway(bool,const QString &msg="");    
-private slots:    
-    void getusermessage(const usermessage &u);
+    void getusermessage(usermessage u);
+public slots:
+private slots:        
     void on_pbresize_clicked();
     void sendmsg();
-    void garbagemapchanged(const QString&,const QString&);
-    void usesettingswindow(const QString &s="");
     void pbmuteclicked();
     void pbbuddyclicked();
     void pblogclicked();
@@ -43,7 +42,6 @@ protected:
     void closeEvent ( QCloseEvent *);
     bool eventFilter(QObject *obj, QEvent *event);		//for the linedit in ui
 signals:
-    void sigalert(QWidget*);
     void closed();
 };
 

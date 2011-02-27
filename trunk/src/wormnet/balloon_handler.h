@@ -4,7 +4,10 @@
 #include <QObject>
 #include<QStringList>
 #include"global_macros.h"
+#include"usermessage.h"
+
 class QSystemTrayIcon;
+
 class balloon_handler : public QObject
 {
     Q_OBJECT
@@ -21,11 +24,13 @@ public slots:
     void buddyarrived();
     void buddyleft();
     void got_privmsg(const QString user, const QString msg);
+    void got_privmsg(const usermessage u);
     void got_game(const QString playername, const QString gamename);
     void got_costum_word(const QString word,const QString user);
     void hide_tray();
     void set_normal_tray_icon();
     void set_away_tray_icon();
+    void alert(QString user, QWidget *w);
 
 private:
     QStringList balloonhelper;

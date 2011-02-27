@@ -39,7 +39,7 @@ QHash<int, QTextCharFormat> chathandler::hash;
 
 extern bool fontorcolorchanged;
 chathandler::chathandler(QObject *parent, QTextBrowser *t, QString chan) :        
-        QObject(parent), channel(chan), slideratmaximum(true),gotFirstMessage(false), tb(t) {
+        QObject(parent), slideratmaximum(true), gotFirstMessage(false), tb(t), chatpartner(chan) {
     emot = new emoticonhandler;
     tb->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     tb->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -122,138 +122,129 @@ void chathandler::anchorclicked(const QUrl &u) {
         QDesktopServices::openUrl(u1);
     }
 }
-void chathandler::append(const usermessage &u){
+void chathandler::appendgarbage(usermessage u){
     typedef QPair<QVariant, QTextCharFormat> pair;
     QList<pair> text;
-    QString time = QTime::currentTime().toString("hh:mm");
-    text<<makepair(time + ":", hash[e_time]);
-    QTextCharFormat format=getRightFormat(u);
-    format.setProperty(userpropertyId,u.user());
-    hash[e_nick].setProperty(userpropertyId,u.user());
-    QString suffix;
-    if(u.has_type(e_CTCP)) {
-        text<<makepair(u.user() + " CTCP: ",hash[e_nick]);
+    QTextCharFormat format=hash[e_hash_garbage];
+    if(u.has_type(e_GARBAGEJOIN)){
+        if(!S_S.chbjoininfo)
+            return;
+        format=hash[e_hash_garbagejoin];
     }
+    else if (u.has_type(e_GARBAGEPART)){
+        if(!S_S.chbpartinfo)
+            return;
+        format=hash[e_hash_garbagepart];
+    }
+    else if (u.has_type(e_GARBAGEQUIT)) {
+        if(!S_S.chbquitinfo)
+            return;
+        format=hash[e_hash_garbagequit];
+    }
+    text<<makepair(u.time() + ":", format);
+    QString suffix;
+    if(u.has_type(e_CTCP))
+        text<<makepair(u.user() + " CTCP: ",format);
     else if(u.has_type(e_RAWCOMMAND))
-        text<<makepair(u.user() + " RAW: ",hash[e_nick]);
+        text<<makepair(u.user() + " RAW: ",format);
     else if (u.has_type(e_PRIVMSG)){
         if(u.has_type(e_ACTION)){
-            text<<makepair("< " + u.user() + " ",format);
+            text<<makepair("< " + u.user() + ": ",format);
             suffix=">";
         }
         else
-            text<<makepair(u.user()+">",hash[e_nick]);
+            text<<makepair(u.user()+">",format);
     } else if(u.has_type(e_NOTICE)){
         if(u.has_type(e_ACTION)){
-            text<<makepair("<<< " + u.user() + " ",format);
+            text<<makepair("<<< " + u.user() + ": ",format);
             suffix=">>>";
         }
         else{
-            text<<makepair("<< " + u.user() + " ",format);
+            text<<makepair("<< " + u.user() + ": ",format);
+            suffix=">>";
+        }
+    } else
+        text<<makepair(u.user() + ": ",format);
+    text<<getSegmentation(u.msg(), format);
+    text<<makepair(suffix,format);
+
+    foreach(pair p, text) {
+        if(p.first.type() == QVariant::String)
+            cursor->insertText(p.first.toString()+ " ",p.second);
+        else if(p.first.type() == QVariant::Image){
+            cursor->insertImage(p.first.value<QImage>());
+            cursor->insertText(" ");
+        } else
+            myDebug()<<"##################void chathandlerprv::append(const usermessage u)";
+    }
+    cursor->insertText("\n");
+    if (slideratmaximum)
+        tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
+}
+
+void chathandler::append(const usermessage u){            
+    typedef QPair<QVariant, QTextCharFormat> pair;
+    QList<pair> text;    
+    if(u.has_type(e_GARBAGE)){
+        appendgarbage(u);
+        return;
+    }
+    appendhistory(u);
+    QString time = QTime::currentTime().toString("hh:mm");
+    text<<makepair(time + ":", hash[e_hash_time]);
+    QTextCharFormat format=getRightFormat(u);
+    if(u.has_type(e_CHANNELMSG))
+        text<<makepair(tr("to ")+u.receiver()+ ": ", format);
+    format.setProperty(userpropertyId,u.user());
+    hash[e_hash_nick].setProperty(userpropertyId,u.user());
+    QString suffix;
+    if(u.has_type(e_CTCP))
+        text<<makepair(u.user() + " CTCP: ",hash[e_hash_nick]);
+    else if(u.has_type(e_RAWCOMMAND))
+        text<<makepair(u.user() + " RAW: ",hash[e_hash_nick]);
+    else if (u.has_type(e_PRIVMSG)){
+        if(u.has_type(e_ACTION)){
+            text<<makepair("< " + u.user() + ": ",format);
+            suffix=">";
+        }
+        else
+            text<<makepair(u.user()+">",hash[e_hash_nick]);
+    } else if(u.has_type(e_NOTICE)){
+        if(u.has_type(e_ACTION)){
+            text<<makepair("<<< " + u.user() + ": ",format);
+            suffix=">>>";
+        }
+        else{
+            text<<makepair("<< " + u.user() + ": ",format);
             suffix=">>";
         }
     }
     text<<getSegmentation(u.msg(), format);
     text<<makepair(suffix,format);
 
-    foreach(pair p, text){
-        if(p.first.type() == QVariant::String) {
+    foreach(pair p, text) {
+        if(p.first.type() == QVariant::String)
             cursor->insertText(p.first.toString()+ " ",p.second);
-        }
         else if(p.first.type() == QVariant::Image){
             cursor->insertImage(p.first.value<QImage>());
             cursor->insertText(" ");
         } else
-            myDebug()<<"##################void chathandlerprv::append(const usermessage &u)";
+            myDebug()<<"##################void chathandlerprv::append(const usermessage u)";
     }
     cursor->insertText("\n");
     if (slideratmaximum)
         tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
-}
-//void chathandler::append(const QString &user, const QString &receiver,
-//                         const QString &msg) {
-//    QString msgtemp = msg;
-//    msgtemp.remove("\r");
-//    msgtemp.remove("\n");
-//    QString time = QTime::currentTime().toString("hh:mm");
-//    cursor->insertText(time + ": ", hash[e_time]);
-//    if (!containsCI(S_S.buddylist, user)) {
-//        if (compareCI(receiver, channel)) {
-//            if (msg.startsWith("\001ACTION")) {
-//                msgtemp.remove(0, 7).remove("\001");
-//                insertText("<" + user + " " + msgtemp + +">", hash[e_action],user);
-//            } else {
-//                hash[e_nick].setAnchorHref("<nick> " + user);
-//                cursor->insertText(user + "> ", hash[e_nick]);
-//                if(user==singleton<netcoupler>().nick)
-//                    insertText(msgtemp, hash[e_myself],user);
-//                else
-//                    insertText(msgtemp, hash[e_chat],user);
-//            }
-//        } else {
-//            if (msg.startsWith("\001ACTION")) {
-//                msgtemp.remove(0, 7).remove("\001");
-//                insertText("<" + user + " " + msgtemp + ">", hash[e_action],user);
-//            } else {
-//                hash[e_prv].setAnchorHref("<prv> " + user);
-//                cursor->insertText(user + " to " + receiver + ">", hash[e_prv]);
-//                insertText(msgtemp, hash[e_prv],user);
-//            }
-//        }
-//    } else {
-//        if (msg.startsWith("\001ACTION")) {
-//            msgtemp.remove(0, 7).remove("\001");
-//            insertText("<" + user + " " + msgtemp + ">", hash[e_buddy],user);
-//        } else {
-//            hash[e_nick].setAnchorHref("<nick> " + user);
-//            cursor->insertText(user + "> ", hash[e_nick]);
-//            if(user==singleton<netcoupler>().nick)
-//                insertText(msgtemp, hash[e_myself],user);
-//            else
-//                insertText(msgtemp, hash[e_buddy],user);
-//        }
-//    }
-//    cursor->insertText("\n");
-//    if (slideratmaximum)
-//        tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
-//}
-void chathandler::appendnotice(const QString &user, const QString &receiver,
-                               const QString &msg) {
-    QString msgtemp = msg;
-    msgtemp.remove("\r");
-    msgtemp.remove("\n");
-    QString time = QTime::currentTime().toString("hh:mm");
-    cursor->insertText(time + ":", hash[e_time]);
-    hash[e_notice].setAnchorHref("<notice> " + user);
-    if (msg.startsWith("\001ACTION")) {
-        msgtemp.remove(0, 7).remove("\001");
-        insertText(tr("Notice from") + " " + user + " " + tr("to") + " "
-                   + receiver + "> <" + msgtemp + ">", hash[e_notice],user);
-    } else {
-        insertText(tr("Notice from") + " " + user + " " + tr("to") + " "
-                   + receiver + "> " + msgtemp.remove("\001") + " ", hash[e_notice],user);
+
+    QString temp;
+    if(containsCI(u.msg(), singleton<netcoupler>().nick))
+        singleton<sound_handler>().play_highlightningsound(u.user(),qobject_cast<QWidget*> ( parent()));
+    else if(containsOneCI(u.msg(), S_S.combobox_wrapper,&temp)){
+        singleton<sound_handler>().play_costumwordsound(u.user(),qobject_cast<QWidget*> ( parent()));
+        singleton<balloon_handler>().got_costum_word(temp,u.user());
     }
-    cursor->insertText("\n");
-    if (slideratmaximum)
-        tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
 }
 void chathandler::appenddebug(const QString &msg) {
-    cursor->insertText(msg + "\n", hash[e_debug]);
-    if (slideratmaximum)
-        tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
-}
-void chathandler::appendjoingarbage(const QString &msg) {
-    cursor->insertText(msg + "\n", hash[e_garbagejoin]);
-    if (slideratmaximum)
-        tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
-}
-void chathandler::appendpartgarbage(const QString &msg) {
-    cursor->insertText(msg + "\n", hash[e_garbagepart]);
-    if (slideratmaximum)
-        tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
-}
-void chathandler::appendquitgarbage(const QString &msg) {
-    cursor->insertText(msg + "\n", hash[e_garbagequit]);
+    cursor->insertText(msg + "\n", hash[e_hash_debug]);
     if (slideratmaximum)
         tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
 }
@@ -262,12 +253,12 @@ QList<QPair<QVariant, QTextCharFormat> > chathandler::getSegmentation(QString s,
     QList<QPair<QVariant, QTextCharFormat> > text;
     foreach(s,sl){
         if(isClickableLink(s)){
-            hash[e_http].setAnchorHref(s);
-            text<<makepair(s, hash[e_http]);
+            hash[e_hash_http].setAnchorHref(s);
+            text<<makepair(s, hash[e_hash_http]);
         } else if(startswithCI(s, "wa://")){
-            hash[e_wa].setAnchorHref(s);
-            hash[e_wa].setProperty(linkpropertyId, s);
-            text<<makepair(tr("GAMELINK"), hash[e_wa]);
+            hash[e_hash_wa].setAnchorHref(s);
+            hash[e_hash_wa].setProperty(linkpropertyId, s);
+            text<<makepair(tr("GAMELINK"), hash[e_hash_wa]);
         } else {
             if(S_S.getbool("showsmileysinchannels"))
                 text<<makepair(emot->contains(s),format);
@@ -277,27 +268,30 @@ QList<QPair<QVariant, QTextCharFormat> > chathandler::getSegmentation(QString s,
     }
     return text;
 }
-QTextCharFormat chathandler::getRightFormat(const usermessage &u){
+QTextCharFormat chathandler::getRightFormat(const usermessage u){
     QTextCharFormat format;
-    if (!containsCI(S_S.buddylist, u.user()))
-        format = hash[e_chat];
+    if(u.receiver() != chatpartner)
+        format = hash[e_hash_prv];
+    else if (!containsCI(S_S.buddylist, u.user()))
+        format = hash[e_hash_chat];
     else
-        format = hash[e_buddy];
+        format = hash[e_hash_buddy];
+
     if(u.user()==singleton<netcoupler>().nick)
-        format=hash[e_myself];
-    if(u.has_type(e_PRIVMSG) && u.has_type(e_ACTION)){
-        format=hash[e_action];
-    }
+        format=hash[e_hash_myself];
+
+    if(u.has_type(e_PRIVMSG) && u.has_type(e_ACTION))
+        format=hash[e_hash_action];
     else if(u.has_type(e_NOTICE)){
         if(u.has_type(e_ACTION))
-            format=hash[e_noticeaction];
+            format=hash[e_hash_noticeaction];
         else
-            format=hash[e_notice];
-    }
-    else if(u.has_type(e_CTCP))
-        format=hash[e_ctcp];
+            format=hash[e_hash_notice];
+    } else if(u.has_type(e_CTCP))
+        format=hash[e_hash_ctcp];
     else if(u.has_type(e_RAWCOMMAND))
-        format=hash[e_raw];
+        format=hash[e_hash_raw];
+
     return format;
 }
 void chathandler::insertText(const QString &s, QTextCharFormat &t,QString user) {
@@ -308,11 +302,11 @@ void chathandler::insertText(const QString &s, QTextCharFormat &t,QString user) 
             QString strtemp = str;
             str = str + " ";
             if (isClickableLink(str)) {
-                hash[e_http].setAnchorHref(strtemp);
-                cursor->insertText(str, hash[e_http]);
+                hash[e_hash_http].setAnchorHref(strtemp);
+                cursor->insertText(str, hash[e_hash_http]);
             } else if (startswithCI(str, "wa://")) {
-                hash[e_wa].setAnchorHref(str);
-                cursor->insertText(tr("GAMELINK"), hash[e_wa]);
+                hash[e_hash_wa].setAnchorHref(str);
+                cursor->insertText(tr("GAMELINK"), hash[e_hash_wa]);
             } else {
                 cursor->insertText(str, t);
             }
@@ -332,14 +326,14 @@ void chathandler::insertText(const QString &s, QTextCharFormat &t,QString user) 
 }
 void chathandler::slidermoved(int i) {
     if(!gotFirstMessage)
-    {        
+    {
         gotFirstMessage=true;
         return;
     }
     if (i == tb->verticalScrollBar()->maximum())
         slideratmaximum = 1;
     else
-        slideratmaximum = 0;    
+        slideratmaximum = 0;
 }
 //void chathandler::slidermovedbyaction(int i) {
 //    if (i > 0 && i < 5) {
@@ -417,7 +411,7 @@ void chathandler::get_new_font_and_color_with_walink(QTextCharFormat *format){
         } else if (a->text() == tr("Show game info.")) {
             QMessageBox::information(0,tr("Info about this gamelink."), format->anchorHref());
         } else {
-            joinprvgame *prv = new joinprvgame(format->anchorHref(), channel);
+            joinprvgame *prv = new joinprvgame(format->anchorHref(), chatpartner);
             prv->show();
             connect(prv, SIGNAL(sigjoingamelink(const QString&)),&singleton<netcoupler>(), SLOT(joingamelink(const QString&)));
         }
@@ -426,9 +420,9 @@ void chathandler::get_new_font_and_color_with_walink(QTextCharFormat *format){
 void chathandler::contextrequest(const QPoint &p) {
     QTextCharFormat format=tb->cursorForPosition(p).charFormat();
     int whatsthis=format.intProperty(whatsthispropertyId);
-    if(whatsthis==e_wa)
+    if(whatsthis==e_hash_wa)
         get_new_font_and_color_with_walink(&format);
-    else if(whatsthis == e_prv || whatsthis == e_action || whatsthis == e_nick || whatsthis == e_notice || whatsthis == e_noticeaction || whatsthis == e_chat)
+    else if(whatsthis == e_hash_prv || whatsthis == e_hash_action || whatsthis == e_hash_nick || whatsthis == e_hash_notice || whatsthis == e_hash_noticeaction || whatsthis == e_hash_chat)
         get_new_font_and_color_with_chatwindow(&format);
     else
         get_new_font_and_color(&format);

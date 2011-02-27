@@ -16,7 +16,7 @@
 #include"picturehandler.h"
 #include"leagueserverhandler.h"
 extern inihandlerclass inihandler;
-extern QHash<QString, QStringList> usergarbagemap;
+
 ircnet::ircnet(QString s, QObject *parent) :
 	QObject(parent), tcp(new QTcpSocket(this)) {    
     nick = s;
@@ -48,11 +48,11 @@ void ircnet::connected() {
     if (!sl.isEmpty()) {
         if (sl.first() == "PASS standard") {
             if(wnip == "itakagames.spb.ru")
-                sendrawcommand("PASS ELSILRACLIHP ");
+                tcp_write("PASS ELSILRACLIHP ");
             else
-                sendrawcommand("PASS ELSILRACLIHP");
+                tcp_write("PASS ELSILRACLIHP");
         } else
-            sendrawcommand(sl.first());
+            tcp_write(sl.first());
     }
     tcp_write("NICK " + nick);
     QString s = inihandler.stringlistfromini("[irc register]").first();    
@@ -103,40 +103,33 @@ void ircnet::readusermessage(QString &s) {
     QString receiver = sl.takeFirst().remove("\r").remove(":");    
     if(command=="QUIT"){
         foreach(QString s,joinlist.keys())
-            joinlist[s].removeAll(user);        
-        gotusergarbage(user, garbage);
-        emit sigusergarbagequit(user, garbage);
+            joinlist[s].removeAll(user);                
+        usermessage u(garbage, usermessage_type(e_GARBAGE | e_GARBAGEQUIT), user, "");
+        u.settime(time());
+        appendhistory(u);
+        emit siggotusermessage(u);
     } else if(command=="PRIVMSG"){
         QString s=sl.join(" ").remove(0, 1);
-        emit sigmsg(user, receiver, s);
         emit siggotusermessage(usermessage(s,e_PRIVMSG, user, receiver));
     } else if(command=="PART"){
         if (user.toLower() == nick.toLower())
             joinlist[receiver].clear();
         joinlist[receiver].removeAll(user);
-        gotusergarbage(user, garbage);
-        emit sigusergarbagepart(user, garbage);
+        usermessage u(garbage,usermessage_type(e_GARBAGE | e_GARBAGEPART), user, receiver);
+        u.settime(time());
+        appendhistory(u);
+        emit siggotusermessage(u);
     } else if(command=="JOIN"){
-        joinlist[receiver] << user;
-        gotusergarbage(user, garbage);
-        emit sigusergarbagejoin(user, garbage);
+        joinlist[receiver] << user;        
+        usermessage u(garbage,usermessage_type(e_GARBAGE | e_GARBAGEJOIN), user, receiver);
+        u.settime(time());
+        appendhistory(u);
+        emit siggotusermessage(u);
     } else if(command=="NOTICE"){
-        emit siggotusermessage(usermessage(sl.join(" ").remove(0, 1), e_NOTICE, user, receiver));
-        emit signotice(user, receiver, sl.join(" ").remove(0, 1));
+        QString s=sl.join(" ").remove(0, 1);
+        emit siggotusermessage(usermessage(s, e_NOTICE, user, receiver));
     } else
-        myDebug() << tr("Servermessage: ") << s;
-}
-void ircnet::gotusergarbage(QString &user, QString &s) {
-    if (usergarbagemap[user.toLower()].size() < S_S.sbmaximumoftextblocksinlog)
-        usergarbagemap[user.toLower()]<< QDate::currentDate().toString("dd.MM") + " "
-                + QTime::currentTime().toString("hh:mm") + " " + s;
-    else {
-        usergarbagemap[user.toLower()] = usergarbagemap[user.toLower()].mid(S_S.sbmaximumoftextblocksinlog * 2/ 3);
-        usergarbagemap[user.toLower()]
-                << QDate::currentDate().toString("dd.MM") + " "
-                + QTime::currentTime().toString("hh:mm") + " " + s;
-    }
-    emit sigusergarbage(user, usergarbagemap[user.toLower()].last());
+        myDebug() << tr("Servermessage: ") << s;    
 }
 void ircnet::disconnected() {                   
     myDebug() << tr("disconnected from irc server.");
@@ -239,30 +232,7 @@ void ircnet::joinchannel(const QString &chan) {
 void ircnet::partchannel(const QString &chan) {
     tcp_write("PART " + chan);
 }
-void ircnet::sendctcp(const QString &msg, const QString &receiver){
-    QString s = msg;
-    s.replace("\n", " ");
-    tcp_write("PRIVMSG " + receiver + " :\001" + s + "\001");
-}
-void ircnet::sendrawcommand(const QString &raw) {
-    tcp_write(raw);
-}
-void ircnet::sendprvmessage(const QString &msg, const QString &receiver) {
-    QString s = msg;
-    s.replace("\n", " ");
-    tcp_write("PRIVMSG " + receiver + " :" + s);
-}
-void ircnet::sendnotice(const QString &msg, const QString &receiver) {
-    QString s = msg;
-    s.replace("\n", " ");
-    tcp_write("NOTICE " + receiver + " :" + s);
-}
-void ircnet::sendnoticeaction(const QString &msg, const QString &receiver){
-    QString s = msg;
-    s.replace("\n", " ");
-    tcp_write("NOTICE " + receiver + " :\001ACTION " + s);
-}
-void ircnet::sendusermessage(const usermessage &u){
+void ircnet::sendusermessage(const usermessage u){
     if(u.has_type(e_RAWCOMMAND))
         tcp_write(u.msg());
     else if(u.has_type(e_CTCP))
@@ -280,7 +250,7 @@ void ircnet::sendusermessage(const usermessage &u){
             tcp_write("NOTICE " + u.receiver() + " :" + u.msg());
     }
     else
-        myDebug()<<"##################void netcoupler::sendusermessage(const usermessage &u)";
+        myDebug()<<"##################void netcoupler::sendusermessage(const usermessage u)";
 }
 void ircnet::refreshlist() {
     if (justgetlist == false) {

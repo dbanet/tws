@@ -5,10 +5,13 @@
 #include<QApplication>
 #include<QMessageBox>
 #include<QDir>
+#include<QDate>
 
 #include"global_functions.h"
 #include"settings.h"
-
+#include"usermessage.h"
+typedef QHash<QString, QList<usermessage> > history_type;
+history_type my_history;
 //----------------------------------------------------------------------------------------------
 QStringList refreshcombobox(QComboBox *cb){
     QStringList sl;
@@ -93,6 +96,14 @@ QString gethostport() {
     return port;
 }
 //----------------------------------------------------------------------------------------------
+QDataStream &operator<<(QDataStream &ds, const usermessage &u){
+    return ds<<u.msg()<<u.type()<<u.user()<<u.receiver()<<u.time();
+}
+//----------------------------------------------------------------------------------------------
+QDataStream &operator>>(QDataStream &ds, usermessage &u){
+    return ds>>u.my_msg>>u.my_type>>u.my_user>>u.my_receiver>>u.my_time;
+}
+//----------------------------------------------------------------------------------------------
 void safeusergarbage() {
     if(!S_S.getbool("cbsafequerys"))
         return;
@@ -100,11 +111,8 @@ void safeusergarbage() {
     if (!f.open(QFile::WriteOnly | QFile::Truncate))
         return;
     QDataStream ds(&f);
-    ds.setVersion(QDataStream::Qt_4_3);
-    QHash<QString, QStringList>::iterator i;
-    for (i = usergarbagemap.begin(); i != usergarbagemap.end(); ++i) {
-        ds << i.key() << i.value();
-    }
+    ds.setVersion(QDataStream::Qt_4_3);    
+    ds << my_history;
 }
 //----------------------------------------------------------------------------------------------
 void loadusergarbage() {
@@ -112,15 +120,42 @@ void loadusergarbage() {
         return;
     QFile f(QApplication::applicationDirPath() + "/query/log");
     QString s;
-    QStringList sl;
+    history_type::mapped_type sl;
     if (!f.open(QFile::ReadOnly))
         return;
     QDataStream ds(&f);
     ds.setVersion(QDataStream::Qt_4_3);
-    while (!ds.atEnd()) {
-        ds >> s >> sl;
-        usergarbagemap[s] = sl;
+    ds >> my_history;
+}
+//----------------------------------------------------------------------------------------------
+void appendhistory(usermessage u){
+    QString user=u.user();
+    if (my_history[user.toLower()].size() > S_S.sbmaximumoftextblocksinlog)
+        my_history[user.toLower()] = my_history[user.toLower()].mid(S_S.sbmaximumoftextblocksinlog * 2/ 3);;
+    u.settime(time());
+    u.add_type(e_GARBAGE);
+    if (my_history[user.toLower()].size() < S_S.sbmaximumoftextblocksinlog)
+        my_history[user.toLower()] << u;
+    else {
+        my_history[user.toLower()] = my_history[user.toLower()].mid(S_S.sbmaximumoftextblocksinlog * 2/ 3);
+        my_history[user.toLower()] <<  u;
     }
+}
+//----------------------------------------------------------------------------------------------
+QString time(){
+    return QDate::currentDate().toString("dd.MM") + " "+ QTime::currentTime().toString("hh:mm");
+}
+//----------------------------------------------------------------------------------------------
+const QHash<QString, QList<usermessage> > history(){
+    return my_history;
+}
+//----------------------------------------------------------------------------------------------
+const QList<usermessage> history(usermessage u){
+    return my_history[u.user()];
+}
+//----------------------------------------------------------------------------------------------
+const QList<usermessage> history(QString user){
+    return my_history[user];
 }
 //----------------------------------------------------------------------------------------------
 void safequerylist() {
@@ -164,5 +199,22 @@ void fillString(QString &s, QString ss, int length){
 void info(const QStringList &sl){
     info(sl.join(", "));
 }
-
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------

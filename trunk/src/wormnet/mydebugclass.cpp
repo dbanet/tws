@@ -3,7 +3,9 @@
 #include"singleton.h"
 #include"settingswindow.h"
 #include"qobjectwrapper.h"
-#include"QDebug"
+#include"usermessage.h"
+
+#include<QDebug>
 
 myDebugClass::myDebugClass()
 {
@@ -37,5 +39,18 @@ myDebugClass &myDebugClass::operator<<(const int &i){
     if(!S_S.getbool("cbservermessageinchannelwindows"))
         return *this;    
     qobjectwrapper<mainwindow>::ref().appenddebugmessage(QString::number(i).simplified()+"\n");
+    return *this;
+}
+myDebugClass &myDebugClass::operator<<(const usermessage &u){
+    if(qobjectwrapper<mainwindow>::isNull()){
+        qDebug()<<u.msg();
+        qDebug()<<u.type();
+        qDebug()<<u.user();
+        qDebug()<<u.receiver();
+        return *this;
+    }
+    if(!S_S.getbool("cbservermessageinchannelwindows"))
+        return *this;
+    qobjectwrapper<mainwindow>::ref().appenddebugmessage(u.msg()+"\n"+QString::number(u.type())+"\n"+u.user()+"\n"+u.receiver()+"\n");
     return *this;
 }

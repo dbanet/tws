@@ -7,6 +7,8 @@
 #include"singleton.h"
 #include"balloon_handler.h"
 #include"awaybox.h"
+#include"usermessage.h"
+#include"netcoupler.h"
 
 #ifdef Q_WS_WIN
 #undef UNICODE
@@ -51,12 +53,13 @@ void awayhandler::gamefinished() {
 void awayhandler::sendBack(){
     foreach(QString s,rememberwhogotaway.keys()) {
         if (S_S.getbool("chbbacktonormals") && !containsCI(S_S.getstringlist("ignorelist"), s)) {
-            singleton<netcoupler>().sendnotice(s,S_S.getstring("lebackmessage"));
-            singleton<netcoupler>().sendrawcommand("PRIVMSG " + s + " :\001back\001");
+            singleton<netcoupler>().sendusermessage(usermessage(S_S.getstring("lebackmessage"), e_NOTICE, s));
+            singleton<netcoupler>().sendusermessage(usermessage("back", e_CTCP, s));
         } else if (S_S.getbool("chbbacktobuddys")) {
-            if (containsCI(S_S.getstringlist("buddylist"), s))
-                singleton<netcoupler>().sendnotice(s,S_S.getstring("lebackmessage"));
-            singleton<netcoupler>().sendrawcommand("PRIVMSG " + s + " :\001back\001");
+            if (containsCI(S_S.getstringlist("buddylist"), s)){
+                singleton<netcoupler>().sendusermessage(usermessage(S_S.getstring("lebackmessage"), e_NOTICE, s));
+                singleton<netcoupler>().sendusermessage(usermessage("back", e_CTCP, s));
+            }
         }
     }
     rememberwhogotaway.clear();
@@ -97,11 +100,13 @@ QString awayhandler::message(){
     return awaymessage;
 }
 void awayhandler::sendaway(const QString &user){
-    if (rememberwhogotaway[user] != qobjectwrapper<awayhandler>::ref().message()) {
-        singleton<netcoupler>().sendmessage(user, message());
+    if(!away())
+        return;
+    if (rememberwhogotaway[user] != message()) {
+        singleton<netcoupler>().sendusermessage(usermessage::create(message(), user));
         int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(user));
         if (i != -1 && singleton<netcoupler>().users.users[i].clan != "Username")
-            singleton<netcoupler>().sendrawcommand("PRIVMSG " + user + " :\001away " + message() + "\001");
+            singleton<netcoupler>().sendusermessage(usermessage::createprvessage(" :\001away " + message() + "\001",user));
     }
     qobjectwrapper<awayhandler>::ref().rememberwhogotaway[user] = qobjectwrapper<awayhandler>::ref().message();
 }

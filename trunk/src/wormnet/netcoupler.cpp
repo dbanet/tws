@@ -21,6 +21,8 @@
 #include"balloon_handler.h"
 #include"hostbox.h"
 #include"awayhandler.h"
+#include"chatwindow.h"
+#include"ctcphandler.h"
 
 extern volumeslider *volume;
 extern inihandlerclass inihandler;
@@ -49,19 +51,13 @@ netcoupler::netcoupler() {
 void netcoupler::start(QString s){
     connectstate=e_started;
     nick=s;
-    irc = new ircnet(s, this);
-    connect(irc, SIGNAL(sigusergarbage(const QString&,const QString&)),this, SIGNAL(sigusergarbage(const QString&,const QString&)));
-    connect(irc, SIGNAL(sigusergarbagejoin(const QString&,const QString&)),this, SIGNAL(sigusergarbagejoin(const QString&,const QString&)));
-    connect(irc, SIGNAL(sigusergarbagepart(const QString&,const QString&)),this, SIGNAL(sigusergarbagepart(const QString&,const QString&)));
-    connect(irc, SIGNAL(sigusergarbagequit(const QString&,const QString&)),this, SIGNAL(sigusergarbagequit(const QString&,const QString&)));
+    irc = new ircnet(s, this);    
     connect(irc,SIGNAL(sigconnected()),this,SLOT(ircconnected()));
     connect(irc,SIGNAL(sigdisconnected()),this,SLOT(ircdisconnected()));
     http = new snoppanet(this);
     connect(http, SIGNAL(sigchannelscheme(QString,QString)),this, SLOT(getscheme(QString,QString)));
-    connect(irc, SIGNAL(siggetlist(QStringList)),this, SLOT(getchannellist(QStringList)));
-    connect(irc, SIGNAL(sigmsg(const QString&,const QString&,const QString&)),this, SLOT(getmsg(const QString&,const QString&,const QString&)));
-    connect(irc, SIGNAL(signotice(const QString&,const QString&,const QString&)),this, SLOT(getnotice(const QString&,const QString&,const QString&)));
-    connect(irc, SIGNAL(siggotusermessage(const usermessage&)),this,SLOT(getusermessage(const usermessage&)));
+    connect(irc, SIGNAL(siggetlist(QStringList)),this, SLOT(getchannellist(QStringList)));    
+    connect(irc, SIGNAL(siggotusermessage(const usermessage)),this,SLOT(getusermessage(const usermessage)));
     connect(irc, SIGNAL(siggotidletime(const QString&, int)),this, SIGNAL(siggotidletime(const QString&, int)));
     connect(irc, SIGNAL(signosuchnick(const QString&)),this, SIGNAL(signosuchnick(const QString&)));
     connect(http, SIGNAL(sighostlist(QList<hoststruct>,QString)),this, SLOT(gethostlist(QList<hoststruct>,QString)));
@@ -124,60 +120,13 @@ void netcoupler::getwholist() {
     users.setuserstruct(irc->wholist, irc->joinlist);
     irc->who();
 }
-void netcoupler::getmsg(const QString &user, const QString &receiver, const QString &msg) {
-    if (containsCI(channellist, receiver))
-        emit siggotmsg(user, receiver, msg);
-    else {
-        bool b = compareCI(receiver, nick);
-        Q_UNUSED(b);
-        Q_ASSERT_X(b==1,"getmsg netcoupler",qPrintable(receiver+" | "+nick));
-        emit siggotprivmsg(user, receiver, msg);
-        QApplication::processEvents();
-    }
-}
-void netcoupler::getnotice(const QString &user, const QString &receiver, const QString &msg) {
-    emit siggotnotice(user, receiver, msg);
-}
-void netcoupler::getusermessage(const usermessage &u){
-    QString s;
-    if(u.has_type(e_PRIVMSG))
-        s=QDate::currentDate().toString("dd.MM") + " " + QTime::currentTime().toString("hh:mm") + " ";
-    else
-        s=QDate::currentDate().toString("dd.MM") + " " + QTime::currentTime().toString("hh:mm") + "NOTICE : ";
-    usergarbagemap[u.user().toLower()] << s + u.user() + ">" + u.msg().simplified();
+void netcoupler::getusermessage(const usermessage u){
     emit siggotusermessage(u);
 }
-void netcoupler::sendmessage(const QString &receiver, const QString &msg) {
-    irc->sendprvmessage(msg, receiver);
-}
-void netcoupler::senduncheckedmessage(const QString &user, const QString &msg) {
-    if (msg.startsWith(">!")) {
-        sendrawcommand(QString("PRIVMSG ") + user + " :\001"
-                       + QString(msg).remove(0, 2).simplified() + "\001");
-    } else if (msg.startsWith("/")) {
-        sendrawcommand(QString(msg).remove(0, 1).simplified());
-    } else if (msg.startsWith(">>>")) {
-        sendrawcommand(QString("NOTICE ") + user + " :\001ACTION "
-                       + QString(msg).remove(0, 3).simplified() + " \001");
-    } else if (msg.startsWith(">>")) {
-        sendnotice(user, QString(msg).remove(0, 2).simplified());
-    } else if (msg.startsWith(">")) {
-        sendrawcommand(QString("PRIVMSG ") + user + " :\001ACTION " + QString(
-                msg).remove(0, 1).simplified() + " \001\n");
-    } else {
-        sendmessage(user, msg);
-    }
-}
-void netcoupler::sendusermessage(const usermessage &u){
+void netcoupler::sendusermessage(const usermessage u){
     if(irc==NULL)
         return;
     irc->sendusermessage(u);
-}
-void netcoupler::sendnotice(const QString &receiver, const QString &msg) {
-    irc->sendnotice(msg, receiver);
-}
-void netcoupler::sendrawcommand(const QString &raw) {
-    irc->sendrawcommand(raw);
 }
 void netcoupler::refreshlist() {
     irc->refreshlist();
@@ -192,14 +141,6 @@ void netcoupler::getscheme(QString chan, QString scheme) {
 }
 void netcoupler::refreshwho() {
 
-}
-void netcoupler::sendmessagetoallbuddys(const QString &msg) {
-    foreach(QString s,S_S.buddylist) {
-        if (users.users.contains(userstruct(userstruct::whoami(s)))) {
-            QString nick = users.users[users.users.indexOf(userstruct(userstruct::whoami(s)))].nick;
-            sendnotice(nick, msg);
-        }
-    }
 }
 void netcoupler::ircconnected(){
     emit sigconnected();
@@ -334,9 +275,8 @@ QString netcoupler::getprocessstring() {
 void netcoupler::sendinfotochan(const QString &chan, const QString &msg) {
     QString command = QString("PRIVMSG %1 :\001ACTION %2 \001").arg(chan).arg(
             msg);
-    sendrawcommand(command);
-    command = QString("\001ACTION %1 \001").arg(msg);
-    getmsg(nick, chan, command);
+    sendusermessage(usermessage(command, e_RAWCOMMAND, chan));
+    sendusermessage(usermessage(command, usermessage_type(e_PRIVMSG | e_ACTION) ,chan));
 }
 void netcoupler::initSoundAndStartWho() {
     timer.disconnect();

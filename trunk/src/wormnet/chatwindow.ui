@@ -125,7 +125,7 @@
                    </size>
                   </property>
                   <property name="toolTip">
-                   <string>Use this button to mute or unmute this user.</string>
+                   <string>Use this button to mute or unmute this user. This will also disable Balloons for this user</string>
                   </property>
                   <property name="text">
                    <string/>

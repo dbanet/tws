@@ -30,7 +30,7 @@ chathandlerprv::chathandlerprv(QObject *parent, QTextBrowser *t, QString chan) :
 void chathandlerprv::opencontextmenu(const QPoint &p){
     QTextCharFormat format=tb->cursorForPosition(p).charFormat();
     int whatsthis=format.intProperty(whatsthispropertyId);
-    if(whatsthis==e_wa)
+    if(whatsthis==e_hash_wa)
         get_new_font_and_color_with_walink(&format);
     else
         get_new_font_and_color(&format);
@@ -40,12 +40,12 @@ QList<QPair<QVariant, QTextCharFormat> > chathandlerprv::getSegmentation(QString
     QList<QPair<QVariant, QTextCharFormat> > text;
     foreach(s,sl){
         if(isClickableLink(s)){
-            hash[e_http].setAnchorHref(s);
-            text<<makepair(s, hash[e_http]);
+            hash[e_hash_http].setAnchorHref(s);
+            text<<makepair(s, hash[e_hash_http]);
         } else if(startswithCI(s, "wa://")){
-            hash[e_wa].setAnchorHref(s);
-            hash[e_wa].setProperty(linkpropertyId, s);
-            text<<makepair(tr("GAMELINK"), hash[e_wa]);
+            hash[e_hash_wa].setAnchorHref(s);
+            hash[e_hash_wa].setProperty(linkpropertyId, s);
+            text<<makepair(tr("GAMELINK"), hash[e_hash_wa]);
         } else {
             if(S_S.getbool("chbsmileysinchatwindows"))
                 text<<makepair(emot->contains(s),format);
@@ -55,67 +55,27 @@ QList<QPair<QVariant, QTextCharFormat> > chathandlerprv::getSegmentation(QString
     }
     return text;
 }
-void chathandlerprv::append(const usermessage &u){
-    typedef QPair<QVariant, QTextCharFormat> pair;
-    QList<pair> text;
-    QString time = QTime::currentTime().toString("hh:mm");
-    text<<makepair(time + ":", hash[e_time]);
-    QTextCharFormat format=getRightFormat(u);
-    format.setProperty(userpropertyId,u.user());
-    QString suffix;
-    if(u.has_type(e_CTCP))
-        text<<makepair(u.user() + " CTCP: ",hash[e_nick]);
-    else if(u.has_type(e_RAWCOMMAND))
-        text<<makepair(u.user() + " RAW: ",hash[e_nick]);
-    else if (u.has_type(e_PRIVMSG)){
-        if(u.has_type(e_ACTION)){
-            text<<makepair("< " + u.user() + " ",format);
-            suffix=">";
-        }
-        else
-            text<<makepair(u.user()+">",hash[e_nick]);
-    } else if(u.has_type(e_NOTICE)){
-        if(u.has_type(e_ACTION)){
-            text<<makepair("<<< " + u.user() + " ",format);
-            suffix=">>>";
-        }
-        else{
-            text<<makepair("<< " + u.user() + " ",format);
-            suffix=">>";
-        }
-    }
-    text<<getSegmentation(u.msg(), format);
-    text<<makepair(suffix,format);
-
-    foreach(pair p, text){
-        if(p.first.type() == QVariant::String) {
-            cursor->insertText(p.first.toString()+ " ",p.second);
-        }
-        else if(p.first.type() == QVariant::Image){
-            cursor->insertImage(p.first.value<QImage>());
-            cursor->insertText(" ");
-        } else
-            myDebug()<<"##################void chathandlerprv::append(const usermessage &u)";
-    }
-    cursor->insertText("\n");
-    if (slideratmaximum)
-        tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
-}
-void chathandlerprv::appendgarbage(const QString &msg) {
-    cursor->insertText(msg + "\n", hash[e_garbage]);
-    if (slideratmaximum)
-        tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
-}
-void chathandlerprv::appendgarbage(const usermessage &u){
-    QString s;
-    if(u.has_type(e_PRIVMSG))
-        s=QDate::currentDate().toString("dd.MM") + " " + QTime::currentTime().toString("hh:mm") + " ";
+QTextCharFormat chathandlerprv::getRightFormat(const usermessage u){
+    QTextCharFormat format;    
+    if (!containsCI(S_S.buddylist, u.user()))
+        format = hash[e_hash_chat];
     else
-        s=QDate::currentDate().toString("dd.MM") + " " + QTime::currentTime().toString("hh:mm") + "NOTICE : ";
-    s+=u.user() + ">" + u.msg().simplified();
-    cursor->insertText(s + "\n", hash[e_garbage]);
-    if (slideratmaximum)
-        tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
+        format = hash[e_hash_buddy];
+    if(u.user()==singleton<netcoupler>().nick)
+        format=hash[e_hash_myself];
+    if(u.has_type(e_PRIVMSG) && u.has_type(e_ACTION))
+        format=hash[e_hash_action];
+    else if(u.has_type(e_NOTICE)){
+        if(u.has_type(e_ACTION))
+            format=hash[e_hash_noticeaction];
+        else
+            format=hash[e_hash_notice];
+    }
+    else if(u.has_type(e_CTCP))
+        format=hash[e_hash_ctcp];
+    else if(u.has_type(e_RAWCOMMAND))
+        format=hash[e_hash_raw];
+    return format;
 }
 chathandlerprv::~chathandlerprv() {
 }

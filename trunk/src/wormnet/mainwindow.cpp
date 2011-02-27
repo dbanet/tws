@@ -30,6 +30,7 @@
 #include"quithandler.h"
 #include"qobjectwrapper.h"
 #include"awayhandler.h"
+#include"usermessage.h"
 
 #ifdef WITH_GAMESURGE_SUPPORT
 #include"src/irc/irc_netcoupler.h"
@@ -99,6 +100,7 @@ mainwindow::mainwindow() {
     connect(&qobjectwrapper<awayhandler>::ref(), SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));    
     connect(&singleton<netcoupler>(), SIGNAL(sigconnected()),this,SLOT(connected()));
     connect(&singleton<netcoupler>(), SIGNAL(sigdisconnected()),this,SLOT(disconnected()));
+    connect(&singleton<netcoupler>(), SIGNAL(siggotusermessage(const usermessage)),this,SLOT(gotusermsg(const usermessage)));
 
     connect(&singleton<leagueserverhandler>(),SIGNAL(sigloginfailed()),this,SLOT(leagueserverconnectionfailed()));
     connect(&singleton<leagueserverhandler>(),SIGNAL(sigloginsuccess()),this,SLOT(leagueserverconnectionsuccess()));
@@ -112,9 +114,7 @@ mainwindow::mainwindow() {
 
     //    S_S.set("isarrangedbyonetab", false);
     //    S_S.set("isarrangedbytwotabs", false);
-    debugmsg.clear();
-
-    connect(&singleton<ctcphandler>(), SIGNAL(sigctcpcommand(const QString&,const QString&)),this, SLOT(gotctcpsignal(const QString&,const QString&)));
+    debugmsg.clear();  
 
     QVariantList windowstates = S_S.getlist("MainWindowGeometry");
     if (!windowstates.isEmpty())
@@ -442,73 +442,72 @@ void mainwindow::awaymessagechanged() {
         }
     }
 }
-void mainwindow::gotctcpsignal(const QString& command, const QString &user) {
-    foreach(chatwindow *w,channelwindow::chatwindows) {
-        if (compareCI(w->chatpartner, user)) {
-            if (command.startsWith("away"))
-                w->setaway(1, command);
-            if (command == "back")
-                w->setaway(0);
-        }
-    }
-}
 void mainwindow::settextscheme(const QString &file) {
     myDebug() << tr("trying to apply new textscheme: ") + file;
     S_S.set("textscheme", file);
     singleton<charformatsettings>().load();
     chathandler::initialformatstarter();
 }
-void mainwindow::openchatwindow(const QString &s) {
-    window::chatwindowstringlist << s;
-    window::chatwindows.push_back(new chatwindow(s));
+void mainwindow::openchatwindow(const QString &user) {
+    window::chatwindowstringlist << user;
+    window::chatwindows.push_back(new chatwindow(user));
+    mainwindow::hiddenchatwindowshelper << window::chatwindows.last();
     window::chatwindows.last()->show();
+    window::chatwindows.last()->raise();
     connect(window::chatwindows.last(), SIGNAL(closed()),this, SLOT(chatwinowclosed()));
 }
-void mainwindow::openchatwindowhidden(const QString &s) {
-    window::chatwindowstringlist << s;
-    window::chatwindows.push_back(new chatwindow(s));
+void mainwindow::openchatwindowhidden(const QString &user) {
+    window::chatwindowstringlist << user;
+    window::chatwindows.push_back(new chatwindow(user));
     mainwindow::hiddenchatwindowshelper << window::chatwindows.last();
     connect(window::chatwindows.last(), SIGNAL(closed()),this, SLOT(chatwinowclosed()));
 }
-//void mainwindow::gotprvmsg(const QString &user, const QString &receiver, const QString &msg) {
-//    usergarbagemap[user.toLower()] << QDate::currentDate().toString("dd.MM") + " "
-//            + QTime::currentTime().toString("hh:mm") + " " + user
-//            + ">" + QString(msg).remove("\n").remove("\r");
-//    if (qobjectwrapper<awayhandler>::ref().away())
-//        qobjectwrapper<awayhandler>::ref().sendaway(user);
+void mainwindow::gotusermsg(const usermessage u){
+    QString user=u.user();
+    if(u.has_type(e_CTCP) && singleton<ctcphandler>().getctcp(u))
+        return;        
 
-//    if (!msg.startsWith("\001ACTION", Qt::CaseInsensitive) && msg.startsWith("\001")){
-//        if(singleton<ctcphandler>().getctcp(user, msg))
-//            return;
-//    } if (!containsCI(window::chatwindowstringlist, user)) {
-//        singleton<balloon_handler>().got_privmsg(user, msg);
-//        if (mainwindow::windowlist.isEmpty() || S_S.getbool("chballwaysopenchatwindows") ||
-//            (singleton<netcoupler>().buddylistcontains(user) && !singleton<netcoupler>().ignorelistcontains(user))) {
-//            Q_ASSERT(user!="");
-//            if (S_S.getbool("chbstartchatsminimized")) {
-//                if (mainwindow::windowlist.isEmpty())
-//                    singleton<sound_handler>().play_normalmsgsound(user);
-//                else
-//                    foreach(::window *w,mainwindow::windowlist)
-//                        w->gotprvmsg(user, receiver, msg);
-//                openchatwindowhidden(user);
-//                window::chatwindows.last()->gotprvmsg(user, receiver, msg);
-//                if (!containsCI(querylist, user))
-//                    querylist << user;
-//            } else {
-//                openchatwindow(user);
-//                window::chatwindows.last()->gotprvmsg(user, receiver, msg);
-//            }
-//        }
-//    } else {
-//        foreach(chatwindow *w,::window::chatwindows)
-//            w->gotprvmsg(user, receiver, msg);
-//        return;
-//    }
-//    foreach(::window *w,mainwindow::windowlist) {
-//        w->gotprvmsg(user, receiver, msg);
-//    }
-//}
+    if (containsCI(window::chatwindowstringlist, user)) {
+        foreach(chatwindow *w,::window::chatwindows)
+            w->getusermessage(u);
+        if(u.receiver() == singleton<netcoupler>().nick)
+            return;
+    } else if (!containsCI(S_S.ignorelist, user) && u.receiver()==singleton<netcoupler>().nick
+               && (mainwindow::windowlist.isEmpty() || S_S.getbool("chballwaysopenchatwindows"))) {
+        if (S_S.getbool("chbstartchatsminimized")) {
+            openchatwindowhidden(user);
+            if (!containsCI(querylist, user))
+                querylist << user;
+        } else {
+            openchatwindow(user);
+            window::chatwindows.last()->getusermessage(u);
+        }
+        window::chatwindows.last()->getusermessage(u);
+        return;
+    } else if(u.receiver() == singleton<netcoupler>().nick){
+        qobjectwrapper<awayhandler>::ref().sendaway(user);
+        if(containsCI(S_S.buddylist, user)) {
+            if (S_S.getbool("chbstartchatsminimized"))
+                openchatwindowhidden(user);
+            else openchatwindow(user);
+            window::chatwindows.last()->getusermessage(u);
+            singleton<balloon_handler>().got_privmsg(u);
+            singleton<sound_handler>().play_buddymsgsound(user);
+            return;
+        }
+        singleton<balloon_handler>().got_privmsg(u);
+        singleton<sound_handler>().play_normalmsgsound(user);
+        foreach(::window *w,mainwindow::windowlist)
+            w->getusermessage(u);
+        return;
+    }    
+    foreach(::window *w,mainwindow::windowlist) {
+        if(w->currentchannel == u.receiver() || u.has_type(e_GARBAGEQUIT)) {
+            w->getusermessage(u);
+            break;
+        }
+    }
+}
 void mainwindow::connected(){
     ui.start->setEnabled(false);
     ui.start->setText("");

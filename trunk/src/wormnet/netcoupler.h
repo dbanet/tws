@@ -5,15 +5,18 @@
 #include<QTimer>
 #include<QProcess>
 #include<QHostInfo>
+
 #include"hoststruct.h"
 #include"userstruct.h"
 #include"usermodel.h"
 #include"hostmodel.h"
 #include"global_macros.h"
+#include"usermessage.h"
+
 class ircnet;
 class snoppanet;
 class QProcess;
-class usermessage;
+
 class netcoupler : public QObject
 {
     Q_OBJECT
@@ -24,12 +27,8 @@ public:
     };
 
     void start(QString nick);
-    void stop();    
-    void senduncheckedmessage(const QString&,const QString&);
-    void sendnotice(const QString&,const QString&);
-    void sendrawcommand(const QString&);
-    void sendusermessage(const usermessage &u);
-    void sendmessage(const QString&,const QString&);
+    void stop();                
+    void sendusermessage(const usermessage u);
     void joinchannel(const QString&);
     void partchannel(const QString&);       
     void sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,int flag);
@@ -54,15 +53,8 @@ public:
     DECLARE_SINGLETON(netcoupler);
 signals:
     void signewwholist(QList<userstruct>);
-    void siggotmsg(const QString&,const QString&,const QString&);
-    void siggotnotice(const QString&,const QString&,const QString&);
-    void siggotprivmsg(const QString&,const QString&,const QString&);
-    void siggotusermessage(const usermessage &u);
+    void siggotusermessage(const usermessage u);
     void siggotchanellist(QStringList);
-    void sigusergarbage(const QString&,const QString&);
-    void sigusergarbagejoin(const QString&,const QString&);
-    void sigusergarbagepart(const QString&,const QString&);
-    void sigusergarbagequit(const QString&,const QString&);
 
     void sigsettingswindowchanged();
     void siggotidletime(const QString&, int);
@@ -100,14 +92,11 @@ private slots:
     void initSoundAndStartWho();
     void getchannellist(QStringList);
     void getircip(QString);
-    void gethostlist(QList<hoststruct>,QString);
-    void getmsg(const QString&,const QString&,const QString&);    
-    void getnotice(const QString&,const QString&,const QString&);
-    void getusermessage(const usermessage &u);
+    void gethostlist(QList<hoststruct>,QString);  
+    void getusermessage(const usermessage u);
     void getwholist();    
     void getscheme(QString,QString);    
 
-    void sendmessagetoallbuddys(const QString&);    
     void readprocess();    
     void ircconnected();
     void ircdisconnected();

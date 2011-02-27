@@ -131,6 +131,7 @@ void sound_handler::play_buddyleftsound(){
     buddyleftsound->play();
 }
 void sound_handler::play_highlightningsound(const QString user, QWidget *w){
+    Q_ASSERT(w != NULL);
     if (!S_S.getbool("cbhighlightning"))
         return;
     try{
@@ -154,6 +155,7 @@ void sound_handler::play_buddyhostedsound(){
     buddyhostedsound->play();
 }
 void sound_handler::play_costumwordsound(const QString user, QWidget *w){
+    Q_ASSERT(w != NULL);
     if (!S_S.getbool("cbcostumword"))
         return;
     try{

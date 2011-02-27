@@ -341,13 +341,6 @@
                 </widget>
                </item>
                <item>
-                <widget class="QCheckBox" name="cbdontsortinchannels">
-                 <property name="text">
-                  <string>Dont use Sorting for the userlist in channels. Most recents become first.</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
                 <widget class="QGroupBox" name="groupBox_18">
                  <property name="minimumSize">
                   <size>
@@ -541,9 +534,9 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_10">
          <item>
-          <widget class="QCheckBox" name="cbdontshowballoons">
+          <widget class="QCheckBox" name="cbshowballoons">
            <property name="text">
-            <string>Dont show balloons.</string>
+            <string>Show balloons.</string>
            </property>
           </widget>
          </item>

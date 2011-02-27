@@ -25,13 +25,8 @@ class chathandler: public QObject {
 public:
 	chathandler(QObject*,QTextBrowser*,QString);
 	virtual ~chathandler();        
-        void append(const usermessage &u);
-	void appendnotice(const QString&,const QString&,const QString&);
-	void appenddebug(const QString&);
-	void appendpartgarbage(const QString&);
-	void appendjoingarbage(const QString&);
-	void appendquitgarbage(const QString&);
-	const QString channel;
+        void append(const usermessage u);        
+	void appenddebug(const QString&);	
 	static void initialformatsaver();
         static void initialformatstarter();
         void insertText(const QString&,QTextCharFormat&,QString user=QString());
@@ -53,8 +48,10 @@ protected:
         QMenu chatmenu;
 	QMenu wamenu;        
 
-        QList<QPair<QVariant, QTextCharFormat> > getSegmentation(QString s, QTextCharFormat format);
-        QTextCharFormat getRightFormat(const usermessage &u);
+        const QString chatpartner;
+
+        virtual QList<QPair<QVariant, QTextCharFormat> > getSegmentation(QString s, QTextCharFormat format);
+        virtual QTextCharFormat getRightFormat(const usermessage u);
         static void initialformat(QTextCharFormat &format);
         QPair<QVariant, QTextCharFormat> makepair(QVariant v, QTextCharFormat format);
 
@@ -80,6 +77,7 @@ protected slots:
 signals:
 	void sigopenchatwindow(const QString&);
 private:
+        void appendgarbage(usermessage u);
 };
 
 #endif /* CHATHANDLER_H_ */

@@ -123,10 +123,8 @@ void settingswindow::set(const QString &s, const QVariant &v){
         ui->chbsmileysinchatwindows->setChecked(v.toBool());
     else if(s=="cbdontplaysound")
         ui->cbdontplaysound->setChecked(v.toBool());
-    else if(s=="cbdontshowballoons")
-        ui->cbdontshowballoons->setChecked(v.toBool());
-    else if(s=="cbdontsortinchannels")
-        ui->cbdontsortinchannels->setChecked(v.toBool());
+    else if(s=="cbshowballoons")
+        ui->cbshowballoons->setChecked(v.toBool());    
     else
         throw std::runtime_error("\nvoid settingswindow::to_map(const QString &s, const QVariant &v)\n");
 }

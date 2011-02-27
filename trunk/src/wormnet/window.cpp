@@ -11,7 +11,7 @@
 #include"clantowebpagemapper.h"
 #include"leagueserverhandler.h"
 #include"usermessage.h"
-
+#include"balloon_handler.h"
 
 #include<QHBoxLayout>
 #include<QHeaderView>
@@ -101,9 +101,7 @@ window::window(QString s, int i) :
     connect(ui.hosts, SIGNAL(pressed(const QModelIndex&)),this, SLOT(hostitempressed(const QModelIndex&)));
     connect(ui.hosts, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(hostitemdblclicked(const QModelIndex&)));
 
-    connect(ui.msg, SIGNAL(returnPressed()),this, SLOT(sendmsg()));    
-    connect(&singleton<netcoupler>(), SIGNAL(siggotusermessage(const usermessage&)), this,SLOT(getusermessage(const usermessage&)));    
-    connect(&singleton<netcoupler>(), SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
+    connect(ui.msg, SIGNAL(returnPressed()),this, SLOT(sendmsg()));        
 
     singleton<netcoupler>().refreshwho();
 
@@ -141,7 +139,6 @@ window::window(QString s, int i) :
     ui.hosts->header()->setResizeMode(2, QHeaderView::Fixed);
     ui.hosts->header()->setResizeMode(3, QHeaderView::Fixed);
 
-    usesettingswindow();
     windowtitlechannel =  currentchannel;
 
 }
@@ -207,83 +204,37 @@ bool window::eventFilter(QObject *obj, QEvent *event) {
     }
     return false;
 }
-void window::getusermessage(const usermessage &u){
+void window::getusermessage(const usermessage u){
     QString user=u.user();
+    if(u.has_type(e_GARBAGE))
+        return chat->append(u);
     if (u.receiver() != currentchannel && !containsCI(chatwindowstringlist, u.user())) {
-        if (!singleton<netcoupler>().ignorelistcontains(user)
-            && !singleton<netcoupler>().buddylistcontains(user)) {
+        if (!singleton<netcoupler>().ignorelistcontains(user) && !singleton<netcoupler>().buddylistcontains(user)) {
             if (!containsCI(querylist, user))
                 querylist << user;
             chat->append(u);
             if (S_S.getbool("cbalertfromnormal")) {
-                QApplication::alert(this);
-                emit sigalert(this);
+                singleton<balloon_handler>().alert(u.user(), this);
             }
-            singleton<sound_handler>().play_normalmsgsound(user);                                        ;
+            singleton<sound_handler>().play_normalmsgsound(user);
         }
-    }else if(S_S.getbool("cbignorysappearinchannel")){
-        if (compareCI(u.receiver(), currentchannel))
+    } else if (compareCI(u.receiver(), currentchannel)){
+        if(S_S.getbool("cbignorysappearinchannel"))
             chat->append(u);
-    } else {
-        if (!containsCI(S_S.ignorelist, user)) {
-            if (compareCI(u.receiver(), currentchannel))
-                chat->append(u);
-        }
+        else if (!containsCI(S_S.ignorelist, user))
+            chat->append(u);
     }
 }
 void window::gotdebugmsg(const QString &msg) {
     chat->appenddebug(msg.simplified());
 }
-void window::gotgarbagejoin(const QString &user, const QString &msg) {
-    chat->appendjoingarbage(user + "> " + msg);
-}
-void window::gotgarbagepart(const QString &user, const QString &msg) {
-    chat->appendpartgarbage(user + "> " + msg);
-}
-void window::gotgarbagequit(const QString &user, const QString &msg) {
-    chat->appendquitgarbage(user + "> " + msg);
-}
 void window::sendmsg() {
     QString s = ui.msg->text();
     if (s.isEmpty())
         return;
-    if (s.startsWith(">!")) {
-        s.remove(0, 2);
-        usermessage u(s, e_PRIVMSG, singleton<netcoupler>().nick, currentchannel);
-        u.add_type(e_CTCP);
-        chat->append(u);
-        singleton<netcoupler>().sendusermessage(u);
-    } else if (s.startsWith("/")) {
-        s.remove(0, 1);
-        usermessage u(s, e_PRIVMSG, singleton<netcoupler>().nick, currentchannel);
-        u.add_type(e_RAWCOMMAND);
-        chat->append(u);
-        singleton<netcoupler>().sendusermessage(u);
-    } else if (s.startsWith(">>>")){
-        s.remove(0, 3);
-        usermessage u(s, e_NOTICE, singleton<netcoupler>().nick, currentchannel);
-        u.add_type(e_ACTION);
-        chat->append(u);
-        singleton<netcoupler>().sendusermessage(u);
-    } else if (s.startsWith(">>")){
-        s.remove(0, 2);
-        usermessage u(s, e_NOTICE, singleton<netcoupler>().nick, currentchannel);
-        chat->append(u);
-        singleton<netcoupler>().sendusermessage(u);
-    } else if (s.startsWith(">")) {
-        s.remove(0, 1);
-        usermessage u(s, e_PRIVMSG, singleton<netcoupler>().nick, currentchannel);
-        u.add_type(e_ACTION);
-        chat->append(u);
-        singleton<netcoupler>().sendusermessage(u);
-    } else {
-        usermessage u(s, e_PRIVMSG, singleton<netcoupler>().nick, currentchannel);
-        chat->append(u);
-        singleton<netcoupler>().sendusermessage(u);
-    }
-    usergarbagemap[currentchannel.toLower()] << QDate::currentDate().toString(
-            "dd.MM") + " " + QTime::currentTime().toString("hh:mm") + " "
-            + singleton<netcoupler>().nick + ">" + s;
+    usermessage u=usermessage::create(s, singleton<netcoupler>().nick, currentchannel);
+    chat->append(u);
+    singleton<netcoupler>().sendusermessage(u);
     ui.msg->clear();
     chat->moveSliderToMaximum();
 }
@@ -558,17 +509,6 @@ void window::hboxok() {
     }        
     singleton<netcoupler>().sendhostinfotoserverandhost(hbox->gamename, hbox->pwd, currentchannel, flag);
     hbox->deleteLater();
-}
-void window::usesettingswindow(const QString &s) {        
-    disconnect(&singleton<netcoupler>(), SIGNAL(sigusergarbagejoin(const QString&,const QString&)),this, SLOT(gotgarbagejoin(const QString&,const QString&)));
-    disconnect(&singleton<netcoupler>(), SIGNAL(sigusergarbagepart(const QString&,const QString&)),this, SLOT(gotgarbagepart(const QString&,const QString&)));
-    disconnect(&singleton<netcoupler>(), SIGNAL(sigusergarbagequit(const QString&,const QString&)),this, SLOT(gotgarbagequit(const QString&,const QString&)));    
-    if (S_S.chbjoininfo)
-        connect(&singleton<netcoupler>(), SIGNAL(sigusergarbagejoin(const QString&,const QString&)),this, SLOT(gotgarbagejoin(const QString&,const QString&)));
-    if (S_S.chbpartinfo)
-        connect(&singleton<netcoupler>(), SIGNAL(sigusergarbagepart(const QString&,const QString&)),this, SLOT(gotgarbagepart(const QString&,const QString&)));
-    if (S_S.chbquitinfo)
-        connect(&singleton<netcoupler>(), SIGNAL(sigusergarbagequit(const QString&,const QString&)),this, SLOT(gotgarbagequit(const QString&,const QString&)));
 }
 void window::getjoinmenu() {
     joinmenu2.clear();

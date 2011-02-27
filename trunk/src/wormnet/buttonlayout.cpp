@@ -32,7 +32,7 @@ buttonlayout::buttonlayout(QWidget *parent) :
     else
         ui.pbsound->setText(QObject::tr("Sound")+" "+QObject::tr("on"));
 
-    if(S_S.getbool("cbdontshowballoons"))
+    if(!S_S.getbool("cbshowballoons"))
         ui.pbballoon->setText(QObject::tr("Balloons")+" "+QObject::tr("off"));
     else
         ui.pbballoon->setText(QObject::tr("Balloons")+" "+QObject::tr("on"));
@@ -91,9 +91,9 @@ void buttonlayout::on_pbsound_clicked()
 }
 void buttonlayout::on_pbballoon_clicked()
 {
-    bool b=S_S.getbool("cbdontshowballoons");
-    singleton<settingswindow>().set("cbdontshowballoons",!b);
-    if(!b)
+    bool b=S_S.getbool("cbshowballoons");
+    singleton<settingswindow>().set("cbdontshowballoons",b);
+    if(b)
         ui.pbballoon->setText(QObject::tr("Balloons")+" "+QObject::tr("off"));
     else
         ui.pbballoon->setText(QObject::tr("Balloons")+" "+QObject::tr("on"));
