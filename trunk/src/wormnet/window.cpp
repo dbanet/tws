@@ -204,7 +204,7 @@ bool window::eventFilter(QObject *obj, QEvent *event) {
     }
     return false;
 }
-void window::getusermessage(const usermessage u){
+void window::getusermessage(usermessage u){
     QString user=u.user();
     if(u.has_type(e_GARBAGE))
         return chat->append(u);
@@ -212,6 +212,7 @@ void window::getusermessage(const usermessage u){
         if (!singleton<netcoupler>().ignorelistcontains(user) && !singleton<netcoupler>().buddylistcontains(user)) {
             if (!containsCI(querylist, user))
                 querylist << user;
+            u.add_type(e_CHATMSGTOCHANNEL);
             chat->append(u);
             if (S_S.getbool("cbalertfromnormal")) {
                 singleton<balloon_handler>().alert(u.user(), this);

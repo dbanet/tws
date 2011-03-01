@@ -10,6 +10,8 @@
 #include"global_functions.h"
 #include"settings.h"
 #include"usermessage.h"
+#include"netcoupler.h"
+
 typedef QHash<QString, QList<usermessage> > history_type;
 history_type my_history;
 //----------------------------------------------------------------------------------------------
@@ -129,16 +131,24 @@ void loadusergarbage() {
 }
 //----------------------------------------------------------------------------------------------
 void appendhistory(usermessage u){
-    QString user=u.user();
-    if (my_history[user.toLower()].size() > S_S.sbmaximumoftextblocksinlog)
-        my_history[user.toLower()] = my_history[user.toLower()].mid(S_S.sbmaximumoftextblocksinlog * 2/ 3);;
+    if(u.receiver() != singleton<netcoupler>().nick && !S_S.getbool("chbshowchannelchatinchatwindows"))
+        return;
+    QString user;
+    if(u.user()==singleton<netcoupler>().nick)
+        user=u.receiver();
+    else
+        user=u.user();
+    user=user.toLower();
+
+    if (my_history[user].size() > S_S.sbmaximumoftextblocksinlog)
+        my_history[user] = my_history[user].mid(S_S.sbmaximumoftextblocksinlog * 2/ 3);;
     u.settime(time());
     u.add_type(e_GARBAGE);
-    if (my_history[user.toLower()].size() < S_S.sbmaximumoftextblocksinlog)
+    if (my_history[user].size() < S_S.sbmaximumoftextblocksinlog)
         my_history[user.toLower()] << u;
     else {
-        my_history[user.toLower()] = my_history[user.toLower()].mid(S_S.sbmaximumoftextblocksinlog * 2/ 3);
-        my_history[user.toLower()] <<  u;
+        my_history[user] = my_history[user].mid(S_S.sbmaximumoftextblocksinlog * 2/ 3);
+        my_history[user] <<  u;
     }
 }
 //----------------------------------------------------------------------------------------------

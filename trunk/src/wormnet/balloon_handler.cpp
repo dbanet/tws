@@ -66,14 +66,6 @@ void balloon_handler::got_privmsg(const usermessage u){
     balloonhelper << QTime::currentTime().toString("hh:mm") + ":" + u.user() + tr(" said: ") + u.msg();
     showballoon();
 }
-void balloon_handler::got_privmsg(const QString user, const QString msg) {
-    if(!singleton<netcoupler>().users.usermap[usermodel::tr("Ignorelist")].count(userstruct::whoami(user)))
-        return;
-    if(!S_S.getbool("chbballoonprivmsg"))
-        return;
-    balloonhelper << QTime::currentTime().toString("hh:mm") + ":" + user + tr(" said: ") + msg;
-    showballoon();
-}
 void balloon_handler::got_game(const QString playername, const QString gamename) {
     if (gamename.size() > 5) {
         balloonhelper
@@ -109,4 +101,5 @@ void balloon_handler::set_away_tray_icon(){
 void balloon_handler::alert(QString user, QWidget *w){
     if (containsCI(S_S.getstringlist("mutedusers"), user))
         return;
+    qApp->alert(w);
 }

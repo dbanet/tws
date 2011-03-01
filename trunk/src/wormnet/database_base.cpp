@@ -88,7 +88,9 @@ void database_base::append(QString key, QString s){
     set(key,QStringList(getstringlist(key))<<s);
 }
 void database_base::remove(QString key, QString s){
-    set(key,QStringList(getstringlist(key)).removeAll(s));
+    QStringList sl=getstringlist(key);
+    sl.removeAll(s);
+    set(key,sl);
 }
 void database_base::set(QString key, QVariantList list){    
     if(list.isEmpty())

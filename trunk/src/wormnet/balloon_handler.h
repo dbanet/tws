@@ -23,7 +23,6 @@ public slots:
     void connectedtoleagueserver(QString servicename);
     void buddyarrived();
     void buddyleft();
-    void got_privmsg(const QString user, const QString msg);
     void got_privmsg(const usermessage u);
     void got_game(const QString playername, const QString gamename);
     void got_costum_word(const QString word,const QString user);

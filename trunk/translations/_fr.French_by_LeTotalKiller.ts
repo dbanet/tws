@@ -585,7 +585,7 @@ Voulez-vous quand même l&apos;effacer </translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="94"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="96"/>
         <source>is missing or locked, please run worms, one time, without the snooper. it will then create the file!</source>
         <translation>est manquant ou verouillé, merci de démarrer Worms, tout d&apos;abord, sans le snooper. Cela va créer le fichier !</translation>
     </message>
@@ -774,7 +774,7 @@ Skin_Base</translation>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="87"/>
         <location filename="../src/wormnet/chatwindow.cpp" line="118"/>
-        <location filename="../src/wormnet/chatwindow.cpp" line="205"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="204"/>
         <source>Online</source>
         <translation>En ligne</translation>
     </message>
@@ -1041,7 +1041,7 @@ Skin_Base</translation>
         <translation>Afficher des infos sur la partie.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chathandler.cpp" line="197"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="195"/>
         <source>to </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1089,7 +1089,7 @@ Skin_Base</translation>
         <translation>&lt;Temps depuis la dernière réaction dans le chat avec cet utilisateur :</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chatwindow.cpp" line="194"/>
+        <location filename="../src/wormnet/chatwindow.cpp" line="193"/>
         <source>This user is currently offline</source>
         <translation>Cet utilisateur est actuellement hors ligne</translation>
     </message>
@@ -2386,19 +2386,19 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
         <location filename="../src/wormnet/mainwindow.cpp" line="564"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="703"/>
         <location filename="../src/wormnet/usermodel.cpp" line="116"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="264"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="265"/>
         <location filename="../src/wormnet/window.cpp" line="153"/>
-        <location filename="../src/wormnet/window.cpp" line="325"/>
-        <location filename="../src/wormnet/window.cpp" line="355"/>
-        <location filename="../src/wormnet/window.cpp" line="384"/>
+        <location filename="../src/wormnet/window.cpp" line="326"/>
+        <location filename="../src/wormnet/window.cpp" line="356"/>
+        <location filename="../src/wormnet/window.cpp" line="385"/>
         <source>Buddylist</source>
         <translation>Liste d&apos;amis</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="326"/>
-        <location filename="../src/wormnet/window.cpp" line="364"/>
-        <location filename="../src/wormnet/window.cpp" line="378"/>
-        <location filename="../src/wormnet/window.cpp" line="384"/>
+        <location filename="../src/wormnet/window.cpp" line="327"/>
+        <location filename="../src/wormnet/window.cpp" line="365"/>
+        <location filename="../src/wormnet/window.cpp" line="379"/>
+        <location filename="../src/wormnet/window.cpp" line="385"/>
         <source>Ignorelist</source>
         <translation>Liste d&apos;ignorés</translation>
     </message>
@@ -2419,11 +2419,11 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/usermodel.cpp" line="117"/>
-        <location filename="../src/wormnet/usermodel.cpp" line="236"/>
+        <location filename="../src/wormnet/usermodel.cpp" line="237"/>
         <location filename="../src/wormnet/window.cpp" line="151"/>
-        <location filename="../src/wormnet/window.cpp" line="288"/>
-        <location filename="../src/wormnet/window.cpp" line="311"/>
-        <location filename="../src/wormnet/window.cpp" line="384"/>
+        <location filename="../src/wormnet/window.cpp" line="289"/>
+        <location filename="../src/wormnet/window.cpp" line="312"/>
+        <location filename="../src/wormnet/window.cpp" line="385"/>
         <source>Querys</source>
         <translation>Requêtes</translation>
     </message>
@@ -2477,102 +2477,102 @@ Note : un redémarrage est nécessaire pour appliquer ces options.</translation>
         <translation>Héberger un partie dans </translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="456"/>
-        <location filename="../src/wormnet/window.cpp" line="480"/>
-        <location filename="../src/wormnet/window.cpp" line="519"/>
+        <location filename="../src/wormnet/window.cpp" line="457"/>
+        <location filename="../src/wormnet/window.cpp" line="481"/>
+        <location filename="../src/wormnet/window.cpp" line="520"/>
         <source>Choose a Program to join this game.</source>
         <translation>Choisir un programme pour rejoindre cette partie.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="91"/>
-        <location filename="../src/wormnet/window.cpp" line="342"/>
+        <location filename="../src/wormnet/window.cpp" line="343"/>
         <source>Add this user to Buddylist.</source>
         <translation>Ajouter cet utilisateur à la liste d&apos;amis.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="92"/>
-        <location filename="../src/wormnet/window.cpp" line="344"/>
+        <location filename="../src/wormnet/window.cpp" line="345"/>
         <source>Add this user to Ignorelist.</source>
         <translation>Ajouter cet utilisateur à la liste d&apos;ignorés.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="94"/>
         <location filename="../src/wormnet/window.cpp" line="96"/>
-        <location filename="../src/wormnet/window.cpp" line="315"/>
-        <location filename="../src/wormnet/window.cpp" line="321"/>
-        <location filename="../src/wormnet/window.cpp" line="331"/>
-        <location filename="../src/wormnet/window.cpp" line="337"/>
-        <location filename="../src/wormnet/window.cpp" line="346"/>
-        <location filename="../src/wormnet/window.cpp" line="360"/>
-        <location filename="../src/wormnet/window.cpp" line="369"/>
+        <location filename="../src/wormnet/window.cpp" line="316"/>
+        <location filename="../src/wormnet/window.cpp" line="322"/>
+        <location filename="../src/wormnet/window.cpp" line="332"/>
+        <location filename="../src/wormnet/window.cpp" line="338"/>
+        <location filename="../src/wormnet/window.cpp" line="347"/>
+        <location filename="../src/wormnet/window.cpp" line="361"/>
+        <location filename="../src/wormnet/window.cpp" line="370"/>
         <source>Show info about this user.</source>
         <translation>Afficher des informations à propos de cet utilisateur.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="95"/>
-        <location filename="../src/wormnet/window.cpp" line="358"/>
-        <location filename="../src/wormnet/window.cpp" line="367"/>
+        <location filename="../src/wormnet/window.cpp" line="359"/>
+        <location filename="../src/wormnet/window.cpp" line="368"/>
         <source>Remove this user from the list.</source>
         <translation>Retirer cet utilisateur de la liste.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="299"/>
-        <location filename="../src/wormnet/window.cpp" line="304"/>
+        <location filename="../src/wormnet/window.cpp" line="300"/>
+        <location filename="../src/wormnet/window.cpp" line="305"/>
         <source>Allow this clanname.</source>
         <translation>Afficher ce clan.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="301"/>
-        <location filename="../src/wormnet/window.cpp" line="306"/>
+        <location filename="../src/wormnet/window.cpp" line="302"/>
+        <location filename="../src/wormnet/window.cpp" line="307"/>
         <source>Dissallow this clanname.</source>
         <translation>Masquer ce clan.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="313"/>
-        <location filename="../src/wormnet/window.cpp" line="319"/>
+        <location filename="../src/wormnet/window.cpp" line="314"/>
+        <location filename="../src/wormnet/window.cpp" line="320"/>
         <source>Remove this Query.</source>
         <translation>Retirer cette requête.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="329"/>
-        <location filename="../src/wormnet/window.cpp" line="348"/>
+        <location filename="../src/wormnet/window.cpp" line="330"/>
+        <location filename="../src/wormnet/window.cpp" line="349"/>
         <source>Remove this user from Buddylist.</source>
         <translation>Retirer cet utilisateur de la liste d&apos;amis.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="335"/>
-        <location filename="../src/wormnet/window.cpp" line="350"/>
+        <location filename="../src/wormnet/window.cpp" line="336"/>
+        <location filename="../src/wormnet/window.cpp" line="351"/>
         <source>Remove this user from Ignorelist.</source>
         <translation>Retirer cet utilisateur de la liste d&apos;ignorés.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="408"/>
+        <location filename="../src/wormnet/window.cpp" line="409"/>
         <source>Sry but there is no webside for this user available, at </source>
         <translation>Désolé mais il n&apos;y a pas de site web disponible pour cet utilisateur, à </translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="463"/>
+        <location filename="../src/wormnet/window.cpp" line="464"/>
         <source>Choose a desktop icon.</source>
         <translation>Choisir une icône de raccourci bureau.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="467"/>
+        <location filename="../src/wormnet/window.cpp" line="468"/>
         <source>Choose a Program.</source>
         <translation>Choisir une application.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="470"/>
+        <location filename="../src/wormnet/window.cpp" line="471"/>
         <source>Choose a Desktopicon.</source>
         <translation>Choisir l&apos;icône de raccourci bureau.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="542"/>
+        <location filename="../src/wormnet/window.cpp" line="543"/>
         <source>Users online</source>
         <translation>utilisateurs connectés</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="289"/>
-        <location filename="../src/wormnet/window.cpp" line="291"/>
+        <location filename="../src/wormnet/window.cpp" line="290"/>
+        <location filename="../src/wormnet/window.cpp" line="292"/>
         <source>Remove Querys</source>
         <translation>Retirer les requêtes</translation>
     </message>

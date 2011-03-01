@@ -116,8 +116,8 @@ void chatwindow::getusermessage(usermessage u_arg){
             singleton<sound_handler>().play_normalmsgsound(u_arg.user());
         if (statusbar->currentMessage() == tr("Was offline when this window opened."))
             statusbar->showMessage(QObject::tr("Online"));
-    } else if(u_arg.user() == chatpartner){
-        chat->append(u_arg.add_type(e_CHANNELMSG));
+    } else if(u_arg.user() == chatpartner && S_S.getbool("chbshowchannelchatinchatwindows")){
+        chat->append(u_arg.add_type(e_CHANNELMSGTOCHAT));
         return;
     }
 }
@@ -143,11 +143,8 @@ void chatwindow::getgamerwho(QString prefix) {
     }
 }
 void chatwindow::pbmuteclicked() {
-    if (S_S.getstringlist("mutedusers").contains(chatpartner, Qt::CaseInsensitive)) {
-        foreach(QString s,S_S.getstringlist("mutedusers")) {
-            if (compareCI(s, chatpartner))
-                S_S.remove("mutedusers",s);
-        }
+    if (containsCI(S_S.getstringlist("mutedusers"), chatpartner)) {
+        S_S.remove("mutedusers",chatpartner);
         ui.pbmute->setIcon(QIcon("snppictures/buttons/mutebutton.png"));
     } else {
         S_S.append("mutedusers", chatpartner);
@@ -185,9 +182,8 @@ void chatwindow::pbidleclicked() {
 void chatwindow::gotidletime(const QString &user, int i) {
     QTime time(0, 0, 0);
     time = time.addSecs(i);
-    if (compareCI(user,  chatpartner)) {
-        chat->appenddebug(tr("<This users idle time:")+" " +time.toString("hh:mm:ss"));
-    }
+    if (compareCI(user,  chatpartner))
+        chat->appenddebug(tr("<This users idle time:")+" " +time.toString("hh:mm:ss"));    
 }
 void chatwindow::gotnosuchnick(const QString &s){
     if(compareCI( chatpartner,s)){

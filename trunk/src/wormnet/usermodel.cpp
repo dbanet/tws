@@ -98,7 +98,7 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QHash<QString,QStri
     users = upar;
     usermap.clear();
     foreach(QString s,usermap_channellist_helper)
-        usermap[s];    
+        usermap[s];
     foreach(userstruct u,users) {
         joinlist[u.chan].removeAll(u.nick);
         usermap[u.chan].push_back(u);
@@ -118,6 +118,7 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QHash<QString,QStri
     classes<<usermap.keys();
     if(classes.contains("#AnythingGoes"))
         classes.move(classes.indexOf("#AnythingGoes"),2);
+    classes.removeDuplicates();
     usermap[tr("Buddylist")];
     usermap[tr("Querys")];
     usermap[usermodel::tr("Ignorelist")];
@@ -196,7 +197,7 @@ int usermodel::rowCount(const QModelIndex & parent) const {
     if (!parent.isValid())
         return classes.count();
     if (parent.internalId() == e_Channel)
-        return usermap[classes[parent.row()]].count();    
+        return usermap[classes[parent.row()]].count();
     return 0;
 }
 QModelIndex usermodel::index(int row, int column, const QModelIndex & parent) const {

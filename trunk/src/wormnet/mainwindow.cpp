@@ -399,9 +399,11 @@ void mainwindow::chatwinowclosed() {
 void mainwindow::appenddebugmessage(const QString &msg) {
     debugmsg.append(msg);
     ui.labeltraydescription->insertPlainText(debugmsg);
+    if(!S_S.getbool("cbservermessageinchannelwindows"))
+        return;
     foreach( ::window *w,windowlist)
         w->gotdebugmsg(debugmsg);    
-    debugmsg.clear();
+    debugmsg.clear();    
 }
 void mainwindow::setlanguage(const QString &langfile) {
     S_S.set("language_file", langfile);

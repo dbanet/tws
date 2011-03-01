@@ -11,6 +11,7 @@ logbrowser::logbrowser(QWidget *parent)
     setAttribute(Qt::WA_DeleteOnClose);
     foreach(QString s,history().keys())
         ui.listWidget->addItem(s);
+    ui.listWidget->sortItems();
     connect(ui.close,SIGNAL(clicked()),this,SLOT(closeclicked()));
     connect(ui.chat,SIGNAL(clicked()),this,SLOT(chatclicked()));
 

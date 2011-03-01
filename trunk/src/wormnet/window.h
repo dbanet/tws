@@ -33,7 +33,7 @@ public:
     QPointer<chathandler> chat;		//handles the whole textbrowser
     QString windowtitleaway;
     void mysetwindowtitle();    
-    void getusermessage(const usermessage u);
+    void getusermessage(usermessage u);
 public slots:
     void minimize();        
 private slots:        

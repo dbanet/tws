@@ -181,7 +181,6 @@ void chathandler::appendgarbage(usermessage u){
     if (slideratmaximum)
         tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
 }
-
 void chathandler::append(const usermessage u){            
     typedef QPair<QVariant, QTextCharFormat> pair;
     QList<pair> text;    
@@ -189,11 +188,14 @@ void chathandler::append(const usermessage u){
         appendgarbage(u);
         return;
     }
-    appendhistory(u);
     QString time = QTime::currentTime().toString("hh:mm");
     text<<makepair(time + ":", hash[e_hash_time]);
     QTextCharFormat format=getRightFormat(u);
-    if(u.has_type(e_CHANNELMSG))
+    if(u.has_type(e_CHANNELMSGTOCHAT))
+        text<<makepair(tr("to ")+u.receiver()+ ": ", format);
+    else
+        appendhistory(u);    
+    if(u.has_type(e_CHATMSGTOCHANNEL))
         text<<makepair(tr("to ")+u.receiver()+ ": ", format);
     format.setProperty(userpropertyId,u.user());
     hash[e_hash_nick].setProperty(userpropertyId,u.user());
@@ -270,7 +272,7 @@ QList<QPair<QVariant, QTextCharFormat> > chathandler::getSegmentation(QString s,
 }
 QTextCharFormat chathandler::getRightFormat(const usermessage u){
     QTextCharFormat format;
-    if(u.receiver() != chatpartner)
+    if(u.has_type(e_CHATMSGTOCHANNEL))
         format = hash[e_hash_prv];
     else if (!containsCI(S_S.buddylist, u.user()))
         format = hash[e_hash_chat];
