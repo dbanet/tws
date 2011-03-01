@@ -31,24 +31,25 @@ namespace looki {
 }
 netcoupler::netcoupler() {
     connectstate=e_stoped;
-    p=new QProcess(this);
-    connect(volume, SIGNAL(valueChanged (int)),&singleton<sound_handler>(), SLOT(volumechange(int)));
-
-    connect(&users, SIGNAL(sigbuddyarrived()),&singleton<balloon_handler>(), SLOT(buddyarrived()));
-    connect(&users, SIGNAL(sigbuddyleft()),&singleton<balloon_handler>(), SLOT(buddyleft()));
-    connect(this,SIGNAL(sigconnected()),&singleton<balloon_handler>(),SLOT(connected()));
-    connect(this,SIGNAL(sigdisconnected()),&singleton<balloon_handler>(),SLOT(disconnected()));    
-    p->setProcessChannelMode(QProcess::MergedChannels);    
-    connect(p, SIGNAL(readyRead()),this, SLOT(readprocess()));    
-
-
-    connect(this, SIGNAL(sigsettingswindowchanged()),this, SLOT(initSoundAndStartWho()));
-    connect(this, SIGNAL(sigsettingswindowchanged()),&users, SLOT(usesettingswindow()));
-
     irc=NULL;
     http=NULL;
+    p=NULL;
 }
 void netcoupler::start(QString s){
+    if(!p){                                                     //indicates first start
+        p=new QProcess(this);
+        p->setProcessChannelMode(QProcess::MergedChannels);
+        connect(volume, SIGNAL(valueChanged (int)),&singleton<sound_handler>(), SLOT(volumechange(int)));
+        connect(&users, SIGNAL(sigbuddyarrived()),&singleton<balloon_handler>(), SLOT(buddyarrived()));
+        connect(&users, SIGNAL(sigbuddyleft()),&singleton<balloon_handler>(), SLOT(buddyleft()));
+        connect(this,SIGNAL(sigconnected()),&singleton<balloon_handler>(),SLOT(connected()));
+        connect(this,SIGNAL(sigdisconnected()),&singleton<balloon_handler>(),SLOT(disconnected()));
+        connect(p, SIGNAL(readyRead()),this, SLOT(readprocess()));
+
+        connect(this, SIGNAL(sigsettingswindowchanged()),this, SLOT(initSoundAndStartWho()));
+        connect(this, SIGNAL(sigsettingswindowchanged()),&users, SLOT(usesettingswindow()));
+    }
+
     connectstate=e_started;
     nick=s;
     irc = new ircnet(s, this);    

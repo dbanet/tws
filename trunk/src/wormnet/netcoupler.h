@@ -107,7 +107,4 @@ private slots:
 
     void loopTimerTimeout();
 };
-namespace{
-    netcoupler &N_N=singleton<netcoupler>();
-}
 #endif // NETCOUPLER_H

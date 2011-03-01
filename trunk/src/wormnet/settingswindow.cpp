@@ -121,12 +121,14 @@ void settingswindow::set(const QString &s, const QVariant &v){
         ui->cbcostumword->setChecked(v.toBool());
     else if(s=="chbsmileysinchatwindows")
         ui->chbsmileysinchatwindows->setChecked(v.toBool());
+    else if(s=="showsmileysinchannels")
+        ui->showsmileysinchannels->setChecked(v.toBool());
     else if(s=="cbdontplaysound")
         ui->cbdontplaysound->setChecked(v.toBool());
     else if(s=="cbshowballoons")
         ui->cbshowballoons->setChecked(v.toBool());    
     else
-        throw std::runtime_error("\nvoid settingswindow::to_map(const QString &s, const QVariant &v)\n");
+        myDebug()<<"\nvoid settingswindow::to_map(const QString &s, const QVariant &v)\n";
 }
 void settingswindow::on_pbloadsoundpack_clicked(){
     QString s=QFileDialog::getExistingDirectory(this,tr("Choose the directory from the soundpack."),"sounpacks");

@@ -63,18 +63,17 @@ emoticonhandler::emoticonhandler(QWidget *parent) :
 //}
 void emoticonhandler::myclose() {
     scheme = ui.cbscheme->currentText();
-    QFile f;
     foreach(QString s,filemap.keys()) {
-        f.setFileName(QApplication::applicationDirPath() + "/smileys/" + s
-                      + ".smileyscheme");
+        QFile f;
+        f.setFileName(QApplication::applicationDirPath() + "/smileys/" + s + ".smileyscheme");
         if (f.open(QFile::WriteOnly | QFile::Truncate)) {
             QDataStream ds(&f);
             ds.setVersion(QDataStream::Qt_4_3);
             ds << filemap[s];
         }
-        f.close();
     }
-    singleton<settingswindow>().set("chbsmileys",ui.chbsmileys->isChecked());
+    singleton<settingswindow>().set("showsmileysinchannels",!ui.chbsmileys->isChecked());
+    singleton<settingswindow>().set("chbsmileysinchatwindows",!ui.chbsmileys->isChecked());
     close();
 }
 void emoticonhandler::add() {
@@ -141,7 +140,6 @@ QVariant emoticonhandler::contains(QString s){
     if(map.contains(s))
         return map[s];
     return s;
-
 }
 emoticonhandler::~emoticonhandler() {
 

@@ -140,6 +140,8 @@ void appendhistory(usermessage u){
         user=u.user();
     user=user.toLower();
 
+    QString s;
+
     if (my_history[user].size() > S_S.sbmaximumoftextblocksinlog)
         my_history[user] = my_history[user].mid(S_S.sbmaximumoftextblocksinlog * 2/ 3);;
     u.settime(time());

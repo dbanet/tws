@@ -126,6 +126,7 @@ void chathandler::appendgarbage(usermessage u){
     typedef QPair<QVariant, QTextCharFormat> pair;
     QList<pair> text;
     QTextCharFormat format=hash[e_hash_garbage];
+    text<<makepair(u.time() + ":", format);
     if(u.has_type(e_GARBAGEJOIN)){
         if(!S_S.chbjoininfo)
             return;
@@ -140,31 +141,31 @@ void chathandler::appendgarbage(usermessage u){
         if(!S_S.chbquitinfo)
             return;
         format=hash[e_hash_garbagequit];
-    }
-    text<<makepair(u.time() + ":", format);
+    } else if(u.receiver() != singleton<netcoupler>().nick && u.user() != singleton<netcoupler>().nick)
+        text<<makepair(tr("to ")+u.receiver()+ ": ", format);
     QString suffix;
     if(u.has_type(e_CTCP))
-        text<<makepair(u.user() + " CTCP: ",format);
+        text<<makepair(u.user() + " CTCP:",format);
     else if(u.has_type(e_RAWCOMMAND))
-        text<<makepair(u.user() + " RAW: ",format);
+        text<<makepair(u.user() + " RAW:",format);
     else if (u.has_type(e_PRIVMSG)){
         if(u.has_type(e_ACTION)){
-            text<<makepair("< " + u.user() + ": ",format);
+            text<<makepair("< " + u.user() + ":",format);
             suffix=">";
         }
         else
             text<<makepair(u.user()+">",format);
     } else if(u.has_type(e_NOTICE)){
         if(u.has_type(e_ACTION)){
-            text<<makepair("<<< " + u.user() + ": ",format);
+            text<<makepair("<<< " + u.user() + ":",format);
             suffix=">>>";
         }
         else{
-            text<<makepair("<< " + u.user() + ": ",format);
+            text<<makepair("<< " + u.user() + ":",format);
             suffix=">>";
         }
     } else
-        text<<makepair(u.user() + ": ",format);
+        text<<makepair(u.user() + ":",format);
     text<<getSegmentation(u.msg(), format);
     text<<makepair(suffix,format);
 
