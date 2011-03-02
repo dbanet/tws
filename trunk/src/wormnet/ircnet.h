@@ -4,7 +4,6 @@
 #include <QObject>
 #include<QTcpSocket>
 #include<QStringList>
-#include<QTimer>
 
 #include"userstruct.h"
 #include"usermessage.h"
@@ -59,7 +58,6 @@ private:
     QString wnip;
     QString servermessageindicator;
     QTcpSocket *tcp;
-    QTimer reconnecttimer;
     void readservermassege(QString);
     void readusermessage(QString &);        
 

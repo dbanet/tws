@@ -12,7 +12,6 @@ class QStatusBar;
 class chatwindow : public QWidget
 {
     Q_OBJECT
-
 public:
     chatwindow(const QString&, QWidget *parent = 0);
     ~chatwindow();
@@ -42,7 +41,7 @@ protected:
     void closeEvent ( QCloseEvent *);
     bool eventFilter(QObject *obj, QEvent *event);		//for the linedit in ui
 signals:
-    void closed();
+    void sigclosed();
 };
 
 #endif // CHATWINDOW_H

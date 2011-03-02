@@ -7,7 +7,7 @@
 #include"window.h"
 extern bool fontorcolorchanged;
 textschemehandler::textschemehandler(QWidget *parent) :
-	QWidget(parent) {
+    QWidget(parent) {
     setObjectName("normalwidget");
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowTitle(tr("Textscheme helper"));
@@ -56,8 +56,8 @@ void textschemehandler::colorclicked() {
         //bool *b = new bool;
         QColor c;
         c = QColorDialog::getColor(
-                singleton<charformatsettings>().map[ui.listWidget->selectedItems().first()->text()
-                                                    + "color"].value<QColor> (), this);
+                    singleton<charformatsettings>().map[ui.listWidget->selectedItems().first()->text()
+                    + "color"].value<QColor> (), this);
         if (c.isValid()) {
             singleton<charformatsettings>().map[ui.listWidget->selectedItems().first()->text() + "color"] = c;
             chathandler::initialformatstarter();
@@ -71,5 +71,5 @@ void textschemehandler::showclicked() {
             w->chat->insertText(tr("This is a teststring > ? ! < @ THIS IS A TESTSTRING! 0123456789 xD ,) :) ;P :P :E :D :C ;o :o o0 o_0 ,0.0,"),*map[ui.listWidget->selectedItems().first()->text()]);
     }
 }
-textschemehandler::~textschemehandler() {   
+textschemehandler::~textschemehandler() {
 }

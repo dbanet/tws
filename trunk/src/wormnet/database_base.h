@@ -53,6 +53,9 @@ public:
     bool cbonlyshowflagsfromverifiedusers;        
     bool chbshowbaloonwhenbuddyhosts;
     bool cbdontsortinchannels;
+    bool showsmileysinchannels;
+    bool chbshowchannelchatinchatwindows;
+    bool cbservermessageinchannelwindows;
 //##########            
 
 protected:    

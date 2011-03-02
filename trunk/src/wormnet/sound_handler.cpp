@@ -8,8 +8,8 @@
 #include<QPointer>
 #include<QMessageBox>
 
-sound_handler::sound_handler(){    
-    startupsound = new Phonon::MediaObject(this);   
+sound_handler::sound_handler(){
+    startupsound = new Phonon::MediaObject(this);
     buddymsgsound = new Phonon::MediaObject(this);
     normalmsgsound = new Phonon::MediaObject(this);
     chatwindowopensound = new Phonon::MediaObject(this);
@@ -24,7 +24,7 @@ sound_handler::sound_handler(){
     buddymsgsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
     startupsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
     highlightningoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
-    buddyleftsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);    
+    buddyleftsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
     buddyarrivedsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
     buddyhostedsoundoutput = new Phonon::AudioOutput(Phonon::MusicCategory);
     costumwordsoundsoundoutput= new Phonon::AudioOutput(Phonon::MusicCategory);
@@ -71,7 +71,7 @@ void sound_handler::play_startupsound(){
         verify_if_played();
     } catch(dont_play_sound_exception){
         return;
-    }    
+    }
     startupsound->stop();
     startupsound->play();
 }

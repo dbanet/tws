@@ -4,7 +4,8 @@
 #include "ui_ctctphandlerwidget.h"
 #include"global_macros.h"
 #include<QPointer>
-#include <QtGui/QFrame>
+#include<QtGui/QFrame>
+
 class ctcphandleratomic;
 class ctctphandlerwidget : public QFrame
 {

@@ -377,8 +377,7 @@ void window::useritemdblclicked(const QModelIndex &index) {
 
     if (index.internalId() != usermodel::e_Channel
         && singleton<netcoupler>().users.classes[index.internalId()]!= usermodel::tr("Ignorelist")) {
-        QString s = singleton<netcoupler>().users.data(index.sibling(index.row(), 0),
-                                                       Qt::DisplayRole).value<QString> ();
+        QString s = singleton<netcoupler>().users.data(index.sibling(index.row(), 0), Qt::DisplayRole).value<QString> ();
         openchatwindow(s);
     } else if (index.internalId() == usermodel::e_Channel){
         QString s=singleton<netcoupler>().users.data(index.sibling(index.row(), 0)).value<QString> ();
@@ -437,11 +436,7 @@ void window::openchatwindow(const QString &s) {
         }
         return;
     }emit sigopenchatwindow(s);
-    QApplication::processEvents();
-    /*chatwindowstringlist << s;
-	 chatwindows.push_back(new chatwindow(net, s));
-	 connect(chatwindows.last(), SIGNAL(closed()),this, SLOT(chatwinowclosed()));
-	 chatwindows.last()->show();*/
+    QApplication::processEvents();    
 }
 void window::hostitempressed(const QModelIndex &index) {
     if (QApplication::mouseButtons() == Qt::RightButton) {
@@ -509,7 +504,6 @@ void window::hboxok() {
             flag = u.flag;        
     }        
     singleton<netcoupler>().sendhostinfotoserverandhost(hbox->gamename, hbox->pwd, currentchannel, flag);
-    hbox->deleteLater();
 }
 void window::getjoinmenu() {
     joinmenu2.clear();
@@ -561,7 +555,7 @@ window::~window() {
     QString s = currentchannel;
     containsCI(singleton<netcoupler>().hosts.hostmap.keys(), s);
     singleton<netcoupler>().hosts.sethoststruct(QList<hoststruct> (), s);
-    emit sigwindowclosed(currentchannel);
+    emit sigclosed();
     disconnect();
     hiddenchannelwindowshelper.removeAll(this);
 }

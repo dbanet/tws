@@ -18,7 +18,7 @@
 extern inihandlerclass inihandler;
 
 ircnet::ircnet(QString s, QObject *parent) :
-	QObject(parent), tcp(new QTcpSocket(this)) {    
+    QObject(parent), tcp(new QTcpSocket(this)) {
     nick = s;
     connect(tcp, SIGNAL(readyRead()),this, SLOT(tcpread()));
     whoreceivedcompletely = 1;
@@ -148,7 +148,7 @@ void ircnet::readservermassege(QString s) {
         myDebug()<<sl<<"|"+servermessageindicator+"|";
     sl.takeFirst();
     sl.takeFirst();
-    QString channel;
+    QString channel;    
     switch (command) {
     case 323: //end of list command
         channellist = tempchannellist;
@@ -176,55 +176,55 @@ void ircnet::readservermassege(QString s) {
             joinlist[channel].removeOne(nick);
         }
         break;
-	case 301: //Auto Away at Sun Nov 23 20:25:36 2008
-            emit sigmsg(sl.takeFirst(), nick, sl.join(" "));
-            break;
-	case 366: //end of /NAME list happens after join
-            break;
-	case 321: //Users  Name
-            break;
-	case 311: //311 loOkias`twsnp ```MihaiS`sW` ~sW no.address.for.you * :40 0 ?? The Wheat Snooper
-            break;
-	case 319: //319 loOkias`twsnp ```MihaiS`sW` :#AnythingGoes
-            break;
-	case 312: //312 loOkias`twsnp ```MihaiS`sW` wormnet1.team17.com :Team17 Ltd.
-            break;
-	case 318: //318 loOkias`twsnp ```MihaiS`sW` :End of /WHOIS list.
-            break;
-	case 317: //317 loOkias`twsnp ```MihaiS`sW` 57 1231682995 :seconds idle, signon time
-            if (sl.size() >= 2) {
-                QString s = sl.takeFirst();
-                int i = sl.first().toInt();
-                emit siggotidletime(s, i);
-            }
-            break;
-	case 401: //401 lookias`twsnp lololol :No such nick/channel
-            if (sl.size() >= 2) {
-                QString s = sl.takeFirst();
-                emit signosuchnick(s);
-            }
-            break;
-        case 433: //nickname allready in use
-            if(S_S.getbool("enablesecurelogging"))
-                QMessageBox::information(0,tr("Nickname collision!"),
-                                         tr("Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again."),
-                                         QMessageBox::Ok);
-            else
-                QMessageBox::information(0,tr("Nickname collision!"),
-                                         tr("Your nickname is already in use. You can wait some minutes or change your nickname and try again."),
-                                         QMessageBox::Ok);
-            tcp->disconnect();
-            break;
-	case 412: //No text to send
-	case 462: //You may not reregister	
-	case 421: //unknown command
-	case 409: //No origin specified
-	case 403: //No such channel
-        case 404: //Cannot send to channel
-        case 372: //:- info
-	default:
-            myDebug() << s;
-	}
+    case 301: //Auto Away at Sun Nov 23 20:25:36 2008
+        emit sigmsg(sl.takeFirst(), nick, sl.join(" "));
+        break;
+    case 366: //end of /NAME list happens after join
+        break;
+    case 321: //Users  Name
+        break;
+    case 311: //311 loOkias`twsnp ```MihaiS`sW` ~sW no.address.for.you * :40 0 ?? The Wheat Snooper
+        break;
+    case 319: //319 loOkias`twsnp ```MihaiS`sW` :#AnythingGoes
+        break;
+    case 312: //312 loOkias`twsnp ```MihaiS`sW` wormnet1.team17.com :Team17 Ltd.
+        break;
+    case 318: //318 loOkias`twsnp ```MihaiS`sW` :End of /WHOIS list.
+        break;
+    case 317: //317 loOkias`twsnp ```MihaiS`sW` 57 1231682995 :seconds idle, signon time
+        if (sl.size() >= 2) {
+            QString s = sl.takeFirst();
+            int i = sl.first().toInt();
+            emit siggotidletime(s, i);
+        }
+        break;
+    case 401: //401 lookias`twsnp lololol :No such nick/channel
+        if (sl.size() >= 2) {
+            QString s = sl.takeFirst();
+            emit signosuchnick(s);
+        }
+        break;
+    case 433: //nickname allready in use
+        if(S_S.getbool("enablesecurelogging"))
+            QMessageBox::information(0,tr("Nickname collision!"),
+                                     tr("Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again."),
+                                     QMessageBox::Ok);
+        else
+            QMessageBox::information(0,tr("Nickname collision!"),
+                                     tr("Your nickname is already in use. You can wait some minutes or change your nickname and try again."),
+                                     QMessageBox::Ok);
+        tcp->disconnect();
+        break;
+    case 412: //No text to send
+    case 462: //You may not reregister
+    case 421: //unknown command
+    case 409: //No origin specified
+    case 403: //No such channel
+    case 404: //Cannot send to channel
+    case 372: //:- info
+    default:
+        myDebug() << s;
+    }
 }
 void ircnet::joinchannel(const QString &chan) {
     tcp_write("JOIN " + chan + "\n");

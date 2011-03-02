@@ -5,6 +5,7 @@
 #include<QStringList>
 #include<QtSql>
 #include<stdexcept>
+
 const char *TABLENAME="settings";
 database_base::database_base(){
 }
@@ -233,6 +234,9 @@ void database_base::update(){
     variantListToInt(sbmaximumoftextblocksinlog,"sbmaximumoftextblocksinlog");    
     variantListToInt(sbsecureloggingrepeatdelay,"sbsecureloggingrepeatdelay");
     variantListToBool(cbdontsortinchannels,"cbdontsortinchannels");
+    variantListToBool(showsmileysinchannels,"showsmileysinchannels");
+    variantListToBool(chbshowchannelchatinchatwindows,"chbshowchannelchatinchatwindows");
+    variantListToBool(cbservermessageinchannelwindows,"cbservermessageinchannelwindows");
 }
 void database_base::validate(){
     checkifexistsinstringlist("leagueservers","http://www.tus-wa.com/");

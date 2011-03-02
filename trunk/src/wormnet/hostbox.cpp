@@ -29,6 +29,8 @@ hostbox::hostbox(QString c, QWidget *parent) :
     setWindowTitle(tr("Create a public game in")+" " + channel + ".");
     ui.chbsendhostinfotochan->setText(tr("Send hostinfo to %1.").arg(channel));
 
+    setAttribute(Qt::WA_DeleteOnClose);
+
     connect(ui.add, SIGNAL(clicked()),this, SLOT(addclicked()));
     connect(ui.ok, SIGNAL(clicked()),this, SLOT(okclicked()));
     connect(ui.cancel, SIGNAL(clicked()),this, SLOT(cancelclicked()));    

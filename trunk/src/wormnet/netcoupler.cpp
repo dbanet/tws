@@ -130,6 +130,8 @@ void netcoupler::sendusermessage(const usermessage u){
     irc->sendusermessage(u);
 }
 void netcoupler::refreshlist() {
+    if(irc==NULL)
+        return;
     irc->refreshlist();
 }
 void netcoupler::sendquit() {
@@ -179,8 +181,7 @@ void netcoupler::createhost(hoststruct h) {
     QString s;
     if(!http->lasthost.pwd().isEmpty())
         s="&password="+http->lasthost.pwd();
-    temp = temp + " \"" + "wa://" + "?gameid="+ h.id() + "&scheme="
-           + schememap[looki::currentchannel] + s+"\"";
+    temp = temp + " \"" + "wa://" + "?gameid="+ h.id() + "&scheme=" + schememap[looki::currentchannel] + s+"\"";
     startprocess(temp);
 }
 void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,int flag){
@@ -273,11 +274,10 @@ QString netcoupler::getprocessstring() {
 #endif
     return "";
 }
-void netcoupler::sendinfotochan(const QString &chan, const QString &msg) {
-    QString command = QString("PRIVMSG %1 :\001ACTION %2 \001").arg(chan).arg(
-            msg);
-    sendusermessage(usermessage(command, e_RAWCOMMAND, chan));
-    sendusermessage(usermessage(command, usermessage_type(e_PRIVMSG | e_ACTION) ,chan));
+void netcoupler::sendinfotochan(const QString &chan, const QString &msg) {    
+    usermessage u(msg, usermessage_type(e_PRIVMSG | e_ACTION) , chan);
+    sendusermessage(u);
+    emit siggotusermessage(u);
 }
 void netcoupler::initSoundAndStartWho() {
     timer.disconnect();

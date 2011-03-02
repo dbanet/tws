@@ -127,6 +127,10 @@ mainwindow::~mainwindow() {
 void mainwindow::currenttabchanged(int i){
     if(i!=0)
         return;
+    foreach(channelwindow *w, windowlist){
+        singleton<netcoupler>().partchannel(w->currentchannel);
+        w->close();
+    }
     singleton<netcoupler>().stop();
 }
 void mainwindow::fillsnpsettings(){
@@ -216,7 +220,7 @@ void mainwindow::leagueserverconnectionsuccess(){
 }
 void mainwindow::reopenChatWindowsAndChannelWindows(){
     foreach(QString s,lastOpenedChatWindows)
-        openchatwindow(s);
+        openchatwindowraised(s);
     lastOpenedChatWindows.clear();
     foreach(QString s,lastOpenedWindows)
         join(s);
@@ -252,13 +256,13 @@ void mainwindow::join(const QString channel){
     currentchannellist << channel;
     singleton<netcoupler>().joinchannel(channel);
     if (whichuitype == 1) {
-        windowlist.push_back(new ::window(channel, whichuitype));
+        windowlist.push_back(new channelwindow(channel, whichuitype));
         windowlist.last()->setObjectName("channelwindow");
     } else if (whichuitype == 2) {
-        windowlist.push_back(new ::window(channel, whichuitype));
+        windowlist.push_back(new channelwindow(channel, whichuitype));
         windowlist.last()->setObjectName("channelwindow");
     } else if (whichuitype == 3) {
-        windowlist.push_back(new ::window(channel, whichuitype));
+        windowlist.push_back(new channelwindow(channel, whichuitype));
         windowlist.last()->setObjectName("channelwindow");
     } else
         myDebug() << "joinclicked in mainwindow assert";
@@ -271,17 +275,25 @@ void mainwindow::join(const QString channel){
         windowlist.last()->mysetwindowtitle();
     }
     connect(windowlist.last(), SIGNAL(sigjoinchannel(const QString&)),this, SLOT(join(const QString&)));
-    connect(windowlist.last(), SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindow(const QString &)));
-    connect(this, SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindow(const QString &)));
-    connect(windowlist.last(), SIGNAL(sigwindowclosed(const QString&)),this, SLOT(windowremoved(const QString&)));
+    connect(windowlist.last(), SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
+    connect(this, SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
+    connect(windowlist.last(), SIGNAL(sigclosed()),this, SLOT(windowclosed()));
+}
+void mainwindow::windowclosed(){
+    channelwindow *w=qobject_cast<channelwindow*> (sender());
+    Q_CHECK_PTR(w);
+    w->hiddenchannelwindowshelper.removeAll(w);
+    lastOpenedWindows.removeAll(w->currentchannel);
+    currentchannellist.removeAll(w->currentchannel);
+    windowlist.removeAll(w);
 }
 void mainwindow::quit() {
-    foreach(chatwindow *w,::window::chatwindows) {
+    foreach(chatwindow *w,channelwindow::chatwindows) {
         Q_ASSERT(w!=0);
         w->close();
         w->deleteLater();
     }
-    foreach(::window *w, windowlist) {
+    foreach(channelwindow *w, windowlist) {
         Q_ASSERT(w!=0);
         w->close();
         w->deleteLater();
@@ -303,16 +315,13 @@ void mainwindow::returntologintab() {
     ui.pbjoin->setEnabled(0);
     ui.tabWidget->setTabEnabled(1, 0);
     ui.pbjoin->setEnabled(0);
-    foreach(chatwindow *w,::window::chatwindows) {
+    foreach(chatwindow *w,channelwindow::chatwindows) {
         Q_ASSERT(w!=0);
-        w->deleteLater();
+        w->close();
     }
-    ::window::chatwindows.clear();
-    foreach(::window *w,windowlist) {
-        Q_ASSERT(w!=0);
-        w->deleteLater();
-    }
-    windowlist.clear();
+    channelwindow::chatwindows.clear();
+    foreach(channelwindow *w,windowlist)
+        w->close();
     ui.tabWidget->setTabEnabled(1, 0);
 }
 void mainwindow::changeEvent(QEvent * event) {
@@ -383,25 +392,22 @@ void mainwindow::snpsetcontains(const QString &s) {
         ui.cbshowinformation->setChecked(b);
     }
 }
-void mainwindow::windowremoved(const QString &s) {
-    currentchannellist.removeAll(s);
-    windowlist.removeAll(qobject_cast<channelwindow*> (sender()));
-}
 void mainwindow::usesettingswindow(const QString&) {
 }
 void mainwindow::chatwinowclosed() {
     chatwindow *w = qobject_cast<chatwindow*> (sender());
     Q_CHECK_PTR(w);
     w->disconnect();
+    hiddenchatwindowshelper.removeAll(w);
     int i = window::chatwindowstringlist.removeAll(w->chatpartner);
-    i = window::chatwindows.removeAll(w);
+    i = window::chatwindows.removeAll(w);    
 }
 void mainwindow::appenddebugmessage(const QString &msg) {
     debugmsg.append(msg);
     ui.labeltraydescription->insertPlainText(debugmsg);
-    if(!S_S.getbool("cbservermessageinchannelwindows"))
+    if(!S_S.cbservermessageinchannelwindows)
         return;
-    foreach( ::window *w,windowlist)
+    foreach( channelwindow *w,windowlist)
         w->gotdebugmsg(debugmsg);    
     debugmsg.clear();    
 }
@@ -409,36 +415,34 @@ void mainwindow::setlanguage(const QString &langfile) {
     S_S.set("language_file", langfile);
     myDebug() << S_S.getstring("language_file");
     QMessageBox::StandardButton button = QMessageBox::question(this, tr(
-            "Restart the application?"), tr(
-                    "Changing the translation requires a program restart.\n"
-                    "To restart now click Ok, otherwise cancel."), QMessageBox::Ok
+                                                                   "Restart the application?"), tr(
+                                                                   "Changing the translation requires a program restart.\n"
+                                                                   "To restart now click Ok, otherwise cancel."), QMessageBox::Ok
                                                                | QMessageBox::Cancel);
     if (button == QMessageBox::Ok) {
         returntologintab();
         singleton<netcoupler>().stop();
-        QProcess::startDetached(qApp->applicationFilePath(), QStringList(),
-                                QApplication::applicationDirPath());
-        foreach(::window *w,windowlist) {
+        QProcess::startDetached(qApp->applicationFilePath(), QStringList(), QApplication::applicationDirPath());
+        foreach(channelwindow *w,windowlist)
             w->close();
-        }
         singleton<balloon_handler>().tray->hide();
         singleton<quithandler>().inducequit();
     }
 }
 void mainwindow::awayboxok() {
-    foreach(::window *w,windowlist) {
+    foreach(channelwindow *w,windowlist) {
         w->windowtitleaway = " " + tr("<away>:") +" "+ qobjectwrapper<awayhandler>::ref().message();
         w->mysetwindowtitle();
     }
 }
 void mainwindow::awaymessagechanged() {
     if (qobjectwrapper<awayhandler>::ref().away()) {
-        foreach(::window *w,windowlist) {
+        foreach(channelwindow *w,windowlist) {
             w->windowtitleaway = " " + tr("<away>:") + " "+qobjectwrapper<awayhandler>::ref().message();
             w->mysetwindowtitle();
         }
     } else {
-        foreach(::window *w,windowlist) {
+        foreach(channelwindow *w,windowlist) {
             w->windowtitleaway = "";
             w->mysetwindowtitle();
         }
@@ -450,38 +454,37 @@ void mainwindow::settextscheme(const QString &file) {
     singleton<charformatsettings>().load();
     chathandler::initialformatstarter();
 }
-void mainwindow::openchatwindow(const QString &user) {
+void mainwindow::openchatwindow(QString user){
     window::chatwindowstringlist << user;
     window::chatwindows.push_back(new chatwindow(user));
-    mainwindow::hiddenchatwindowshelper << window::chatwindows.last();
-    window::chatwindows.last()->show();
-    window::chatwindows.last()->raise();
-    connect(window::chatwindows.last(), SIGNAL(closed()),this, SLOT(chatwinowclosed()));
+    connect(window::chatwindows.last(), SIGNAL(sigclosed()),this, SLOT(chatwinowclosed()));
 }
-void mainwindow::openchatwindowhidden(const QString &user) {
-    window::chatwindowstringlist << user;
-    window::chatwindows.push_back(new chatwindow(user));
-    mainwindow::hiddenchatwindowshelper << window::chatwindows.last();
-    connect(window::chatwindows.last(), SIGNAL(closed()),this, SLOT(chatwinowclosed()));
+void mainwindow::openchatwindowraised(const QString &user) {
+    openchatwindow(user);
+    window::chatwindows.last()->show();
+    window::chatwindows.last()->raise();    
+}
+void mainwindow::openchatwindowhidden(const QString &user) {    
+    openchatwindow(user);
+    hiddenchatwindowshelper << window::chatwindows.last();
 }
 void mainwindow::gotusermsg(const usermessage u){
     QString user=u.user();
     if(u.has_type(e_CTCP) && singleton<ctcphandler>().getctcp(u))
         return;        
-
     if (containsCI(window::chatwindowstringlist, user)) {
-        foreach(chatwindow *w,::window::chatwindows)
+        foreach(chatwindow *w,channelwindow::chatwindows)
             w->getusermessage(u);
         if(u.receiver() == singleton<netcoupler>().nick)
             return;
     } else if (!containsCI(S_S.ignorelist, user) && u.receiver()==singleton<netcoupler>().nick
-               && (mainwindow::windowlist.isEmpty() || S_S.getbool("chballwaysopenchatwindows"))) {
+               && (windowlist.isEmpty() || S_S.getbool("chballwaysopenchatwindows"))) {
         if (S_S.getbool("chbstartchatsminimized")) {
             openchatwindowhidden(user);
             if (!containsCI(querylist, user))
                 querylist << user;
         } else {
-            openchatwindow(user);
+            openchatwindowraised(user);
             window::chatwindows.last()->getusermessage(u);
         }
         window::chatwindows.last()->getusermessage(u);
@@ -491,7 +494,7 @@ void mainwindow::gotusermsg(const usermessage u){
         if(containsCI(S_S.buddylist, user)) {
             if (S_S.getbool("chbstartchatsminimized"))
                 openchatwindowhidden(user);
-            else openchatwindow(user);
+            else openchatwindowraised(user);
             window::chatwindows.last()->getusermessage(u);
             singleton<balloon_handler>().got_privmsg(u);
             singleton<sound_handler>().play_buddymsgsound(user);
@@ -499,12 +502,12 @@ void mainwindow::gotusermsg(const usermessage u){
         }
         singleton<balloon_handler>().got_privmsg(u);
         singleton<sound_handler>().play_normalmsgsound(user);
-        foreach(::window *w,mainwindow::windowlist)
+        foreach(channelwindow *w,windowlist)
             w->getusermessage(u);
         return;
     }    
-    foreach(::window *w,mainwindow::windowlist) {
-        if(w->currentchannel == u.receiver() || u.has_type(e_GARBAGEQUIT)) {
+    foreach(channelwindow *w,windowlist) {
+        if(w->currentchannel == u.receiver() || u.has_type(e_GARBAGEQUIT)){
             w->getusermessage(u);
             break;
         }
@@ -624,8 +627,8 @@ void mainwindow::init_menus(){
 
 void mainwindow::trayactivation(QSystemTrayIcon::ActivationReason reason) {
     if (reason == QSystemTrayIcon::Trigger) {
-        if (!::window::hiddenchannelwindowshelper.isEmpty()) {
-            ::window *w = ::window::hiddenchannelwindowshelper.takeLast();
+        if (!channelwindow::hiddenchannelwindowshelper.isEmpty()) {
+            channelwindow *w = channelwindow::hiddenchannelwindowshelper.takeLast();
             w->show();
         } else if (! hiddenchatwindowshelper.isEmpty()) {
             chatwindow *w = hiddenchatwindowshelper.takeLast();
@@ -714,12 +717,12 @@ void mainwindow::traymenutriggered(QAction *a) {
     } else if (a->text() == tr("Open Log Browser")) {
         logbrowser *l = new logbrowser;
         l->show();
-        connect(l, SIGNAL(sigopenchatwindow(const QString&)),this, SLOT(openchatwindow(const QString&)));
+        connect(l, SIGNAL(sigopenchatwindow(const QString&)),this, SLOT(openchatwindowraised(const QString&)));
     } else if (a->text().contains(".textscheme", Qt::CaseInsensitive)) {
         settextscheme(a->text());
     } else if (a->text() == tr("Save current textscheme to file")) {
         QString file = QFileDialog::getSaveFileName(this, tr(
-                "Save textscheme to."), "textschemes/", "*.textscheme");
+                                                        "Save textscheme to."), "textschemes/", "*.textscheme");
         if (file != "") {
             QFileInfo f(file);
             QString file_name=f.fileName();
@@ -753,12 +756,10 @@ void mainwindow::handleAwayBox(){
 }
 void mainwindow::reconnect(){
     disconnect(this,SLOT(reconnect()));
-    foreach(::window *w, windowlist) {
-        lastOpenedWindows<<w->currentchannel;
-    }
-    foreach(chatwindow *w,::window::chatwindows) {
-        lastOpenedChatWindows<<w->chatpartner;
-    }    
+    foreach(channelwindow *w, windowlist)
+        lastOpenedWindows<<w->currentchannel;    
+    foreach(chatwindow *w,channelwindow::chatwindows)
+        lastOpenedChatWindows<<w->chatpartner;   
     returntologintab();
     singleton<netcoupler>().stop();
     QTimer::singleShot(2000, this, SLOT(chooseclicked()));

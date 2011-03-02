@@ -18,7 +18,7 @@
 
 extern QStringList querylist;
 chatwindow::chatwindow(const QString &s, QWidget *parent) :
-        QWidget(parent), chatpartner(s){
+    QWidget(parent), chatpartner(s){
     setAttribute(Qt::WA_DeleteOnClose);
     setObjectName("chatwindow");
     ui.setupUi(this);    
@@ -32,10 +32,8 @@ chatwindow::chatwindow(const QString &s, QWidget *parent) :
     update();    
     chat = new chathandlerprv(this, ui.chat, chatpartner);
     ui.lineEdit->installEventFilter(chat);
-    if(S_S.cbsafequerys){
-        foreach(usermessage u,history()[chatpartner.toLower()])
-            chat->append(u);
-    }
+    foreach(usermessage u,history()[chatpartner.toLower()])
+        chat->append(u);
     setWindowTitle(tr("Chat with") + " " + s);
 
     if (containsCI(S_S.buddylist, chatpartner))
@@ -116,7 +114,7 @@ void chatwindow::getusermessage(usermessage u_arg){
             singleton<sound_handler>().play_normalmsgsound(u_arg.user());
         if (statusbar->currentMessage() == tr("Was offline when this window opened."))
             statusbar->showMessage(QObject::tr("Online"));
-    } else if(u_arg.user() == chatpartner && S_S.getbool("chbshowchannelchatinchatwindows")){
+    } else if(u_arg.user() == chatpartner && S_S.chbshowchannelchatinchatwindows){
         chat->append(u_arg.add_type(e_CHANNELMSGTOCHAT));
         return;
     }
@@ -177,7 +175,7 @@ void chatwindow::pblogclicked() {
     }
 }
 void chatwindow::pbidleclicked() {
-    singleton<netcoupler>().sendusermessage(usermessage("whois ", e_RAWCOMMAND, chatpartner));
+    singleton<netcoupler>().sendusermessage(usermessage("whois " + chatpartner, e_RAWCOMMAND, chatpartner));
 }
 void chatwindow::gotidletime(const QString &user, int i) {
     QTime time(0, 0, 0);
@@ -212,7 +210,7 @@ chatwindow::~chatwindow() {
     chat->disconnect();
     chat->deleteLater();
     emit
-            closed();
+            sigclosed();
 }
 
 void chatwindow::on_pbresize_clicked()

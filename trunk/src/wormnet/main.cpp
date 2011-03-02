@@ -11,6 +11,7 @@
 #include"clantowebpagemapper.h"
 #include"picturehandler.h"
 #include"awayhandler.h"
+#include"about.h"
 
 #include<QtGui>
 #include<QApplication>
@@ -31,6 +32,9 @@ void handle_wini_ini();
 void get_picutres();
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
+    a.setApplicationVersion(about::version);
+    a.setApplicationName("The Wheat Snooper");
+
     chdir(qPrintable(QApplication::applicationDirPath()));
     S_S.start("snpini/settings.sqlite3");
     singleton<settingswindow>();
@@ -54,7 +58,7 @@ int main(int argc, char *argv[]) {
     handle_prosnooper_buddys();
     handle_wini_ini();
 #endif                   
-    singleton<sound_handler>().init();    
+    singleton<sound_handler>().init();
     qobjectwrapper<awayhandler>();
     qobjectwrapper<mainwindow> w;
     volume->setvalue(S_S.getint("volumeslidervalue"));
@@ -76,7 +80,6 @@ void handle_wini_ini(){
         }
     }
     QFile winini(systemroot + "/win.ini");
-    QString name;
     QStringList sl;
     sl.clear();
     if (winini.open(QIODevice::ReadOnly)) {
@@ -105,6 +108,7 @@ void handle_wini_ini(){
         if(b==0) {
             sl.insert(2,QString("PlayerName=temporaryname\n"));
         }
+        winini.close();
     }
     if (sl.isEmpty()) {
         sl << "[NetSettings]" << "PlayerName=temporaryname" << "UseProxy=0"
@@ -112,15 +116,14 @@ void handle_wini_ini(){
                 << "UpdateServerList=1" << "AutoPing=1" << "Location=0"
                 << "FilterLanguage=1" << "AddressOverride=0" << "UseUPnP=1"
                 << "Protocol=1" << "ServerLaunched=0";
-    }
-    if (winini.open(QFile::WriteOnly | QFile::Truncate)) {
-        QTextStream ts(&winini);
-        foreach(QString s,sl) {
-            s = s.simplified();
-            ts << s + "\n";
+        if (winini.open(QFile::WriteOnly | QFile::Truncate)) {
+            QTextStream ts(&winini);
+            foreach(QString s,sl) {
+                s = s.simplified();
+                ts << s + "\n";
+            }
         }
-    }
-    winini.close();
+    }        
 }
 void search_for_game_executables(){
     if (S_S.getstringlist("joinstrings").isEmpty()) {

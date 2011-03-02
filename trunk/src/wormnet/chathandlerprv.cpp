@@ -23,7 +23,7 @@
 #include"usermessage.h"
 
 chathandlerprv::chathandlerprv(QObject *parent, QTextBrowser *t, QString chan) :
-        chathandler(parent, t, chan) {              
+    chathandler(parent, t, chan) {
     disconnect(tb, SIGNAL(customContextMenuRequested ( const QPoint &)),this, SLOT(contextrequest(const QPoint&)));
     connect(tb, SIGNAL(customContextMenuRequested ( const QPoint &)),this, SLOT(opencontextmenu(const QPoint&)));
 }
@@ -65,15 +65,14 @@ QTextCharFormat chathandlerprv::getRightFormat(const usermessage u){
         format=hash[e_hash_myself];
     if(u.has_type(e_PRIVMSG) && u.has_type(e_ACTION))
         format=hash[e_hash_action];
+    else if(u.has_type(e_CTCP))
+        format=hash[e_hash_ctcp];
     else if(u.has_type(e_NOTICE)){
         if(u.has_type(e_ACTION))
             format=hash[e_hash_noticeaction];
         else
             format=hash[e_hash_notice];
-    }
-    else if(u.has_type(e_CTCP))
-        format=hash[e_hash_ctcp];
-    else if(u.has_type(e_RAWCOMMAND))
+    }else if(u.has_type(e_RAWCOMMAND))
         format=hash[e_hash_raw];
     return format;
 }

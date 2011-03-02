@@ -109,7 +109,7 @@ QDataStream &operator>>(QDataStream &ds, usermessage &u){
 void safeusergarbage() {
     if(!S_S.getbool("cbsafequerys"))
         return;
-    QFile f(QApplication::applicationDirPath() + "/query/log");
+    QFile f(QApplication::applicationDirPath() + "/query/log2");
     if (!f.open(QFile::WriteOnly | QFile::Truncate))
         return;
     QDataStream ds(&f);
@@ -120,7 +120,7 @@ void safeusergarbage() {
 void loadusergarbage() {
     if(!S_S.getbool("cbsafequerys"))
         return;
-    QFile f(QApplication::applicationDirPath() + "/query/log");
+    QFile f(QApplication::applicationDirPath() + "/query/log2");
     QString s;
     history_type::mapped_type sl;
     if (!f.open(QFile::ReadOnly))
@@ -131,7 +131,7 @@ void loadusergarbage() {
 }
 //----------------------------------------------------------------------------------------------
 void appendhistory(usermessage u){
-    if(u.receiver() != singleton<netcoupler>().nick && !S_S.getbool("chbshowchannelchatinchatwindows"))
+    if(u.receiver() != singleton<netcoupler>().nick && !S_S.chbshowchannelchatinchatwindows)
         return;
     QString user;
     if(u.user()==singleton<netcoupler>().nick)

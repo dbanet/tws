@@ -46,7 +46,9 @@ void snoppanet::start() {
 void snoppanet::readircip() {
     temp.append(reply->readAll());
     if (temp.contains(">") && temp.contains("<CONNECT ")) {
-        temp = temp.remove("<CONNECT ").remove(">").simplified();
+        temp = temp.remove("<CONNECT ");
+        temp=temp.left(temp.indexOf(">"));
+        temp=temp.simplified();
         ircip = temp;
         emit sigircip(ircip);
         temp.clear();

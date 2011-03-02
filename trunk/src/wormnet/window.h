@@ -19,7 +19,6 @@ class chatwindow;
 class window : public QWidget
 {
     Q_OBJECT
-
 public:
     window(QString s,int i=1);
     ~window();
@@ -82,7 +81,7 @@ private:
     QString windowtitlechannel;
 
 signals:
-    void sigwindowclosed(const QString&);
+    void sigclosed();
     void sigjoinchannel(const QString&);
     void sigopenchatwindow(const QString&);
 protected:

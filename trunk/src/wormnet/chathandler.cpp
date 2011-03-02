@@ -39,7 +39,7 @@ QHash<int, QTextCharFormat> chathandler::hash;
 
 extern bool fontorcolorchanged;
 chathandler::chathandler(QObject *parent, QTextBrowser *t, QString chan) :        
-        QObject(parent), slideratmaximum(true), gotFirstMessage(false), tb(t), chatpartner(chan) {
+    QObject(parent), slideratmaximum(true), gotFirstMessage(false), tb(t), chatpartner(chan) {
     emot = new emoticonhandler;
     tb->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     tb->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -97,8 +97,8 @@ void chathandler::initialformatsaver() {
     singleton<charformatsettings>().safe();
 }
 QStringList formatstrings=QStringList()<<"nick"<<"myself"<<"garbage"<<"time"<<"garbagejoin" <<"garbagepart"
-                          <<"garbagequit" <<"chat" <<"action" <<"buddy" <<"debug" <<"ctcp" <<"raw"
-                          <<"prv"<<"notice"<<"noticeaction"<<"wa"<<"http";
+                                       <<"garbagequit" <<"chat" <<"action" <<"buddy" <<"debug" <<"ctcp" <<"raw"
+                                       <<"prv"<<"notice"<<"noticeaction"<<"wa"<<"http";
 void chathandler::initialformat(QTextCharFormat &format){                                   //provisorium TODO
     QString font=formatstrings[format.intProperty(whatsthispropertyId)]+"formatfont";
     QString color=formatstrings[format.intProperty(whatsthispropertyId)]+"formatcolor";
@@ -263,7 +263,7 @@ QList<QPair<QVariant, QTextCharFormat> > chathandler::getSegmentation(QString s,
             hash[e_hash_wa].setProperty(linkpropertyId, s);
             text<<makepair(tr("GAMELINK"), hash[e_hash_wa]);
         } else {
-            if(S_S.getbool("showsmileysinchannels"))
+            if(S_S.showsmileysinchannels)
                 text<<makepair(emot->contains(s),format);
             else
                 text<<makepair(s,format);
@@ -285,14 +285,14 @@ QTextCharFormat chathandler::getRightFormat(const usermessage u){
 
     if(u.has_type(e_PRIVMSG) && u.has_type(e_ACTION))
         format=hash[e_hash_action];
+    else if(u.has_type(e_CTCP))
+        format=hash[e_hash_ctcp];
     else if(u.has_type(e_NOTICE)){
         if(u.has_type(e_ACTION))
             format=hash[e_hash_noticeaction];
         else
             format=hash[e_hash_notice];
-    } else if(u.has_type(e_CTCP))
-        format=hash[e_hash_ctcp];
-    else if(u.has_type(e_RAWCOMMAND))
+    } else if(u.has_type(e_RAWCOMMAND))
         format=hash[e_hash_raw];
 
     return format;

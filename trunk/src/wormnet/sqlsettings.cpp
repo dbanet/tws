@@ -71,7 +71,7 @@ void sqlsettings::keepSettings(){
     else
         QFile::copy(folder+databasename,databasename);
     QFile::copy(folder+"snpini/ctcp.ini","snpini/ctcp.ini");
-    QFile::copy(folder+"query/log","query/log");
+    QFile::copy(folder+"query/log","query/log2");
     QFile::copy(folder+"query/querylist","query/querylist");
 }
 bool sqlsettings::loadOldFile(QString file){
