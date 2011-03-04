@@ -208,6 +208,11 @@ void window::getusermessage(usermessage u){
     QString user=u.user();
     if(u.has_type(e_GARBAGE))
         return chat->append(u);
+    if(u.has_type(e_NOTICE)){
+        singleton<balloon_handler>().alert(u.user(), this);
+        chat->append(u);
+        return;
+    }
     if (u.receiver() != currentchannel && !containsCI(chatwindowstringlist, u.user())) {
         if (!singleton<netcoupler>().ignorelistcontains(user) && !singleton<netcoupler>().buddylistcontains(user)) {
             if (!containsCI(querylist, user))
@@ -217,7 +222,7 @@ void window::getusermessage(usermessage u){
             if (S_S.getbool("cbalertfromnormal")) {
                 singleton<balloon_handler>().alert(u.user(), this);
             }
-            singleton<sound_handler>().play_normalmsgsound(user);
+            singleton<sound_handler>().play_normalmsgsound(user);            
         }
     } else if (compareCI(u.receiver(), currentchannel)){
         if(S_S.getbool("cbignorysappearinchannel"))

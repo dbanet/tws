@@ -16,6 +16,3 @@ usermessage::usermessage(QString msg_arg, int t_arg, QString receiver_arg):
 usermessage usermessage::create(QString msg, QString chatpartner){
     return create(msg, singleton<netcoupler>().nick, chatpartner);
 }
-usermessage usermessage::createprvessage(QString msg, QString chatpartner){
-    return createprvessage(msg, singleton<netcoupler>().nick, chatpartner);
-}

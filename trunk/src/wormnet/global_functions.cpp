@@ -6,6 +6,7 @@
 #include<QMessageBox>
 #include<QDir>
 #include<QDate>
+#include<QTextCodec>
 
 #include"global_functions.h"
 #include"settings.h"
@@ -29,22 +30,21 @@ QStringList refreshcombobox(QComboBox *cb){
 //----------------------------------------------------------------------------------------------
 QString globalport;
 //----------------------------------------------------------------------------------------------
-void sethostport(const QString &port) {
+void sethostport(QString port) {
     if(port.isEmpty())
-        return;
+        port="17011";
     globalport=port;
-
 
 #ifdef Q_WS_WIN
     QStringList env = QProcess::systemEnvironment();
     QString systemroot;
     foreach(QString s,env) {
-        if (s.contains("SystemRoot=")) {
+        if (containsCI(s,"SystemRoot=")) {
             systemroot = s;
             systemroot = systemroot.split("=").last();
         }
     }
-    QFile winini(systemroot + "/win.ini");
+    QFile winini(systemroot + "/win.ini");    
     QStringList sl;
     bool b=0;
     if (winini.exists() && winini.open(QIODevice::ReadOnly)) {
@@ -61,9 +61,12 @@ void sethostport(const QString &port) {
             sl.push_back("HostingPort=" + port);
     }
     winini.close();
-    if(!winini.open(QFile::WriteOnly | QFile::Truncate))
+    if(!winini.open(QFile::WriteOnly | QFile::Truncate)) {
+        qDebug()<<"cant open win.ini: "<<winini.errorString();
         return;
+    }
     QTextStream ts(&winini);
+    ts.setCodec(QTextCodec::codecForName("UTF-8"));
     ts << sl.join("\n");
     winini.close();
 #endif
@@ -75,7 +78,7 @@ QString gethostport() {
     QStringList env=QProcess::systemEnvironment();
     QString systemroot;
     foreach(QString s,env) {
-        if(s.contains("SystemRoot=")) {
+        if (containsCI(s,"SystemRoot=")) {
             systemroot=s;
             systemroot=systemroot.split("=").last();
         }
@@ -93,7 +96,7 @@ QString gethostport() {
         }
         winini.close();
     } else
-        myDebug()<<"%systemroot%/win.ini "+QObject::tr("is missing or locked, please run worms, one time, without the snooper. it will then create the file!");
+        qDebug()<<"%systemroot%/win.ini "+QObject::tr("is missing or locked, please run worms, one time, without the snooper. it will then create the file!");
 #endif
     return port;
 }
@@ -212,6 +215,12 @@ void info(const QStringList &sl){
     info(sl.join(", "));
 }
 //----------------------------------------------------------------------------------------------
+void appendtoquerylist(QString user){
+    if(containsCI(S_S.ignorelist,user))
+        return;
+    if (!containsCI(querylist, user))
+        querylist << user;
+}
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------

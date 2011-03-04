@@ -49,8 +49,7 @@ void awaybox::forwardclicked() {
         ui.textEdit->setText(sl[++i]);
 }
 void awaybox::closeEvent(QCloseEvent *) {
-    ison=0;
-    qobjectwrapper<awayhandler>::ref().setaway(ui.textEdit->toPlainText());
+    ison=0;    
 }
 awaybox::~awaybox() {
 }

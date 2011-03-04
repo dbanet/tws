@@ -14,7 +14,7 @@ enum hashtypes{e_hash_nick=0, e_hash_myself, e_hash_garbage, e_hash_time, e_hash
 #define DECLARE_SINGLETON(CLASS)                \
 private:                                        \
             explicit CLASS();                   \
-            ~CLASS();                           \
+            virtual ~CLASS();                           \
             explicit CLASS(const CLASS&);       \
         public:                                 \
             friend CLASS &singleton<CLASS>();   \

@@ -17,7 +17,7 @@
 #endif
 
 awayhandler::awayhandler(QObject *parent) :
-        QObject(parent)
+    QObject(parent)
 {
     connect(&lookingForGameTimer,SIGNAL(timeout()),this,SLOT(gameTimerTimeout()));
     connect(this,SIGNAL(siggameended()),this,SLOT(gamefinished()));
@@ -51,14 +51,18 @@ void awayhandler::gamefinished() {
     }    
 }
 void awayhandler::sendBack(){
-    foreach(QString s,rememberwhogotaway.keys()) {
-        if (S_S.getbool("chbbacktonormals") && !containsCI(S_S.getstringlist("ignorelist"), s)) {
-            singleton<netcoupler>().sendusermessage(usermessage(S_S.getstring("lebackmessage"), e_NOTICE, s));
-            singleton<netcoupler>().sendusermessage(usermessage("back", e_CTCP, s));
+    foreach(QString user,rememberwhogotaway.keys()) {
+        if (S_S.getbool("chbbacktonormals") && !containsCI(S_S.getstringlist("ignorelist"), user)) {
+            singleton<netcoupler>().sendusermessage(usermessage(S_S.getstring("lebackmessage"), e_NOTICE, user));
+            int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(user));
+            if (i != -1 && singleton<netcoupler>().users.users[i].clan != "Username")
+                singleton<netcoupler>().sendusermessage(usermessage("back", e_CTCP, user));
         } else if (S_S.getbool("chbbacktobuddys")) {
-            if (containsCI(S_S.getstringlist("buddylist"), s)){
-                singleton<netcoupler>().sendusermessage(usermessage(S_S.getstring("lebackmessage"), e_NOTICE, s));
-                singleton<netcoupler>().sendusermessage(usermessage("back", e_CTCP, s));
+            if (containsCI(S_S.getstringlist("buddylist"), user)){
+                singleton<netcoupler>().sendusermessage(usermessage(S_S.getstring("lebackmessage"), e_NOTICE, user));
+                int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(user));
+                if (i != -1 && singleton<netcoupler>().users.users[i].clan != "Username")
+                    singleton<netcoupler>().sendusermessage(usermessage("back", e_CTCP, user));
             }
         }
     }
@@ -66,6 +70,7 @@ void awayhandler::sendBack(){
 }
 void awayhandler::setawaywhilegameing() {
 #ifdef Q_WS_WIN
+    startLookingForGame();
     singleton<balloon_handler>().set_away_tray_icon();
     if (S_S.getbool("cbsetawaywhilegaming")) {
         if (isaway)
@@ -99,14 +104,27 @@ bool awayhandler::away(){
 QString awayhandler::message(){
     return awaymessage;
 }
-void awayhandler::sendaway(const QString &user){
+QString trim(QString msg){
+    if (msg.startsWith(">!"))
+        msg.remove(0, 2);
+    else if (msg.startsWith("/"))
+        msg.remove(0, 1);
+    else if (msg.startsWith(">>>"))
+        msg.remove(0, 3);
+    else if (msg.startsWith(">>"))
+        msg.remove(0, 2);
+    else if (msg.startsWith(">"))
+        msg.remove(0, 1);
+    return msg;
+}
+void awayhandler::sendaway(const QString &user){    
     if(!away())
         return;
     if (rememberwhogotaway[user] != message()) {
         singleton<netcoupler>().sendusermessage(usermessage::create(message(), user));
         int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(user));
         if (i != -1 && singleton<netcoupler>().users.users[i].clan != "Username")
-            singleton<netcoupler>().sendusermessage(usermessage::createprvessage(" :\001away " + message() + "\001",user));
-    }
-    qobjectwrapper<awayhandler>::ref().rememberwhogotaway[user] = qobjectwrapper<awayhandler>::ref().message();
+            singleton<netcoupler>().sendusermessage(usermessage("away " + trim(message()), e_CTCP, user));
+        qobjectwrapper<awayhandler>::ref().rememberwhogotaway[user] = message();
+    }    
 }

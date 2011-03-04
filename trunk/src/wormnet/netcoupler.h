@@ -5,6 +5,7 @@
 #include<QTimer>
 #include<QProcess>
 #include<QHostInfo>
+#include<QPointer>
 
 #include"hoststruct.h"
 #include"userstruct.h"
@@ -65,8 +66,8 @@ signals:
     void sighoststarts(hoststruct);
 
 private:
-    ircnet *irc;
-    snoppanet *http;
+    QPointer<ircnet> irc;
+    QPointer<snoppanet> http;
     QString ircip;
     QStringList listofjoinedchannels;
 

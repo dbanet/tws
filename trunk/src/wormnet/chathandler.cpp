@@ -38,8 +38,9 @@ QPointer<emoticonhandler> chathandler::emot;
 QHash<int, QTextCharFormat> chathandler::hash;
 
 extern bool fontorcolorchanged;
-chathandler::chathandler(QObject *parent, QTextBrowser *t, QString chan) :        
+chathandler::chathandler(QObject *parent, QTextBrowser *t, QString chan) :
     QObject(parent), slideratmaximum(true), gotFirstMessage(false), tb(t), chatpartner(chan) {
+    isprv=0;
     emot = new emoticonhandler;
     tb->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     tb->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -125,20 +126,20 @@ void chathandler::anchorclicked(const QUrl &u) {
 void chathandler::appendgarbage(usermessage u){
     typedef QPair<QVariant, QTextCharFormat> pair;
     QList<pair> text;
-    QTextCharFormat format=hash[e_hash_garbage];
-    text<<makepair(u.time() + ":", format);
+    QTextCharFormat format=getRightFormat(u);
+    text<<makepair(u.time() + ":", hash[e_hash_time]);
     if(u.has_type(e_GARBAGEJOIN)){
-        if(!S_S.chbjoininfo)
+        if(!S_S.chbjoininfo && !isprv)
             return;
         format=hash[e_hash_garbagejoin];
     }
     else if (u.has_type(e_GARBAGEPART)){
-        if(!S_S.chbpartinfo)
+        if(!S_S.chbpartinfo && !isprv)
             return;
         format=hash[e_hash_garbagepart];
     }
     else if (u.has_type(e_GARBAGEQUIT)) {
-        if(!S_S.chbquitinfo)
+        if(!S_S.chbquitinfo && !isprv)
             return;
         format=hash[e_hash_garbagequit];
     } else if(u.receiver() != singleton<netcoupler>().nick && u.user() != singleton<netcoupler>().nick)

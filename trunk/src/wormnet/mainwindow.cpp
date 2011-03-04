@@ -88,7 +88,7 @@ mainwindow::mainwindow() {
 
     ui.cbremember->setChecked(S_S.getbool("chbremember"));
     if (ui.cbremember->isChecked())
-        chooseclicked();    
+        chooseclicked();
     setWindowTitle(tr("Wheat Snoopers root window."));
     joinonstartup = 0;
     connect(ui.start, SIGNAL(clicked()),this, SLOT(chooseclicked()));
@@ -97,7 +97,7 @@ mainwindow::mainwindow() {
 
     connect(&singleton<netcoupler>(), SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
     connect(&singleton<netcoupler>(), SIGNAL(siggotchanellist(const QStringList &)),this, SLOT(getchannellist(const QStringList &)));
-    connect(&qobjectwrapper<awayhandler>::ref(), SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));    
+    connect(&qobjectwrapper<awayhandler>::ref(), SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));
     connect(&singleton<netcoupler>(), SIGNAL(sigconnected()),this,SLOT(connected()));
     connect(&singleton<netcoupler>(), SIGNAL(sigdisconnected()),this,SLOT(disconnected()));
     connect(&singleton<netcoupler>(), SIGNAL(siggotusermessage(const usermessage)),this,SLOT(gotusermsg(const usermessage)));
@@ -114,7 +114,7 @@ mainwindow::mainwindow() {
 
     //    S_S.set("isarrangedbyonetab", false);
     //    S_S.set("isarrangedbytwotabs", false);
-    debugmsg.clear();  
+    debugmsg.clear();
 
     QVariantList windowstates = S_S.getlist("MainWindowGeometry");
     if (!windowstates.isEmpty())
@@ -162,6 +162,7 @@ void mainwindow::connectToNetwork(){
     ui.tabWidget->setTabEnabled(1, 1);
 }
 void mainwindow::chooseclicked() {
+    S_S.transaction();
     if(ui.tabWidget->currentIndex()!=0)
         return;
     if (ui.lenick->text().isEmpty() && !ui.cbenabletus->isChecked()){
@@ -170,7 +171,7 @@ void mainwindow::chooseclicked() {
     }
     S_S.set("clan", ui.clan->text());
     if (ui.clan->text().isEmpty())
-        S_S.set("clan", "Username");
+        S_S.set("clan", "UserName");
     S_S.set("rank", ui.rank->currentText());
     S_S.set("nickname", ui.lenick->text());
     S_S.set("tus_password", ui.letuspassword->text());
@@ -178,7 +179,7 @@ void mainwindow::chooseclicked() {
     S_S.set("countrycode", ui.flag->currentText());
     S_S.set("rank", ui.rank->currentText());
     S_S.set("information", ui.client->text());
-    S_S.set("enablesecurelogging", ui.cbenabletus->isChecked());    
+    S_S.set("enablesecurelogging", ui.cbenabletus->isChecked());
 
     S_S.set("wormnetserverlist", refreshcombobox(ui.cbServerList));
     S_S.set("leagueservers", refreshcombobox(ui.cbleagueservers));
@@ -197,7 +198,8 @@ void mainwindow::chooseclicked() {
         } else
             S_S.set("spectateleagueserver", false);
         connectToNetwork();
-    }
+    }    
+    S_S.commit();
 }
 void mainwindow::setleague(){
     QString item=ui.cbleagueservers->currentText();
@@ -316,7 +318,7 @@ void mainwindow::returntologintab() {
     ui.tabWidget->setTabEnabled(1, 0);
     ui.pbjoin->setEnabled(0);
     foreach(chatwindow *w,channelwindow::chatwindows) {
-        Q_ASSERT(w!=0);
+        Q_ASSERT(w);
         w->close();
     }
     channelwindow::chatwindows.clear();
@@ -400,7 +402,7 @@ void mainwindow::chatwinowclosed() {
     w->disconnect();
     hiddenchatwindowshelper.removeAll(w);
     int i = window::chatwindowstringlist.removeAll(w->chatpartner);
-    i = window::chatwindows.removeAll(w);    
+    i = window::chatwindows.removeAll(w);
 }
 void mainwindow::appenddebugmessage(const QString &msg) {
     debugmsg.append(msg);
@@ -408,8 +410,8 @@ void mainwindow::appenddebugmessage(const QString &msg) {
     if(!S_S.cbservermessageinchannelwindows)
         return;
     foreach( channelwindow *w,windowlist)
-        w->gotdebugmsg(debugmsg);    
-    debugmsg.clear();    
+        w->gotdebugmsg(debugmsg);
+    debugmsg.clear();
 }
 void mainwindow::setlanguage(const QString &langfile) {
     S_S.set("language_file", langfile);
@@ -462,16 +464,38 @@ void mainwindow::openchatwindow(QString user){
 void mainwindow::openchatwindowraised(const QString &user) {
     openchatwindow(user);
     window::chatwindows.last()->show();
-    window::chatwindows.last()->raise();    
+    window::chatwindows.last()->raise();
 }
-void mainwindow::openchatwindowhidden(const QString &user) {    
+void mainwindow::openchatwindowhidden(const QString &user) {
     openchatwindow(user);
     hiddenchatwindowshelper << window::chatwindows.last();
 }
+void mainwindow::gotnotice(const usermessage u){
+    const QString &user=u.user();
+    if(containsCI(S_S.ignorelist, user))
+        return;
+    singleton<balloon_handler>().got_privmsg(u);
+    if(containsCI(S_S.buddylist, u.user()))
+        singleton<sound_handler>().play_buddymsgsound(user);
+    else
+        singleton<sound_handler>().play_normalmsgsound(user);
+    foreach(channelwindow *w,windowlist)
+        w->getusermessage(u);
+}
 void mainwindow::gotusermsg(const usermessage u){
-    QString user=u.user();
+    const QString &user=u.user();
     if(u.has_type(e_CTCP) && singleton<ctcphandler>().getctcp(u))
-        return;        
+        return;
+
+    if(u.has_type(e_NOTICE))
+        return gotnotice(u);
+
+    if(u.receiver() == singleton<netcoupler>().nick) {
+        if(!containsCI(channelwindow::chatwindowstringlist,user))
+            appendtoquerylist(user);
+        qobjectwrapper<awayhandler>::ref().sendaway(user);
+    }
+
     if (containsCI(window::chatwindowstringlist, user)) {
         foreach(chatwindow *w,channelwindow::chatwindows)
             w->getusermessage(u);
@@ -479,18 +503,13 @@ void mainwindow::gotusermsg(const usermessage u){
             return;
     } else if (!containsCI(S_S.ignorelist, user) && u.receiver()==singleton<netcoupler>().nick
                && (windowlist.isEmpty() || S_S.getbool("chballwaysopenchatwindows"))) {
-        if (S_S.getbool("chbstartchatsminimized")) {
-            openchatwindowhidden(user);
-            if (!containsCI(querylist, user))
-                querylist << user;
-        } else {
-            openchatwindowraised(user);
-            window::chatwindows.last()->getusermessage(u);
-        }
+        if (S_S.getbool("chbstartchatsminimized"))
+            openchatwindowhidden(user);            
+        else
+            openchatwindowraised(user);            
         window::chatwindows.last()->getusermessage(u);
         return;
     } else if(u.receiver() == singleton<netcoupler>().nick){
-        qobjectwrapper<awayhandler>::ref().sendaway(user);
         if(containsCI(S_S.buddylist, user)) {
             if (S_S.getbool("chbstartchatsminimized"))
                 openchatwindowhidden(user);
@@ -505,7 +524,7 @@ void mainwindow::gotusermsg(const usermessage u){
         foreach(channelwindow *w,windowlist)
             w->getusermessage(u);
         return;
-    }    
+    }
     foreach(channelwindow *w,windowlist) {
         if(w->currentchannel == u.receiver() || u.has_type(e_GARBAGEQUIT)){
             w->getusermessage(u);
@@ -757,9 +776,9 @@ void mainwindow::handleAwayBox(){
 void mainwindow::reconnect(){
     disconnect(this,SLOT(reconnect()));
     foreach(channelwindow *w, windowlist)
-        lastOpenedWindows<<w->currentchannel;    
+        lastOpenedWindows<<w->currentchannel;
     foreach(chatwindow *w,channelwindow::chatwindows)
-        lastOpenedChatWindows<<w->chatpartner;   
+        lastOpenedChatWindows<<w->chatpartner;
     returntologintab();
     singleton<netcoupler>().stop();
     QTimer::singleShot(2000, this, SLOT(chooseclicked()));

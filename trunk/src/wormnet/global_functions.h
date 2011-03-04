@@ -12,8 +12,9 @@ class QComboBox;
 
 // #include"global_functions.h"
 QStringList refreshcombobox(QComboBox *cb);
-void sethostport(const QString &port);
+void sethostport(QString port);
 QString gethostport();
+void appendtoquerylist(QString user);
 void safeusergarbage();
 void loadusergarbage();
 void appendhistory(usermessage u);
@@ -80,8 +81,9 @@ namespace {
         //return s.remove(":");
         return s.remove('.').remove(':').remove('/').replace(' ','_').remove('-').remove('#');
     }
+    //----------------------------------------------------------------------------------------------    
     //----------------------------------------------------------------------------------------------
 
-};
+}
 //----------------------------------------------------------------------------------------------
 #endif // GLOBAL_FUNCTIONS_H

@@ -52,6 +52,7 @@ void netcoupler::start(QString s){
 
     connectstate=e_started;
     nick=s;
+    S_S.append("mutedusers", nick);
     irc = new ircnet(s, this);    
     connect(irc,SIGNAL(sigconnected()),this,SLOT(ircconnected()));
     connect(irc,SIGNAL(sigdisconnected()),this,SLOT(ircdisconnected()));
@@ -85,7 +86,10 @@ void netcoupler::stop(){
     sendquit();
 }
 void netcoupler::joinchannel(const QString &s) {
-    irc->joinchannel(s);
+    if(irc)
+        irc->joinchannel(s);
+    if(!http)
+        return;
     http->getscheme(s);
     if (!listofjoinedchannels.contains(s))
         listofjoinedchannels << s;
@@ -107,6 +111,8 @@ void netcoupler::getchannellist(QStringList sl) {
     emit siggotchanellist(sl);
 }
 void netcoupler::getircip(QString s) {
+    if(!irc)
+        return;
     irc->setip(s);
     irc->start();
     initSoundAndStartWho();
@@ -116,8 +122,10 @@ void netcoupler::gethostlist(QList<hoststruct> l, QString s) {
     hosts.sethoststruct(l, s);
 }
 void netcoupler::getwholist() {
-    if(connectstate!=e_started)
+    if(!irc)
         return;
+    if(connectstate!=e_started)
+        return;    
     users.setuserstruct(irc->wholist, irc->joinlist);
     irc->who();
 }
@@ -125,12 +133,12 @@ void netcoupler::getusermessage(const usermessage u){
     emit siggotusermessage(u);
 }
 void netcoupler::sendusermessage(const usermessage u){
-    if(irc==NULL)
+    if(!irc)
         return;
     irc->sendusermessage(u);
 }
 void netcoupler::refreshlist() {
-    if(irc==NULL)
+    if(!irc)
         return;
     irc->refreshlist();
 }
@@ -173,6 +181,8 @@ void netcoupler::joingame(const QString &hostinfo, const QString &channel, const
         sendinfotochan(channel, " is joining a game: " + gamename);
 }
 void netcoupler::createhost(hoststruct h) {
+    if(!http)
+        return;
     if (users.users.indexOf(userstruct::whoami(nick)) == -1)
         return;
     QString temp = getprocessstring();
@@ -185,6 +195,8 @@ void netcoupler::createhost(hoststruct h) {
     startprocess(temp);
 }
 void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,int flag){
+    if(!http)
+        return;
     looki::currentchannel=chan;
     QString s=nick;
     if (!S_S.getstring("leplayername").isEmpty())
@@ -299,7 +311,6 @@ void netcoupler::startprocess(const QString &s){
     if(S_S.getbool("chbdisconnectongame"))
         qobjectwrapper<mainwindow>::ref().returntologintab();
     if(S_S.getbool("cbsetawaywhilegaming")){
-        qobjectwrapper<awayhandler>::ref().startLookingForGame();
         qobjectwrapper<awayhandler>::ref().setawaywhilegameing();
     }
     p->startDetached(s);

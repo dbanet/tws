@@ -9,8 +9,7 @@
 class awayhandler : public QObject
 {
     Q_OBJECT
-public:
-    void startLookingForGame();
+public:    
     bool away();
     QString message();
     void setaway(const QString &);    
@@ -24,13 +23,14 @@ private:
     explicit awayhandler(QObject *parent = 0);
     ~awayhandler();
     QTimer lookingForGameTimer;
+    void startLookingForGame();
 
 signals:
     void siggameended();
     void sigawaystringchanged();
 private slots:
     void gameTimerTimeout();
-    void gamefinished();
+    void gamefinished();    
 private:
     QMap<QString,QString> rememberwhogotaway;
     QString awaymessage;

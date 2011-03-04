@@ -1,5 +1,5 @@
 #include "about.h"
-QString about::version="2.6";
+QString about::version="2.6 rc8";
 about::about(QFrame *parent)
     : QFrame(parent)
 {

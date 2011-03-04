@@ -74,17 +74,16 @@ void handle_wini_ini(){
     QStringList env = QProcess::systemEnvironment();
     QString systemroot;
     foreach(QString s,env) {
-        if (s.contains("SystemRoot=")) {
+        if (containsCI(s,"SystemRoot=")) {
             systemroot = s;
             systemroot = systemroot.split("=").last();
         }
     }
-    QFile winini(systemroot + "/win.ini");
+    QFile winini(systemroot + "/win.ini");    
     QStringList sl;
     sl.clear();
     if (winini.open(QIODevice::ReadOnly)) {
-        sl = QString(winini.readAll()).split("\n",
-                                             QString::SkipEmptyParts);
+        sl = QString(winini.readAll()).split("\n", QString::SkipEmptyParts);
         winini.close();
         int i = 0;
         bool b = 0;
@@ -109,20 +108,23 @@ void handle_wini_ini(){
             sl.insert(2,QString("PlayerName=temporaryname\n"));
         }
         winini.close();
-    }
+    } else
+        qDebug()<<"cant open win.ini: "<<winini.errorString();
     if (sl.isEmpty()) {
         sl << "[NetSettings]" << "PlayerName=temporaryname" << "UseProxy=0"
-                << "ProxyPort=0" << "HostingPort=17011" << "UpdatePrompt=0"
-                << "UpdateServerList=1" << "AutoPing=1" << "Location=0"
-                << "FilterLanguage=1" << "AddressOverride=0" << "UseUPnP=1"
-                << "Protocol=1" << "ServerLaunched=0";
+           << "ProxyPort=0" << "HostingPort=17011" << "UpdatePrompt=0"
+           << "UpdateServerList=1" << "AutoPing=1" << "Location=0"
+           << "FilterLanguage=1" << "AddressOverride=0" << "UseUPnP=1"
+           << "Protocol=1" << "ServerLaunched=0";
         if (winini.open(QFile::WriteOnly | QFile::Truncate)) {
             QTextStream ts(&winini);
+            ts.setCodec(QTextCodec::codecForName("UTF-8"));
             foreach(QString s,sl) {
                 s = s.simplified();
                 ts << s + "\n";
             }
-        }
+        } else
+            qDebug()<<"cant open win.ini: "<<winini.errorString();
     }        
 }
 void search_for_game_executables(){

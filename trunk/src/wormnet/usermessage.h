@@ -44,20 +44,7 @@ public:
     }
     int get_type() const{
         return my_type;
-    }
-    static usermessage createprvessage(QString msg, QString me, QString chatpartner){
-        if (msg.startsWith(">!"))
-            msg.remove(0, 2);
-        else if (msg.startsWith("/"))
-            msg.remove(0, 1);
-        else if (msg.startsWith(">>>"))
-            msg.remove(0, 3);
-        else if (msg.startsWith(">>"))
-            msg.remove(0, 2);
-        else if (msg.startsWith(">"))
-            msg.remove(0, 1);
-        return usermessage(msg, e_PRIVMSG, me, chatpartner);
-    }
+    }    
     static usermessage create(QString msg, QString me, QString chatpartner){
         if (msg.startsWith(">!")) {
             msg.remove(0, 2);
@@ -86,8 +73,7 @@ public:
         }
         return usermessage(msg, e_PRIVMSG, me, chatpartner);;
     }
-    static usermessage create(QString msg, QString chatpartner);
-    static usermessage createprvessage(QString msg, QString chatpartner);
+    static usermessage create(QString msg, QString chatpartner);    
     void settime(QString s){
         my_time=s;
     }

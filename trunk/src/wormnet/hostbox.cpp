@@ -86,12 +86,15 @@ void hostbox::addclicked() {
     }
 }
 void hostbox::okclicked() {
-    sethostport(ui.lehostport->text());
+    S_S.transaction();
+    if(ui.lehostport->text()!= S_S.getstring("lehostport"))
+        sethostport(ui.lehostport->text());
     S_S.set("leplayername", ui.leplayername->text().replace(" ","_"));
     S_S.set("chbsendhostinfotochan", ui.chbsendhostinfotochan->isChecked());
     S_S.set("useacostumipforhosting", ui.cbip->isChecked());
     S_S.set("costumipforhosting", ui.leip->text());
     S_S.set("legamename", ui.legamename->text().replace(" ","_"));
+    S_S.set("lehostport", ui.lehostport->text());
     gamename = ui.legamename->text();
     gamename.replace(" ", "_");
     pwd = ui.lepassword->text();
@@ -102,11 +105,11 @@ void hostbox::okclicked() {
         S_S.set("joinstrings", sl);
         emit sigok();
     }
+    S_S.commit();
     close();
 }
 void hostbox::cancelclicked() {
     close();
-    deleteLater();
 }
 hostbox::~hostbox() {
 

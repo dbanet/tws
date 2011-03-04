@@ -90,6 +90,7 @@ private slots:
     void settextscheme(const QString&);
     void openchatwindowhidden(const QString &);    
     void gotusermsg(const usermessage u);
+    void gotnotice(const usermessage u);
     void connected();
     void disconnected();
     void reconnect();

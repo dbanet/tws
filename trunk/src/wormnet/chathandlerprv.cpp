@@ -24,6 +24,7 @@
 
 chathandlerprv::chathandlerprv(QObject *parent, QTextBrowser *t, QString chan) :
     chathandler(parent, t, chan) {
+    isprv=1;
     disconnect(tb, SIGNAL(customContextMenuRequested ( const QPoint &)),this, SLOT(contextrequest(const QPoint&)));
     connect(tb, SIGNAL(customContextMenuRequested ( const QPoint &)),this, SLOT(opencontextmenu(const QPoint&)));
 }

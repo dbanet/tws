@@ -62,6 +62,8 @@ protected:
         void get_new_font_and_color(QTextCharFormat *format);
         void get_new_font_and_color_with_chatwindow(QTextCharFormat *format);
         void get_new_font_and_color_with_walink(QTextCharFormat *format);
+
+        bool isprv;
 protected slots:
 	virtual void contextrequest(const QPoint&);
 	void anchorclicked(const QUrl&);

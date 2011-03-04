@@ -29,7 +29,7 @@ private slots:
     void opencontextmenu(const QPoint &);
 private:
     virtual QList<QPair<QVariant, QTextCharFormat> > getSegmentation(QString s, QTextCharFormat format);
-    virtual QTextCharFormat getRightFormat(const usermessage u);
+    virtual QTextCharFormat getRightFormat(const usermessage u);   
 };
 
 #endif /* chathandlerprv_H_ */

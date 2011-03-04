@@ -45,11 +45,7 @@ chatwindow::chatwindow(const QString &s, QWidget *parent) :
 
     connect(ui.send, SIGNAL(clicked()),ui.lineEdit, SIGNAL(returnPressed()));
     connect(ui.lineEdit, SIGNAL(returnPressed()),this, SLOT(sendmsg()));    
-    ui.lineEdit->setFocus(Qt::MouseFocusReason);
-
-    if (containsCI(querylist, chatpartner)) { //best place to clean the querylist
-        querylist.removeAll(chatpartner);
-    }    
+    ui.lineEdit->setFocus(Qt::MouseFocusReason);                
 
     singleton<sound_handler>().play_chatwindowopensound();    
     if (S_S.getstringlist("mutedusers").contains( chatpartner, Qt::CaseInsensitive))
@@ -89,6 +85,9 @@ chatwindow::chatwindow(const QString &s, QWidget *parent) :
         statusbar->showMessage(tr("Was offline when this window opened."));
         userisoffline=1;
     }
+}
+void chatwindow::showEvent(QShowEvent * event ){
+    querylist.removeAll(chatpartner);
 }
 bool chatwindow::eventFilter(QObject *obj, QEvent *event) {
     if (qobject_cast<QScrollArea*> (obj) == ui.chatwindowbuttonscrollArea) {

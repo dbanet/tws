@@ -40,7 +40,8 @@ private:
 protected:
     void closeEvent ( QCloseEvent *);
     bool eventFilter(QObject *obj, QEvent *event);		//for the linedit in ui
-signals:
+    virtual void showEvent ( QShowEvent * event );
+signals:    
     void sigclosed();
 };
 

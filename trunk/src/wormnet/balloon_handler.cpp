@@ -58,9 +58,7 @@ void balloon_handler::buddyarrived() {
     usermodel::buddyarrivedhelper.clear();
     showballoon();
 }
-void balloon_handler::got_privmsg(const usermessage u){
-    if(!containsCI(S_S.buddylist, u.user()))
-        return;
+void balloon_handler::got_privmsg(const usermessage u){    
     if(!S_S.getbool("cbshowballoons"))
         return;
     balloonhelper << QTime::currentTime().toString("hh:mm") + ":" + u.user() + tr(" said: ") + u.msg();
