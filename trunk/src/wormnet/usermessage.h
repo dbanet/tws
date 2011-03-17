@@ -9,7 +9,7 @@ public:
     usermessage(QString msg_arg, usermessage_type t_arg, QString user_arg, QString receiver_arg):
             my_msg(msg_arg), my_type(t_arg), my_user(user_arg), my_receiver(receiver_arg){
 
-        Q_ASSERT_X(my_type & e_NOTICE || my_type & e_PRIVMSG || my_type & e_CTCP || my_type & e_RAWCOMMAND || my_type & e_GARBAGE, Q_FUNC_INFO, qPrintable(QString::number(my_type)));
+        Q_ASSERT_X(my_type & e_NOTICE || my_type & e_PRIVMSG || my_type & e_CTCP || my_type & e_RAWCOMMAND || my_type & e_GARBAGE || my_type & e_SCRIPTCOMMAND, Q_FUNC_INFO, qPrintable(QString::number(my_type)));
         if(my_msg.startsWith("\001ACTION",Qt::CaseInsensitive)){
             add_type(e_ACTION);
             my_msg.remove("\001ACTION",Qt::CaseInsensitive).remove('\001');
@@ -46,15 +46,17 @@ public:
         return my_type;
     }    
     static usermessage create(QString msg, QString me, QString chatpartner){
-        if (msg.startsWith(">!")) {
+        if(msg.startsWith("$")){
+            msg.remove(0, 1);
+            usermessage u(msg, e_SCRIPTCOMMAND, me, chatpartner);
+            return u;
+        } else if (msg.startsWith(">!")) {
             msg.remove(0, 2);
-            usermessage u(msg, e_PRIVMSG, me, chatpartner);
-            u.add_type(e_CTCP);
+            usermessage u(msg, e_CTCP, me, chatpartner);
             return u;
         } else if (msg.startsWith("/")) {
             msg.remove(0, 1);
-            usermessage u(msg, e_PRIVMSG, me, chatpartner);
-            u.add_type(e_RAWCOMMAND);
+            usermessage u(msg, e_RAWCOMMAND, me, chatpartner);
             return u;
         } else if (msg.startsWith(">>>")){
             msg.remove(0, 3);

@@ -128,7 +128,7 @@ void settingswindow::set(const QString &s, const QVariant &v){
     else if(s=="cbshowballoons")
         ui->cbshowballoons->setChecked(v.toBool());    
     else
-        myDebug()<<"\nvoid settingswindow::to_map(const QString &s, const QVariant &v)\n";
+        myDebug()<<QString() + "\nvoid settingswindow::to_map(const QString &s, const QVariant &v)\n";
 }
 void settingswindow::on_pbloadsoundpack_clicked(){
     QString s=QFileDialog::getExistingDirectory(this,tr("Choose the directory from the soundpack."),"sounpacks");

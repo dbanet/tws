@@ -73,7 +73,7 @@ QTextCharFormat chathandlerprv::getRightFormat(const usermessage u){
             format=hash[e_hash_noticeaction];
         else
             format=hash[e_hash_notice];
-    }else if(u.has_type(e_RAWCOMMAND))
+    }else if(u.has_type(e_RAWCOMMAND) || u.has_type(e_SCRIPTCOMMAND))
         format=hash[e_hash_raw];
     return format;
 }

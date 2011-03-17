@@ -32,13 +32,14 @@ userstruct::userstruct(QStringList sl) {
         flag = i;
     else
         flag=49;
-    int clannumber = sl.takeFirst().toInt(boolhelper);
+    rankstring=sl.takeFirst();
+    int clannumber = rankstring.toInt(boolhelper);
     country = sl.takeFirst();    
     if(flag<53 && flag !=49)
         country=singleton<picturehandler>().map_number_to_countrycode(flag);
     if(country.isEmpty())
         country="??";
-    client = sl.join(" ").remove("\r");    
+    client = sl.join(" ").remove("\r");
     if (*boolhelper && clannumber < singleton<picturehandler>().ranklistsize() && clannumber >= 0)
         rank = clannumber;
     else rank=12;

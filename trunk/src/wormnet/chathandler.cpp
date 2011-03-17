@@ -177,7 +177,7 @@ void chathandler::appendgarbage(usermessage u){
             cursor->insertImage(p.first.value<QImage>());
             cursor->insertText(" ");
         } else
-            myDebug()<<"##################void chathandlerprv::append(const usermessage u)";
+            myDebug()<<QString() + "##################void chathandlerprv::append(const usermessage u)";
     }
     cursor->insertText("\n");
     if (slideratmaximum)
@@ -198,7 +198,7 @@ void chathandler::append(const usermessage u){
     else
         appendhistory(u);    
     if(u.has_type(e_CHATMSGTOCHANNEL))
-        text<<makepair(tr("to ")+u.receiver()+ ": ", format);
+        text<<makepair(S_S.getstring("leprvmsgprefix")+ ": ", format);
     format.setProperty(userpropertyId,u.user());
     hash[e_hash_nick].setProperty(userpropertyId,u.user());
     QString suffix;
@@ -206,6 +206,8 @@ void chathandler::append(const usermessage u){
         text<<makepair(u.user() + " CTCP: ",hash[e_hash_nick]);
     else if(u.has_type(e_RAWCOMMAND))
         text<<makepair(u.user() + " RAW: ",hash[e_hash_nick]);
+    else if(u.has_type(e_SCRIPTCOMMAND))
+        text<<makepair(u.user() + " SCRIPT: ",hash[e_hash_nick]);
     else if (u.has_type(e_PRIVMSG)){
         if(u.has_type(e_ACTION)){
             text<<makepair("< " + u.user() + ": ",format);
@@ -233,7 +235,7 @@ void chathandler::append(const usermessage u){
             cursor->insertImage(p.first.value<QImage>());
             cursor->insertText(" ");
         } else
-            myDebug()<<"##################void chathandlerprv::append(const usermessage u)";
+            myDebug()<<QString() + "##################void chathandlerprv::append(const usermessage u)";
     }
     cursor->insertText("\n");
     if (slideratmaximum)
@@ -293,7 +295,7 @@ QTextCharFormat chathandler::getRightFormat(const usermessage u){
             format=hash[e_hash_noticeaction];
         else
             format=hash[e_hash_notice];
-    } else if(u.has_type(e_RAWCOMMAND))
+    } else if(u.has_type(e_RAWCOMMAND) || u.has_type(e_SCRIPTCOMMAND))
         format=hash[e_hash_raw];
 
     return format;

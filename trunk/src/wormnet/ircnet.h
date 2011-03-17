@@ -25,7 +25,7 @@ public:
     void refreshlist();
     void who();
     void partchannel(const QString&);
-    void quit();
+    void quit(QString s);
     int state() const;
     QList<userstruct> wholist;
     QHash<QString,QStringList> joinlist;

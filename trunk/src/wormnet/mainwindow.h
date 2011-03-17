@@ -66,6 +66,8 @@ private:
     QStringList lastOpenedChatWindows;
 
     void openchatwindow(QString user);
+    void gotnotice(const usermessage u);
+    void gotscriptmsg(const usermessage);
 
 private slots:    
     void on_chbautojoin_clicked(bool checked);
@@ -89,21 +91,20 @@ private slots:
     void awaymessagechanged();
     void settextscheme(const QString&);
     void openchatwindowhidden(const QString &);    
-    void gotusermsg(const usermessage u);
-    void gotnotice(const usermessage u);
+    void gotusermsg(usermessage u);    
     void connected();
     void disconnected();
     void reconnect();
+    void reconnect2();
     void reopenChatWindowsAndChannelWindows();
     void leagueserverconnectionfailed();
     void leagueserverconnectionsuccess();
     void currenttabchanged(int);
-    void leagueserverprofilepage(QString);    
+    void leagueserverprofilepage(QString);            
 
     void windowclosed();
 
 protected:
-    void changeEvent (QEvent*);
     void closeEvent ( QCloseEvent * event );    
 signals:
     void sigopenchatwindow(const QString&);

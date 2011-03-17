@@ -52,3 +52,12 @@ void CodecSelectDia::on_pbOk_clicked()
         qApp->setLayoutDirection(Qt::LeftToRight);
     reject();
 }
+bool CodecSelectDia::contains(QString s){
+    return QTextCodec::availableCodecs().contains (s.simplified ().toUtf8 ());
+}
+void CodecSelectDia::setcodec(QString s){
+    if(!contains (s))
+        return;
+    codec=QTextCodec::codecForName(s.simplified ().toUtf8 ());
+    S_S.set("textcodec", s.simplified ());
+}

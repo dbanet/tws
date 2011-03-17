@@ -63,8 +63,24 @@
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout">
+              <property name="spacing">
+               <number>0</number>
+              </property>
               <item>
                <widget class="QLineEdit" name="msg"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pbsmiley">
+                <property name="maximumSize">
+                 <size>
+                  <width>25</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>:)</string>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QPushButton" name="send">

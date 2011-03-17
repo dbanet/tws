@@ -57,6 +57,9 @@ private slots:
     void changealpha(int);
     void showbuttons();
     void getuserscount(QStringList);
+    void pbemotclicked();
+
+    void insertemot(QString s);
 
 private:
     uihelper ui;
@@ -84,6 +87,7 @@ signals:
     void sigclosed();
     void sigjoinchannel(const QString&);
     void sigopenchatwindow(const QString&);
+    void sigchangeleaguestate();
 protected:
     void closeEvent ( QCloseEvent * event );
     bool eventFilter(QObject *obj, QEvent *event);		//for the linedit in ui

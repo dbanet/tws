@@ -83,7 +83,7 @@ netcoupler::~netcoupler() {
 void netcoupler::stop(){
     connectstate=e_stoped;
     userstruct::addressischecked=0;
-    sendquit();
+    sendquit(S_S.getstring("information"));
 }
 void netcoupler::joinchannel(const QString &s) {
     if(irc)
@@ -135,17 +135,20 @@ void netcoupler::getusermessage(const usermessage u){
 void netcoupler::sendusermessage(const usermessage u){
     if(!irc)
         return;
-    irc->sendusermessage(u);
+    if(u.has_type(e_SCRIPTCOMMAND))
+        getusermessage(u);
+    else
+        irc->sendusermessage(u);
 }
 void netcoupler::refreshlist() {
     if(!irc)
         return;
     irc->refreshlist();
 }
-void netcoupler::sendquit() {
+void netcoupler::sendquit(QString s){
     if(irc==NULL)
         return;
-    irc->quit();
+    irc->quit(s);
 }
 void netcoupler::getscheme(QString chan, QString scheme) {
     schememap[chan] = scheme;

@@ -97,7 +97,7 @@ void sqlsettings::importOldini(QString folder){
 void sqlsettings::loadsnpiniDefaults(){    
     set("volumeslidervalue",5);
     set("chbminimized", 0);
-    set("dissallowedclannames", QStringList()<<"Username"<<"cybershadow"<<"WebSnoop"<<"HostingBuddy"<<"SheriffBot"<<"muzer"<<"Help"<<"Miranda"<<"Mirc"<<"wormatty"<<"simon"<<"darkone"<<"noclan"<<"baleegames");
+    set("dissallowedclannames", QStringList()<<"Username"<<"cybershadow"<<"WebSnoop"<<"HostingBuddy"<<"SheriffBot"<<"muzer"<<"Help"<<"Miranda"<<"Mirc"<<"wormatty"<<"simon"<<"darkone"<<"noclan"<<"baleegames"<<"Green"<<"lexlexlex"<<"mattribbins");
     set("textscheme", "comic by lookias.textscheme");
     set("chbsendhostinfotochan", true);
     set("language_file", "_en.Standard.qm");
@@ -115,7 +115,7 @@ void sqlsettings::loadsettingswindowDefaults(){
     set("lenormalchatmessage", "wav/normalprivmsg.mp3");
     set("lehighlightning", "wav/highlightningsound.mp3");
     set("lecostumword", "wav/costumword.mp3");
-    set("lehostsound", "wav/buddyhosts.mp3");
+    set("lehostsound", "wav/buddyhosts.mp3");    
 
     set("cbalertmeonnotice", true);
     set("cbalertfromnormal", true);

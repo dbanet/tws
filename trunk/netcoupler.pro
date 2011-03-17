@@ -73,7 +73,9 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/settingshelper.h \
     src/wormnet/database_base.h \
     src/wormnet/progressdialog.h \
-    src/wormnet/usermessage.h
+    src/wormnet/usermessage.h \
+    src/wormnet/emoticonsdialog.h \
+    src/wormnet/wa_textcodec.h
 
 FORMS += src/wormnet/about.ui \
     src/wormnet/awaybox.ui \
@@ -99,7 +101,8 @@ FORMS += src/wormnet/about.ui \
     src/wormnet/combobox_wrapper.ui \
     src/wormnet/codecselectdia.ui \
     \        
-    src/wormnet/progressdialog.ui
+    src/wormnet/progressdialog.ui \
+    src/wormnet/emoticonsdialog.ui
 
 SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/awaybox.cpp \
@@ -152,7 +155,9 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/sqlsettings.cpp \
     src/wormnet/database_base.cpp \
     src/wormnet/progressdialog.cpp \
-    src/wormnet/usermessage.cpp
+    src/wormnet/usermessage.cpp \
+    src/wormnet/emoticonsdialog.cpp \
+    src/wormnet/wa_textcodec.cpp
 
 RC_FILE = src/wormnet/myapp.rc
 TRANSLATIONS += \

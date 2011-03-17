@@ -232,7 +232,7 @@ void snoppanet::readhostreply() {
         hostreply->deleteLater();
         emit sighostwontstart();
     } else
-        myDebug()<<tr("No target for hostreply\n")<<s;
+        myDebug()<<tr("No target for hostreply\n")<<s<<tr("Error: ") + hostreply->errorString();
 }
 void snoppanet::inithosting(QString url){
     QNetworkRequest request;

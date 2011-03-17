@@ -33,7 +33,7 @@ textschemehandler::textschemehandler(QWidget *parent) :
     map["garbageformat"] = &chathandler::hash[e_hash_garbage];
     map["myselfformat"] = &chathandler::hash[e_hash_myself];
     map["ctcpformat"] = &chathandler::hash[e_hash_ctcp];
-    map["rawformat"] = &chathandler::hash[e_hash_raw];
+    map["rawformat"] = &chathandler::hash[e_hash_raw];        
     ui.listWidget->addItems(map.keys());
 }
 void textschemehandler::closeclicked() {

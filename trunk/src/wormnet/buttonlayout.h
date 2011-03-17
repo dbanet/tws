@@ -13,16 +13,18 @@ public:
     ~buttonlayout();
     void hidebuttons();
     void showbuttons();
-    void fillleaguemenu();
+    void fillleaguemenus();
 private:
     Ui::buttonlayoutClass ui;
     QMenu *leaguemenu;
+    QMenu *leaguestatemenu;
 private slots:
     void on_pbsort_clicked();
     void on_pbballoon_clicked();
     void on_pbsound_clicked();
     void on_pbcostumwords_clicked();
     void leaguemenutriggered(QAction *action);
+    void leaguestatemenutriggered(QAction*);
 signals:
     void pbhostclicked();
     void pbminimizedclicked();
@@ -30,6 +32,7 @@ signals:
     void sigchangealpha(int);
     void sigshowme();
     void sighideme();
+    void sigchangeleaguestate();
 protected:
     bool eventFilter(QObject *obj, QEvent *event);
 };

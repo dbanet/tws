@@ -42,11 +42,14 @@ void leagueserverhandler::myconnect(const QString n,const QString p){
 void leagueserverhandler::logintTimeOut(){
     loginFinished();
 }
-void leagueserverhandler::loginFinished(){            
-    connecttimer.stop();
+void leagueserverhandler::loginFinished(){
+    disconnect(this,SLOT(loginFinished()));
+    connecttimer.stop();    
+    loginreply->deleteLater();
     QStringList sl=QString(loginreply->readAll()).split(" ",QString::SkipEmptyParts);
+    myDebug()<<sl;
     if(sl.isEmpty() || loginreply->error() != QNetworkReply::NoError){
-        QMessageBox::information(0,QObject::tr("Warning"),tr("The Server %1 doesnt seem to support the secure logging feature.\n errormessage: %2").arg(servicename).arg(loginreply->errorString()));
+        QMessageBox::information(0,QObject::tr("Warning"),tr("The Server %1 doesnt seem to support the secure logging feature.\n errormessage: %2").arg(servicename).arg(loginreply->errorString()));        
         qobjectwrapper<mainwindow>::ref().show();
         qobjectwrapper<mainwindow>::ref().raise();
         emit sigloginfailed();
@@ -55,6 +58,8 @@ void leagueserverhandler::loginFinished(){
     loggingstate=true;              
     if(sl.takeFirst()=="0"){
         QMessageBox::information(0,QObject::tr("Warning"),tr("Your %1 Account seems to be wrong, please try again.").arg(servicename));
+        qobjectwrapper<mainwindow>::ref().show();
+        qobjectwrapper<mainwindow>::ref().raise();
         emit sigloginfailed();
         return;
     }   
@@ -74,8 +79,7 @@ void leagueserverhandler::loginFinished(){
         return;
     }
     startrefresh();
-    emit sigloginsuccess();
-    loginreply->deleteLater();
+    emit sigloginsuccess();    
     singleton<balloon_handler>().connectedtoleagueserver(servicename);
     if(sl.size()<2)
         return;
@@ -116,6 +120,7 @@ void leagueserverhandler::refresh(){
 }
 void leagueserverhandler::refreshFinished(){
     static QStringList sl;
+    refreshreply->deleteLater();
     if(refreshreply->error()!=QNetworkReply::NoError){
         myDebug()<<tr("Unable to get the user information from")+" "+servicename;
         map.clear();
@@ -135,8 +140,7 @@ void leagueserverhandler::refreshFinished(){
         map[nick]=sl.mid(0,5) + QStringList()<<s;
         if(map[nick].size()>e_clan && map[nick][e_clan].simplified()==".")
             map[nick][e_clan]="";
-    }
-    refreshreply->deleteLater();
+    }    
     informationrefreshtimer.start(S_S.sbsecureloggingrepeatdelay);
 }
 void leagueserverhandler::setleague(const QString league, QString server){
@@ -199,9 +203,10 @@ void leagueserverhandler::profile(QString s){
     connect(profilereply, SIGNAL(finished()),this, SLOT(profileFinished()));    
 }
 void leagueserverhandler::profileFinished(){
+    profilereply->deleteLater();
     if(profilereply->error() != QNetworkReply::NoError){
         QMessageBox::information(0,QObject::tr("Warning"),tr("Cant connect to %1 server, please try again at a later time.").arg(servicename));
         return;
     }
-    emit sigprofile(profilereply->readAll());
+    emit sigprofile(profilereply->readAll());    
 }

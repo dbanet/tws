@@ -17,35 +17,35 @@ QStringList usermodel::buddyarrivedhelper;
 QStringList usermodel::buddylefthelper;
 
 usermodel::usermodel(QObject * parent) :
-        QAbstractItemModel(parent),leagueuserhighlightgradient(0,0,0,17) {
+    QAbstractItemModel(parent),leagueuserstandardgradient(0,0,0,17), leagueusercustomgradient(0,0,0,17) {
     stringnamelist << tr("Nick") << "" << tr("Rank") << tr("Clan") << tr("Information");
 
     sortorder = Qt::AscendingOrder;
     sortsection = 0;
 
     if (!channelicon.load(QApplication::applicationDirPath()
-        + "/snppictures/channelicon.png"))
+                          + "/snppictures/channelicon.png"))
         myDebug() << QObject::tr("Some Pictures are missing!");
     if (!usericon.load(QApplication::applicationDirPath()
-        + "/snppictures/usericon.png"))
+                       + "/snppictures/usericon.png"))
         myDebug() << QObject::tr("Some Pictures are missing!");
     if (!buddyicon.load(QApplication::applicationDirPath()
-        + "/snppictures/buddyicon.png"))
+                        + "/snppictures/buddyicon.png"))
         myDebug() << QObject::tr("Some Pictures are missing!");
     if (!ignoreicon.load(QApplication::applicationDirPath()
-        + "/snppictures/ignoreicon.png"))
+                         + "/snppictures/ignoreicon.png"))
         myDebug() << QObject::tr("Some Pictures are missing!");
     if (!offlineicon.load(QApplication::applicationDirPath()
-        + "/snppictures/offlineicon.png"))
+                          + "/snppictures/offlineicon.png"))
         myDebug() << QObject::tr("Some Pictures are missing!");
     if (!awayusericon.load(QApplication::applicationDirPath()
-        + "/snppictures/awayusericon.png"))
+                           + "/snppictures/awayusericon.png"))
         myDebug() << QObject::tr("Some Pictures are missing!");
     if (!awaybuddyicon.load(QApplication::applicationDirPath()
-        + "/snppictures/awaybuddyicon.png"))
+                            + "/snppictures/awaybuddyicon.png"))
         myDebug() << tr("Some Pictures are missing!");
     if (!awayignoreicon.load(QApplication::applicationDirPath()
-        + "/snppictures/awayignoreicon.png"))
+                             + "/snppictures/awayignoreicon.png"))
         myDebug() << QObject::tr("Some Pictures are missing!");
     currentselectedchannel = -1;
     usesettingswindow();
@@ -53,9 +53,12 @@ usermodel::usermodel(QObject * parent) :
     connect(this, SIGNAL(sigbuddyleft()),this, SLOT(buddyleft()));
     connect(this, SIGNAL(sigbuddyarrived()),this, SLOT(buddyarrived()));
 
-    leagueuserhighlightgradient.setColorAt(0,QColor(255,255,255,0));
-    leagueuserhighlightgradient.setColorAt(0.5,QColor(255,255,255,100));
-    leagueuserhighlightgradient.setColorAt(1,QColor(255,255,255,0));
+    leagueuserstandardgradient.setColorAt(0,QColor(255,255,255,0));
+    leagueuserstandardgradient.setColorAt(0.5,QColor(255,255,255,100));
+    leagueuserstandardgradient.setColorAt(1,QColor(255,255,255,0));
+
+    leagueusercustomgradient.setColorAt(0,QColor(255,255,255,0));
+    leagueusercustomgradient.setColorAt(1,QColor(255,255,255,0));
 }
 void usermodel::selectionchanged(const QModelIndex &index, const QWidget *w) {
 
@@ -235,7 +238,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
             QString nick =usermap[classes[index.internalId()]][index.row()].nick;
 
             if (classes[index.internalId()] == tr("Querys") && !users.contains(
-                    userstruct::whoami(nick)))
+                        userstruct::whoami(nick)))
                 return offlineicon;
             else if (containsCI(S_S.buddylist, nick)) {
                 if (containsCI(ctcphandler::awayusers, nick))
@@ -265,80 +268,91 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
         } else if (classes[index.internalId()] != tr("Buddylist")) {
             switch (index.column()) {
             case e_Nick:
-                {
-                    if (role == Qt::DisplayRole)
-                        return usermap[classes[index.internalId()]][index.row()].nick;
-                    break;
-                }
+            {
+                if (role == Qt::DisplayRole)
+                    return usermap[classes[index.internalId()]][index.row()].nick;
+                break;
+            }
             case e_Flag:
-                {
-                    if (role != Qt::BackgroundRole)
-                        break;
-                    return singleton<picturehandler>().getflag(usermap[classes[index.internalId()]][index.row()]);
+            {
+                if (role != Qt::BackgroundRole)
                     break;
-                }
+                return singleton<picturehandler>().getflag(usermap[classes[index.internalId()]][index.row()]);
+                break;
+            }
             case e_Rank:
-                {
-                    if (role != Qt::BackgroundRole)
-                        break;
-                    return getrank(usermap[classes[index.internalId()]][index.row()]);
+            {
+                if (role != Qt::BackgroundRole)
                     break;
-                }
+                return getrank(usermap[classes[index.internalId()]][index.row()]);
+                break;
+            }
             case e_Clan:
-                {
-                    if (role == Qt::DisplayRole)
-                        return getclan(usermap[classes[index.internalId()]][index.row()]);
-                    break;
-                }
+            {
+                if (role == Qt::DisplayRole)
+                    return getclan(usermap[classes[index.internalId()]][index.row()]);
+                break;
+            }
             case e_Client:
-                {
-                    if (role == Qt::DisplayRole)
-                        return usermap[classes[index.internalId()]][index.row()].client.simplified();
-                    break;
-                }
+            {
+                if (role == Qt::DisplayRole)
+                    return usermap[classes[index.internalId()]][index.row()].client.simplified();
+                break;
+            }
             }
         }//the buddylist may contain offline and online contacts... lets see
         else {
             switch (index.column()) {
             case e_Nick:
-                {
-                    if (role == Qt::DisplayRole)
-                        return usermap[classes[index.internalId()]][index.row()].nick;
-                    break;
-                }
+            {
+                if (role == Qt::DisplayRole)
+                    return usermap[classes[index.internalId()]][index.row()].nick;
+                break;
+            }
             case e_Flag:
-                {
-                    if (role == Qt::BackgroundRole)
-                        return singleton<picturehandler>().getflag(usermap[classes[index.internalId()]][index.row()]);
-                    break;
-                }
+            {
+                if (role == Qt::BackgroundRole)
+                    return singleton<picturehandler>().getflag(usermap[classes[index.internalId()]][index.row()]);
+                break;
+            }
             case e_Rank:
-                {
-                    if (role == Qt::BackgroundRole)
-                        return getrank(usermap[classes[index.internalId()]][index.row()]);
-                    break;
-                }
+            {
+                if (role == Qt::BackgroundRole)
+                    return getrank(usermap[classes[index.internalId()]][index.row()]);
+                break;
+            }
             case e_Clan:
-                {
-                    if (role == Qt::DisplayRole)
-                        return getclan(usermap[classes[index.internalId()]][index.row()]);
-                    break;
-                }
+            {
+                if (role == Qt::DisplayRole)
+                    return getclan(usermap[classes[index.internalId()]][index.row()]);
+                break;
+            }
             case e_Client:
-                {
-                    if (role == Qt::DisplayRole)
-                        return usermap[classes[index.internalId()]][index.row()].client;
-                    break;
-                }
+            {
+                if (role == Qt::DisplayRole)
+                    return usermap[classes[index.internalId()]][index.row()].client;
+                break;
+            }
             }
         }
     }
     if (index.internalId() != e_Channel) {
         if (role == Qt::BackgroundRole){
-            if(S_S.spectateleagueserver){
+            if(S_S.spectateleagueserver){                
                 if(singleton<leagueserverhandler>().contains_key(usermap[classes[index.internalId()]][index.row()].nick)){
-                    if(!S_S.cbdontshowagradientonverifiedusers)
-                        return QBrush(leagueuserhighlightgradient);                    
+                    if(S_S.cbdontshowagradientonverifiedusers)
+                        return QVariant();
+                    QString rank = '#' + usermap[classes[index.internalId()]][index.row()].rankstring;
+                    rank=rank.left(7);
+                    if(!QColor::isValidColor(rank))
+                        return QBrush(leagueuserstandardgradient);
+                    else {
+                        QColor c;
+                        c.setNamedColor(rank);
+                        c.setAlpha(100);
+                        leagueusercustomgradient.setColorAt(0.5,c);
+                        return QBrush(leagueusercustomgradient);
+                    }
                 }
             }
         }

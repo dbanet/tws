@@ -26,7 +26,6 @@ myDebugClass &myDebugClass::operator<<(const QStringList &msg){
     qobjectwrapper<mainwindow>::ref().appenddebugmessage("("+msg.join(",").simplified()+")\n");
     return *this;
 }
-
 myDebugClass &myDebugClass::operator<<(const int &i){
     if(qobjectwrapper<mainwindow>::isNull()){
         qDebug()<<i;

@@ -67,7 +67,8 @@ private:
 
     QStringList currentbuddylist;
 
-    QLinearGradient leagueuserhighlightgradient;
+    QLinearGradient leagueuserstandardgradient;
+    mutable QLinearGradient leagueusercustomgradient;
 private slots:
     void buddyarrived();
     void buddyleft();    

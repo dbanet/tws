@@ -4,7 +4,6 @@
 #include"buddylist.h"
 #include"ctcphandler.h"
 #include"chathandler.h"
-#include"buttonlayout.h"
 #include"awaybox.h"
 #include"inihandlerclass.h"
 #include"chatwindow.h"
@@ -38,6 +37,7 @@
 #include"src/irc/ircjoindia.h"
 #endif
 
+#include<QTextCodec>
 #include<QDir>
 #include<QStringList>
 #include<QSystemTrayIcon>
@@ -100,7 +100,7 @@ mainwindow::mainwindow() {
     connect(&qobjectwrapper<awayhandler>::ref(), SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));
     connect(&singleton<netcoupler>(), SIGNAL(sigconnected()),this,SLOT(connected()));
     connect(&singleton<netcoupler>(), SIGNAL(sigdisconnected()),this,SLOT(disconnected()));
-    connect(&singleton<netcoupler>(), SIGNAL(siggotusermessage(const usermessage)),this,SLOT(gotusermsg(const usermessage)));
+    connect(&singleton<netcoupler>(), SIGNAL(siggotusermessage(const usermessage)),this,SLOT(gotusermsg(const usermessage)));    
 
     connect(&singleton<leagueserverhandler>(),SIGNAL(sigloginfailed()),this,SLOT(leagueserverconnectionfailed()));
     connect(&singleton<leagueserverhandler>(),SIGNAL(sigloginsuccess()),this,SLOT(leagueserverconnectionsuccess()));
@@ -121,6 +121,7 @@ mainwindow::mainwindow() {
         restoreGeometry(windowstates.takeFirst().toByteArray());
     if(height()<530)
         resize(width(),530);
+    setWindowFlags (Qt::Dialog);
 }
 mainwindow::~mainwindow() {
 }
@@ -172,7 +173,6 @@ void mainwindow::chooseclicked() {
     S_S.set("clan", ui.clan->text());
     if (ui.clan->text().isEmpty())
         S_S.set("clan", "UserName");
-    S_S.set("rank", ui.rank->currentText());
     S_S.set("nickname", ui.lenick->text());
     S_S.set("tus_password", ui.letuspassword->text());
     S_S.set("tus_login", ui.letuslogin->text());
@@ -198,7 +198,7 @@ void mainwindow::chooseclicked() {
         } else
             S_S.set("spectateleagueserver", false);
         connectToNetwork();
-    }    
+    }
     S_S.commit();
 }
 void mainwindow::setleague(){
@@ -267,7 +267,7 @@ void mainwindow::join(const QString channel){
         windowlist.push_back(new channelwindow(channel, whichuitype));
         windowlist.last()->setObjectName("channelwindow");
     } else
-        myDebug() << "joinclicked in mainwindow assert";
+        myDebug() <<QString() + "joinclicked in mainwindow assert";
     if(windowlist.isEmpty())
         return;
     windowlist.last()->show();
@@ -280,6 +280,7 @@ void mainwindow::join(const QString channel){
     connect(windowlist.last(), SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
     connect(this, SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
     connect(windowlist.last(), SIGNAL(sigclosed()),this, SLOT(windowclosed()));
+    connect(windowlist.last(), SIGNAL(sigchangeleaguestate()),this, SLOT(reconnect()));
 }
 void mainwindow::windowclosed(){
     channelwindow *w=qobject_cast<channelwindow*> (sender());
@@ -292,20 +293,20 @@ void mainwindow::windowclosed(){
 void mainwindow::quit() {
     foreach(chatwindow *w,channelwindow::chatwindows) {
         Q_ASSERT(w!=0);
-        w->close();
-        w->deleteLater();
+        w->close();        
     }
     foreach(channelwindow *w, windowlist) {
         Q_ASSERT(w!=0);
         w->close();
-        w->deleteLater();
     }
     fillsnpsettings();
 }
-void mainwindow::closeEvent(QCloseEvent *) {
+void mainwindow::closeEvent(QCloseEvent * e) {
     QVariantList windowstates;
     windowstates << saveGeometry();
     S_S.set("MainWindowGeometry", windowstates);
+    e->ignore ();
+    hide();
 }
 void mainwindow::returntologintab() {
     singleton<leagueserverhandler>().reset();
@@ -325,15 +326,6 @@ void mainwindow::returntologintab() {
     foreach(channelwindow *w,windowlist)
         w->close();
     ui.tabWidget->setTabEnabled(1, 0);
-}
-void mainwindow::changeEvent(QEvent * event) {
-    if (event->type() == QEvent::WindowStateChange) {
-        if ( isMinimized()) {
-            QTimer::singleShot(200, this, SLOT(close()));
-            return;
-        }
-    }
-    QWidget::changeEvent(event);
 }
 void mainwindow::pbrememberjoinclicked() {
     S_S.set("joinonstartup", ui.cbchannels->currentText());
@@ -470,20 +462,78 @@ void mainwindow::openchatwindowhidden(const QString &user) {
     openchatwindow(user);
     hiddenchatwindowshelper << window::chatwindows.last();
 }
-void mainwindow::gotnotice(const usermessage u){
+void mainwindow::gotscriptmsg(const usermessage u){
+    QString msg=u.msg();    
+    if(startswithCI(msg, "away")){
+        msg.remove(0,5);
+        qobjectwrapper<awayhandler>::ref().setaway(msg);
+        foreach(channelwindow *w,windowlist) {
+            w->windowtitleaway = " " + tr("<away>:") +" "+ qobjectwrapper<awayhandler>::ref().message();
+            w->mysetwindowtitle();
+        }
+    } else if(startswithCI(msg, "back")) {
+        qobjectwrapper<awayhandler>::ref().back();
+        awaymessagechanged();
+    } else if(startswithCI(msg, "nick")) {
+        msg.remove(0,5);
+        if(ui.cbenabletus->isChecked()){
+            myDebug()<<tr("Its not possible to change the nick while using secure logging. Go to the profile page at your secure logging server to change the nick.");
+            return;
+        }
+        int pos;
+        int i=ui.lenick->validator()->validate(msg,pos);
+        if(i != QValidator::Acceptable){
+            myDebug()<<tr("This nickname is not allowed!");
+            return;
+        }
+        ui.lenick->setText(msg);
+        reconnect();
+    } else if(startswithCI(msg, "help")) {
+        myDebug()<<tr("Supported commands are:")<<
+                    tr("$away to change the away message")<<
+                    tr("$back to remove the away state")<<
+                    tr("$nick to change the nick")<<
+                    tr("$codec to open the codec dialog")<<
+                    tr("$codec to set a specific codec, (wa, prl and prc are shortcuts for the specific codecs).")<<
+                    tr("$quit to quit with this message")<<
+                    tr("$help to see this help");
+    } else if(startswithCI(msg, "quit")) {        
+        msg.remove(0,5);
+        singleton<quithandler>().inducequit(msg);
+    } else if(startswithCI(msg, "codec")) {
+        msg.remove(0,6).simplified ();
+        if(CodecSelectDia::contains (msg))
+            CodecSelectDia::setcodec (msg);
+        else if(msg=="prl")
+            CodecSelectDia::setcodec ("windows-1252");
+        else if(msg=="prc")
+            CodecSelectDia::setcodec ("windows-1251");
+        else {
+            myDebug ()<<tr("This codec doesnt exists: ")+msg;
+            CodecSelectDia().exec();
+            return;
+        }
+        myDebug ()<<tr("Applying codec: ")+QString(CodecSelectDia::codec->name());
+    } else
+        myDebug()<<tr("Unknown command, write $help to get a list of available commands");
+}
+void mainwindow::gotnotice(usermessage u) {
     const QString &user=u.user();
     if(containsCI(S_S.ignorelist, user))
         return;
     singleton<balloon_handler>().got_privmsg(u);
-    if(containsCI(S_S.buddylist, u.user()))
-        singleton<sound_handler>().play_buddymsgsound(user);
-    else
-        singleton<sound_handler>().play_normalmsgsound(user);
-    foreach(channelwindow *w,windowlist)
+    foreach(channelwindow *w, windowlist)
         w->getusermessage(u);
+    foreach(chatwindow *w, channelwindow::chatwindows)
+        w->getusermessage(u.add_type(e_CHANNELMSGTOCHAT));
 }
 void mainwindow::gotusermsg(const usermessage u){
     const QString &user=u.user();
+    if(u.has_type(e_SCRIPTCOMMAND)) {
+        gotscriptmsg(u);
+        return;
+    }
+
     if(u.has_type(e_CTCP) && singleton<ctcphandler>().getctcp(u))
         return;
 
@@ -504,9 +554,9 @@ void mainwindow::gotusermsg(const usermessage u){
     } else if (!containsCI(S_S.ignorelist, user) && u.receiver()==singleton<netcoupler>().nick
                && (windowlist.isEmpty() || S_S.getbool("chballwaysopenchatwindows"))) {
         if (S_S.getbool("chbstartchatsminimized"))
-            openchatwindowhidden(user);            
+            openchatwindowhidden(user);
         else
-            openchatwindowraised(user);            
+            openchatwindowraised(user);
         window::chatwindows.last()->getusermessage(u);
         return;
     } else if(u.receiver() == singleton<netcoupler>().nick){
@@ -540,8 +590,8 @@ void mainwindow::connected(){
 void mainwindow::disconnected(){
     ui.start->setText(tr("Apply"));
     ui.start->setEnabled(true);
-    if(singleton<netcoupler>().connectstate==netcoupler::e_started)
-        QTimer::singleShot(200 *1000, this, SLOT(reconnect()));
+    //    if(singleton<netcoupler>().connectstate==netcoupler::e_started)
+    //        QTimer::singleShot(200 *1000, this, SLOT(reconnect()));
     ui.connectlabel->setText(tr("Disconnected"));
     singleton<leagueserverhandler>().logout();
     returntologintab();
@@ -649,14 +699,15 @@ void mainwindow::trayactivation(QSystemTrayIcon::ActivationReason reason) {
         if (!channelwindow::hiddenchannelwindowshelper.isEmpty()) {
             channelwindow *w = channelwindow::hiddenchannelwindowshelper.takeLast();
             w->show();
+            w->raise ();
         } else if (! hiddenchatwindowshelper.isEmpty()) {
             chatwindow *w = hiddenchatwindowshelper.takeLast();
             w->show();
+            w->raise ();
             querylist.removeAll(w->chatpartner);
         } else {
             if ( isHidden()) {
-                show();
-                activateWindow();
+                show();                
                 raise();
             } else if ( isVisible())
                 close();
@@ -774,19 +825,23 @@ void mainwindow::handleAwayBox(){
     }
 }
 void mainwindow::reconnect(){
-    disconnect(this,SLOT(reconnect()));
+    lastOpenedWindows.clear ();
+    lastOpenedChatWindows.clear ();
     foreach(channelwindow *w, windowlist)
         lastOpenedWindows<<w->currentchannel;
     foreach(chatwindow *w,channelwindow::chatwindows)
         lastOpenedChatWindows<<w->chatpartner;
     returntologintab();
+    connect(&singleton<netcoupler>(),SIGNAL(sigdisconnected()),this,SLOT(reconnect2()));
     singleton<netcoupler>().stop();
-    QTimer::singleShot(2000, this, SLOT(chooseclicked()));
+}
+void mainwindow::reconnect2(){
+    disconnect(&singleton<netcoupler>(),SIGNAL(sigdisconnected()),this,SLOT(reconnect2()));
+    chooseclicked();
 }
 void mainwindow::on_pbsettings_clicked(){
     singleton<settingswindow>().show();
 }
-
 void mainwindow::on_pbabout_clicked(){
     about *ab = new about;
     ab->show();

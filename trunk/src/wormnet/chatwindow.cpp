@@ -7,6 +7,7 @@
 #include"global_functions.h"
 #include"usermessage.h"
 #include"balloon_handler.h"
+#include"emoticonsdialog.h"
 
 #include<QKeyEvent>
 #include<QDir>
@@ -123,7 +124,7 @@ void chatwindow::sendmsg() {
     if (s.isEmpty())
         return;
     usermessage u=usermessage::create(s, chatpartner);
-    chat->append(u);
+    chat->append(u);    
     singleton<netcoupler>().sendusermessage(u);
 
     ui.lineEdit->clear();
@@ -234,4 +235,20 @@ void chatwindow::on_pbresize_clicked()
         resize((3*desktopWidth/4)/screenCount,height());
         break;
     }
+}
+
+void chatwindow::on_pbsmiley_clicked(){
+    emoticonsdialog *dia = new emoticonsdialog;
+    dia->move(QCursor::pos()-QPoint(dia->width(),dia->height()));
+    dia->show();
+    dia->raise();
+    dia->setFocus();
+    connect(dia,SIGNAL(sigemotchoosed(QString)),this,SLOT(insertemot(QString)));
+}
+void chatwindow::insertemot(QString s){
+    QString ss=ui.lineEdit->text();
+    if(ss.endsWith(" ") || s.isEmpty())
+        ui.lineEdit->insert(s + " ");
+    else
+        ui.lineEdit->insert(" " + s + " ");
 }

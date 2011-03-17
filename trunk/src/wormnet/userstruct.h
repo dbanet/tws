@@ -25,7 +25,8 @@ public:
 	QString unknown;
 	QString commandstart;
 	int flag;
-	int rank;
+        QString rankstring;
+        int rank;
 	QString country;
 	QString client;
 	bool wnvalid;		//this nick is to 80% a valid wn user

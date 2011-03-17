@@ -31,6 +31,9 @@ private slots:
     void gotidletime(const QString&,int);
     void gotnosuchnick(const QString&);
     void filtergarbage();    
+    void on_pbsmiley_clicked();
+    void insertemot(QString);
+
 private:
     QPointer<chathandlerprv> chat;		//handles the whole textbrowser
     Ui::chatwindowClass ui;

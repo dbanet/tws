@@ -12,6 +12,7 @@
 #include"picturehandler.h"
 #include"awayhandler.h"
 #include"about.h"
+#include"wa_textcodec.h"
 
 #include<QtGui>
 #include<QApplication>
@@ -31,6 +32,8 @@ void handle_prosnooper_buddys();
 void handle_wini_ini();
 void get_picutres();
 int main(int argc, char *argv[]) {
+    new WA_textcodec1252;
+    new WA_textcodec1251;
     QApplication a(argc, argv);
     a.setApplicationVersion(about::version);
     a.setApplicationName("The Wheat Snooper");
@@ -44,11 +47,15 @@ int main(int argc, char *argv[]) {
     singleton<clantowebpagemapper>().refresh();
     singleton<picturehandler>();
     if(S_S.getstring("textcodec").isEmpty()){
-        CodecSelectDia::codec=QTextCodec::codecForLocale();
-        S_S.set("textcodec", CodecSelectDia::codec->name());
+        CodecSelectDia::codec=QTextCodec::codecForName("wa");
+        S_S.set("textcodec", "wa");
     }
     else
         CodecSelectDia::codec=QTextCodec::codecForName(S_S.getbytearray("textcodec"));
+    if(!CodecSelectDia::codec){
+        CodecSelectDia::codec=QTextCodec::codecForName("wa");
+        S_S.set("textcodec", "wa");
+    }
     singleton<charformatsettings>().load();           
     a.addLibraryPath(QApplication::applicationDirPath());
     a.setWindowIcon(QIcon(QApplication::applicationDirPath()+ "/snppictures/tray.png"));

@@ -62,15 +62,19 @@ void ircnet::connected() {
     s.append(sl.takeFirst() + " ");
     s.append(sl.takeFirst() + " :");
     QString flag=S_S.getstring("countrycode").toUpper();
-    s.append(singleton<picturehandler>().map_countrycode_to_number(flag)+ " ");
-    int i=S_S.getint("rank");
-    s.append(QString::number(i) + " ");
+    s.append(singleton<picturehandler>().map_countrycode_to_number(flag)+ " ");   
+    if(S_S.getbool("leaguestatecoloron") && S_S.getbool("enablesecurelogging"))
+        s.append(S_S.getstring("leaguestatecolorname").remove('#')+" ");
+    else {
+        int i=S_S.getint("rank");
+        s.append(QString::number(i) + " ");
+    }
     s.append(flag+" ");
     s.append(S_S.getstring("information"));
     tcp_write(s);
-    tcp_write("list");
-    emit sigconnected();
-    who();
+    tcp_write("list");    
+    tcp_write("who");
+    emit sigconnected();    
 }
 void ircnet::tcpread() {    //arrives like this msg\msg\n...\n...\n
     ircreadstring.append(CodecSelectDia::codec->toUnicode(tcp->readAll()));
@@ -172,9 +176,8 @@ void ircnet::readservermassege(QString s) {
         channel = sl.takeFirst();
         sl[0].remove(":");
         joinlist[channel] << sl;
-        if (joinlist[channel].count(nick) > 1) {
-            joinlist[channel].removeOne(nick);
-        }
+        if (joinlist[channel].count(nick) > 1)
+            joinlist[channel].removeOne(nick);        
         break;
     case 301: //Auto Away at Sun Nov 23 20:25:36 2008
         emit sigmsg(sl.takeFirst(), nick, sl.join(" "));
@@ -250,7 +253,7 @@ void ircnet::sendusermessage(const usermessage u){
             tcp_write("NOTICE " + u.receiver() + " :" + u.msg());
     }
     else
-        myDebug()<<"##################void netcoupler::sendusermessage(const usermessage u)";
+        myDebug()<<QString() + "##################void ircnet::sendusermessage(const usermessage u)";
 }
 void ircnet::refreshlist() {
     if (justgetlist == false) {
@@ -260,12 +263,13 @@ void ircnet::refreshlist() {
 }
 void ircnet::who() {    
     if (whoreceivedcompletely) {
+        templist.clear();
         tcp_write("who");
         whoreceivedcompletely = 0;
     }
 }
-void ircnet::quit() {    
-    tcp_write("QUIT : [The Wheat Snooper] "+ S_S.getstring("information"));
+void ircnet::quit(QString s){
+    tcp_write("QUIT : [The Wheat Snooper] "+ s);
 }
 void ircnet::tcp_write(const QString &msg){
     tcp->write(CodecSelectDia::codec->fromUnicode(msg)+"\n");

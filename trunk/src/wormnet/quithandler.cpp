@@ -16,17 +16,19 @@ quithandler::quithandler(){
 }
 quithandler::~quithandler(){}
 
-void quithandler::inducequit(){    
+void quithandler::inducequit(QString s){
+    if(s==QString())
+        s=S_S.getstring("information");
     S_S.transaction();
     beforequit();    
     S_S.commit();
     int state=singleton<netcoupler>().ircstate();        
-    if(state==QAbstractSocket::ConnectedState)
-        quit();
-    else {
+    if(state==QAbstractSocket::ConnectedState) {
         connect(&singleton<netcoupler>(),SIGNAL(sigdisconnected()),this,SLOT(quit()));
-        singleton<netcoupler>().sendquit();
+        singleton<netcoupler>().sendquit(s);
     }
+    else
+        quit();
 }
 void quithandler::beforequit(){    
     qobjectwrapper<mainwindow>::ref().quit();            
@@ -39,8 +41,9 @@ void quithandler::quit(){
         connect(&singleton<leagueserverhandler>(),SIGNAL(siglogout()),this,SLOT(quit()));
         singleton<leagueserverhandler>().logout();
         return;
-    }
-    disconnect();
+    }    
+    disconnect(&singleton<leagueserverhandler>(),SIGNAL(siglogout()),this,SLOT(quit()));
+    disconnect(&singleton<netcoupler>(),SIGNAL(sigdisconnected()),this,SLOT(quit()));
     qApp->quit();
     return;
 }

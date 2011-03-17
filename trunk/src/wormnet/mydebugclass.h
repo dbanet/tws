@@ -2,6 +2,7 @@
 #define MYDEBUGCLASS_H
 #include<QString>
 class usermessage;
+class QVariant;
 class myDebugClass
 {
 public:
@@ -9,7 +10,7 @@ public:
     myDebugClass &operator<<(const QString&);
     myDebugClass &operator<<(const QStringList&);
     myDebugClass &operator<<(const int&);    
-    myDebugClass &operator<<(const usermessage&);
+    myDebugClass &operator<<(const usermessage&);    
 };
 
 #endif // MYDEBUGCLASS_H

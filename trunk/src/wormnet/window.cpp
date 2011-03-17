@@ -12,6 +12,7 @@
 #include"leagueserverhandler.h"
 #include"usermessage.h"
 #include"balloon_handler.h"
+#include"emoticonsdialog.h"
 
 #include<QHBoxLayout>
 #include<QHeaderView>
@@ -33,7 +34,7 @@ window::window(QString s, int i) :
 	currentchannel(s), chaticon("snppictures/Chat_Icon.png") {
 
     buttons = new buttonlayout(this);
-    buttons->fillleaguemenu();
+    buttons->fillleaguemenus();
     setAttribute(Qt::WA_DeleteOnClose);
     setAttribute(Qt::WA_TranslucentBackground);
     setObjectName("channelwindow");
@@ -48,6 +49,8 @@ window::window(QString s, int i) :
     connect(buttons, SIGNAL(pbminimizedclicked()),this, SLOT(minimize()));
     connect(buttons, SIGNAL(sigchangealpha(int)),this, SLOT(changealpha(int)));
     connect(buttons, SIGNAL(sigshowme()),this, SLOT(showbuttons()));
+    connect(buttons, SIGNAL(sigchangeleaguestate()),this, SIGNAL(sigchangeleaguestate()));
+
     ui.getchilds(this);    
 
     ui.users->setAlternatingRowColors(1);
@@ -100,6 +103,7 @@ window::window(QString s, int i) :
     connect(ui.users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
     connect(ui.hosts, SIGNAL(pressed(const QModelIndex&)),this, SLOT(hostitempressed(const QModelIndex&)));
     connect(ui.hosts, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(hostitemdblclicked(const QModelIndex&)));
+    connect(ui.pbsmiley,SIGNAL(clicked()),this,SLOT(pbemotclicked()));
 
     connect(ui.msg, SIGNAL(returnPressed()),this, SLOT(sendmsg()));        
 
@@ -141,6 +145,21 @@ window::window(QString s, int i) :
 
     windowtitlechannel =  currentchannel;
 
+}
+void window::pbemotclicked(){
+    emoticonsdialog *dia = new emoticonsdialog;
+    dia->move(QCursor::pos()-QPoint(dia->width(),dia->height()));
+    dia->show();
+    dia->raise();
+    dia->setFocus();
+    connect(dia,SIGNAL(sigemotchoosed(QString)),this,SLOT(insertemot(QString)));
+}
+void window::insertemot(QString s){
+    QString ss=ui.msg->text();
+    if(ss.endsWith(" ") || s.isEmpty())
+        ui.msg->insert(s + " ");
+    else
+        ui.msg->insert(" " + s + " ");
 }
 void window::expandchannels() { //expand on startup
     expandchannels(QStringList());

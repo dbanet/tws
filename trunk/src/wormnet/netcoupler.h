@@ -46,7 +46,7 @@ public:
 
     void settingswindowemitfunktion();
 
-    void sendquit();
+    void sendquit(QString s);
     int ircstate();
 
     state connectstate;
@@ -63,7 +63,7 @@ signals:
     void sigconnected();
     void sigdisconnected();  
 
-    void sighoststarts(hoststruct);
+    void sighoststarts(hoststruct);   
 
 private:
     QPointer<ircnet> irc;

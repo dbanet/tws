@@ -9,7 +9,7 @@
 #include<QtGui>
 #include <QtGlobal>
 uihelper::uihelper() {
-	sl << "hosts" << "chat" << "msg" << "users"<<"send"<<"splitter1"<<"splitter2"<<"buttonlayout";
+        sl << "hosts" << "chat" << "msg" << "users"<<"send"<<"splitter1"<<"splitter2"<<"buttonlayout"<<"pbsmiley";
 	wl.push_back((QObject**)&hosts);
 	wl.push_back((QObject**)&chat);
 	wl.push_back((QObject**)&msg);
@@ -18,6 +18,7 @@ uihelper::uihelper() {
 	wl.push_back((QObject**)&splitter1);
 	wl.push_back((QObject**)&splitter2);
 	wl.push_back((QObject**)&buttonlayout);
+        wl.push_back((QObject**)&pbsmiley);
 	Q_ASSERT_X(wl.size()==sl.size(),"uihelper","size of the stringlist is unequal to the size of the vector");
 	// TODO Auto-generated constructor stub
 }

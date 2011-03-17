@@ -7,7 +7,7 @@ class quithandler : public QObject
 {
     Q_OBJECT
 public:    
-    void inducequit();
+    void inducequit(QString = QString());
     DECLARE_SINGLETON(quithandler);
 signals:
 

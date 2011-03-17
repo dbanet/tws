@@ -292,6 +292,8 @@ void database_base::validate(){
         set("chbsmileysinchatwindows",true);
     if(!contains("cbshowballoons"))
         set("cbshowballoons", true);
+    if(!contains("leprvmsgprefix"))
+        set("leprvmsgprefix",QObject::tr("Whisper"));
 }
 void database_base::checkifexistsinstringlist(QString key,QString value){
     QStringList sl=getstringlist(key);
