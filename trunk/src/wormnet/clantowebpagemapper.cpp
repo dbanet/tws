@@ -27,9 +27,9 @@ void clantowebpagemapper::refresh(){
     reply = qnam.get(QNetworkRequest(url));
     connect(reply, SIGNAL(finished()),this, SLOT(httpFinished()));
     connect(reply, SIGNAL(readyRead()),this, SLOT(httpReadyRead()));
+    connect(reply, SIGNAL(finished()),reply, SLOT(deleteLater()));
 }
 void clantowebpagemapper::httpFinished(){
-    reply->deleteLater();
     if(reply->error()!=QNetworkReply::NoError)
         return;
     QStringList sl=file.split("\n");

@@ -31,7 +31,7 @@ QStringList window::chatwindowstringlist;
 QList< ::window*> window::hiddenchannelwindowshelper;
 extern QStringList querylist;
 window::window(QString s, int i) :
-	currentchannel(s), chaticon("snppictures/Chat_Icon.png") {
+    currentchannel(s), chaticon("snppictures/Chat_Icon.png") {
 
     buttons = new buttonlayout(this);
     buttons->fillleaguemenus();
@@ -97,7 +97,7 @@ window::window(QString s, int i) :
     usermenu.addAction(tr("Show info about this user."))->setIcon(chaticon);
     costumlistmenu.addAction(tr("Remove this user from the list."));
     costumlistmenu.addAction(tr("Show info about this user."))->setIcon(
-            chaticon);
+                chaticon);
 
     connect(ui.users, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(useritemdblclicked(const QModelIndex&)));
     connect(ui.users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
@@ -171,9 +171,9 @@ void window::expandchannels(QStringList) { //expand on startup
     if (S_S.getbool("cbopenbuddylistonstartup"))
         ui.users->setExpanded(singleton<netcoupler>().users.indexbychannelname(usermodel::tr("Buddylist")), 1);
     if (ui.users->isExpanded(singleton<netcoupler>().users.index(singleton<netcoupler>().users.classes.indexOf(
-            currentchannel), 0)) && ui.hosts->isExpanded(
-                    singleton<netcoupler>().hosts.index(singleton<netcoupler>().hosts.classes.indexOf( currentchannel),
-                                                        0))) {
+                                                                     currentchannel), 0)) && ui.hosts->isExpanded(
+                singleton<netcoupler>().hosts.index(singleton<netcoupler>().hosts.classes.indexOf( currentchannel),
+                                                    0))) {
         disconnect(&singleton<netcoupler>(), SIGNAL(siggotchanellist(QStringList)),this, SLOT(expandchannels(QStringList)));
     } else
         QTimer::singleShot(500, this, SLOT(expandchannels()));
@@ -209,7 +209,7 @@ bool window::eventFilter(QObject *obj, QEvent *event) {
                 return true;
             } else if (keyEvent->key() == Qt::Key_Space) {
                 QString s = singleton<netcoupler>().users.data(ui.users->currentIndex().sibling(
-                        ui.users->currentIndex().row(), 0)).value<QString> ();
+                                                                   ui.users->currentIndex().row(), 0)).value<QString> ();
                 ui.msg->insert(s + " ");
                 ui.msg->setFocus(Qt::MouseFocusReason);
                 return true;
@@ -337,24 +337,22 @@ void window::useritempressed(const QModelIndex &index) {
         QMenu menu;
         menu.addAction(tr("Remove this Query."));
         menu.addSeparator();
-        menu.addAction(tr("Show info about this user."))->setIcon(
-                chaticon);
+        menu.addAction(tr("Show info about this user."))->setIcon(chaticon);
         a = menu.exec(QCursor::pos());
         if (a) {
-            if (a->text() == tr("Remove this Query.")) {
+            if (a->text() == tr("Remove this Query."))
                 querylist.removeAll(user);
-            } else if (a->text() == tr("Show info about this user.")) {
-                getuserinfo(user);
-            }
+            else if (a->text() == tr("Show info about this user."))
+                getuserinfo(user);            
         }
     } else if (singleton<netcoupler>().users.classes[index.internalId()] != usermodel::tr("Buddylist")
-        && singleton<netcoupler>().users.classes[index.internalId()] != usermodel::tr("Ignorelist")) {
+               && singleton<netcoupler>().users.classes[index.internalId()] != usermodel::tr("Ignorelist")) {
         QMenu menu;
         if (containsCI(S_S.buddylist, user)) {
             menu.addAction(tr("Remove this user from Buddylist."));
             menu.addSeparator();
             menu.addAction(tr("Show info about this user."))->setIcon(
-                    chaticon);
+                        chaticon);
             a = menu.exec(QCursor::pos());
         } else if (containsCI(S_S.ignorelist, user)) {
             menu.addAction(tr("Remove this user from Ignorelist."));
@@ -400,7 +398,7 @@ void window::useritempressed(const QModelIndex &index) {
 void window::useritemdblclicked(const QModelIndex &index) {
 
     if (index.internalId() != usermodel::e_Channel
-        && singleton<netcoupler>().users.classes[index.internalId()]!= usermodel::tr("Ignorelist")) {
+            && singleton<netcoupler>().users.classes[index.internalId()]!= usermodel::tr("Ignorelist")) {
         QString s = singleton<netcoupler>().users.data(index.sibling(index.row(), 0), Qt::DisplayRole).value<QString> ();
         openchatwindow(s);
     } else if (index.internalId() == usermodel::e_Channel){
@@ -413,7 +411,7 @@ void window::useritemdblclicked(const QModelIndex &index) {
 void window::hostitemdblclicked(const QModelIndex &index) {
     if (index.internalId() != 999) {
         QString hostinfo = " \"" + singleton<netcoupler>().hosts.joininfo(index) + "&scheme="
-                           + singleton<netcoupler>().schememap[currentchannel] + "\"";
+                + singleton<netcoupler>().schememap[currentchannel] + "\"";
         QString gamename = singleton<netcoupler>().hosts.gamename(index);
         singleton<netcoupler>().joingame(hostinfo, currentchannel, gamename);
     } else if (index.internalId() == 999) {
@@ -465,7 +463,7 @@ void window::openchatwindow(const QString &s) {
 void window::hostitempressed(const QModelIndex &index) {
     if (QApplication::mouseButtons() == Qt::RightButton) {
         QString hostinfo = " \"" + singleton<netcoupler>().hosts.joininfo(index) + "&scheme="
-                           + singleton<netcoupler>().schememap[currentchannel] + "\"";
+                + singleton<netcoupler>().schememap[currentchannel] + "\"";
         QString gamename = singleton<netcoupler>().hosts.gamename(index);
         if (index.internalId() == 999) {
             openhbox();
@@ -481,14 +479,14 @@ void window::hostitempressed(const QModelIndex &index) {
 #endif
 #ifdef Q_WS_MAC
                     QString file = QFileDialog::getOpenFileName(this, tr(
-                            "Choose a desktop icon."), "/home", "*.desktop");
+                                                                    "Choose a desktop icon."), "/home", "*.desktop");
 #endif
 #ifdef Q_WS_WIN
                     QString file = QFileDialog::getOpenFileName(this, tr("Choose a Program."), "c:/", "*.exe *.com");
 #endif
 #ifdef Q_WS_X11
                     QString file = QFileDialog::getOpenFileName(this, tr(
-                            "Choose a Desktopicon."), "/home", "*.desktop");
+                                                                    "Choose a Desktopicon."), "/home", "*.desktop");
 #endif
                     if (!sl.contains(file) && file != "") {
                         sl.insert(0, file);
@@ -498,7 +496,7 @@ void window::hostitempressed(const QModelIndex &index) {
                             joinmenu2.addAction(s);
                         }
                         joinmenu2.addAction(tr(
-                                "Choose a Program to join this game."));
+                                                "Choose a Program to join this game."));
                     } else if (sl.contains(file) && file != "") {
                         sl.move(sl.indexOf(file), 0);
                         S_S.set("joinstrings", sl);
@@ -559,7 +557,7 @@ void window::showbuttons() {
 }
 void window::mysetwindowtitle() {
     setWindowTitle(windowtitlechannel + " " + windowtitletime + " " + tr(
-            "Users online") + windowtitleaway.simplified());
+                       "Users online") + windowtitleaway.simplified());
 }
 void window::getuserscount(QStringList sl) {
     QString s;

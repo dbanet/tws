@@ -34,6 +34,8 @@ signals: //public signals:
     void sighostwontstart();    
     void sighoststarts(hoststruct);
 
+    void sigloginfailed();
+
 private:
     void inithosting(QString url);    
     hoststruct findduplicatedhosts(QList<hoststruct> list);
@@ -45,6 +47,7 @@ private:
     QNetworkAccessManager manager;
     QNetworkReply *reply;
     QTimer hosttimer;
+    QTimer logintimer;
     QMap<int,QString> channelmap;
 
     QNetworkReply *schemereply;
@@ -73,6 +76,8 @@ private slots:
     void getscheme();
     void readhostreply();
     void closehostreplyfinished();
+
+    void logintimertimeout();
 
     void hostlistforhostingreplyfinished();
     void repeathostlistforhostingreplyrequest();

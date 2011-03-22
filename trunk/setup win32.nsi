@@ -54,10 +54,12 @@ DirText "If you allready have an installation of this programm, \
 !macro CREATE_SMGROUP_SHORTCUT NAME PATH
     Push "${NAME}"
     Push "${PATH}"
-    Call CreateSMGroupShortcut
+    Call CreateSMGroupShortcut	
 !macroend
 
 Section -Main SEC0000
+	KillProcDLL::KillProc "TheWheatSnooper.exe"	
+	sleep 1000
     SetOutPath $INSTDIR
     SetOverwrite on
     File /r /x snpini /x query /x .svn /x lastedited.textscheme TheWheatSnooper\*

@@ -79,7 +79,6 @@ private:
         QString mychan;
 
         bool valid;
-	static bool *boolhelper;
         static QList<hoststruct> gethostlist(QString s);
 };
 

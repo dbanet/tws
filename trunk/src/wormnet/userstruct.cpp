@@ -13,7 +13,6 @@
 #include"picturehandler.h"
 #include<QHostInfo>
 #include<QPointer>
-bool *userstruct::boolhelper = new bool;
 bool userstruct::addressischecked=0;
 userstruct::userstruct():flag(49),rank(12) {
 }
@@ -27,20 +26,21 @@ userstruct::userstruct(QStringList sl) {
     sl << "" << "" << "" << "" << "" << "";
     unknown = sl.takeFirst();
     commandstart = sl.takeFirst();
-    int i = sl.takeFirst().toInt(boolhelper);
-    if (*boolhelper && i >= 0)
+    bool b;
+    int i = sl.takeFirst().toInt(&b);
+    if (b && i >= 0)
         flag = i;
     else
         flag=49;
-    rankstring=sl.takeFirst();
-    int clannumber = rankstring.toInt(boolhelper);
+    rankstring=sl.takeFirst();    
+    int clannumber = rankstring.toInt(&b);
     country = sl.takeFirst();    
     if(flag<53 && flag !=49)
         country=singleton<picturehandler>().map_number_to_countrycode(flag);
     if(country.isEmpty())
         country="??";
     client = sl.join(" ").remove("\r");
-    if (*boolhelper && clannumber < singleton<picturehandler>().ranklistsize() && clannumber >= 0)
+    if (b && clannumber < singleton<picturehandler>().ranklistsize() && clannumber >= 0)
         rank = clannumber;
     else rank=12;
     if(addressischecked==0 && nick==singleton<netcoupler>().nick){

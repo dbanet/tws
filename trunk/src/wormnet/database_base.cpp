@@ -68,6 +68,7 @@ bool database_base::appendList(QString key, QVariant value, QSqlQuery &query){
         query.exec(QString("update %1 set '%2'=NULL where prime=1;").arg(TABLENAME).arg(key));
         return true;
     }
+    bool b=transaction ();
     int size=value.value<T>().size()-model.rowCount();
     for(int i=0;i<size;i++)
         query.exec(QString("insert into %1(d_u_m_m_y) values(1);").arg(TABLENAME));
@@ -81,6 +82,8 @@ bool database_base::appendList(QString key, QVariant value, QSqlQuery &query){
     if(query.lastError().isValid())
         qDebug()<<query.lastQuery()<<": \n"<<query.lastError().text()<<"\n#####################";
     query.exec(QString("update %1 set '%2'=NULL where prime=%3;").arg(TABLENAME).arg(key).arg(counter));
+    if(b)
+        commit ();
     return true;
 }
 void database_base::append(QString key, QString s){
@@ -237,6 +240,7 @@ void database_base::update(){
     variantListToBool(showsmileysinchannels,"showsmileysinchannels");
     variantListToBool(chbshowchannelchatinchatwindows,"chbshowchannelchatinchatwindows");
     variantListToBool(cbservermessageinchannelwindows,"cbservermessageinchannelwindows");
+    variantListToBool(cbonlywhitegradient,"cbonlywhitegradient");
 }
 void database_base::validate(){
     checkifexistsinstringlist("leagueservers","http://www.tus-wa.com/");
@@ -302,9 +306,8 @@ void database_base::checkifexistsinstringlist(QString key,QString value){
     sl<<value;
     set(key, sl);
 }
-void database_base::transaction(){
-    if(!db().transaction())
-        myDebug()<<"################void database_base::transaction(){";
+bool database_base::transaction(){
+    return db().transaction();
 }
 void database_base::commit(){
     if(!db().commit())

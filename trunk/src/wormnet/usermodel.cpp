@@ -146,9 +146,8 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QHash<QString,QStri
 void usermodel::addbuddy(const QString &user) {
 
     emit layoutAboutToBeChanged();
-    if (!containsCI(S_S.buddylist ,user) && !containsCI(S_S.ignorelist, user)) {
-        S_S.set("buddylist", S_S.buddylist << user);
-    }
+    if (!containsCI(S_S.buddylist ,user) && !containsCI(S_S.ignorelist, user))
+        S_S.set("buddylist", S_S.buddylist << user);    
     emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
@@ -344,7 +343,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
                         return QVariant();
                     QString rank = '#' + usermap[classes[index.internalId()]][index.row()].rankstring;
                     rank=rank.left(7);
-                    if(!QColor::isValidColor(rank))
+                    if(!QColor::isValidColor(rank) || S_S.cbonlywhitegradient)
                         return QBrush(leagueuserstandardgradient);
                     else {
                         QColor c;

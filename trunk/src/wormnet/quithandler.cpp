@@ -36,14 +36,7 @@ void quithandler::beforequit(){
     safequerylist();
     singleton<balloon_handler>().hide_tray();
 }
-void quithandler::quit(){
-    if(singleton<leagueserverhandler>().islogged()){
-        connect(&singleton<leagueserverhandler>(),SIGNAL(siglogout()),this,SLOT(quit()));
-        singleton<leagueserverhandler>().logout();
-        return;
-    }    
-    disconnect(&singleton<leagueserverhandler>(),SIGNAL(siglogout()),this,SLOT(quit()));
-    disconnect(&singleton<netcoupler>(),SIGNAL(sigdisconnected()),this,SLOT(quit()));
+void quithandler::quit(){        
     qApp->quit();
     return;
 }

@@ -46,15 +46,15 @@ int main(int argc, char *argv[]) {
     a.setApplicationName("The Wheat Snooper");        
     singleton<clantowebpagemapper>().refresh();
     singleton<picturehandler>();
-    if(S_S.getstring("textcodec").isEmpty()){
+    if(S_S.getstring("textcodecsince263").isEmpty()){
         CodecSelectDia::codec=QTextCodec::codecForName("wa");
-        S_S.set("textcodec", "wa");
+        S_S.set("textcodecsince263", "wa");
     }
     else
-        CodecSelectDia::codec=QTextCodec::codecForName(S_S.getbytearray("textcodec"));
+        CodecSelectDia::codec=QTextCodec::codecForName(S_S.getbytearray("textcodecsince263"));
     if(!CodecSelectDia::codec){
         CodecSelectDia::codec=QTextCodec::codecForName("wa");
-        S_S.set("textcodec", "wa");
+        S_S.set("textcodecsince263", "wa");
     }
     singleton<charformatsettings>().load();           
     a.addLibraryPath(QApplication::applicationDirPath());

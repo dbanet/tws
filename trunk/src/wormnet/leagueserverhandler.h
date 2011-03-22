@@ -18,7 +18,6 @@ public:
         e_truenick=0, e_rank, e_flag, e_webpage, e_clan, e_ranktooltip
     };    
     void login(const QString n,const QString p);
-    void logout();
     void startrefresh();
     void stoprefresh();
     void profile(QString n);
@@ -36,16 +35,13 @@ public:
 signals:
     void sigloginsuccess();
     void sigloginfailed();
-    void siglogout();
     void sigprofile(QString);
 private slots:
-    void loginFinished();   
-    void logintTimeOut();    
+    void loginFinished();     
 
     void refreshFinished();    
-    void refresh();    
-    void logoutFinished();      
-    void profileFinished();
+    void refresh();         
+    void profileFinished();    
 
 private:
     void myconnect(QString p,QString n);

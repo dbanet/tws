@@ -3,7 +3,7 @@
 ctcphandleratomic::ctcphandleratomic(QWidget *parent)
     : QWidget(parent)
 {
-	 setObjectName("normalwidget");
+        setObjectName("normalwidget");
 	ui.setupUi(this);
 	connect(ui.pushButton,SIGNAL(clicked()),this,SLOT(delclicked()));
 }

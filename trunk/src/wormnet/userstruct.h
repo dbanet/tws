@@ -30,7 +30,6 @@ public:
 	QString country;
 	QString client;
 	bool wnvalid;		//this nick is to 80% a valid wn user
-	static bool* boolhelper;
 	static bool addressischecked;
 };
 #endif /* USERSTRUCT_H_ */

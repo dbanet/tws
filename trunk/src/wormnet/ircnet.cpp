@@ -42,6 +42,7 @@ void ircnet::tcpError(QAbstractSocket::SocketError s){
     if(s==QAbstractSocket::RemoteHostClosedError)
         return;
     myDebug()<<tr("There was an error with the connection to Wormnet.");
+    emit sigdisconnected ();
 }
 void ircnet::connected() {
     QStringList sl = inihandler.stringlistfromini("[irc password]");
@@ -137,7 +138,6 @@ void ircnet::readusermessage(QString &s) {
 }
 void ircnet::disconnected() {                   
     myDebug() << tr("disconnected from irc server.");
-    singleton<leagueserverhandler>().logout();
     emit sigdisconnected();
 }
 void ircnet::readservermassege(QString s) {
@@ -216,7 +216,7 @@ void ircnet::readservermassege(QString s) {
             QMessageBox::information(0,tr("Nickname collision!"),
                                      tr("Your nickname is already in use. You can wait some minutes or change your nickname and try again."),
                                      QMessageBox::Ok);
-        tcp->disconnect();
+        quit ("");
         break;
     case 412: //No text to send
     case 462: //You may not reregister

@@ -12,7 +12,6 @@
 #include"netcoupler.h"
 #include<QStringList>
 #include<QPixmap>
-bool *hoststruct::boolhelper = new bool;
 hoststruct::hoststruct() {
     // TODO Auto-generated constructor stub
     valid=false;
@@ -31,8 +30,9 @@ void hoststruct::sethost(QStringList &sl) {
         myname = sl.takeFirst();
         mynick = sl.takeFirst();
         myip = sl.takeFirst();
-        myflag = sl.takeFirst().toInt(boolhelper);
-        if (!(*boolhelper && myflag >= 0))
+        bool b;
+        myflag = sl.takeFirst().toInt(&b);
+        if (!(b && myflag >= 0))
             myflag = 49;
         mycountry=singleton<picturehandler>().map_number_to_countrycode(myflag);
         sl.takeFirst();
@@ -42,6 +42,7 @@ void hoststruct::sethost(QStringList &sl) {
         myhoststring = QString("wa://") + "?gameid=" + myid;
         mycountrynumber=sl.join(" ");
     } else {
+        bool b;
         if (sl.size() >= 1)
             myname = sl.takeFirst();
         if (sl.size() >= 1)
@@ -49,9 +50,9 @@ void hoststruct::sethost(QStringList &sl) {
         if (sl.size() >= 1)
             myip = sl.takeFirst();
         if (sl.size() >= 1)
-            myflag = sl.takeFirst().toInt(boolhelper);
+            myflag = sl.takeFirst().toInt(&b);
         if (sl.size() >= 1)
-            if (!(*boolhelper && myflag >= 0))
+            if (!(b && myflag >= 0))
                 myflag = 49;
         if (sl.size() >= 1)
             sl.takeFirst();

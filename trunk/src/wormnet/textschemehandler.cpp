@@ -41,10 +41,10 @@ void textschemehandler::closeclicked() {
 }
 void textschemehandler::fontclicked() {
     if (!ui.listWidget->selectedItems().isEmpty()) {
-        bool *b = new bool;
-        QFont f = QFontDialog::getFont(b,
+        bool b;
+        QFont f = QFontDialog::getFont(&b,
                                        singleton<charformatsettings>().map[ui.listWidget->selectedItems().first()->text()+ "font"].value<QFont> (), this);
-        if (*b) {
+        if (b) {
             singleton<charformatsettings>().map[ui.listWidget->selectedItems().first()->text()+ "font"] = f;
             chathandler::initialformatstarter();
         }
@@ -53,7 +53,6 @@ void textschemehandler::fontclicked() {
 }
 void textschemehandler::colorclicked() {
     if (!ui.listWidget->selectedItems().isEmpty()) {
-        //bool *b = new bool;
         QColor c;
         c = QColorDialog::getColor(
                     singleton<charformatsettings>().map[ui.listWidget->selectedItems().first()->text()

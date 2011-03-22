@@ -63,6 +63,7 @@ void netcoupler::start(QString s){
     connect(irc, SIGNAL(siggotidletime(const QString&, int)),this, SIGNAL(siggotidletime(const QString&, int)));
     connect(irc, SIGNAL(signosuchnick(const QString&)),this, SIGNAL(signosuchnick(const QString&)));
     connect(http, SIGNAL(sighostlist(QList<hoststruct>,QString)),this, SLOT(gethostlist(QList<hoststruct>,QString)));
+    connect(http,SIGNAL(sigloginfailed()),this,SIGNAL(sigdisconnected()));
     QStringList sl = inihandler.stringlistfromini("[irc ip]");
     if (sl.isEmpty()) {
         connect(http, SIGNAL(sigircip(QString)),this, SLOT(getircip(QString)));

@@ -10,7 +10,6 @@ class about : public QFrame
 
 public:
     about(QFrame *parent = 0);
-    ~about();
 
     static QString version;
 private:

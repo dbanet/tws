@@ -19,7 +19,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>1</number>
+        <number>6</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -1241,6 +1241,13 @@
           <widget class="QCheckBox" name="cbdontshowagradientonverifiedusers">
            <property name="text">
             <string>Dont show a linear gradient color on verified users</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="cbonlywhitegradient">
+           <property name="text">
+            <string>Only show white gradients for verified users</string>
            </property>
           </widget>
          </item>

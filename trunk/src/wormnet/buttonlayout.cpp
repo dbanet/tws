@@ -96,7 +96,7 @@ void buttonlayout::on_pbsound_clicked()
 void buttonlayout::on_pbballoon_clicked()
 {
     bool b=S_S.getbool("cbshowballoons");
-    singleton<settingswindow>().set("cbdontshowballoons",b);
+    singleton<settingswindow>().set("cbshowballoons",!b);
     if(b)
         ui.pbballoon->setText(QObject::tr("Balloons")+" "+QObject::tr("off"));
     else
@@ -105,7 +105,7 @@ void buttonlayout::on_pbballoon_clicked()
 void buttonlayout::on_pbsort_clicked()
 {
     bool b=S_S.getbool("cbdontsortinchannels");
-    singleton<settingswindow>().set("cbdontsortinchannels",!b);
+    singleton<sqlsettings>().set("cbdontsortinchannels",!b);
     if(!b)
         ui.pbsort->setText(QObject::tr("Sorting")+" "+QObject::tr("off"));
     else
@@ -142,7 +142,9 @@ void buttonlayout::leaguestatemenutriggered(QAction *action){
         else if(action->text()==tr("Dont disturb"))
             c=QColor(Qt::red);
         else if(action->text()==tr("Custom")){
-            c=QColorDialog::getColor();
+            QColorDialog dia;
+            dia.setOption (QColorDialog::ShowAlphaChannel);
+            c=dia.getColor ();
             if(!c.isValid())
                 return;
         } else

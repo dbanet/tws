@@ -27,7 +27,7 @@ public:
 
     bool isOpen();
 
-    void transaction();
+    bool transaction();
     void commit();
 
     QStringList dissallowedclannames;
@@ -56,6 +56,7 @@ public:
     bool showsmileysinchannels;
     bool chbshowchannelchatinchatwindows;
     bool cbservermessageinchannelwindows;
+    bool cbonlywhitegradient;
 //##########            
 
 protected:    

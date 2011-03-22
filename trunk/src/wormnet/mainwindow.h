@@ -108,6 +108,7 @@ protected:
     void closeEvent ( QCloseEvent * event );    
 signals:
     void sigopenchatwindow(const QString&);
+    void sigdisconnected();
 
     friend class qobjectwrapper<mainwindow>;
 };

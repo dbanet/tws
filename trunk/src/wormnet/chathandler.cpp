@@ -378,9 +378,9 @@ void chathandler::get_new_font_and_color(QTextCharFormat *format){
     QAction *a = fontmenu.exec(QCursor::pos());
     if (a != 0) {
         if (a->text() == tr("Set the font for this texttype")) {
-            bool *b = new bool;
-            QFont f = QFontDialog::getFont(b, format->font(), 0);
-            if (*b)
+            bool b;
+            QFont f = QFontDialog::getFont(&b, format->font(), 0);
+            if (b)
                 setschememap(format->intProperty(whatsthispropertyId), f);
         } else if (a->text() == tr("Set the color for this texttype")) {
             QColor f = QColorDialog::getColor(format->foreground().color(), 0);
@@ -392,9 +392,9 @@ void chathandler::get_new_font_and_color_with_chatwindow(QTextCharFormat *format
     QAction *a = chatmenu.exec(QCursor::pos());
     if (a != 0) {
         if (a->text() == tr("Set the font for this texttype")) {
-            bool *b = new bool;
-            QFont f = QFontDialog::getFont(b, format->font(), tb);
-            if (*b)
+            bool b;
+            QFont f = QFontDialog::getFont(&b, format->font(), tb);
+            if (b)
                 setschememap(format->intProperty(whatsthispropertyId), f);
         } else if (a->text() == tr("Set the color for this texttype")) {
             QColor f = QColorDialog::getColor(format->foreground().color(), 0);
@@ -407,9 +407,9 @@ void chathandler::get_new_font_and_color_with_walink(QTextCharFormat *format){
     QAction *a = wamenu.exec(QCursor::pos());
     if (a != 0) {
         if (a->text() == tr("Set the font for this texttype")) {
-            bool *b = new bool;
-            QFont f = QFontDialog::getFont(b, format->font(), tb);
-            if (*b)
+            bool b;
+            QFont f = QFontDialog::getFont(&b, format->font(), tb);
+            if (b)
                 setschememap(format->intProperty(whatsthispropertyId), f);
         } else if (a->text() == tr("Set the color for this texttype")) {
             QColor f = QColorDialog::getColor(format->foreground().color(), 0);
