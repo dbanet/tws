@@ -102,7 +102,7 @@ private slots:
     void currenttabchanged(int);
     void leagueserverprofilepage(QString);            
 
-    void windowclosed();
+    void windowclosed();   
 
 protected:
     void closeEvent ( QCloseEvent * event );    

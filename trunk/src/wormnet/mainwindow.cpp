@@ -232,12 +232,10 @@ void mainwindow::reopenChatWindowsAndChannelWindows(){
         join(s);
     lastOpenedWindows.clear();
 }
-
 void mainwindow::getchannellist(const QStringList &sl) {
     ui.cbchannels->clear();
-    foreach(QString s,sl) {
-        ui.cbchannels->addItem(s.split(" ").first());
-    }
+    foreach(QString s,sl)
+        ui.cbchannels->addItem(s.split(" ").first());    
     channellist = sl;
     ui.pbjoin->setEnabled(1);
     joinmenu->clear();
@@ -283,14 +281,13 @@ void mainwindow::join(const QString channel){
     connect(windowlist.last(), SIGNAL(sigjoinchannel(const QString&)),this, SLOT(join(const QString&)));
     connect(windowlist.last(), SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
     connect(this, SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
-    connect(windowlist.last(), SIGNAL(sigclosed()),this, SLOT(windowclosed()));
     connect(windowlist.last(), SIGNAL(sigchangeleaguestate()),this, SLOT(reconnect()));
+    connect(windowlist.last(), SIGNAL(sigclosed()),this, SLOT(windowclosed()));    
 }
 void mainwindow::windowclosed(){
     channelwindow *w=qobject_cast<channelwindow*> (sender());
     Q_CHECK_PTR(w);
-    w->hiddenchannelwindowshelper.removeAll(w);
-    lastOpenedWindows.removeAll(w->currentchannel);
+    w->hiddenchannelwindowshelper.removeAll(w);    
     currentchannellist.removeAll(w->currentchannel);
     windowlist.removeAll(w);
 }
@@ -831,7 +828,7 @@ void mainwindow::handleAwayBox(){
 void mainwindow::reconnect(){
     lastOpenedWindows.clear ();
     lastOpenedChatWindows.clear ();
-    foreach(channelwindow *w, windowlist)
+    foreach(channelwindow *w, windowlist)        
         lastOpenedWindows<<w->currentchannel;
     foreach(chatwindow *w,channelwindow::chatwindows)
         lastOpenedChatWindows<<w->chatpartner;

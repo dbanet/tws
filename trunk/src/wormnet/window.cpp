@@ -144,7 +144,6 @@ window::window(QString s, int i) :
     ui.hosts->header()->setResizeMode(3, QHeaderView::Fixed);
 
     windowtitlechannel =  currentchannel;
-
 }
 void window::pbemotclicked(){
     emoticonsdialog *dia = new emoticonsdialog;
