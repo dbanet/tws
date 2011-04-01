@@ -17,7 +17,6 @@
 #include"volumeslider.h"
 #include"logbrowser.h"
 #include"textschemehandler.h"
-#include"playername.h"
 #include"singleton.h"
 #include"sound_handler.h"
 #include"global_functions.h"
@@ -158,8 +157,7 @@ void mainwindow::connectToNetwork(){
     if(S_S.getbool("enablesecurelogging"))
         singleton<netcoupler>().start(singleton<leagueserverhandler>().nick);
     else
-        singleton<netcoupler>().start(ui.lenick->text());
-    QTimer::singleShot(1000,this,SLOT(reopenChatWindowsAndChannelWindows()));
+        singleton<netcoupler>().start(ui.lenick->text());    
     ui.tabWidget->setTabEnabled(1, 1);
 }
 void mainwindow::chooseclicked() {    
@@ -588,6 +586,7 @@ void mainwindow::connected(){
     ui.start->setEnabled(false);
     ui.start->setText("");
     ui.connectlabel->setText(tr("Connected"));
+    reopenChatWindowsAndChannelWindows();
 }
 void mainwindow::disconnected(){
     ui.start->setText(tr("Apply"));
@@ -806,9 +805,6 @@ void mainwindow::traymenutriggered(QAction *a) {
     } else if (a->text() == tr("Scheme maker")) {
         textschemehandler *h = new textschemehandler;
         h->show();
-    } else if (a->text() == tr("Playername")) {
-        playername *pl = new playername;
-        pl->show();
     }
 }
 void mainwindow::handleAwayBox(){
@@ -832,7 +828,9 @@ void mainwindow::reconnect(){
         lastOpenedWindows<<w->currentchannel;
     foreach(chatwindow *w,channelwindow::chatwindows)
         lastOpenedChatWindows<<w->chatpartner;
-    connect(this,SIGNAL(sigdisconnected()),this,SLOT(reconnect2()));
+    if(singleton<netcoupler>().ircstate()==QAbstractSocket::ConnectedState)
+        connect(this,SIGNAL(sigdisconnected()),this,SLOT(reconnect2()));
+    else reconnect2 ();
     returntologintab();    
     singleton<netcoupler>().stop();
 }

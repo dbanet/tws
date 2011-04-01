@@ -81,5 +81,6 @@ private:
     void variantListToString(QString &s,const QString key);
     void variantListToBool(bool &b,const QString key);
     void variantListToInt(int &i,const QString key);
+    bool ontransaction;
 };
 #endif // DATABASE_BASE_H

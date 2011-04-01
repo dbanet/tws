@@ -36,11 +36,9 @@ hostbox::hostbox(QString c, QWidget *parent) :
     connect(ui.cancel, SIGNAL(clicked()),this, SLOT(cancelclicked()));    
 
     ui.chbsendhostinfotochan->setChecked(S_S.getbool("chbsendhostinfotochan"));
-    ui.leplayername->setText(S_S.getstring("leplayername"));
-    ui.lehostport->setText(gethostport());
+    ui.leplayername->setText(S_S.getstring("leplayername"));    
 
-    ui.legamename->installEventFilter(this);
-    ui.lehostport->installEventFilter(this);
+    ui.legamename->installEventFilter(this);    
     ui.leplayername->installEventFilter(this);
     resize(9,9);
 }
@@ -86,15 +84,12 @@ void hostbox::addclicked() {
     }
 }
 void hostbox::okclicked() {
-    S_S.transaction();
-    if(ui.lehostport->text()!= S_S.getstring("lehostport"))
-        sethostport(ui.lehostport->text());
+    S_S.transaction();    
     S_S.set("leplayername", ui.leplayername->text().replace(" ","_"));
     S_S.set("chbsendhostinfotochan", ui.chbsendhostinfotochan->isChecked());
     S_S.set("useacostumipforhosting", ui.cbip->isChecked());
     S_S.set("costumipforhosting", ui.leip->text());
-    S_S.set("legamename", ui.legamename->text().replace(" ","_"));
-    S_S.set("lehostport", ui.lehostport->text());
+    S_S.set("legamename", ui.legamename->text().replace(" ","_"));    
     gamename = ui.legamename->text();
     gamename.replace(" ", "_");
     pwd = ui.lepassword->text();

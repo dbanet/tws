@@ -622,7 +622,7 @@ Do you want to delete it anyway</source>
         <location filename="../src/wormnet/leagueserverhandler.cpp" line="68"/>
         <location filename="../src/wormnet/leagueserverhandler.cpp" line="188"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="153"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="340"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="339"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="738"/>
         <source>Warning</source>
         <translation>Advertencia</translation>
@@ -635,7 +635,7 @@ Skin_Base</source>
 Skin_Base</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="894"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="896"/>
         <source>Information</source>
         <translation>Información</translation>
     </message>
@@ -1632,22 +1632,22 @@ La conexión no es posible. Por favor contacta al administrador del servidor.</t
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="65"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="332"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="331"/>
         <source>Autojoin:</source>
         <translation>Auto-entrar:</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="169"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="168"/>
         <source>Nickname field is empty</source>
         <translation>Nombre de usuario vacío</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="169"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="168"/>
         <source>Please choose a nickname.</source>
         <translation>Por favor selecciona un nombre de usuario.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="340"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="339"/>
         <source>Cant read the Skinfile:
 </source>
         <translation>No se pudo leer el archivo de estilo:
@@ -1655,33 +1655,33 @@ La conexión no es posible. Por favor contacta al administrador del servidor.</t
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.cpp" line="67"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="221"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="220"/>
         <location filename="../src/wormnet/mainwindow.cpp" line="593"/>
         <source>Apply</source>
         <translation>Conectar</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="480"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="479"/>
         <source>Its not possible to change the nick while using secure logging. Go to the profile page at your secure logging server to change the nick.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="486"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="485"/>
         <source>This nickname is not allowed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="514"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="513"/>
         <source>This codec doesnt exists: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="518"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="517"/>
         <source>Applying codec: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="520"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="519"/>
         <source>Unknown command, write $help to get a list of available commands</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1733,7 +1733,7 @@ La conexión no es posible. Por favor contacta al administrador del servidor.</t
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="894"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="896"/>
         <source>Before you can view your profile, you must fill in a loginname.</source>
         <translation>Antes de poder ver tu perfil, debes ingresar un nombre de usuario.</translation>
     </message>
@@ -1760,12 +1760,12 @@ La conexión no es posible. Por favor contacta al administrador del servidor.</t
         <translation>The Wheat Snooper</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="411"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="410"/>
         <source>Restart the application?</source>
         <translation>¿Reiniciar el programa?</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="412"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="411"/>
         <source>Changing the translation requires a program restart.
 To restart now click Ok, otherwise cancel.</source>
         <translation>Es necesario reiniciar el programa para cambiar el idioma.
@@ -1773,47 +1773,47 @@ To restart now click Ok, otherwise cancel.</source>
 Para reiniciar ahora haz clic en Aceptar, de lo contrario, haz clic en Cancelar.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="492"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="491"/>
         <source>    Supported commands are:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="493"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="492"/>
         <source>    $away to change the away message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="494"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="493"/>
         <source>    $back to remove the away state</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="495"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="494"/>
         <source>    $nick to change the nick</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="496"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="495"/>
         <source>    $codec to open the codec dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="497"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="496"/>
         <source>    $codec to set a specific codec, (wa, prl and prc and wa2 are shortcuts for the specific codecs).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="498"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="497"/>
         <source>    wa=W:A 3.6.31 codepage, prc=Prosnooper cyrillic- prl= Prosnooper latin codepage, wa2=W:A 3.6.31 specific changes merged with the Localized codec.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="500"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="499"/>
         <source>    $quit to quit with this message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="501"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="500"/>
         <source>    $help to see this help</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1845,7 +1845,7 @@ Para reiniciar ahora haz clic en Aceptar, de lo contrario, haz clic en Cancelar.
         <translation>Guardar estilo de texto</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="446"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="445"/>
         <source>trying to apply new textscheme: </source>
         <translation>Aplicando nuevo estilo de texto: </translation>
     </message>
@@ -1862,9 +1862,9 @@ Para reiniciar ahora haz clic en Aceptar, de lo contrario, haz clic en Cancelar.
         <translation>Nombre de jugador</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="428"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="435"/>
-        <location filename="../src/wormnet/mainwindow.cpp" line="471"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="427"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="434"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="470"/>
         <source>&lt;away&gt;:</source>
         <translation>&lt;ausente&gt;:</translation>
     </message>
@@ -1878,7 +1878,7 @@ Aún así, The Wheat Snooper conservará la configuración para el siguiente ini
 ¿Deseas continuar?</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.cpp" line="590"/>
+        <location filename="../src/wormnet/mainwindow.cpp" line="589"/>
         <source>Connected</source>
         <translation>Conectado</translation>
     </message>

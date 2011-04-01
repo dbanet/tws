@@ -1,5 +1,5 @@
 #include "about.h"
-QString about::version="2.67";
+QString about::version="2.69";
 about::about(QFrame *parent)
     : QFrame(parent)
 {
@@ -16,8 +16,7 @@ about::about(QFrame *parent)
                       tr("Lookias`s Homepage:")+" <a href=\"http://lookias.worms2d.info/\">http://lookias.worms2d.info</a><br>"+
                       tr("This programs livingplace")+" <a href=\"http://lookias.worms2d.info/forum/\">http://lookias.worms2d.info/forum/<\a></p>").arg(version)+
             tr("<br><br>Participants:<br><br>")+
-            "MihaiS<br>StepS<br>DENnis<br>CyberShadow<br>MonkeyIsland<br>Kilobyte<br>Killer<br>EviL<br>kosmos<br>LeTotalKiller<br>Domi<br> and many others :) ";
-
+            "MihaiS<br>StepS<br>DENnis<br>CyberShadow<br>MonkeyIsland<br>kilobyte<br>Killer<br>EviL<br>kosmos<br>LeTotalKiller<br>Domi<br>CzAjNiK<br> and many others :) ";
 
     ui.textBrowser->setHtml(s);
 }

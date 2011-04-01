@@ -115,11 +115,9 @@ void chathandler::initialformat(QTextCharFormat &format){                       
 }
 void chathandler::anchorclicked(const QUrl &u) {
     QString s=u.toString();
-    if (isClickableLink(s)) {
-        s.remove("\n");
-        s.remove("\r");
+    if (isClickableLink(s)) {        
         QUrl u1;
-        u1.setUrl(s);
+        u1.setUrl(s.simplified ());
         QDesktopServices::openUrl(u1);
     }
 }

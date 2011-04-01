@@ -81,7 +81,7 @@ void emoticonhandler::add() {
         if (ui.listWidget->findItems(ui.lineEdit->text().simplified(), Qt::MatchCaseSensitive).size() == 0) {
             QString s = QFileDialog::getOpenFileName(0, tr(
                     "Choose a Smiley icon"), QApplication::applicationDirPath()
-                                                     + "/smileys/" + scheme + "/", "*.png");
+                                                     + "/smileys/" + scheme + "/", "*.gif; *.png");
             map[ui.lineEdit->text().simplified()] = QImage(s);
             filemap[scheme][ui.lineEdit->text().simplified()] = QFileInfo(s).fileName();
             QListWidgetItem *item = new QListWidgetItem(QIcon(s), ui.lineEdit->text().simplified());

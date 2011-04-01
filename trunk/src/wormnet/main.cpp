@@ -4,7 +4,6 @@
 #include"charformatsettings.h"
 #include"settingswindow.h"
 #include"volumeslider.h"
-#include"playername.h"
 #include"sound_handler.h"
 #include"global_functions.h"
 #include"codecselectdia.h"
@@ -29,7 +28,6 @@ QStringList querylist;
 
 void search_for_game_executables();
 void handle_prosnooper_buddys();
-void handle_wini_ini();
 void get_picutres();
 int main(int argc, char *argv[]) {
     new WA_textcodec1252;
@@ -63,7 +61,6 @@ int main(int argc, char *argv[]) {
 #ifdef Q_WS_WIN
     search_for_game_executables();
     handle_prosnooper_buddys();
-    handle_wini_ini();
 #endif                   
     singleton<sound_handler>().init();
     qobjectwrapper<awayhandler>();
@@ -75,64 +72,6 @@ int main(int argc, char *argv[]) {
     loadquerylist();       
     QTimer::singleShot(1000,&singleton<sound_handler>(),SLOT(play_startupsound()));    
     return a.exec();
-}
-void handle_wini_ini(){
-    //looking in win.ini for the playername, to avoid mistakes
-    QStringList env = QProcess::systemEnvironment();
-    QString systemroot;
-    foreach(QString s,env) {
-        if (containsCI(s,"SystemRoot=")) {
-            systemroot = s;
-            systemroot = systemroot.split("=").last();
-        }
-    }
-    QFile winini(systemroot + "/win.ini");    
-    QStringList sl;
-    sl.clear();
-    if (winini.open(QIODevice::ReadOnly)) {
-        sl = QString(winini.readAll()).split("\n", QString::SkipEmptyParts);
-        winini.close();
-        int i = 0;
-        bool b = 0;
-        foreach(QString s,sl) {
-            if(containsCI(s,"Playername")) {
-                b=1;
-                if (s.split("=", QString::SkipEmptyParts).size() != 2) {
-                    s = "PlayerName=temporaryname\n";
-                    playername::nick="temporaryname";
-                    sl[i]=s;
-                } else if (!s.contains("PlayerName=")) {
-                    s = "PlayerName=temporaryname\n";
-                    playername::nick="temporaryname";
-                    sl[i]=s;
-                } else if(s.split("=", QString::SkipEmptyParts).size() == 2) {
-                    playername::nick=s.split("=", QString::SkipEmptyParts).last();
-                }
-            }
-            i++;
-        }
-        if(b==0) {
-            sl.insert(2,QString("PlayerName=temporaryname\n"));
-        }
-        winini.close();
-    } else
-        qDebug()<<"cant open win.ini: "<<winini.errorString();
-    if (sl.isEmpty()) {
-        sl << "[NetSettings]" << "PlayerName=temporaryname" << "UseProxy=0"
-           << "ProxyPort=0" << "HostingPort=17011" << "UpdatePrompt=0"
-           << "UpdateServerList=1" << "AutoPing=1" << "Location=0"
-           << "FilterLanguage=1" << "AddressOverride=0" << "UseUPnP=1"
-           << "Protocol=1" << "ServerLaunched=0";
-        if (winini.open(QFile::WriteOnly | QFile::Truncate)) {
-            QTextStream ts(&winini);
-            ts.setCodec(QTextCodec::codecForName("UTF-8"));
-            foreach(QString s,sl) {
-                s = s.simplified();
-                ts << s + "\n";
-            }
-        } else
-            qDebug()<<"cant open win.ini: "<<winini.errorString();
-    }        
 }
 void search_for_game_executables(){
     if (S_S.getstringlist("joinstrings").isEmpty()) {

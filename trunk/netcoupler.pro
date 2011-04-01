@@ -42,7 +42,6 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/mainwindow.h \
     src/wormnet/mytabwidget.h \
     src/wormnet/netcoupler.h \
-    src/wormnet/playername.h \
     src/wormnet/settingswindow.h \
     src/wormnet/snoppanet.h \
     src/wormnet/snpsettings.h \
@@ -91,7 +90,6 @@ FORMS += src/wormnet/about.ui \
     src/wormnet/logbrowser.ui \
     src/wormnet/maintoolbox.ui \
     src/wormnet/mainwindow.ui \
-    src/wormnet/playername.ui \
     src/wormnet/settingswindow.ui \
     src/wormnet/textschemehandler.ui \
     src/wormnet/volumeslider.ui \
@@ -128,7 +126,6 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/mainwindow.cpp \
     src/wormnet/mytabwidget.cpp \
     src/wormnet/netcoupler.cpp \
-    src/wormnet/playername.cpp \
     src/wormnet/settingswindow.cpp \
     src/wormnet/snoppanet.cpp \
     src/wormnet/snpsettings.cpp \

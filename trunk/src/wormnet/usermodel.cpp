@@ -144,34 +144,20 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QHash<QString,QStri
     }
 }
 void usermodel::addbuddy(const QString &user) {
-
     emit layoutAboutToBeChanged();
     if (!containsCI(S_S.buddylist ,user) && !containsCI(S_S.ignorelist, user))
-        S_S.set("buddylist", S_S.buddylist << user);    
+        S_S.set("buddylist", S_S.buddylist << user);
     emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
 void usermodel::deletebuddy(const QString &s) {
-
-    emit layoutAboutToBeChanged();
-    QStringList sl = S_S.buddylist;
-    QStringList::iterator i = sl.begin();
-    QStringList temp;
-    while (i != sl.end()) {
-        if (compareCI(*i, s)) {
-            temp << *i;
-        }
-        i++;
-    }
-    foreach(QString s,temp) {
-        sl.removeAll(s);
-    }
-    S_S.set("buddylist", sl);
+    emit layoutAboutToBeChanged();    
+    removeCI (S_S.buddylist,s);
+    S_S.set("buddylist", S_S.buddylist);
     emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
 void usermodel::addignore(const QString &s) {
-
     emit layoutAboutToBeChanged();
     if (!containsCI(S_S.ignorelist, s) && !containsCI(S_S.buddylist, s))
         S_S.set("ignorelist", S_S.ignorelist << s);
@@ -179,13 +165,9 @@ void usermodel::addignore(const QString &s) {
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }
 void usermodel::deleteignore(const QString &s) {
-    emit layoutAboutToBeChanged();
-    userstruct u;
-    u.nick = s;
-    QStringList sl = S_S.ignorelist;
-    sl.removeAll(s);
-    S_S.set("ignorelist", sl);
-    usermap[usermodel::tr("Ignorelist")].removeOne(u);
+    emit layoutAboutToBeChanged();    
+    removeCI (S_S.ignorelist, s);
+    S_S.set("ignorelist", S_S.ignorelist);
     emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));
 }

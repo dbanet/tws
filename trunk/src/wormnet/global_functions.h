@@ -12,8 +12,8 @@ class QComboBox;
 
 // #include"global_functions.h"
 QStringList refreshcombobox(QComboBox *cb);
-void sethostport(QString port);
-QString gethostport();
+//void sethostport(QString port);
+//QString gethostport();
 void appendtoquerylist(QString user);
 void safeusergarbage();
 void loadusergarbage();

@@ -7,7 +7,7 @@
 #include<stdexcept>
 
 const char *TABLENAME="settings";
-database_base::database_base(){
+database_base::database_base(): ontransaction(false){
 }
 QStringList database_base::getstringlist(QString key) const{
     before_get(key);
@@ -68,19 +68,23 @@ bool database_base::appendList(QString key, QVariant value, QSqlQuery &query){
         query.exec(QString("update %1 set '%2'=NULL where prime=1;").arg(TABLENAME).arg(key));
         return true;
     }
+    if(query.lastError().isValid())
+        qDebug()<<query.lastQuery()<<": \n"<<query.lastError().text()<<"\n#####################";
     bool b=transaction ();
     int size=value.value<T>().size()-model.rowCount();
     for(int i=0;i<size;i++)
         query.exec(QString("insert into %1(d_u_m_m_y) values(1);").arg(TABLENAME));
+    if(query.lastError().isValid())
+        qDebug()<<query.lastQuery()<<": \n"<<query.lastError().text()<<"\n#####################";
     int counter = 1;
     typedef typename T::value_type type;
     foreach(type v,value.value<T>()){
         query.prepare(QString("update %1 set '%2'=? where prime=%3;").arg(TABLENAME).arg(key).arg(counter++));
         query.addBindValue(v);
         query.exec();
-    }    
-    if(query.lastError().isValid())
-        qDebug()<<query.lastQuery()<<": \n"<<query.lastError().text()<<"\n#####################";
+        if(query.lastError().isValid())
+            qDebug()<<query.lastQuery()<<": \n"<<query.lastError().text()<<"\n#####################";
+    }        
     query.exec(QString("update %1 set '%2'=NULL where prime=%3;").arg(TABLENAME).arg(key).arg(counter));
     if(b)
         commit ();
@@ -173,7 +177,11 @@ void database_base::sethash(){
         return;
     }
     hash.clear();
-    model.setQuery(QString("select * from %1").arg(TABLENAME),(QSqlDatabase::database(databasename)));
+    if(ontransaction)
+        commit();
+    model.setQuery(QString("select * from %1").arg(TABLENAME),(QSqlDatabase::database(databasename)));    
+    while(model.canFetchMore ())
+        model.fetchMore ();
     int columnCount=model.record(0).count();
     for(int j=0;j<columnCount;j++){
         QString field=model.record(0).fieldName(j);
@@ -244,7 +252,7 @@ void database_base::update(){
 }
 void database_base::validate(){
     checkifexistsinstringlist("leagueservers","http://www.tus-wa.com/");
-    checkifexistsinstringlist("leagueservers","http://www.normalnonoobs.org/");
+    checkifexistsinstringlist("leagueservers","http://www.normalnonoobs.com/");
     checkifexistsinstringlist("leagueservers","http://lookias.worms2d.info/securelogging/");
 
     checkifexistsinstringlist("wormnetserverlist","http://wormnet1.team17.com");
@@ -307,9 +315,12 @@ void database_base::checkifexistsinstringlist(QString key,QString value){
     set(key, sl);
 }
 bool database_base::transaction(){
-    return db().transaction();
+    bool b=db().transaction();    
+    return b;
+    ontransaction=true;
 }
 void database_base::commit(){
     if(!db().commit())
         myDebug()<<"#################void database_base::commit(){";
+    ontransaction=false;
 }

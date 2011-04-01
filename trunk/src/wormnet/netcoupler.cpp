@@ -13,7 +13,6 @@
 #include"settingswindow.h"
 #include"volumeslider.h"
 #include"mainwindow.h"
-#include"playername.h"
 #include"sound_handler.h"
 #include"sound_handler.h"
 #include"global_functions.h"
@@ -172,6 +171,7 @@ void netcoupler::joingamelink(const QString &gamelink) {
     if (temp == QString())
         return;
     temp = temp + " \"" + gamelink + "\"";
+    info(temp);
     startprocess(temp);
 }
 void netcoupler::joingame(const QString &hostinfo, const QString &channel, const QString &gamename) {

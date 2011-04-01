@@ -64,6 +64,7 @@ void snoppanet::httpError(QNetworkReply::NetworkError error) {
     static bool noErrorYet=true;
     if(noErrorYet)
         myDebug() << tr("Gameserver disonnected!");
+    emit sigloginfailed();
     noErrorYet=false;
 }
 void snoppanet::setchannellist(const QStringList &sl) {
@@ -93,9 +94,9 @@ void snoppanet::setchannellist(const QStringList &sl) {
         templist << "";
     }
     hosttimer.disconnect();
-    connect(&hosttimer, SIGNAL(timeout()),this, SLOT(hosttimeout()));
+    connect(&hosttimer, SIGNAL(timeout()),this, SLOT(hosttimertimeout()));
 }
-void snoppanet::hosttimeout() {
+void snoppanet::hosttimertimeout() {
     foreach(QNetworkReply *n,replylist) {
         Q_CHECK_PTR(n);
         n->deleteLater();
@@ -208,7 +209,7 @@ void snoppanet::closehostreplyfinished(){
 }
 void snoppanet::refreshhostlist() {
     if (hostreply != 0) {
-         hosttimeout();
+         hosttimertimeout();
     }
 }
 //###################################################################################
@@ -243,8 +244,7 @@ void snoppanet::inithosting(QString url){
     request=inihandler.requestfromini("[http get host header]");
     request.setUrl(QUrl(url));
     hostlistforhostingreply=manager.get(request);
-    connect(hostlistforhostingreply,SIGNAL(finished()),this,SLOT(hostlistforhostingreplyfinished()));
-    connect(hostlistforhostingreply,SIGNAL(finished()),hostlistforhostingreply,SLOT(deleteLater()));
+    connect(hostlistforhostingreply,SIGNAL(finished()),this,SLOT(hostlistforhostingreplyfinished()));    
 }
 void snoppanet::hostlistforhostingreplyfinished(){
     static int counter=0;
@@ -276,8 +276,8 @@ hoststruct snoppanet::findduplicatedhosts(QList<hoststruct> list){
     }
     return hoststruct();
 }
-void snoppanet::repeathostlistforhostingreplyrequest(){    
+void snoppanet::repeathostlistforhostingreplyrequest(){
+    hostlistforhostingreply->deleteLater ();
     hostlistforhostingreply=manager.get(hostlistforhostingreply->request());
-    connect(hostlistforhostingreply,SIGNAL(finished()),this,SLOT(hostlistforhostingreplyfinished()));
-    connect(hostlistforhostingreply,SIGNAL(finished()),hostlistforhostingreply,SLOT(deleteLater()));
+    connect(hostlistforhostingreply,SIGNAL(finished()),this,SLOT(hostlistforhostingreplyfinished()));   
 }

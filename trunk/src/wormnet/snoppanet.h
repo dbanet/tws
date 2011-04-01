@@ -33,9 +33,7 @@ signals: //public signals:
     void sigchannelscheme(QString,QString);
     void sighostwontstart();    
     void sighoststarts(hoststruct);
-
     void sigloginfailed();
-
 private:
     void inithosting(QString url);    
     hoststruct findduplicatedhosts(QList<hoststruct> list);
@@ -71,7 +69,7 @@ private slots:
     void sendhostrequest();
     void readircip();
     void httpError(QNetworkReply::NetworkError);
-    void hosttimeout();
+    void hosttimertimeout();
     void readgamelist(int);
     void getscheme();
     void readhostreply();
