@@ -13,6 +13,7 @@
 #include"settingswindow.h"
 #include"volumeslider.h"
 #include"mainwindow.h"
+#include"playername.h"
 #include"sound_handler.h"
 #include"sound_handler.h"
 #include"global_functions.h"
@@ -154,7 +155,7 @@ void netcoupler::getscheme(QString chan, QString scheme) {
     schememap[chan] = scheme;
 }
 void netcoupler::refreshwho() {
-
+    qDebug()<<"void netcoupler::refreshwho()";
 }
 void netcoupler::ircconnected(){
     emit sigconnected();
@@ -167,11 +168,10 @@ void netcoupler::joingamelink(const QString &gamelink) {
     joinprvgame *cast = qobject_cast<joinprvgame*> (sender());
     Q_CHECK_PTR(cast);
     looki::currentchannel = cast->chan;
-    QString temp = getprocessstring();
+    QString temp = getprocessstring();    
     if (temp == QString())
         return;
     temp = temp + " \"" + gamelink + "\"";
-    info(temp);
     startprocess(temp);
 }
 void netcoupler::joingame(const QString &hostinfo, const QString &channel, const QString &gamename) {

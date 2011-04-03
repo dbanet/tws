@@ -27,7 +27,9 @@ awayhandler::awayhandler(QObject *parent) :
 awayhandler::~awayhandler(){}
 
 void awayhandler::startLookingForGame(){
-    lookingForGameTimer.start(5*1000);
+#ifdef Q_WS_WIN
+    lookingForGameTimer.start(1000);
+#endif
 }
 void awayhandler::setaway(const QString &s) {
     singleton<balloon_handler>().set_away_tray_icon();

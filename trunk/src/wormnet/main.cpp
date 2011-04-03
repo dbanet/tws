@@ -12,6 +12,7 @@
 #include"awayhandler.h"
 #include"about.h"
 #include"wa_textcodec.h"
+#include"playername.h"
 
 #include<QtGui>
 #include<QApplication>

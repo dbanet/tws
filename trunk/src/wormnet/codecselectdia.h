@@ -16,7 +16,7 @@ public:
     ~CodecSelectDia();
     static QTextCodec *codec;
     static bool contains(QString s);
-    static void setcodec(QString s);
+    static void setcodec(QString s);   
 
 private:
     Ui::CodecSelectDia *ui;

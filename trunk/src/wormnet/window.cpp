@@ -96,8 +96,7 @@ window::window(QString s, int i) :
     usermenu.addSeparator();
     usermenu.addAction(tr("Show info about this user."))->setIcon(chaticon);
     costumlistmenu.addAction(tr("Remove this user from the list."));
-    costumlistmenu.addAction(tr("Show info about this user."))->setIcon(
-                chaticon);
+    costumlistmenu.addAction(tr("Show info about this user."))->setIcon(chaticon);
 
     connect(ui.users, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(useritemdblclicked(const QModelIndex&)));
     connect(ui.users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
@@ -106,8 +105,6 @@ window::window(QString s, int i) :
     connect(ui.pbsmiley,SIGNAL(clicked()),this,SLOT(pbemotclicked()));
 
     connect(ui.msg, SIGNAL(returnPressed()),this, SLOT(sendmsg()));        
-
-    singleton<netcoupler>().refreshwho();
 
     connect(&singleton<netcoupler>(), SIGNAL(siggotchanellist(QStringList)),this, SLOT(expandchannels(QStringList)));
     connect(&singleton<netcoupler>(), SIGNAL(siggotchanellist(QStringList)),this, SLOT(getuserscount(QStringList)));

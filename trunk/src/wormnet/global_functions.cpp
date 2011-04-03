@@ -8,10 +8,13 @@
 #include<QDate>
 #include<QTextCodec>
 
+#include<windows.h>
+
 #include"global_functions.h"
 #include"settings.h"
 #include"usermessage.h"
 #include"netcoupler.h"
+#include"codecselectdia.h"
 
 typedef QHash<QString, QList<usermessage> > history_type;
 history_type my_history;
@@ -28,78 +31,39 @@ QStringList refreshcombobox(QComboBox *cb){
     return sl;
 }
 //----------------------------------------------------------------------------------------------
-//QString globalport;
-////----------------------------------------------------------------------------------------------
-//void sethostport(QString port) {
-//    if(port.isEmpty())
-//        port="17011";
-//    globalport=port;
+QString globalport;
+//----------------------------------------------------------------------------------------------
+QString gethostport() {
+    QString port;
+    port=globalport;
+#ifdef Q_WS_WIN
+    port=get_winini_key ("HostingPort");
+    if(port.isEmpty ())
+        port=globalport;
+#endif
+    return port;
+}
+void sethostport(QString port) {
+    if(port.isEmpty())
+        port="17011";
+    globalport=port;
 
-//#ifdef Q_WS_WIN
-//    QStringList env = QProcess::systemEnvironment();
-//    QString systemroot;
-//    foreach(QString s,env) {
-//        if (containsCI(s,"SystemRoot=")) {
-//            systemroot = s;
-//            systemroot = systemroot.split("=").last();
-//        }
-//    }
-//    QFile winini(systemroot + "/win.ini");
-//    QStringList sl;
-//    bool b=0;
-//    if (winini.exists() && winini.open(QIODevice::ReadOnly)) {
-//        sl = QString(winini.readAll()).split("\n");
-//        int i = 0;
-//        foreach(QString s,sl) {
-//            if (s.contains("HostingPort=")) {
-//                b=1;
-//                sl[i] = "HostingPort=" + port;
-//            }
-//            i++;
-//        }
-//        if(b==0)
-//            sl.push_back("HostingPort=" + port);
-//    }
-//    winini.close();
-//    if(!winini.open(QFile::WriteOnly | QFile::Truncate)) {
-//        qDebug()<<"cant open win.ini: "<<winini.errorString();
-//        return;
-//    }
-//    QTextStream ts(&winini);
-//    ts.setCodec(QTextCodec::codecForName("UTF-8"));
-//    ts << sl.join("\n");
-//    winini.close();
-//#endif
-//}
-//QString gethostport() {
-//    QString port;
-//    port=globalport;
-//#ifdef Q_WS_WIN
-//    QStringList env=QProcess::systemEnvironment();
-//    QString systemroot;
-//    foreach(QString s,env) {
-//        if (containsCI(s,"SystemRoot=")) {
-//            systemroot=s;
-//            systemroot=systemroot.split("=").last();
-//        }
-//    }
-//    QFile winini(systemroot+"/win.ini");
-//    if(winini.exists() && winini.open(QIODevice::ReadOnly)) {
-//        QStringList sl=QString(winini.readAll()).split("\n");
-//        foreach(QString s,sl) {
-//            if(s.contains("HostingPort=")) {
-//                if(s.split("=",QString::SkipEmptyParts).size()==2) {
-//                    port=s.split("=",QString::SkipEmptyParts).last();
-//                    port=port.simplified();
-//                }
-//            }
-//        }
-//        winini.close();
-//    } else
-//        qDebug()<<"%systemroot%/win.ini "+QObject::tr("is missing or locked, please run worms, one time, without the snooper. it will then create the file!");
-//#endif
-//    return port;
-//}
+#ifdef Q_WS_WIN
+    set_winini_key ("HostingPort",port);
+#endif
+}
+QString get_winini_key(QString key){
+    char *p=new char[255];
+    GetProfileStringA("NetSettings",key.toAscii (),"",p,255);    
+    QString s=QTextCodec::codecForName ("wa")->toUnicode (p);
+    delete[] p;
+    return s;
+}
+bool set_winini_key(QString key, QString value){
+    return WriteProfileStringA("NetSettings"
+                               , key.toAscii ()
+                               , QTextCodec::codecForName ("wa")->fromUnicode (value));
+}
 //----------------------------------------------------------------------------------------------
 QDataStream &operator<<(QDataStream &ds, const usermessage &u){
     return ds<<u.msg()<<u.type()<<u.user()<<u.receiver()<<u.time();

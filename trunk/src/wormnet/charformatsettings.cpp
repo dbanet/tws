@@ -16,7 +16,6 @@ QHash<QString, QVariant> charformatsettings::map;
 extern bool fontorcolorchanged;
 charformatsettings::charformatsettings() {
     // TODO Auto-generated constructor stub
-
 }
 void charformatsettings::load() {        
     QFile f(QApplication::applicationDirPath()+"/textschemes/" + S_S.getstring("textscheme"));

@@ -17,6 +17,7 @@
 #include"volumeslider.h"
 #include"logbrowser.h"
 #include"textschemehandler.h"
+#include"playername.h"
 #include"singleton.h"
 #include"sound_handler.h"
 #include"global_functions.h"
@@ -106,7 +107,7 @@ mainwindow::mainwindow() {
     connect(&singleton<leagueserverhandler>(),SIGNAL(sigprofile(QString)),this,SLOT(leagueserverprofilepage(QString)));
 
     QRegExp regexp;
-    regexp.setPattern("([A-Z]|[a-z]|[0-9]|-|`){,15}");
+    regexp.setPattern("([A-Z]|[a-z]|[0-9]|-|`){1,15}");
     validator = new QRegExpValidator(regexp, 0);
     ui.lenick->setValidator(validator);
     ui.clan->setValidator(validator);
@@ -805,6 +806,9 @@ void mainwindow::traymenutriggered(QAction *a) {
     } else if (a->text() == tr("Scheme maker")) {
         textschemehandler *h = new textschemehandler;
         h->show();
+    } else if (a->text() == tr("Playername")) {
+        playername *pl = new playername;
+        pl->show();
     }
 }
 void mainwindow::handleAwayBox(){

@@ -15,7 +15,7 @@ public:
 private:
     Ui::playernameClass ui;
 private slots:
-	void okclicked();
+    void okclicked();
 };
 
 #endif // PLAYERNAME_H
