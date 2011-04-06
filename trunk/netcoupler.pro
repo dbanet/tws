@@ -18,6 +18,7 @@ unix:DEFINES += QT_WS_X11
         #DEFINES +=WITH_GAMESURGE_SUPPORT
 CONFIG += debug_and_release
 
+win32:LIBS += -lwsock32
 # Input
 HEADERS += src/wormnet/about.h \
     src/wormnet/awaybox.h \

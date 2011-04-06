@@ -18,6 +18,8 @@ public:
 private:
     Ui::hostboxClass ui;
     QRegExpValidator *validator;
+
+    bool verifywormnat();
 private slots:  
     void addclicked();
     void okclicked();

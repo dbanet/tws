@@ -20,8 +20,6 @@ public:
     void setchannellist(const QStringList&);
     void getscheme(QString);
     void sendhost(hoststruct h);
-    void closehostandstartlasthost(hoststruct h);
-    void closelasthost();
     hoststruct lasthost;
 
 public slots:
@@ -33,10 +31,15 @@ signals: //public signals:
     void sigchannelscheme(QString,QString);
     void sighostwontstart();    
     void sighoststarts(hoststruct);
+    void sigstarthost(QString);
     void sigloginfailed();
 private:
-    void inithosting(QString url);    
+//    void inithosting(QString url);
+    void closehostandstartlasthost(hoststruct h);
+    void closelasthost();
+
     hoststruct findduplicatedhosts(QList<hoststruct> list);
+    hoststruct findmyhost(QList<hoststruct> list);
     QString temp;
     QStringList templist;
     QStringList currentchannellist;
@@ -53,7 +56,7 @@ private:
     QNetworkReply *hostreply;
     QNetworkReply *closehostreply;
 
-    QNetworkReply *hostlistforhostingreply;
+//    QNetworkReply *hostlistforhostingreply;
 
 
     QString schemechannel;
@@ -65,6 +68,8 @@ private:
     QList<QNetworkRequest> requestlist;
     QList<hoststruct> hostlist;
     bool gameliststarts;    
+
+    QString lastgameid;
 private slots:
     void sendhostrequest();
     void readircip();
@@ -72,13 +77,13 @@ private slots:
     void hosttimertimeout();
     void readgamelist(int);
     void getscheme();
-    void readhostreply();
+    void hostreplyfinished();
     void closehostreplyfinished();
 
     void logintimertimeout();
 
-    void hostlistforhostingreplyfinished();
-    void repeathostlistforhostingreplyrequest();
+//    void hostlistforhostingreplyfinished();
+//    void repeathostlistforhostingreplyrequest();
 };
 
 #endif // SNOPPANET_H

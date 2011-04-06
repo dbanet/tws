@@ -251,4 +251,5 @@ void chatwindow::insertemot(QString s){
         ui.lineEdit->insert(s + " ");
     else
         ui.lineEdit->insert(" " + s + " ");
+    ui.lineEdit->setFocus ();
 }

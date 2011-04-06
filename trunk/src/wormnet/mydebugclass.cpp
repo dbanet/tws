@@ -10,7 +10,23 @@
 myDebugClass::myDebugClass()
 {
 }
+myDebugClass &myDebugClass::operator<<(const char *msg){
+    if(qobjectwrapper<mainwindow>::isNull()){
+        qDebug()<<msg;
+        return *this;
+    }
+    qobjectwrapper<mainwindow>::ref().appenddebugmessage(QString(msg).simplified()+"\n");
+    return *this;
+}
 myDebugClass &myDebugClass::operator<<(const QString &msg){
+    if(qobjectwrapper<mainwindow>::isNull()){
+        qDebug()<<msg;
+        return *this;
+    }
+    qobjectwrapper<mainwindow>::ref().appenddebugmessage(QString(msg).simplified()+"\n");
+    return *this;
+}
+myDebugClass &myDebugClass::operator<<(const QByteArray &msg){
     if(qobjectwrapper<mainwindow>::isNull()){
         qDebug()<<msg;
         return *this;

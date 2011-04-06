@@ -306,6 +306,8 @@ void database_base::validate(){
         set("cbshowballoons", true);
     if(!contains("leprvmsgprefix"))
         set("leprvmsgprefix",QObject::tr("Whisper"));
+    if(!contains("wormnat2address"))
+        set("wormnat2address", "proxy.worms2d.info");
 }
 void database_base::checkifexistsinstringlist(QString key,QString value){
     QStringList sl=getstringlist(key);

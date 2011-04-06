@@ -156,6 +156,7 @@ void window::insertemot(QString s){
         ui.msg->insert(s + " ");
     else
         ui.msg->insert(" " + s + " ");
+    ui.msg->setFocus ();
 }
 void window::expandchannels() { //expand on startup
     expandchannels(QStringList());

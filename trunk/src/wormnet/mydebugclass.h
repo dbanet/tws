@@ -7,7 +7,9 @@ class myDebugClass
 {
 public:
     myDebugClass();
+    myDebugClass &operator<<(const char*);
     myDebugClass &operator<<(const QString&);
+    myDebugClass &operator<<(const QByteArray&);
     myDebugClass &operator<<(const QStringList&);
     myDebugClass &operator<<(const int&);    
     myDebugClass &operator<<(const usermessage&);    

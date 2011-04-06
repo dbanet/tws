@@ -9,6 +9,9 @@
 #include<QTextCodec>
 
 #include<windows.h>
+#include<conio.h>
+#include<stdio.h>
+#include<stdlib.h>
 
 #include"global_functions.h"
 #include"settings.h"
@@ -33,10 +36,9 @@ QStringList refreshcombobox(QComboBox *cb){
 //----------------------------------------------------------------------------------------------
 QString globalport;
 //----------------------------------------------------------------------------------------------
-QString gethostport() {
-    QString port;
-    port=globalport;
-#ifdef Q_WS_WIN
+QString gethostportbyini() {
+    QString port=globalport;
+#ifdef Q_WS_WIN    
     port=get_winini_key ("HostingPort");
     if(port.isEmpty ())
         port=globalport;
@@ -65,6 +67,77 @@ bool set_winini_key(QString key, QString value){
                                , QTextCodec::codecForName ("wa")->fromUnicode (value));
 }
 //----------------------------------------------------------------------------------------------
+SOCKET ControlSocket;
+QString getwormnat2commandline(){
+    STARTUPINFOA si;
+    PROCESS_INFORMATION pi;
+    memset(&si, 0,sizeof(si));
+    si.cb = sizeof(si);
+    memset( &pi,0, sizeof(pi));
+    SECURITY_ATTRIBUTES SecAttr;
+    SecAttr.nLength=sizeof(SecAttr);
+    SecAttr.bInheritHandle=TRUE;
+    SecAttr.lpSecurityDescriptor=0;
+    HANDLE WaitEvent=CreateEvent(&SecAttr,0,0,0);
+    QString s=QString(" /wnat2 %1-%2-%3").arg(GetCurrentProcessId()).arg(ControlSocket).arg((u_int)WaitEvent);
+    char str1[1024];
+    sprintf(str1,"wa.exe /wnat2 %u-%u-%u",(u_int)GetCurrentProcessId(),(u_int)ControlSocket,(u_int)WaitEvent);
+    CreateProcessA(0,str1,0,0,0,0,0,0,&si,&pi);
+    return s;
+}
+//----------------------------------------------------------------------------------------------
+QString wormnatport;
+QString getwormnatport(){
+    closesocket(ControlSocket);
+    sockaddr_in ControlAddr;
+    hostent *ControlHost;
+    WORD Input;
+    WSADATA wsaData;
+    WORD ExternalPort=0;
+    WORD ControlPort=17018;
+    WORD PortError=0xFFFF;
+
+    if (WSAStartup(MAKEWORD(2,2),&wsaData))
+        myDebug ()<<QObject::tr("Connection WSAStartup failed %1 ").arg(S_S.getstring ("wormnat2address")) + WSAGetLastError();
+    ControlSocket=socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
+    ControlHost=gethostbyname(S_S.getstring ("wormnat2address").toAscii ());
+    if(!ControlHost)
+    {
+        myDebug ()<<QObject::tr("Connection Failed to resolve %1").arg(S_S.getstring ("wormnat2address"))+WSAGetLastError();
+        ExternalPort=PortError;
+        closesocket(ControlSocket);
+        getch();
+        return QString();
+    }
+    ControlAddr.sin_family=AF_INET;
+    ControlAddr.sin_port=htons(ControlPort);
+    ControlAddr.sin_addr.s_addr=*(DWORD*)ControlHost->h_addr;
+    if(connect(ControlSocket,(sockaddr*)&ControlAddr,sizeof(ControlAddr))==SOCKET_ERROR)
+    {
+        myDebug ()<<QObject::tr("Connection Failed to connect (Error %1)").arg(WSAGetLastError());
+        ExternalPort=PortError;
+        closesocket(ControlSocket);
+        getch();
+        return QString();
+    }
+    if(recv(ControlSocket,(char*)&Input,2,0)!=2)
+    {
+        myDebug ()<<QObject::tr("Connection Failed to read initial port (Error %1)").arg(WSAGetLastError());
+        ExternalPort=PortError;
+        closesocket(ControlSocket);
+        getch();
+        return QString();
+    }
+    ExternalPort=Input;
+    wormnatport=QString::number (ExternalPort);
+    return wormnatport;
+}
+//----------------------------------------------------------------------------------------------
+QString lastwormnatport(){
+    return wormnatport;
+
+}
+//----------------------------------------------------------------------------------------------
 QDataStream &operator<<(QDataStream &ds, const usermessage &u){
     return ds<<u.msg()<<u.type()<<u.user()<<u.receiver()<<u.time();
 }
@@ -80,7 +153,7 @@ void safeusergarbage() {
     if (!f.open(QFile::WriteOnly | QFile::Truncate))
         return;
     QDataStream ds(&f);
-    ds.setVersion(QDataStream::Qt_4_3);    
+    ds.setVersion(QDataStream::Qt_4_3);
     ds << my_history;
 }
 //----------------------------------------------------------------------------------------------
@@ -159,6 +232,11 @@ void loadquerylist() {
     ds >> querylist;
 }
 //----------------------------------------------------------------------------------------------
+void info(char *msg){
+    QMessageBox::information(0,"Debug info",msg);
+    myDebug()<<msg;
+}
+//----------------------------------------------------------------------------------------------
 void info(const QString &msg){
     QMessageBox::information(0,"Debug info",msg);
     myDebug()<<msg;
@@ -167,6 +245,11 @@ void info(const QString &msg){
 void info(int i){
     QMessageBox::information(0,"Debug info",QString::number(i));
     myDebug()<<i;
+}
+//----------------------------------------------------------------------------------------------
+void info(const QByteArray &msg){
+    QMessageBox::information(0,"Debug info",msg);
+    myDebug()<<msg;
 }
 //----------------------------------------------------------------------------------------------
 void fillString(QString &s, QString ss, int length){

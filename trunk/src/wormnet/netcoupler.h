@@ -82,7 +82,8 @@ private:
 
     QString getprocessstring();
     void startprocess(const QString&);
-    void createhost(hoststruct);
+//    void createhost(hoststruct);
+    void createhost(QString);
     QString myip;
 public slots:
     void joingamelink(const QString &);
@@ -102,7 +103,8 @@ private slots:
     void ircconnected();
     void ircdisconnected();
 
-    void getmywormnethost(hoststruct);
+//    void getmywormnethost(hoststruct);
+    void getmywormnethost(QString id);
 
     friend class userstruct;
 

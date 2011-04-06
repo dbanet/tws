@@ -49,7 +49,6 @@ void netcoupler::start(QString s){
         connect(this, SIGNAL(sigsettingswindowchanged()),this, SLOT(initSoundAndStartWho()));
         connect(this, SIGNAL(sigsettingswindowchanged()),&users, SLOT(usesettingswindow()));
     }
-
     connectstate=e_started;
     nick=s;
     S_S.append("mutedusers", nick);
@@ -64,6 +63,8 @@ void netcoupler::start(QString s){
     connect(irc, SIGNAL(signosuchnick(const QString&)),this, SIGNAL(signosuchnick(const QString&)));
     connect(http, SIGNAL(sighostlist(QList<hoststruct>,QString)),this, SLOT(gethostlist(QList<hoststruct>,QString)));
     connect(http,SIGNAL(sigloginfailed()),this,SIGNAL(sigdisconnected()));
+    connect(http,SIGNAL(sigstarthost(QString)),this,SLOT(getmywormnethost(QString)));
+//    connect(http,SIGNAL(sighoststarts(QString)),this,SLOT(getmywormnethost(hoststruct)));
     QStringList sl = inihandler.stringlistfromini("[irc ip]");
     if (sl.isEmpty()) {
         connect(http, SIGNAL(sigircip(QString)),this, SLOT(getircip(QString)));
@@ -184,7 +185,7 @@ void netcoupler::joingame(const QString &hostinfo, const QString &channel, const
     if (S_S.getbool("chbactionwhenjoining"))
         sendinfotochan(channel, " is joining a game: " + gamename);
 }
-void netcoupler::createhost(hoststruct h) {
+void netcoupler::createhost(QString id){
     if(!http)
         return;
     if (users.users.indexOf(userstruct::whoami(nick)) == -1)
@@ -195,9 +196,27 @@ void netcoupler::createhost(hoststruct h) {
     QString s;
     if(!http->lasthost.pwd().isEmpty())
         s="&password="+http->lasthost.pwd();
-    temp = temp + " \"" + "wa://" + "?gameid="+ h.id() + "&scheme=" + schememap[looki::currentchannel] + s+"\"";
+    if(S_S.getbool ("cbwormnat2"))
+        temp += getwormnat2commandline();
+    temp = temp + " \"" + "wa://" + "?gameid="+ id + "&scheme=" + schememap[looki::currentchannel] + s+"\"";
     startprocess(temp);
 }
+//void netcoupler::createhost(hoststruct h) {
+//    if(!http)
+//        return;
+//    if (users.users.indexOf(userstruct::whoami(nick)) == -1)
+//        return;
+//    QString temp = getprocessstring();
+//    if (temp == QString())
+//        return;
+//    QString s;
+//    if(!http->lasthost.pwd().isEmpty())
+//        s="&password="+http->lasthost.pwd();
+//    if(S_S.getbool ("cbwormnat2"))
+//        temp += getwormnat2commandline();
+//    temp = temp + " \"" + "wa://" + "?gameid="+ h.id() + "&scheme=" + schememap[looki::currentchannel] + s+"\"";
+//    startprocess(temp);
+//}
 void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,int flag){
     if(!http)
         return;
@@ -206,23 +225,34 @@ void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &
     if (!S_S.getstring("leplayername").isEmpty())
         s=S_S.getstring("leplayername");
     hoststruct h;
-    QString hostcountrynumber=singleton<picturehandler>().map_hostcountrycode_to_number(singleton<picturehandler>().map_number_to_countrycode(flag));
+    QString hostcountrynumber=singleton<picturehandler>().map_hostcountrycode_to_number(singleton<picturehandler>().map_number_to_countrycode(flag));         
     h.sethost(name,s,getmyhostip(),flag,"??","",pwd,chan,hostcountrynumber);
     http->sendhost(h);
-    connect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));
+//    connect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));
 }
-void netcoupler::getmywormnethost(hoststruct h){
+void netcoupler::getmywormnethost(QString id){
     QString address=getmyhostip();
-    disconnect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));
-    QString host = QString("wa://%1?gameid="+h.id()+"&scheme=%2").arg(address).arg(schememap[looki::currentchannel]);
-    QString msg = QString(" is hosting a game: %1, %2").arg(h.name()).arg(host);
+//    disconnect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));
+    QString host = QString("wa://%1?gameid="+id + "&scheme=%2").arg(address).arg(schememap[looki::currentchannel]);
+    QString msg = QString(" is hosting a game: %1, %2").arg(S_S.getstring("legamename")).arg(host);
     if (S_S.getbool("chbsendhostinfotochan"))
         sendinfotochan(looki::currentchannel, msg);
-    createhost(h);
+    createhost(id);
 }
+//void netcoupler::getmywormnethost(hoststruct h){
+//    QString address=getmyhostip();
+//    disconnect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));
+//    QString host = QString("wa://%1?gameid="+h.id()+"&scheme=%2").arg(address).arg(schememap[looki::currentchannel]);
+//    QString msg = QString(" is hosting a game: %1, %2").arg(h.name()).arg(host);
+//    if (S_S.getbool("chbsendhostinfotochan"))
+//        sendinfotochan(looki::currentchannel, msg);
+//    createhost(h);
+//}
 QString netcoupler::getmyhostip(){
     QString address=myip;
-    if(S_S.getbool("useacostumipforhosting"))
+    if(S_S.getbool ("cbwormnat2"))
+        address=S_S.getstring ("wormnat2address");
+    else if(S_S.getbool("useacostumipforhosting"))
         address=S_S.getstring("costumipforhosting");
     return address;
 }

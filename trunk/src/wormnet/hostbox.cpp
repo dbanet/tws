@@ -8,9 +8,11 @@
 #include<QKeyEvent>
 #include<QMessageBox>
 #include<QValidator>
+#include<QDesktopServices>
+#include<QUrl>
 
 hostbox::hostbox(QString c, QWidget *parent) :
-        QWidget(parent),channel(c) {
+    QWidget(parent),channel(c) {
     ui.setupUi(this);
     setObjectName("normalwidget");
 
@@ -21,6 +23,7 @@ hostbox::hostbox(QString c, QWidget *parent) :
     ui.icons->addItems(sl);
     ui.cbip->setChecked(S_S.getbool("useacostumipforhosting"));
     ui.leip->setText(S_S.getstring("costumipforhosting"));
+    ui.cbwormnat2->setChecked (S_S.getbool ("cbwormnat2"));
 
     ui.legamename->setText(singleton<netcoupler>().nick);
     QString gamename=S_S.getstring("legamename");
@@ -37,7 +40,7 @@ hostbox::hostbox(QString c, QWidget *parent) :
 
     ui.chbsendhostinfotochan->setChecked(S_S.getbool("chbsendhostinfotochan"));
     ui.leplayername->setText(S_S.getstring("leplayername"));
-    ui.lehostport->setText(gethostport());
+    ui.lehostport->setText(gethostportbyini());
 
     ui.legamename->installEventFilter(this);
     ui.lehostport->installEventFilter(this);
@@ -48,9 +51,9 @@ bool hostbox::eventFilter(QObject *obj, QEvent *event){
     QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
     if(keyEvent && keyEvent->type()==QEvent::KeyPress)
         if(keyEvent->key()==Qt::Key_Enter || keyEvent->key()==Qt::Key_Return){
-         okclicked();
-        return true;
-    }
+            okclicked();
+            return true;
+        }
     return QWidget::eventFilter(obj, event);
 }
 void hostbox::showEvent(QShowEvent * /*event*/) {
@@ -62,15 +65,15 @@ void hostbox::addclicked() {
 #endif
 #ifdef Q_WS_MAC
     QString file = QFileDialog::getOpenFileName(this, tr(
-            "Choose a desktop icon."), "/home", "*.desktop");
+                                                    "Choose a desktop icon."), "/home", "*.desktop");
 #endif
 #ifdef Q_WS_X11
     QString file = QFileDialog::getOpenFileName(this, tr(
-            "Choose a desktop icon."), "/home", "*.desktop");
+                                                    "Choose a desktop icon."), "/home", "*.desktop");
 #endif
 #ifdef Q_WS_WIN
     QString file = QFileDialog::getOpenFileName(this, tr(
-            "Choose a Program."), "c:/", "*.exe *.com");
+                                                    "Choose a Program."), "c:/", "*.exe *.com");
 #endif
     QStringList sl = S_S.getstringlist("joinstrings");
     if (file != "") {
@@ -95,18 +98,38 @@ void hostbox::okclicked() {
     S_S.set("costumipforhosting", ui.leip->text());
     S_S.set("legamename", ui.legamename->text().replace(" ","_"));
     S_S.set("lehostport", ui.lehostport->text());
+    S_S.set("cbwormnat2",ui.cbwormnat2->isChecked ());    
     gamename = ui.legamename->text();
     gamename.replace(" ", "_");
     pwd = ui.lepassword->text();
-    icon = ui.icons->currentText();
+    icon = ui.icons->currentText();    
+    S_S.commit();
     QStringList sl = S_S.getstringlist("joinstrings");
     if (!sl.isEmpty()) {
         sl.move(sl.indexOf(ui.icons->currentText()), 0);
         S_S.set("joinstrings", sl);
-        emit sigok();
+
+        if( (ui.cbwormnat2->isChecked () && verifywormnat()) || !ui.cbwormnat2->isChecked ()){
+            emit sigok();
+            close();
+        }
+    } else
+        QMessageBox::warning (this,QObject::tr("Warning"),tr("Please add a Game executable!"));
+}
+bool hostbox::verifywormnat(){
+    QString s=S_S.getstringlist("joinstrings").first ();
+    s=QFileInfo(s).path ();
+    if(!QFile::exists (s+ "/madCHook.dll")){
+        QMessageBox::warning (this, QObject::tr ("Warning"), tr("You must install Wormkit to be able to use WormNat2 Hosting!\n"
+                                                                "It is for example available here: http://www.tus-wa.com/files/file-42/"));
+        QDesktopServices::openUrl (QUrl("http://www.tus-wa.com/files/file-42/"));
+        return false;
     }
-    S_S.commit();
-    close();
+    QFile::remove (s+ "/wkWormNAT2.dll");
+    if(QFile::exists (s+="/wkWormNAT2Ex.dll"))
+        return true;
+    QFile::copy ("Wkfiles/wkWormNAT2Ex.dll", s);
+    return true;
 }
 void hostbox::cancelclicked() {
     close();
