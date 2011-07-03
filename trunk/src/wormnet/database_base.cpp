@@ -270,9 +270,7 @@ void database_base::validate(){
     if(getstring("information").isEmpty() || getstring("information").startsWith("The Wheat Snooper"))
         set("information", "The Wheat Snooper "+about::version);
     if(!contains("showinformation"))
-        set("showinformation", true);
-    if(!contains("spectatingneversettedoff"))
-        set("spectatingneversettedoff", true);
+        set("showinformation", true);    
 
     if(getstring("lestartup").startsWith("wav/"))
         set("lestartup", "wav/startup.mp3");

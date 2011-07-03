@@ -6,9 +6,9 @@
 class quithandler : public QObject
 {
     Q_OBJECT
-public:    
-    void inducequit(QString = QString());
     DECLARE_SINGLETON(quithandler);
+public:    
+    void inducequit(QString = QString());    
 signals:
 
 public slots:

@@ -115,7 +115,6 @@ void buttonlayout::leaguemenutriggered(QAction *action){
     if(action==NULL)
         return;
     if(action->text()==tr("Off")){
-        S_S.set("spectatingneversettedoff", false);
         singleton<leagueserverhandler>().stoprefresh();
         S_S.set("spectateleagueserver", false);
         return;

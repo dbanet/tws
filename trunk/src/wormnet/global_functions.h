@@ -15,7 +15,7 @@ QStringList refreshcombobox(QComboBox *cb);
 void sethostport(QString port);
 QString gethostportbyini();
 QString getwormnatport();
-QString lastwormnatport();
+QString lasthostport();
 QString getwormnat2commandline();
 QString get_winini_key(QString key);
 bool set_winini_key(QString key, QString value);

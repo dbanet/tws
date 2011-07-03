@@ -1,8 +1,8 @@
 #ifndef HOSTBOX_H
 #define HOSTBOX_H
 
-#include <QtGui/QWidget>
-#include "ui_hostbox.h"
+#include<QWidget>
+#include"ui_hostbox.h"
 
 class hostbox : public QWidget
 {

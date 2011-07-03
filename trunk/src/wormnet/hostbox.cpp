@@ -36,7 +36,7 @@ hostbox::hostbox(QString c, QWidget *parent) :
 
     connect(ui.add, SIGNAL(clicked()),this, SLOT(addclicked()));
     connect(ui.ok, SIGNAL(clicked()),this, SLOT(okclicked()));
-    connect(ui.cancel, SIGNAL(clicked()),this, SLOT(cancelclicked()));    
+    connect(ui.cancel, SIGNAL(clicked()),this, SLOT(cancelclicked()));
 
     ui.chbsendhostinfotochan->setChecked(S_S.getbool("chbsendhostinfotochan"));
     ui.leplayername->setText(S_S.getstring("leplayername"));
@@ -59,24 +59,24 @@ bool hostbox::eventFilter(QObject *obj, QEvent *event){
 void hostbox::showEvent(QShowEvent * /*event*/) {
 }
 void hostbox::addclicked() {
-#ifdef Q_WS_S60
     QString file;
-    return;
+#ifdef Q_WS_QWS
+    error;
 #endif
 #ifdef Q_WS_MAC
-    QString file = QFileDialog::getOpenFileName(this, tr(
-                                                    "Choose a desktop icon."), "/home", "*.desktop");
+    file = QFileDialog::getOpenFileName(this, tr(
+                                            "Choose a desktop icon."), "/home", "*.desktop");
 #endif
 #ifdef Q_WS_X11
-    QString file = QFileDialog::getOpenFileName(this, tr(
-                                                    "Choose a desktop icon."), "/home", "*.desktop");
+    file = QFileDialog::getOpenFileName(this, tr(
+                                            "Choose a desktop icon."), "/home", "*.desktop");
 #endif
 #ifdef Q_WS_WIN
-    QString file = QFileDialog::getOpenFileName(this, tr(
-                                                    "Choose a Program."), "c:/", "*.exe *.com");
-#endif
-    QStringList sl = S_S.getstringlist("joinstrings");
+    file = QFileDialog::getOpenFileName(this, tr(
+                                            "Choose a Program."), "c:/", "*.exe *.com");
+#endif       
     if (file != "") {
+        QStringList sl = S_S.getstringlist("joinstrings");
         if (!sl.contains(file) && file != "") {
             sl.insert(0, file);
             S_S.set("joinstrings", sl);
@@ -109,7 +109,23 @@ void hostbox::okclicked() {
         sl.move(sl.indexOf(ui.icons->currentText()), 0);
         S_S.set("joinstrings", sl);
 
-        if( (ui.cbwormnat2->isChecked () && verifywormnat()) || !ui.cbwormnat2->isChecked ()){
+        if( (ui.cbwormnat2->isChecked () && verifywormnat())){
+            //            if(verifywormnat()){
+            //                QMessageBox::information (this,QObject::tr("Information"), tr("Sorry for inconvenience but CyberShadow adviced me to post this: \n"
+            //                                                                              "This is a reminder message to remind you that WormNAT2\n"
+            //                                                                              "is a free service. Using WormNAT2 tunnels all data\n"
+            //                                                                              "through a proxy server hosted by the community, thus\n"
+            //                                                                              "consuming bandwidth and other resources. Therefore,\n"
+            //                                                                              "we'd like to ask you to only use WormNAT2 when you\n"
+            //                                                                              "have already tried configuring hosting the proper way.\n"
+            //                                                                              "Don't forget that you can find instructions on how\n"
+            //                                                                              "to set up hosting here\n"
+            //                                                                              "http://worms2d.info/Hosting"));
+            //            }
+            emit sigok();
+            close();
+        }
+        if(!ui.cbwormnat2->isChecked ()){
             emit sigok();
             close();
         }
@@ -119,16 +135,30 @@ void hostbox::okclicked() {
 bool hostbox::verifywormnat(){
     QString s=S_S.getstringlist("joinstrings").first ();
     s=QFileInfo(s).path ();
-    if(!QFile::exists (s+ "/madCHook.dll")){
-        QMessageBox::warning (this, QObject::tr ("Warning"), tr("You must install Wormkit to be able to use WormNat2 Hosting!\n"
-                                                                "It is for example available here: http://www.tus-wa.com/files/file-42/"));
-        QDesktopServices::openUrl (QUrl("http://www.tus-wa.com/files/file-42/"));
-        return false;
+    QString msg=tr("Using Wormnat2 hosting requieres some wk files to be moved to you Worms Armageddon folder, these files may replace old files."
+                   "Do you want that?");
+    if(!QFile::exists (s+ "/madCHook.dll")) {
+        int button=QMessageBox::question (0, QObject::tr("Warning"), msg);
+        if(button!=QMessageBox::Ok)
+            return false;
+        QFile::copy ("Wkfiles/dsound.dll", s + "/dsound.dll");
+        QFile::copy ("Wkfiles/wkPackets.dll", s + "/wkPackets.dll");
+        QFile::copy ("Wkfiles/borlndmm.dll", s + "/borlndmm.dll");
+        QFile::copy ("Wkfiles/madCHook.dll", s + "/madCHook.dll");
+    } else if(!QFile::exists (s+ "/wkPackets.dll")) {
+        int button=QMessageBox::question (0, QObject::tr("Warning"), msg);
+        if(button!=QMessageBox::Ok)
+            return false;
+        QFile::copy ("Wkfiles/wkPackets.dll", s + "/wkPackets.dll");
+        QFile::copy ("Wkfiles/borlndmm.dll", s + "/borlndmm.dll");
     }
-    QFile::remove (s+ "/wkWormNAT2.dll");
-    if(QFile::exists (s+="/wkWormNAT2Ex.dll"))
+    if(QFile::exists (s + "/wkWormNAT2Ex.dll"))
         return true;
-    QFile::copy ("Wkfiles/wkWormNAT2Ex.dll", s);
+    int button=QMessageBox::question (0, QObject::tr("Warning"), msg);
+    if(button!=QMessageBox::Ok)
+        return false;
+    QFile::remove (s+ "/wkWormNAT2.dll");
+    QFile::copy ("Wkfiles/wkWormNAT2Ex.dll", s + "/wkWormNAT2Ex.dll");
     return true;
 }
 void hostbox::cancelclicked() {

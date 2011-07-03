@@ -242,13 +242,13 @@ void ircnet::sendusermessage(const usermessage u){
         tcp_write("PRIVMSG " + u.receiver() + " :\001" + u.msg() + "\001");
     else if(u.has_type(e_PRIVMSG)){
         if(u.has_type(e_ACTION))
-            tcp_write("PRIVMSG " + u.receiver() + " :\001ACTION " + u.msg());
+            tcp_write("PRIVMSG " + u.receiver() + " :\001ACTION " + u.msg() + " \001");
         else
             tcp_write("PRIVMSG " + u.receiver() + " :" + u.msg());
     }
     else if (u.has_type(e_NOTICE)){
         if(u.has_type(e_ACTION))
-            tcp_write("NOTICE " + u.receiver() + " :\001ACTION " + u.msg());
+            tcp_write("NOTICE " + u.receiver() + " :\001ACTION " + u.msg() + " \001");
         else
             tcp_write("NOTICE " + u.receiver() + " :" + u.msg());
     }
@@ -261,7 +261,7 @@ void ircnet::refreshlist() {
         justgetlist = true;
     }
 }
-void ircnet::who() {    
+void ircnet::who() {
     if (whoreceivedcompletely) {
         templist.clear();
         tcp_write("who");

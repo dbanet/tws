@@ -9,6 +9,7 @@
 #include<QTime>
 #include<QSystemTrayIcon>
 #include<QDir>
+
 balloon_handler::balloon_handler() {
     tray=new QSystemTrayIcon;
     tray->setToolTip(QObject::tr("The Wheat Snooper version ")+about::version);
@@ -58,7 +59,7 @@ void balloon_handler::buddyarrived() {
     usermodel::buddyarrivedhelper.clear();
     showballoon();
 }
-void balloon_handler::got_privmsg(const usermessage u){    
+void balloon_handler::got_privmsg(const usermessage &u){
     if(!S_S.getbool("cbshowballoons"))
         return;
     balloonhelper << QTime::currentTime().toString("hh:mm") + ":" + u.user() + tr(" said: ") + u.msg();

@@ -189,14 +189,9 @@ void mainwindow::chooseclicked() {
         S_S.set("spectateleagueserver", true);
         setleague();
         singleton<leagueserverhandler>().login(ui.letuslogin->text(),ui.letuspassword->text());
-    } else {
-        if(S_S.getbool("spectatingneversettedoff")){
-            S_S.set("spectateleagueserver", true);
-            singleton<leagueserverhandler>().setleague("http://www.tus-wa.com/","http://www.tus-wa.com/");
-            singleton<leagueserverhandler>().startrefresh();
-        } else
-            S_S.set("spectateleagueserver", false);
-        connectToNetwork();
+    } else {        
+        S_S.set("spectateleagueserver", false);
+        connectToNetwork ();
     }
     ui.start->setEnabled(false);
     ui.start->setText("");
@@ -250,10 +245,10 @@ void mainwindow::getchannellist(const QStringList &sl) {
     }
 }
 void mainwindow::join(const QString channel){
-    if(channel==GamesourgeChannelName){
-        joinGameSourge();
-        return;
-    }
+//    if(channel==GamesourgeChannelName){
+//        joinGameSourge();
+//        return;
+//    }
     if(currentchannellist.contains(channel))
         return;
     currentchannellist << channel;

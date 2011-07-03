@@ -98,7 +98,7 @@ void sqlsettings::loadsnpiniDefaults(){
     set("volumeslidervalue",5);
     set("chbminimized", 0);
     set("dissallowedclannames", QStringList()<<"Username"<<"cybershadow"<<"WebSnoop"<<"HostingBuddy"<<"SheriffBot"<<"muzer"<<"Help"<<"Miranda"<<"Mirc"<<"wormatty"<<"simon"<<"darkone"<<"noclan"<<"baleegames"<<"Green"<<"lexlexlex"<<"mattribbins");
-    set("textscheme", "comic by lookias.textscheme");
+    set("textscheme", "wood by lookias.textscheme");
     set("chbsendhostinfotochan", true);
     set("language_file", "_en.Standard.qm");
     installTranslationBySystemLocale();

@@ -1,5 +1,4 @@
-TEMPLATE = app
-TARGET = 
+TEMPLATE += app
 QT += gui \
     network \
     svg \
@@ -7,16 +6,15 @@ QT += gui \
     sql
 DEPENDPATH += . \    
     translations
-INCLUDEPATH += . \
-MOC_DIR = .moc
-UI_DIR = .ui
-OBJECTS_DIR = .lib
-RCC_DIR = .rcc
+INCLUDEPATH += .
+MOC_DIR += .moc
+UI_DIR += .ui
+OBJECTS_DIR += .lib
+RCC_DIR += .rcc
 unix:TARGET = "./TheWheatSnooper/TheWheatSnooper"
 win32:TARGET = "../TheWheatSnooper/TheWheatSnooper"
 unix:DEFINES += QT_WS_X11
         #DEFINES +=WITH_GAMESURGE_SUPPORT
-CONFIG += debug_and_release
 
 win32:LIBS += -lwsock32
 # Input
@@ -160,7 +158,7 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/wa_textcodec.cpp \
     src/wormnet/playername.cpp
 
-RC_FILE = src/wormnet/myapp.rc
+RC_FILE += src/wormnet/myapp.rc
 TRANSLATIONS += \
     translations/The_Wheat_Snooper_spanish-(of_spain)_by_kosmos.ts \
     translations/The_Wheat_Snooper_untranslated.ts \
@@ -172,7 +170,8 @@ TRANSLATIONS += \
     translations/_ro.Romanian_by_MihaiS.ts \
     translations/_ru.Russian_translation_by_StepS.ts \
     translations/_pl.Polish_by_CzAjNiK.ts \
-    translations/_en.Standard.ts
+    translations/_en.Standard.ts \
+    translations/_lt.Lithuanian_by_K4Tsis.ts
 
 RESOURCES += \
     pictureResource.qrc

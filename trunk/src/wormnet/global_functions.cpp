@@ -34,39 +34,6 @@ QStringList refreshcombobox(QComboBox *cb){
     return sl;
 }
 //----------------------------------------------------------------------------------------------
-QString globalport;
-//----------------------------------------------------------------------------------------------
-QString gethostportbyini() {
-    QString port=globalport;
-#ifdef Q_WS_WIN    
-    port=get_winini_key ("HostingPort");
-    if(port.isEmpty ())
-        port=globalport;
-#endif
-    return port;
-}
-void sethostport(QString port) {
-    if(port.isEmpty())
-        port="17011";
-    globalport=port;
-
-#ifdef Q_WS_WIN
-    set_winini_key ("HostingPort",port);
-#endif
-}
-QString get_winini_key(QString key){
-    char *p=new char[255];
-    GetProfileStringA("NetSettings",key.toAscii (),"",p,255);    
-    QString s=QTextCodec::codecForName ("wa")->toUnicode (p);
-    delete[] p;
-    return s;
-}
-bool set_winini_key(QString key, QString value){
-    return WriteProfileStringA("NetSettings"
-                               , key.toAscii ()
-                               , QTextCodec::codecForName ("wa")->fromUnicode (value));
-}
-//----------------------------------------------------------------------------------------------
 SOCKET ControlSocket;
 QString getwormnat2commandline(){
     STARTUPINFOA si;
@@ -86,7 +53,7 @@ QString getwormnat2commandline(){
     return s;
 }
 //----------------------------------------------------------------------------------------------
-QString wormnatport;
+QString my_lasthostport;
 QString getwormnatport(){
     closesocket(ControlSocket);
     sockaddr_in ControlAddr;
@@ -129,13 +96,48 @@ QString getwormnatport(){
         return QString();
     }
     ExternalPort=Input;
-    wormnatport=QString::number (ExternalPort);
-    return wormnatport;
+    my_lasthostport=QString::number (ExternalPort);
+    return my_lasthostport;
 }
 //----------------------------------------------------------------------------------------------
-QString lastwormnatport(){
-    return wormnatport;
+QString globalport;
+QString gethostportbyini() {
+    QString port=globalport;
+#ifdef Q_WS_WIN
+    port=get_winini_key ("HostingPort");
+    if(port.isEmpty ())
+        port=globalport;
+#endif
+    my_lasthostport=port;
+    return port;
+}
+//----------------------------------------------------------------------------------------------
+void sethostport(QString port) {
+    if(port.isEmpty())
+        port="17011";
+    globalport=port;
 
+#ifdef Q_WS_WIN
+    set_winini_key ("HostingPort",port);
+#endif
+}
+//----------------------------------------------------------------------------------------------
+QString get_winini_key(QString key){
+    char *p=new char[255];
+    GetProfileStringA("NetSettings",key.toAscii (),"",p,255);
+    QString s=QTextCodec::codecForName ("wa")->toUnicode (p);
+    delete[] p;
+    return s;
+}
+//----------------------------------------------------------------------------------------------
+bool set_winini_key(QString key, QString value){
+    return WriteProfileStringA("NetSettings"
+                               , key.toAscii ()
+                               , QTextCodec::codecForName ("wa")->fromUnicode (value));
+}
+//----------------------------------------------------------------------------------------------
+QString lasthostport(){
+    return my_lasthostport;
 }
 //----------------------------------------------------------------------------------------------
 QDataStream &operator<<(QDataStream &ds, const usermessage &u){

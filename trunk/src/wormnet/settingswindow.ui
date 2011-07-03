@@ -19,7 +19,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>6</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -41,8 +41,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>473</width>
-                <height>438</height>
+                <width>948</width>
+                <height>469</height>
                </rect>
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_28">
@@ -114,7 +114,7 @@
                     </size>
                    </property>
                    <property name="title">
-                    <string>Away String while gaming. </string>
+                    <string>Away message while gaming. </string>
                    </property>
                    <layout class="QHBoxLayout" name="horizontalLayout_7">
                     <item>
@@ -223,8 +223,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>950</width>
-              <height>471</height>
+              <width>365</width>
+              <height>443</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_11">

@@ -231,9 +231,9 @@ void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &
 //    connect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));
 }
 void netcoupler::getmywormnethost(QString id){
-    QString address=getmyhostip();
-//    disconnect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));
-    QString host = QString("wa://%1?gameid="+id + "&scheme=%2").arg(address).arg(schememap[looki::currentchannel]);
+    QString ip=getmyhostip();
+//    disconnect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));    
+    QString host = QString("wa://%1?gameid="+id + "&scheme=%2").arg(ip + ":" + lasthostport ()).arg(schememap[looki::currentchannel]);
     QString msg = QString(" is hosting a game: %1, %2").arg(S_S.getstring("legamename")).arg(host);
     if (S_S.getbool("chbsendhostinfotochan"))
         sendinfotochan(looki::currentchannel, msg);
@@ -325,7 +325,7 @@ void netcoupler::sendinfotochan(const QString &chan, const QString &msg) {
     sendusermessage(u);
     emit siggotusermessage(u);
 }
-void netcoupler::initSoundAndStartWho() {
+void netcoupler::initSoundAndStartWho() {   
     timer.disconnect();
     connect(&timer, SIGNAL(timeout()),this, SLOT(getwholist()));
     timer.start(S_S.getint("sbwhorepead"));

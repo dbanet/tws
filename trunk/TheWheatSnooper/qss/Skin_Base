@@ -198,7 +198,7 @@ QMenu::separator {
 } 
 
 QComboBox { 
-	border-image: url(qss/opencoffee/comboBox.png) 2 17 2 8 stretch; 
+	border-image: url(qss/opencoffee/comboBox_hover.png) 2 17 2 8 stretch; 
 	border-width: 2x 17px 2px 8px;
 } 
 QComboBox:hover { 

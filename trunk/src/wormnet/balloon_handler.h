@@ -1,11 +1,11 @@
 #ifndef BALLOON_HANDLER_H
 #define BALLOON_HANDLER_H
 
-#include <QObject>
+#include<QObject>
 #include<QStringList>
 #include"global_macros.h"
-#include"usermessage.h"
 
+class usermessage;
 class QSystemTrayIcon;
 
 class balloon_handler : public QObject
@@ -23,7 +23,7 @@ public slots:
     void connectedtoleagueserver(QString servicename);
     void buddyarrived();
     void buddyleft();
-    void got_privmsg(const usermessage u);
+    void got_privmsg(const usermessage &u);
     void got_game(const QString playername, const QString gamename);
     void got_costum_word(const QString word,const QString user);
     void hide_tray();

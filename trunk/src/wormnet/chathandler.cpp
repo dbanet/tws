@@ -194,10 +194,10 @@ void chathandler::append(const usermessage u){
     if(u.has_type(e_CHANNELMSGTOCHAT))
         text<<makepair(tr("to ")+u.receiver()+ ": ", format);
     else
-        appendhistory(u);    
+        appendhistory(u);        
+    format.setProperty(userpropertyId,u.user());
     if(u.has_type(e_CHATMSGTOCHANNEL))
         text<<makepair(S_S.getstring("leprvmsgprefix")+ ": ", format);
-    format.setProperty(userpropertyId,u.user());
     hash[e_hash_nick].setProperty(userpropertyId,u.user());
     QString suffix;
     if(u.has_type(e_CTCP))

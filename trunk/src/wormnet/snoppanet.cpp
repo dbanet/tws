@@ -181,18 +181,14 @@ void snoppanet::closehostandstartlasthost(hoststruct h) {
 }
 void snoppanet::sendhostrequest(){
     QNetworkRequest hostrequest = inihandler.requestfromini("[http get host header]");
-    QString s = htmladdress + "/wormageddonweb/Game.asp?Cmd=Create&Name=" + lasthost.name()
-            + "&HostIP=" + lasthost.ip() + "&Nick=" + lasthost.nick() + "&Pwd=" + lasthost.pwd() + "&Chan="
-            + QString(lasthost.chan()).remove("#") + "&Loc=" + lasthost.flagstring() + "&Type="+lasthost.countrynumber()+"&Pass=0";
     QString port;
     if(S_S.getbool ("cbwormnat2"))
-        port = getwormnatport ();
+        port = ":" + getwormnatport ();
     else
-        port = gethostportbyini();
-    if(port!="")
-        s = htmladdress + "/wormageddonweb/Game.asp?Cmd=Create&Name=" + lasthost.name()
-                + "&HostIP=" + lasthost.ip()+":"+port + "&Nick=" + lasthost.nick() + "&Pwd=" + lasthost.pwd() + "&Chan="
-                + QString(lasthost.chan()).remove("#") + "&Loc=" + lasthost.flagstring() + "&Type=0&Pass=0";
+        port = ":" + gethostportbyini();
+    QString s = htmladdress + "/wormageddonweb/Game.asp?Cmd=Create&Name=" + lasthost.name()
+            + "&HostIP=" + lasthost.ip()+port + "&Nick=" + lasthost.nick() + "&Pwd=" + lasthost.pwd() + "&Chan="
+            + QString(lasthost.chan()).remove("#") + "&Loc=" + lasthost.flagstring() + "&Type=0&Pass=0";
     hostrequest.setUrl(s);
     hostreply = manager.get(hostrequest);
     connect(hostreply, SIGNAL(finished()),this, SLOT(hostreplyfinished()));
@@ -231,7 +227,7 @@ void snoppanet::hostreplyfinished() {
     QString gameid=s.remove (':').simplified ();
     if(gameid.isEmpty ())
         gameid="999";
-
+    
     s=hostreply->readAll();
     if(containsCI(s,"Object moved")){
         int start=s.indexOf("href=\"");
@@ -249,6 +245,41 @@ void snoppanet::hostreplyfinished() {
     } else
         myDebug()<<tr("No target for hostreply\n")<<s<<tr("Error: ") + hostreply->errorString();
 }
+hoststruct snoppanet::findmyhost(QList<hoststruct> list){
+    QString ip;
+    if(S_S.getbool ("cbwormnat2"))
+        ip=S_S.getstring ("wormnat2address")+ ":" + lasthostport ();
+    else
+        ip=singleton<netcoupler>().getmyhostip();
+    foreach(hoststruct h,list){
+        if(startswithCI(h.ip(),ip))
+            return h;
+    }
+    return hoststruct();
+}
+hoststruct snoppanet::findduplicatedhosts(QList<hoststruct> list){
+    foreach(hoststruct h,list){
+        if(startswithCI(h.ip(),singleton<netcoupler>().getmyhostip())){
+            return h;
+        }
+    }
+    return hoststruct();
+}
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+
 //void snoppanet::inithosting(QString url){
 //    QNetworkRequest request;
 //    request=inihandler.requestfromini("[http get host header]");
@@ -278,26 +309,6 @@ void snoppanet::hostreplyfinished() {
 //    counter++;
 //    QTimer::singleShot(counter*500,this,SLOT(repeathostlistforhostingreplyrequest()));
 //}
-hoststruct snoppanet::findmyhost(QList<hoststruct> list){
-    QString ip;
-    if(S_S.getbool ("cbwormnat2"))
-        ip=S_S.getstring ("wormnat2address")+ ":" + lastwormnatport ();
-    else
-        ip=singleton<netcoupler>().getmyhostip();
-    foreach(hoststruct h,list){
-        if(startswithCI(h.ip(),ip))
-            return h;
-    }
-    return hoststruct();
-}
-hoststruct snoppanet::findduplicatedhosts(QList<hoststruct> list){
-    foreach(hoststruct h,list){
-        if(startswithCI(h.ip(),singleton<netcoupler>().getmyhostip())){
-            return h;
-        }
-    }
-    return hoststruct();
-}
 //void snoppanet::repeathostlistforhostingreplyrequest(){
 //    hostlistforhostingreply->deleteLater ();
 //    hostlistforhostingreply=manager.get(hostlistforhostingreply->request());

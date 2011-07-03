@@ -95,13 +95,12 @@ void search_for_game_executables(){
     }
 }
 void handle_prosnooper_buddys(){
-    QSettings settings("HKEY_CURRENT_USER\\Software\\ProSnooper",
-                       QSettings::NativeFormat);
+    QSettings settings("HKEY_CURRENT_USER\\Software\\ProSnooper",QSettings::NativeFormat);
     QString buddies = settings.value("Buddies").toString();
     QStringList snpbuddies = S_S.getstringlist("buddylist");
     QStringList buddielist;
     if (!buddies.isEmpty())
-        buddielist = buddies.split(",", QString::SkipEmptyParts);    
+        buddielist = buddies.split(",", QString::SkipEmptyParts);
     QStringList sl = S_S.getstringlist("prosnooperbuddies");
     foreach(QString s,buddielist) {
         if (!sl.contains(s, Qt::CaseInsensitive)) {
