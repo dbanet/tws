@@ -1425,6 +1425,16 @@ CTCP означает &quot;Протокол от Клиента К Клиент
 <context>
     <name>hostbox</name>
     <message>
+        <location filename="../src/wormnet/hostbox.cpp" line="32"/>
+        <source>Create a public game in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/hostbox.cpp" line="33"/>
+        <source>Send hostinfo to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/wormnet/hostbox.cpp" line="67"/>
         <location filename="../src/wormnet/hostbox.cpp" line="71"/>
         <source>Choose a desktop icon.</source>

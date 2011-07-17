@@ -29,8 +29,8 @@ hostbox::hostbox(QString c, QWidget *parent) :
     QString gamename=S_S.getstring("legamename");
     if(!gamename.isEmpty())
         ui.legamename->setText(gamename);
-    setWindowTitle(tr("Create a public game in")+" " + channel + ".");
-    ui.chbsendhostinfotochan->setText(tr("Send hostinfo to %1.").arg(channel));
+    setWindowTitle(hostbox::tr("Create a public game in")+" " + channel);
+    ui.chbsendhostinfotochan->setText(hostbox::tr("Send hostinfo to %1").arg(channel));
 
     setAttribute(Qt::WA_DeleteOnClose);
 
