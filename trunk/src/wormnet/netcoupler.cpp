@@ -183,7 +183,7 @@ void netcoupler::joingame(const QString &hostinfo, const QString &channel, const
     temp = temp + hostinfo;
     startprocess(temp);
     if (S_S.getbool("chbactionwhenjoining"))
-        sendinfotochan(channel, " is joining a game: " + gamename);
+        sendinfotochan(channel, "joined a game: " + gamename);
 }
 void netcoupler::createhost(QString id){
     if(!http)
@@ -233,8 +233,8 @@ void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &
 void netcoupler::getmywormnethost(QString id){
     QString ip=getmyhostip();
 //    disconnect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));    
-    QString host = QString("wa://%1?gameid="+id + "&scheme=%2").arg(ip + ":" + lasthostport ()).arg(schememap[looki::currentchannel]);
-    QString msg = QString(" is hosting a game: %1, %2").arg(S_S.getstring("legamename")).arg(host);
+    QString host = QString("wa://%1?gameidd="+id + "&scheme=%2").arg(ip + ":" + lasthostport ()).arg(schememap[looki::currentchannel]);
+    QString msg = QString("hosted a game: %1, %2").arg(S_S.getstring("legamename")).arg(host);
     if (S_S.getbool("chbsendhostinfotochan"))
         sendinfotochan(looki::currentchannel, msg);
     createhost(id);
