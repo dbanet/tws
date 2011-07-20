@@ -693,7 +693,6 @@ Skin_Base</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="19"/>
-        <location filename="../src/wormnet/hostmodel.cpp" line="17"/>
         <source>Gamename</source>
         <translation>Nombre de la partida</translation>
     </message>
@@ -701,6 +700,11 @@ Skin_Base</translation>
         <location filename="../src/wormnet/hostmodel.cpp" line="17"/>
         <source>User</source>
         <translation>Organizador</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/hostmodel.cpp" line="17"/>
+        <source>Game</source>
+        <translation>Partida</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="20"/>
@@ -1123,7 +1127,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/chathandler.cpp" line="265"/>
         <location filename="../src/wormnet/chathandler.cpp" line="313"/>
         <source>GAMELINK</source>
-        <translation>PARTIDA</translation>
+        <translation>ENLACE</translation>
     </message>
 </context>
 <context>
@@ -1131,7 +1135,7 @@ Skin_Base</translation>
     <message>
         <location filename="../src/wormnet/chathandlerprv.cpp" line="49"/>
         <source>GAMELINK</source>
-        <translation>PARTIDA</translation>
+        <translation>ENLACE</translation>
     </message>
 </context>
 <context>
@@ -1279,6 +1283,11 @@ Skin_Base</translation>
 </context>
 <context>
     <name>ctctphandlerwidget</name>
+    <message>
+        <location filename="../src/wormnet/ctctphandlerwidget.cpp" line="8"/>
+        <source>CTCP handler</source>
+        <translation>Comandos CTCP</translation>
+    </message>
     <message>
         <location filename="../src/wormnet/ctctphandlerwidget.cpp" line="81"/>
         <source>CTCP commands are simple messages, that are bounded with ASCII 0x01 signs.
@@ -1627,6 +1636,14 @@ La conexión no es posible. Por favor contacta al administrador del servidor.</t
         <location filename="../src/wormnet/leagueserverhandler.cpp" line="117"/>
         <source>Unable to get the user information from</source>
         <translation>No se pudo obtener información de usuarios de</translation>
+    </message>
+</context>
+<context>
+    <name>logbrowser</name>
+    <message>
+        <location filename="../src/wormnet/logbrowser.cpp" line="10"/>
+        <source>Log Browser</source>
+        <translation>Visor de registros</translation>
     </message>
 </context>
 <context>
@@ -2068,6 +2085,14 @@ Aún así, The Wheat Snooper conservará la configuración para el siguiente ini
 </context>
 <context>
     <name>netcoupler</name>
+    <message>
+        <source>joined a game: </source>
+        <translation type="obsolete">se unió a una partida: </translation>
+    </message>
+    <message>
+        <source>hosted a game: %1, %2</source>
+        <translation type="obsolete">creó una partida: %1, %2</translation>
+    </message>
     <message>
         <location filename="../src/wormnet/netcoupler.cpp" line="265"/>
         <source>No executables are given.

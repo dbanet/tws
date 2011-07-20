@@ -675,13 +675,17 @@ Skin_Base</source>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="19"/>
-        <location filename="../src/wormnet/hostmodel.cpp" line="17"/>
         <source>Gamename</source>
         <translation type="unfinished">Nome do jogo</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostmodel.cpp" line="17"/>
         <source>User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/hostmodel.cpp" line="17"/>
+        <source>Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1263,6 +1267,11 @@ Skin_Base</source>
 <context>
     <name>ctctphandlerwidget</name>
     <message>
+        <location filename="../src/wormnet/ctctphandlerwidget.cpp" line="8"/>
+        <source>CTCP handler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/wormnet/ctctphandlerwidget.cpp" line="81"/>
         <source>CTCP commands are simple messages, that are bounded with ASCII 0x01 signs.
 These signs cannot be written directly into a textline.
@@ -1593,6 +1602,14 @@ Its not possible to login, please contact the server admin.</source>
     <message>
         <location filename="../src/wormnet/leagueserverhandler.cpp" line="117"/>
         <source>Unable to get the user information from</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>logbrowser</name>
+    <message>
+        <location filename="../src/wormnet/logbrowser.cpp" line="10"/>
+        <source>Log Browser</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
