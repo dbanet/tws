@@ -7,7 +7,7 @@ logbrowser::logbrowser(QWidget *parent)
 {
     setObjectName("normalwidget");
     ui.setupUi(this);
-    setWindowTitle(tr("Log Browser"));
+    setWindowTitle(logbrowser::tr("Log Browser"));
     setAttribute(Qt::WA_DeleteOnClose);
     foreach(QString s,history().keys())
         ui.listWidget->addItem(s);

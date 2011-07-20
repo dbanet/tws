@@ -5,7 +5,7 @@
 ctctphandlerwidget::ctctphandlerwidget(){
      setObjectName("ctcphandler");
     ui.setupUi(this);
-     setWindowTitle(tr("ctcp handler."));
+     setWindowTitle(ctctphandlerwidget::tr("CTCP handler"));
     QFile file("snpini/ctcp.ini");
 
     QString line;
