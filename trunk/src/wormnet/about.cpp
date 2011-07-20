@@ -16,7 +16,7 @@ about::about(QFrame *parent)
                       tr("Lookias`s Homepage:")+" <a href=\"http://lookias.worms2d.info/\">http://lookias.worms2d.info</a><br>"+
                       tr("This programs livingplace")+" <a href=\"http://lookias.worms2d.info/forum/\">http://lookias.worms2d.info/forum/<\a></p>").arg(version)+
             tr("<br><br>Participants:<br><br>")+
-            "MihaiS<br>StepS<br>DENnis<br>Kawoosh<br>CyberShadow<br>MonkeyIsland<br>kilobyte<br>Killer<br>eViL<br>kosmos<br>LeTotalKiller<br>Domi<br>CzAjNiK<br> and many others :) ";
+            "MihaiS<br>StepS<br>DENnis<br>Kawoosh<br>CyberShadow<br>MonkeyIsland<br>kilobyte<br>Killer<br>eViL<br>kosmos<br>LeTotalKiller<br>Domi<br>CzAjNiK<br>WowwoW<br> and many others :) ";
 
     ui.textBrowser->setHtml(s);
 }
