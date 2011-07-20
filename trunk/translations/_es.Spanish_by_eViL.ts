@@ -991,7 +991,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/buttonlayout.cpp" line="139"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="169"/>
         <source>Idle</source>
-        <translation>Inactivo</translation>
+        <translation>Ausente</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="141"/>
@@ -1041,7 +1041,7 @@ Skin_Base</translation>
     <message>
         <location filename="../src/wormnet/buttonlayout.ui" line="211"/>
         <source>State Color</source>
-        <translation>Color de estado</translation>
+        <translation>Estado</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.ui" line="218"/>
