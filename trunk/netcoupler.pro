@@ -160,7 +160,6 @@ SOURCES +=  src/wormnet/about.cpp \
 
 RC_FILE += src/wormnet/myapp.rc
 TRANSLATIONS += \
-    translations/The_Wheat_Snooper_spanish-(of_spain)_by_kosmos.ts \
     translations/The_Wheat_Snooper_untranslated.ts \
     translations/_da.Danish.ts \
     translations/_de.German_by_lookias.ts \
@@ -171,7 +170,10 @@ TRANSLATIONS += \
     translations/_ru.Russian_translation_by_StepS.ts \
     translations/_pl.Polish_by_CzAjNiK.ts \
     translations/_en.Standard.ts \
+    translations/_es.Spanish_(Spain)_by_WowwoW.ts \
     translations/_lt.Lithuanian_by_K4Tsis.ts
 
 RESOURCES += \
     pictureResource.qrc
+
+OTHER_FILES +=
