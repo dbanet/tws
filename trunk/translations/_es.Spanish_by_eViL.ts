@@ -1159,7 +1159,7 @@ Skin_Base</translation>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="184"/>
         <source>&lt;This users idle time:</source>
-        <translation>&lt;Tiempo de inactividad de este usuario: </translation>
+        <translation>&gt; Tiempo de inactividad de este usuario:</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="188"/>
