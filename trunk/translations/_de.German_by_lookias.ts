@@ -703,7 +703,7 @@ Skin_base</translation>
     <message>
         <location filename="../src/wormnet/hostmodel.cpp" line="17"/>
         <source>Game</source>
-        <translation type="unfinished">Spiel</translation>
+        <translation>Spiel</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="20"/>
@@ -1285,7 +1285,7 @@ Skin_base</translation>
     <message>
         <location filename="../src/wormnet/ctctphandlerwidget.cpp" line="8"/>
         <source>CTCP handler</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/wormnet/ctctphandlerwidget.cpp" line="81"/>
@@ -1430,12 +1430,12 @@ CTCP kannst du für Clanseiten-Links, Witze, Bilder-Links, QFileUpload-Links und
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="32"/>
         <source>Create a public game in</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstelle ein öffentliches Spiel in </translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="33"/>
         <source>Send hostinfo to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Sende Hostinformationen an %1 </translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="67"/>
@@ -1456,7 +1456,7 @@ CTCP kannst du für Clanseiten-Links, Witze, Bilder-Links, QFileUpload-Links und
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="138"/>
         <source>Using Wormnat2 hosting requieres some wk files to be moved to you Worms Armageddon folder, these files may replace old files.Do you want that?</source>
-        <translation type="unfinished"></translation>
+        <translation>Um Wormnat2 hosting zu benutzen müssen einige Dateien in dein Worms Verzeichnis kopiert werden, dadurch werden möglicherweise alte Wk Dateien überschrieben. Willst du fortfahren?</translation>
     </message>
 </context>
 <context>
@@ -1640,7 +1640,7 @@ Es ist nicht möglich das Wormnet mit diesem Nick zu betreten.</translation>
     <message>
         <location filename="../src/wormnet/logbrowser.cpp" line="10"/>
         <source>Log Browser</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
