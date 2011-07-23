@@ -170,7 +170,7 @@ TRANSLATIONS += \
     translations/_ru.Russian_translation_by_StepS.ts \
     translations/_pl.Polish_by_CzAjNiK.ts \
     translations/_en.Standard.ts \
-    translations/_es.Spanish_(Spain)_by_WowwoW.ts \
+    translations/es.Spanish_(Spain)_by_WowwoW.ts \
     translations/_lt.Lithuanian_by_K4Tsis.ts
 
 RESOURCES += \
