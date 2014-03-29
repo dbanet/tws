@@ -1,0 +1,112 @@
+#channelwindow{
+background:white;
+}
+#channelwindow *{
+background:white;
+}
+#about{
+background:transparent;
+border:2px solid black;
+border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+#about *{
+background:transparent;
+color:white;
+}
+#filehistory{
+background:transparent;
+border:2px solid black;
+border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+#filehistory *{
+background:transparent;
+color:white;
+}
+#ctcphandler {
+background:transparent;
+border:2px solid black;
+border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+#ctcphandler *{
+background:transparent;
+color:white;
+}
+#ctcphandler QLineEdit{
+background:transparent;
+color:black;
+}
+#ctcphowto{
+	background:transparent;
+	border:2px solid black;
+	border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+	color:white;
+}
+#filehistory{
+background:transparent;
+border:2px solid black;
+border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+#filehistory *{
+background:transparent;
+color:white;
+}
+#labeltraydescription{
+background:transparent;
+color:white;
+border:2px solid black;
+border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+
+#volumeslider QSlider:horizontal {
+	border:2px solid rgba(150,0,0,100);
+	height:35px;
+}
+
+#volumeslider{
+	border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+#volumeslider QSlider::handle:horizontal {
+background:transparent;
+     border-image:url(qss/opencoffee/sliderhandle.png);
+     width: 30px;
+	height:30px;
+ }
+#volumeslider QSlider::groove:horizontal{
+	background:transparent;
+}
+#chatwindowbuttonscrollArea{
+background:transparent;
+}
+#chatwindowbuttonscrollArea *{
+background:transparent;
+}
+#channelwindow QHeaderView::section {
+     border-image: url(qss/opencoffee/normalButton_2.png) 4 5 4 5 stretch;
+	border-width: 4px 5px 4px 5px;
+	color: white;
+}
+#channelwindow QHeaderView::section:hover {
+border-image: url(qss/opencoffee/normalButton_hover_2.png) 4 5 4 5 stretch;
+	border-width: 4px 5px 4px 5px;
+	color: white;
+}
+#channelwindow QHeaderView::section:pressed {
+border-image: url(qss/opencoffee/normalButton_pressed_2.png) 4 5 4 5 stretch;
+	border-width: 4px 5px 4px 5px;
+	color: white;
+}
+/**--------------------------------------------------------------------------specific**/
+
+#scrollareacorner1{
+background:white;
+}
+#scrollareacorner2{
+background:white;
+}
+#scrollareacorner3{
+background:white;
+}
+#channelwindow QToolTip{
+	color:yellow;
+	background-color:black;
+}

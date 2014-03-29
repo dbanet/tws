@@ -1,0 +1,272 @@
+#channelwindow{
+background:white;
+}
+#channelwindow *{
+background:white;
+}
+#about{
+background:transparent;
+border:2px solid black;
+border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+#about *{
+background:transparent;
+color:white;
+}
+#filehistory{
+background:transparent;
+border:2px solid black;
+border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+#filehistory *{
+background:transparent;
+color:white;
+}
+#ctcphandler {
+background:transparent;
+border:2px solid black;
+border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+#ctcphandler *{
+background:transparent;
+color:white;
+}
+#ctcphandler QLineEdit{
+background:transparent;
+color:black;
+}
+#ctcphowto{
+	background:transparent;
+	border:2px solid black;
+	border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+	color:white;
+}
+#filehistory{
+background:transparent;
+border:2px solid black;
+border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+#filehistory *{
+background:transparent;
+color:white;
+}
+#labeltraydescription, #labeltraydescription1{
+background:transparent;
+color:white;
+border:2px solid black;
+border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+
+#volumeslider QSlider:horizontal {
+	border:2px solid rgba(150,0,0,100);
+	height:35px;
+}
+
+#volumeslider{
+	border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+#volumeslider QSlider::handle:horizontal {
+background:transparent;
+     border-image:url(qss/opencoffee/sliderhandle.png);
+     width: 30px;
+	height:30px;
+ }
+#volumeslider QSlider::groove:horizontal{
+	background:transparent;
+}
+#chatwindowbuttonscrollArea{
+background:transparent;
+}
+#chatwindowbuttonscrollArea *{
+background:transparent;
+}
+/**--------------------------------------------------------------------------specific**/
+QStatusBar{
+color:white;
+}
+#bgframe{
+	border-image:url(qss/black/bg.png);
+}
+#bgframe *{
+background:transparent;
+}
+#bgchatwindowframe{
+	border-image:url(qss/black/bg.png);
+}
+#bgchatwindowframe *{
+background:transparent;
+}
+#channelwindow QHeaderView::section {
+     border-image: url(qss/opencoffee/normalButton_2.png) 4 5 4 5 stretch;
+	border-width: 4px 5px 4px 5px;
+	color: white;
+}
+#channelwindow QHeaderView::section:hover {
+border-image: url(qss/opencoffee/normalButton_hover_2.png) 4 5 4 5 stretch;
+	border-width: 4px 5px 4px 5px;
+	color: white;
+}
+#channelwindow QHeaderView::section:pressed {
+border-image: url(qss/opencoffee/normalButton_pressed_2.png) 4 5 4 5 stretch;
+	border-width: 4px 5px 4px 5px;
+	color: white;
+}
+#channelwindow QTreeView{
+	alternate-background-color:transparent;
+	color:white;
+}
+#channelwindow QTreeView::item:selected {
+	background-color: transparent;
+	color: white;
+}
+#channelwindow QScrollBar:horizontal {
+	border-image:none;
+     background-color: transparent;
+     height: 10px;
+     margin: 0px 20px 0px 20px;
+ }
+#channelwindow QScrollBar:vertical {
+	border-image:none;
+     background-color: transparent;
+     width: 10px;
+     margin: 20px 0px 20px 0px;
+ }
+#channelwindow QScrollBar::handle:horizontal {
+     	min-width: 20px;
+     	height: 20px;
+ }
+#channelwindow QScrollBar::handle:vertical {
+	border-image: url(qss/black/normalscrollbarver.png) 4 0 4 0 stretch; 
+	min-height: 20px; 
+	border-width: 4px 0px 4px 0px;
+} 
+#channelwindow QScrollBar::handle:vertical:hover {
+	border-image: url(qss/black/hoverscrollbarver.png) 4 0 4 0 stretch; 
+	border-width: 4px 0px 4px 0px;
+} 
+#channelwindow QScrollBar::handle:vertical:pressed {
+	border-image: url(qss/black/pressedscrollbarver.png) 4 0 4 0 stretch; 
+	border-width: 4px 0px 4px 0px;
+} 
+#channelwindow QScrollBar::handle:horizontal {
+	border-image: url(qss/black/normalscrollbarhor.png) 0 4 0 4 stretch; 
+	min-width: 20px; 
+	border-width: 0px 4px 0px 4px;
+} 
+#channelwindow QScrollBar::handle:horizontal:hover {
+	border-image: url(qss/black/hoverscrollbarhor.png) 0 4 0 4 stretch; 
+	border-width: 0px 4px 0px 4px;
+} 
+#channelwindow QScrollBar::handle:horizontal:pressed {
+	border-image: url(qss/black/pressedscrollbarhor.png) 0 4 0 4 stretch; 
+	border-width: 0px 4px 0px 4px;
+} 
+#channelwindow QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+	border-image:none;
+     background: transparent;
+ }
+#channelwindow QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	border-image:none;
+     background: transparent;
+ }
+#channelwindow QLineEdit{ 
+	border-image: url(qss/black/lineEditBg.png) 4 4 4 4 stretch; 
+	border-width: 4px 4px 4px 4px; 
+	border-radius: 0px;
+} 
+#channelwindow QLineEdit:hover{
+	border-image: url(qss/black/lineEditBg_hover.png) 4 4 4 4 stretch; 
+	border-width: 4px 4px 4px 4px; 
+	border-radius: 0px;
+} 
+#channelwindow QLineEdit:focus{
+	border-image: url(qss/black/lineEditBg_focus.png) 4 4 4 4 stretch; 
+	border-width: 4px 4px 4px 4px; 
+	border-radius: 0px;
+}
+#channelwindow QLineEdit{
+color:white;
+}
+#channelwindow QSlider::handle:horizontal {
+     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 transparent, stop:1 white);
+     width: 10px;
+     margin: -2px 0; 
+     border-radius: 3px;
+ }
+#channelwindow QSlider::handle:horizontal:hover {
+     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 transparent, stop:1 white);
+     width: 10px;
+     margin: -2px 0; 
+     border-radius: 3px;
+ }
+#channelwindow QSlider::handle:horizontal:pressed {
+     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 transparent, stop:1 white);
+     width: 10px;
+     margin: -2px 0; 
+     border-radius: 3px;
+ }
+
+#channelwindow QSplitter::handle:hover {
+     background-color: #969696;
+     height: 2px;
+     width: 2px;		
+}
+#channelwindow QLineEdit QMenu{
+background:white;
+}
+/**---------------------------------------------------------------------------------chatwindow**/
+#chatwindow QScrollBar:vertical {
+	border-image:none;
+     background-color: transparent;
+     width: 10px;
+     margin: 20px 0px 20px 0px;
+ }
+#chatwindow QScrollBar::handle:vertical {
+	border-image: url(qss/black/normalscrollbarver.png) 4 0 4 0 stretch; 
+	min-height: 20px; 
+	border-width: 4px 0px 4px 0px;
+} 
+#chatwindow QScrollBar::handle:vertical:hover {
+	border-image: url(qss/black/hoverscrollbarver.png) 4 0 4 0 stretch; 
+	border-width: 4px 0px 4px 0px;
+} 
+#chatwindow QScrollBar::handle:vertical:pressed { 
+	border-image: url(qss/black/pressedscrollbarver.png) 4 0 4 0 stretch; 
+	border-width: 4px 0px 4px 0px;
+} 
+#chatwindow QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	border-image:none;
+     background: transparent;
+ }
+#chatwindow QLineEdit{
+	border-image: url(qss/black/lineEditBg.png) 4 4 4 4 stretch; 
+	border-width: 4px 4px 4px 4px; 
+	border-radius: 0px;
+} 
+#chatwindow QLineEdit QMenu{
+background:white;
+}
+#chatwindow QLineEdit:hover{
+	border-image: url(qss/black/lineEditBg_hover.png) 4 4 4 4 stretch; 
+	border-width: 4px 4px 4px 4px; 
+	border-radius: 0px;
+} 
+#chatwindow QLineEdit:focus{
+	border-image: url(qss/black/lineEditBg_focus.png) 4 4 4 4 stretch; 
+	border-width: 4px 4px 4px 4px; 
+	border-radius: 0px;
+}
+#chatwindow QLineEdit{
+color:white;
+}
+#chatwindow QToolTip{
+	color:yellow;
+	background-color:black;
+}
+#channelwindow QToolTip{
+	color:yellow;
+	background-color:black;
+}

@@ -1,0 +1,1 @@
+to make a soundpack you must take the same file names for the new sound files and put them into another directory.

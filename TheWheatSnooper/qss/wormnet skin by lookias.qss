@@ -1,0 +1,322 @@
+#about{
+background:transparent;
+border:2px solid black;
+border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+#about *{
+background:transparent;
+color:white;
+}
+#filehistory{
+background:transparent;
+border:2px solid black;
+border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+#filehistory *{
+background:transparent;
+color:white;
+}
+#ctcphandler {
+background:transparent;
+border:2px solid black;
+border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+#ctcphandler *{
+background:transparent;
+color:white;
+}
+#ctcphandler QLineEdit{
+background:transparent;
+color:black;
+}
+#ctcphowto{
+	background:transparent;
+	border:2px solid black;
+	border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+	color:white;
+}
+#labeltraydescription,#labeltraydescription1{
+background:transparent;
+color:white;
+border:2px solid black;
+border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+
+#volumeslider QSlider:horizontal {
+	border:2px solid rgba(150,0,0,100);
+	height:35px;
+}
+
+#volumeslider{
+	border-image:url(qss/opencoffee/labeldescriptionborder.png) repeat;
+}
+#volumeslider QSlider::handle:horizontal {
+background:transparent;
+     border-image:url(qss/opencoffee/sliderhandle.png);
+     width: 30px;
+	height:30px;
+ }
+#volumeslider QSlider::groove:horizontal{
+	background:transparent;
+}
+#chat{
+background:transparent;
+}
+#chatwindowbuttonscrollArea{
+background:transparent;
+}
+#chatwindowbuttonscrollArea *{
+background:transparent;
+}
+#chatwindow QTextEdit:focus{
+	border:0px;
+}
+/**--------------------------------------------------------------------------specific**/
+QWidget#scrollareacorner{
+background:rgb(0,0,140);
+}
+#bgframe{
+	background-color:  qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 rgb(0,0,8), stop:1 rgb(0,0,140));
+}
+#bgframe *{
+background:transparent;
+}
+#bgchatwindowframe{
+	border-image:url(qss/wormnet/bgchatwindow.png);
+	
+}
+/**-----------------------------------------------------------------------CHANNELWINDOW**/
+#channelwindow QScrollBar:horizontal {
+     background-color: gray;
+     height: 10px;
+     margin: 0px 10px 0px 10px;
+ }
+#channelwindow QScrollBar:vertical {
+     background-color: grey;
+     width: 10px;
+     margin: 10px 0px 10px 0px;
+ }
+#channelwindow QScrollBar::handle{
+	border-image:none;
+    	border:1px solid black;
+	background:rgb(254,182,168);
+}
+#channelwindow QScrollBar::handle:horizontal {
+     	min-width: 20px;
+     	height: 20px;
+ }
+#channelwindow QScrollBar::handle:vertical {
+     	min-height: 50px;
+     	width: 20px;
+ }
+#channelwindow QScrollBar::add-line:horizontal {
+     border: 1px solid grey;
+     background: black;
+     width: 10px;
+     subcontrol-position: right;
+     subcontrol-origin: margin;
+ }
+#channelwindow QScrollBar::add-line:vertical {
+     border: 1px solid grey;
+     background: black;
+     height: 10px;
+     subcontrol-position: bottom;
+     subcontrol-origin: margin;
+ }
+
+#channelwindow QScrollBar::sub-line:horizontal {
+     border: 1px solid grey;
+     background: black;
+     width: 10px;
+     subcontrol-position: left;
+     subcontrol-origin: margin;
+ }
+#channelwindow QScrollBar::sub-line:vertical {
+     border: 1px solid grey;
+     background: black;
+     height: 10px;
+     subcontrol-position: top;
+     subcontrol-origin: margin;
+ }
+#channelwindow QScrollBar::left-arrow:horizontal{
+background-image:none;
+     image: url(qss/wormnet/leftarrow.png);
+ }
+#channelwindow QScrollBar::right-arrow:horizontal {
+background-image:none;
+     image: url(qss/wormnet/rightarrow.png);
+ }
+#channelwindow QScrollBar::up-arrow:vertical {
+background-image:none;
+	image: url(qss/wormnet/uparrow.png);
+ }
+#channelwindow QScrollBar::down-arrow:vertical {
+background-image:none;
+	image: url(qss/wormnet/downarrow.png);
+ }
+
+#channelwindow QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+     background: gray;
+ }
+#channelwindow QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: gray;
+ }
+#channelwindow QTreeView{
+	alternate-background-color:transparent;
+}
+#channelwindow QTreeView::item:selected { 
+	background-color: red;
+}
+#channelwindow QTreeView#hosts{
+	border: 0px;
+	padding: 2px 1px 2px 1px;
+	background-color: transparent;
+	color: rgb(255,191,191);
+	font: "Adobe New Century Schoolbook" bold;
+	alternate-background-color: transparent;
+}
+#channelwindow QTreeView#users{
+	border: 0px;
+	padding: 2px 1px 2px 1px;
+	background-color: transparent;
+	color: white;
+	font: "Adobe New Century Schoolbook" bold;
+	alternate-background-color: transparent;
+}
+#channelwindow QSplitter::handle {
+     background-color: gray;
+     height: 2px;
+     width: 2px;		
+}
+#channelwindow QSplitter::handle:hover {
+     background-color: red;
+     height: 2px;
+     width: 2px;		
+}
+#channelwindow QHeaderView::section {
+     background-color: black;
+     color: white;
+     padding-left: 4px;
+     border: 1px solid #6c6c6c;
+}
+#channelwindow QPushButton{
+	border-image:none;
+	border:2px solid gray;
+	background-color:black;
+	color: white;
+}
+#channelwindow QPushButton:hover{
+	border:2px solid white;
+	background:black;
+}
+#channelwindow QPushButton:pressed {
+	border:2px solid yellow;
+	background: rgb(0,0,64);
+}
+#channelwindow QLineEdit{ 
+	border-image:none;
+	border:2px solid gray;
+	background:black;
+	color: white;
+} 
+#channelwindow QLineEdit:hover{
+	border:2px solid white;
+	background:black;
+	border-radius: 0px;
+} 
+#channelwindow QLineEdit:focus{ 
+	border:2px solid yellow;
+	background:transparent;
+	border-radius: 0px;
+}
+#channelwindow QTextEdit:focus{
+	border:0px;
+}
+/**-----------------------------------------------------------------------CHATWINDOW**/
+#chatwindow QPushButton{
+	border-image:none;
+	border:2px solid gray;
+	background-color:black;
+	color: white;
+}
+#chatwindow QPushButton:hover{
+	border:2px solid white;
+	background:black;
+}
+#chatwindow QPushButton:pressed {
+	border:2px solid yellow;
+	background: rgb(0,0,64);
+}
+#chatwindowbuttonscrollArea QPushButton{
+	border-image:none;
+	border:2px solid gray;
+	background-color:transparent;
+	color: white;
+}
+#chatwindow QLineEdit{ 
+	border-image:none;
+	border:2px solid gray;
+	background:black;
+	color: white;
+} 
+#chatwindow QLineEdit:hover{
+	border:2px solid white;
+	background:black;
+	border-radius: 0px;
+} 
+#chatwindow QLineEdit:focus{ 
+	border:2px solid yellow;
+	background:transparent;
+	border-radius: 0px;
+}
+#chatwindow QScrollBar:vertical {
+     background-color: grey;
+     width: 10px;
+     margin: 10px 0px 10px 0px;
+ }
+#chatwindow QScrollBar::handle{
+	border-image:none;
+    	border:1px solid black;
+	background:rgb(254,182,168);
+}
+#chatwindow QScrollBar::handle:vertical {
+     	min-height: 50px;
+     	width: 20px;
+ }
+#chatwindow QScrollBar::add-line:vertical {
+     border: 1px solid grey;
+     background: black;
+     height: 10px;
+     subcontrol-position: bottom;
+     subcontrol-origin: margin;
+ }
+
+#chatwindow QScrollBar::sub-line:vertical {
+     border: 1px solid grey;
+     background: black;
+     height: 10px;
+     subcontrol-position: top;
+     subcontrol-origin: margin;
+ }
+#chatwindow QScrollBar::up-arrow:vertical {
+	image: url(qss/wormnet/uparrow.png);
+ }
+#chatwindow QScrollBar::down-arrow:vertical {
+	image: url(qss/wormnet/downarrow.png);
+ }
+#chatwindow QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: gray;
+ }
+#chatwindow QStatusBar{
+	color: white;
+	font: bold;
+}
+#chatwindow QToolTip{
+	color:yellow;
+	background:blue;
+}
+#channelwindow QToolTip{
+	color:red;
+	background:blue;
+}
