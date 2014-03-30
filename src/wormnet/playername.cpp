@@ -14,7 +14,9 @@ playername::playername(QWidget *parent) :
             tr("This is your Playername in a game.\n"
                "This name supports more letters then the wormnet name.\n"
                "If this string is empty, worms will probably not host or join a game."));
+#ifdef Q_WS_WIN
     nick=get_winini_key ("PlayerName");
+#endif
     ui.lineEdit->setText(nick);
     QRegExp rg;
     rg.setPattern (QString::fromWCharArray (L"(\\!|\"|#|\\$| |%|\\&|'|\\(|\\)|\\*|\\+|\\,|\\-|\\.|/|[0-9]|:|;|<|\\=|>|\\?|@|[A-Z]|\\[|\\\\|\\]|\\^|_|`|[a-z]|\\{|\\||\\}|Ö|ö|~|Ő|ő|Ű|ű|¿|À|Á|Â|Ã|Ä|Å|Æ|Ç|È|É|Ê|Ë|Ì|Í|Î|Ï|Ð|Ñ|Ò|Ó|Ô|Õ|×|Ø|Ù|Ú|Û|Ü|Ý|Þ|ß|à|á|â|ã|ä|å|æ|ç|è|é|ê|ë|ì|í|î|ï|ð|ñ|ò|ó|ô|õ|÷|ø|ù|ú|û|ü|ý|þ|ÿ|Б|Г|Д|Ж|З|И|Й|К|Л|П|У|Ф|Ц|Ч|Ш|Щ|Ъ|Ы|Ь|Э|Ю|X|Я|б|в|г|д|ж|з|и|й|Ÿ|¡|к|£|л|м|н|п|т|ф|ц|ч|ш|щ|ъ|ы|ь|э|ю|я){1,15}"));
@@ -24,8 +26,10 @@ playername::playername(QWidget *parent) :
 }
 void playername::okclicked() {
     nick = ui.lineEdit->text ();
+#ifdef Q_WS_WIN
     if(!nick.isEmpty ())
         set_winini_key ("PlayerName",nick);
+#endif
     close();
 }
 playername::~playername() {

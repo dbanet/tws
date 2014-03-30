@@ -4,7 +4,9 @@
 #include"charformatsettings.h"
 #include"settingswindow.h"
 #include"volumeslider.h"
+#ifdef PHONON
 #include"sound_handler.h"
+#endif
 #include"global_functions.h"
 #include"codecselectdia.h"
 #include"clantowebpagemapper.h"
@@ -62,8 +64,10 @@ int main(int argc, char *argv[]) {
 #ifdef Q_WS_WIN
     search_for_game_executables();
     handle_prosnooper_buddys();
-#endif                   
+#endif
+#ifdef PHONON
     singleton<sound_handler>().init();
+#endif
     qobjectwrapper<awayhandler>();
     qobjectwrapper<mainwindow> w;
     volume->setvalue(S_S.getint("volumeslidervalue"));
@@ -71,7 +75,9 @@ int main(int argc, char *argv[]) {
         w.ref().show();
     loadusergarbage();
     loadquerylist();       
-    QTimer::singleShot(1000,&singleton<sound_handler>(),SLOT(play_startupsound()));    
+#ifdef PHONON
+    QTimer::singleShot(1000,&singleton<sound_handler>(),SLOT(play_startupsound()));
+#endif
     return a.exec();
 }
 void search_for_game_executables(){

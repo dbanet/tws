@@ -14,8 +14,9 @@
 #include"volumeslider.h"
 #include"mainwindow.h"
 #include"playername.h"
+#ifdef PHONON
 #include"sound_handler.h"
-#include"sound_handler.h"
+#endif
 #include"global_functions.h"
 #include"global_functions.h"
 #include"balloon_handler.h"
@@ -39,7 +40,9 @@ void netcoupler::start(QString s){
     if(!p){                                                     //indicates first start
         p=new QProcess(this);
         p->setProcessChannelMode(QProcess::MergedChannels);
+#ifdef PHONON
         connect(volume, SIGNAL(valueChanged (int)),&singleton<sound_handler>(), SLOT(volumechange(int)));
+#endif
         connect(&users, SIGNAL(sigbuddyarrived()),&singleton<balloon_handler>(), SLOT(buddyarrived()));
         connect(&users, SIGNAL(sigbuddyleft()),&singleton<balloon_handler>(), SLOT(buddyleft()));
         connect(this,SIGNAL(sigconnected()),&singleton<balloon_handler>(),SLOT(connected()));
@@ -197,8 +200,10 @@ void netcoupler::createhost(QString id){
     if(!http->lasthost.pwd().isEmpty())
         s="&password="+http->lasthost.pwd();
     temp = temp + " \"" + "wa://" + "?gameid="+ id + "&scheme=" + schememap[looki::currentchannel] + s+"\"";
+#ifdef WITH_WORMNAT_SUPPORT
     if(S_S.getbool ("cbwormnat2"))
         temp += getwormnat2commandline();
+#endif
     startprocess(temp);
 }
 //void netcoupler::createhost(hoststruct h) {
@@ -329,7 +334,9 @@ void netcoupler::initSoundAndStartWho() {
     timer.disconnect();
     connect(&timer, SIGNAL(timeout()),this, SLOT(getwholist()));
     timer.start(S_S.getint("sbwhorepead"));
+#ifdef PHONON
     singleton<sound_handler>().init();
+#endif
 }
 void netcoupler::settingswindowemitfunktion() { //signals are protected?!
     emit sigsettingswindowchanged();

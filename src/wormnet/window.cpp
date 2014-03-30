@@ -6,7 +6,9 @@
 #include"hostbox.h"
 #include"settingswindow.h"
 #include"buttonlayout.h"
+#ifdef PHONON
 #include"sound_handler.h"
+#endif
 #include"global_functions.h"
 #include"clantowebpagemapper.h"
 #include"leagueserverhandler.h"
@@ -238,7 +240,9 @@ void window::getusermessage(usermessage u){
             if (S_S.getbool("cbalertfromnormal")) {
                 singleton<balloon_handler>().alert(u.user(), this);
             }
+#ifdef PHONON
             singleton<sound_handler>().play_normalmsgsound(user);            
+#endif
         }
     } else if (compareCI(u.receiver(), currentchannel)){
         if(S_S.getbool("cbignorysappearinchannel"))
@@ -478,7 +482,7 @@ void window::hostitempressed(const QModelIndex &index) {
                     QString file = QFileDialog::getOpenFileName(this, tr(
                                                                     "Choose a desktop icon."), "/home", "*.desktop");
 #endif
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) | defined(Q_WS_OS2)
                     QString file = QFileDialog::getOpenFileName(this, tr("Choose a Program."), "c:/", "*.exe *.com");
 #endif
 #ifdef Q_WS_X11

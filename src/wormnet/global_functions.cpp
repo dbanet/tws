@@ -8,7 +8,9 @@
 #include<QDate>
 #include<QTextCodec>
 
+#ifdef Q_WS_WIN
 #include<windows.h>
+#endif
 #include<conio.h>
 #include<stdio.h>
 #include<stdlib.h>
@@ -34,6 +36,7 @@ QStringList refreshcombobox(QComboBox *cb){
     return sl;
 }
 //----------------------------------------------------------------------------------------------
+#ifdef WITH_WORMNAT_SUPPORT
 SOCKET ControlSocket;
 QString getwormnat2commandline(){
     STARTUPINFOA si;
@@ -52,8 +55,10 @@ QString getwormnat2commandline(){
     CreateProcessA(0,str1,0,0,0,0,0,0,&si,&pi);
     return s;
 }
+#endif
 //----------------------------------------------------------------------------------------------
 QString my_lasthostport;
+#ifdef WITH_WORMNAT_SUPPORT
 QString getwormnatport(){
     closesocket(ControlSocket);
     sockaddr_in ControlAddr;
@@ -99,6 +104,7 @@ QString getwormnatport(){
     my_lasthostport=QString::number (ExternalPort);
     return my_lasthostport;
 }
+#endif
 //----------------------------------------------------------------------------------------------
 QString globalport;
 QString gethostportbyini() {
@@ -122,6 +128,7 @@ void sethostport(QString port) {
 #endif
 }
 //----------------------------------------------------------------------------------------------
+#ifdef Q_WS_WIN
 QString get_winini_key(QString key){
     char *p=new char[255];
     GetProfileStringA("NetSettings",key.toAscii (),"",p,255);
@@ -129,12 +136,15 @@ QString get_winini_key(QString key){
     delete[] p;
     return s;
 }
+#endif
 //----------------------------------------------------------------------------------------------
+#ifdef Q_WS_WIN
 bool set_winini_key(QString key, QString value){
     return WriteProfileStringA("NetSettings"
                                , key.toAscii ()
                                , QTextCodec::codecForName ("wa")->fromUnicode (value));
 }
+#endif
 //----------------------------------------------------------------------------------------------
 QString lasthostport(){
     return my_lasthostport;

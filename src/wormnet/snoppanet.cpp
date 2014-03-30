@@ -186,9 +186,11 @@ void snoppanet::closehostandstartlasthost(hoststruct h) {
 void snoppanet::sendhostrequest(){
     QNetworkRequest hostrequest = inihandler.requestfromini("[http get host header]");
     QString port;
+#ifdef WITH_WORMNAT_SUPPORT
     if(S_S.getbool ("cbwormnat2"))
         port = ":" + getwormnatport ();
     else
+#endif
         port = ":" + gethostportbyini();
     QString s = htmladdress + "/wormageddonweb/Game.asp?Cmd=Create&Name=" + lasthost.name()
             + "&HostIP=" + lasthost.ip()+port + "&Nick=" + lasthost.nick() + "&Pwd=" + lasthost.pwd() + "&Chan="

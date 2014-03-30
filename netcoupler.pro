@@ -1,9 +1,12 @@
+#DEFINES += WITH_GAMESURGE_SUPPORT /* not ready yet          */
+#DEFINES += WITH_WORMNAT_SUPPORT   /* currently windows-only */
+
 TEMPLATE += app
 QT += gui \
     network \
     svg \
-    phonon \
     sql
+
 DEPENDPATH += . \    
     translations
 INCLUDEPATH += .
@@ -11,10 +14,19 @@ MOC_DIR += .moc
 UI_DIR += .ui
 OBJECTS_DIR += .lib
 RCC_DIR += .rcc
+
 unix:TARGET = "./TheWheatSnooper/TheWheatSnooper"
 win32:TARGET = "../TheWheatSnooper/TheWheatSnooper"
-unix:DEFINES += QT_WS_X11
-        #DEFINES +=WITH_GAMESURGE_SUPPORT
+
+unix:DEFINES += QT_WS_X11 Q_WS_X11
+os2:DEFINES  += QT_WS_OS2 Q_WS_OS2
+
+!contains(QT_MAJOR_VERSION,5):!os2{
+    QT      += PHONON
+    DEFINES += PHONON
+    HEADERS += src/wormnet/sound_handler.h
+    SOURCES += src/wormnet/sound_handler.cpp
+}
 
 win32:LIBS += -lwsock32
 # Input
@@ -52,7 +64,6 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/window.h \
     src/wormnet/global_macros.h \
     src/wormnet/singleton.h \
-    src/wormnet/sound_handler.h \
     src/wormnet/global_functions.h \
     src/wormnet/combobox_wrapper.h \
     src/wormnet/balloon_handler.h \    
@@ -135,8 +146,7 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/usermodel.cpp \
     src/wormnet/userstruct.cpp \
     src/wormnet/volumeslider.cpp \
-    src/wormnet/window.cpp \   
-    src/wormnet/sound_handler.cpp \
+    src/wormnet/window.cpp \
     src/wormnet/combobox_wrapper.cpp \
     src/wormnet/balloon_handler.cpp \
     src/wormnet/codecselectdia.cpp \
@@ -158,7 +168,7 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/wa_textcodec.cpp \
     src/wormnet/playername.cpp
 
-RC_FILE += src/wormnet/myapp.rc
+win32:RC_FILE += src/wormnet/myapp.rc
 TRANSLATIONS += \
     translations/The_Wheat_Snooper_untranslated.ts \
     translations/_da.Danish.ts \
