@@ -387,8 +387,8 @@ void mainwindow::chatwinowclosed() {
     Q_CHECK_PTR(w);
     w->disconnect();
     hiddenchatwindowshelper.removeAll(w);
-    int i = window::chatwindowstringlist.removeAll(w->chatpartner);
-    i = window::chatwindows.removeAll(w);
+    window::chatwindowstringlist.removeAll(w->chatpartner);
+    window::chatwindows.removeAll(w);
 }
 void mainwindow::appenddebugmessage(const QString &msg) {
     debugmsg.append(msg);
