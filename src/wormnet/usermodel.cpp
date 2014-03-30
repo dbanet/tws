@@ -5,7 +5,9 @@
 #include"settingswindow.h"
 #include"netcoupler.h"
 #include"ctcphandler.h"
+#ifdef PHONON
 #include"sound_handler.h"
+#endif
 #include"global_functions.h"
 #include"clantowebpagemapper.h"
 #include"leagueserverhandler.h"
@@ -474,10 +476,14 @@ QModelIndex usermodel::indexbychannelname(QString s) {
 void usermodel::buddyarrived() {
     if (buddyarrivedhelper.size() > 3)
         buddyarrivedhelper.takeFirst();
+#ifdef PHONON
     singleton<sound_handler>().play_buddyarrivedsound();
+#endif
 }
 void usermodel::buddyleft() {
+#ifdef PHONON
     singleton<sound_handler>().play_buddyleftsound();
+#endif
 }
 void usermodel::usesettingswindow(const QString&) {
 }

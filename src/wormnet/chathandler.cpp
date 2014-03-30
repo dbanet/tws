@@ -24,7 +24,9 @@
 #include"joinprvgame.h"
 #include"settingswindow.h"
 #include"charformatsettings.h"
+#ifdef PHONON
 #include"sound_handler.h"
+#endif
 #include"global_functions.h"
 #include"balloon_handler.h"
 #include"usermessage.h"
@@ -240,10 +242,15 @@ void chathandler::append(const usermessage u){
         tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
 
     QString temp;
-    if(containsCI(u.msg(), singleton<netcoupler>().nick))
+    if(containsCI(u.msg(), singleton<netcoupler>().nick)){
+#ifdef PHONON
         singleton<sound_handler>().play_highlightningsound(u.user(),qobject_cast<QWidget*> ( parent()));
+#endif
+    }
     else if(containsOneCI(u.msg(), S_S.combobox_wrapper,&temp)){
+#ifdef PHONON
         singleton<sound_handler>().play_costumwordsound(u.user(),qobject_cast<QWidget*> ( parent()));
+#endif
         singleton<balloon_handler>().got_costum_word(temp,u.user());
     }
 }
@@ -317,10 +324,14 @@ void chathandler::insertText(const QString &s, QTextCharFormat &t,QString user) 
         }
     } else if (containsCI(s, singleton<netcoupler>().nick)) {
         if (!t.anchorHref().startsWith("<notice>") && t.anchorHref() != "action")
+#ifdef PHONON
             singleton<sound_handler>().play_highlightningsound(user,qobject_cast<QWidget*> ( parent()));
+#endif
         cursor->insertText(s, t);
     } else if (containsOneCI(s, S_S.combobox_wrapper,&temp)) {
+#ifdef PHONON
         singleton<sound_handler>().play_costumwordsound(user,qobject_cast<QWidget*> ( parent()));
+#endif
         singleton<balloon_handler>().got_costum_word(temp,user);
         cursor->insertText(s, t);
     } else

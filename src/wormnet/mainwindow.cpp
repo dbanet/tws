@@ -562,11 +562,15 @@ void mainwindow::gotusermsg(const usermessage u){
             else openchatwindowraised(user);
             window::chatwindows.last()->getusermessage(u);
             singleton<balloon_handler>().got_privmsg(u);
+#ifdef PHONON
             singleton<sound_handler>().play_buddymsgsound(user);
+#endif
             return;
         }
         singleton<balloon_handler>().got_privmsg(u);
+#ifdef PHONON
         singleton<sound_handler>().play_normalmsgsound(user);
+#endif
         foreach(channelwindow *w,windowlist)
             w->getusermessage(u);
         return;

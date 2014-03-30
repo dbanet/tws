@@ -125,7 +125,7 @@ void leagueserverhandler::refreshFinished(){
         if(sl.isEmpty())
             break;
         QString nick=sl.takeFirst();
-        QString s;
+        //wtf?//QString s;
         if(sl.size()>5)
             s=QStringList(sl.mid(5)).join(" ");
         map[nick]=sl.mid(0,5) + QStringList()<<s;

@@ -1,7 +1,9 @@
 #include"hostmodel.h"
 #include"settings.h"
 #include"settingswindow.h"
+#ifdef PHONON
 #include"sound_handler.h"
+#endif
 #include"balloon_handler.h"
 #include"global_functions.h"
 #include"myDebug.h"
@@ -44,10 +46,10 @@ void hostmodel::sethoststruct(QList<hoststruct> l, QString chan) {
         sl << i->nick();
         if (buddyhosts[chan].contains(i->nick()))   //if the host was allready alerted
             continue;
-
+#ifdef PHONON
         singleton<sound_handler>().play_buddyhostedsound();
+#endif
         singleton<balloon_handler>().got_game(i->nick(),i->name());
-
     }
     buddyhosts[chan] = sl;
     emit layoutChanged();

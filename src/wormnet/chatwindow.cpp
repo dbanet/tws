@@ -3,7 +3,9 @@
 #include"settings.h"
 #include"settingswindow.h"
 #include"chathandlerprv.h"
+#ifdef PHONON
 #include"sound_handler.h"
+#endif
 #include"global_functions.h"
 #include"usermessage.h"
 #include"balloon_handler.h"
@@ -47,8 +49,9 @@ chatwindow::chatwindow(const QString &s, QWidget *parent) :
     connect(ui.send, SIGNAL(clicked()),ui.lineEdit, SIGNAL(returnPressed()));
     connect(ui.lineEdit, SIGNAL(returnPressed()),this, SLOT(sendmsg()));    
     ui.lineEdit->setFocus(Qt::MouseFocusReason);                
-
-    singleton<sound_handler>().play_chatwindowopensound();    
+#ifdef PHONON
+    singleton<sound_handler>().play_chatwindowopensound();
+#endif
     if (containsCI(S_S.getstringlist("mutedusers"), chatpartner))
         ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
     else
@@ -110,10 +113,12 @@ void chatwindow::getusermessage(usermessage u_arg){
     if(u_arg.receiver() == singleton<netcoupler>().nick && u_arg.user() == chatpartner){
         chat->append(u_arg);
         singleton<balloon_handler>().alert(u_arg.user(), this);
+#ifdef PHONON
         if (singleton<netcoupler>().buddylistcontains(u_arg.user()))
             singleton<sound_handler>().play_buddymsgsound(u_arg.user());
         else
             singleton<sound_handler>().play_normalmsgsound(u_arg.user());
+#endif
         if (statusbar->currentMessage() == tr("Was offline when this window opened."))
             statusbar->showMessage(QObject::tr("Online"));
     } else if(u_arg.user() == chatpartner && S_S.chbshowchannelchatinchatwindows){
