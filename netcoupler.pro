@@ -184,6 +184,6 @@ TRANSLATIONS += \
     translations/_lt.Lithuanian_by_K4Tsis.ts
 
 RESOURCES += \
-    pictureResource.qrc
+    res/pictureResource.qrc
 
 OTHER_FILES +=
