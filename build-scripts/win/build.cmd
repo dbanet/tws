@@ -1,5 +1,5 @@
 @echo off
-set twsdir=%~dp0..
+set twsdir=%~dp0..\..
 set blddir=%CD%
 
 lupdate -no-obsolete "%twsdir%\netcoupler.pro"
