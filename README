@@ -35,11 +35,11 @@
 ║                                      ║
 ║   wheat/build-scripts/lin/build      ║
 ║                                      ║
-║ for Winux,                           ║
+║ for Linux,                           ║
 ║                                      ║
 ║   wheat/build-scripts/win/build      ║
 ║                                      ║
-║ for Linux, and                       ║
+║ for Windows, and                     ║
 ║                                      ║
 ║   wheat/build-scripts/os2/build      ║
 ║                                      ║
