@@ -22,7 +22,7 @@ unix:DEFINES += QT_WS_X11 Q_WS_X11
 os2:DEFINES  += QT_WS_OS2 Q_WS_OS2
 
 !contains(QT_MAJOR_VERSION,5):!os2{
-    QT      += PHONON
+    QT      += phonon
     DEFINES += PHONON
     HEADERS += src/wormnet/sound_handler.h
     SOURCES += src/wormnet/sound_handler.cpp
@@ -109,7 +109,6 @@ FORMS += src/wormnet/about.ui \
     src/wormnet/window3.ui \
     src/wormnet/combobox_wrapper.ui \
     src/wormnet/codecselectdia.ui \
-    \        
     src/wormnet/progressdialog.ui \
     src/wormnet/emoticonsdialog.ui \
     src/wormnet/playername.ui

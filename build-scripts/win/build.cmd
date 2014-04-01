@@ -3,7 +3,7 @@ set twsdir=%~dp0..\..
 set blddir=%CD%
 
 lupdate -no-obsolete "%twsdir%\netcoupler.pro"
-qmake "%twsdir%\netcoupler.pro"
+qmake "%twsdir%\netcoupler.pro" -spec win32-g++
 mingw32-make -j4
 
 xcopy /H /O /T /S /E /R /V "%twsdir%\bld\*" .\
