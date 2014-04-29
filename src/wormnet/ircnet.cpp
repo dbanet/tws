@@ -5,6 +5,8 @@
 #include<QMessageBox>
 #include<QTextCodec>
 
+#include "netcoupler.h"
+#include "singleton.h"
 #include"ircnet.h"
 #include"inihandlerclass.h"
 #include"settings.h"
@@ -77,26 +79,29 @@ void ircnet::connected() {
     tcp_write("who");
     emit sigconnected();    
 }
-void ircnet::tcpread() {    //arrives like this msg\msg\n...\n...\n
+void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
     ircreadstring.append(CodecSelectDia::codec->toUnicode(tcp->readAll()));
-    QStringList sl = ircreadstring.split("\n");
-    ircreadstring = sl.takeLast(); //is "" or incomplete
-    foreach(QString s,sl) {
-        s=s.simplified();
-        if(s.isEmpty())
+    QStringList messages = ircreadstring.split("\n");
+    ircreadstring = messages.takeLast(); // is "" or incomplete // bcuz the message always ends with \n,
+                                                                // but if it doesn't, then the part after
+                                                                // the last \n is not received completely,
+                                                                // so save it for the next time. ~~dbanet
+    foreach(QString msg,messages) {
+        msg=msg.simplified();
+        if(msg.isEmpty())
             continue;
-        if(!firstMessageArrived){
-            servermessageindicator=s.left(s.indexOf(" "));
+        if(!firstMessageArrived){ // read like "first message has not been arrived" not "this is not the first message ever arrived" ~~dbanet
+            servermessageindicator=msg.left(msg.indexOf(" "));
             firstMessageArrived=true;
         }
-        if (s.startsWith(servermessageindicator))
-            readservermassege(s.remove(servermessageindicator).simplified());
-        else if (s.startsWith("PING"))
+        if (msg.startsWith(servermessageindicator))
+            readservermassege(msg.remove(servermessageindicator).simplified());
+        else if (msg.startsWith("PING"))
             tcp_write("PONG");
-        else if (s.startsWith("ERROR"))
-            myDebug() << s;
+        else if (msg.startsWith("ERROR"))
+            myDebug() << msg;
         else
-            readusermessage(s);        
+            readusermessage(msg);
     }
 }
 void ircnet::readusermessage(QString &s) {
@@ -123,12 +128,14 @@ void ircnet::readusermessage(QString &s) {
         usermessage u(garbage,usermessage_type(e_GARBAGE | e_GARBAGEPART), user, receiver);
         u.settime(time());
         appendhistory(u);
+        //singleton<netcoupler>().users.setuserstruct(this->wholist, this->joinlist[receiver]);
         emit siggotusermessage(u);
     } else if(command=="JOIN"){
-        joinlist[receiver] << user;        
+        joinlist[receiver] << user;
         usermessage u(garbage,usermessage_type(e_GARBAGE | e_GARBAGEJOIN), user, receiver);
         u.settime(time());
         appendhistory(u);
+        singleton<netcoupler>().users.setuserstruct(this->wholist, this->joinlist);
         emit siggotusermessage(u);
     } else if(command=="NOTICE"){
         QString s=sl.join(" ").remove(0, 1);
@@ -149,10 +156,10 @@ void ircnet::readservermassege(QString s) {
     }
     int command = sl.first().toInt(&b);
     if(!b)
-        if (sl.first() != "NOTICE")
+        if(sl.first() != "NOTICE")
             myDebug()<<sl<<"|"+servermessageindicator+"|";
-    sl.takeFirst();
-    sl.takeFirst();
+    sl.removeFirst();
+    sl.removeFirst();
     QString channel;    
     switch (command) {
     case 323: //end of list command
@@ -165,20 +172,10 @@ void ircnet::readservermassege(QString s) {
         tempchannellist << sl.join(" ");
         break;
     case 315: //end of who command
-        wholist = templist;
-        templist.clear();
-        whoreceivedcompletely = 1;
         break;
     case 352: //user added
-        templist.push_back(userstruct(sl));
         break;
     case 353: //lists the user in a channel
-        sl.takeFirst();
-        channel = sl.takeFirst();
-        sl[0].remove(":");
-        joinlist[channel] << sl;
-        if (joinlist[channel].count(nick) > 1)
-            joinlist[channel].removeOne(nick);        
         break;
     case 301: //Auto Away at Sun Nov 23 20:25:36 2008
         emit sigmsg(sl.takeFirst(), nick, sl.join(" "));

@@ -85,7 +85,8 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/usermessage.h \
     src/wormnet/emoticonsdialog.h \
     src/wormnet/wa_textcodec.h \
-    src/wormnet/playername.h
+    src/wormnet/playername.h \
+    src/wormnet/ircmessage.h
 
 FORMS += src/wormnet/about.ui \
     src/wormnet/awaybox.ui \
@@ -165,7 +166,8 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/usermessage.cpp \
     src/wormnet/emoticonsdialog.cpp \
     src/wormnet/wa_textcodec.cpp \
-    src/wormnet/playername.cpp
+    src/wormnet/playername.cpp \
+    src/wormnet/ircmessage.cpp
 
 win32:RC_FILE += src/wormnet/myapp.rc
 TRANSLATIONS += \
