@@ -127,12 +127,6 @@ void netcoupler::gethostlist(QList<hoststruct> l, QString s) {
     hosts.sethoststruct(l, s);
 }
 void netcoupler::getwholist() {
-    if(!irc)
-        return;
-    if(connectstate!=e_started)
-        return;    
-    users.setuserstruct(irc->wholist, irc->joinlist);
-    irc->who();
 }
 void netcoupler::getusermessage(const usermessage u){
     emit siggotusermessage(u);
@@ -330,10 +324,11 @@ void netcoupler::sendinfotochan(const QString &chan, const QString &msg) {
     sendusermessage(u);
     emit siggotusermessage(u);
 }
-void netcoupler::initSoundAndStartWho() {   
-    timer.disconnect();
+void netcoupler::initSoundAndStartWho() {
+    QTimer::singleShot(3000,this,SLOT(getwholist()));
+    /*timer.disconnect();
     connect(&timer, SIGNAL(timeout()),this, SLOT(getwholist()));
-    timer.start(S_S.getint("sbwhorepead"));
+    timer.start(S_S.getint("sbwhorepead"));*/
 #ifdef PHONON
     singleton<sound_handler>().init();
 #endif

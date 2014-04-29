@@ -90,15 +90,14 @@ public slots:
     void joingame(const QString &,const QString&,const QString&);    
     void sendinfotochan(const QString &,const QString &);
     void refreshhostlist();
+    void getwholist();
 private slots:    
     void initSoundAndStartWho();
     void getchannellist(QStringList);
     void getircip(QString);
     void gethostlist(QList<hoststruct>,QString);  
     void getusermessage(const usermessage u);
-    void getwholist();    
-    void getscheme(QString,QString);    
-
+    void getscheme(QString,QString);
     void readprocess();    
     void ircconnected();
     void ircdisconnected();
