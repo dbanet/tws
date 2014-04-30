@@ -62,3 +62,8 @@ bool ircMessage::hasTrailing(){
 QString ircMessage::getRaw(){
     return this->message;
 }
+QString ircMessage::getFancy(){
+    return QString()+"ircMessage::getFancy(){ type="+(this->isServMsg()?"server":"user, prefix="+this->prefix)+
+              ", command="+this->command+", arguments="+this->paramList.join(",")+", trailing="+this->trailing+
+              " };";
+}

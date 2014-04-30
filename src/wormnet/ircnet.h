@@ -53,6 +53,7 @@ private:
     QList<userstruct> templist;
 
     QStringList channellist;
+    QStringList joinedchannellist;
     QStringList tempchannellist;
     QString ircreadstring;
     QString wnip;
