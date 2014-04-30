@@ -8,21 +8,23 @@ class ircMessage
 {
 public:
     ircMessage(QString);
-    bool isUserMsg();
-    bool isServMsg();
-    bool hasTrailing();
-    QString prefix;
-    QString command;
+    bool        isUserMsg();
+    bool        isServMsg();
+    bool        hasTrailing();
+    QString     getRaw();
+    QString     getFancy();
+    QString     prefix;
+    QString     command;
     QStringList paramList;
-    QString trailing;
+    QString     trailing;
 private:
     QString message;
-    enum msgType{
-        SERVER,
-        USER
-    };
+    enum    msgType{
+                SERVER,
+                USER
+            };
     msgType type;
-    bool hasTrailPart;
+    bool    hasTrailPart;
 };
 
 #endif // IRCMESSAGE_H

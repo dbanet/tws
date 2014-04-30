@@ -17,6 +17,7 @@
 #include"myDebug.h"
 #include"picturehandler.h"
 #include"leagueserverhandler.h"
+#include "ircmessage.h"
 extern inihandlerclass inihandler;
 
 ircnet::ircnet(QString s, QObject *parent) :
@@ -76,10 +77,15 @@ void ircnet::connected() {
     s.append(S_S.getstring("information"));
     tcp_write(s);
     tcp_write("list");    
-    tcp_write("who");
-    emit sigconnected();    
+    // tcp_write("who"); Bcuz now TWS will issue WHO only on channel, and only when join it.
+    emit sigconnected();
 }
 void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
+
+    /* have no idea what actually happens in this define, but it somehow updates the userlist with              */
+    /* QList of userstructs this->wholist. I don't know WTF is the second argument... ;)                        */
+    #define updateuserlist singleton<netcoupler>().users.setuserstruct(this->wholist,QHash<QString,QStringList>())
+
     ircreadstring.append(CodecSelectDia::codec->toUnicode(tcp->readAll()));
     QStringList messages = ircreadstring.split("\n");
     ircreadstring = messages.takeLast(); // is "" or incomplete // bcuz the message always ends with \n,
@@ -88,65 +94,237 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                                                                 // so save it for the next time. ~~dbanet
     foreach(QString msg,messages) {
         msg=msg.simplified();
-        if(msg.isEmpty())
-            continue;
-        if(!firstMessageArrived){ // read like "first message has not been arrived" not "this is not the first message ever arrived" ~~dbanet
-            servermessageindicator=msg.left(msg.indexOf(" "));
-            firstMessageArrived=true;
+        ircMessage *ircMsg;
+        try{ ircMsg=new ircMessage(msg); }
+        catch(...){ continue; }
+        if(ircMsg->isServMsg()){
+            if(ircMsg->command==
+            "PING"){
+                tcp_write("PONG");
+            } else if(ircMsg->command==
+            "ERROR"){
+                myDebug()<<ircMsg->getRaw();
+            }
         }
-        if (msg.startsWith(servermessageindicator))
-            readservermassege(msg.remove(servermessageindicator).simplified());
-        else if (msg.startsWith("PING"))
-            tcp_write("PONG");
-        else if (msg.startsWith("ERROR"))
-            myDebug() << msg;
-        else
-            readusermessage(msg);
+        if(ircMsg->isUserMsg()){
+            if(ircMsg->command==
+            "PRIVMSG"){
+                QString from=ircMsg->prefix.split("!")[0];
+                QString to  =ircMsg->paramList[0];
+                QString text=ircMsg->trailing;
+                emit siggotusermessage(usermessage(text,e_PRIVMSG,from,to));
+            } else if(ircMsg->command==
+            "NOTICE"){
+                QString from=ircMsg->prefix.split("!")[0];
+                QString to  =ircMsg->paramList[0];
+                QString text=ircMsg->trailing;
+                emit siggotusermessage(usermessage(text,e_NOTICE,from,to));
+            } else if(ircMsg->command==
+
+            /**********************************/
+            /*  startup/join thingies here... */
+            /**********************************/
+            "322"){
+                // part of the /LIST command. TWS issues it on connect to get the channel list.
+                // The command lists the CHANNELS on the network by sending them one by one
+                // with numeric 322. The channel name is in the first argument (the zero
+                // argument is your nick). The channel listing ends with the numeric 322.  ~~dbanet
+                channellist<<ircMsg->paramList[1];
+            } else if(ircMsg->command==
+            "323"){
+                // end of the channel listing
+                emit siggetlist(channellist);
+                channellist.clear();
+            } else if(ircMsg->command==
+            "353"){
+                // part of the /NAMES command. The server sends it automatically on channel join.
+                // The command lists USERS on the channel by sending several numeric 353 messages.
+                // Each message has exactly three arguments:
+                // Arguments: your (snooper's) nick,
+                //            the "equal" sign (=),
+                //            the channel, that is being listed for users.
+                //
+                // The list of users on the channel (the second argument) is sent in the trailing
+                // part of the message. The list is separated by spaces.
+                //
+                // The sequence of 353 messages ends with a message with numeric 366.
+                // It denotes that all users has been listed.
+                //
+                // I parse this to fill the list of the users as soon as possible.
+                // Later, the /WHO #channel command is issued, and the list is substituted by the
+                // fully populated one, with flags, ranks, etc.                            ~~dbanet
+
+                foreach(QString nick,ircMsg->trailing.split(' '))
+                    this->wholist<<userstruct(QStringList()
+                                              <<ircMsg->paramList[2]
+                                              <<"Username"            /* these values do mean no-*/
+                                              <<"no.address.for.you"  /* thing, are here just to */
+                                              <<"wormnet1.team17.com" /* satisfy userstruct      */
+                                              <<nick);
+            } else if(ircMsg->command==
+            "366"){
+                // end of the /NAMES command
+                updateuserlist;
+            } else if(ircMsg->command==
+            "352"){
+                // part of the /WHO command. TWS issues it for each channel it joins on to get the
+                // additional info (realname) about the users, which contain their flags and ranks.
+                // The command lists USERS on the channel by sending a 352 message for each user,
+                // one by one, with the realname in the trailing, and the following in the args:
+                // Arguments: your (snooper's) nick,
+                //            channel the user is currently being on (or * if none),
+                //            the username of the user (ident or ~nick)
+                //            the user's host,
+                //            the server the user is currently being on,
+                //            the nick of the user,
+                //            the mode of the user.
+                //
+                // The sequence of 352 messages ends with a message with numeric 315.
+                //
+                // The userstruct::userstruct(QStringList) takes a QStringList of >=FIVE QStrings:
+                // channel, uname, uhost, server, nick. For some reason Lookie in this function
+                // calls the username as "clan", and uhost as "address". The last is right, but I'm
+                // not sure about the first...                                             ~~dbanet
+                //
+                // Oh, and also it takes FIVE ADDITIONAL fields -- the realname (description) of
+                // the user, splitted by spaces. WormNet places the flag, rank, etc. information
+                // there. So, userstruct takes a QStringList of TEN QStrings...            ~~dbanet
+
+                /* Now we iterate through all userstructs with matching nick, and updating them  */
+                /* with rankflag information...                                                  */
+                for(int i=0;i<this->wholist.length();i++)
+                    if(this->wholist[i].nick==ircMsg->paramList[5]){
+                        QStringList userstructSetupQSL(ircMsg->paramList);
+                        /* We already have filled userstructs for every user on every channel    */
+                        /* we're on. This WHO is issued just to get flagrank info. So we need    */
+                        /* the only thing -- update each userstruct with that info. We don't pay */
+                        /* attention to the channel returned by WHO! Important! Not an error!    */
+                        userstructSetupQSL[1]=this->wholist[i].chan;
+                        userstructSetupQSL.removeFirst(); // no need for the snooper's nick
+
+                        /* and now adding the nickrang info           */
+                        userstructSetupQSL<<ircMsg->trailing.split(' ');
+
+                        /* replacing the old userstruct with a fully populated one */
+                        this->wholist[i]=userstruct(userstructSetupQSL);
+                    }
+            } else if(ircMsg->command==
+            "315"){
+                // end of the /WHO command
+                updateuserlist;
+            } else if(ircMsg->command==
+
+            /*******************************************************/
+            /* updating the userlist on quit, part, kick, join...  */
+            /*******************************************************/
+            "QUIT"){
+                for(int i=0; i<this->wholist.length(); i++)
+                    if(this->wholist[i].nick==ircMsg->prefix.split("!")[0])
+                        wholist.removeAt(i);
+                updateuserlist;
+
+                /* Lookias code. Write in chatwindow, store in history, etc. */
+                usermessage u("QUIT :"+ircMsg->trailing,
+                              usermessage_type(e_GARBAGE | e_GARBAGEQUIT),ircMsg->prefix.split("!")[0],"");
+                u.settime(time());
+                appendhistory(u);
+                emit siggotusermessage(u);
+            } else if(ircMsg->command==
+            "PART"){
+                for(int i=0; i<this->wholist.length(); i++)
+                    if(this->wholist[i].nick==ircMsg->prefix.split("!")[0] &&
+                       this->wholist[i].chan==ircMsg->paramList[0])
+                        wholist.removeAt(i);
+                updateuserlist;
+
+                /* Lookias code. Write in chatwindow, store in history, etc. */
+                usermessage u("PART "+ircMsg->paramList[0]+" :"+ircMsg->trailing,
+                              usermessage_type(e_GARBAGE | e_GARBAGEPART),ircMsg->prefix.split("!")[0],ircMsg->paramList[0]);
+                u.settime(time());
+                appendhistory(u);
+                emit siggotusermessage(u);
+            } else if(ircMsg->command==
+            "JOIN"){
+                QString nick=ircMsg->prefix.split("!")[0];
+                this->wholist<<userstruct(QStringList()
+                                          <<ircMsg->trailing /* channel */
+                                          <<"Username"            /* these values do mean no-*/
+                                          <<"no.address.for.you"  /* thing, are here just to */
+                                          <<"wormnet1.team17.com" /* satisfy userstruct      */
+                                          <<nick);
+                updateuserlist;
+                tcp_write("WHO "+nick+"\n");
+
+                /* Lookias code. Write in chatwindow, store in history, etc. */
+                usermessage u("JOIN "+ircMsg->trailing,
+                              usermessage_type(e_GARBAGE | e_GARBAGEJOIN),nick,ircMsg->trailing);
+                u.settime(time());
+                appendhistory(u);
+                emit siggotusermessage(u);
+            } else if(ircMsg->command==
+
+            /*******************************************************/
+            /*                    other shiet                      */
+            /*******************************************************/
+            "332"){ /*   TOPIC. TWS doesn't use it anyhow yet.  */ } else if(ircMsg->command==
+            "333"){ /* This one is not declared in RFC, however */ } else if(ircMsg->command==
+                    /* WormNet sends it just after the TOPIC.   */
+            "001"){
+                /* Welcome message. Sent by server automatically on connect.  */
+                /* Here I output it decently to the main window.     ~~dbanet */
+                myDebug()<<ircMsg->trailing;
+            } else if(ircMsg->command==
+            "002"){
+                /* Host information. Sent by server automatically on connect.  */
+                /* Here I output it decently to the main window.      ~~dbanet */
+                myDebug()<<ircMsg->trailing;
+            } else if(ircMsg->command==
+            "321" || "376" || "372" || "375" || "250" || "260" || "265" || "255" || "254" || "252" || "251" || "005"){
+                /* Other various text messages just to be displayed to the user  */
+                /* upon connection I'm tired to describe separately.             */
+                /* Here I output it to the main window.                ~~dbanet  */
+                myDebug()<<ircMsg->trailing;
+            } else if(ircMsg->command==
+            "001"){
+            } else if(ircMsg->command==
+            "004"){
+                /* Server info. Sent by server automatically on connect.  */
+                /* Here I output it decently to the main window. ~~dbanet */
+                myDebug()<<"Server Info: "<<ircMsg->paramList.join(" ").section(" ",1);
+            } else if(ircMsg->command==
+            "401"){
+                /* this is sent by the server if the recepient of a PRIVMSG/NOTICE/QUERY doesn't */
+                /* exist. The zero argument is the not existing channel/nick itself.             */
+                emit signosuchnick(ircMsg->paramList[0]);
+            } else if(ircMsg->command==
+            "433"){
+                /* this is sent by the server when a NICK message is processed that results in   */
+                /* an attempt to change to a currently existing nickname.                        */
+
+                /* I have no idea what's below, but should work as expected. Copypasted from     */
+                /* void ircnet::readusermessage(QString).                                        */
+
+                if(S_S.getbool("enablesecurelogging"))
+                    QMessageBox::information(0,tr("Nickname collision!"),
+                                             tr("Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again."),
+                                             QMessageBox::Ok);
+                else
+                    QMessageBox::information(0,tr("Nickname collision!"),
+                                             tr("Your nickname is already in use. You can wait some minutes or change your nickname and try again."),
+                                             QMessageBox::Ok);
+                quit("");
+            }
+            else /* FINALLY! */ myDebug()<<"The server sent a message TWS is unable to understand. Please open an issue: \n"
+                                         <<"  https://github.com/dbanet/tws/issues\n"
+                                         <<"Received message: "<<ircMsg->getFancy()+" || RAW: "+ircMsg->getRaw();
+        }
     }
 }
-void ircnet::readusermessage(QString &s) {
-    QStringList sl = s.split(" ");
-    Q_ASSERT(sl.size()>=3);
-    QString user = sl.takeFirst().split("!").first().remove(":");
-    QString garbage = sl.join(" ").remove("\r").remove("\n");
-    QString command = sl.takeFirst();
-    QString receiver = sl.takeFirst().remove("\r").remove(":");    
-    if(command=="QUIT"){
-        foreach(QString s,joinlist.keys())
-            joinlist[s].removeAll(user);                
-        usermessage u(garbage, usermessage_type(e_GARBAGE | e_GARBAGEQUIT), user, "");
-        u.settime(time());
-        appendhistory(u);
-        emit siggotusermessage(u);
-    } else if(command=="PRIVMSG"){
-        QString s=sl.join(" ").remove(0, 1);
-        emit siggotusermessage(usermessage(s,e_PRIVMSG, user, receiver));
-    } else if(command=="PART"){
-        if (user.toLower() == nick.toLower())
-            joinlist[receiver].clear();
-        joinlist[receiver].removeAll(user);
-        usermessage u(garbage,usermessage_type(e_GARBAGE | e_GARBAGEPART), user, receiver);
-        u.settime(time());
-        appendhistory(u);
-        //singleton<netcoupler>().users.setuserstruct(this->wholist, this->joinlist[receiver]);
-        emit siggotusermessage(u);
-    } else if(command=="JOIN"){
-        joinlist[receiver] << user;
-        usermessage u(garbage,usermessage_type(e_GARBAGE | e_GARBAGEJOIN), user, receiver);
-        u.settime(time());
-        appendhistory(u);
-        singleton<netcoupler>().users.setuserstruct(this->wholist, this->joinlist);
-        emit siggotusermessage(u);
-    } else if(command=="NOTICE"){
-        QString s=sl.join(" ").remove(0, 1);
-        emit siggotusermessage(usermessage(s, e_NOTICE, user, receiver));
-    } else
-        myDebug() << tr("Servermessage: ") << s;    
-}
-void ircnet::disconnected() {                   
-    myDebug() << tr("disconnected from irc server.");
-    emit sigdisconnected();
-}
+
+/********************************************************/
+/*          THESE FUNCTIONS ARE NOT IN USE              */
+/*  THESE FUNCTIONS ARE LEFT HERE FOR INFORMATION ONLY  */
+/*********************************************************
 void ircnet::readservermassege(QString s) {
     static bool b=false;
     QStringList sl = s.split(" ");
@@ -160,42 +338,8 @@ void ircnet::readservermassege(QString s) {
             myDebug()<<sl<<"|"+servermessageindicator+"|";
     sl.removeFirst();
     sl.removeFirst();
-    QString channel;    
+    QString channel;
     switch (command) {
-    case 323: //end of list command
-        channellist = tempchannellist;
-        tempchannellist.clear();
-        justgetlist = false;
-        emit siggetlist(channellist);
-        break;
-    case 322: //channel added
-        tempchannellist << sl.join(" ");
-        break;
-    case 315: //end of who command
-        break;
-    case 352: //user added
-        break;
-    case 353: //lists the user in a channel
-        break;
-    case 301: //Auto Away at Sun Nov 23 20:25:36 2008
-        emit sigmsg(sl.takeFirst(), nick, sl.join(" "));
-        break;
-    case 366: //end of /NAME list happens after join
-        break;
-    case 321: //Users  Name
-        break;
-    case 332: //Channel topic
-        break;
-    case 333: //Channel created
-        break;
-    case 311: //311 loOkias`twsnp ```MihaiS`sW` ~sW no.address.for.you * :40 0 ?? The Wheat Snooper
-        break;
-    case 319: //319 loOkias`twsnp ```MihaiS`sW` :#AnythingGoes
-        break;
-    case 312: //312 loOkias`twsnp ```MihaiS`sW` wormnet1.team17.com :Team17 Ltd.
-        break;
-    case 318: //318 loOkias`twsnp ```MihaiS`sW` :End of /WHOIS list.
-        break;
     case 317: //317 loOkias`twsnp ```MihaiS`sW` 57 1231682995 :seconds idle, signon time
         if (sl.size() >= 2) {
             QString s = sl.takeFirst();
@@ -203,36 +347,37 @@ void ircnet::readservermassege(QString s) {
             emit siggotidletime(s, i);
         }
         break;
-    case 401: //401 lookias`twsnp lololol :No such nick/channel
-        if (sl.size() >= 2) {
-            QString s = sl.takeFirst();
-            emit signosuchnick(s);
-        }
-        break;
-    case 433: //nickname allready in use
-        if(S_S.getbool("enablesecurelogging"))
-            QMessageBox::information(0,tr("Nickname collision!"),
-                                     tr("Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again."),
-                                     QMessageBox::Ok);
-        else
-            QMessageBox::information(0,tr("Nickname collision!"),
-                                     tr("Your nickname is already in use. You can wait some minutes or change your nickname and try again."),
-                                     QMessageBox::Ok);
-        quit ("");
-        break;
-    case 412: //No text to send
-    case 462: //You may not reregister
-    case 421: //unknown command
-    case 409: //No origin specified
-    case 403: //No such channel
-    case 404: //Cannot send to channel
-    case 372: //:- info
-    default:
-        myDebug() << s;
     }
 }
+void ircnet::readusermessage(QString &s) {
+    QStringList sl = s.split(" ");
+    Q_ASSERT(sl.size()>=3);
+    QString user = sl.takeFirst().split("!").first().remove(":");
+    QString garbage = sl.join(" ").remove("\r").remove("\n");
+    QString command = sl.takeFirst();
+    QString receiver = sl.takeFirst().remove("\r").remove(":");
+
+
+    ///////////////
+    //PROBBLY THIS IS NOT ONLY USER-TO-USER NOTICE, BUT SERVER-TO-USER,//
+    //ETC, U-2-U IS REIMPL. NOW ONLY, SO CHECK THIS L8R!       ~~dbanet//
+                                                          ///////////////
+    if(command=="NOTICE"){
+        QString s=sl.join(" ").remove(0, 1);
+        emit siggotusermessage(usermessage(s, e_NOTICE, user, receiver));
+    } else
+        myDebug() << tr("Servermessage: ") << s;
+}
+*********************************************************/
+
+void ircnet::disconnected() {                   
+    myDebug() << tr("disconnected from irc server.");
+    emit sigdisconnected();
+}
 void ircnet::joinchannel(const QString &chan) {
-    tcp_write("JOIN " + chan + "\n");
+    tcp_write("JOIN "+chan+"\n");
+    tcp_write("WHO "+chan+"\n");
+    this->joinedchannellist<<chan;
 }
 void ircnet::partchannel(const QString &chan) {
     tcp_write("PART " + chan);
