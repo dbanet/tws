@@ -114,7 +114,7 @@ void snoppanet::hosttimertimeout() {
 }
 void snoppanet::readgamelist(int i) {
     QByteArray byteArray=replylist[i]->readAll();
-    static QTextCodec *codec=QTextCodec::codecForHtml(byteArray,QTextCodec::codecForName("UTF-8"));
+    static QTextCodec *codec=QTextCodec::codecForHtml(byteArray,QTextCodec::codecForName("WormsArmageddon"));
     templist[i].append(codec->toUnicode(byteArray));
     if (templist[i].contains("<GAMELISTEND>") && templist[i].contains("<GAMELISTSTART>")) {
         QStringList sl = templist[i].split("\n", QString::SkipEmptyParts);
@@ -191,10 +191,21 @@ void snoppanet::sendhostrequest(){
     else
 #endif
         port = ":" + gethostportbyini();
-    QString s = htmladdress + "/wormageddonweb/Game.asp?Cmd=Create&Name=" + lasthost.name()
-            + "&HostIP=" + lasthost.ip()+port + "&Nick=" + lasthost.nick() + "&Pwd=" + lasthost.pwd() + "&Chan="
-            + QString(lasthost.chan()).remove("#") + "&Loc=" + lasthost.flagstring() + "&Type=0&Pass=0";
-    hostrequest.setUrl(s);
+    QUrl url(htmladdress+"/wormageddonweb/Game.asp");
+    QHash<QString,QString> parameters;
+    parameters.insert("Cmd","Create");
+    parameters.insert("Name",lasthost.name());
+    parameters.insert("HostIP",lasthost.ip()+port);
+    parameters.insert("Nick",lasthost.nick());
+    parameters.insert("Pwd",lasthost.pwd());
+    parameters.insert("Chan",QString(lasthost.chan()).remove("#"));
+    parameters.insert("Loc",lasthost.flagstring());
+    parameters.insert("Type","0");
+    parameters.insert("Pass","0");
+    for(QHash<QString,QString>::iterator i=parameters.begin();i!=parameters.end();i++)
+        url.addEncodedQueryItem(QTextCodec::codecForName("WormsArmageddon")->fromUnicode(i.key()),
+                                QTextCodec::codecForName("WormsArmageddon")->fromUnicode(i.value()));
+    hostrequest.setUrl(url);
     hostreply = manager.get(hostrequest);
     connect(hostreply, SIGNAL(finished()),this, SLOT(hostreplyfinished()));
     connect(hostreply, SIGNAL(finished()),hostreply, SLOT(deleteLater()));
