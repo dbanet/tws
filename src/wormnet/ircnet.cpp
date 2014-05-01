@@ -154,13 +154,16 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 // Later, the /WHO #channel command is issued, and the list is substituted by the
                 // fully populated one, with flags, ranks, etc.                            ~~dbanet
 
-                foreach(QString nick,ircMsg->trailing.split(' '))
+                QStringList names=ircMsg->trailing.split(' ');
+                foreach(QString nick,names)
                     this->wholist<<userstruct(QStringList()
                                               <<ircMsg->paramList[2]
                                               <<"Username"            /* these values do mean no-*/
                                               <<"no.address.for.you"  /* thing, are here just to */
                                               <<"wormnet1.team17.com" /* satisfy userstruct      */
-                                              <<nick);
+                                              <<(nick[0]=='@'?
+                                                 nick.remove(0,1):nick));   /* removing @ prefix */
+
             } else if(ircMsg->command==
             "366"){
                 // end of the /NAMES command
@@ -190,24 +193,36 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 // the user, splitted by spaces. WormNet places the flag, rank, etc. information
                 // there. So, userstruct takes a QStringList of TEN QStrings...            ~~dbanet
 
-                /* Now we iterate through all userstructs with matching nick, and updating them  */
-                /* with rankflag information...                                                  */
+                /* Forming the needed QStringList... */
+                QStringList userstructSetupQSL(ircMsg->paramList);
+                userstructSetupQSL[5]=userstructSetupQSL[5][0]=='@'? /* @ prefix of the nick     */
+                            userstructSetupQSL[5].remove(0,1)        /* should be removed        */
+                           :userstructSetupQSL[5];
+                userstructSetupQSL.
+                     removeFirst(); /* the snooper's nick. Shouldn't be supplied to userstruct() */
+                userstructSetupQSL<<ircMsg->trailing.split(' ');     /* adding the nickrang info */
+
+                /* Now we iterate through all userstructs with matching nick, and replacing them */
+                /* with an updated userstruct filled with the rankflag information...            */
+                bool foundAndUpdated=false;
                 for(int i=0;i<this->wholist.length();i++)
                     if(this->wholist[i].nick==ircMsg->paramList[5]){
-                        QStringList userstructSetupQSL(ircMsg->paramList);
                         /* We already have filled userstructs for every user on every channel    */
                         /* we're on. This WHO is issued just to get flagrank info. So we need    */
                         /* the only thing -- update each userstruct with that info. We don't pay */
                         /* attention to the channel returned by WHO! Important! Not an error!    */
-                        userstructSetupQSL[1]=this->wholist[i].chan;
-                        userstructSetupQSL.removeFirst(); // no need for the snooper's nick
-
-                        /* and now adding the nickrang info           */
-                        userstructSetupQSL<<ircMsg->trailing.split(' ');
+                        userstructSetupQSL[0]=this->wholist[i].chan;
 
                         /* replacing the old userstruct with a fully populated one */
                         this->wholist[i]=userstruct(userstructSetupQSL);
+                        foundAndUpdated=true;
                     }
+
+                /* OOPS! If !foundAndUpdated, it seems that someone has joined on the channel    */
+                /* AFTER the NAMES reply has been sent, but BEFORE the WHO reply has been sent.  */
+                if(!foundAndUpdated){ /* So we just add a new userstruct to the end...           */
+                    this->wholist<<userstruct(userstructSetupQSL);
+                }
             } else if(ircMsg->command==
             "315"){
                 // end of the /WHO command
@@ -246,6 +261,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
             } else if(ircMsg->command==
             "JOIN"){
                 QString nick=ircMsg->prefix.split("!")[0];
+                if(nick==this->nick) return; /* We already know we've joined a channel ;)    */
                 this->wholist<<userstruct(QStringList()
                                           <<ircMsg->trailing /* channel */
                                           <<"Username"            /* these values do mean no-*/
@@ -375,8 +391,9 @@ void ircnet::disconnected() {
     emit sigdisconnected();
 }
 void ircnet::joinchannel(const QString &chan) {
-    tcp_write("JOIN "+chan+"\n");
-    tcp_write("WHO "+chan+"\n");
+    tcp_write("JOIN "+chan       +"\n"+
+              "WHO " +chan       +"\n"+
+              "WHO " +this->nick +"\n"); /* self's info is not included in WHO #channel */
     this->joinedchannellist<<chan;
 }
 void ircnet::partchannel(const QString &chan) {
