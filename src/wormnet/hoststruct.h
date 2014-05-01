@@ -39,7 +39,7 @@ public:
                 return mycountry;
             else return s;
         }
-        const QString countrynumber(){
+        const QString &countrynumber() const{
             return mycountrynumber;
         }
 
