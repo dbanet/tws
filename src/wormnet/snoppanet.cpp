@@ -129,7 +129,6 @@ void snoppanet::readgamelist(int i) {
         hostlist.clear();
         QStringList sltemp;
         foreach(QString s,sl) {
-            s=s.remove(QChar(65533));
             hostlist.push_back(hoststruct());
             sltemp = s.split(" ");
             hostlist.last().sethost(sltemp);

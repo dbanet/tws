@@ -27,7 +27,7 @@ void hoststruct::sethost(QStringList &sl) {
     Q_ASSERT(sl.size()>=7);
     //wa://'+Edit1.Text+Port+'?gameid='+Edit3.Text+'&scheme='+Edit4.Text;
     if (sl.size() >= 7) {
-        myname = sl.takeFirst();
+        myname = sl.takeFirst().replace((char)0xA0,' ').replace("#039","'");
         mynick = sl.takeFirst();
         myip = sl.takeFirst();
         bool b;
