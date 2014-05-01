@@ -206,13 +206,8 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 /* with an updated userstruct filled with the rankflag information...            */
                 bool foundAndUpdated=false;
                 for(int i=0;i<this->wholist.length();i++)
-                    if(this->wholist[i].nick==ircMsg->paramList[5]){
-                        /* We already have filled userstructs for every user on every channel    */
-                        /* we're on. This WHO is issued just to get flagrank info. So we need    */
-                        /* the only thing -- update each userstruct with that info. We don't pay */
-                        /* attention to the channel returned by WHO! Important! Not an error!    */
-                        userstructSetupQSL[0]=this->wholist[i].chan;
-
+                    if(this->wholist[i].nick==ircMsg->paramList[5] &&
+                       this->wholist[i].chan==ircMsg->paramList[1]){
                         /* replacing the old userstruct with a fully populated one */
                         this->wholist[i]=userstruct(userstructSetupQSL);
                         foundAndUpdated=true;
