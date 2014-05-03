@@ -18,6 +18,7 @@
 #include"picturehandler.h"
 #include"leagueserverhandler.h"
 #include "ircmessage.h"
+#include "singleton.h"
 extern inihandlerclass inihandler;
 
 ircnet::ircnet(QString s, QObject *parent) :
@@ -129,12 +130,17 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 // The command lists the CHANNELS on the network by sending them one by one
                 // with numeric 322. The channel name is in the first argument (the zero
                 // argument is your nick). The channel listing ends with the numeric 322.  ~~dbanet
-                channellist<<ircMsg->paramList[1];
+
+                            /* channel  name  */  /* amount of users */
+                channellist[ircMsg->paramList[1]]=ircMsg->paramList[2].toInt();
             } else if(ircMsg->command==
             "323"){
                 // end of the channel listing
-                emit siggetlist(channellist);
-                channellist.clear();
+                foreach(QString channel,channellist.keys())
+                    if(!singleton<netcoupler>().users.usermap_channellist_helper.contains(channel,Qt::CaseInsensitive))
+                        singleton<netcoupler>().users.usermap_channellist_helper.push_back(channel);
+
+                emit sigIRCReceivedChanList(QStringList(channellist.keys()));
             } else if(ircMsg->command==
             "353"){
                 // part of the /NAMES command. The server sends it automatically on channel join.
@@ -390,9 +396,10 @@ void ircnet::joinchannel(const QString &chan) {
               "WHO " +chan       +"\n"+
               "WHO " +this->nick +"\n"); /* self's info is not included in WHO #channel */
     this->joinedchannellist<<chan;
+    emit sigIRCJoinedChannel(channellist[chan]);
 }
 void ircnet::partchannel(const QString &chan) {
-    tcp_write("PART " + chan);
+    tcp_write("PART "+chan+"\n");
 }
 void ircnet::sendusermessage(const usermessage u){
     if(u.has_type(e_RAWCOMMAND))

@@ -105,11 +105,9 @@ window::window(QString s, int i) :
     connect(ui.hosts, SIGNAL(pressed(const QModelIndex&)),this, SLOT(hostitempressed(const QModelIndex&)));
     connect(ui.hosts, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(hostitemdblclicked(const QModelIndex&)));
     connect(ui.pbsmiley,SIGNAL(clicked()),this,SLOT(pbemotclicked()));
-
+    connect(&singleton<netcoupler>(),SIGNAL(sigJoinedChannel(int)),this,SLOT(setupWindowTitle(int)));
     connect(ui.msg, SIGNAL(returnPressed()),this, SLOT(sendmsg()));        
 
-    connect(&singleton<netcoupler>(), SIGNAL(siggotchanellist(QStringList)),this, SLOT(expandchannels(QStringList)));
-    connect(&singleton<netcoupler>(), SIGNAL(siggotchanellist(QStringList)),this, SLOT(getuserscount(QStringList)));
     ui.msg->setFocus(Qt::MouseFocusReason);
 
     QVariantList windowstates = S_S.getlist(currentchannel + QString::number(whichuiison));
@@ -161,9 +159,6 @@ void window::insertemot(QString s){
     ui.msg->setFocus ();
 }
 void window::expandchannels() { //expand on startup
-    expandchannels(QStringList());
-}
-void window::expandchannels(QStringList) { //expand on startup
     ui.hosts->setExpanded(singleton<netcoupler>().hosts.indexbychannelname(currentchannel), 1);
     ui.users->setExpanded(singleton<netcoupler>().users.indexbychannelname(currentchannel), 1);
     ui.users->setExpanded(singleton<netcoupler>().users.indexbychannelname(usermodel::tr("Querys")), 1);
@@ -173,7 +168,7 @@ void window::expandchannels(QStringList) { //expand on startup
                                                                      currentchannel), 0)) && ui.hosts->isExpanded(
                 singleton<netcoupler>().hosts.index(singleton<netcoupler>().hosts.classes.indexOf( currentchannel),
                                                     0))) {
-        disconnect(&singleton<netcoupler>(), SIGNAL(siggotchanellist(QStringList)),this, SLOT(expandchannels(QStringList)));
+        //disconnect(&singleton<netcoupler>(), SIGNAL(siggotchanellist(QStringList)),this, SLOT(expandchannels(QStringList)));
     } else
         QTimer::singleShot(500, this, SLOT(expandchannels()));
 }
@@ -557,19 +552,18 @@ void window::showbuttons() {
     ui.buttonlayout->addWidget(buttons);
 }
 void window::mysetwindowtitle() {
-    setWindowTitle(windowtitlechannel + " " + windowtitletime + " " + tr(
-                       "Users online") + windowtitleaway.simplified());
+    setWindowTitle(QString()
+                 +windowtitlechannel+" "
+                 +windowtitletime   +" "
+                 +tr("Users online")+" "
+                 +windowtitleaway.simplified()
+    );
 }
-void window::getuserscount(QStringList sl) {
-    QString s;
-    foreach(QString str,sl) {
-        if (str.contains( currentchannel))
-            s = str;
-    }
-    sl = s.split(" ", QString::SkipEmptyParts);
-    if (sl.size() > 1)
-        windowtitletime = sl[1];
+void window::setupWindowTitle(int amountOfUsers){
+    windowtitlechannel=currentchannel;
+    windowtitletime=QString::number(amountOfUsers);
     mysetwindowtitle();
+    expandchannels();
 }
 window::~window() {
     ui.buttonlayout->removeWidget(buttons);
