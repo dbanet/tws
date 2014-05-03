@@ -17,12 +17,11 @@ RCC_DIR += .rcc
 unix:TARGET = "./TheWheatSnooper/TheWheatSnooper"
 win32:TARGET = "../TheWheatSnooper/TheWheatSnooper"
 
-#     DEFINES += WITH_GAMESURGE_SUPPORT /* not ready yet          */
-win32:DEFINES += WITH_WORMNAT_SUPPORT   /* currently windows-only */
+#     DEFINES += WITH_GAMESURGE_SUPPORT #  not ready yet
+win32:DEFINES += WITH_WORMNAT_SUPPORT   # currently windows-only
 
 unix:DEFINES += QT_WS_X11 Q_WS_X11
 os2:DEFINES  += QT_WS_OS2 Q_WS_OS2
-win32:DEFINES+= QT_WS_WIN Q_WS_WIN
 
 !contains(QT_MAJOR_VERSION,5):!os2{
     QT      += phonon
