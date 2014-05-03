@@ -189,8 +189,10 @@ void snoppanet::sendhostrequest(){
     if(S_S.getbool ("cbwormnat2"))
         port = ":" + getwormnatport ();
     else
-#endif
         port = ":" + gethostportbyini();
+#else
+    port = ":" + gethostportbyini();
+#endif // WITH_WORMNAT_SUPPORT
     QUrl url(htmladdress+"/wormageddonweb/Game.asp");
     QHash<QString,QString> parameters;
     parameters.insert("Cmd","Create");
