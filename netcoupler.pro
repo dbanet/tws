@@ -1,6 +1,8 @@
 #DEFINES += WITH_GAMESURGE_SUPPORT /* not ready yet          */
 #DEFINES += WITH_WORMNAT_SUPPORT   /* currently windows-only */
 
+DEFINES += TWS_VERSION=\\\"2.9\\\"
+
 TEMPLATE += app
 QT += gui \
     network \
