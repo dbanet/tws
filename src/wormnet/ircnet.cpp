@@ -1,9 +1,10 @@
-#include<QFile>
-#include<QApplication>
-#include<QDir>
-#include<QTime>
-#include<QMessageBox>
-#include<QTextCodec>
+#include <QFile>
+#include <QApplication>
+#include <QDir>
+#include <QTime>
+#include <QMessageBox>
+#include <QTextCodec>
+#include <QSysInfo>
 
 #include "netcoupler.h"
 #include "singleton.h"
@@ -113,6 +114,10 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 QString from=ircMsg->prefix.split("!")[0];
                 QString to  =ircMsg->paramList[0];
                 QString text=ircMsg->trailing;
+                if(text==QString()+(char)0x01+"VERSION"+(char)0x01){
+                    tcp_write("NOTICE "+from+" :"+(char)0x01+"VERSION The Wheat Snooper "+TWS_VERSION+(char)0x01);
+                    return;
+                }
                 emit siggotusermessage(usermessage(text,e_PRIVMSG,from,to));
             } else if(ircMsg->command==
             "NOTICE"){

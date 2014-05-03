@@ -202,8 +202,9 @@ void chathandler::append(const usermessage u){
         text<<makepair(S_S.getstring("leprvmsgprefix")+ ": ", format);
     hash[e_hash_nick].setProperty(userpropertyId,u.user());
     QString suffix;
-    if(u.has_type(e_CTCP))
+    if(u.has_type(e_CTCP)){
         text<<makepair(u.user() + " CTCP: ",hash[e_hash_nick]);
+    }
     else if(u.has_type(e_RAWCOMMAND))
         text<<makepair(u.user() + " RAW: ",hash[e_hash_nick]);
     else if(u.has_type(e_SCRIPTCOMMAND))
