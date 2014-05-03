@@ -26,7 +26,7 @@ public:
     enum state{
         e_started, e_stoped
     };
-
+    QPointer<ircnet> irc;
     void start(QString nick);
     void stop();                
     void sendusermessage(const usermessage u);
@@ -56,7 +56,8 @@ signals:
     void signewwholist(QList<userstruct>);
     void siggotusermessage(const usermessage u);
     void siggotchanellist(QStringList);
-
+    void sigGotChanList(QStringList);
+    void sigJoinedChannel(int);
     void sigsettingswindowchanged();
     void siggotidletime(const QString&, int);
     void signosuchnick(const QString&);
@@ -66,7 +67,6 @@ signals:
     void sighoststarts(hoststruct);   
 
 private:
-    QPointer<ircnet> irc;
     QPointer<snoppanet> http;
     QString ircip;
     QStringList listofjoinedchannels;
@@ -90,10 +90,10 @@ public slots:
     void joingame(const QString &,const QString&,const QString&);    
     void sendinfotochan(const QString &,const QString &);
     void refreshhostlist();
-    void getwholist();
 private slots:    
     void initSoundAndStartWho();
-    void getchannellist(QStringList);
+    void emitSigGotChanList(QStringList);
+    void emitSigJoinedChannel(int);
     void getircip(QString);
     void gethostlist(QList<hoststruct>,QString);  
     void getusermessage(const usermessage u);

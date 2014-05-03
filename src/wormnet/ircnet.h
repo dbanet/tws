@@ -39,7 +39,8 @@ public slots:
 signals: //public signals:
     void sigmsg(const QString &user,const QString &receiver,const QString &msg);
     void siggotusermessage(const usermessage u);
-    void siggetlist(QStringList);
+    void sigIRCReceivedChanList(QStringList);
+    void sigIRCJoinedChannel(int);
     //private signals:
     void sigconnected();
     void sigdisconnected();   
@@ -52,7 +53,7 @@ private:
 
     QList<userstruct> templist;
 
-    QStringList channellist;
+    QHash<QString/* channel name */,int/* amount of  users */> channellist;
     QStringList joinedchannellist;
     QStringList tempchannellist;
     QString ircreadstring;

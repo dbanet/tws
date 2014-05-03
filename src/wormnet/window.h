@@ -50,13 +50,13 @@ private slots:
     void userselectionchanged(const QItemSelection&,const QItemSelection&);
     void setselection(const QModelIndex&,const QWidget*);    
 
-    void expandchannels(QStringList sl);	//expand on startup
+    //void expandchannels(QStringList sl);	//expand on startup
     void expandchannels();
     void getjoinmenu();
     void openhbox();
     void changealpha(int);
     void showbuttons();
-    void getuserscount(QStringList);
+    void setupWindowTitle(int);
     void pbemotclicked();
 
     void insertemot(QString s);

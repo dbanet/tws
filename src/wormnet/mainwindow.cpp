@@ -96,7 +96,7 @@ mainwindow::mainwindow() {
     connect(ui.tabWidget, SIGNAL(currentChanged ( int )),this, SLOT(currenttabchanged(int)));
 
     connect(&singleton<netcoupler>(), SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
-    connect(&singleton<netcoupler>(), SIGNAL(siggotchanellist(const QStringList &)),this, SLOT(getchannellist(const QStringList &)));
+    connect(&singleton<netcoupler>(), SIGNAL(sigGotChanList(const QStringList &)),this, SLOT(getchannellist(const QStringList &)));
     connect(&qobjectwrapper<awayhandler>::ref(), SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));
     connect(&singleton<netcoupler>(), SIGNAL(sigconnected()),this,SLOT(connected()));
     connect(&singleton<netcoupler>(), SIGNAL(sigdisconnected()),this,SLOT(disconnected()));
@@ -229,7 +229,7 @@ void mainwindow::reopenChatWindowsAndChannelWindows(){
 void mainwindow::getchannellist(const QStringList &sl) {
     ui.cbchannels->clear();
     foreach(QString s,sl)
-        ui.cbchannels->addItem(s.split(" ").first());    
+        ui.cbchannels->addItem(s);
     channellist = sl;
     ui.pbjoin->setEnabled(1);
     joinmenu->clear();
@@ -252,7 +252,6 @@ void mainwindow::join(const QString channel){
     if(currentchannellist.contains(channel))
         return;
     currentchannellist << channel;
-    singleton<netcoupler>().joinchannel(channel);
     if (whichuitype == 1) {
         windowlist.push_back(new channelwindow(channel, whichuitype));
         windowlist.last()->setObjectName("channelwindow");
@@ -264,6 +263,7 @@ void mainwindow::join(const QString channel){
         windowlist.last()->setObjectName("channelwindow");
     } else
         myDebug() <<QString() + "joinclicked in mainwindow assert";
+    singleton<netcoupler>().joinchannel(channel);
     if(windowlist.isEmpty())
         return;
     windowlist.last()->show();
