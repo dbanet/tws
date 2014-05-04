@@ -263,7 +263,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 appendhistory(u);
                 emit siggotusermessage(u);
                 foreach(QString channel,channelsTheQuittedUserWasBeingOn)
-                    emit sigIRCUpdatedAmountOfUsers(channel,++channellist[channel]);
+                    emit sigIRCUpdatedAmountOfUsers(channel,--channellist[channel]);
             } else if(ircMsg->command==
             "PART"){
                 QString nick=ircMsg->prefix.split("!")[0];
@@ -280,7 +280,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 u.settime(time());
                 appendhistory(u);
                 emit siggotusermessage(u);
-                emit sigIRCUpdatedAmountOfUsers(channel,++channellist[channel]);
+                emit sigIRCUpdatedAmountOfUsers(channel,--channellist[channel]);
             } else if(ircMsg->command==
             "JOIN"){
                 QString nick=ircMsg->prefix.split("!")[0];
