@@ -2,8 +2,10 @@
 #define IRCNET_H
 
 #include <QObject>
-#include<QTcpSocket>
-#include<QStringList>
+#include <QTcpSocket>
+#include <QStringList>
+#include <QFile>
+#include <QTextStream>
 
 #include"userstruct.h"
 #include"usermessage.h"
@@ -41,6 +43,7 @@ signals: //public signals:
     void siggotusermessage(const usermessage u);
     void sigIRCReceivedChanList(QStringList);
     void sigIRCJoinedChannel(int);
+    void sigIRCUpdatedAmountOfUsers(QString,int);
     //private signals:
     void sigconnected();
     void sigdisconnected();   

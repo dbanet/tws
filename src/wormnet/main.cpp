@@ -22,6 +22,7 @@
 #include<QTextStream>
 #include<QTextCodec>
 #include<QDir>
+#include<QDebug>
 
 #ifdef Q_WS_WIN
 #include <dir.h>
@@ -32,7 +33,14 @@ QStringList querylist;
 void search_for_game_executables();
 void handle_prosnooper_buddys();
 void get_picutres();
+void customMessageHandler(QtMsgType type,const char *msg){
+   QFile *dbgFl=new QFile("debug.out");
+   dbgFl->open(QIODevice::WriteOnly | QIODevice::Append);
+   QTextStream dbg(dbgFl);
+   dbg<<msg<<endl;
+}
 int main(int argc, char *argv[]) {
+    //qInstallMsgHandler(customMessageHandler);
     new WA_textcodec1252;
     new WA_textcodec1251;
     QApplication a(argc, argv);

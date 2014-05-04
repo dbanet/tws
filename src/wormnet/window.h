@@ -57,6 +57,7 @@ private slots:
     void changealpha(int);
     void showbuttons();
     void setupWindowTitle(int);
+    void setupWindowTitle(QString,int);
     void pbemotclicked();
 
     void insertemot(QString s);

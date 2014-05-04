@@ -58,6 +58,7 @@ signals:
     void siggotchanellist(QStringList);
     void sigGotChanList(QStringList);
     void sigJoinedChannel(int);
+    void sigUpdatedAmountOfUsers(QString,int);
     void sigsettingswindowchanged();
     void siggotidletime(const QString&, int);
     void signosuchnick(const QString&);
@@ -94,6 +95,7 @@ private slots:
     void initSoundAndStartWho();
     void emitSigGotChanList(QStringList);
     void emitSigJoinedChannel(int);
+    void emitSigUpdatedAmountOfUsers(QString,int);
     void getircip(QString);
     void gethostlist(QList<hoststruct>,QString);  
     void getusermessage(const usermessage u);
