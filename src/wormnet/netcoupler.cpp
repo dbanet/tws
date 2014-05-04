@@ -1,3 +1,4 @@
+
 #include<QFile>
 #include<QClipboard>
 #include<QTime>
@@ -69,8 +70,9 @@ void netcoupler::start(QString s){
 //    connect(http,SIGNAL(sighoststarts(QString)),this,SLOT(getmywormnethost(hoststruct)));
 
     /****************************************************************/
-    connect(irc, SIGNAL(sigIRCReceivedChanList(QStringList)),this, SLOT(emitSigGotChanList(QStringList)));
-    connect(irc, SIGNAL(sigIRCJoinedChannel(int)),this, SLOT(emitSigJoinedChannel(int)));
+    connect(irc, SIGNAL(sigIRCReceivedChanList(QStringList)),this,SLOT(emitSigGotChanList(QStringList)));
+    connect(irc, SIGNAL(sigIRCJoinedChannel(int)),this,SLOT(emitSigJoinedChannel(int)));
+    connect(irc, SIGNAL(sigIRCUpdatedAmountOfUsers(QString,int)),this,SLOT(emitSigUpdatedAmountOfUsers(QString,int)));
     /**************************************************** ~~dbanet **/
 
     QStringList sl = inihandler.stringlistfromini("[irc ip]");
@@ -115,6 +117,9 @@ void netcoupler::emitSigGotChanList(QStringList chanList) {
 }
 void netcoupler::emitSigJoinedChannel(int amountOfUsers) {
     emit sigJoinedChannel(amountOfUsers);
+}
+void netcoupler::emitSigUpdatedAmountOfUsers(QString channel,int amountOfUsers){
+    emit sigUpdatedAmountOfUsers(channel,amountOfUsers);
 }
 void netcoupler::getircip(QString s) {
     if(!irc)

@@ -102,7 +102,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
         if(ircMsg->isServMsg()){
             if(ircMsg->command==
             "PING"){
-                tcp_write("PONG");
+                tcp_write("PONG :"+ircMsg->trailing);
             } else if(ircMsg->command==
             "ERROR"){
                 myDebug()<<ircMsg->getRaw();
@@ -136,8 +136,8 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 // with numeric 322. The channel name is in the first argument (the zero
                 // argument is your nick). The channel listing ends with the numeric 322.  ~~dbanet
 
-                            /* channel  name  */  /* amount of users */
-                channellist[ircMsg->paramList[1]]=ircMsg->paramList[2].toInt();
+                            /* channel  name  */  /* amount of users */ // well, it will be updated
+                channellist[ircMsg->paramList[1]]=ircMsg->paramList[2].toInt();    // l8r on /NAMES
             } else if(ircMsg->command==
             "323"){
                 // end of the channel listing
@@ -179,6 +179,14 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
             "366"){
                 // end of the /NAMES command
                 updateuserlist;
+
+                /* Updating the channel window title with the newest amount of users...          */
+                int amountOfUsers=0;
+                QString channel=ircMsg->paramList[1];
+                foreach(userstruct user,this->wholist)
+                    if(user.chan==channel)
+                        amountOfUsers++;
+                emit sigIRCUpdatedAmountOfUsers(channel,amountOfUsers);
             } else if(ircMsg->command==
             "352"){
                 // part of the /WHO command. TWS issues it for each channel it joins on to get the
@@ -239,37 +247,47 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
             /* updating the userlist on quit, part, kick, join...  */
             /*******************************************************/
             "QUIT"){
+                QString nick=ircMsg->prefix.split("!")[0];
+                QStringList channelsTheQuittedUserWasBeingOn;
                 for(int i=0; i<this->wholist.length(); i++)
-                    if(this->wholist[i].nick==ircMsg->prefix.split("!")[0])
+                    if(this->wholist[i].nick==nick){
+                        channelsTheQuittedUserWasBeingOn<<this->wholist[i].chan;
                         wholist.removeAt(i);
+                    }
                 updateuserlist;
 
                 /* Lookias code. Write in chatwindow, store in history, etc. */
-                usermessage u("QUIT :"+ircMsg->trailing,
-                              usermessage_type(e_GARBAGE | e_GARBAGEQUIT),ircMsg->prefix.split("!")[0],"");
+                usermessage u("QUIT :"+ircMsg->trailing /* reason */,
+                              usermessage_type(e_GARBAGE | e_GARBAGEQUIT),nick,"");
                 u.settime(time());
                 appendhistory(u);
                 emit siggotusermessage(u);
+                foreach(QString channel,channelsTheQuittedUserWasBeingOn)
+                    emit sigIRCUpdatedAmountOfUsers(channel,++channellist[channel]);
             } else if(ircMsg->command==
             "PART"){
+                QString nick=ircMsg->prefix.split("!")[0];
+                QString channel=ircMsg->paramList[0];
                 for(int i=0; i<this->wholist.length(); i++)
-                    if(this->wholist[i].nick==ircMsg->prefix.split("!")[0] &&
-                       this->wholist[i].chan==ircMsg->paramList[0])
+                    if(this->wholist[i].nick==nick &&
+                       this->wholist[i].chan==channel)
                         wholist.removeAt(i);
                 updateuserlist;
 
                 /* Lookias code. Write in chatwindow, store in history, etc. */
-                usermessage u("PART "+ircMsg->paramList[0]+" :"+ircMsg->trailing,
-                              usermessage_type(e_GARBAGE | e_GARBAGEPART),ircMsg->prefix.split("!")[0],ircMsg->paramList[0]);
+                usermessage u("PART "+channel+" :"+ircMsg->trailing,
+                              usermessage_type(e_GARBAGE | e_GARBAGEPART),nick,channel);
                 u.settime(time());
                 appendhistory(u);
                 emit siggotusermessage(u);
+                emit sigIRCUpdatedAmountOfUsers(channel,++channellist[channel]);
             } else if(ircMsg->command==
             "JOIN"){
                 QString nick=ircMsg->prefix.split("!")[0];
-                if(nick==this->nick) return; /* We already know we've joined a channel ;)    */
+                QString channel=ircMsg->trailing;
+                if(nick==this->nick) continue; /* We already know we've joined a channel ;)    */
                 this->wholist<<userstruct(QStringList()
-                                          <<ircMsg->trailing /* channel */
+                                          <<channel
                                           <<"Username"            /* these values do mean no-*/
                                           <<"no.address.for.you"  /* thing, are here just to */
                                           <<"wormnet1.team17.com" /* satisfy userstruct      */
@@ -278,11 +296,12 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 tcp_write("WHO "+nick+"\n");
 
                 /* Lookias code. Write in chatwindow, store in history, etc. */
-                usermessage u("JOIN "+ircMsg->trailing,
-                              usermessage_type(e_GARBAGE | e_GARBAGEJOIN),nick,ircMsg->trailing);
+                usermessage u("JOIN "+channel,
+                              usermessage_type(e_GARBAGE | e_GARBAGEJOIN),nick,channel);
                 u.settime(time());
                 appendhistory(u);
                 emit siggotusermessage(u);
+                emit sigIRCUpdatedAmountOfUsers(channel,++channellist[channel]);
             } else if(ircMsg->command==
 
             /*******************************************************/
@@ -398,8 +417,7 @@ void ircnet::disconnected() {
 }
 void ircnet::joinchannel(const QString &chan) {
     tcp_write("JOIN "+chan       +"\n"+
-              "WHO " +chan       +"\n"+
-              "WHO " +this->nick +"\n"); /* self's info is not included in WHO #channel */
+              "WHO " +chan       +"\n");
     this->joinedchannellist<<chan;
     emit sigIRCJoinedChannel(channellist[chan]);
 }

@@ -106,6 +106,7 @@ window::window(QString s, int i) :
     connect(ui.hosts, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(hostitemdblclicked(const QModelIndex&)));
     connect(ui.pbsmiley,SIGNAL(clicked()),this,SLOT(pbemotclicked()));
     connect(&singleton<netcoupler>(),SIGNAL(sigJoinedChannel(int)),this,SLOT(setupWindowTitle(int)));
+    connect(&singleton<netcoupler>(),SIGNAL(sigUpdatedAmountOfUsers(QString,int)),this,SLOT(setupWindowTitle(QString,int)));
     connect(ui.msg, SIGNAL(returnPressed()),this, SLOT(sendmsg()));        
 
     ui.msg->setFocus(Qt::MouseFocusReason);
@@ -564,6 +565,11 @@ void window::setupWindowTitle(int amountOfUsers){
     windowtitletime=QString::number(amountOfUsers);
     mysetwindowtitle();
     expandchannels();
+}
+void window::setupWindowTitle(QString channel,int amountOfUsers){
+    if(channel!=currentchannel) return;
+    windowtitletime=QString::number(amountOfUsers);
+    mysetwindowtitle();
 }
 window::~window() {
     ui.buttonlayout->removeWidget(buttons);
