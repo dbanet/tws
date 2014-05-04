@@ -694,6 +694,7 @@ Skin_Base</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="19"/>
+        <location filename="../src/wormnet/hostmodel.cpp" line="19"/>
         <source>Gamename</source>
         <translation>Название игры</translation>
     </message>
@@ -701,11 +702,6 @@ Skin_Base</translation>
         <location filename="../src/wormnet/hostmodel.cpp" line="19"/>
         <source>User</source>
         <translation>Хостер</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/hostmodel.cpp" line="19"/>
-        <source>Game</source>
-        <translation type="unfinished">Программа</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="20"/>
@@ -746,7 +742,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/buttonlayout.cpp" line="82"/>
         <location filename="../src/wormnet/buttonlayout.cpp" line="84"/>
         <source>Custom words</source>
-        <translation type="unfinished"></translation>
+        <translation>Спец. слова</translation>
     </message>
     <message>
         <location filename="../src/wormnet/buttonlayout.cpp" line="32"/>
@@ -826,8 +822,8 @@ Skin_Base</translation>
     </message>
     <message>
         <location filename="../src/wormnet/about.cpp" line="11"/>
-        <source>This Program was written by Lookias with some fixes from StepS.</source>
-        <translation type="unfinished"></translation>
+        <source>This Program was written by Lookias. Various improvements have since then been contributed by StepS and dbanet.</source>
+        <translation>Эта программа была написана Lookias&apos;ом. Различные улучшения были впоследствии произведены силами StepS и dbanet.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/about.cpp" line="12"/>
@@ -863,6 +859,11 @@ Skin_Base</translation>
         <location filename="../src/wormnet/about.cpp" line="18"/>
         <source>&lt;br&gt;&lt;br&gt;Participants:&lt;br&gt;&lt;br&gt;</source>
         <translation>&lt;br&gt;&lt;br&gt;Участники проекта:&lt;br&gt;&lt;br&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/about.cpp" line="20"/>
+        <source>dbanet&apos;s personal note: &quot;Lookias, you&apos;re a numbskull! :D&quot;</source>
+        <translation>Личная заметка от dbanet: &quot;Lookias, ты болван! :D&quot;</translation>
     </message>
 </context>
 <context>
@@ -1287,7 +1288,7 @@ Skin_Base</translation>
     <message>
         <location filename="../src/wormnet/ctctphandlerwidget.cpp" line="8"/>
         <source>CTCP handler</source>
-        <translation type="unfinished"></translation>
+        <translation>Обработчик CTCP</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ctctphandlerwidget.cpp" line="81"/>
@@ -1436,12 +1437,12 @@ CTCP означает &quot;Протокол от Клиента К Клиент
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="32"/>
         <source>Create a public game in</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать публичную игру на</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="33"/>
         <source>Send hostinfo to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить информацию о хосте на %1</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="67"/>
@@ -1463,7 +1464,8 @@ CTCP означает &quot;Протокол от Клиента К Клиент
         <location filename="../src/wormnet/hostbox.cpp" line="138"/>
         <source>Using Wormnat2 hosting requires some wk files to be moved to your Worms Armageddon folder, these files may replace old files. Also make sure you have enabled &quot;Load WormKit modules&quot; in game settings (3.7.0.0 and newer).
 Are you sure?</source>
-        <translation type="unfinished"></translation>
+        <translation>Использование возможности хостинга через WormNAT2 требует установки некоторых wk-файлов в папку вашей инсталляции Worms Armageddon. Эти файлы могут заменить уже присутствующие там. Также убедитесь, что опция &quot;Загружать модули WormKit&quot; в расширенных настройках игры включена (версии 3.7.0.0 и новее).
+Вы уверены, что хотите продолжить?</translation>
     </message>
 </context>
 <context>
@@ -1642,7 +1644,7 @@ Its not possible to login, please contact the server admin.</source>
     <message>
         <location filename="../src/wormnet/logbrowser.cpp" line="10"/>
         <source>Log Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Навигатор журналов</translation>
     </message>
 </context>
 <context>
@@ -2370,7 +2372,7 @@ If this string is empty, worms will probably not host or join a game.</source>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="117"/>
         <source>Away message while gaming. </source>
-        <translation type="unfinished"></translation>
+        <translation>Сообщение &quot;отошёл&quot; во время игры. </translation>
     </message>
     <message>
         <location filename="../src/wormnet/settingswindow.ui" line="424"/>
@@ -2531,7 +2533,7 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/snoppanet.cpp" line="248"/>
         <source>WormNET has refused to add your host to the list, please try again later.</source>
-        <translation type="unfinished"></translation>
+        <translation>WormNET отказался добавлять ваш хост в список; пожалуйста, попробуйте чуть позже.</translation>
     </message>
 </context>
 <context>

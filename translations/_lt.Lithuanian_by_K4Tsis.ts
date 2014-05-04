@@ -684,6 +684,7 @@ Skin_Base</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="19"/>
+        <location filename="../src/wormnet/hostmodel.cpp" line="19"/>
         <source>Gamename</source>
         <translation>Žaidimo vardas</translation>
     </message>
@@ -691,11 +692,6 @@ Skin_Base</translation>
         <location filename="../src/wormnet/hostmodel.cpp" line="19"/>
         <source>User</source>
         <translation>Vartotojas</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/hostmodel.cpp" line="19"/>
-        <source>Game</source>
-        <translation type="unfinished">Žaidimas</translation>
     </message>
     <message>
         <location filename="../src/wormnet/hostbox.cpp" line="20"/>
@@ -816,7 +812,7 @@ Skin_Base</translation>
     </message>
     <message>
         <location filename="../src/wormnet/about.cpp" line="11"/>
-        <source>This Program was written by Lookias with some fixes from StepS.</source>
+        <source>This Program was written by Lookias. Various improvements have since then been contributed by StepS and dbanet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -853,6 +849,11 @@ Skin_Base</translation>
         <location filename="../src/wormnet/about.cpp" line="18"/>
         <source>&lt;br&gt;&lt;br&gt;Participants:&lt;br&gt;&lt;br&gt;</source>
         <translation>&lt;br&gt; &lt;br&gt; Dalyviai: &lt;br&gt; &lt;br&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/about.cpp" line="20"/>
+        <source>dbanet&apos;s personal note: &quot;Lookias, you&apos;re a numbskull! :D&quot;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
