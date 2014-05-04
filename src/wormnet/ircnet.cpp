@@ -320,7 +320,10 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 /* Here I output it decently to the main window.      ~~dbanet */
                 myDebug()<<ircMsg->trailing;
             } else if(ircMsg->command==
-            "321" || "376" || "372" || "375" || "250" || "260" || "265" || "255" || "254" || "252" || "251" || "005"){
+            "321"){
+                /* LIST header */
+            }else if(ircMsg->command==
+            "376" || "372" || "375" || "250" || "260" || "265" || "255" || "254" || "252" || "251" || "005"){
                 /* Other various text messages just to be displayed to the user  */
                 /* upon connection I'm tired to describe separately.             */
                 /* Here I output it to the main window.                ~~dbanet  */

@@ -1541,23 +1541,23 @@ Are you sure?</source>
         <translation>Il y a eu une erreur pendant la connexion à WormNET.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="415"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="418"/>
         <source>disconnected from irc server.</source>
         <translation>Déconnecté d&apos;IRC.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="349"/>
-        <location filename="../src/wormnet/ircnet.cpp" line="353"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="352"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="356"/>
         <source>Nickname collision!</source>
         <translation>Conflit entre pseudos !</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="350"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="353"/>
         <source>Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again.</source>
         <translation>Votre pseudo est déjà en cours d&apos;utilisation. Attendez quelques minutes ou cliquez sur le bouton &quot;Profil&quot; dans la connexion sécurisée puis réessayez.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="354"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="357"/>
         <source>Your nickname is already in use. You can wait some minutes or change your nickname and try again.</source>
         <translation>Votre pseudo est déjà en cours d&apos;utilisation. Attendez quelques minutes ou changez de pseudo puis réessayez.</translation>
     </message>
