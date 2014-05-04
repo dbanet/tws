@@ -1537,23 +1537,23 @@ Are you sure?</source>
         <translation>Es gibt ein Problm mit der Verbindung zum Wormnet.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="415"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="418"/>
         <source>disconnected from irc server.</source>
         <translation>Vom IRC Server getrennt</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="349"/>
-        <location filename="../src/wormnet/ircnet.cpp" line="353"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="352"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="356"/>
         <source>Nickname collision!</source>
         <translation>Namens Kollision</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="350"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="353"/>
         <source>Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again.</source>
         <translation>Dein Nick wird bereits benutzt. Das Problem ergibt sich normalerweise von selbst in ein paar Minuten. Wenn nicht dann klicke bei sichere Verbindung auf Profil und ändere dort deinen Wormnet Nick.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="354"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="357"/>
         <source>Your nickname is already in use. You can wait some minutes or change your nickname and try again.</source>
         <translation>Dein Nick wird bereits benutzt. Das Problem ergibt sich normalerweise von selbst in ein paar Minuten. Wenn nicht ändere deinen Wormnet Nick und versuche es erneut.</translation>
     </message>

@@ -1521,23 +1521,23 @@ Are you sure?</source>
         <translation>Buvo klaidos su ryšiu su Wormnet.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="415"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="418"/>
         <source>disconnected from irc server.</source>
         <translation>atjungtas nuo irc serverio.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="349"/>
-        <location filename="../src/wormnet/ircnet.cpp" line="353"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="352"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="356"/>
         <source>Nickname collision!</source>
         <translation>Pravardės susidūrimas!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="350"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="353"/>
         <source>Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again.</source>
         <translation>Jūsų pravardė yra jau naudojime. Jūs galite laukti kelios minutės ar paspausti profilio mygtuką saugiame miško ruošos skyriuje, kad pakeistumėte jūsų pravardę ir pabandytumėte dar kartą.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="354"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="357"/>
         <source>Your nickname is already in use. You can wait some minutes or change your nickname and try again.</source>
         <translation>Jūsų pravardė yra jau naudojime. Jūs galite laukti kelios minutės ar pakeisti jūsų pravardę ir pabandyti dar kartą.</translation>
     </message>

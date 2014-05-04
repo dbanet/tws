@@ -1544,23 +1544,23 @@ Are you sure?</source>
         <translation>Ошибка при подключении к серверу.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="415"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="418"/>
         <source>disconnected from irc server.</source>
         <translation>Потеряна связь с IRC-сервером!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="349"/>
-        <location filename="../src/wormnet/ircnet.cpp" line="353"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="352"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="356"/>
         <source>Nickname collision!</source>
         <translation>Никнейм уже занят!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="350"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="353"/>
         <source>Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again.</source>
         <translation>Ваш никнейм уже используется. Вы можете подождать несколько минут либо нажать на кнопке &quot;Профиль&quot; в секции безопасного логина для смены никнейма и повторной попытки.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="354"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="357"/>
         <source>Your nickname is already in use. You can wait some minutes or change your nickname and try again.</source>
         <translation>Ваш никнейм уже используется. Вы можете подождать несколько минут или изменить никнейм и попробовать снова.</translation>
     </message>
