@@ -269,7 +269,7 @@ void database_base::validate(){
         set("qss_file", QString("black by lookias.qss"));
     if(getstring("information").isEmpty() || getstring("information").startsWith("The Wheat Snooper"))
         set("information", "The Wheat Snooper "+about::version);
-    if(!contains("showinformation"))
+    //if(!contains("showinformation"))
         set("showinformation", true);    
 
     if(getstring("lestartup").startsWith("wav/"))

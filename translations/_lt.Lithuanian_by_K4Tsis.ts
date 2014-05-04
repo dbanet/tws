@@ -1071,9 +1071,9 @@ Skin_Base</translation>
         <location filename="../src/wormnet/chathandler.cpp" line="61"/>
         <location filename="../src/wormnet/chathandler.cpp" line="67"/>
         <location filename="../src/wormnet/chathandler.cpp" line="73"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="389"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="403"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="418"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="390"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="404"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="419"/>
         <source>Set the font for this texttype</source>
         <translation>Nustatykite šriftą šiam teksto tipui</translation>
     </message>
@@ -1081,9 +1081,9 @@ Skin_Base</translation>
         <location filename="../src/wormnet/chathandler.cpp" line="62"/>
         <location filename="../src/wormnet/chathandler.cpp" line="68"/>
         <location filename="../src/wormnet/chathandler.cpp" line="74"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="394"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="408"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="423"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="395"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="409"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="424"/>
         <source>Set the color for this texttype</source>
         <translation>Nustatykite spalvą šiam teksto tipui</translation>
     </message>
@@ -1099,7 +1099,7 @@ Skin_Base</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="71"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="426"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="427"/>
         <source>Show game info.</source>
         <translation>Renginio žaidimo informacija.</translation>
     </message>
@@ -1110,13 +1110,13 @@ Skin_Base</translation>
         <translation>kam </translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chathandler.cpp" line="427"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="428"/>
         <source>Info about this gamelink.</source>
         <translation>Informacija apie šią žaidimo sąsają.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/chathandler.cpp" line="272"/>
-        <location filename="../src/wormnet/chathandler.cpp" line="320"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="273"/>
+        <location filename="../src/wormnet/chathandler.cpp" line="321"/>
         <source>GAMELINK</source>
         <translation>ŽAIDIMO SĄSAJA</translation>
     </message>
@@ -1510,38 +1510,33 @@ Are you sure?</source>
 <context>
     <name>ircnet</name>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="38"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="43"/>
         <source>Reconnecting</source>
         <translation>Jungimas iš naujo</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="44"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="49"/>
         <source>There was an error with the connection to Wormnet.</source>
         <translation>Buvo klaidos su ryšiu su Wormnet.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="137"/>
-        <source>Servermessage: </source>
-        <translation>Serverio žinutė: </translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="140"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="415"/>
         <source>disconnected from irc server.</source>
         <translation>atjungtas nuo irc serverio.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="217"/>
-        <location filename="../src/wormnet/ircnet.cpp" line="221"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="349"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="353"/>
         <source>Nickname collision!</source>
         <translation>Pravardės susidūrimas!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="218"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="350"/>
         <source>Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again.</source>
         <translation>Jūsų pravardė yra jau naudojime. Jūs galite laukti kelios minutės ar paspausti profilio mygtuką saugiame miško ruošos skyriuje, kad pakeistumėte jūsų pravardę ir pabandytumėte dar kartą.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="222"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="354"/>
         <source>Your nickname is already in use. You can wait some minutes or change your nickname and try again.</source>
         <translation>Jūsų pravardė yra jau naudojime. Jūs galite laukti kelios minutės ar pakeisti jūsų pravardę ir pabandyti dar kartą.</translation>
     </message>
@@ -1972,32 +1967,32 @@ Jūs norite tęstis?</translation>
         <translation>Rangas</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="373"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="376"/>
         <source>Secure Logging</source>
         <translation>Saugus Jungimasis</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="428"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="431"/>
         <source>Password</source>
         <translation>Slaptažodis</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="435"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="438"/>
         <source>TUS password.</source>
         <translation>TUS slaptažodis.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="624"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="627"/>
         <source>Traymenu</source>
         <translation>Padėklo meniu</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="415"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="418"/>
         <source>TUS login.</source>
         <translation>TUS vardas.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="445"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="448"/>
         <source>Profile</source>
         <translation>Profilis</translation>
     </message>
@@ -2018,13 +2013,13 @@ Jūs norite tęstis?</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="137"/>
-        <location filename="../src/wormnet/mainwindow.ui" line="408"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="411"/>
         <source>Login</source>
         <translation>Vardas</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="184"/>
-        <location filename="../src/wormnet/mainwindow.ui" line="394"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="397"/>
         <source>Server</source>
         <translation>Serveris</translation>
     </message>
@@ -2034,27 +2029,27 @@ Jūs norite tęstis?</translation>
         <translation>Kad pritaikytų serverį šiam sąrašo paspaudimui įstoja.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="469"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="472"/>
         <source>Autologin </source>
         <translation>Autoprisijungimas</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="511"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="514"/>
         <source>Join channels</source>
         <translation>Sujungimo kanalai</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="532"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="535"/>
         <source>Start minimized to tray.</source>
         <translation>Pradėkite sumažintas į padėklą.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="539"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="542"/>
         <source>Join a channel on startup.</source>
         <translation>Prisijunkite prie kanalo ant paleidimo.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/mainwindow.ui" line="571"/>
+        <location filename="../src/wormnet/mainwindow.ui" line="574"/>
         <source>join</source>
         <translation>sujungimas</translation>
     </message>
@@ -2067,7 +2062,7 @@ Jūs norite tęstis?</translation>
 <context>
     <name>netcoupler</name>
     <message>
-        <location filename="../src/wormnet/netcoupler.cpp" line="270"/>
+        <location filename="../src/wormnet/netcoupler.cpp" line="268"/>
         <source>No executables are given.
 you must choose a game executable,
 for example wa.exe, to join a game.
@@ -2513,7 +2508,7 @@ Pažymėkite: A iš naujo jungiasi, privalo taikyti šituos nustatymus.</transla
         <translation>Žaidimo serveris atsijungė!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snoppanet.cpp" line="236"/>
+        <location filename="../src/wormnet/snoppanet.cpp" line="248"/>
         <source>WormNET has refused to add your host to the list, please try again later.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2566,18 +2561,18 @@ Pažymėkite: A iš naujo jungiasi, privalo taikyti šituos nustatymus.</transla
         <location filename="../src/wormnet/mainwindow.cpp" line="778"/>
         <location filename="../src/wormnet/usermodel.cpp" line="121"/>
         <location filename="../src/wormnet/usermodel.cpp" line="255"/>
-        <location filename="../src/wormnet/window.cpp" line="171"/>
-        <location filename="../src/wormnet/window.cpp" line="349"/>
-        <location filename="../src/wormnet/window.cpp" line="379"/>
-        <location filename="../src/wormnet/window.cpp" line="407"/>
+        <location filename="../src/wormnet/window.cpp" line="167"/>
+        <location filename="../src/wormnet/window.cpp" line="345"/>
+        <location filename="../src/wormnet/window.cpp" line="375"/>
+        <location filename="../src/wormnet/window.cpp" line="403"/>
         <source>Buddylist</source>
         <translation>Bičiulių sąrašas</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="350"/>
-        <location filename="../src/wormnet/window.cpp" line="388"/>
-        <location filename="../src/wormnet/window.cpp" line="402"/>
-        <location filename="../src/wormnet/window.cpp" line="407"/>
+        <location filename="../src/wormnet/window.cpp" line="346"/>
+        <location filename="../src/wormnet/window.cpp" line="384"/>
+        <location filename="../src/wormnet/window.cpp" line="398"/>
+        <location filename="../src/wormnet/window.cpp" line="403"/>
         <source>Ignorelist</source>
         <translation>Ignoro sąrašąs</translation>
     </message>
@@ -2599,10 +2594,10 @@ Pažymėkite: A iš naujo jungiasi, privalo taikyti šituos nustatymus.</transla
     <message>
         <location filename="../src/wormnet/usermodel.cpp" line="122"/>
         <location filename="../src/wormnet/usermodel.cpp" line="227"/>
-        <location filename="../src/wormnet/window.cpp" line="169"/>
-        <location filename="../src/wormnet/window.cpp" line="314"/>
-        <location filename="../src/wormnet/window.cpp" line="337"/>
-        <location filename="../src/wormnet/window.cpp" line="407"/>
+        <location filename="../src/wormnet/window.cpp" line="165"/>
+        <location filename="../src/wormnet/window.cpp" line="310"/>
+        <location filename="../src/wormnet/window.cpp" line="333"/>
+        <location filename="../src/wormnet/window.cpp" line="403"/>
         <source>Querys</source>
         <translation>Žinutės</translation>
     </message>
@@ -2656,102 +2651,102 @@ Pažymėkite: A iš naujo jungiasi, privalo taikyti šituos nustatymus.</transla
         <translation>Sukurkite žaidimą </translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="475"/>
-        <location filename="../src/wormnet/window.cpp" line="499"/>
-        <location filename="../src/wormnet/window.cpp" line="537"/>
+        <location filename="../src/wormnet/window.cpp" line="471"/>
+        <location filename="../src/wormnet/window.cpp" line="495"/>
+        <location filename="../src/wormnet/window.cpp" line="533"/>
         <source>Choose a Program to join this game.</source>
         <translation>Pasirinkite Programą, kad prisijungtumėte prie šio žaidimo.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="96"/>
-        <location filename="../src/wormnet/window.cpp" line="366"/>
+        <location filename="../src/wormnet/window.cpp" line="362"/>
         <source>Add this user to Buddylist.</source>
         <translation>Pridėkite šį vartotoją prie Bičiulių.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="97"/>
-        <location filename="../src/wormnet/window.cpp" line="368"/>
+        <location filename="../src/wormnet/window.cpp" line="364"/>
         <source>Add this user to Ignorelist.</source>
         <translation>Pridėkite šį vartotoją prie Ignor listo.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="99"/>
         <location filename="../src/wormnet/window.cpp" line="101"/>
-        <location filename="../src/wormnet/window.cpp" line="341"/>
-        <location filename="../src/wormnet/window.cpp" line="346"/>
-        <location filename="../src/wormnet/window.cpp" line="355"/>
-        <location filename="../src/wormnet/window.cpp" line="361"/>
-        <location filename="../src/wormnet/window.cpp" line="370"/>
-        <location filename="../src/wormnet/window.cpp" line="384"/>
-        <location filename="../src/wormnet/window.cpp" line="393"/>
+        <location filename="../src/wormnet/window.cpp" line="337"/>
+        <location filename="../src/wormnet/window.cpp" line="342"/>
+        <location filename="../src/wormnet/window.cpp" line="351"/>
+        <location filename="../src/wormnet/window.cpp" line="357"/>
+        <location filename="../src/wormnet/window.cpp" line="366"/>
+        <location filename="../src/wormnet/window.cpp" line="380"/>
+        <location filename="../src/wormnet/window.cpp" line="389"/>
         <source>Show info about this user.</source>
         <translation>Informacija apie šį vartotoją.</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="100"/>
-        <location filename="../src/wormnet/window.cpp" line="382"/>
-        <location filename="../src/wormnet/window.cpp" line="391"/>
+        <location filename="../src/wormnet/window.cpp" line="378"/>
+        <location filename="../src/wormnet/window.cpp" line="387"/>
         <source>Remove this user from the list.</source>
         <translation>Ištrinti šį vartotoją iš sąrašo.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="325"/>
-        <location filename="../src/wormnet/window.cpp" line="330"/>
+        <location filename="../src/wormnet/window.cpp" line="321"/>
+        <location filename="../src/wormnet/window.cpp" line="326"/>
         <source>Allow this clanname.</source>
         <translation>Leidžiamas klano vardas.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="327"/>
-        <location filename="../src/wormnet/window.cpp" line="332"/>
+        <location filename="../src/wormnet/window.cpp" line="323"/>
+        <location filename="../src/wormnet/window.cpp" line="328"/>
         <source>Dissallow this clanname.</source>
         <translation>Neleidžiamas šis klano vardas.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="339"/>
-        <location filename="../src/wormnet/window.cpp" line="344"/>
+        <location filename="../src/wormnet/window.cpp" line="335"/>
+        <location filename="../src/wormnet/window.cpp" line="340"/>
         <source>Remove this Query.</source>
         <translation>Ištrinti šią žinutę.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="353"/>
-        <location filename="../src/wormnet/window.cpp" line="372"/>
+        <location filename="../src/wormnet/window.cpp" line="349"/>
+        <location filename="../src/wormnet/window.cpp" line="368"/>
         <source>Remove this user from Buddylist.</source>
         <translation>Ištrinti šį vartotoją iš Bičiulių.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="359"/>
-        <location filename="../src/wormnet/window.cpp" line="374"/>
+        <location filename="../src/wormnet/window.cpp" line="355"/>
+        <location filename="../src/wormnet/window.cpp" line="370"/>
         <source>Remove this user from Ignorelist.</source>
         <translation>Ištrinti šį vartotoją iš Ignoro sąrašo.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="431"/>
+        <location filename="../src/wormnet/window.cpp" line="427"/>
         <source>Sry but there is no webside for this user available, at </source>
         <translation>Sry but there is no web side for this user available, at </translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="482"/>
+        <location filename="../src/wormnet/window.cpp" line="478"/>
         <source>Choose a desktop icon.</source>
         <translation>Pasirinkite stalinę piktogramą.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="486"/>
+        <location filename="../src/wormnet/window.cpp" line="482"/>
         <source>Choose a Program.</source>
         <translation>Pasirinkite Programą.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="489"/>
+        <location filename="../src/wormnet/window.cpp" line="485"/>
         <source>Choose a Desktopicon.</source>
         <translation>Pasirinkite Stalinę piktogramą.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="560"/>
+        <location filename="../src/wormnet/window.cpp" line="559"/>
         <source>Users online</source>
         <translation>Vartotojai tinkle</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="315"/>
-        <location filename="../src/wormnet/window.cpp" line="317"/>
+        <location filename="../src/wormnet/window.cpp" line="311"/>
+        <location filename="../src/wormnet/window.cpp" line="313"/>
         <source>Remove Querys</source>
         <translation>Ištrintos žinutės</translation>
     </message>
