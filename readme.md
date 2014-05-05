@@ -13,6 +13,6 @@ The latest build produced by Lookie, the former maintainer and the author of thi
 
 Later I was interested in writing my own snooper, but just after I said I was gonna write it with Qt (for different reasons) on the channel, StepS has pointed me out that The Wheat Snooper (that I personally didn't like, see issue #5) is written on C++ with Qt.
 
-I immediately has got interested in this, so I've asked StepS to share TWS's sources with me, because the old sources location was down. The sources given me by StepS already contained some fixes made by him. Then I've created this repository, compiled TWS for my platform, taken the maintainance of this software and continued the development.
+I immediately have got interested in this, so I've asked StepS to share TWS's sources with me, because the old sources location was down. The sources given me by StepS already contained some fixes made by him. Then I've created this repository, compiled TWS for my platform, taken the maintainance of this software and continued the development.
 
 That's all.
