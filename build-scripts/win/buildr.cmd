@@ -3,18 +3,18 @@ set twsdir=%~dp0..\..
 set blddir=%CD%
 
 lupdate -no-obsolete "%twsdir%\netcoupler.pro"
-qmake -config release "%twsdir%\netcoupler.pro"
+qmake -config release "%twsdir%\netcoupler.pro" -spec win32-g++
 mingw32-make -j4
 
 xcopy /H /O /T /S /E /R /V "%twsdir%\bld\*" .\
 
-copy %QTDIR%\bin\mingwm10.dll   .\
-copy %QTDIR%\bin\libgcc*        .\
-copy %QTDIR%\bin\QtCore4.dll    .\
-copy %QTDIR%\bin\QtGui4.dll     .\
-copy %QTDIR%\bin\QtNetwork4.dll .\
-copy %QTDIR%\bin\phonon4.dll    .\
-copy %QTDIR%\bin\QtSql4.dll     .\
+copy %QTDIR%\QtCreator\bin\mingwm10.dll   .\
+copy %QTDIR%\QtCreator\bin\libgcc*        .\
+copy %QTDIR%\QtCreator\bin\QtCore4.dll    .\
+copy %QTDIR%\QtCreator\bin\QtGui4.dll     .\
+copy %QTDIR%\QtCreator\bin\QtNetwork4.dll .\
+copy %QTDIR%\QtCreator\bin\phonon4.dll    .\
+copy %QTDIR%\QtCreator\bin\QtSql4.dll     .\
 
 mkdir iconengines
 copy %QTDIR%\plugins\iconengines\qsvgicon4.dll .\iconengines\
