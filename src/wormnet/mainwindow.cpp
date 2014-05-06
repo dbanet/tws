@@ -576,7 +576,7 @@ void mainwindow::gotusermsg(const usermessage u){
         return;
     }
     foreach(channelwindow *w,windowlist) {
-        if(w->currentchannel == u.receiver() || u.has_type(e_GARBAGEQUIT)){
+        if(w->currentchannel.toLower()==u.receiver().toLower() || u.has_type(e_GARBAGEQUIT)){
             w->getusermessage(u);
             break;
         }
