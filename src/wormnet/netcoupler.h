@@ -57,7 +57,7 @@ signals:
     void siggotusermessage(const usermessage u);
     void siggotchanellist(QStringList);
     void sigGotChanList(QStringList);
-    void sigJoinedChannel(int);
+    void sigJoinedChannel(QString,int);
     void sigUpdatedAmountOfUsers(QString,int);
     void sigsettingswindowchanged();
     void siggotidletime(const QString&, int);
@@ -94,7 +94,7 @@ public slots:
 private slots:    
     void initSoundAndStartWho();
     void emitSigGotChanList(QStringList);
-    void emitSigJoinedChannel(int);
+    void emitSigJoinedChannel(QString,int);
     void emitSigUpdatedAmountOfUsers(QString,int);
     void getircip(QString);
     void gethostlist(QList<hoststruct>,QString);  

@@ -42,7 +42,7 @@ signals: //public signals:
     void sigmsg(const QString &user,const QString &receiver,const QString &msg);
     void siggotusermessage(const usermessage u);
     void sigIRCReceivedChanList(QStringList);
-    void sigIRCJoinedChannel(int);
+    void sigIRCJoinedChannel(QString,int);
     void sigIRCUpdatedAmountOfUsers(QString,int);
     //private signals:
     void sigconnected();

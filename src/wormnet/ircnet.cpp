@@ -187,7 +187,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 foreach(userstruct user,this->wholist)
                     if(user.chan==channel)
                         amountOfUsers++;
-                emit sigIRCUpdatedAmountOfUsers(channel,amountOfUsers);
+                emit sigIRCUpdatedAmountOfUsers(channel,channellist[channel]=amountOfUsers);
             } else if(ircMsg->command==
             "352"){
                 // part of the /WHO command. TWS issues it for each channel it joins on to get the
@@ -420,7 +420,7 @@ void ircnet::joinchannel(const QString &chan) {
     tcp_write("JOIN "+chan       +"\n"+
               "WHO " +chan       +"\n");
     this->joinedchannellist<<chan;
-    emit sigIRCJoinedChannel(channellist[chan]);
+    emit sigIRCJoinedChannel(chan,channellist[chan]);
 }
 void ircnet::partchannel(const QString &chan) {
     tcp_write("PART "+chan+"\n");

@@ -71,7 +71,7 @@ void netcoupler::start(QString s){
 
     /****************************************************************/
     connect(irc, SIGNAL(sigIRCReceivedChanList(QStringList)),this,SLOT(emitSigGotChanList(QStringList)));
-    connect(irc, SIGNAL(sigIRCJoinedChannel(int)),this,SLOT(emitSigJoinedChannel(int)));
+    connect(irc, SIGNAL(sigIRCJoinedChannel(QString,int)),this,SLOT(emitSigJoinedChannel(QString,int)));
     connect(irc, SIGNAL(sigIRCUpdatedAmountOfUsers(QString,int)),this,SLOT(emitSigUpdatedAmountOfUsers(QString,int)));
     /**************************************************** ~~dbanet **/
 
@@ -115,8 +115,8 @@ void netcoupler::partchannel(const QString &s) {
 void netcoupler::emitSigGotChanList(QStringList chanList) {
     emit sigGotChanList(chanList);
 }
-void netcoupler::emitSigJoinedChannel(int amountOfUsers) {
-    emit sigJoinedChannel(amountOfUsers);
+void netcoupler::emitSigJoinedChannel(QString channel,int amountOfUsers) {
+    emit sigJoinedChannel(channel,amountOfUsers);
 }
 void netcoupler::emitSigUpdatedAmountOfUsers(QString channel,int amountOfUsers){
     emit sigUpdatedAmountOfUsers(channel,amountOfUsers);
