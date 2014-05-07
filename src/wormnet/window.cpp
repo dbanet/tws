@@ -105,8 +105,8 @@ window::window(QString s, int i) :
     connect(ui.hosts, SIGNAL(pressed(const QModelIndex&)),this, SLOT(hostitempressed(const QModelIndex&)));
     connect(ui.hosts, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(hostitemdblclicked(const QModelIndex&)));
     connect(ui.pbsmiley,SIGNAL(clicked()),this,SLOT(pbemotclicked()));
-    connect(&singleton<netcoupler>(),SIGNAL(sigJoinedChannel(int)),this,SLOT(setupWindowTitle(int)));
-    connect(&singleton<netcoupler>(),SIGNAL(sigUpdatedAmountOfUsers(QString,int)),this,SLOT(setupWindowTitle(QString,int)));
+    connect(&singleton<netcoupler>(),SIGNAL(sigJoinedChannel(QString,int)),this,SLOT(setupWindowTitleOnJoin(QString,int)));
+    connect(&singleton<netcoupler>(),SIGNAL(sigUpdatedAmountOfUsers(QString,int)),this,SLOT(setupWindowTitleOnChangeOfUserAmount(QString,int)));
     connect(ui.msg, SIGNAL(returnPressed()),this, SLOT(sendmsg()));        
 
     ui.msg->setFocus(Qt::MouseFocusReason);
@@ -560,14 +560,23 @@ void window::mysetwindowtitle() {
                  +windowtitleaway.simplified()
     );
 }
-void window::setupWindowTitle(int amountOfUsers){
+void window::setupWindowTitleOnJoin(QString channel,int amountOfUsers){
+    qDebug()<<"Got title change event on channel join.";
+    qDebug()<<"Window: "<<currentchannel<<", channel: "<<channel;
+    qDebug()<<"Accepting event?";
+    if(channel.toLower()!=currentchannel.toLower()){ qDebug()<<"No."; return; }
+    qDebug()<<"Yes. New amount of users: "<<QString::number(amountOfUsers);
     windowtitlechannel=currentchannel;
     windowtitletime=QString::number(amountOfUsers);
     mysetwindowtitle();
     expandchannels();
 }
-void window::setupWindowTitle(QString channel,int amountOfUsers){
-    if(channel!=currentchannel) return;
+void window::setupWindowTitleOnChangeOfUserAmount(QString channel,int amountOfUsers){
+    qDebug()<<"Got title change event on the change of the user amount.";
+    qDebug()<<"Window: "<<currentchannel<<", channel: "<<channel;
+    qDebug()<<"Accepting event?";
+    if(channel.toLower()!=currentchannel.toLower()){ qDebug()<<"No."; return; }
+    qDebug()<<"Yes. New amount of users: "<<QString::number(amountOfUsers);
     windowtitletime=QString::number(amountOfUsers);
     mysetwindowtitle();
 }

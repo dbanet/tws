@@ -56,8 +56,8 @@ private slots:
     void openhbox();
     void changealpha(int);
     void showbuttons();
-    void setupWindowTitle(int);
-    void setupWindowTitle(QString,int);
+    void setupWindowTitleOnJoin(QString,int);
+    void setupWindowTitleOnChangeOfUserAmount(QString,int);
     void pbemotclicked();
 
     void insertemot(QString s);
