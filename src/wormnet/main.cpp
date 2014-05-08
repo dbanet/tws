@@ -24,9 +24,6 @@
 #include<QDir>
 #include<QDebug>
 
-#ifdef Q_WS_WIN
-#include <dir.h>
-#endif
 volumeslider *volume;
 QStringList querylist;
 
@@ -47,7 +44,7 @@ int main(int argc, char *argv[]) {
     a.setApplicationVersion(about::version);
     a.setApplicationName("The Wheat Snooper");
 
-    chdir(qPrintable(QApplication::applicationDirPath()));
+    QDir::setCurrent(qPrintable(QApplication::applicationDirPath()));
     S_S.start("snpini/settings.sqlite3");
     singleton<settingswindow>();
     a.setQuitOnLastWindowClosed(false);

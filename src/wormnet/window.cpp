@@ -227,7 +227,7 @@ void window::getusermessage(usermessage u){
         chat->append(u);
         return;
     }
-    if (u.receiver() != currentchannel && !containsCI(chatwindowstringlist, u.user())) {
+    if (u.receiver().toLower()!=currentchannel.toLower() && !containsCI(chatwindowstringlist, u.user())) {
         if (!singleton<netcoupler>().ignorelistcontains(user) && !singleton<netcoupler>().buddylistcontains(user)) {
             if (!containsCI(querylist, user))
                 querylist << user;
@@ -561,22 +561,16 @@ void window::mysetwindowtitle() {
     );
 }
 void window::setupWindowTitleOnJoin(QString channel,int amountOfUsers){
-    qDebug()<<"Got title change event on channel join.";
-    qDebug()<<"Window: "<<currentchannel<<", channel: "<<channel;
-    qDebug()<<"Accepting event?";
-    if(channel.toLower()!=currentchannel.toLower()){ qDebug()<<"No."; return; }
-    qDebug()<<"Yes. New amount of users: "<<QString::number(amountOfUsers);
+    if(channel.toLower()!=currentchannel.toLower())
+        return;
     windowtitlechannel=currentchannel;
     windowtitletime=QString::number(amountOfUsers);
     mysetwindowtitle();
     expandchannels();
 }
 void window::setupWindowTitleOnChangeOfUserAmount(QString channel,int amountOfUsers){
-    qDebug()<<"Got title change event on the change of the user amount.";
-    qDebug()<<"Window: "<<currentchannel<<", channel: "<<channel;
-    qDebug()<<"Accepting event?";
-    if(channel.toLower()!=currentchannel.toLower()){ qDebug()<<"No."; return; }
-    qDebug()<<"Yes. New amount of users: "<<QString::number(amountOfUsers);
+    if(channel.toLower()!=currentchannel.toLower())
+        return;
     windowtitletime=QString::number(amountOfUsers);
     mysetwindowtitle();
 }

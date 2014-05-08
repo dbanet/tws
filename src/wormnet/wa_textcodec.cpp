@@ -1,8 +1,8 @@
-#include "WA_textcodec.h"
+#include "wa_textcodec.h"
 
-#include<QObject>
-#include<QDebug>
-#include<QHash>
+#include <QObject>
+#include <QDebug>
+#include <QHash>
 WA_textcodec1251::WA_textcodec1251(){
     hashtounicode[0x41]=L'A';
     hashfromunicode[L'А']=0x41;

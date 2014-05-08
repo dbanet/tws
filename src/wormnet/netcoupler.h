@@ -1,22 +1,21 @@
 #ifndef NETCOUPLER_H
 #define NETCOUPLER_H
 
-#include<QObject>
-#include<QTimer>
-#include<QProcess>
-#include<QHostInfo>
-#include<QPointer>
+#include <QObject>
+#include <QTimer>
+#include <QProcess>
+#include <QHostInfo>
+#include <QPointer>
+#include <QProcess>
 
-#include"hoststruct.h"
-#include"userstruct.h"
-#include"usermodel.h"
-#include"hostmodel.h"
-#include"global_macros.h"
-#include"usermessage.h"
-
-class ircnet;
-class snoppanet;
-class QProcess;
+#include "hoststruct.h"
+#include "userstruct.h"
+#include "usermodel.h"
+#include "hostmodel.h"
+#include "global_macros.h"
+#include "usermessage.h"
+#include "ircnet.h"
+#include "snoppanet.h"
 
 class netcoupler : public QObject
 {

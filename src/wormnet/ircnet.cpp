@@ -227,7 +227,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 bool foundAndUpdated=false;
                 for(int i=0;i<this->wholist.length();i++)
                     if(this->wholist[i].nick==ircMsg->paramList[5] &&
-                       this->wholist[i].chan==ircMsg->paramList[1]){
+                       this->wholist[i].chan.toLower()==ircMsg->paramList[1].toLower()){
                         /* replacing the old userstruct with a fully populated one */
                         this->wholist[i]=userstruct(userstructSetupQSL);
                         foundAndUpdated=true;
@@ -250,29 +250,33 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
             "QUIT"){
                 QString nick=ircMsg->prefix.split("!")[0];
                 QStringList channelsTheQuittedUserWasBeingOn;
-                for(int i=0; i<this->wholist.length(); i++)
-                    if(this->wholist[i].nick==nick){
-                        channelsTheQuittedUserWasBeingOn<<this->wholist[i].chan;
-                        wholist.removeAt(i);
-                    }
+                for(QList<userstruct>::iterator i=this->wholist.begin();i!=this->wholist.end();)
+                    if(i->nick==nick){
+                        channelsTheQuittedUserWasBeingOn<<i->chan;
+                        i=this->wholist.erase(i);
+                    } else ++i;
                 updateuserlist;
 
                 /* Lookias code. Write in chatwindow, store in history, etc. */
                 usermessage u("QUIT :"+ircMsg->trailing /* reason */,
-                              usermessage_type(e_GARBAGE | e_GARBAGEQUIT),nick,"");
+                              usermessage_type(e_GARBAGE | e_GARBAGEQUIT),
+                              nick,
+                              channelsTheQuittedUserWasBeingOn.join(",")
+                );
                 u.settime(time());
                 appendhistory(u);
                 emit siggotusermessage(u);
                 foreach(QString channel,channelsTheQuittedUserWasBeingOn)
-                    emit sigIRCUpdatedAmountOfUsers(channel,--channellist[channel]);
+                    emit sigIRCUpdatedAmountOfUsers(channel,--channellist[this->canonizeChannelName(channel)]);
             } else if(ircMsg->command==
             "PART"){
                 QString nick=ircMsg->prefix.split("!")[0];
                 QString channel=ircMsg->paramList[0];
-                for(int i=0; i<this->wholist.length(); i++)
-                    if(this->wholist[i].nick==nick &&
-                       this->wholist[i].chan==channel)
-                        wholist.removeAt(i);
+                for(QList<userstruct>::iterator i=this->wholist.begin();i<this->wholist.end();)
+                    if(i->nick==nick &&
+                       i->chan.toLower()==channel.toLower())
+                        i=this->wholist.erase(i);
+                    else ++i;
                 updateuserlist;
 
                 /* Lookias code. Write in chatwindow, store in history, etc. */
@@ -281,7 +285,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 u.settime(time());
                 appendhistory(u);
                 emit siggotusermessage(u);
-                emit sigIRCUpdatedAmountOfUsers(channel,--channellist[channel]);
+                emit sigIRCUpdatedAmountOfUsers(channel,--channellist[this->canonizeChannelName(channel)]);
             } else if(ircMsg->command==
             "JOIN"){
                 QString nick=ircMsg->prefix.split("!")[0];
@@ -302,7 +306,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 u.settime(time());
                 appendhistory(u);
                 emit siggotusermessage(u);
-                emit sigIRCUpdatedAmountOfUsers(channel,++channellist[channel]);
+                emit sigIRCUpdatedAmountOfUsers(channel,++channellist[this->canonizeChannelName(channel)]);
             } else if(ircMsg->command==
 
             /*******************************************************/
@@ -356,13 +360,18 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                                              QMessageBox::Ok);
                 quit("");
             }
-            else /* FINALLY! */ myDebug()<<"The server sent a message TWS is unable to understand. Please open an issue: \n"
+            else /* FINALLY! */ myDebug()<<"The server has sent a message TWS is unable to handle. Please open an issue: \n"
                                          <<"  https://github.com/dbanet/tws/issues\n"
                                          <<"Received message: "<<ircMsg->getFancy()+" || RAW: "+ircMsg->getRaw();
         }
     }
 }
-
+QString ircnet::canonizeChannelName(QString channelArg){
+    foreach(QString channel,this->channellist.keys())
+        if(channel.toLower()==channelArg.toLower().simplified())
+            return channel;
+    return channelArg.simplified();
+}
 /********************************************************/
 /*          THESE FUNCTIONS ARE NOT IN USE              */
 /*  THESE FUNCTIONS ARE LEFT HERE FOR INFORMATION ONLY  */
@@ -419,8 +428,8 @@ void ircnet::disconnected() {
 void ircnet::joinchannel(const QString &chan) {
     tcp_write("JOIN "+chan       +"\n"+
               "WHO " +chan       +"\n");
-    this->joinedchannellist<<chan;
-    emit sigIRCJoinedChannel(chan,channellist[chan]);
+    this->joinedchannellist<<this->canonizeChannelName(chan);
+    emit sigIRCJoinedChannel(this->canonizeChannelName(chan),channellist[this->canonizeChannelName(chan)]);
 }
 void ircnet::partchannel(const QString &chan) {
     tcp_write("PART "+chan+"\n");
