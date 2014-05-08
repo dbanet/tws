@@ -1,25 +1,25 @@
-#include<QComboBox>
-#include<QTextStream>
-#include<QProcess>
-#include<QFile>
-#include<QApplication>
-#include<QMessageBox>
-#include<QDir>
-#include<QDate>
-#include<QTextCodec>
+#include <QComboBox>
+#include <QTextStream>
+#include <QProcess>
+#include <QFile>
+#include <QApplication>
+#include <QMessageBox>
+#include <QDir>
+#include <QDate>
+#include <QTextCodec>
 
 #ifdef Q_WS_WIN
-#include<windows.h>
+#include <windows.h>
+#include <conio.h>
 #endif
-#include<conio.h>
-#include<stdio.h>
-#include<stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 
-#include"global_functions.h"
-#include"settings.h"
-#include"usermessage.h"
-#include"netcoupler.h"
-#include"codecselectdia.h"
+#include "global_functions.h"
+#include "settings.h"
+#include "usermessage.h"
+#include "netcoupler.h"
+#include "codecselectdia.h"
 
 typedef QHash<QString, QList<usermessage> > history_type;
 history_type my_history;

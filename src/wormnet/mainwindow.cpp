@@ -575,12 +575,16 @@ void mainwindow::gotusermsg(const usermessage u){
             w->getusermessage(u);
         return;
     }
-    foreach(channelwindow *w,windowlist) {
-        if(w->currentchannel.toLower()==u.receiver().toLower() || u.has_type(e_GARBAGEQUIT)){
-            w->getusermessage(u);
-            break;
-        }
+    if(!u.has_type(e_GARBAGEQUIT)){
+        foreach(channelwindow *w,windowlist)
+            if(w->currentchannel.toLower()==u.receiver().toLower())
+                w->getusermessage(u);
     }
+    else
+        foreach(QString channelTheQuittedUserWasBeingOn,u.receiver().split(','))
+            foreach(channelwindow *w,windowlist)
+                if(w->currentchannel.toLower()==channelTheQuittedUserWasBeingOn.toLower())
+                    w->getusermessage(u);
 }
 void mainwindow::connected(){
     ui.start->setEnabled(false);

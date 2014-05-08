@@ -56,7 +56,7 @@ void netcoupler::start(QString s){
     connectstate=e_started;
     nick=s;
     S_S.append("mutedusers", nick);
-    irc = new ircnet(s, this);    
+    irc = new ircnet(s, this);
     connect(irc,SIGNAL(sigconnected()),this,SLOT(ircconnected()));
     connect(irc,SIGNAL(sigdisconnected()),this,SLOT(ircdisconnected()));
     http = new snoppanet(this);

@@ -101,21 +101,16 @@ void usermodel::checkBuddysIgnoresQuerys(){
 void usermodel::setuserstruct(const QList<userstruct> &upar, QHash<QString,QStringList> joinlist) {
     emit layoutAboutToBeChanged();
     users = upar;
+
+    /* Fix for when a user joins #cHAnNeLL while the channel's name (returned by NAMES) is #Channel. ~~dbanet */
+    for(int i=0;i<users.length();i++) users[i].chan=singleton<netcoupler>().irc->canonizeChannelName(users[i].chan);
+
     usermap.clear();
     foreach(QString s,usermap_channellist_helper)
         usermap[s];
-    foreach(userstruct u,users) {
-        joinlist[u.chan].removeAll(u.nick);
+    foreach(userstruct u,users)
         usermap[u.chan].push_back(u);
-    }
-    int i;
-    foreach(QString channel,joinlist.keys()) {
-        foreach(QString s,joinlist[channel]) {
-            i = users.indexOf(userstruct::whoami(s));
-            if (i > -1)
-                usermap[channel].push_back(users[i]);
-        }
-    }
+
     checkBuddysIgnoresQuerys();
     classes.clear();
     classes<<tr("Buddylist");
@@ -127,12 +122,10 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QHash<QString,QStri
     usermap[tr("Buddylist")];
     usermap[tr("Querys")];
     usermap[usermodel::tr("Ignorelist")];
-    //#ifdef WITH_GAMESURGE_SUPPORT
-    //    usermap[GamesourgeChannelName];
-    //#endif
-    //#ifdef WITH_GAMESURGE_SUPPORT
-    //    classes.move(classes.indexOf(GamesourgeChannelName), classes.length()-1);
-    //#endif
+#ifdef WITH_GAMESURGE_SUPPORT
+        usermap[GamesourgeChannelName];
+        classes.move(classes.indexOf(GamesourgeChannelName), classes.length()-1);
+#endif
     sort(sortsection, sortorder);
     if (currentselectedchannel > -1 && currentselectedchannel < classes.size()) {
         int row = usermap[classes[currentselectedchannel]].indexOf(userstruct::whoami(currentselecteduser));

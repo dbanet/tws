@@ -28,10 +28,12 @@ public:
     void who();
     void partchannel(const QString&);
     void quit(QString s);
+    QHash<QString/* channel name */,int/* amount of  users */> channellist;
     int state() const;
     QList<userstruct> wholist;
     QHash<QString,QStringList> joinlist;
     QString nick;
+    QString canonizeChannelName(QString);
 public slots:
     void start();
     void reconnect();
@@ -56,7 +58,6 @@ private:
 
     QList<userstruct> templist;
 
-    QHash<QString/* channel name */,int/* amount of  users */> channellist;
     QStringList joinedchannellist;
     QStringList tempchannellist;
     QString ircreadstring;
