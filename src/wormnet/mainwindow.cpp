@@ -67,7 +67,6 @@ mainwindow::mainwindow() {
     ui.start->setText(tr("Apply"));
     ui.tabWidget->setTabEnabled(1, 0);
 
-    get_baseStyleSheet();
     init_menus();
     connect(singleton<balloon_handler>().tray, SIGNAL(activated ( QSystemTrayIcon::ActivationReason)),this, SLOT(trayactivation(QSystemTrayIcon::ActivationReason)));
     singleton<picturehandler>().fillflags(ui.flag);
@@ -333,7 +332,6 @@ void mainwindow::snpsetcontains(const QString &s) {
         if(!f.open(QFile::ReadOnly))
             QMessageBox::warning(this,QObject::tr("Warning"),tr("Cant read the Skinfile:\n")+S_S.getstring("qss_file"));
         QString stylesheet = QLatin1String(f.readAll());
-        qApp->setStyleSheet(baseStyleSheet+stylesheet);
     } else if (s == "joinonstartup" && S_S.contains(s) && S_S.contains("chbautojoin")) {
         ui.pbrememberjoin->setText(ui.pbrememberjoin->text().split("\n").first() + "\n" + S_S.getstring("joinonstartup"));
         if (S_S.getbool("chbautojoin"))
@@ -742,8 +740,6 @@ void mainwindow::traymenutriggered(QAction *a) {
                                                                         tr("Changing the skin crashes sometimes, but The Wheat Snooper\n" \
                                                                            "will keep the settings for the next Start.\nDo you want to proceed?"),
                                                                         QMessageBox::Ok | QMessageBox::Cancel);
-                if(button==QMessageBox::Ok)
-                    qApp->setStyleSheet(baseStyleSheet+stylesheet);
             }
             catch(...){
                 myDebug()<<tr("Skinchanging failed, please try again.");

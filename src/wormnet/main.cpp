@@ -18,7 +18,6 @@
 
 #include<QtGui>
 #include<QApplication>
-#include<QPlastiqueStyle>
 #include<QTextStream>
 #include<QTextCodec>
 #include<QDir>
@@ -65,7 +64,6 @@ int main(int argc, char *argv[]) {
     singleton<charformatsettings>().load();           
     a.addLibraryPath(QApplication::applicationDirPath());
     a.setWindowIcon(QIcon(QApplication::applicationDirPath()+ "/snppictures/tray.png"));
-    a.setStyle(new QPlastiqueStyle);
 #ifdef Q_WS_WIN
     search_for_game_executables();
     handle_prosnooper_buddys();
