@@ -23,7 +23,7 @@ QString clantowebpagemapper::value(const QString &key){
     return map[key.toLower()];
 }
 void clantowebpagemapper::refresh(){
-    QUrl url("http://ultimateclan.net/clanparse.php");
+    QUrl url("http://ultimateclan.net/parser/clans.php");
     reply = qnam.get(QNetworkRequest(url));
     connect(reply, SIGNAL(finished()),this, SLOT(httpFinished()));
     connect(reply, SIGNAL(readyRead()),this, SLOT(httpReadyRead()));
