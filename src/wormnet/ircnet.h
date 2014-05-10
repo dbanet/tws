@@ -49,7 +49,7 @@ signals: //public signals:
     //private signals:
     void sigconnected();
     void sigdisconnected();   
-    void siggotidletime(const QString&, int);
+    void siggotidletime(const QString&,int,int);
     void signosuchnick(const QString&);
     void sigconnectingfailed();
 

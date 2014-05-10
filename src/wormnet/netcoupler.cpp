@@ -44,8 +44,8 @@ void netcoupler::start(QString s){
 #ifdef PHONON
         connect(volume, SIGNAL(valueChanged (int)),&singleton<soundHandler>(), SLOT(volumechange(int)));
 #endif
-        connect(&users, SIGNAL(sigbuddyarrived()),&singleton<balloonHandler>(), SLOT(buddyarrived()));
-        connect(&users, SIGNAL(sigbuddyleft()),&singleton<balloonHandler>(), SLOT(buddyleft()));
+        connect(&users, SIGNAL(sigbuddyarrived()),&singleton<balloonHandler>(), SLOT(buddyArrived()));
+        connect(&users, SIGNAL(sigbuddyleft()),&singleton<balloonHandler>(), SLOT(buddyLeft()));
         connect(this,SIGNAL(sigconnected()),&singleton<balloonHandler>(),SLOT(connected()));
         connect(this,SIGNAL(sigdisconnected()),&singleton<balloonHandler>(),SLOT(disconnected()));
         connect(p, SIGNAL(readyRead()),this, SLOT(readprocess()));
@@ -62,7 +62,7 @@ void netcoupler::start(QString s){
     http = new snoppanet(this);
     connect(http, SIGNAL(sigchannelscheme(QString,QString)),this, SLOT(getscheme(QString,QString)));
     connect(irc, SIGNAL(siggotusermessage(const usermessage)),this,SLOT(getusermessage(const usermessage)));
-    connect(irc, SIGNAL(siggotidletime(const QString&, int)),this, SIGNAL(siggotidletime(const QString&, int)));
+    connect(irc, SIGNAL(siggotidletime(const QString&,int,int)),this, SIGNAL(siggotidletime(const QString&,int,int)));
     connect(irc, SIGNAL(signosuchnick(const QString&)),this, SIGNAL(signosuchnick(const QString&)));
     connect(http, SIGNAL(sighostlist(QList<hoststruct>,QString)),this, SLOT(gethostlist(QList<hoststruct>,QString)));
     connect(http,SIGNAL(sigloginfailed()),this,SIGNAL(sigdisconnected()));

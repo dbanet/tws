@@ -28,7 +28,7 @@ private slots:
     void pblogclicked();
     void pbidleclicked();
     void pbctcpclicked();
-    void gotidletime(const QString&,int);
+    void gotidletime(const QString&,int,int);
     void gotnosuchnick(const QString&);
     void filtergarbage();    
     void on_pbsmiley_clicked();
