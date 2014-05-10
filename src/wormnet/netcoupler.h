@@ -59,7 +59,7 @@ signals:
     void sigJoinedChannel(QString,int);
     void sigUpdatedAmountOfUsers(QString,int);
     void sigsettingswindowchanged();
-    void siggotidletime(const QString&, int);
+    void siggotidletime(const QString&,int,int);
     void signosuchnick(const QString&);
     void sigconnected();
     void sigdisconnected();  

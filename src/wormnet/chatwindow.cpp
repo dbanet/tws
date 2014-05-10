@@ -76,7 +76,7 @@ chatwindow::chatwindow(const QString &s, QWidget *parent) :
     connect(ui.pbfilter, SIGNAL(clicked()),this, SLOT(filtergarbage()));
     connect(ui.pbsmileys, SIGNAL(clicked()),chat->emot, SLOT(show()));
 
-    connect(&singleton<netcoupler>(), SIGNAL(siggotidletime(const QString&, int)),this, SLOT(gotidletime(const QString&,int)));
+    connect(&singleton<netcoupler>(), SIGNAL(siggotidletime(const QString&,int,int)),this, SLOT(gotidletime(const QString&,int,int)));
     connect(&singleton<netcoupler>(), SIGNAL(signosuchnick(const QString&)),this, SLOT(gotnosuchnick(const QString&)));
     statusbar = new QStatusBar(this);
     ui.verticalLayout_2->addWidget(statusbar);
@@ -184,11 +184,11 @@ void chatwindow::pblogclicked() {
 void chatwindow::pbidleclicked() {
     singleton<netcoupler>().sendusermessage(usermessage("whois " + chatpartner, e_RAWCOMMAND, chatpartner));
 }
-void chatwindow::gotidletime(const QString &user, int i) {
-    QTime time(0, 0, 0);
-    time = time.addSecs(i);
-    if (compareCI(user,  chatpartner))
-        chat->appenddebug(tr("<This users idle time:")+" " +time.toString("hh:mm:ss"));    
+void chatwindow::gotidletime(const QString &user,int idlePeriod,int logonTime) {
+    QTime time(0,0,0); time=time.addSecs(idlePeriod);
+    if(compareCI(user, chatpartner))
+        chat->appenddebug(tr("<This users idle time:")+" "+time.toString("hh:mm:ss")+"; "+
+                          tr("online since ")+QDateTime::fromTime_t(logonTime).toString()+".");
 }
 void chatwindow::gotnosuchnick(const QString &s){
     if(compareCI( chatpartner,s)){
