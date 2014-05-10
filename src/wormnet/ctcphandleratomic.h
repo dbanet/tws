@@ -1,7 +1,7 @@
 #ifndef CTCPHANDLERATOMIC_H
 #define CTCPHANDLERATOMIC_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include "ui_ctcphandleratomic.h"
 
 class ctcphandleratomic : public QWidget

@@ -7,8 +7,8 @@
 #include <QFile>
 #include <QTextStream>
 
-#include"userstruct.h"
-#include"usermessage.h"
+#include "userstruct.h"
+#include "usermessage.h"
 class ircnet : public QObject
 {
     Q_OBJECT

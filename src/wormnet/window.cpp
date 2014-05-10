@@ -1,32 +1,32 @@
-#include"window.h"
-#include"chatwindow.h"
-#include"settings.h"
-#include"mainwindow.h"
-#include"chathandler.h"
-#include"hostbox.h"
-#include"settingswindow.h"
-#include"buttonlayout.h"
+#include "window.h"
+#include "chatwindow.h"
+#include "settings.h"
+#include "mainwindow.h"
+#include "chathandler.h"
+#include "hostbox.h"
+#include "settingswindow.h"
+#include "buttonlayout.h"
 #ifdef PHONON
-#include"sound_handler.h"
+#include "sound_handler.h"
 #endif
-#include"global_functions.h"
-#include"clantowebpagemapper.h"
-#include"leagueserverhandler.h"
-#include"usermessage.h"
-#include"balloon_handler.h"
-#include"emoticonsdialog.h"
+#include "global_functions.h"
+#include "clantowebpagemapper.h"
+#include "leagueserverhandler.h"
+#include "usermessage.h"
+#include "balloon_handler.h"
+#include "emoticonsdialog.h"
 
-#include<QHBoxLayout>
-#include<QHeaderView>
-#include<QFileDialog>
-#include<QProcess>
-#include<QKeyEvent>
-#include<QItemSelectionModel>
-#include<QItemSelection>
-#include<QMessageBox>
-#include<QDate>
-#include<QScrollBar>
-#include<QDesktopServices>
+#include <QHBoxLayout>
+#include <QHeaderView>
+#include <QFileDialog>
+#include <QProcess>
+#include <QKeyEvent>
+#include <QItemSelectionModel>
+#include <QItemSelection>
+#include <QMessageBox>
+#include <QDate>
+#include <QScrollBar>
+#include <QDesktopServices>
 
 QList<chatwindow*> window::chatwindows;
 QStringList window::chatwindowstringlist;
@@ -60,7 +60,7 @@ window::window(QString s, int i) :
     ui.buttonlayout->addWidget(buttons);    
     ui.users->installEventFilter(this);
     connect(&singleton<netcoupler>().users, SIGNAL(sigselectitem(const QModelIndex&,const QWidget*)),this, SLOT(setselection(const QModelIndex&,const QWidget*)));    
-    chat = new chathandler(this, ui.chat, currentchannel);
+    chat = new chatHandler(this, ui.chat, currentchannel);
     ui.msg->installEventFilter(chat);
     connect(chat, SIGNAL(sigopenchatwindow(const QString&)),this, SLOT(openchatwindow(const QString&)));
     connect(ui.send, SIGNAL(clicked()),ui.msg, SIGNAL(returnPressed()));
@@ -97,8 +97,8 @@ window::window(QString s, int i) :
     usermenu.addAction(tr("Add this user to Ignorelist."));
     usermenu.addSeparator();
     usermenu.addAction(tr("Show info about this user."))->setIcon(chaticon);
-    costumlistmenu.addAction(tr("Remove this user from the list."));
-    costumlistmenu.addAction(tr("Show info about this user."))->setIcon(chaticon);
+    customlistmenu.addAction(tr("Remove this user from the list."));
+    customlistmenu.addAction(tr("Show info about this user."))->setIcon(chaticon);
 
     connect(ui.users, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(useritemdblclicked(const QModelIndex&)));
     connect(ui.users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
@@ -223,7 +223,7 @@ void window::getusermessage(usermessage u){
     if(u.has_type(e_GARBAGE))
         return chat->append(u);
     if(u.has_type(e_NOTICE)){
-        singleton<balloon_handler>().alert(u.user(), this);
+        singleton<balloonHandler>().alert(u.user(), this);
         chat->append(u);
         return;
     }
@@ -234,10 +234,10 @@ void window::getusermessage(usermessage u){
             u.add_type(e_CHATMSGTOCHANNEL);
             chat->append(u);
             if (S_S.getbool("cbalertfromnormal")) {
-                singleton<balloon_handler>().alert(u.user(), this);
+                singleton<balloonHandler>().alert(u.user(), this);
             }
 #ifdef PHONON
-            singleton<sound_handler>().play_normalmsgsound(user);            
+            singleton<soundHandler>().play_normalmsgsound(user);
 #endif
         }
     } else if (compareCI(u.receiver(), currentchannel)){
@@ -373,7 +373,7 @@ void window::useritempressed(const QModelIndex &index) {
         } else
             return;
     } else if (singleton<netcoupler>().users.classes[index.internalId()] == usermodel::tr("Buddylist")) {
-        QAction *a = costumlistmenu.exec(QCursor::pos());
+        QAction *a = customlistmenu.exec(QCursor::pos());
         if (a) {
             if (a->text() == tr("Remove this user from the list.")) {
                 singleton<netcoupler>().users.deletebuddy(user);
@@ -382,7 +382,7 @@ void window::useritempressed(const QModelIndex &index) {
             }
         }
     } else if (singleton<netcoupler>().users.classes[index.internalId()] == usermodel::tr("Ignorelist")) {
-        a = costumlistmenu.exec(QCursor::pos());
+        a = customlistmenu.exec(QCursor::pos());
         if (a) {
             if (a->text() == tr("Remove this user from the list.")) {
                 singleton<netcoupler>().users.deleteignore(user);
@@ -469,27 +469,20 @@ void window::hostitempressed(const QModelIndex &index) {
             QAction *a = joinmenu.exec(QCursor::pos());
             if (a != 0) {
                 if (a->text() == tr("Choose a Program to join this game.")) {
-                    QStringList sl = S_S.getstringlist("joinstrings");
-#ifdef Q_WS_S60
-                    QString file;
-                    return;
-#endif
-#ifdef Q_WS_MAC
+                    QStringList sl = S_S.getStringList("joinstrings");
+#ifdef Q_OS_UNIX
                     QString file = QFileDialog::getOpenFileName(this, tr(
                                                                     "Choose a desktop icon."), "/home", "*.desktop");
-#endif
-#if defined(Q_WS_WIN) | defined(Q_WS_OS2)
+#elif defined(Q_OS_WIN32) | defined(Q_OS_OS2)
                     QString file = QFileDialog::getOpenFileName(this, tr("Choose a Program."), "c:/", "*.exe *.com");
-#endif
-#ifdef Q_WS_X11
-                    QString file = QFileDialog::getOpenFileName(this, tr(
-                                                                    "Choose a Desktopicon."), "/home", "*.desktop");
+#else
+                    QString file = QFileDialog::getOpenFileName(this, tr("Choose a Program."));
 #endif
                     if (!sl.contains(file) && file != "") {
                         sl.insert(0, file);
                         S_S.set("joinstrings", sl);
                         joinmenu2.clear();
-                        foreach(QString s,S_S.getstringlist("joinstrings")) {
+                        foreach(QString s,S_S.getStringList("joinstrings")) {
                             joinmenu2.addAction(s);
                         }
                         joinmenu2.addAction(tr(
@@ -507,7 +500,7 @@ void window::hostitempressed(const QModelIndex &index) {
                         myDebug() << s;
                     }
                 } else {
-                    QStringList sl = S_S.getstringlist("joinstrings");
+                    QStringList sl = S_S.getStringList("joinstrings");
                     sl.move(sl.indexOf(a->text()), 0);
                     S_S.set("joinstrings", sl);
                     singleton<netcoupler>().joingame(hostinfo, currentchannel, gamename);
@@ -526,8 +519,8 @@ void window::hboxok() {
 }
 void window::getjoinmenu() {
     joinmenu2.clear();
-    if (!S_S.getstringlist("joinstrings").isEmpty()) {
-        foreach(QString s,S_S.getstringlist("joinstrings"))
+    if (!S_S.getStringList("joinstrings").isEmpty()) {
+        foreach(QString s,S_S.getStringList("joinstrings"))
             joinmenu2.addAction(s);        
     }
     joinmenu2.addAction(tr("Choose a Program to join this game."));

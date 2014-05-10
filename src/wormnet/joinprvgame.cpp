@@ -1,15 +1,15 @@
-#include<QStringList>
-#include<QFileDialog>
+#include <QStringList>
+#include <QFileDialog>
 
-#include"joinprvgame.h"
-#include"settings.h"
+#include "joinprvgame.h"
+#include "settings.h"
 
 joinprvgame::joinprvgame(const QString &a,const QString &b)
     : chan(b),anchor(a)
 {
      setObjectName("normalwidget");
     ui.setupUi(this);
-    QStringList sl = S_S.getstringlist("joinstrings");
+    QStringList sl = S_S.getStringList("joinstrings");
     ui.icons->clear();
     ui.icons->addItems(sl);
      setWindowTitle(tr("Join game with."));
@@ -19,21 +19,17 @@ joinprvgame::joinprvgame(const QString &a,const QString &b)
 }
 void joinprvgame::addclicked() {
     QString file;
-#ifdef Q_WS_S60    
-#endif
-#ifdef Q_WS_MAC
+#ifdef Q_OS_UNIX
     file = QFileDialog::getOpenFileName(this, tr(
             "Choose a desktop icon."), "/home", "*.desktop");
-#endif
-#ifdef Q_WS_X11
-    file = QFileDialog::getOpenFileName(this, tr(
-            "Choose a desktop icon."), "/home", "*.desktop");
-#endif
-#ifdef Q_WS_WIN
+#elif defined(Q_OS_WIN32) | defined(Q_OS_OS2)
     file = QFileDialog::getOpenFileName(this, tr(
             "Choose a Program."), "/home", "*.exe *.com");
+#else
+    file = QFileDialog::getOpenFileName(this, tr(
+            "Choose a Program."));
 #endif
-    QStringList sl = S_S.getstringlist("joinstrings");
+    QStringList sl = S_S.getStringList("joinstrings");
     if (file != "") {
         if (!sl.contains(file) && file != "") {
             sl.insert(0, file);

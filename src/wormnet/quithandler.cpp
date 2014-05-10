@@ -1,15 +1,15 @@
-#include"quithandler.h"
-#include"settings.h"
-#include"clantowebpagemapper.h"
-#include"charformatsettings.h"
-#include"balloon_handler.h"
-#include"settingswindow.h"
-#include"mainwindow.h"
-#include"global_functions.h"
-#include"netcoupler.h"
-#include"leagueserverhandler.h"
+#include "quithandler.h"
+#include "settings.h"
+#include "clantowebpagemapper.h"
+#include "charformatsettings.h"
+#include "balloon_handler.h"
+#include "settingswindow.h"
+#include "mainwindow.h"
+#include "global_functions.h"
+#include "netcoupler.h"
+#include "leagueserverhandler.h"
 
-#include<QApplication>
+#include <QApplication>
 
 quithandler::quithandler(){
     connect(qApp,SIGNAL(aboutToQuit()),this,SLOT(beforequit()));
@@ -18,7 +18,7 @@ quithandler::~quithandler(){}
 
 void quithandler::inducequit(QString s){
     if(s==QString())
-        s=S_S.getstring("information");
+        s=S_S.getString("information");
     S_S.transaction();
     beforequit();    
     S_S.commit();
@@ -34,7 +34,7 @@ void quithandler::beforequit(){
     qobjectwrapper<mainwindow>::ref().quit();            
     safeusergarbage();
     safequerylist();
-    singleton<balloon_handler>().hide_tray();
+    singleton<balloonHandler>().hideTray();
 }
 void quithandler::quit(){        
     qApp->quit();

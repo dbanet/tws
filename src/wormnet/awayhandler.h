@@ -2,9 +2,9 @@
 #define AWAYHANDLER_H
 
 #include <QObject>
-#include<QTimer>
-#include<QMap>
-#include"qobjectwrapper.h"
+#include <QTimer>
+#include <QMap>
+#include "qobjectwrapper.h"
 
 class awayhandler : public QObject
 {

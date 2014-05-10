@@ -1,9 +1,9 @@
-#include"playername.h"
-#include"global_functions.h"
+#include "playername.h"
+#include "global_functions.h"
 
-#include<QFile>
-#include<QProcess>
-#include<QTextStream>
+#include <QFile>
+#include <QProcess>
+#include <QTextStream>
 QString playername::nick = "";
 playername::playername(QWidget *parent) :
 	QWidget(parent) {
@@ -14,7 +14,7 @@ playername::playername(QWidget *parent) :
             tr("This is your Playername in a game.\n"
                "This name supports more letters then the wormnet name.\n"
                "If this string is empty, worms will probably not host or join a game."));
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
     nick=get_winini_key ("PlayerName");
 #endif
     ui.lineEdit->setText(nick);
@@ -26,7 +26,7 @@ playername::playername(QWidget *parent) :
 }
 void playername::okclicked() {
     nick = ui.lineEdit->text ();
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
     if(!nick.isEmpty ())
         set_winini_key ("PlayerName",nick);
 #endif

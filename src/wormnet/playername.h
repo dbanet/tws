@@ -1,7 +1,7 @@
 #ifndef PLAYERNAME_H
 #define PLAYERNAME_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include "ui_playername.h"
 
 class playername : public QWidget

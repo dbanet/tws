@@ -7,7 +7,7 @@
 
 #ifndef USERSTRUCT_H_
 #define USERSTRUCT_H_
-#include<QStringList>
+#include <QStringList>
 class userstruct {
 public:
 	userstruct();

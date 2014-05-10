@@ -6,13 +6,13 @@
  */
 
 #include "mytabwidget.h"
-#include<QEvent>
-#include<QMouseEvent>
-#include<QTabBar>
-#include<QCursor>
-#include<QMenu>
-#include<QApplication>
-#include<QDialogButtonBox>
+#include <QEvent>
+#include <QMouseEvent>
+#include <QTabBar>
+#include <QCursor>
+#include <QMenu>
+#include <QApplication>
+#include <QDialogButtonBox>
 mytabwidget::mytabwidget(QWidget *w) :
 	QTabWidget(w) {
 	menu=new QMenu;

@@ -1,6 +1,6 @@
 #ifndef MYDEBUGCLASS_H
 #define MYDEBUGCLASS_H
-#include<QString>
+#include <QString>
 class usermessage;
 class QVariant;
 class myDebugClass

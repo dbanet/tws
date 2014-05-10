@@ -1,29 +1,29 @@
-#include"sqlsettings.h"
-#include"myDebug.h"
-#include"global_functions.h"
+#include "sqlsettings.h"
+#include "myDebug.h"
+#include "global_functions.h"
 
-#include<QtSql>
-#include<stdexcept>
-#include<QMessageBox>
-#include<QFileDialog>
-#include<QApplication>
+#include <QtSql>
+#include <stdexcept>
+#include <QMessageBox>
+#include <QFileDialog>
+#include <QApplication>
 extern const char *TABLENAME;
 sqlsettings::sqlsettings(){
 }
-void sqlsettings::start(QString arg){
-    databasename=arg;
+void sqlsettings::start(QDir databaseDir,QString databaseName){
+    databasename=databaseDir.absoluteFilePath(databaseName);
+    bool b=databasexists(databaseDir,databaseName);
     if(!QDir().exists("query"))
         QDir().mkdir("query");
     if(!QDir().exists("snpini"))
         QDir().mkdir("snpini");
-    bool b=databasexists();    
     db().transaction();
     if(!b){
         loadsnpiniDefaults();
         loadsettingswindowDefaults();
     }         
     QTranslator *trans=new QTranslator;
-    QString file=getstring("language_file").remove(".qm");
+    QString file=getString("language_file").remove(".qm");
     if (trans->load(file,"translations/"))
         qApp->installTranslator(trans);
     else
@@ -33,11 +33,12 @@ void sqlsettings::start(QString arg){
 }
 sqlsettings::~sqlsettings(){
 }
-bool sqlsettings::databasexists(){    
-    if(QFile::exists(databasename))
+bool sqlsettings::databasexists(QDir databaseDir,QString databaseName){
+    if(QFile::exists(databaseDir.absoluteFilePath(databaseName)))
         return true;
+    databaseDir.mkdir(".");
     installTranslationBySystemLocale();
-    db().transaction();    
+    db().transaction();
     if(QFile::exists("snpini/snpini"))
         return importOldini(), true;
     int button=QMessageBox::question(0,QObject::tr("Question")

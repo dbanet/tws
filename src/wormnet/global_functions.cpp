@@ -8,7 +8,7 @@
 #include <QDate>
 #include <QTextCodec>
 
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 #include <windows.h>
 #include <conio.h>
 #endif
@@ -109,7 +109,7 @@ QString getwormnatport(){
 QString globalport;
 QString gethostportbyini() {
     QString port=globalport;
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
     port=get_winini_key ("HostingPort");
     if(port.isEmpty ())
         port=globalport;
@@ -123,12 +123,12 @@ void sethostport(QString port) {
         port="17011";
     globalport=port;
 
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
     set_winini_key ("HostingPort",port);
 #endif
 }
 //----------------------------------------------------------------------------------------------
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 QString get_winini_key(QString key){
     char *p=new char[255];
     GetProfileStringA("NetSettings",key.toAscii (),"",p,255);
@@ -138,7 +138,7 @@ QString get_winini_key(QString key){
 }
 #endif
 //----------------------------------------------------------------------------------------------
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 bool set_winini_key(QString key, QString value){
     return WriteProfileStringA("NetSettings"
                                , key.toAscii ()

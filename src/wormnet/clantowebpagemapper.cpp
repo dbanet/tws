@@ -1,14 +1,14 @@
-#include"clantowebpagemapper.h"
-#include"settingswindow.h"
-#include"settings.h"
-#include"leagueserverhandler.h"
+#include "clantowebpagemapper.h"
+#include "settingswindow.h"
+#include "settings.h"
+#include "leagueserverhandler.h"
 
-#include<QFile>
-#include<QDir>
-#include<QApplication>
-#include<QMessageBox>
-#include<QUrl>
-#include<QNetworkReply>
+#include <QFile>
+#include <QDir>
+#include <QApplication>
+#include <QMessageBox>
+#include <QUrl>
+#include <QNetworkReply>
 
 clantowebpagemapper::clantowebpagemapper()
 {

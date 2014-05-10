@@ -2,11 +2,11 @@
 #define LEAGUESERVERHANDLER_H
 
 #include <QObject>
-#include<QStringList>
-#include<QHash>
-#include<QTimer>
-#include<QNetworkAccessManager>
-#include"global_macros.h"
+#include <QStringList>
+#include <QHash>
+#include <QTimer>
+#include <QNetworkAccessManager>
+#include "global_macros.h"
 
 class QNetworkReply;
 class QTimer;

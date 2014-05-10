@@ -1,107 +1,107 @@
-#include"balloon_handler.h"
-#include"settingswindow.h"
-#include"about.h"
-#include"usermodel.h"
-#include"netcoupler.h"
-#include"global_functions.h"
-#include"usermessage.h"
+#include "balloon_handler.h"
+#include "settingswindow.h"
+#include "about.h"
+#include "usermodel.h"
+#include "netcoupler.h"
+#include "global_functions.h"
+#include "usermessage.h"
 
-#include<QTime>
-#include<QSystemTrayIcon>
-#include<QDir>
+#include <QTime>
+#include <QSystemTrayIcon>
+#include <QDir>
 
-balloon_handler::balloon_handler() {
+balloonHandler::balloonHandler() {
     tray=new QSystemTrayIcon;
     tray->setToolTip(QObject::tr("The Wheat Snooper version ")+about::version);
     tray->setIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/tray.png"));
     tray->setObjectName("normalwidget");
     tray->show();
-    balloonhelper << "[" + QTime::currentTime().toString("hh:mm") + "] "
+    balloonHelper << "[" + QTime::currentTime().toString("hh:mm") + "] "
             + QObject::tr("The Wheat Snooper version ")+about::version+QObject::tr(" started!");
     if(S_S.getbool("cbshowballoons"))
-        tray->showMessage(tr("Notifications."), balloonhelper.join("\n"));
+        tray->showMessage(tr("Notifications."), balloonHelper.join("\n"));
 }
-balloon_handler::~balloon_handler() {
+balloonHandler::~balloonHandler() {
     delete tray;
 }
-void balloon_handler::showballoon( ){
+void balloonHandler::showBalloon( ){
     if(S_S.getbool("cbshowballoons"))
-        tray->showMessage(tr("Notifications."), balloonhelper.join("\n"));
-    if (! (balloonhelper.size() > S_S.getint("sbmaximumballonmessages")))
+        tray->showMessage(tr("Notifications."), balloonHelper.join("\n"));
+    if (! (balloonHelper.size() > S_S.getint("sbmaximumballonmessages")))
         return;
     int max_size=S_S.getint("sbmaximumballonmessages");
-    balloonhelper = balloonhelper.mid(balloonhelper.size()- max_size);
+    balloonHelper = balloonHelper.mid(balloonHelper.size()- max_size);
 }
-void balloon_handler::disconnected() {
-    balloonhelper << "[" + QTime::currentTime().toString("hh:mm") + "] " + tr("Disconnected from Wormnet");
-    showballoon();
+void balloonHandler::disconnected() {
+    balloonHelper << "[" + QTime::currentTime().toString("hh:mm") + "] " + tr("Disconnected from Wormnet");
+    showBalloon();
 }
-void balloon_handler::connected(){
-    balloonhelper << "[" + QTime::currentTime().toString("hh:mm") + "] " + tr("Connected to Wormnet");
-    showballoon();
+void balloonHandler::connected(){
+    balloonHelper << "[" + QTime::currentTime().toString("hh:mm") + "] " + tr("Connected to Wormnet");
+    showBalloon();
 }
-void balloon_handler::connectedtoleagueserver(QString servicename){
-    balloonhelper << "[" + QTime::currentTime().toString("hh:mm") + "] " + tr("Connected to %1").arg(servicename);
-    showballoon();
+void balloonHandler::connectedToLeagueServer(QString servicename){
+    balloonHelper << "[" + QTime::currentTime().toString("hh:mm") + "] " + tr("Connected to %1").arg(servicename);
+    showBalloon();
 }
 
-void balloon_handler::buddyleft() {
+void balloonHandler::buddyLeft() {
     if (!S_S.getbool("chbbuddyballoonleaves"))
         return;
-    balloonhelper << usermodel::buddylefthelper;
+    balloonHelper << usermodel::buddylefthelper;
     usermodel::buddylefthelper.clear();
-    showballoon();
+    showBalloon();
 }
-void balloon_handler::buddyarrived() {
+void balloonHandler::buddyArrived() {
     if (!S_S.getbool("chbbuddyballoonarives"))
         return;
-    balloonhelper << usermodel::buddyarrivedhelper;
+    balloonHelper << usermodel::buddyarrivedhelper;
     usermodel::buddyarrivedhelper.clear();
-    showballoon();
+    showBalloon();
 }
-void balloon_handler::got_privmsg(const usermessage &u){
+void balloonHandler::gotPrivmsg(const usermessage &u){
     if (!S_S.getbool("cbshowballoons"))
         return;
-    if (containsCI(S_S.getstringlist("mutedusers"), u.user())
+    if (containsCI(S_S.getStringList("mutedusers"), u.user())
     || (containsCI(S_S.ignorelist, u.user())))
         return;
-    balloonhelper << "[" + QTime::currentTime().toString("hh:mm") + "] " + u.user() + tr(" said: ") + u.msg();
-    showballoon();
+    balloonHelper << "[" + QTime::currentTime().toString("hh:mm") + "] " + u.user() + tr(" said: ") + u.msg();
+    showBalloon();
 }
-void balloon_handler::got_game(const QString playername, const QString gamename) {
+void balloonHandler::gotGame(const QString playername, const QString gamename) {
     if (gamename.size() > 5) {
-        balloonhelper
+        balloonHelper
                 << "[" + QTime::currentTime().toString("hh:mm") + "] "
                 + playername + " " + tr("is Hosting: ") + gamename.left(5) + "...";
     } else
-        balloonhelper<< "[" + QTime::currentTime().toString("hh:mm") + "] "
+        balloonHelper<< "[" + QTime::currentTime().toString("hh:mm") + "] "
                 + playername + " " + tr("is Hosting: ") + gamename.left(5);
-    showballoon();
+    showBalloon();
 }
-void balloon_handler::got_costum_word(const QString word, const QString user) {
-    if (containsCI(S_S.getstringlist("mutedusers"), user))
+void balloonHandler::gotCustomWord(const QString word, const QString user) {
+    if (containsCI(S_S.getStringList("mutedusers"), user))
         return;
     if (!S_S.getbool("cbcostumword"))
         return;
-    balloonhelper<< "[" + QTime::currentTime().toString("hh:mm") + "] "
+    balloonHelper<< "[" + QTime::currentTime().toString("hh:mm") + "] "
             +"... " +  word + " ..." + tr("was highlighted by ")+ user;
-    showballoon();
+    showBalloon();
 }
-void balloon_handler::hide_tray() {
+void balloonHandler::hideTray() {
     tray->hide();
     tray->disconnect();
 }
-void balloon_handler::set_normal_tray_icon() {
+void balloonHandler::setNormalTrayIcon() {
     tray->setIcon(QIcon(QApplication::applicationDirPath()
                         + QDir::separator() + "snppictures"
                         + QDir::separator() + "tray.png"));
 }
-void balloon_handler::set_away_tray_icon(){
+void balloonHandler::setAwayTrayIcon(){
     tray->setIcon(QIcon(QApplication::applicationDirPath() + QDir::separator()
                         + "snppictures" + QDir::separator() + "trayaway.png"));
 }
-void balloon_handler::alert(QString user, QWidget *w){
-    if (containsCI(S_S.getstringlist("mutedusers"), user))
+void balloonHandler::alert(QString user, QWidget *w){
+    if (containsCI(S_S.getStringList("mutedusers"), user))
         return;
     qApp->alert(w);
 }

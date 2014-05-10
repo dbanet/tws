@@ -1,17 +1,17 @@
-#include"hostmodel.h"
-#include"settings.h"
-#include"settingswindow.h"
+#include "hostmodel.h"
+#include "settings.h"
+#include "settingswindow.h"
 #ifdef PHONON
-#include"sound_handler.h"
+#include "sound_handler.h"
 #endif
-#include"balloon_handler.h"
-#include"global_functions.h"
-#include"myDebug.h"
-#include"picturehandler.h"
+#include "balloon_handler.h"
+#include "global_functions.h"
+#include "myDebug.h"
+#include "picturehandler.h"
 
-#include<QTime>
-#include<QPointer>
-#include<QApplication>
+#include <QTime>
+#include <QPointer>
+#include <QApplication>
 
 hostmodel::hostmodel(QObject *parent) :
 	QAbstractItemModel(parent) {
@@ -47,9 +47,9 @@ void hostmodel::sethoststruct(QList<hoststruct> l, QString chan) {
         if (buddyhosts[chan].contains(i->nick()))   //if the host was allready alerted
             continue;
 #ifdef PHONON
-        singleton<sound_handler>().play_buddyhostedsound();
+        singleton<soundHandler>().play_buddyhostedsound();
 #endif
-        singleton<balloon_handler>().got_game(i->nick(),i->name());
+        singleton<balloonHandler>().gotGame(i->nick(),i->name());
     }
     buddyhosts[chan] = sl;
     emit layoutChanged();
@@ -111,15 +111,15 @@ QVariant hostmodel::data(const QModelIndex & index, int role) const {
             break;
 		case 2:
             if (role == Qt::BackgroundRole) {
-                return *singleton<picturehandler>().getflag(hostmap[classes[index.internalId()]][index.row()].country());
+                return *singleton<pictureHandler>().getFlag(hostmap[classes[index.internalId()]][index.row()].country());
             }
             break;
 		case 3:
             if (role == Qt::BackgroundRole) {
                 if (hostmap[classes[index.internalId()]][index.row()].withkey())
-                    return *singleton<picturehandler>().locked;
+                    return *singleton<pictureHandler>().locked;
                 else
-                    return *singleton<picturehandler>().unlocked;
+                    return *singleton<pictureHandler>().unlocked;
             }
             break;
 		case 4:

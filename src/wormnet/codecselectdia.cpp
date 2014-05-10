@@ -1,8 +1,8 @@
-#include<QTextCodec>
+#include <QTextCodec>
 
-#include"codecselectdia.h"
-#include"ui_codecselectdia.h"
-#include"settings.h"
+#include "codecselectdia.h"
+#include "ui_codecselectdia.h"
+#include "settings.h"
 
 QTextCodec *CodecSelectDia::codec=0;
 CodecSelectDia::CodecSelectDia(QWidget *parent) :
@@ -14,7 +14,7 @@ CodecSelectDia::CodecSelectDia(QWidget *parent) :
         ui->comboBox->addItem(b);
     }
     ui->cbrighToLeft->setChecked(S_S.getbool("righttoleftwriting"));
-    ui->comboBox->setCurrentIndex(ui->comboBox->findText(S_S.getstring("textcodecsince263")));
+    ui->comboBox->setCurrentIndex(ui->comboBox->findText(S_S.getString("textcodecsince263")));
 }
 
 CodecSelectDia::~CodecSelectDia()

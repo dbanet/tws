@@ -1,8 +1,8 @@
 #ifndef CHATWINDOW_H
 #define CHATWINDOW_H
 
-#include <QtGui/QWidget>
-#include<QPointer>
+#include <QWidget>
+#include <QPointer>
 #include "ui_chatwindow.h"
 #include "ctctphandlerwidget.h"
 class netcoupler;

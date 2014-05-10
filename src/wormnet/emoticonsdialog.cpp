@@ -1,11 +1,11 @@
-#include"emoticonsdialog.h"
-#include"ui_emoticonsdialog.h"
-#include"chathandler.h"
-#include"emoticonhandler.h"
-#include"math.h"
+#include "emoticonsdialog.h"
+#include "ui_emoticonsdialog.h"
+#include "chathandler.h"
+#include "emoticonhandler.h"
+#include "math.h"
 
-#include<QDebug>
-#include<QListWidgetItem>
+#include <QDebug>
+#include <QListWidgetItem>
 
 emoticonsdialog::emoticonsdialog(QWidget *parent) :
     QWidget(parent),
@@ -16,7 +16,7 @@ emoticonsdialog::emoticonsdialog(QWidget *parent) :
     setFocusPolicy(Qt::StrongFocus);
     setWindowFlags(Qt::FramelessWindowHint);
     resize(100,height());
-    QMap<QString,QImage> map = chathandler::emot->map;
+    QMap<QString,QImage> map = chatHandler::emot->map;
     foreach(QString s, map.keys()){
         QListWidgetItem *item = new QListWidgetItem(QPixmap::fromImage(map[s]),s);
         ui->listWidget->addItem(item);

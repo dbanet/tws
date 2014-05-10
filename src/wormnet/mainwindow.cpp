@@ -1,57 +1,57 @@
-#include"mainwindow.h"
-#include"window.h"
-#include"netcoupler.h"
-#include"buddylist.h"
-#include"ctcphandler.h"
-#include"chathandler.h"
-#include"awaybox.h"
-#include"inihandlerclass.h"
-#include"chatwindow.h"
-#include"about.h"
-#include"settings.h"
-#include"charformatsettings.h"
-#include"ui_window.h"
-#include"ui_window2.h"
-#include"ui_window3.h"
-#include"settingswindow.h"
-#include"volumeslider.h"
-#include"logbrowser.h"
-#include"textschemehandler.h"
-#include"playername.h"
-#include"singleton.h"
-#include"sound_handler.h"
-#include"global_functions.h"
-#include"balloon_handler.h"
-#include"codecselectdia.h"
-#include"clantowebpagemapper.h"
-#include"leagueserverhandler.h"
-#include"picturehandler.h"
-#include"quithandler.h"
-#include"qobjectwrapper.h"
-#include"awayhandler.h"
-#include"usermessage.h"
+#include "mainwindow.h"
+#include "window.h"
+#include "netcoupler.h"
+#include "buddylist.h"
+#include "ctcphandler.h"
+#include "chathandler.h"
+#include "awaybox.h"
+#include "inihandlerclass.h"
+#include "chatwindow.h"
+#include "about.h"
+#include "settings.h"
+#include "charformatsettings.h"
+#include "ui_window.h"
+#include "ui_window2.h"
+#include "ui_window3.h"
+#include "settingswindow.h"
+#include "volumeslider.h"
+#include "logbrowser.h"
+#include "textschemehandler.h"
+#include "playername.h"
+#include "singleton.h"
+#include "sound_handler.h"
+#include "global_functions.h"
+#include "balloon_handler.h"
+#include "codecselectdia.h"
+#include "clantowebpagemapper.h"
+#include "leagueserverhandler.h"
+#include "picturehandler.h"
+#include "quithandler.h"
+#include "qobjectwrapper.h"
+#include "awayhandler.h"
+#include "usermessage.h"
 
 #ifdef WITH_GAMESURGE_SUPPORT
-#include"src/irc/irc_netcoupler.h"
-#include"src/irc/irc_window.h"
-#include"src/irc/ircjoindia.h"
+#include "src/irc/irc_netcoupler.h"
+#include "src/irc/irc_window.h"
+#include "src/irc/ircjoindia.h"
 #endif
 
-#include<QTextCodec>
-#include<QDir>
-#include<QStringList>
-#include<QSystemTrayIcon>
-#include<QMenu>
-#include<QMessageBox>
-#include<QPicture>
-#include<QDialogButtonBox>
-#include<QTime>
-#include<QFileDialog>
-#include<QDesktopServices>
+#include <QTextCodec>
+#include <QDir>
+#include <QStringList>
+#include <QSystemTrayIcon>
+#include <QMenu>
+#include <QMessageBox>
+#include <QPicture>
+#include <QDialogButtonBox>
+#include <QTime>
+#include <QFileDialog>
+#include <QDesktopServices>
 
 inihandlerclass inihandler;
 extern volumeslider *volume;
-bool fontorcolorchanged = 0;
+bool fontOrColorHasChanged = 0;
 extern QStringList querylist;
 QString GamesourgeChannelName="#GameSourgeWorms";
 mainwindow::mainwindow() {
@@ -69,9 +69,9 @@ mainwindow::mainwindow() {
 
     get_baseStyleSheet();
     init_menus();
-    connect(singleton<balloon_handler>().tray, SIGNAL(activated ( QSystemTrayIcon::ActivationReason)),this, SLOT(trayactivation(QSystemTrayIcon::ActivationReason)));
-    singleton<picturehandler>().fillflags(ui.flag);
-    singleton<picturehandler>().fillranks(ui.rank);
+    connect(singleton<balloonHandler>().tray, SIGNAL(activated ( QSystemTrayIcon::ActivationReason)),this, SLOT(trayactivation(QSystemTrayIcon::ActivationReason)));
+    singleton<pictureHandler>().fillFlags(ui.flag);
+    singleton<pictureHandler>().fillRanks(ui.rank);
     snpsetcontains("chbminimized");
     snpsetcontains("nickname");
     snpsetcontains("tus_password");
@@ -142,9 +142,9 @@ void mainwindow::fillsnpsettings(){
     S_S.set("whichuitype", whichuitype);
     S_S.set("countrycode", ui.flag->currentText());
     S_S.set("rank", ui.rank->currentText());
-    if (fontorcolorchanged == 1) {
+    if (fontOrColorHasChanged == 1) {
         S_S.set("textscheme", "lastedited.textscheme");
-        singleton<charformatsettings>().safe();
+        singleton<chatFormatSettings>().safe();
     }
 }
 void mainwindow::get_baseStyleSheet(){
@@ -323,32 +323,32 @@ void mainwindow::returntologintab() {
 }
 void mainwindow::pbrememberjoinclicked() {
     S_S.set("joinonstartup", ui.cbchannels->currentText());
-    ui.pbrememberjoin->setText(tr("Autojoin:") + "\n" + S_S.getstring("joinonstartup"));
+    ui.pbrememberjoin->setText(tr("Autojoin:") + "\n" + S_S.getString("joinonstartup"));
 }
 void mainwindow::snpsetcontains(const QString &s) {
     if (s == "chbautojoin" && S_S.contains(s))
         ui.chbautojoin->setChecked(S_S.getbool("chbautojoin"));
     else if (s == "qss_file") {
-        QFile f(QApplication::applicationDirPath() + "/qss/" + S_S.getstring("qss_file"));
+        QFile f(QApplication::applicationDirPath() + "/qss/" + S_S.getString("qss_file"));
         if(!f.open(QFile::ReadOnly))
-            QMessageBox::warning(this,QObject::tr("Warning"),tr("Cant read the Skinfile:\n")+S_S.getstring("qss_file"));
+            QMessageBox::warning(this,QObject::tr("Warning"),tr("Cant read the Skinfile:\n")+S_S.getString("qss_file"));
         QString stylesheet = QLatin1String(f.readAll());
         qApp->setStyleSheet(baseStyleSheet+stylesheet);
     } else if (s == "joinonstartup" && S_S.contains(s) && S_S.contains("chbautojoin")) {
-        ui.pbrememberjoin->setText(ui.pbrememberjoin->text().split("\n").first() + "\n" + S_S.getstring("joinonstartup"));
+        ui.pbrememberjoin->setText(ui.pbrememberjoin->text().split("\n").first() + "\n" + S_S.getString("joinonstartup"));
         if (S_S.getbool("chbautojoin"))
-            join(S_S.getstring("joinonstartup"));
+            join(S_S.getString("joinonstartup"));
     } else if (s == "chbminimized")
         ui.chbminimized->setChecked(S_S.getbool("chbminimized"));
     else if (s == "nickname" && S_S.contains(s))
-        ui.lenick->setText(S_S.getstring("nickname"));
+        ui.lenick->setText(S_S.getString("nickname"));
     else if (s == "tus_password" && S_S.contains("tus_password"))
-        ui.letuspassword->setText(S_S.getstring("tus_password"));
+        ui.letuspassword->setText(S_S.getString("tus_password"));
     else if (s == "tus_login" && S_S.contains("tus_login"))
-        ui.letuslogin->setText(S_S.getstring("tus_login"));
+        ui.letuslogin->setText(S_S.getString("tus_login"));
     else if (s == "countrycode"){
         QString language=QLocale::system().name().left(2);
-        int i=ui.flag->findText(S_S.getstring("countrycode"));
+        int i=ui.flag->findText(S_S.getString("countrycode"));
         if(i==-1)
             i=ui.flag->findText(language);
         ui.flag->setCurrentIndex(i);
@@ -356,9 +356,9 @@ void mainwindow::snpsetcontains(const QString &s) {
         ui.rank->setCurrentIndex(S_S.getint("rank"));
     }
     else if (s == "information" && S_S.contains(s))
-        ui.client->setText(S_S.getstring(s));
+        ui.client->setText(S_S.getString(s));
     else if (s == "clan" && S_S.contains(s)){
-        QString clanstring=S_S.getstring(s);
+        QString clanstring=S_S.getString(s);
         if(clanstring.toLower()=="username")
             ui.clan->setText("");
         else
@@ -367,9 +367,9 @@ void mainwindow::snpsetcontains(const QString &s) {
     else if (s == "whichuitype" && S_S.contains(s))
         whichuitype = S_S.getint("whichuitype");
     else if (s == "wormnetserverlist")
-        ui.cbServerList->addItems(S_S.getstringlist("wormnetserverlist"));
+        ui.cbServerList->addItems(S_S.getStringList("wormnetserverlist"));
     else if (s == "leagueservers"){
-        ui.cbleagueservers->addItems(S_S.getstringlist("leagueservers"));
+        ui.cbleagueservers->addItems(S_S.getStringList("leagueservers"));
     }
     else if(s=="enablesecurelogging"){
         bool b=S_S.getbool("enablesecurelogging");
@@ -401,7 +401,7 @@ void mainwindow::appenddebugmessage(const QString &msg) {
 }
 void mainwindow::setlanguage(const QString &langfile) {
     S_S.set("language_file", langfile);
-    myDebug() << S_S.getstring("language_file");
+    myDebug() << S_S.getString("language_file");
     QMessageBox::StandardButton button = QMessageBox::question(this, tr(
                                                                    "Restart the application?"), tr(
                                                                    "Changing the translation requires a program restart.\n"
@@ -413,7 +413,7 @@ void mainwindow::setlanguage(const QString &langfile) {
         QProcess::startDetached(qApp->applicationFilePath(), QStringList(), QApplication::applicationDirPath());
         foreach(channelwindow *w,windowlist)
             w->close();
-        singleton<balloon_handler>().tray->hide();
+        singleton<balloonHandler>().tray->hide();
         singleton<quithandler>().inducequit();
     }
 }
@@ -439,8 +439,8 @@ void mainwindow::awaymessagechanged() {
 void mainwindow::settextscheme(const QString &file) {
     myDebug() << tr("trying to apply new textscheme: ") + file;
     S_S.set("textscheme", file);
-    singleton<charformatsettings>().load();
-    chathandler::initialformatstarter();
+    singleton<chatFormatSettings>().load();
+    chatHandler::initialFormatStarter();
 }
 void mainwindow::openchatwindow(QString user){
     window::chatwindowstringlist << user;
@@ -517,7 +517,7 @@ void mainwindow::gotnotice(usermessage u) {
     const QString &user=u.user();
     if(containsCI(S_S.ignorelist, user))
         return;
-    singleton<balloon_handler>().got_privmsg(u);
+    singleton<balloonHandler>().gotPrivmsg(u);
     foreach(channelwindow *w, windowlist)
         w->getusermessage(u);
     foreach(chatwindow *w, channelwindow::chatwindows)
@@ -561,15 +561,15 @@ void mainwindow::gotusermsg(const usermessage u){
                 openchatwindowhidden(user);
             else openchatwindowraised(user);
             window::chatwindows.last()->getusermessage(u);
-            singleton<balloon_handler>().got_privmsg(u);
+            singleton<balloonHandler>().gotPrivmsg(u);
 #ifdef PHONON
-            singleton<sound_handler>().play_buddymsgsound(user);
+            singleton<soundHandler>().play_buddymsgsound(user);
 #endif
             return;
         }
-        singleton<balloon_handler>().got_privmsg(u);
+        singleton<balloonHandler>().gotPrivmsg(u);
 #ifdef PHONON
-        singleton<sound_handler>().play_normalmsgsound(user);
+        singleton<soundHandler>().play_normalmsgsound(user);
 #endif
         foreach(channelwindow *w,windowlist)
             w->getusermessage(u);
@@ -630,7 +630,7 @@ void mainwindow::init_menus(){
     traymenu = new QMenu;
     connect(traymenu,SIGNAL(triggered(QAction*)),this,SLOT(traymenutriggered(QAction*)));
     ui.pbtraymenu->setMenu(traymenu);
-    singleton<balloon_handler>().tray->setContextMenu(traymenu);
+    singleton<balloonHandler>().tray->setContextMenu(traymenu);
     QAction *a0;
     stuffmenu = traymenu->addMenu(tr("Stuff"));
     stuffmenu->setIcon(QIcon("snppictures/stufficon.png"));
@@ -641,7 +641,7 @@ void mainwindow::init_menus(){
     stuffmenu->addAction(usermodel::tr("Buddylist"));
     stuffmenu->addAction(tr("Scheme maker"));
     stuffmenu->addAction(tr("Select another Textcodec"));
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
     stuffmenu->addAction(tr("Playername"));
 #endif
     stylemenu = traymenu->addMenu(tr("Skins"));
@@ -730,7 +730,7 @@ void mainwindow::traymenutriggered(QAction *a) {
     } else if (a->text().contains(".qss")) {
         QFile f(QApplication::applicationDirPath() + "/qss/" + a->text());
         QString stylesheet;
-        if(a->text()==S_S.getstring("qss_file"))
+        if(a->text()==S_S.getString("qss_file"))
             return;
         if (f.open(QFile::ReadOnly)) {
             stylesheet = f.readAll();
@@ -803,7 +803,7 @@ void mainwindow::traymenutriggered(QAction *a) {
             if(!file_name.endsWith(".textscheme"))
                 file_name+=".textscheme";
             S_S.set("textscheme", file_name);
-            chathandler::initialformatsaver();
+            chatHandler::initialformatsaver();
             textschememenu->addAction(file_name);
         }
     } else if (a->text() == tr("Scheme maker")) {
@@ -906,7 +906,7 @@ void mainwindow::leagueserverprofilepage(QString url){
     QDesktopServices::openUrl(QUrl(url));
 }
 void mainwindow::on_cbleagueservers_activated(QString s){
-    QStringList sl=S_S.getstringlist("leagueservers"+s);
+    QStringList sl=S_S.getStringList("leagueservers"+s);
     if(sl.size()<2)
         return;
     ui.letuslogin->setText(sl.takeFirst());

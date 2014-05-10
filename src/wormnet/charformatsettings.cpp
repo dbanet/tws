@@ -5,20 +5,20 @@
  *      Author: looki
  */
 
-#include"charformatsettings.h"
-#include"settings.h"
-#include"myDebug.h"
+#include "charformatsettings.h"
+#include "settings.h"
+#include "myDebug.h"
 
-#include<QFile>
-#include<QDir>
-#include<QApplication>
-QHash<QString, QVariant> charformatsettings::map;
-extern bool fontorcolorchanged;
-charformatsettings::charformatsettings() {
+#include <QFile>
+#include <QDir>
+#include <QApplication>
+QHash<QString, QVariant> chatFormatSettings::map;
+extern bool fontOrColorHasChanged;
+chatFormatSettings::chatFormatSettings() {
     // TODO Auto-generated constructor stub
 }
-void charformatsettings::load() {        
-    QFile f(QApplication::applicationDirPath()+"/textschemes/" + S_S.getstring("textscheme"));
+void chatFormatSettings::load() {
+    QFile f(QApplication::applicationDirPath()+"/textschemes/" + S_S.getString("textscheme"));
     if (f.open(QFile::ReadOnly)) {
         map.clear();
         QDataStream ds(&f);
@@ -38,15 +38,15 @@ void charformatsettings::load() {
             myDebug()<<QObject::tr("There is no textscheme file available.");
     }
 }
-void charformatsettings::safe() {
-    fontorcolorchanged=0;
-    QFile f("textschemes/" + S_S.getstring("textscheme"));
+void chatFormatSettings::safe() {
+    fontOrColorHasChanged=0;
+    QFile f("textschemes/" + S_S.getString("textscheme"));
     if (!f.open(QFile::WriteOnly | QFile::Truncate))
-        myDebug() << QObject::tr("cannot write file:")+" " << S_S.getstring("textscheme");
+        myDebug() << QObject::tr("cannot write file:")+" " << S_S.getString("textscheme");
     QDataStream ds(&f);
     ds.setVersion(QDataStream::Qt_4_3);
     ds << map;
 }
-charformatsettings::~charformatsettings() {
+chatFormatSettings::~chatFormatSettings() {
     // TODO Auto-generated destructor stub
 }

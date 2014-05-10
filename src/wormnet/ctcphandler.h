@@ -7,10 +7,10 @@
 
 #ifndef CTCPHANDLER_H_
 #define CTCPHANDLER_H_
-#include<QObject>
-#include<QStringList>
-#include<QMap>
-#include"global_macros.h"
+#include <QObject>
+#include <QStringList>
+#include <QMap>
+#include "global_macros.h"
 
 class chatwindow;
 class usermessage;

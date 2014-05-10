@@ -1,11 +1,11 @@
-#include"mydebugclass.h"
-#include"mainwindow.h"
-#include"singleton.h"
-#include"settingswindow.h"
-#include"qobjectwrapper.h"
-#include"usermessage.h"
+#include "mydebugclass.h"
+#include "mainwindow.h"
+#include "singleton.h"
+#include "settingswindow.h"
+#include "qobjectwrapper.h"
+#include "usermessage.h"
 
-#include<QDebug>
+#include <QDebug>
 
 myDebugClass::myDebugClass()
 {

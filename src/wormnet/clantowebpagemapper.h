@@ -1,10 +1,10 @@
 #ifndef CLANTOWEBPAGEMAPPER_H
 #define CLANTOWEBPAGEMAPPER_H
 #include "global_macros.h"
-#include"userstruct.h"
-#include<QHash>
-#include<QObject>
-#include<QNetworkAccessManager>
+#include "userstruct.h"
+#include <QHash>
+#include <QObject>
+#include <QNetworkAccessManager>
 class QNetworkReply;
 class clantowebpagemapper: public QObject{
     Q_OBJECT

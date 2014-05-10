@@ -4,15 +4,15 @@
  *  Created on: 13.01.2009
  *      Author: looki
  */
-#include"ctcphandler.h"
-#include"netcoupler.h"
-#include"chatwindow.h"
-#include"ctcphandleratomic.h"
-#include"global_functions.h"
-#include"qobjectwrapper.h"
-#include"awayhandler.h"
-#include"usermessage.h"
-#include"window.h"
+#include "ctcphandler.h"
+#include "netcoupler.h"
+#include "chatwindow.h"
+#include "ctcphandleratomic.h"
+#include "global_functions.h"
+#include "qobjectwrapper.h"
+#include "awayhandler.h"
+#include "usermessage.h"
+#include "window.h"
 
 extern QMap<QString, QString> ctcpcontainer;
 QStringList ctcphandler::awayusers;
