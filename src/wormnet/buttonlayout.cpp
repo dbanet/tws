@@ -74,7 +74,7 @@ void buttonlayout::showbuttons() {
 buttonlayout::~buttonlayout() {
 
 }
-void buttonlayout::on_pbcostumwords_clicked()
+void buttonlayout::onPbcustomwordsClicked()
 {
     bool b=S_S.getbool("cbcostumword");
     singleton<settingswindow>().set("cbcostumword",!b);
@@ -83,7 +83,7 @@ void buttonlayout::on_pbcostumwords_clicked()
     else
         ui.pbcustomwords->setText(QObject::tr("Custom words")+" "+QObject::tr("off"));
 }
-void buttonlayout::on_pbsound_clicked()
+void buttonlayout::onPbSoundClicked()
 {
     bool b=S_S.getbool("cbdontplaysound");
     singleton<settingswindow>().set("cbdontplaysound",!b);
@@ -93,7 +93,7 @@ void buttonlayout::on_pbsound_clicked()
         ui.pbsound->setText(QObject::tr("Sound")+" "+QObject::tr("on"));
 
 }
-void buttonlayout::on_pbballoon_clicked()
+void buttonlayout::onPbBalloonClicked()
 {
     bool b=S_S.getbool("cbshowballoons");
     singleton<settingswindow>().set("cbshowballoons",!b);
@@ -102,7 +102,7 @@ void buttonlayout::on_pbballoon_clicked()
     else
         ui.pbballoon->setText(QObject::tr("Balloons")+" "+QObject::tr("on"));
 }
-void buttonlayout::on_pbsort_clicked()
+void buttonlayout::onPbSortClicked()
 {
     bool b=S_S.getbool("cbdontsortinchannels");
     singleton<sqlsettings>().set("cbdontsortinchannels",!b);

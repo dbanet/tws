@@ -139,8 +139,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1116</width>
-        <height>23</height>
+        <width>1131</width>
+        <height>26</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1">
@@ -237,7 +237,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pbcostumwords">
+        <widget class="QPushButton" name="pbcustomwords">
          <property name="toolTip">
           <string>Go to Settings Alert and Away tab to set costum words.</string>
          </property>
