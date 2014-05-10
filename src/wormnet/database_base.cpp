@@ -1,15 +1,15 @@
-#include"database_base.h"
-#include"about.h"
-#include"global_functions.h"
+#include "database_base.h"
+#include "about.h"
+#include "global_functions.h"
 
-#include<QStringList>
-#include<QtSql>
-#include<stdexcept>
+#include <QStringList>
+#include <QtSql>
+#include <stdexcept>
 
 const char *TABLENAME="settings";
 database_base::database_base(): ontransaction(false){
 }
-QStringList database_base::getstringlist(QString key) const{
+QStringList database_base::getStringList(QString key) const{
     before_get(key);
     QStringList sl;
     if(hash[key].isEmpty())
@@ -22,7 +22,7 @@ QVariantList database_base::getlist(QString key) const{
     before_get(key);
     return hash[key];
 }
-QString database_base::getstring(QString key) const{
+QString database_base::getString(QString key) const{
     before_get(key);
     if(hash[key].isEmpty())
         return QString();
@@ -91,12 +91,12 @@ bool database_base::appendList(QString key, QVariant value, QSqlQuery &query){
     return true;
 }
 void database_base::append(QString key, QString s){
-    if(getstringlist(key).contains(s))
+    if(getStringList(key).contains(s))
         return;
-    set(key,QStringList(getstringlist(key))<<s);
+    set(key,QStringList(getStringList(key))<<s);
 }
 void database_base::remove(QString key, QString s){
-    QStringList sl=getstringlist(key);
+    QStringList sl=getStringList(key);
     sl.removeAll(s);
     set(key,sl);
 }
@@ -261,34 +261,34 @@ void database_base::validate(){
     checkifexistsinstringlist("wormnetserverlist","http://worms.tom.ru");
     checkifexistsinstringlist("wormnetserverlist","http://steps.servegame.com");
 
-    if(getstring("rank").isEmpty())
+    if(getString("rank").isEmpty())
         set("rank", "13");
-    if(getstring("countrycode").isEmpty())
+    if(getString("countrycode").isEmpty())
         set("countrycode", "49");
-    if(getstring("qss_file").isEmpty())
+    if(getString("qss_file").isEmpty())
         set("qss_file", QString("black by lookias.qss"));
-    if(getstring("information").isEmpty() || getstring("information").startsWith("The Wheat Snooper"))
+    if(getString("information").isEmpty() || getString("information").startsWith("The Wheat Snooper"))
         set("information", "The Wheat Snooper "+about::version);
     //if(!contains("showinformation"))
         set("showinformation", true);    
 
-    if(getstring("lestartup").startsWith("wav/"))
+    if(getString("lestartup").startsWith("wav/"))
         set("lestartup", "wav/startup.mp3");
-    if(getstring("lebuddyarrives").startsWith("wav/"))
+    if(getString("lebuddyarrives").startsWith("wav/"))
         set("lebuddyarrives", "wav/buddyarrives.mp3");
-    if(getstring("lebuddyleaves").startsWith("wav/"))
+    if(getString("lebuddyleaves").startsWith("wav/"))
         set("lebuddyleaves", "wav/buddyleaves.mp3");
-    if(getstring("lebuddychatmessage").startsWith("wav/"))
+    if(getString("lebuddychatmessage").startsWith("wav/"))
         set("lebuddychatmessage", "wav/buddymessage.mp3");
-    if(getstring("lebuddychatwindowsopened").startsWith("wav/"))
+    if(getString("lebuddychatwindowsopened").startsWith("wav/"))
         set("lebuddychatwindowsopened", "wav/buddychatwindowopened.mp3");
-    if(getstring("lenormalchatmessage").startsWith("wav/"))
+    if(getString("lenormalchatmessage").startsWith("wav/"))
         set("lenormalchatmessage", "wav/normalprivmsg.mp3");
-    if(getstring("lehighlightning").startsWith("wav/"))
+    if(getString("lehighlightning").startsWith("wav/"))
         set("lehighlightning", "wav/highlightningsound.mp3");
-    if(getstring("lecostumword").startsWith("wav/"))
+    if(getString("lecostumword").startsWith("wav/"))
         set("lecostumword", "wav/costumword.mp3");
-    if(getstring("lehostsound").startsWith("wav/"))
+    if(getString("lehostsound").startsWith("wav/"))
         set("lehostsound", "wav/buddyhosts.mp3");
     if(getint("sbsecureloggingrepeatdelay")==0)
         set("sbsecureloggingrepeatdelay", 10*1000);
@@ -308,7 +308,7 @@ void database_base::validate(){
         set("wormnat2address", "proxy.worms2d.info");
 }
 void database_base::checkifexistsinstringlist(QString key,QString value){
-    QStringList sl=getstringlist(key);
+    QStringList sl=getStringList(key);
     if(sl.contains(value,Qt::CaseInsensitive))
         return;
     sl<<value;

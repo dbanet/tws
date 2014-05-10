@@ -7,7 +7,7 @@
 
 #ifndef MYTABWIDGET_H_
 #define MYTABWIDGET_H_
-#include<QTabWidget>
+#include <QTabWidget>
 class QMenu;
 class QEvent;
 class mytabwidget:public QTabWidget {

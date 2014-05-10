@@ -1,13 +1,13 @@
 #ifndef SNOPPANET_H
 #define SNOPPANET_H
 
-#include<QObject>
-#include<QNetworkAccessManager>
-#include<QNetworkReply>
-#include<QStringList>
-#include<QTimer>
+#include <QObject>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QStringList>
+#include <QTimer>
 class QSignalMapper;
-#include"hoststruct.h"
+#include "hoststruct.h"
 class snoppanet : public QObject
 {
     Q_OBJECT
@@ -17,13 +17,13 @@ public:
     ~snoppanet();
 
     void start();
-    void setchannellist(const QStringList&);
+    void setChannelList(const QStringList&);
     void getscheme(QString);
     void sendhost(hoststruct h);
     hoststruct lasthost;
 
 public slots:
-    void refreshhostlist();
+    void refreshHostList();
 
 signals: //public signals:
     void sighostlist(QList<hoststruct>,QString);
@@ -36,20 +36,20 @@ signals: //public signals:
 private:
 //    void inithosting(QString url);
     void closehostandstartlasthost(hoststruct h);
-    void closelasthost();
+    void closeLastHost();
 
     hoststruct findduplicatedhosts(QList<hoststruct> list);
     hoststruct findmyhost(QList<hoststruct> list);
     QString temp;
     QStringList templist;
-    QStringList currentchannellist;
-    QString htmladdress;
+    QStringList currentChannelList;
+    QString htmlAddress;
     QString ircip;
     QNetworkAccessManager manager;
     QNetworkReply *reply;
-    QTimer hosttimer;
-    QTimer logintimer;
-    QMap<int,QString> channelmap;
+    QTimer hostTimer;
+    QTimer loginTimer;
+    QMap<int,QString> channelMap;
 
     QNetworkReply *schemereply;
 
@@ -62,23 +62,23 @@ private:
     QString schemechannel;
     QString scheme;
 
-    QSignalMapper *signalmapper;
+    QSignalMapper *signalMapper;
     QNetworkRequest request;
-    QList<QNetworkReply*> replylist;
-    QList<QNetworkRequest> requestlist;
+    QList<QNetworkReply*> replyList;
+    QList<QNetworkRequest> requestList;
     QList<hoststruct> hostlist;
-    bool gameliststarts;    
+    bool gameListStarts;    
 
     QString lastgameid;
 private slots:
-    void sendhostrequest();
+    void sendHostRequest();
     void readircip();
     void httpError(QNetworkReply::NetworkError);
     void hosttimertimeout();
     void readgamelist(int);
     void getscheme();
     void hostreplyfinished();
-    void closehostreplyfinished();
+    void closeHostReplyFinished();
 
     void logintimertimeout();
 

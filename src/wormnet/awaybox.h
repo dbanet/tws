@@ -1,7 +1,7 @@
 #ifndef AWAYBOX_H
 #define AWAYBOX_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include "ui_awaybox.h"
 
 class awaybox : public QWidget

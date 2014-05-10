@@ -13,10 +13,10 @@ awaybox::awaybox(QWidget *parent):QWidget(parent) {
     setWindowTitle(tr("Type in your awaymessage."));
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowIcon(QIcon("snppictures/tray.png"));
-    sl = S_S.getstringlist("awaymessage");
+    sl = S_S.getStringList("awaymessage");
     counter=sl.size();
     i=counter-1;
-    if(!S_S.getstringlist("awaymessage").isEmpty()){
+    if(!S_S.getStringList("awaymessage").isEmpty()){
         ui.textEdit->setText(sl[i]);
     }
     connect(ui.ok, SIGNAL(clicked()),this, SLOT(okclicked()));

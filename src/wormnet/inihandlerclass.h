@@ -7,9 +7,9 @@
 
 #ifndef INIHANDLERCLASS_H_
 #define INIHANDLERCLASS_H_
-#include<QString>
-#include<QTcpSocket>
-#include<QNetworkRequest>
+#include <QString>
+#include <QTcpSocket>
+#include <QNetworkRequest>
 class inihandlerclass {
 public:
 	inihandlerclass();

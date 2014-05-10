@@ -2,17 +2,17 @@
 #define SOUND_HANDLER_H
 
 #include <QObject>
-#include<stdexcept>
-#include"global_macros.h"
+#include <stdexcept>
+#include "global_macros.h"
 namespace Phonon{
     class MediaSource;
     class MediaObject;
     class AudioOutput;
 }
-class sound_handler : public QObject
+class soundHandler : public QObject
 {
         Q_OBJECT
-    DECLARE_SINGLETON(sound_handler);
+    DECLARE_SINGLETON(soundHandler);
 public:
     void init();                //used when settingswindowmap changes
 public slots:
@@ -35,7 +35,7 @@ private:
     Phonon::MediaObject	*normalchatsound;
     Phonon::MediaObject	*highlightningsound;
     Phonon::MediaObject *buddyhostedsound;
-    Phonon::MediaObject *costumwordsound;
+    Phonon::MediaObject *customwordsound;
 
     Phonon::AudioOutput *startupsoundoutput;
     Phonon::AudioOutput *chatwindowopensoundoutput;

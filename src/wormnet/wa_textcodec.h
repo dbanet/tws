@@ -2,7 +2,7 @@
 #define WA_TEXTCODEC_H
 
 #include <QTextCodec>
-#include<QHash>
+#include <QHash>
 class WA_textcodec1252 : public QTextCodec
 {
 public:

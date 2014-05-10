@@ -1,8 +1,8 @@
 #include "maintoolbox.h"
-#include"window.h"
-#include"chatwindow.h"
-#include"mytabwidget.h"
-#include<QVBoxLayout>
+#include "window.h"
+#include "chatwindow.h"
+#include "mytabwidget.h"
+#include <QVBoxLayout>
 maintoolbox::maintoolbox(QString s,QWidget *parent)
     : QWidget(parent)
 {

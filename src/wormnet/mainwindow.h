@@ -1,14 +1,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include"ui_mainwindow.h"
-#include"maintoolbox.h"
-#include"qobjectwrapper.h"
-#include"usermessage.h"
+#include "ui_mainwindow.h"
+#include "maintoolbox.h"
+#include "qobjectwrapper.h"
+#include "usermessage.h"
 
-#include <QtGui/QWidget>
-#include<QList>
-#include<QSystemTrayIcon>
+#include <QWidget>
+#include <QList>
+#include <QSystemTrayIcon>
 
 class window;
 class netcoupler;

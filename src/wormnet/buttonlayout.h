@@ -1,7 +1,7 @@
 #ifndef BUTTONLAYOUT_H
 #define BUTTONLAYOUT_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include "ui_buttonlayout.h"
 
 class buttonlayout : public QWidget

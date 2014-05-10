@@ -1,7 +1,7 @@
 #ifndef GLOBAL_MACROS_H
 #define GLOBAL_MACROS_H
 #include "singleton.h"
-//  #include"global_macros.h"
+//  #include "global_macros.h"
 enum CLASSES{e_leagueserverhandler,e_ircnet};
 enum usermessage_type{e_PRIVMSG=1, e_NOTICE=2, e_CTCP=4, e_ACTION=8, e_RAWCOMMAND=16
     , e_GARBAGE=32, e_GARBAGEJOIN=64, e_GARBAGEPART=128, e_GARBAGEQUIT=256

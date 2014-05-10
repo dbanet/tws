@@ -1,7 +1,7 @@
-#include<QFileDialog>
-#include<QColorDialog>
-#include<QFontDialog>
-#include<QDialogButtonBox>
+#include <QFileDialog>
+#include <QColorDialog>
+#include <QFontDialog>
+#include <QDialogButtonBox>
 void getQtTranslationStrings(){
     QFontDialog::tr("&Font");
     QFontDialog::tr("Effects");

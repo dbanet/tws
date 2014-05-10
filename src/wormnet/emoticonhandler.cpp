@@ -1,16 +1,16 @@
-#include"emoticonhandler.h"
-#include"settingswindow.h"
-#include"settings.h"
-#include"myDebug.h"
+#include "emoticonhandler.h"
+#include "settingswindow.h"
+#include "settings.h"
+#include "myDebug.h"
 
-#include<QMessageBox>
-#include<QFileDialog>
-#include<QFile>
+#include <QMessageBox>
+#include <QFileDialog>
+#include <QFile>
 
 emoticonhandler::emoticonhandler(QWidget *parent) :
 	QWidget(parent) {
     ui.setupUi(this);
-    scheme=S_S.getstring("smileyscheme");
+    scheme=S_S.getString("smileyscheme");
     if(scheme.isEmpty()){
         scheme="default";
     }

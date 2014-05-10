@@ -1,7 +1,7 @@
 #ifndef VOLUMESLIDER_H
 #define VOLUMESLIDER_H
 
-#include <QtGui/QFrame>
+#include <QFrame>
 #include "ui_volumeslider.h"
 
 class volumeslider : public QFrame

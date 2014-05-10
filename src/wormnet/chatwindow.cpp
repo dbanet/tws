@@ -1,23 +1,23 @@
-#include"chatwindow.h"
-#include"netcoupler.h"
-#include"settings.h"
-#include"settingswindow.h"
-#include"chathandlerprv.h"
+#include "chatwindow.h"
+#include "netcoupler.h"
+#include "settings.h"
+#include "settingswindow.h"
+#include "chathandlerprv.h"
 #ifdef PHONON
-#include"sound_handler.h"
+#include "sound_handler.h"
 #endif
-#include"global_functions.h"
-#include"usermessage.h"
-#include"balloon_handler.h"
-#include"emoticonsdialog.h"
+#include "global_functions.h"
+#include "usermessage.h"
+#include "balloon_handler.h"
+#include "emoticonsdialog.h"
 
-#include<QKeyEvent>
-#include<QDir>
-#include<QTime>
-#include<QFileDialog>
-#include<QStatusBar>
-#include<QMessageBox>
-#include<QDesktopWidget>
+#include <QKeyEvent>
+#include <QDir>
+#include <QTime>
+#include <QFileDialog>
+#include <QStatusBar>
+#include <QMessageBox>
+#include <QDesktopWidget>
 
 extern QStringList querylist;
 chatwindow::chatwindow(const QString &s, QWidget *parent) :
@@ -50,9 +50,9 @@ chatwindow::chatwindow(const QString &s, QWidget *parent) :
     connect(ui.lineEdit, SIGNAL(returnPressed()),this, SLOT(sendmsg()));    
     ui.lineEdit->setFocus(Qt::MouseFocusReason);                
 #ifdef PHONON
-    singleton<sound_handler>().play_chatwindowopensound();
+    singleton<soundHandler>().play_chatwindowopensound();
 #endif
-    if (containsCI(S_S.getstringlist("mutedusers"), chatpartner))
+    if (containsCI(S_S.getStringList("mutedusers"), chatpartner))
         ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
     else
         ui.pbmute->setIcon(QIcon("snppictures/buttons/mutebutton.png"));
@@ -112,12 +112,12 @@ void chatwindow::getusermessage(usermessage u_arg){
         return;
     if(u_arg.receiver() == singleton<netcoupler>().nick && u_arg.user() == chatpartner){
         chat->append(u_arg);
-        singleton<balloon_handler>().alert(u_arg.user(), this);
+        singleton<balloonHandler>().alert(u_arg.user(), this);
 #ifdef PHONON
         if (singleton<netcoupler>().buddylistcontains(u_arg.user()))
-            singleton<sound_handler>().play_buddymsgsound(u_arg.user());
+            singleton<soundHandler>().play_buddymsgsound(u_arg.user());
         else
-            singleton<sound_handler>().play_normalmsgsound(u_arg.user());
+            singleton<soundHandler>().play_normalmsgsound(u_arg.user());
 #endif
         if (statusbar->currentMessage() == tr("Was offline when this window opened."))
             statusbar->showMessage(QObject::tr("Online"));
@@ -148,7 +148,7 @@ void chatwindow::getgamerwho(QString prefix) {
     }
 }
 void chatwindow::pbmuteclicked() {
-    if (containsCI(S_S.getstringlist("mutedusers"), chatpartner)) {
+    if (containsCI(S_S.getStringList("mutedusers"), chatpartner)) {
         S_S.remove("mutedusers",chatpartner);
         ui.pbmute->setIcon(QIcon("snppictures/buttons/mutebutton.png"));
     } else {

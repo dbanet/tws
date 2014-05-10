@@ -7,10 +7,10 @@
 
 //#ifndef SNPSETTINGS_H_
 //#define SNPSETTINGS_H_
-//#include<QMap>
-//#include<QString>
-//#include<QVariant>
-//#include"global_macros.h"
+//#include <QMap>
+//#include <QString>
+//#include <QVariant>
+//#include "global_macros.h"
 //class snpsettings {
 //public:
 //    void start(){load();}

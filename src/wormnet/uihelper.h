@@ -7,7 +7,7 @@
 
 #ifndef UIHELPER_H_
 #define UIHELPER_H_
-#include<QStringList>
+#include <QStringList>
 class QTextBrowser;
 class QWidget;
 class QTreeView;

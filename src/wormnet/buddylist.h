@@ -1,7 +1,7 @@
 #ifndef BUDDYLIST_H
 #define BUDDYLIST_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include "ui_buddylist.h"
 
 class buddylist : public QWidget

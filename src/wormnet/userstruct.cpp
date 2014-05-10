@@ -6,13 +6,13 @@
  */
 
 #include "userstruct.h"
-#include"netcoupler.h"
-#include"myDebug.h"
-#include"global_functions.h"
-#include"singleton.h"
-#include"picturehandler.h"
-#include<QHostInfo>
-#include<QPointer>
+#include "netcoupler.h"
+#include "myDebug.h"
+#include "global_functions.h"
+#include "singleton.h"
+#include "picturehandler.h"
+#include <QHostInfo>
+#include <QPointer>
 bool userstruct::addressischecked=0;
 userstruct::userstruct():flag(49),rank(12) {
 }
@@ -36,11 +36,11 @@ userstruct::userstruct(QStringList sl) {
     int clannumber = rankstring.toInt(&b);
     country = sl.takeFirst();    
     if(flag<53 && flag !=49)
-        country=singleton<picturehandler>().map_number_to_countrycode(flag);
+        country=singleton<pictureHandler>().mapNumberToCountryCode(flag);
     if(country.isEmpty())
         country="??";
     client = sl.join(" ").remove("\r");
-    if (b && clannumber < singleton<picturehandler>().ranklistsize() && clannumber >= 0)
+    if (b && clannumber < singleton<pictureHandler>().ranklistsize() && clannumber >= 0)
         rank = clannumber;
     else rank=12;
     if(nick==singleton<netcoupler>().nick) singleton<netcoupler>().myip=address;

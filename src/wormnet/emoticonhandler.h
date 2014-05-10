@@ -1,10 +1,10 @@
 #ifndef EMOTICONHANDLER_H
 #define EMOTICONHANDLER_H
 
-#include<QtGui/QWidget>
-#include<QImage>
+#include <QWidget>
+#include <QImage>
 
-#include"ui_emoticonhandler.h"
+#include "ui_emoticonhandler.h"
 
 class emoticonhandler : public QWidget
 {

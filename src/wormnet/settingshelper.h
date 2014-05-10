@@ -1,6 +1,6 @@
 //#ifndef SETTINGSHELPER_H
 //#define SETTINGSHELPER_H
-//#include<QSqlQuery>
+//#include <QSqlQuery>
 
 //template <typename T>
 //        class settingshelper

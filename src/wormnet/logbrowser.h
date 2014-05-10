@@ -1,7 +1,7 @@
 #ifndef LOGBROWSER_H
 #define LOGBROWSER_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include "ui_logbrowser.h"
 
 class logbrowser : public QWidget

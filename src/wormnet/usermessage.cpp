@@ -1,5 +1,5 @@
-#include"usermessage.h"
-#include"netcoupler.h"
+#include "usermessage.h"
+#include "netcoupler.h"
 usermessage::usermessage(QString msg_arg, int t_arg, QString receiver_arg):
         my_msg(msg_arg), my_type(t_arg), my_user(singleton<netcoupler>().nick), my_receiver(receiver_arg){
 

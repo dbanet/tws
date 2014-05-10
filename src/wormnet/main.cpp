@@ -1,28 +1,29 @@
-#include"window.h"
-#include"mainwindow.h"
-#include"settings.h"
-#include"charformatsettings.h"
-#include"settingswindow.h"
-#include"volumeslider.h"
+#include "window.h"
+#include "mainwindow.h"
+#include "settings.h"
+#include "charformatsettings.h"
+#include "settingswindow.h"
+#include "volumeslider.h"
 #ifdef PHONON
-#include"sound_handler.h"
+#include "sound_handler.h"
 #endif
-#include"global_functions.h"
-#include"codecselectdia.h"
-#include"clantowebpagemapper.h"
-#include"picturehandler.h"
-#include"awayhandler.h"
-#include"about.h"
-#include"wa_textcodec.h"
-#include"playername.h"
+#include "global_functions.h"
+#include "codecselectdia.h"
+#include "clantowebpagemapper.h"
+#include "picturehandler.h"
+#include "awayhandler.h"
+#include "about.h"
+#include "wa_textcodec.h"
+#include "playername.h"
 
-#include<QtGui>
-#include<QApplication>
-#include<QPlastiqueStyle>
-#include<QTextStream>
-#include<QTextCodec>
-#include<QDir>
-#include<QDebug>
+#include <QtGui>
+#include <QApplication>
+#include <QPlastiqueStyle>
+#include <QTextStream>
+#include <QTextCodec>
+#include <QDir>
+#include <QDebug>
+#include <QDesktopServices>
 
 volumeslider *volume;
 QStringList querylist;
@@ -45,14 +46,18 @@ int main(int argc, char *argv[]) {
     a.setApplicationName("The Wheat Snooper");
 
     QDir::setCurrent(qPrintable(QApplication::applicationDirPath()));
-    S_S.start("snpini/settings.sqlite3");
+
+    QString settingsDatabaseName="settings.sqlite3";
+    QDir settingsDatabaseDir=QDir(QDesktopServices::storageLocation(QDesktopServices::DataLocation));
+
+    S_S.start(settingsDatabaseDir,settingsDatabaseName);
     singleton<settingswindow>();
     a.setQuitOnLastWindowClosed(false);
     volume = new volumeslider;
     a.setApplicationName("The Wheat Snooper");        
     singleton<clantowebpagemapper>().refresh();
-    singleton<picturehandler>();
-    if(S_S.getstring("textcodecsince263").isEmpty()){
+    singleton<pictureHandler>();
+    if(S_S.getString("textcodecsince263").isEmpty()){
         CodecSelectDia::codec=QTextCodec::codecForName("wa");
         S_S.set("textcodecsince263", "wa");
     }
@@ -62,16 +67,16 @@ int main(int argc, char *argv[]) {
         CodecSelectDia::codec=QTextCodec::codecForName("wa");
         S_S.set("textcodecsince263", "wa");
     }
-    singleton<charformatsettings>().load();           
+    singleton<chatFormatSettings>().load();
     a.addLibraryPath(QApplication::applicationDirPath());
     a.setWindowIcon(QIcon(QApplication::applicationDirPath()+ "/snppictures/tray.png"));
     a.setStyle(new QPlastiqueStyle);
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
     search_for_game_executables();
     handle_prosnooper_buddys();
 #endif
 #ifdef PHONON
-    singleton<sound_handler>().init();
+    singleton<soundHandler>().init();
 #endif
     qobjectwrapper<awayhandler>();
     qobjectwrapper<mainwindow> w;
@@ -81,12 +86,12 @@ int main(int argc, char *argv[]) {
     loadusergarbage();
     loadquerylist();       
 #ifdef PHONON
-    QTimer::singleShot(1000,&singleton<sound_handler>(),SLOT(play_startupsound()));
+    QTimer::singleShot(1000,&singleton<soundHandler>(),SLOT(play_startupsound()));
 #endif
     return a.exec();
 }
 void search_for_game_executables(){
-    if (S_S.getstringlist("joinstrings").isEmpty()) {
+    if (S_S.getStringList("joinstrings").isEmpty()) {
         QSettings settings("Team17SoftwareLTD", "WormsArmageddon");
         QString gamedir(settings.value("PATH").toString());
         QFile wa;
@@ -108,11 +113,11 @@ void search_for_game_executables(){
 void handle_prosnooper_buddys(){
     QSettings settings("HKEY_CURRENT_USER\\Software\\ProSnooper",QSettings::NativeFormat);
     QString buddies = settings.value("Buddies").toString();
-    QStringList snpbuddies = S_S.getstringlist("buddylist");
+    QStringList snpbuddies = S_S.getStringList("buddylist");
     QStringList buddielist;
     if (!buddies.isEmpty())
         buddielist = buddies.split(",", QString::SkipEmptyParts);
-    QStringList sl = S_S.getstringlist("prosnooperbuddies");
+    QStringList sl = S_S.getStringList("prosnooperbuddies");
     foreach(QString s,buddielist) {
         if (!sl.contains(s, Qt::CaseInsensitive)) {
             sl << s;

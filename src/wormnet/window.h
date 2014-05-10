@@ -1,20 +1,20 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include<QtGui/QWidget>
-#include<QMenu>
-#include<QPointer>
+#include <QWidget>
+#include <QMenu>
+#include <QPointer>
 
-#include"ui_window.h"
-#include"ui_window2.h"
-#include"ui_window3.h"
-#include"netcoupler.h"
-#include"userstruct.h"
-#include"hoststruct.h"
-#include"uihelper.h"
+#include "ui_window.h"
+#include "ui_window2.h"
+#include "ui_window3.h"
+#include "netcoupler.h"
+#include "userstruct.h"
+#include "hoststruct.h"
+#include "uihelper.h"
 class buttonlayout;
 class hostbox;
-class chathandler;
+class chatHandler;
 class chatwindow;
 class window : public QWidget
 {
@@ -29,7 +29,7 @@ public:
 
     buttonlayout *buttons;
     static QList< ::window*> hiddenchannelwindowshelper;
-    QPointer<chathandler> chat;		//handles the whole textbrowser
+    QPointer<chatHandler> chat;		//handles the whole textbrowser
     QString windowtitleaway;
     void mysetwindowtitle();    
     void getusermessage(usermessage u);
@@ -72,7 +72,7 @@ private:
     QMenu joinmenu2;
     QMenu hostmenu;
     QMenu usermenu;
-    QMenu costumlistmenu;
+    QMenu customlistmenu;
 
     QPointer<hostbox> hbox;
 

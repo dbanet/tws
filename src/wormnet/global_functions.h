@@ -1,16 +1,16 @@
 #ifndef GLOBAL_FUNCTIONS_H
 #define GLOBAL_FUNCTIONS_H
-#include"myDebug.h"
-#include<QString>
-#include<QStringList>
+#include "myDebug.h"
+#include <QString>
+#include <QStringList>
 
-#include"usermessage.h"
+#include "usermessage.h"
 
 extern QStringList querylist;
 class QPixmap;
 class QComboBox;
 
-// #include"global_functions.h"
+// #include "global_functions.h"
 QStringList refreshcombobox(QComboBox *cb);
 void sethostport(QString port);
 QString gethostportbyini();

@@ -1,16 +1,17 @@
 #ifndef SQLSETTINGS_H
 #define SQLSETTINGS_H
-#include<QString>
-#include<QVariantList>
-#include<QDebug>
+#include <QString>
+#include <QVariantList>
+#include <QDebug>
+#include <QDir>
 
-#include"global_macros.h"
-#include"database_base.h"
+#include "global_macros.h"
+#include "database_base.h"
 
 class sqlsettings: public database_base
 {
 public:        
-    void start(QString arg);
+    void start(QDir,QString);
 
     DECLARE_SINGLETON(sqlsettings);
 
@@ -21,7 +22,7 @@ private:
 
     void importOldini(QString folder=QString());
 
-    bool databasexists(); 
+    bool databasexists(QDir,QString);
 
     bool loadOldFile(QString file);
     void keepSettings();

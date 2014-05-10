@@ -2,9 +2,9 @@
 #define CTCTPHANDLERWIDGET_H
 
 #include "ui_ctctphandlerwidget.h"
-#include"global_macros.h"
-#include<QPointer>
-#include<QtGui/QFrame>
+#include "global_macros.h"
+#include <QPointer>
+#include <QFrame>
 
 class ctcphandleratomic;
 class ctctphandlerwidget : public QFrame

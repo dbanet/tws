@@ -6,10 +6,10 @@
  */
 
 #include "inihandlerclass.h"
-#include"myDebug.h"
-#include<QFile>
-#include<QApplication>
-#include<QDir>
+#include "myDebug.h"
+#include <QFile>
+#include <QApplication>
+#include <QDir>
 inihandlerclass::inihandlerclass() {
     file="wormnet.net";
 

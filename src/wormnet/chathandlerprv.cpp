@@ -5,25 +5,25 @@
  *      Author: looki
  */
 
-#include<QTextBrowser>
-#include<QTextDocument>
-#include<QTime>
-#include<QColorDialog>
-#include<QScrollBar>
-#include<QMessageBox>
-#include<QDesktopServices>
-#include<QPixmap>
+#include <QTextBrowser>
+#include <QTextDocument>
+#include <QTime>
+#include <QColorDialog>
+#include <QScrollBar>
+#include <QMessageBox>
+#include <QDesktopServices>
+#include <QPixmap>
 
-#include"chathandlerprv.h"
-#include"settingswindow.h"
-#include"settings.h"
-#include"netcoupler.h"
-#include"joinprvgame.h"
-#include"global_functions.h"
-#include"usermessage.h"
+#include "chathandlerprv.h"
+#include "settingswindow.h"
+#include "settings.h"
+#include "netcoupler.h"
+#include "joinprvgame.h"
+#include "global_functions.h"
+#include "usermessage.h"
 
 chathandlerprv::chathandlerprv(QObject *parent, QTextBrowser *t, QString chan) :
-    chathandler(parent, t, chan) {
+    chatHandler(parent, t, chan) {
     isprv=1;
     disconnect(tb, SIGNAL(customContextMenuRequested ( const QPoint &)),this, SLOT(contextrequest(const QPoint&)));
     connect(tb, SIGNAL(customContextMenuRequested ( const QPoint &)),this, SLOT(opencontextmenu(const QPoint&)));
@@ -32,7 +32,7 @@ void chathandlerprv::opencontextmenu(const QPoint &p){
     QTextCharFormat format=tb->cursorForPosition(p).charFormat();
     int whatsthis=format.intProperty(whatsthispropertyId);
     if(whatsthis==e_hash_wa)
-        get_new_font_and_color_with_walink(&format);
+        getNewFontAndColorWithWalink(&format);
     else
         get_new_font_and_color(&format);
 }
@@ -42,16 +42,16 @@ QList<QPair<QVariant, QTextCharFormat> > chathandlerprv::getSegmentation(QString
     foreach(s,sl){
         if(isClickableLink(s)){
             hash[e_hash_http].setAnchorHref(s);
-            text<<makepair(s, hash[e_hash_http]);
+            text<<makePair(s, hash[e_hash_http]);
         } else if(startswithCI(s, "wa://")){
             hash[e_hash_wa].setAnchorHref(s);
             hash[e_hash_wa].setProperty(linkpropertyId, s);
-            text<<makepair(tr("GAMELINK"), hash[e_hash_wa]);
+            text<<makePair(tr("GAMELINK"), hash[e_hash_wa]);
         } else {
             if(S_S.getbool("chbsmileysinchatwindows"))
-                text<<makepair(emot->contains(s),format);
+                text<<makePair(emot->contains(s),format);
             else
-                text<<makepair(s,format);
+                text<<makePair(s,format);
         }
     }
     return text;

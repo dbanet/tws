@@ -7,12 +7,12 @@
 
 #ifndef CHATHANDLERPRV_H_
 #define CHATHANDLERPRV_H_
-#include<QObject>
-#include<QPoint>
-#include<QUrl>
-#include<QTextCharFormat>
-#include<QTextCursor>
-#include<QMenu>
+#include <QObject>
+#include <QPoint>
+#include <QUrl>
+#include <QTextCharFormat>
+#include <QTextCursor>
+#include <QMenu>
 
 #include "chathandler.h"
 #include "emoticonhandler.h"
@@ -20,7 +20,7 @@ class QTextBrowser;
 class QTextDocument;
 
 class usermessage;
-class chathandlerprv: public chathandler {
+class chathandlerprv: public chatHandler {
     Q_OBJECT
 public:
     chathandlerprv(QObject*,QTextBrowser*,QString);

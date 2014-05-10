@@ -8,16 +8,16 @@
 
 #include "netcoupler.h"
 #include "singleton.h"
-#include"ircnet.h"
-#include"inihandlerclass.h"
-#include"settings.h"
-#include"settingswindow.h"
-#include"about.h"
-#include"codecselectdia.h"
-#include"global_functions.h"
-#include"myDebug.h"
-#include"picturehandler.h"
-#include"leagueserverhandler.h"
+#include "ircnet.h"
+#include "inihandlerclass.h"
+#include "settings.h"
+#include "settingswindow.h"
+#include "about.h"
+#include "codecselectdia.h"
+#include "global_functions.h"
+#include "myDebug.h"
+#include "picturehandler.h"
+#include "leagueserverhandler.h"
 #include "ircmessage.h"
 #include "singleton.h"
 extern inihandlerclass inihandler;
@@ -64,19 +64,19 @@ void ircnet::connected() {
     QString s = inihandler.stringlistfromini("[irc register]").first();    
     sl = s.split(" ", QString::SkipEmptyParts);
     s = sl.takeFirst() + "  ";
-    s.append(S_S.getstring("clan") + " ");
+    s.append(S_S.getString("clan") + " ");
     s.append(sl.takeFirst() + " ");
     s.append(sl.takeFirst() + " :");
-    QString flag=S_S.getstring("countrycode").toUpper();
-    s.append(singleton<picturehandler>().map_countrycode_to_number(flag)+ " ");   
+    QString flag=S_S.getString("countrycode").toUpper();
+    s.append(singleton<pictureHandler>().mapCountryCodeToNumber(flag)+ " ");
     if(S_S.getbool("leaguestatecoloron") && S_S.getbool("enablesecurelogging"))
-        s.append(S_S.getstring("leaguestatecolorname").remove('#')+" ");
+        s.append(S_S.getString("leaguestatecolorname").remove('#')+" ");
     else {
         int i=S_S.getint("rank");
         s.append(QString::number(i) + " ");
     }
     s.append(flag+" ");
-    s.append(S_S.getstring("information"));
+    s.append(S_S.getString("information"));
     tcp_write(s);
     tcp_write("list");    
     // tcp_write("who"); Bcuz now TWS will issue WHO only on channel, and only when join it.
