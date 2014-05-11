@@ -36,7 +36,7 @@ sqlsettings::~sqlsettings(){
 bool sqlsettings::databasexists(QDir databaseDir,QString databaseName){
     if(QFile::exists(databaseDir.absoluteFilePath(databaseName)))
         return true;
-    databaseDir.mkdir(".");
+    QDir().mkpath(databaseDir.absolutePath());
     installTranslationBySystemLocale();
     db().transaction();
     if(QFile::exists("snpini/snpini"))
