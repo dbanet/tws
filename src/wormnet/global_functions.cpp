@@ -70,12 +70,12 @@ QString getwormnatport(){
     WORD PortError=0xFFFF;
 
     if (WSAStartup(MAKEWORD(2,2),&wsaData))
-        myDebug ()<<QObject::tr("Connection WSAStartup failed %1 ").arg(S_S.getstring ("wormnat2address")) + WSAGetLastError();
+        myDebug ()<<QObject::tr("Connection WSAStartup failed %1 ").arg(S_S.getString ("wormnat2address")) + WSAGetLastError();
     ControlSocket=socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
-    ControlHost=gethostbyname(S_S.getstring ("wormnat2address").toAscii ());
+    ControlHost=gethostbyname(S_S.getString ("wormnat2address").toAscii ());
     if(!ControlHost)
     {
-        myDebug ()<<QObject::tr("Connection Failed to resolve %1").arg(S_S.getstring ("wormnat2address"))+WSAGetLastError();
+        myDebug ()<<QObject::tr("Connection Failed to resolve %1").arg(S_S.getString ("wormnat2address"))+WSAGetLastError();
         ExternalPort=PortError;
         closesocket(ControlSocket);
         getch();
