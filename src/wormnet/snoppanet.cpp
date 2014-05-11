@@ -179,8 +179,8 @@ void snoppanet::closehostandstartlasthost(hoststruct h) {
             + "&Name=" + h.name() + "&HostID=&GuestID=&GameType=0";
     hostrequest.setUrl(s);
     closehostreply = manager.get(hostrequest);
-    connect(closehostreply,SIGNAL(finished()),this,SLOT(closehostreplyfinished()));
-    connect(closehostreply,SIGNAL(finished()), closehostreply,SLOT(deleteLater()));
+    connect(closehostreply,SIGNAL(finished()),this,SLOT(closeHostReplyFinished()));
+    connect(closehostreply,SIGNAL(finished()),closehostreply,SLOT(deleteLater()));
 }
 void snoppanet::sendHostRequest(){
     QNetworkRequest hostRequest = inihandler.requestfromini("[http get host header]");

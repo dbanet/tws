@@ -62,7 +62,7 @@ void hostbox::addclicked() {
     QString file;
 #ifdef Q_OS_UNIX
     file = QFileDialog::getOpenFileName(this, tr(
-                                            "Choose a desktop icon."), "/home", "*.desktop");
+                                            "Choose a desktop icon."), "/home", "Linux Desktop Icon (*.desktop);;WINE Executable File (*.exe *.cmd)");
 #elif defined(Q_OS_WIN32) | defined(Q_OS_OS2)
     file = QFileDialog::getOpenFileName(this, tr(
                                             "Choose a Program."), "c:/", "*.exe *.com");
