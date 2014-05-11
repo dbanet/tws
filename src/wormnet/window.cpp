@@ -472,7 +472,7 @@ void window::hostitempressed(const QModelIndex &index) {
                     QStringList sl = S_S.getStringList("joinstrings");
 #ifdef Q_OS_UNIX
                     QString file = QFileDialog::getOpenFileName(this, tr(
-                                                                    "Choose a desktop icon."), "/home", "*.desktop");
+                                                                    "Choose a desktop icon."), "/home", "Linux Desktop Icon (*.desktop);;WINE Executable File (*.exe *.cmd)");
 #elif defined(Q_OS_WIN32) | defined(Q_OS_OS2)
                     QString file = QFileDialog::getOpenFileName(this, tr("Choose a Program."), "c:/", "*.exe *.com");
 #else
