@@ -73,14 +73,14 @@ void awayhandler::sendBack(){
 void awayhandler::setawaywhilegameing() {
 #ifdef Q_OS_WIN32
     startLookingForGame();
-    singleton<balloon_handler>().set_away_tray_icon();
+    singleton<balloonHandler>().setAwayTrayIcon();
     if (S_S.getbool("cbsetawaywhilegaming")) {
         if (isaway)
             wasaway = 1;
         else
             wasaway = 0;
         isaway = 1;
-        awaymessage = S_S.getstring("leawaystring");
+        awaymessage = S_S.getString("leawaystring");
         emit sigawaystringchanged();
     }
 #endif
