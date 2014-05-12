@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>886</width>
-    <height>613</height>
+    <width>655</width>
+    <height>566</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,9 +16,9 @@
   <widget class="QLineEdit" name="msg">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>500</y>
-     <width>110</width>
+     <x>30</x>
+     <y>470</y>
+     <width>361</width>
      <height>22</height>
     </rect>
    </property>
@@ -26,18 +26,18 @@
   <widget class="QTextBrowser" name="chat">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>260</y>
-     <width>254</width>
-     <height>191</height>
+     <x>20</x>
+     <y>230</y>
+     <width>331</width>
+     <height>211</height>
     </rect>
    </property>
   </widget>
   <widget class="QPushButton" name="pbsmiley">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>460</y>
+     <x>70</x>
+     <y>500</y>
      <width>25</width>
      <height>26</height>
     </rect>
@@ -55,10 +55,10 @@
   <widget class="QTreeView" name="hosts">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>20</y>
-     <width>254</width>
-     <height>191</height>
+     <x>10</x>
+     <y>10</y>
+     <width>291</width>
+     <height>211</height>
     </rect>
    </property>
    <property name="expandsOnDoubleClick">
@@ -68,10 +68,10 @@
   <widget class="QPushButton" name="send">
    <property name="geometry">
     <rect>
-     <x>420</x>
+     <x>150</x>
      <y>500</y>
-     <width>75</width>
-     <height>26</height>
+     <width>211</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="text">
@@ -81,8 +81,8 @@
   <widget class="QTreeView" name="users">
    <property name="geometry">
     <rect>
-     <x>470</x>
-     <y>30</y>
+     <x>370</x>
+     <y>20</y>
      <width>254</width>
      <height>422</height>
     </rect>

@@ -6,8 +6,8 @@
 #include <QPointer>
 
 #include "ui_window.h"
-#include "ui_window2.h"
-#include "ui_window3.h"
+//#include "ui_window2.h"
+//#include "ui_window3.h"
 #include "netcoupler.h"
 #include "userstruct.h"
 #include "hoststruct.h"
@@ -18,7 +18,7 @@ class window : public QWidget
 {
     Q_OBJECT
 public:
-    window(QString s,int i=1);
+    window(QString,int,QWidget*);
     ~window();
     const QString currentchannel;
     static QList<chatwindow*> chatwindows;

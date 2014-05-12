@@ -251,22 +251,14 @@ void mainwindow::join(const QString channel){
     if(currentchannellist.contains(channel))
         return;
     currentchannellist << channel;
-    if (whichuitype == 1) {
-        windowlist.push_back(new channelwindow(channel, whichuitype));
-        windowlist.last()->setObjectName("channelwindow");
-    } else if (whichuitype == 2) {
-        windowlist.push_back(new channelwindow(channel, whichuitype));
-        windowlist.last()->setObjectName("channelwindow");
-    } else if (whichuitype == 3) {
-        windowlist.push_back(new channelwindow(channel, whichuitype));
-        windowlist.last()->setObjectName("channelwindow");
-    } else
-        myDebug() <<QString() + "joinclicked in mainwindow assert";
+
+    QWidget *chanTab;
+    ui.tabWidget->addTab((chanTab=new QWidget()),channel);
+    windowlist.push_back(new channelwindow(channel,1,chanTab));
+
     singleton<netcoupler>().joinchannel(channel);
     if(windowlist.isEmpty())
         return;
-    windowlist.last()->show();
-    windowlist.last()->raise();
     if (qobjectwrapper<awayhandler>::ref().away()) {
         windowlist.last()->windowtitleaway = qobjectwrapper<awayhandler>::ref().message();
         windowlist.last()->mysetwindowtitle();

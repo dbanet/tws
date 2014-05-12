@@ -31,7 +31,7 @@ QList<chatwindow*> window::chatwindows;
 QStringList window::chatwindowstringlist;
 QList< ::window*> window::hiddenchannelwindowshelper;
 extern QStringList querylist;
-window::window(QString s, int i) :
+window::window(QString s,int i,QWidget *parent) :
     currentchannel(s), chaticon("snppictures/Chat_Icon.png") {
     qDebug()<<"window::window(QString s,int i)///";
     setAttribute(Qt::WA_DeleteOnClose);
@@ -43,7 +43,7 @@ window::window(QString s, int i) :
     if (i == 3)
         ui3.setupUi(this);
     whichuiison = i;    */
-    ui.setupUi(this);
+    ui.setupUi(parent);
     qDebug()<<"ui.users->setAlternatingRowColors(1)";
     ui.users->setAlternatingRowColors(1);
     ui.hosts->setAlternatingRowColors(1);
@@ -414,7 +414,7 @@ void window::getuserinfo(const QString &s) {
     chatwindows.last()->getgamerwho();
 }
 void window::openchatwindow(const QString &s) {
-    Q_ASSERT(s!="");
+    /*Q_ASSERT(s!="");
     if (containsCI(chatwindowstringlist, s)){
         foreach(chatwindow *w,chatwindows){
             if(w->chatpartner==s && w->isHidden())
@@ -428,7 +428,7 @@ void window::openchatwindow(const QString &s) {
         }
         return;
     }emit sigopenchatwindow(s);
-    QApplication::processEvents();    
+    QApplication::processEvents();*/
 }
 void window::hostitempressed(const QModelIndex &index) {
     if (QApplication::mouseButtons() == Qt::RightButton) {
@@ -518,12 +518,12 @@ void window::changealpha(int i) {
 void window::showbuttons() {
 }
 void window::mysetwindowtitle() {
-    setWindowTitle(QString()
+    /*setWindowTitle(QString()
                  +windowtitlechannel+" "
                  +windowtitletime   +" "
                  +tr("Users online")+" "
                  +windowtitleaway.simplified()
-    );
+    );*/
 }
 void window::setupWindowTitleOnJoin(QString channel,int amountOfUsers){
     if(channel.toLower()!=currentchannel.toLower())
