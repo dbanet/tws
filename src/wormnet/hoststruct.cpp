@@ -5,13 +5,13 @@
  *      Author: looki
  */
 
-#include"hoststruct.h"
-#include"global_functions.h"
-#include"singleton.h"
-#include"picturehandler.h"
-#include"netcoupler.h"
-#include<QStringList>
-#include<QPixmap>
+#include "hoststruct.h"
+#include "global_functions.h"
+#include "singleton.h"
+#include "picturehandler.h"
+#include "netcoupler.h"
+#include <QStringList>
+#include <QPixmap>
 hoststruct::hoststruct() {
     // TODO Auto-generated constructor stub
     valid=false;
@@ -34,7 +34,7 @@ void hoststruct::sethost(QStringList &sl) {
         myflag = sl.takeFirst().toInt(&b);
         if (!(b && myflag >= 0))
             myflag = 49;
-        mycountry=singleton<picturehandler>().map_number_to_countrycode(myflag);
+        mycountry=singleton<pictureHandler>().mapNumberToCountryCode(myflag);
         sl.takeFirst();
         mywithkey = sl.takeFirst().toInt();
         myid = sl.takeFirst();

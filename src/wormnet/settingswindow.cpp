@@ -1,17 +1,17 @@
-#include"settingswindow.h"
-#include"netcoupler.h"
-#include"combobox_wrapper.h"
-#include"myDebug.h"
-#include"ui_settingswindow.h"
+#include "settingswindow.h"
+#include "netcoupler.h"
+#include "combobox_wrapper.h"
+#include "myDebug.h"
+#include "ui_settingswindow.h"
 
-#include<QLineEdit>
-#include<QCheckBox>
-#include<QFile>
-#include<QDir>
-#include<QSpinBox>
-#include<QFileDialog>
-#include<QPointer>
-#include<stdexcept>
+#include <QLineEdit>
+#include <QCheckBox>
+#include <QFile>
+#include <QDir>
+#include <QSpinBox>
+#include <QFileDialog>
+#include <QPointer>
+#include <stdexcept>
 
 settingswindow::settingswindow() {
     setObjectName("normalwidget");
@@ -39,13 +39,13 @@ settingswindow::settingswindow() {
         o =  findChild<QObject*> (key);
         Q_ASSERT(o!=0);
         if (qobject_cast<QLineEdit*> (o) != 0) {
-            qobject_cast<QLineEdit*> (o)->setText(S_S.getstring(key));
+            qobject_cast<QLineEdit*> (o)->setText(S_S.getString(key));
         } else if (qobject_cast<QCheckBox*> (o) != 0) {
             qobject_cast<QCheckBox*> (o)->setChecked(S_S.getbool(key));
         } else if (qobject_cast<QSpinBox*> (o)) {
             qobject_cast<QSpinBox*> (o)->setValue(S_S.getint(key));
         }   else if (qobject_cast<combobox_wrapper*> (o)) {
-            qobject_cast<combobox_wrapper*> (o)->set(S_S.getstringlist(key));
+            qobject_cast<combobox_wrapper*> (o)->set(S_S.getStringList(key));
         }
     }
     connect(ui->ok, SIGNAL(clicked()),this, SLOT(ok()));

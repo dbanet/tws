@@ -1,20 +1,20 @@
-#include"leagueserverhandler.h"
-#include"myDebug.h"
-#include"singleton.h"
-#include"balloon_handler.h"
-#include"settingswindow.h"
-#include"settings.h"
-#include"global_functions.h"
-#include"quithandler.h"
-#include"mainwindow.h"
-#include"about.h"
+#include "leagueserverhandler.h"
+#include "myDebug.h"
+#include "singleton.h"
+#include "balloon_handler.h"
+#include "settingswindow.h"
+#include "settings.h"
+#include "global_functions.h"
+#include "quithandler.h"
+#include "mainwindow.h"
+#include "about.h"
 
-#include<QMessageBox>
-#include<QUrl>
-#include<QTimer>
-#include<QDesktopServices>
-#include<QNetworkRequest>
-#include<QNetworkReply>
+#include <QMessageBox>
+#include <QUrl>
+#include <QTimer>
+#include <QDesktopServices>
+#include <QNetworkRequest>
+#include <QNetworkReply>
 
 leagueserverhandler::leagueserverhandler()
 {   
@@ -72,7 +72,7 @@ void leagueserverhandler::loginFinished(){
     }
     startrefresh();
     emit sigloginsuccess();    
-    singleton<balloon_handler>().connectedtoleagueserver(servicename);
+    singleton<balloonHandler>().connectedToLeagueServer(servicename);
     if(sl.size()<2)
         return;
     bool b;

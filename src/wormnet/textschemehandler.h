@@ -1,9 +1,9 @@
 #ifndef TEXTSCHEMEHANDLER_H
 #define TEXTSCHEMEHANDLER_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include "ui_textschemehandler.h"
-#include<QTextCharFormat>
+#include <QTextCharFormat>
 
 class textschemehandler: public QWidget {
 Q_OBJECT

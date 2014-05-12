@@ -5,20 +5,20 @@
 // *      Author: looki
 // */
 
-//#include"snpsettings.h"
-//#include"settingswindow.h"
-//#include"myDebug.h"
-//#include"about.h"
-//#include"global_functions.h"
+//#include "snpsettings.h"
+//#include "settingswindow.h"
+//#include "myDebug.h"
+//#include "about.h"
+//#include "global_functions.h"
 
-//#include<QFile>
-//#include<QDir>
-//#include<QApplication>
-//#include<QMessageBox>
-//#include<QFileDialog>
-//#include<QDataStream>
-//#include<QTranslator>
-//#include<QLocale>
+//#include <QFile>
+//#include <QDir>
+//#include <QApplication>
+//#include <QMessageBox>
+//#include <QFileDialog>
+//#include <QDataStream>
+//#include <QTranslator>
+//#include <QLocale>
 
 //extern QStringList defaultServerList;
 //const QString Version_String="1";

@@ -7,7 +7,7 @@
 
 #ifndef HOSTSTRUCT_H_
 #define HOSTSTRUCT_H_
-#include<QString>
+#include <QString>
 #include "picturehandler.h"
 class hoststruct {
 public:
@@ -34,7 +34,7 @@ public:
             return QString::number(myflag);
         }
         const QString country() const{
-            QString s=singleton<picturehandler>().map_hostnumber_to_countrycode(mycountrynumber);
+            QString s=singleton<pictureHandler>().mapHostNumberToCountryCode(mycountrynumber);
             if(s.isEmpty())
                 return mycountry;
             else return s;

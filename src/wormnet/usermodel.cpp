@@ -1,17 +1,17 @@
-#include<QtGui>
+#include <QtGui>
 
-#include"usermodel.h"
-#include"settings.h"
-#include"settingswindow.h"
-#include"netcoupler.h"
-#include"ctcphandler.h"
+#include "usermodel.h"
+#include "settings.h"
+#include "settingswindow.h"
+#include "netcoupler.h"
+#include "ctcphandler.h"
 #ifdef PHONON
-#include"sound_handler.h"
+#include "sound_handler.h"
 #endif
-#include"global_functions.h"
-#include"clantowebpagemapper.h"
-#include"leagueserverhandler.h"
-#include"picturehandler.h"
+#include "global_functions.h"
+#include "clantowebpagemapper.h"
+#include "leagueserverhandler.h"
+#include "picturehandler.h"
 
 extern QStringList querylist;
 extern QString GamesourgeChannelName;
@@ -257,7 +257,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
             {
                 if (role != Qt::BackgroundRole)
                     break;
-                return singleton<picturehandler>().getflag(usermap[classes[index.internalId()]][index.row()]);
+                return singleton<pictureHandler>().getFlag(usermap[classes[index.internalId()]][index.row()]);
                 break;
             }
             case e_Rank:
@@ -292,7 +292,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
             case e_Flag:
             {
                 if (role == Qt::BackgroundRole)
-                    return singleton<picturehandler>().getflag(usermap[classes[index.internalId()]][index.row()]);
+                    return singleton<pictureHandler>().getFlag(usermap[classes[index.internalId()]][index.row()]);
                 break;
             }
             case e_Rank:
@@ -470,12 +470,12 @@ void usermodel::buddyarrived() {
     if (buddyarrivedhelper.size() > 3)
         buddyarrivedhelper.takeFirst();
 #ifdef PHONON
-    singleton<sound_handler>().play_buddyarrivedsound();
+    singleton<soundHandler>().play_buddyarrivedsound();
 #endif
 }
 void usermodel::buddyleft() {
 #ifdef PHONON
-    singleton<sound_handler>().play_buddyleftsound();
+    singleton<soundHandler>().play_buddyleftsound();
 #endif
 }
 void usermodel::usesettingswindow(const QString&) {
@@ -492,11 +492,11 @@ QVariant usermodel::getrank(const userstruct &u) const{
     if(S_S.spectateleagueserver){
         QString s=singleton<leagueserverhandler>().map_at_toString(u.nick,leagueserverhandler::e_rank);
         if(!s.isEmpty())
-            return *singleton<picturehandler>().getleaguerank(s);
+            return *singleton<pictureHandler>().getLeagueRank(s);
         if(S_S.cbonlyshowranksfromverifiedusers)
             return QVariant();
     }
-    return *singleton<picturehandler>().getrank(u.rank);
+    return *singleton<pictureHandler>().getRank(u.rank);
 }
 QVariant usermodel::getclan(const userstruct &u) const{
     QString s;

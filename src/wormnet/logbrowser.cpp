@@ -1,7 +1,7 @@
-#include"logbrowser.h"
-#include"global_functions.h"
+#include "logbrowser.h"
+#include "global_functions.h"
 
-#include<QPointer>
+#include <QPointer>
 logbrowser::logbrowser(QWidget *parent)
     : QWidget(parent)
 {

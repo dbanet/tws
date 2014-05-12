@@ -6,7 +6,7 @@
  */
 
 #include "uihelper.h"
-#include<QtGui>
+#include <QtGui>
 #include <QtGlobal>
 uihelper::uihelper() {
         sl << "hosts" << "chat" << "msg" << "users"<<"send"<<"splitter1"<<"splitter2"<<"buttonlayout"<<"pbsmiley";

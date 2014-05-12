@@ -1,6 +1,6 @@
-#include"buddylist.h"
+#include "buddylist.h"
 #include "settings.h"
-#include"global_functions.h"
+#include "global_functions.h"
 
 buddylist::buddylist(QWidget *parent) :
 	QWidget(parent) {

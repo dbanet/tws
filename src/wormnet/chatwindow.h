@@ -1,8 +1,8 @@
 #ifndef CHATWINDOW_H
 #define CHATWINDOW_H
 
-#include <QtGui/QWidget>
-#include<QPointer>
+#include <QWidget>
+#include <QPointer>
 #include "ui_chatwindow.h"
 #include "ctctphandlerwidget.h"
 class netcoupler;
@@ -28,7 +28,7 @@ private slots:
     void pblogclicked();
     void pbidleclicked();
     void pbctcpclicked();
-    void gotidletime(const QString&,int);
+    void gotidletime(const QString&,int,int);
     void gotnosuchnick(const QString&);
     void filtergarbage();    
     void on_pbsmiley_clicked();

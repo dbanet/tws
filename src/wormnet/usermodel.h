@@ -1,10 +1,10 @@
 #ifndef USERMODEL_H
 #define USERMODEL_H
-#include<QAbstractItemModel>
-#include<QPixmap>
-#include<QLinearGradient>
+#include <QAbstractItemModel>
+#include <QPixmap>
+#include <QLinearGradient>
 
-#include"userstruct.h"
+#include "userstruct.h"
 class usermodel: public QAbstractItemModel {
     Q_OBJECT
 public:

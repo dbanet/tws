@@ -1,14 +1,14 @@
-#include"clantowebpagemapper.h"
-#include"settingswindow.h"
-#include"settings.h"
-#include"leagueserverhandler.h"
+#include "clantowebpagemapper.h"
+#include "settingswindow.h"
+#include "settings.h"
+#include "leagueserverhandler.h"
 
-#include<QFile>
-#include<QDir>
-#include<QApplication>
-#include<QMessageBox>
-#include<QUrl>
-#include<QNetworkReply>
+#include <QFile>
+#include <QDir>
+#include <QApplication>
+#include <QMessageBox>
+#include <QUrl>
+#include <QNetworkReply>
 
 clantowebpagemapper::clantowebpagemapper()
 {
@@ -23,7 +23,7 @@ QString clantowebpagemapper::value(const QString &key){
     return map[key.toLower()];
 }
 void clantowebpagemapper::refresh(){
-    QUrl url("http://lookias.worms2d.info/wheat/clanlist.txt.php");
+    QUrl url("http://ultimateclan.net/parser/clans.php");
     reply = qnam.get(QNetworkRequest(url));
     connect(reply, SIGNAL(finished()),this, SLOT(httpFinished()));
     connect(reply, SIGNAL(readyRead()),this, SLOT(httpReadyRead()));

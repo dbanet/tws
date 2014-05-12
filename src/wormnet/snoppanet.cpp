@@ -1,49 +1,49 @@
-#include<QNetworkAccessManager>
-#include<QNetworkReply>
-#include<QNetworkRequest>
-#include<QFile>
-#include<QTextStream>
-#include<QApplication>
-#include<QDir>
-#include<QSignalMapper>
-#include<QProcess>
-#include<QMessageBox>
-#include<QTextCodec>
-#include<QTextDocumentFragment>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QNetworkRequest>
+#include <QFile>
+#include <QTextStream>
+#include <QApplication>
+#include <QDir>
+#include <QSignalMapper>
+#include <QProcess>
+#include <QMessageBox>
+#include <QTextCodec>
+#include <QTextDocumentFragment>
 
-#include"snoppanet.h"
-#include"settings.h"
-#include"settingswindow.h"
-#include"hoststruct.h"
-#include"inihandlerclass.h"
-#include"global_functions.h"
-#include"netcoupler.h"
+#include "snoppanet.h"
+#include "settings.h"
+#include "settingswindow.h"
+#include "hoststruct.h"
+#include "inihandlerclass.h"
+#include "global_functions.h"
+#include "netcoupler.h"
 
 extern inihandlerclass inihandler;
 snoppanet::snoppanet(QObject *parent) :
     QObject(parent) {
-    signalmapper = new QSignalMapper(this);
-    htmladdress = S_S.getstringlist("wormnetserverlist").first();
-    if(!htmladdress.startsWith("http://"))
-        htmladdress="http://"+htmladdress;
-    if(!htmladdress.endsWith("/"))
-        htmladdress=htmladdress+"/";
-    gameliststarts = 0;
-    hosttimer.start(S_S.getint("sbhostrepead"));
-    connect(&logintimer,SIGNAL(timeout()),this,SLOT(logintimertimeout()));
-    logintimer.setSingleShot (true);
+    signalMapper = new QSignalMapper(this);
+    htmlAddress = S_S.getStringList("wormnetserverlist").first();
+    if(!htmlAddress.startsWith("http://"))
+        htmlAddress="http://"+htmlAddress;
+    if(!htmlAddress.endsWith("/"))
+        htmlAddress=htmlAddress+"/";
+    gameListStarts = 0;
+    hostTimer.start(S_S.getint("sbhostrepead"));
+    connect(&loginTimer,SIGNAL(timeout()),this,SLOT(logintimertimeout()));
+    loginTimer.setSingleShot (true);
 }
 
 snoppanet::~snoppanet() {}
 void snoppanet::start() {
     request = inihandler.requestfromini("[http login header]");
-    request.setUrl(htmladdress + "/wormageddonweb/Login.asp?UserName=&Password=&IPAddress=");
+    request.setUrl(htmlAddress + "/wormageddonweb/Login.asp?UserName=&Password=&IPAddress=");
     reply = manager.get(request);
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
             this, SLOT(httpError(QNetworkReply::NetworkError)));
     connect(reply, SIGNAL(readyRead()),this, SLOT(readircip()));
     connect(reply,SIGNAL(finished()),reply,SLOT(deleteLater()));
-    logintimer.start (5000);
+    loginTimer.start (5000);
 }
 void snoppanet::logintimertimeout(){
     emit sigloginfailed();
@@ -51,7 +51,7 @@ void snoppanet::logintimertimeout(){
 void snoppanet::readircip() {    
     temp.append(reply->readAll());
     if (temp.contains(">") && temp.contains("<CONNECT ")) {
-        logintimer.stop ();
+        loginTimer.stop ();
         temp = temp.remove("<CONNECT ");
         temp=temp.left(temp.indexOf(">"));
         temp=temp.simplified();
@@ -67,53 +67,53 @@ void snoppanet::httpError(QNetworkReply::NetworkError error) {
     emit sigloginfailed();
     noErrorYet=false;
 }
-void snoppanet::setchannellist(const QStringList &sl) {
-    currentchannellist = sl;
-    requestlist.clear();
-    foreach(QNetworkReply *n,replylist) {
+void snoppanet::setChannelList(const QStringList &sl) {
+    currentChannelList = sl;
+    requestList.clear();
+    foreach(QNetworkReply *n,replyList) {
         Q_CHECK_PTR(n);
         n->deleteLater();
     }
-    replylist.clear();
-    foreach(QString s,currentchannellist) {
-        requestlist.push_back(request);
-        requestlist.last() = inihandler.requestfromini(
+    replyList.clear();
+    foreach(QString s,currentChannelList) {
+        requestList.push_back(request);
+        requestList.last() = inihandler.requestfromini(
                     "[http get host header]");
-        channelmap[requestlist.size() - 1] = s;
-        requestlist.last().setUrl(htmladdress
+        channelMap[requestList.size() - 1] = s;
+        requestList.last().setUrl(htmlAddress
                                   + "/wormageddonweb/GameList.asp?Channel=" + s.remove("#"));
-        replylist.push_back(manager.get(requestlist.last()));
-        connect(replylist.last(), SIGNAL(readyRead()),signalmapper, SLOT(map()));
-        signalmapper->setMapping(replylist.last(), replylist.size() - 1);
-        connect(replylist.last(), SIGNAL(error(QNetworkReply::NetworkError)),
+        replyList.push_back(manager.get(requestList.last()));
+        connect(replyList.last(), SIGNAL(readyRead()),signalMapper, SLOT(map()));
+        signalMapper->setMapping(replyList.last(), replyList.size() - 1);
+        connect(replyList.last(), SIGNAL(error(QNetworkReply::NetworkError)),
                 this, SLOT(httpError(QNetworkReply::NetworkError)));
     }
-    connect(signalmapper, SIGNAL(mapped(int)),this, SLOT(readgamelist(int)));
+    connect(signalMapper, SIGNAL(mapped(int)),this, SLOT(readgamelist(int)));
     templist.clear();
-    for (int i = 0; i < currentchannellist.size(); i++) {
+    for (int i = 0; i < currentChannelList.size(); i++) {
         templist << "";
     }
-    hosttimer.disconnect();
-    connect(&hosttimer, SIGNAL(timeout()),this, SLOT(hosttimertimeout()));
+    hostTimer.disconnect();
+    connect(&hostTimer, SIGNAL(timeout()),this, SLOT(hosttimertimeout()));
 }
 void snoppanet::hosttimertimeout() {
-    foreach(QNetworkReply *n,replylist) {
+    foreach(QNetworkReply *n,replyList) {
         Q_CHECK_PTR(n);
         n->deleteLater();
     }
-    replylist.clear();
+    replyList.clear();
     int i = 0;
-    foreach(QString s,currentchannellist) {
-        replylist.push_back(manager.get(requestlist[i]));
+    foreach(QString s,currentChannelList) {
+        replyList.push_back(manager.get(requestList[i]));
         i++;
-        connect(replylist.last(), SIGNAL(readyRead()),signalmapper, SLOT(map()));
-        signalmapper->setMapping(replylist.last(), replylist.size() - 1);
-        connect(replylist.last(), SIGNAL(error(QNetworkReply::NetworkError)),this, SLOT(httpError(QNetworkReply::NetworkError)));
+        connect(replyList.last(), SIGNAL(readyRead()),signalMapper, SLOT(map()));
+        signalMapper->setMapping(replyList.last(), replyList.size() - 1);
+        connect(replyList.last(), SIGNAL(error(QNetworkReply::NetworkError)),this, SLOT(httpError(QNetworkReply::NetworkError)));
     }
-    connect(signalmapper, SIGNAL(mapped(int)),this, SLOT(readgamelist(int)));
+    connect(signalMapper, SIGNAL(mapped(int)),this, SLOT(readgamelist(int)));
 }
 void snoppanet::readgamelist(int i) {
-    QByteArray byteArray=replylist[i]->readAll();
+    QByteArray byteArray=replyList[i]->readAll();
     static QTextCodec *codec=QTextCodec::codecForHtml(byteArray,QTextCodec::codecForName("WormsArmageddon"));
     templist[i].append(codec->toUnicode(byteArray));
     if (templist[i].contains("<GAMELISTEND>") && templist[i].contains("<GAMELISTSTART>")) {
@@ -133,7 +133,7 @@ void snoppanet::readgamelist(int i) {
             sltemp = s.split(" ");
             hostlist.last().sethost(sltemp);
         }
-        emit sighostlist(hostlist, channelmap[i]);
+        emit sighostlist(hostlist, channelMap[i]);
     } else if (templist[i].size() > 30000)
         templist[i].clear();
     else if (!templist[i].contains("<GAMELISTSTART>"))
@@ -143,7 +143,7 @@ void snoppanet::getscheme(QString s) {
     if (scheme.isEmpty()) {
         schemechannel = s;
         QNetworkRequest schemerequest = inihandler.requestfromini("[http get host header]");
-        schemerequest.setUrl(htmladdress
+        schemerequest.setUrl(htmlAddress
                              + "/wormageddonweb/RequestChannelScheme.asp?Channel="
                              + s.remove("#"));
         schemereply = manager.get(schemerequest);
@@ -171,19 +171,19 @@ void snoppanet::sendhost(hoststruct h) {
 }
 void snoppanet::closehostandstartlasthost(hoststruct h) {
     if (!h.isvalid()){
-        sendhostrequest();
+        sendHostRequest();
         return;
     }
     QNetworkRequest hostrequest = inihandler.requestfromini("[http get host header]");
-    QString s = htmladdress + "/wormageddonweb/Game.asp?Cmd=Close&GameID=" + h.id()
+    QString s = htmlAddress + "/wormageddonweb/Game.asp?Cmd=Close&GameID=" + h.id()
             + "&Name=" + h.name() + "&HostID=&GuestID=&GameType=0";
     hostrequest.setUrl(s);
     closehostreply = manager.get(hostrequest);
-    connect(closehostreply,SIGNAL(finished()),this,SLOT(closehostreplyfinished()));
-    connect(closehostreply,SIGNAL(finished()), closehostreply,SLOT(deleteLater()));
+    connect(closehostreply,SIGNAL(finished()),this,SLOT(closeHostReplyFinished()));
+    connect(closehostreply,SIGNAL(finished()),closehostreply,SLOT(deleteLater()));
 }
-void snoppanet::sendhostrequest(){
-    QNetworkRequest hostrequest = inihandler.requestfromini("[http get host header]");
+void snoppanet::sendHostRequest(){
+    QNetworkRequest hostRequest = inihandler.requestfromini("[http get host header]");
     QString port;
 #ifdef WITH_WORMNAT_SUPPORT
     if(S_S.getbool ("cbwormnat2"))
@@ -193,7 +193,7 @@ void snoppanet::sendhostrequest(){
 #else
     port = ":" + gethostportbyini();
 #endif // WITH_WORMNAT_SUPPORT
-    QUrl url(htmladdress+"/wormageddonweb/Game.asp");
+    QUrl url(htmlAddress+"/wormageddonweb/Game.asp");
     QHash<QString,QString> parameters;
     parameters.insert("Cmd","Create");
     parameters.insert("Name",lasthost.name());
@@ -207,25 +207,25 @@ void snoppanet::sendhostrequest(){
     for(QHash<QString,QString>::iterator i=parameters.begin();i!=parameters.end();i++)
         url.addEncodedQueryItem(QTextCodec::codecForName("WormsArmageddon")->fromUnicode(i.key()),
                                 QTextCodec::codecForName("WormsArmageddon")->fromUnicode(i.value()));
-    hostrequest.setUrl(url);
-    hostreply = manager.get(hostrequest);
+    hostRequest.setUrl(url);
+    hostreply = manager.get(hostRequest);
     connect(hostreply, SIGNAL(finished()),this, SLOT(hostreplyfinished()));
     connect(hostreply, SIGNAL(finished()),hostreply, SLOT(deleteLater()));
 }
-void snoppanet::closelasthost() {
+void snoppanet::closeLastHost() {
     hoststruct h=lasthost;
     QNetworkRequest hostrequest = inihandler.requestfromini("[http get host header]");
-    QString s = htmladdress + "/wormageddonweb/Game.asp?Cmd=Close&GameID=" + h.id()
+    QString s = htmlAddress + "/wormageddonweb/Game.asp?Cmd=Close&GameID=" + h.id()
             + "&Name=" + h.name() + "&HostID=&GuestID=&GameType=0";
     hostrequest.setUrl(s);
     closehostreply = manager.get(hostrequest);
 }
-void snoppanet::closehostreplyfinished(){
+void snoppanet::closeHostReplyFinished(){
     if(closehostreply->error()!=QNetworkReply::NoError)
         return;
-    QTimer::singleShot(1000,this,SLOT(sendhostrequest()));
+    QTimer::singleShot(1000,this,SLOT(sendHostRequest()));
 }
-void snoppanet::refreshhostlist() {
+void snoppanet::refreshHostList() {
     if (hostreply != 0) {
         hosttimertimeout();
     }
@@ -275,7 +275,7 @@ void snoppanet::hostreplyfinished() {
 hoststruct snoppanet::findmyhost(QList<hoststruct> list){
     QString ip;
     if(S_S.getbool ("cbwormnat2"))
-        ip=S_S.getstring ("wormnat2address")+ ":" + lasthostport ();
+        ip=S_S.getString ("wormnat2address")+ ":" + lasthostport ();
     else
         ip=singleton<netcoupler>().getmyhostip();
     foreach(hoststruct h,list){

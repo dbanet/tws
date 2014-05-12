@@ -1,7 +1,7 @@
 #include "ctctphandlerwidget.h"
-#include"ctcphandleratomic.h"
-#include<QFile>
-#include<QDataStream>
+#include "ctcphandleratomic.h"
+#include <QFile>
+#include <QDataStream>
 ctctphandlerwidget::ctctphandlerwidget(){
      setObjectName("ctcphandler");
     ui.setupUi(this);

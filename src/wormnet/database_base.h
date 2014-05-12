@@ -1,17 +1,17 @@
 #ifndef DATABASE_BASE_H
 #define DATABASE_BASE_H
-#include<QString>
-#include<QVariant>
-#include<QSqlQueryModel>
-#include<QStringList>
+#include <QString>
+#include <QVariant>
+#include <QSqlQueryModel>
+#include <QStringList>
 
 class database_base
 {
 public:
     database_base();
 
-    QString getstring(QString key) const;
-    QStringList getstringlist(QString key) const;
+    QString getString(QString key) const;
+    QStringList getStringList(QString key) const;
     bool getbool(QString key) const;
     int getint(QString key) const;
     QVariantList getlist(QString key) const;

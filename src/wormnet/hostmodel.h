@@ -1,9 +1,9 @@
 #ifndef HOSTMODEL_H
 #define HOSTMODEL_H
-#include<QAbstractItemModel>
-#include<QPixmap>
-#include<QStringList>
-#include"hoststruct.h"
+#include <QAbstractItemModel>
+#include <QPixmap>
+#include <QStringList>
+#include "hoststruct.h"
 
 class hostmodel: public QAbstractItemModel {
 Q_OBJECT

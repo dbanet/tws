@@ -1,7 +1,7 @@
 #ifndef JOINPRVGAME_H
 #define JOINPRVGAME_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include "ui_joinprvgame.h"
 
 class joinprvgame : public QWidget

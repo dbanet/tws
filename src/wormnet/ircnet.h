@@ -7,8 +7,8 @@
 #include <QFile>
 #include <QTextStream>
 
-#include"userstruct.h"
-#include"usermessage.h"
+#include "userstruct.h"
+#include "usermessage.h"
 class ircnet : public QObject
 {
     Q_OBJECT
@@ -49,7 +49,7 @@ signals: //public signals:
     //private signals:
     void sigconnected();
     void sigdisconnected();   
-    void siggotidletime(const QString&, int);
+    void siggotidletime(const QString&,int,int);
     void signosuchnick(const QString&);
     void sigconnectingfailed();
 

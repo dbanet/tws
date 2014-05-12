@@ -1,8 +1,8 @@
 #ifndef USERMESSAGE_H
 #define USERMESSAGE_H
-#include<QString>
+#include <QString>
 
-#include"global_macros.h"
+#include "global_macros.h"
 
 class usermessage{
 public:

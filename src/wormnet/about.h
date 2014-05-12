@@ -1,7 +1,7 @@
 #ifndef ABOUT_H
 #define ABOUT_H
 
-#include <QtGui/QFrame>
+#include <QFrame>
 #include "ui_about.h"
 
 class about : public QFrame

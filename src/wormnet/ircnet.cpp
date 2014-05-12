@@ -8,16 +8,16 @@
 
 #include "netcoupler.h"
 #include "singleton.h"
-#include"ircnet.h"
-#include"inihandlerclass.h"
-#include"settings.h"
-#include"settingswindow.h"
-#include"about.h"
-#include"codecselectdia.h"
-#include"global_functions.h"
-#include"myDebug.h"
-#include"picturehandler.h"
-#include"leagueserverhandler.h"
+#include "ircnet.h"
+#include "inihandlerclass.h"
+#include "settings.h"
+#include "settingswindow.h"
+#include "about.h"
+#include "codecselectdia.h"
+#include "global_functions.h"
+#include "myDebug.h"
+#include "picturehandler.h"
+#include "leagueserverhandler.h"
 #include "ircmessage.h"
 #include "singleton.h"
 extern inihandlerclass inihandler;
@@ -64,19 +64,19 @@ void ircnet::connected() {
     QString s = inihandler.stringlistfromini("[irc register]").first();    
     sl = s.split(" ", QString::SkipEmptyParts);
     s = sl.takeFirst() + "  ";
-    s.append(S_S.getstring("clan") + " ");
+    s.append(S_S.getString("clan") + " ");
     s.append(sl.takeFirst() + " ");
     s.append(sl.takeFirst() + " :");
-    QString flag=S_S.getstring("countrycode").toUpper();
-    s.append(singleton<picturehandler>().map_countrycode_to_number(flag)+ " ");   
+    QString flag=S_S.getString("countrycode").toUpper();
+    s.append(singleton<pictureHandler>().mapCountryCodeToNumber(flag)+ " ");
     if(S_S.getbool("leaguestatecoloron") && S_S.getbool("enablesecurelogging"))
-        s.append(S_S.getstring("leaguestatecolorname").remove('#')+" ");
+        s.append(S_S.getString("leaguestatecolorname").remove('#')+" ");
     else {
         int i=S_S.getint("rank");
         s.append(QString::number(i) + " ");
     }
     s.append(flag+" ");
-    s.append(S_S.getstring("information"));
+    s.append(S_S.getString("information"));
     tcp_write(s);
     tcp_write("list");    
     // tcp_write("who"); Bcuz now TWS will issue WHO only on channel, and only when join it.
@@ -312,6 +312,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
             /*******************************************************/
             /*                    other shiet                      */
             /*******************************************************/
+            "TOPIC"||ircMsg->command==
             "332"){ /*   TOPIC. TWS doesn't use it anyhow yet.  */ } else if(ircMsg->command==
             "333"){ /* This one is not declared in RFC, however */ } else if(ircMsg->command==
                     /* WormNet sends it just after the TOPIC.   */
@@ -325,18 +326,44 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 /* Here I output it decently to the main window.      ~~dbanet */
                 myDebug()<<ircMsg->trailing;
             } else if(ircMsg->command==
-            "376" || "372" || "375" || "250" || "260" || "265" || "255" || "254" || "252" || "251" || "005"){
-                /* Other various text messages just to be displayed to the user  */
-                /* upon connection I'm tired to describe separately.             */
-                /* Here I output it to the main window.                ~~dbanet  */
-                myDebug()<<ircMsg->trailing;
-            } else if(ircMsg->command==
-            "001"){
-            } else if(ircMsg->command==
             "004"){
                 /* Server info. Sent by server automatically on connect.  */
                 /* Here I output it decently to the main window. ~~dbanet */
                 myDebug()<<"Server Info: "<<ircMsg->paramList.join(" ").section(" ",1);
+            } else if(
+            ircMsg->command=="003" ||
+            ircMsg->command=="376" ||
+            ircMsg->command=="372" ||
+            ircMsg->command=="375" ||
+            ircMsg->command=="250" ||
+            ircMsg->command=="260" ||
+            ircMsg->command=="265" ||
+            ircMsg->command=="266" ||
+            ircMsg->command=="255" ||
+            ircMsg->command=="254" ||
+            ircMsg->command=="252" ||
+            ircMsg->command=="251" ||
+            ircMsg->command=="005" ){
+                /* Other various text messages just to be displayed to the user  */
+                /* upon connection I'm tired to describe separately.             */
+                /* Here I output it to the main window.                ~~dbanet  */
+                myDebug()<<ircMsg->trailing;
+            } else if(
+            ircMsg->command=="311" ||
+            ircMsg->command=="312" ||
+            ircMsg->command=="318" ||
+            ircMsg->command=="319" ){
+                /* Some parts of the WHOIS command. Doing nothing on these, because the full     */
+                /* support of WHOIS is not implemented yet, but there already is a "Show idle    */
+                /* time" button in a private chat that sends WHOIS on that user and shows us     */
+                /* his idle time which is returned in the WHOIS reply (numeric 317, see below).  */
+            } else if(ircMsg->command==
+            "317"){
+                /* Idle info. Sent by the server as a part of the reply to the /WHOIS command.   */
+                QString whoisSubject=ircMsg->paramList[1];
+                int idlePeriod=ircMsg->paramList[2].toInt();
+                int logonTime=ircMsg->paramList[3].toInt();
+                emit siggotidletime(whoisSubject,idlePeriod,logonTime);
             } else if(ircMsg->command==
             "401"){
                 /* this is sent by the server if the recepient of a PRIVMSG/NOTICE/QUERY doesn't */

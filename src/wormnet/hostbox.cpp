@@ -1,15 +1,15 @@
-#include"hostbox.h"
-#include"settings.h"
-#include"netcoupler.h"
-#include"global_functions.h"
+#include "hostbox.h"
+#include "settings.h"
+#include "netcoupler.h"
+#include "global_functions.h"
 
-#include<QFileDialog>
-#include<QPointer>
-#include<QKeyEvent>
-#include<QMessageBox>
-#include<QValidator>
-#include<QDesktopServices>
-#include<QUrl>
+#include <QFileDialog>
+#include <QPointer>
+#include <QKeyEvent>
+#include <QMessageBox>
+#include <QValidator>
+#include <QDesktopServices>
+#include <QUrl>
 
 hostbox::hostbox(QString c, QWidget *parent) :
     QWidget(parent),channel(c) {
@@ -19,14 +19,14 @@ hostbox::hostbox(QString c, QWidget *parent) :
     ui.lgamename->setText(QObject::tr("Gamename"));
     ui.lgameip->setText(QObject::tr("GameIp"));
 
-    QStringList sl = S_S.getstringlist("joinstrings");
+    QStringList sl = S_S.getStringList("joinstrings");
     ui.icons->addItems(sl);
     ui.cbip->setChecked(S_S.getbool("useacostumipforhosting"));
-    ui.leip->setText(S_S.getstring("costumipforhosting"));
+    ui.leip->setText(S_S.getString("costumipforhosting"));
     ui.cbwormnat2->setChecked (S_S.getbool ("cbwormnat2"));
 
     ui.legamename->setText(singleton<netcoupler>().nick);
-    QString gamename=S_S.getstring("legamename");
+    QString gamename=S_S.getString("legamename");
     if(!gamename.isEmpty())
         ui.legamename->setText(gamename);
     setWindowTitle(hostbox::tr("Create a public game in")+" " + channel);
@@ -39,7 +39,7 @@ hostbox::hostbox(QString c, QWidget *parent) :
     connect(ui.cancel, SIGNAL(clicked()),this, SLOT(cancelclicked()));
 
     ui.chbsendhostinfotochan->setChecked(S_S.getbool("chbsendhostinfotochan"));
-    ui.leplayername->setText(S_S.getstring("leplayername"));
+    ui.leplayername->setText(S_S.getString("leplayername"));
     ui.lehostport->setText(gethostportbyini());
 
     ui.legamename->installEventFilter(this);
@@ -60,23 +60,17 @@ void hostbox::showEvent(QShowEvent * /*event*/) {
 }
 void hostbox::addclicked() {
     QString file;
-#ifdef Q_WS_QWS
-    error;
-#endif
-#ifdef Q_WS_MAC
+#ifdef Q_OS_UNIX
     file = QFileDialog::getOpenFileName(this, tr(
-                                            "Choose a desktop icon."), "/home", "*.desktop");
-#endif
-#ifdef Q_WS_X11
-    file = QFileDialog::getOpenFileName(this, tr(
-                                            "Choose a desktop icon."), "/home", "*.desktop");
-#endif
-#ifdef Q_WS_WIN
+                                            "Choose a desktop icon."), "/home", "Linux Desktop Icon (*.desktop);;WINE Executable File (*.exe *.cmd)");
+#elif defined(Q_OS_WIN32) | defined(Q_OS_OS2)
     file = QFileDialog::getOpenFileName(this, tr(
                                             "Choose a Program."), "c:/", "*.exe *.com");
-#endif       
+#else
+    file = QFileDialog::getOpenFileName(this, tr("Choose a Program."));
+#endif
     if (file != "") {
-        QStringList sl = S_S.getstringlist("joinstrings");
+        QStringList sl = S_S.getStringList("joinstrings");
         if (!sl.contains(file) && file != "") {
             sl.insert(0, file);
             S_S.set("joinstrings", sl);
@@ -90,7 +84,7 @@ void hostbox::addclicked() {
 }
 void hostbox::okclicked() {
     S_S.transaction();
-    if(ui.lehostport->text()!= S_S.getstring("lehostport"))
+    if(ui.lehostport->text()!= S_S.getString("lehostport"))
         sethostport(ui.lehostport->text());
     S_S.set("leplayername", ui.leplayername->text().replace(' ','_'));
     S_S.set("chbsendhostinfotochan", ui.chbsendhostinfotochan->isChecked());
@@ -104,7 +98,7 @@ void hostbox::okclicked() {
     pwd = ui.lepassword->text();
     icon = ui.icons->currentText();    
     S_S.commit();
-    QStringList sl = S_S.getstringlist("joinstrings");
+    QStringList sl = S_S.getStringList("joinstrings");
     if (!sl.isEmpty()) {
         sl.move(sl.indexOf(ui.icons->currentText()), 0);
         S_S.set("joinstrings", sl);
@@ -133,7 +127,7 @@ void hostbox::okclicked() {
         QMessageBox::warning (this,QObject::tr("Warning"),tr("Please add a Game executable!"));
 }
 bool hostbox::verifywormnat(){
-    QString s=S_S.getstringlist("joinstrings").first ();
+    QString s=S_S.getStringList("joinstrings").first ();
     s=QFileInfo(s).path ();
     QString msg=tr("Using Wormnat2 hosting requires some wk files to be moved to your Worms Armageddon folder, these files may replace old files. "
                    "Also make sure you have enabled \"Load WormKit modules\" in game settings (3.7.0.0 and newer).\n"

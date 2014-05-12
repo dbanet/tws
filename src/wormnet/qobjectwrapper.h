@@ -1,6 +1,6 @@
 #ifndef QOBJECTWRAPPER_H
 #define QOBJECTWRAPPER_H
-#include<stdexcept>
+#include <stdexcept>
 template <typename T>
         class qobjectwrapper
 {

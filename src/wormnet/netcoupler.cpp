@@ -1,30 +1,30 @@
 
-#include<QFile>
-#include<QClipboard>
-#include<QTime>
-#include<QMessageBox>
+#include <QFile>
+#include <QClipboard>
+#include <QTime>
+#include <QMessageBox>
 
-#include"netcoupler.h"
-#include"ircnet.h"
-#include"snoppanet.h"
-#include"inihandlerclass.h"
-#include"settings.h"
-#include"window.h"
-#include"joinprvgame.h"
-#include"settingswindow.h"
-#include"volumeslider.h"
-#include"mainwindow.h"
-#include"playername.h"
+#include "netcoupler.h"
+#include "ircnet.h"
+#include "snoppanet.h"
+#include "inihandlerclass.h"
+#include "settings.h"
+#include "window.h"
+#include "joinprvgame.h"
+#include "settingswindow.h"
+#include "volumeslider.h"
+#include "mainwindow.h"
+#include "playername.h"
 #ifdef PHONON
-#include"sound_handler.h"
+#include "sound_handler.h"
 #endif
-#include"global_functions.h"
-#include"global_functions.h"
-#include"balloon_handler.h"
-#include"hostbox.h"
-#include"awayhandler.h"
-#include"chatwindow.h"
-#include"ctcphandler.h"
+#include "global_functions.h"
+#include "global_functions.h"
+#include "balloon_handler.h"
+#include "hostbox.h"
+#include "awayhandler.h"
+#include "chatwindow.h"
+#include "ctcphandler.h"
 
 extern volumeslider *volume;
 extern inihandlerclass inihandler;
@@ -42,12 +42,12 @@ void netcoupler::start(QString s){
         p=new QProcess(this);
         p->setProcessChannelMode(QProcess::MergedChannels);
 #ifdef PHONON
-        connect(volume, SIGNAL(valueChanged (int)),&singleton<sound_handler>(), SLOT(volumechange(int)));
+        connect(volume, SIGNAL(valueChanged (int)),&singleton<soundHandler>(), SLOT(volumechange(int)));
 #endif
-        connect(&users, SIGNAL(sigbuddyarrived()),&singleton<balloon_handler>(), SLOT(buddyarrived()));
-        connect(&users, SIGNAL(sigbuddyleft()),&singleton<balloon_handler>(), SLOT(buddyleft()));
-        connect(this,SIGNAL(sigconnected()),&singleton<balloon_handler>(),SLOT(connected()));
-        connect(this,SIGNAL(sigdisconnected()),&singleton<balloon_handler>(),SLOT(disconnected()));
+        connect(&users, SIGNAL(sigbuddyarrived()),&singleton<balloonHandler>(), SLOT(buddyArrived()));
+        connect(&users, SIGNAL(sigbuddyleft()),&singleton<balloonHandler>(), SLOT(buddyLeft()));
+        connect(this,SIGNAL(sigconnected()),&singleton<balloonHandler>(),SLOT(connected()));
+        connect(this,SIGNAL(sigdisconnected()),&singleton<balloonHandler>(),SLOT(disconnected()));
         connect(p, SIGNAL(readyRead()),this, SLOT(readprocess()));
 
         connect(this, SIGNAL(sigsettingswindowchanged()),this, SLOT(initSoundAndStartWho()));
@@ -62,7 +62,7 @@ void netcoupler::start(QString s){
     http = new snoppanet(this);
     connect(http, SIGNAL(sigchannelscheme(QString,QString)),this, SLOT(getscheme(QString,QString)));
     connect(irc, SIGNAL(siggotusermessage(const usermessage)),this,SLOT(getusermessage(const usermessage)));
-    connect(irc, SIGNAL(siggotidletime(const QString&, int)),this, SIGNAL(siggotidletime(const QString&, int)));
+    connect(irc, SIGNAL(siggotidletime(const QString&,int,int)),this, SIGNAL(siggotidletime(const QString&,int,int)));
     connect(irc, SIGNAL(signosuchnick(const QString&)),this, SIGNAL(signosuchnick(const QString&)));
     connect(http, SIGNAL(sighostlist(QList<hoststruct>,QString)),this, SLOT(gethostlist(QList<hoststruct>,QString)));
     connect(http,SIGNAL(sigloginfailed()),this,SIGNAL(sigdisconnected()));
@@ -95,7 +95,7 @@ netcoupler::~netcoupler() {
 void netcoupler::stop(){
     connectstate=e_stoped;
     userstruct::addressischecked=0;
-    sendquit(S_S.getstring("information"));
+    sendquit(S_S.getString("information"));
 }
 void netcoupler::joinchannel(const QString &s) {
     if(irc)
@@ -105,12 +105,12 @@ void netcoupler::joinchannel(const QString &s) {
     http->getscheme(s);
     if (!listofjoinedchannels.contains(s))
         listofjoinedchannels << s;
-    http->setchannellist(listofjoinedchannels);
+    http->setChannelList(listofjoinedchannels);
 }
 void netcoupler::partchannel(const QString &s) {
     irc->partchannel(s);
     listofjoinedchannels.removeOne(s);
-    http->setchannellist(listofjoinedchannels);
+    http->setChannelList(listofjoinedchannels);
 }
 void netcoupler::emitSigGotChanList(QStringList chanList) {
     emit sigGotChanList(chanList);
@@ -225,10 +225,10 @@ void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &
         return;
     looki::currentchannel=chan;
     QString s=nick;
-    if (!S_S.getstring("leplayername").isEmpty())
-        s=S_S.getstring("leplayername");
+    if (!S_S.getString("leplayername").isEmpty())
+        s=S_S.getString("leplayername");
     hoststruct h;
-    QString hostcountrynumber=singleton<picturehandler>().map_hostcountrycode_to_number(singleton<picturehandler>().map_number_to_countrycode(flag));         
+    QString hostcountrynumber=singleton<pictureHandler>().mapHostCountryCodeToNumber(singleton<pictureHandler>().mapNumberToCountryCode(flag));
     h.sethost(name,s,getmyhostip(),flag,"??","",pwd,chan,hostcountrynumber);
     http->sendhost(h);
 //    connect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));
@@ -237,7 +237,7 @@ void netcoupler::getmywormnethost(QString id){
     QString ip=getmyhostip();
 //    disconnect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));    
     QString host = QString("wa://%1?gameid="+id + "&scheme=%2").arg(ip + ":" + lasthostport ()).arg(schememap[looki::currentchannel]);
-    QString msg = QString("hosted a game: %1, %2").arg(S_S.getstring("legamename")).arg(host);
+    QString msg = QString("hosted a game: %1, %2").arg(S_S.getString("legamename")).arg(host);
     if (S_S.getbool("chbsendhostinfotochan"))
         sendinfotochan(looki::currentchannel, msg);
     createhost(id);
@@ -254,16 +254,16 @@ void netcoupler::getmywormnethost(QString id){
 QString netcoupler::getmyhostip(){
     QString address=myip;
     if(S_S.getbool ("cbwormnat2"))
-        address=S_S.getstring ("wormnat2address");
+        address=S_S.getString ("wormnat2address");
     else if(S_S.getbool("useacostumipforhosting"))
-        address=S_S.getstring("costumipforhosting");
+        address=S_S.getString("costumipforhosting");
     return address;
 }
 void netcoupler::readprocess() {
     qWarning() << qobject_cast<QProcess*> (sender())->readAll();
 }
 QString netcoupler::getprocessstring() {
-    QStringList sl = S_S.getstringlist("joinstrings");
+    QStringList sl = S_S.getStringList("joinstrings");
     if (sl.isEmpty()){
         QMessageBox::warning(0, "", tr("No executables are given.\n"
                                        "you must choose a game executable,\n"
@@ -271,7 +271,7 @@ QString netcoupler::getprocessstring() {
                              QMessageBox::Ok);
         return QString();
     }
-#ifdef Q_WS_MAC
+#ifdef Q_OS_UNIX
     if (!sl.isEmpty()) {
         QString file = sl.first();
         QFile f(file);
@@ -290,28 +290,7 @@ QString netcoupler::getprocessstring() {
             }
         }
     }
-#endif
-#ifdef Q_WS_X11
-    if (!sl.isEmpty()) {
-        QString file = sl.first();
-        QFile f(file);
-        if (f.open(QFile::ReadOnly)) {
-            QTextStream ts(&f);
-            QString s = ts.readLine();
-            int i = 0;
-            while (!s.startsWith("Exec=") && !ts.atEnd() && i < 50) {
-                i++;
-                s = ts.readLine();
-            }
-            if (!ts.atEnd() && i < 50) {
-                QString temp = s;
-                temp.remove("Exec=");
-                return temp;
-            }
-        }
-    }
-#endif
-#ifdef Q_WS_WIN
+#elif defined(Q_OS_WIN32) | defined(Q_OS_OS2)
     if(!sl.isEmpty()) {
         if(sl.first().contains("WormKit.exe",Qt::CaseInsensitive)) {            
             return QString("\"")+sl.first()+"\" wa.exe";
@@ -330,14 +309,14 @@ void netcoupler::sendinfotochan(const QString &chan, const QString &msg) {
 }
 void netcoupler::initSoundAndStartWho() {
 #ifdef PHONON
-    singleton<sound_handler>().init();
+    singleton<soundHandler>().init();
 #endif
 }
 void netcoupler::settingswindowemitfunktion() { //signals are protected?!
     emit sigsettingswindowchanged();
 }
 void netcoupler::refreshhostlist() {
-    http->refreshhostlist();
+    http->refreshHostList();
 }
 void netcoupler::startprocess(const QString &s){    
     if(S_S.getbool("chbhidechannelwindowsongame")){

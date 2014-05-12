@@ -1,12 +1,12 @@
-#include"buttonlayout.h"
-#include"netcoupler.h"
-#include"settings.h"
-#include"settingswindow.h"
-#include"leagueserverhandler.h"
+#include "buttonlayout.h"
+#include "netcoupler.h"
+#include "settings.h"
+#include "settingswindow.h"
+#include "leagueserverhandler.h"
 
-#include<QMenu>
-#include<QPointer>
-#include<QColorDialog>
+#include <QMenu>
+#include <QPointer>
+#include <QColorDialog>
 buttonlayout::buttonlayout(QWidget *parent) :
     QWidget(parent) {
     ui.setupUi(this);    
@@ -27,9 +27,9 @@ buttonlayout::buttonlayout(QWidget *parent) :
     ui.chatwindowbuttonscrollArea->installEventFilter(this);
     setMaximumHeight(23);
     if(S_S.getbool("cbcostumword"))
-        ui.pbcostumwords->setText(QObject::tr("Custom words")+" "+QObject::tr("on"));
+        ui.pbcustomwords->setText(QObject::tr("Custom words")+" "+QObject::tr("on"));
     else
-        ui.pbcostumwords->setText(QObject::tr("Custom words") +" "+QObject::tr("off"));
+        ui.pbcustomwords->setText(QObject::tr("Custom words") +" "+QObject::tr("off"));
 
     if(S_S.getbool("cbdontplaysound"))
         ui.pbsound->setText(QObject::tr("Sound")+" "+QObject::tr("off"));
@@ -74,16 +74,16 @@ void buttonlayout::showbuttons() {
 buttonlayout::~buttonlayout() {
 
 }
-void buttonlayout::on_pbcostumwords_clicked()
+void buttonlayout::onPbcustomwordsClicked()
 {
     bool b=S_S.getbool("cbcostumword");
     singleton<settingswindow>().set("cbcostumword",!b);
     if(!b)
-        ui.pbcostumwords->setText(QObject::tr("Custom words")+" "+QObject::tr("on"));
+        ui.pbcustomwords->setText(QObject::tr("Custom words")+" "+QObject::tr("on"));
     else
-        ui.pbcostumwords->setText(QObject::tr("Custom words")+" "+QObject::tr("off"));
+        ui.pbcustomwords->setText(QObject::tr("Custom words")+" "+QObject::tr("off"));
 }
-void buttonlayout::on_pbsound_clicked()
+void buttonlayout::onPbSoundClicked()
 {
     bool b=S_S.getbool("cbdontplaysound");
     singleton<settingswindow>().set("cbdontplaysound",!b);
@@ -93,7 +93,7 @@ void buttonlayout::on_pbsound_clicked()
         ui.pbsound->setText(QObject::tr("Sound")+" "+QObject::tr("on"));
 
 }
-void buttonlayout::on_pbballoon_clicked()
+void buttonlayout::onPbBalloonClicked()
 {
     bool b=S_S.getbool("cbshowballoons");
     singleton<settingswindow>().set("cbshowballoons",!b);
@@ -102,7 +102,7 @@ void buttonlayout::on_pbballoon_clicked()
     else
         ui.pbballoon->setText(QObject::tr("Balloons")+" "+QObject::tr("on"));
 }
-void buttonlayout::on_pbsort_clicked()
+void buttonlayout::onPbSortClicked()
 {
     bool b=S_S.getbool("cbdontsortinchannels");
     singleton<sqlsettings>().set("cbdontsortinchannels",!b);
@@ -148,7 +148,7 @@ void buttonlayout::leaguestatemenutriggered(QAction *action){
                 return;
         } else
             qDebug()<<"void buttonlayout::leaguestatemenutriggered(QAction *action)";
-        if(c.name()==S_S.getstring("leaguestatecolorname") && S_S.getbool("leaguestatecoloron"))
+        if(c.name()==S_S.getString("leaguestatecolorname") && S_S.getbool("leaguestatecoloron"))
             return;
         S_S.set("leaguestatecolorname",c.name());
         S_S.set("leaguestatecoloron",true);
@@ -157,7 +157,7 @@ void buttonlayout::leaguestatemenutriggered(QAction *action){
 }
 void buttonlayout::fillleaguemenus(){
     leaguemenu->addAction(tr("Off"));
-    foreach(QString s,S_S.getstringlist("leagueservers"))
+    foreach(QString s,S_S.getStringList("leagueservers"))
         leaguemenu->addAction(s);    
     ui.pbspectate->setMenu(leaguemenu);
     QAction *a;

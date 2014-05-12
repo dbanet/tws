@@ -1,7 +1,7 @@
 #ifndef MAINTOOLBOX_H
 #define MAINTOOLBOX_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 class mytabwidget;
 class QVBoxLayout;
 class maintoolbox : public QWidget
