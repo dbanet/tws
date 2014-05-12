@@ -5,7 +5,6 @@
 #include "chathandler.h"
 #include "hostbox.h"
 #include "settingswindow.h"
-#include "buttonlayout.h"
 #ifdef PHONON
 #include "sound_handler.h"
 #endif
@@ -34,30 +33,20 @@ QList< ::window*> window::hiddenchannelwindowshelper;
 extern QStringList querylist;
 window::window(QString s, int i) :
     currentchannel(s), chaticon("snppictures/Chat_Icon.png") {
-
-    buttons = new buttonlayout(this);
-    buttons->fillleaguemenus();
+    qDebug()<<"window::window(QString s,int i)///";
     setAttribute(Qt::WA_DeleteOnClose);
-    setAttribute(Qt::WA_TranslucentBackground);
     setObjectName("channelwindow");
-    if (i == 1)
+    /*if (i == 1)
         ui1.setupUi(this);
     if (i == 2)
         ui2.setupUi(this);
     if (i == 3)
         ui3.setupUi(this);
-    whichuiison = i;    
-    connect(buttons, SIGNAL(pbhostclicked()),this, SLOT(openhbox()));
-    connect(buttons, SIGNAL(pbminimizedclicked()),this, SLOT(minimize()));
-    connect(buttons, SIGNAL(sigchangealpha(int)),this, SLOT(changealpha(int)));
-    connect(buttons, SIGNAL(sigshowme()),this, SLOT(showbuttons()));
-    connect(buttons, SIGNAL(sigchangeleaguestate()),this, SIGNAL(sigchangeleaguestate()));
-
-    ui.getchilds(this);    
-
+    whichuiison = i;    */
+    ui.setupUi(this);
+    qDebug()<<"ui.users->setAlternatingRowColors(1)";
     ui.users->setAlternatingRowColors(1);
     ui.hosts->setAlternatingRowColors(1);
-    ui.buttonlayout->addWidget(buttons);    
     ui.users->installEventFilter(this);
     connect(&singleton<netcoupler>().users, SIGNAL(sigselectitem(const QModelIndex&,const QWidget*)),this, SLOT(setselection(const QModelIndex&,const QWidget*)));    
     chat = new chatHandler(this, ui.chat, currentchannel);
@@ -73,6 +62,7 @@ window::window(QString s, int i) :
     ui.users->setColumnWidth(3, 48);
     ui.users->setColumnWidth(4, 120);    
 
+    qDebug()<<"ui.users->setSortingEnabled(1)";
     ui.users->setSortingEnabled(1);
     ui.users->header()->setSortIndicator(0, Qt::AscendingOrder);
     ui.users->header()->setSortIndicator(1, Qt::AscendingOrder);
@@ -81,6 +71,7 @@ window::window(QString s, int i) :
     ui.users->header()->setSortIndicatorShown(1);
     connect(ui.users->header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),&singleton<netcoupler>().users, SLOT(sortslot(int, Qt::SortOrder)));
 
+    qDebug()<<"ui.hosts->setModel(&singleton<netcoupler>().hosts)";
     ui.hosts->setModel(&singleton<netcoupler>().hosts);
     ui.hosts->setEnabled(1);
     ui.hosts->setSortingEnabled(1);
@@ -90,6 +81,7 @@ window::window(QString s, int i) :
     ui.hosts->setColumnWidth(1, 120);
     ui.hosts->header()->setSortIndicatorShown(0);
 
+    qDebug()<<"joinmenu2.setTitle(tr(\"Join\"))";
     joinmenu2.setTitle(tr("Join"));
     hostmenu.addAction(tr("Host a game in ") + currentchannel);    
     joinmenu.addMenu(&joinmenu2);
@@ -100,6 +92,7 @@ window::window(QString s, int i) :
     customlistmenu.addAction(tr("Remove this user from the list."));
     customlistmenu.addAction(tr("Show info about this user."))->setIcon(chaticon);
 
+    qDebug()<<"connect(ui.users, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(useritemdblclicked(const QModelIndex&)))";
     connect(ui.users, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(useritemdblclicked(const QModelIndex&)));
     connect(ui.users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
     connect(ui.hosts, SIGNAL(pressed(const QModelIndex&)),this, SLOT(hostitempressed(const QModelIndex&)));
@@ -109,29 +102,10 @@ window::window(QString s, int i) :
     connect(&singleton<netcoupler>(),SIGNAL(sigUpdatedAmountOfUsers(QString,int)),this,SLOT(setupWindowTitleOnChangeOfUserAmount(QString,int)));
     connect(ui.msg, SIGNAL(returnPressed()),this, SLOT(sendmsg()));        
 
+    qDebug()<<"ui.msg->setFocus(Qt::MouseFocusReason)";
     ui.msg->setFocus(Qt::MouseFocusReason);
 
-    QVariantList windowstates = S_S.getlist(currentchannel + QString::number(whichuiison));
-    if (!windowstates.isEmpty()) {
-        if (!windowstates.isEmpty())
-            restoreGeometry(windowstates.takeFirst().toByteArray());
-        if (!windowstates.isEmpty())
-            ui.splitter1->restoreState(windowstates.takeFirst().toByteArray());
-        if (!windowstates.isEmpty())
-            ui.splitter2->restoreState(windowstates.takeFirst().toByteArray());
-        if (!windowstates.isEmpty())
-            ui.users->header()->restoreState(windowstates.takeFirst().toByteArray());
-        if (!windowstates.isEmpty())
-            ui.hosts->header()->restoreState(windowstates.takeFirst().toByteArray());
-        if (!windowstates.isEmpty())
-            ui.hosts->header()->resizeSection(3,windowstates.takeFirst().toInt());
-        if (!windowstates.isEmpty())
-            ui.hosts->header()->resizeSection(4,windowstates.takeFirst().toInt());
-        if (!windowstates.isEmpty())
-            ui.users->header()->resizeSection(3,windowstates.takeFirst().toInt());
-        if (!windowstates.isEmpty())
-            ui.users->header()->resizeSection(4,windowstates.takeFirst().toInt());
-    }
+    qDebug()<<"ui.hosts->setColumnWidth(3, 16)";
     ui.hosts->setColumnWidth(3, 16);
     ui.hosts->setColumnWidth(2, 22);
     ui.users->setColumnWidth(1, 22);
@@ -142,6 +116,7 @@ window::window(QString s, int i) :
     ui.hosts->header()->setResizeMode(3, QHeaderView::Fixed);
 
     windowtitlechannel =  currentchannel;
+    qDebug()<<"ASDFASDFASDF";
 }
 void window::pbemotclicked(){
     emoticonsdialog *dia = new emoticonsdialog;
@@ -263,8 +238,6 @@ void window::sendmsg() {
 void window::closeEvent(QCloseEvent * /*event*/) {    
     QVariantList windowstates;
     windowstates << saveGeometry();
-    windowstates << ui.splitter1->saveState();
-    windowstates << ui.splitter2->saveState();
     windowstates << ui.users->header()->saveState();
     windowstates << ui.hosts->header()->saveState();
     windowstates << ui.hosts->header()->sectionSize(3);
@@ -543,7 +516,6 @@ void window::changealpha(int i) {
         setWindowOpacity((double) i / 100);
 }
 void window::showbuttons() {
-    ui.buttonlayout->addWidget(buttons);
 }
 void window::mysetwindowtitle() {
     setWindowTitle(QString()
@@ -568,8 +540,6 @@ void window::setupWindowTitleOnChangeOfUserAmount(QString channel,int amountOfUs
     mysetwindowtitle();
 }
 window::~window() {
-    ui.buttonlayout->removeWidget(buttons);
-    buttons->setParent(0);       
     singleton<netcoupler>().partchannel(currentchannel);
     QString s = currentchannel;
     containsCI(singleton<netcoupler>().hosts.hostmap.keys(), s);

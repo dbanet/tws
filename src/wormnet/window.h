@@ -11,8 +11,6 @@
 #include "netcoupler.h"
 #include "userstruct.h"
 #include "hoststruct.h"
-#include "uihelper.h"
-class buttonlayout;
 class hostbox;
 class chatHandler;
 class chatwindow;
@@ -27,7 +25,6 @@ public:
     static QStringList chatwindowstringlist;
     void gotdebugmsg(const QString&);
 
-    buttonlayout *buttons;
     static QList< ::window*> hiddenchannelwindowshelper;
     QPointer<chatHandler> chat;		//handles the whole textbrowser
     QString windowtitleaway;
@@ -63,10 +60,9 @@ private slots:
     void insertemot(QString s);
 
 private:
-    uihelper ui;
-    Ui::windowClass ui1;
-    Ui::Form ui2;
-    Ui::Form3 ui3;
+    Ui::windowClass ui;
+    //Ui::Form ui2;
+    //Ui::Form3 ui3;
 
     QMenu joinmenu;
     QMenu joinmenu2;

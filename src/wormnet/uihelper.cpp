@@ -17,7 +17,6 @@ uihelper::uihelper() {
 	wl.push_back((QObject**)&send);
 	wl.push_back((QObject**)&splitter1);
 	wl.push_back((QObject**)&splitter2);
-	wl.push_back((QObject**)&buttonlayout);
         wl.push_back((QObject**)&pbsmiley);
 	Q_ASSERT_X(wl.size()==sl.size(),"uihelper","size of the stringlist is unequal to the size of the vector");
 	// TODO Auto-generated constructor stub

@@ -18,7 +18,6 @@
 
 #include <QtGui>
 #include <QApplication>
-#include <QPlastiqueStyle>
 #include <QTextStream>
 #include <QTextCodec>
 #include <QDir>

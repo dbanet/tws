@@ -28,7 +28,6 @@ public:
 	QPushButton *send;
 	QSplitter *splitter1;
 	QSplitter *splitter2;
-	QHBoxLayout *buttonlayout;
         QPushButton *pbsmiley;
 
 	QStringList sl;

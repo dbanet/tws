@@ -25,12 +25,12 @@ chatwindow::chatwindow(const QString &s, QWidget *parent) :
     setAttribute(Qt::WA_DeleteOnClose);
     setObjectName("chatwindow");
     ui.setupUi(this);    
-    ui.pbbuddy->setObjectName("chatwindowbutton");
-    ui.pbctcp->setObjectName("chatwindowbutton");
-    ui.pbidle->setObjectName("chatwindowbutton");
-    ui.pblog->setObjectName("chatwindowbutton");
-    ui.pbmute->setObjectName("chatwindowbutton");
-    ui.pbfilter->setObjectName("chatwindowbutton");    
+    //ui.pbbuddy->setObjectName("chatwindowbutton");
+    //ui.pbctcp->setObjectName("chatwindowbutton");
+    //ui.pbidle->setObjectName("chatwindowbutton");
+    //ui.pblog->setObjectName("chatwindowbutton");
+    //ui.pbmute->setObjectName("chatwindowbutton");
+    //ui.pbfilter->setObjectName("chatwindowbutton");
     ui.chatwindowbuttonscrollArea->installEventFilter(this);
     update();    
     chat = new chathandlerprv(this, ui.chat, chatpartner);
@@ -52,29 +52,28 @@ chatwindow::chatwindow(const QString &s, QWidget *parent) :
 #ifdef PHONON
     singleton<soundHandler>().play_chatwindowopensound();
 #endif
-    if (containsCI(S_S.getStringList("mutedusers"), chatpartner))
-        ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
-    else
-        ui.pbmute->setIcon(QIcon("snppictures/buttons/mutebutton.png"));
-    if (containsCI(S_S.buddylist, chatpartner))
-        ui.pbbuddy->setIcon(QIcon("snppictures/buttons/normal.png"));
-    else
-        ui.pbbuddy->setIcon(QIcon("snppictures/buttons/buddy.png"));
+    //if (containsCI(S_S.getStringList("mutedusers"), chatpartner))
+        //ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
+    //else
+        //ui.pbmute->setIcon(QIcon("snppictures/buttons/mutebutton.png"));
+    //if (containsCI(S_S.buddylist, chatpartner))
+        //ui.pbbuddy->setIcon(QIcon("snppictures/buttons/normal.png"));
+    //else
+        //ui.pbbuddy->setIcon(QIcon("snppictures/buttons/buddy.png"));
 
-    ui.pblog->setIcon(QIcon("snppictures/buttons/log.png"));
-    ui.pbidle->setIcon(QIcon("snppictures/buttons/idle.png"));
-    ui.pbctcp->setIcon(QIcon("snppictures/buttons/ctcp.png"));
-    ui.pbfilter->setIcon(QIcon("snppictures/buttons/filter.png"));
-    ui.pbsmileys->setIcon(QIcon("snppictures/buttons/smileys.png"));
-    ui.pbresize->setIcon(QIcon("snppictures/buttons/resize.png"));
-    ui.buttonlayout->setAlignment(Qt::AlignLeft);
-    connect(ui.pbmute, SIGNAL(clicked()),this, SLOT(pbmuteclicked()));
-    connect(ui.pbbuddy, SIGNAL(clicked()),this, SLOT(pbbuddyclicked()));
-    connect(ui.pblog, SIGNAL(clicked()),this, SLOT(pblogclicked()));
-    connect(ui.pbidle, SIGNAL(clicked()),this, SLOT(pbidleclicked()));
-    connect(ui.pbctcp, SIGNAL(clicked()),this, SLOT(pbctcpclicked()));
-    connect(ui.pbfilter, SIGNAL(clicked()),this, SLOT(filtergarbage()));
-    connect(ui.pbsmileys, SIGNAL(clicked()),chat->emot, SLOT(show()));
+    //ui.pblog->setIcon(QIcon("snppictures/buttons/log.png"));
+    //ui.pbidle->setIcon(QIcon("snppictures/buttons/idle.png"));
+    //ui.pbctcp->setIcon(QIcon("snppictures/buttons/ctcp.png"));
+    //ui.pbfilter->setIcon(QIcon("snppictures/buttons/filter.png"));
+    //ui.pbsmileys->setIcon(QIcon("snppictures/buttons/smileys.png"));
+    //ui.pbresize->setIcon(QIcon("snppictures/buttons/resize.png"));
+    //connect(ui.pbmute, SIGNAL(clicked()),this, SLOT(pbmuteclicked()));
+    //connect(ui.pbbuddy, SIGNAL(clicked()),this, SLOT(pbbuddyclicked()));
+    //connect(ui.pblog, SIGNAL(clicked()),this, SLOT(pblogclicked()));
+    //connect(ui.pbidle, SIGNAL(clicked()),this, SLOT(pbidleclicked()));
+    //connect(ui.pbctcp, SIGNAL(clicked()),this, SLOT(pbctcpclicked()));
+    //connect(ui.pbfilter, SIGNAL(clicked()),this, SLOT(filtergarbage()));
+    //connect(ui.pbsmileys, SIGNAL(clicked()),chat->emot, SLOT(show()));
 
     connect(&singleton<netcoupler>(), SIGNAL(siggotidletime(const QString&,int,int)),this, SLOT(gotidletime(const QString&,int,int)));
     connect(&singleton<netcoupler>(), SIGNAL(signosuchnick(const QString&)),this, SLOT(gotnosuchnick(const QString&)));
@@ -150,24 +149,24 @@ void chatwindow::getgamerwho(QString prefix) {
 void chatwindow::pbmuteclicked() {
     if (containsCI(S_S.getStringList("mutedusers"), chatpartner)) {
         S_S.remove("mutedusers",chatpartner);
-        ui.pbmute->setIcon(QIcon("snppictures/buttons/mutebutton.png"));
+        //ui.pbmute->setIcon(QIcon("snppictures/buttons/mutebutton.png"));
     } else {
         S_S.append("mutedusers", chatpartner);
-        ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
+        //ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
     }    
 }
 void chatwindow::pbbuddyclicked() {
     if (containsCI(S_S.buddylist, chatpartner)) {
-        ui.pbbuddy->setIcon(QIcon("snppictures/buttons/buddy.png"));
+        //ui.pbbuddy->setIcon(QIcon("snppictures/buttons/buddy.png"));
         QStringList sl = S_S.buddylist;
         S_S.set("buddylist", removeCI(sl, chatpartner));
     } else if (containsCI(S_S.ignorelist, chatpartner)) {
         QStringList sl = S_S.ignorelist;
         S_S.set("ignorelist", removeCI(sl, chatpartner));
         S_S.append("buddylist", chatpartner);
-        ui.pbbuddy->setIcon(QIcon("snppictures/buttons/normal.png"));
+        //ui.pbbuddy->setIcon(QIcon("snppictures/buttons/normal.png"));
     } else {
-        ui.pbbuddy->setIcon(QIcon("snppictures/buttons/normal.png"));
+        //ui.pbbuddy->setIcon(QIcon("snppictures/buttons/normal.png"));
         S_S.set("buddylist", S_S.buddylist << chatpartner);
     }
 }
