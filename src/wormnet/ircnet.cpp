@@ -331,12 +331,14 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 /* Here I output it decently to the main window. ~~dbanet */
                 myDebug()<<"Server Info: "<<ircMsg->paramList.join(" ").section(" ",1);
             } else if(
+            ircMsg->command=="003" ||
             ircMsg->command=="376" ||
             ircMsg->command=="372" ||
             ircMsg->command=="375" ||
             ircMsg->command=="250" ||
             ircMsg->command=="260" ||
             ircMsg->command=="265" ||
+            ircMsg->command=="266" ||
             ircMsg->command=="255" ||
             ircMsg->command=="254" ||
             ircMsg->command=="252" ||
