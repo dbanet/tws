@@ -14,7 +14,7 @@ buttonlayout::buttonlayout(QWidget *parent) :
     leaguestatemenu=new QMenu;
     ui.horizontalLayout->setAlignment(Qt::AlignLeft);
     setObjectName("buttoenlayout");
-    connect(ui.pbrefresh, SIGNAL(clicked()),&singleton<netcoupler>(), SLOT(refreshhostlist()));
+    connect(ui.pbrefresh, SIGNAL(clicked()),&singleton<netcoupler>(), SLOT(refreshHostList()));
     connect(ui.pbhost, SIGNAL(clicked()),this, SIGNAL(pbhostclicked()));
     connect(ui.pbminimize, SIGNAL(clicked()),this, SIGNAL(pbminimizedclicked()));
     connect(ui.slideralpha,SIGNAL(valueChanged ( int )),this,SIGNAL(sigchangealpha(int)));
@@ -131,7 +131,7 @@ void buttonlayout::leaguestatemenutriggered(QAction *action){
         if(!S_S.getbool("leaguestatecoloron"))
             return;
         S_S.set("leaguestatecoloron",false);
-        emit sigchangeleaguestate();
+        emit sigChangeLeagueState();
     } else {
         QColor c;
         if(action->text()==tr("Ready to play"))
@@ -152,7 +152,7 @@ void buttonlayout::leaguestatemenutriggered(QAction *action){
             return;
         S_S.set("leaguestatecolorname",c.name());
         S_S.set("leaguestatecoloron",true);
-        emit sigchangeleaguestate();
+        emit sigChangeLeagueState();
     }
 }
 void buttonlayout::fillleaguemenus(){

@@ -77,7 +77,7 @@ void settingswindow::ok() {
             S_S.set(s, qobject_cast<combobox_wrapper*> (o)->get());
     }
     close();
-    singleton<netcoupler>().settingswindowemitfunktion();
+    singleton<netcoupler>().settingsWindowEmitFunction();
     S_S.commit();
 }
 void settingswindow::cancel() {

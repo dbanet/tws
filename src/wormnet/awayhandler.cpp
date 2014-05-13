@@ -55,16 +55,16 @@ void awayhandler::gamefinished() {
 void awayhandler::sendBack(){
     foreach(QString user,rememberwhogotaway.keys()) {
         if (S_S.getbool("chbbacktonormals") && !containsCI(S_S.getStringList("ignorelist"), user)) {
-            singleton<netcoupler>().sendusermessage(usermessage(S_S.getString("lebackmessage"), e_NOTICE, user));
+            singleton<netcoupler>().sendUserMessage(usermessage(S_S.getString("lebackmessage"), e_NOTICE, user));
             int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(user));
             if (i != -1 && singleton<netcoupler>().users.users[i].clan != "Username")
-                singleton<netcoupler>().sendusermessage(usermessage("back", e_CTCP, user));
+                singleton<netcoupler>().sendUserMessage(usermessage("back", e_CTCP, user));
         } else if (S_S.getbool("chbbacktobuddys")) {
             if (containsCI(S_S.getStringList("buddylist"), user)){
-                singleton<netcoupler>().sendusermessage(usermessage(S_S.getString("lebackmessage"), e_NOTICE, user));
+                singleton<netcoupler>().sendUserMessage(usermessage(S_S.getString("lebackmessage"), e_NOTICE, user));
                 int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(user));
                 if (i != -1 && singleton<netcoupler>().users.users[i].clan != "Username")
-                    singleton<netcoupler>().sendusermessage(usermessage("back", e_CTCP, user));
+                    singleton<netcoupler>().sendUserMessage(usermessage("back", e_CTCP, user));
             }
         }
     }
@@ -123,10 +123,10 @@ void awayhandler::sendaway(const QString &user){
     if(!away())
         return;
     if (rememberwhogotaway[user] != message()) {
-        singleton<netcoupler>().sendusermessage(usermessage::create(message(), user));
+        singleton<netcoupler>().sendUserMessage(usermessage::create(message(), user));
         int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(user));
         if (i != -1 && singleton<netcoupler>().users.users[i].clan != "Username")
-            singleton<netcoupler>().sendusermessage(usermessage("away " + trim(message()), e_CTCP, user));
+            singleton<netcoupler>().sendUserMessage(usermessage("away " + trim(message()), e_CTCP, user));
         qobjectwrapper<awayhandler>::ref().rememberwhogotaway[user] = message();
     }    
 }

@@ -74,7 +74,7 @@ chatHandler::chatHandler(QObject *parent, QTextBrowser *t, QString chan) :
     wamenu.addAction(tr("Set the color for this texttype"));
 
     connect(tb->verticalScrollBar(), SIGNAL(valueChanged(int)),this, SLOT(slidermoved(int)));
-    connect(&singleton<netcoupler>(), SIGNAL(sigsettingswindowchanged()),this, SLOT(useSettingsWindow()));
+    connect(&singleton<netcoupler>(), SIGNAL(sigSettingsWindowChanged()),this, SLOT(useSettingsWindow()));
     connect(tb,SIGNAL(selectionChanged()),this,SLOT(selectionChanged()));
 }
 bool chatHandler::eventFilter(QObject *obj, QEvent *event){
@@ -410,7 +410,7 @@ void chatHandler::getNewFontAndColorWithChatwindow(QTextCharFormat *format){
             QColor f = QColorDialog::getColor(format->foreground().color(), 0);
             setSchemeMap(format->intProperty(whatsthispropertyId), f);
         } else
-            emit sigopenchatwindow(format->stringProperty(userpropertyId));
+            emit sigOpenChatWindow(format->stringProperty(userpropertyId));
     }
 }
 void chatHandler::getNewFontAndColorWithWalink(QTextCharFormat *format){
@@ -429,7 +429,7 @@ void chatHandler::getNewFontAndColorWithWalink(QTextCharFormat *format){
         } else {
             joinprvgame *prv = new joinprvgame(format->anchorHref(), chatpartner);
             prv->show();
-            connect(prv, SIGNAL(sigjoingamelink(const QString&)),&singleton<netcoupler>(), SLOT(joingamelink(const QString&)));
+            connect(prv, SIGNAL(sigjoingamelink(const QString&)),&singleton<netcoupler>(), SLOT(joinGameLink(const QString&)));
         }
     }
 }

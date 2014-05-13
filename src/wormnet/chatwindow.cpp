@@ -76,8 +76,8 @@ chatwindow::chatwindow(const QString &s, QWidget *parent) :
     connect(ui.pbfilter, SIGNAL(clicked()),this, SLOT(filtergarbage()));
     connect(ui.pbsmileys, SIGNAL(clicked()),chat->emot, SLOT(show()));
 
-    connect(&singleton<netcoupler>(), SIGNAL(siggotidletime(const QString&,int,int)),this, SLOT(gotidletime(const QString&,int,int)));
-    connect(&singleton<netcoupler>(), SIGNAL(signosuchnick(const QString&)),this, SLOT(gotnosuchnick(const QString&)));
+    connect(&singleton<netcoupler>(), SIGNAL(sigGotIdleTime(const QString&,int,int)),this, SLOT(gotidletime(const QString&,int,int)));
+    connect(&singleton<netcoupler>(), SIGNAL(sigNoSuchNick(const QString&)),this, SLOT(gotnosuchnick(const QString&)));
     statusbar = new QStatusBar(this);
     ui.verticalLayout_2->addWidget(statusbar);
     statusbar->setMaximumHeight(20);
@@ -114,7 +114,7 @@ void chatwindow::getusermessage(usermessage u_arg){
         chat->append(u_arg);
         singleton<balloonHandler>().alert(u_arg.user(), this);
 #ifdef PHONON
-        if (singleton<netcoupler>().buddylistcontains(u_arg.user()))
+        if (singleton<netcoupler>().buddyListContains(u_arg.user()))
             singleton<soundHandler>().play_buddymsgsound(u_arg.user());
         else
             singleton<soundHandler>().play_normalmsgsound(u_arg.user());
@@ -132,7 +132,7 @@ void chatwindow::sendmsg() {
         return;
     usermessage u=usermessage::create(s, chatpartner);
     chat->append(u);    
-    singleton<netcoupler>().sendusermessage(u);
+    singleton<netcoupler>().sendUserMessage(u);
 
     ui.lineEdit->clear();
     chat->moveSliderToMaximum();
@@ -182,7 +182,7 @@ void chatwindow::pblogclicked() {
     }
 }
 void chatwindow::pbidleclicked() {
-    singleton<netcoupler>().sendusermessage(usermessage("whois " + chatpartner, e_RAWCOMMAND, chatpartner));
+    singleton<netcoupler>().sendUserMessage(usermessage("whois " + chatpartner, e_RAWCOMMAND, chatpartner));
 }
 void chatwindow::gotidletime(const QString &user,int idlePeriod,int logonTime) {
     QTime time(0,0,0); time=time.addSecs(idlePeriod);
@@ -217,7 +217,7 @@ chatwindow::~chatwindow() {
     chat->disconnect();
     chat->deleteLater();
     emit
-            sigclosed();
+            sigClosed();
 }
 
 void chatwindow::on_pbresize_clicked()

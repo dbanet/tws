@@ -22,45 +22,45 @@ class window : public QWidget
 public:
     window(QString s,int i=1);
     ~window();
-    const QString currentchannel;
-    static QList<chatwindow*> chatwindows;
-    static QStringList chatwindowstringlist;
+    const QString currentChannel;
+    static QList<chatwindow*> chatWindowsList;
+    static QStringList chatWindowsStringList;
     void gotdebugmsg(const QString&);
 
     buttonlayout *buttons;
-    static QList< ::window*> hiddenchannelwindowshelper;
+    static QList< ::window*> hiddenChannelWindowsHelper;
     QPointer<chatHandler> chat;		//handles the whole textbrowser
-    QString windowtitleaway;
-    void mysetwindowtitle();    
-    void getusermessage(usermessage u);
+    QString windowAwayTitle;
+    void updateWindowTitle();    
+    void getUserMessage(usermessage u);
 public slots:
     void minimize();        
 private slots:        
-    void sendmsg();    
-    void useritempressed(const QModelIndex&);
-    void useritemdblclicked(const QModelIndex&);
-    void getuserinfo(const QString&);
-    void openchatwindow(const QString&);
+    void sendMessage();
+    void userItemPressed(const QModelIndex&);
+    void userItemDoubleClicked(const QModelIndex&);
+    void getUserInfo(const QString&);
+    void openChatWindow(const QString&);
 
-    void hostitempressed(const QModelIndex&);
-    void hostitemdblclicked(const QModelIndex&);
+    void hostItemPressed(const QModelIndex&);
+    void hostItemDoubleClicked(const QModelIndex&);
 
-    void hboxok();
+    void hostBoxOk();
 
-    void userselectionchanged(const QItemSelection&,const QItemSelection&);
-    void setselection(const QModelIndex&,const QWidget*);    
+    void userSelectionChanged(const QItemSelection&,const QItemSelection&);
+    void setSelection(const QModelIndex&,const QWidget*);
 
     //void expandchannels(QStringList sl);	//expand on startup
-    void expandchannels();
-    void getjoinmenu();
-    void openhbox();
-    void changealpha(int);
-    void showbuttons();
+    void expandChannels();
+    void getJoinMenu();
+    void openHostBox();
+    void changeAlpha(int);
+    void showButtons();
     void setupWindowTitleOnJoin(QString,int);
     void setupWindowTitleOnChangeOfUserAmount(QString,int);
-    void pbemotclicked();
+    void pbEmotClicked();
 
-    void insertemot(QString s);
+    void insertEmot(QString s);
 
 private:
     uihelper ui;
@@ -68,27 +68,27 @@ private:
     Ui::Form ui2;
     Ui::Form3 ui3;
 
-    QMenu joinmenu;
-    QMenu joinmenu2;
-    QMenu hostmenu;
-    QMenu usermenu;
-    QMenu customlistmenu;
+    QMenu joinMenu;
+    QMenu joinMenu2;
+    QMenu hostMenu;
+    QMenu userMenu;
+    QMenu customListMenu;
 
-    QPointer<hostbox> hbox;
+    QPointer<hostbox> hostBox;
 
     void showInformationAboutClan(QString);    
 
-    QIcon chaticon;
-    int whichuiison;
+    QIcon chatIcon;
+    int whichUIIsOn;
 
-    QString windowtitletime;
-    QString windowtitlechannel;
+    QString windowTitleUsersAmount;
+    QString windowTitleChannelName;
 
 signals:
-    void sigclosed();
-    void sigjoinchannel(const QString&);
-    void sigopenchatwindow(const QString&);
-    void sigchangeleaguestate();
+    void sigClosed();
+    void sigjoinChannel(const QString&);
+    void sigOpenChatWindow(const QString&);
+    void sigChangeLeagueState();
 protected:
     void closeEvent ( QCloseEvent * event );
     bool eventFilter(QObject *obj, QEvent *event);		//for the linedit in ui

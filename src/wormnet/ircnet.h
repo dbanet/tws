@@ -19,19 +19,18 @@ public:
 //        QUIT=1,PRIVMSG,PART,JOIN,NOTICE
 //    };
 
-    void joinchannel(const QString&);    
+    void joinChannel(const QString&);
 
-    void sendusermessage(const usermessage u);
+    void sendUserMessage(const usermessage u);
 
-    void setip(const QString&);
-    void refreshlist();
+    void setIP(const QString&);
+    void refreshList();
     void who();
-    void partchannel(const QString&);
+    void partChannel(const QString&);
     void quit(QString s);
     QHash<QString/* channel name */,int/* amount of  users */> channellist;
     int state() const;
-    QList<userstruct> wholist;
-    QHash<QString,QStringList> joinlist;
+    QList<userstruct> userList;
     QString nick;
     QString canonizeChannelName(QString);
 public slots:
@@ -39,36 +38,27 @@ public slots:
     void reconnect();
     void connected();
     void disconnected();
-    void tcpread();
+    void tcpRead();
 signals: //public signals:
-    void sigmsg(const QString &user,const QString &receiver,const QString &msg);
-    void siggotusermessage(const usermessage u);
+    void sigMessage(const QString &user,const QString &receiver,const QString &msg);
+    void sigGotUserMessage(const usermessage u);
     void sigIRCReceivedChanList(QStringList);
     void sigIRCJoinedChannel(QString,int);
     void sigIRCUpdatedAmountOfUsers(QString,int);
     //private signals:
-    void sigconnected();
-    void sigdisconnected();   
-    void siggotidletime(const QString&,int,int);
-    void signosuchnick(const QString&);
-    void sigconnectingfailed();
+    void sigConnected();
+    void sigDisconnected();
+    void sigGotIdleTime(const QString&,int,int);
+    void sigNoSuchNick(const QString&);
+    void sigConnectionFailed();
 
 private:
-    bool justgetlist;
-
-    QList<userstruct> templist;
-
-    QStringList joinedchannellist;
-    QStringList tempchannellist;
-    QString ircreadstring;
+    bool justGotList;
+    QStringList joinedChannels;
+    QString ircReadString;
     QString wnip;
-    QString servermessageindicator;
     QTcpSocket *tcp;
-    void readservermassege(QString);
-    void readusermessage(QString &);        
-
-    bool whoreceivedcompletely;
-    void tcp_write(const QString &msg);    
+    void tcpWrite(const QString &msg);
 
 private slots:
     void tcpError(QAbstractSocket::SocketError);

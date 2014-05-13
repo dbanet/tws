@@ -32,7 +32,7 @@ namespace looki {
     QString currentchannel;
 }
 netcoupler::netcoupler() {
-    connectstate=e_stoped;
+    connectState=e_stoped;
     irc=NULL;
     http=NULL;
     p=NULL;
@@ -46,27 +46,27 @@ void netcoupler::start(QString s){
 #endif
         connect(&users, SIGNAL(sigbuddyarrived()),&singleton<balloonHandler>(), SLOT(buddyArrived()));
         connect(&users, SIGNAL(sigbuddyleft()),&singleton<balloonHandler>(), SLOT(buddyLeft()));
-        connect(this,SIGNAL(sigconnected()),&singleton<balloonHandler>(),SLOT(connected()));
-        connect(this,SIGNAL(sigdisconnected()),&singleton<balloonHandler>(),SLOT(disconnected()));
-        connect(p, SIGNAL(readyRead()),this, SLOT(readprocess()));
+        connect(this,SIGNAL(sigConnected()),&singleton<balloonHandler>(),SLOT(connected()));
+        connect(this,SIGNAL(sigDisconnected()),&singleton<balloonHandler>(),SLOT(disconnected()));
+        connect(p, SIGNAL(readyRead()),this, SLOT(readProcess()));
 
-        connect(this, SIGNAL(sigsettingswindowchanged()),this, SLOT(initSoundAndStartWho()));
-        connect(this, SIGNAL(sigsettingswindowchanged()),&users, SLOT(usesettingswindow()));
+        connect(this, SIGNAL(sigSettingsWindowChanged()),this, SLOT(initSoundAndStartWho()));
+        connect(this, SIGNAL(sigSettingsWindowChanged()),&users, SLOT(usesettingswindow()));
     }
-    connectstate=e_started;
+    connectState=e_started;
     nick=s;
     S_S.append("mutedusers", nick);
     irc = new ircnet(s, this);
-    connect(irc,SIGNAL(sigconnected()),this,SLOT(ircconnected()));
-    connect(irc,SIGNAL(sigdisconnected()),this,SLOT(ircdisconnected()));
+    connect(irc,SIGNAL(sigConnected()),this,SLOT(ircConnected()));
+    connect(irc,SIGNAL(sigDisconnected()),this,SLOT(ircDisconnected()));
     http = new snoppanet(this);
-    connect(http, SIGNAL(sigchannelscheme(QString,QString)),this, SLOT(getscheme(QString,QString)));
-    connect(irc, SIGNAL(siggotusermessage(const usermessage)),this,SLOT(getusermessage(const usermessage)));
-    connect(irc, SIGNAL(siggotidletime(const QString&,int,int)),this, SIGNAL(siggotidletime(const QString&,int,int)));
-    connect(irc, SIGNAL(signosuchnick(const QString&)),this, SIGNAL(signosuchnick(const QString&)));
-    connect(http, SIGNAL(sighostlist(QList<hoststruct>,QString)),this, SLOT(gethostlist(QList<hoststruct>,QString)));
-    connect(http,SIGNAL(sigloginfailed()),this,SIGNAL(sigdisconnected()));
-    connect(http,SIGNAL(sigstarthost(QString)),this,SLOT(getmywormnethost(QString)));
+    connect(http, SIGNAL(sigchannelscheme(QString,QString)),this, SLOT(getScheme(QString,QString)));
+    connect(irc, SIGNAL(sigGotUserMessage(const usermessage)),this,SLOT(getUserMessage(const usermessage)));
+    connect(irc, SIGNAL(sigGotIdleTime(const QString&,int,int)),this, SIGNAL(sigGotIdleTime(const QString&,int,int)));
+    connect(irc, SIGNAL(sigNoSuchNick(const QString&)),this, SIGNAL(sigNoSuchNick(const QString&)));
+    connect(http, SIGNAL(sighostlist(QList<hoststruct>,QString)),this, SLOT(getHostList(QList<hoststruct>,QString)));
+    connect(http,SIGNAL(sigloginfailed()),this,SIGNAL(sigDisconnected()));
+    connect(http,SIGNAL(sigstarthost(QString)),this,SLOT(getMyWormnetHost(QString)));
 //    connect(http,SIGNAL(sighoststarts(QString)),this,SLOT(getmywormnethost(hoststruct)));
 
     /****************************************************************/
@@ -77,11 +77,11 @@ void netcoupler::start(QString s){
 
     QStringList sl = inihandler.stringlistfromini("[irc ip]");
     if (sl.isEmpty()) {
-        connect(http, SIGNAL(sigircip(QString)),this, SLOT(getircip(QString)));
+        connect(http, SIGNAL(sigircip(QString)),this, SLOT(getIRCIP(QString)));
         http->start();
     } else {
-        ircip = sl.first();
-        irc->setip(ircip);
+        ircIP = sl.first();
+        irc->setIP(ircIP);
         irc->start();
         initSoundAndStartWho();
     }    
@@ -93,24 +93,24 @@ netcoupler::~netcoupler() {
     http->deleteLater();    
 }
 void netcoupler::stop(){
-    connectstate=e_stoped;
+    connectState=e_stoped;
     userstruct::addressischecked=0;
-    sendquit(S_S.getString("information"));
+    sendQuit(S_S.getString("information"));
 }
-void netcoupler::joinchannel(const QString &s) {
+void netcoupler::joinChannel(const QString &s) {
     if(irc)
-        irc->joinchannel(s);
+        irc->joinChannel(s);
     if(!http)
         return;
     http->getscheme(s);
-    if (!listofjoinedchannels.contains(s))
-        listofjoinedchannels << s;
-    http->setChannelList(listofjoinedchannels);
+    if (!listOfJoinedChannels.contains(s))
+        listOfJoinedChannels << s;
+    http->setChannelList(listOfJoinedChannels);
 }
-void netcoupler::partchannel(const QString &s) {
-    irc->partchannel(s);
-    listofjoinedchannels.removeOne(s);
-    http->setChannelList(listofjoinedchannels);
+void netcoupler::partChannel(const QString &s) {
+    irc->partChannel(s);
+    listOfJoinedChannels.removeOne(s);
+    http->setChannelList(listOfJoinedChannels);
 }
 void netcoupler::emitSigGotChanList(QStringList chanList) {
     emit sigGotChanList(chanList);
@@ -121,88 +121,88 @@ void netcoupler::emitSigJoinedChannel(QString channel,int amountOfUsers) {
 void netcoupler::emitSigUpdatedAmountOfUsers(QString channel,int amountOfUsers){
     emit sigUpdatedAmountOfUsers(channel,amountOfUsers);
 }
-void netcoupler::getircip(QString s) {
+void netcoupler::getIRCIP(QString s) {
     if(!irc)
         return;
-    irc->setip(s);
+    irc->setIP(s);
     irc->start();
     initSoundAndStartWho();
 }
-void netcoupler::gethostlist(QList<hoststruct> l, QString s) {
-    refreshlist();
+void netcoupler::getHostList(QList<hoststruct> l, QString s) {
+    refreshList();
     hosts.sethoststruct(l, s);
 }
-void netcoupler::getusermessage(const usermessage u){
-    emit siggotusermessage(u);
+void netcoupler::getUserMessage(const usermessage u){
+    emit sigGotUserMessage(u);
 }
-void netcoupler::sendusermessage(const usermessage u){
+void netcoupler::sendUserMessage(const usermessage u){
     if(!irc)
         return;
     if(u.has_type(e_SCRIPTCOMMAND))
-        getusermessage(u);
+        getUserMessage(u);
     else
-        irc->sendusermessage(u);
+        irc->sendUserMessage(u);
 }
-void netcoupler::refreshlist() {
+void netcoupler::refreshList() {
     if(!irc)
         return;
-    irc->refreshlist();
+    irc->refreshList();
 }
-void netcoupler::sendquit(QString s){
+void netcoupler::sendQuit(QString s){
     if(irc==NULL)
         return;
     irc->quit(s);
 }
-void netcoupler::getscheme(QString chan, QString scheme) {
-    schememap[chan] = scheme;
+void netcoupler::getScheme(QString chan, QString scheme) {
+    schemeMap[chan] = scheme;
 }
-void netcoupler::refreshwho() {
-    qDebug()<<"void netcoupler::refreshwho()";
+void netcoupler::refreshWho() {
+    qDebug()<<"void netcoupler::refreshWho()";
 }
-void netcoupler::ircconnected(){
-    emit sigconnected();
+void netcoupler::ircConnected(){
+    emit sigConnected();
 }
-void netcoupler::ircdisconnected(){
+void netcoupler::ircDisconnected(){
     users.clear();
-    emit sigdisconnected();
+    emit sigDisconnected();
 }
-void netcoupler::joingamelink(const QString &gamelink) {
+void netcoupler::joinGameLink(const QString &gamelink) {
     joinprvgame *cast = qobject_cast<joinprvgame*> (sender());
     Q_CHECK_PTR(cast);
     looki::currentchannel = cast->chan;
-    QString temp = getprocessstring();    
+    QString temp = getProcessString();
     if (temp == QString())
         return;
     temp = temp + " \"" + gamelink + "\"";
-    startprocess(temp);
+    startProcess(temp);
 }
-void netcoupler::joingame(const QString &hostinfo, const QString &channel, const QString &gamename) {
+void netcoupler::joinGame(const QString &hostinfo, const QString &channel, const QString &gamename) {
     looki::currentchannel = channel;
-    QString temp = getprocessstring();
+    QString temp = getProcessString();
     if (temp == QString())
         return;
     temp = temp + hostinfo;
-    startprocess(temp);
+    startProcess(temp);
     if (S_S.getbool("chbactionwhenjoining"))
-        sendinfotochan(channel, "joined a game: " + gamename);
+        sendInfoToChan(channel, "joined a game: " + gamename);
 }
-void netcoupler::createhost(QString id){
+void netcoupler::createHost(QString id){
     if(!http)
         return;
     if (users.users.indexOf(userstruct::whoami(nick)) == -1)
         return;
-    QString temp = getprocessstring();
+    QString temp = getProcessString();
     if (temp == QString())
         return;
     QString s;
     if(!http->lasthost.pwd().isEmpty())
         s="&password="+http->lasthost.pwd();
-    temp = temp + " \"" + "wa://" + "?gameid="+ id + "&scheme=" + schememap[looki::currentchannel] + s+"\"";
+    temp = temp + " \"" + "wa://" + "?gameid="+ id + "&scheme=" + schemeMap[looki::currentchannel] + s+"\"";
 #ifdef WITH_WORMNAT_SUPPORT
     if(S_S.getbool ("cbwormnat2"))
         temp += getwormnat2commandline();
 #endif
-    startprocess(temp);
+    startProcess(temp);
 }
 //void netcoupler::createhost(hoststruct h) {
 //    if(!http)
@@ -220,7 +220,7 @@ void netcoupler::createhost(QString id){
 //    temp = temp + " \"" + "wa://" + "?gameid="+ h.id() + "&scheme=" + schememap[looki::currentchannel] + s+"\"";
 //    startprocess(temp);
 //}
-void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,int flag){
+void netcoupler::sendHostInfoToServerAndHost(const QString &name,const QString &pwd, const QString &chan,int flag){
     if(!http)
         return;
     looki::currentchannel=chan;
@@ -229,18 +229,18 @@ void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &
         s=S_S.getString("leplayername");
     hoststruct h;
     QString hostcountrynumber=singleton<pictureHandler>().mapHostCountryCodeToNumber(singleton<pictureHandler>().mapNumberToCountryCode(flag));
-    h.sethost(name,s,getmyhostip(),flag,"??","",pwd,chan,hostcountrynumber);
+    h.sethost(name,s,getMyHostIP(),flag,"??","",pwd,chan,hostcountrynumber);
     http->sendhost(h);
 //    connect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));
 }
-void netcoupler::getmywormnethost(QString id){
-    QString ip=getmyhostip();
+void netcoupler::getMyWormnetHost(QString id){
+    QString ip=getMyHostIP();
 //    disconnect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));    
-    QString host = QString("wa://%1?gameid="+id + "&scheme=%2").arg(ip + ":" + lasthostport ()).arg(schememap[looki::currentchannel]);
+    QString host = QString("wa://%1?gameid="+id + "&scheme=%2").arg(ip + ":" + lasthostport ()).arg(schemeMap[looki::currentchannel]);
     QString msg = QString("hosted a game: %1, %2").arg(S_S.getString("legamename")).arg(host);
     if (S_S.getbool("chbsendhostinfotochan"))
-        sendinfotochan(looki::currentchannel, msg);
-    createhost(id);
+        sendInfoToChan(looki::currentchannel, msg);
+    createHost(id);
 }
 //void netcoupler::getmywormnethost(hoststruct h){
 //    QString address=getmyhostip();
@@ -251,18 +251,18 @@ void netcoupler::getmywormnethost(QString id){
 //        sendinfotochan(looki::currentchannel, msg);
 //    createhost(h);
 //}
-QString netcoupler::getmyhostip(){
-    QString address=myip;
+QString netcoupler::getMyHostIP(){
+    QString address=myIP;
     if(S_S.getbool ("cbwormnat2"))
         address=S_S.getString ("wormnat2address");
     else if(S_S.getbool("useacostumipforhosting"))
         address=S_S.getString("costumipforhosting");
     return address;
 }
-void netcoupler::readprocess() {
+void netcoupler::readProcess() {
     qWarning() << qobject_cast<QProcess*> (sender())->readAll();
 }
-QString netcoupler::getprocessstring() {
+QString netcoupler::getProcessString() {
     QStringList sl = S_S.getStringList("joinstrings");
     if (sl.isEmpty()){
         QMessageBox::warning(0, "", tr("No executables are given.\n"
@@ -302,35 +302,35 @@ QString netcoupler::getprocessstring() {
 #endif
     return "";
 }
-void netcoupler::sendinfotochan(const QString &chan, const QString &msg) {    
+void netcoupler::sendInfoToChan(const QString &chan, const QString &msg) {
     usermessage u(msg, usermessage_type(e_PRIVMSG | e_ACTION) , chan);
-    sendusermessage(u);
-    emit siggotusermessage(u);
+    sendUserMessage(u);
+    emit sigGotUserMessage(u);
 }
 void netcoupler::initSoundAndStartWho() {
 #ifdef PHONON
     singleton<soundHandler>().init();
 #endif
 }
-void netcoupler::settingswindowemitfunktion() { //signals are protected?!
-    emit sigsettingswindowchanged();
+void netcoupler::settingsWindowEmitFunction() { //signals are protected?!
+    emit sigSettingsWindowChanged();
 }
-void netcoupler::refreshhostlist() {
+void netcoupler::refreshHostList() {
     http->refreshHostList();
 }
-void netcoupler::startprocess(const QString &s){    
+void netcoupler::startProcess(const QString &s){
     if(S_S.getbool("chbhidechannelwindowsongame")){
-        foreach(window *w,qobjectwrapper<mainwindow>::ref().windowlist)
+        foreach(window *w,qobjectwrapper<mainwindow>::ref().windowList)
             w->minimize();       
     }
     if(S_S.getbool("chbdisconnectongame"))
-        qobjectwrapper<mainwindow>::ref().returntologintab();
+        qobjectwrapper<mainwindow>::ref().returnToLoginTab();
     if(S_S.getbool("cbsetawaywhilegaming")){
         qobjectwrapper<awayhandler>::ref().setawaywhilegameing();
     }
     p->startDetached(s);
 }
-int netcoupler::ircstate(){
+int netcoupler::ircState(){
     if(irc)
         return irc->state();
     else
@@ -340,9 +340,9 @@ int netcoupler::ircstate(){
 void netcoupler::loopTimerTimeout(){
     safeusergarbage();
 }
-bool netcoupler::buddylistcontains(QString user){
+bool netcoupler::buddyListContains(QString user){
     return users.usermap[usermodel::tr("Buddylist")].count(userstruct::whoami(user));
 }
-bool netcoupler::ignorelistcontains(QString user){
+bool netcoupler::ignoreListContains(QString user){
     return users.usermap[usermodel::tr("Ignorelist")].count(userstruct::whoami(user));
 }

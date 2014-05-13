@@ -110,7 +110,7 @@ QList<hoststruct> hoststruct::extracthostlist(QString s){
     return list;
 }
 bool hoststruct::compare(const hoststruct &h) const{
-    if(startswithCI(myip,singleton<netcoupler>().getmyhostip()) && containsCI(myname,h.myname) && containsCI(mynick,h.mynick))
+    if(startswithCI(myip,singleton<netcoupler>().getMyHostIP()) && containsCI(myname,h.myname) && containsCI(mynick,h.mynick))
         return true;
     return false;
 }

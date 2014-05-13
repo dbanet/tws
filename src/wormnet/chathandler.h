@@ -77,7 +77,7 @@ protected slots:
 
         void selectionChanged();
 signals:
-	void sigopenchatwindow(const QString&);
+	void sigOpenChatWindow(const QString&);
 private:
         void appendGarbage(usermessage u);
 };

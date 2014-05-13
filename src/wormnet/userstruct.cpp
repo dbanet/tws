@@ -43,7 +43,7 @@ userstruct::userstruct(QStringList sl) {
     if (b && clannumber < singleton<pictureHandler>().ranklistsize() && clannumber >= 0)
         rank = clannumber;
     else rank=12;
-    if(nick==singleton<netcoupler>().nick) singleton<netcoupler>().myip=address;
+    if(nick==singleton<netcoupler>().nick) singleton<netcoupler>().myIP=address;
 }
 QStringList userstruct::returnwho() {
     QStringList modellist;

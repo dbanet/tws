@@ -22,7 +22,7 @@ void logbrowser::closeclicked(){
 void logbrowser::chatclicked(){
     if(!ui.listWidget->selectedItems().isEmpty()){
         QString s=ui.listWidget->selectedItems().first()->text();
-	emit sigopenchatwindow(s);
+	emit sigOpenChatWindow(s);
     }
 }
 logbrowser::~logbrowser()

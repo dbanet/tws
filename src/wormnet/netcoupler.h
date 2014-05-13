@@ -28,83 +28,82 @@ public:
     QPointer<ircnet> irc;
     void start(QString nick);
     void stop();                
-    void sendusermessage(const usermessage u);
-    void joinchannel(const QString&);
-    void partchannel(const QString&);       
-    void sendhostinfotoserverandhost(const QString &name,const QString &pwd, const QString &chan,int flag);
-    void refreshlist();
-    void refreshwho();
-    bool buddylistcontains(QString user);
-    bool ignorelistcontains(QString user);
-    QString getmyhostip();
+    void sendUserMessage(const usermessage u);
+    void joinChannel(const QString&);
+    void partChannel(const QString&);
+    void sendHostInfoToServerAndHost(const QString &name,const QString &pwd, const QString &chan,int flag);
+    void refreshList();
+    void refreshWho();
+    bool buddyListContains(QString user);
+    bool ignoreListContains(QString user);
+    QString getMyHostIP();
     QString nick;
     usermodel users;
     hostmodel hosts;
-    QMap<QString,QString> schememap;
-    QStringList channellist;
+    QMap<QString,QString> schemeMap;
+    QStringList channelList;
 
-    void settingswindowemitfunktion();
+    void settingsWindowEmitFunction();
 
-    void sendquit(QString s);
-    int ircstate();
+    void sendQuit(QString s);
+    int ircState();
 
-    state connectstate;
+    state connectState;
 
     DECLARE_SINGLETON(netcoupler);
 signals:
-    void signewwholist(QList<userstruct>);
-    void siggotusermessage(const usermessage u);
-    void siggotchanellist(QStringList);
+    void sigGotUserMessage(const usermessage u);
+    void sigGotChannelList(QStringList);
     void sigGotChanList(QStringList);
     void sigJoinedChannel(QString,int);
     void sigUpdatedAmountOfUsers(QString,int);
-    void sigsettingswindowchanged();
-    void siggotidletime(const QString&,int,int);
-    void signosuchnick(const QString&);
-    void sigconnected();
-    void sigdisconnected();  
+    void sigSettingsWindowChanged();
+    void sigGotIdleTime(const QString&,int,int);
+    void sigNoSuchNick(const QString&);
+    void sigConnected();
+    void sigDisconnected();
 
-    void sighoststarts(hoststruct);   
+    void sigHostStarts(hoststruct);
 
 private:
     QPointer<snoppanet> http;
-    QString ircip;
-    QStringList listofjoinedchannels;
+    QString ircIP;
+    QStringList listOfJoinedChannels;
 
-    QTimer hostlifetimer;
-    QTimer getownhosttimer;
-    int hosttimeoutdelay;
+    QTimer hostLifeTimer;
+    QTimer getOwnHostTimer;
+    int hostTimeOutDelay;
 
     QProcess *p;
 
     QTimer timer;
     QTimer loopTimer;           //to safe usergarbage every 30sec    
 
-    QString getprocessstring();
-    void startprocess(const QString&);
-//    void createhost(hoststruct);
-    void createhost(QString);
-    QString myip;
+    QString getProcessString();
+    void startProcess(const QString&);
+//  void createHost(hoststruct);
+    void createHost(QString);
+    QString myIP;
 public slots:
-    void joingamelink(const QString &);
-    void joingame(const QString &,const QString&,const QString&);    
-    void sendinfotochan(const QString &,const QString &);
-    void refreshhostlist();
+    void joinGameLink(const QString &);
+    void joinGame(const QString &,const QString&,const QString&);
+    void sendInfoToChan(const QString &,const QString &);
+    void refreshHostList();
 private slots:    
     void initSoundAndStartWho();
     void emitSigGotChanList(QStringList);
     void emitSigJoinedChannel(QString,int);
     void emitSigUpdatedAmountOfUsers(QString,int);
-    void getircip(QString);
-    void gethostlist(QList<hoststruct>,QString);  
-    void getusermessage(const usermessage u);
-    void getscheme(QString,QString);
-    void readprocess();    
-    void ircconnected();
-    void ircdisconnected();
+    void getIRCIP(QString);
+    void getHostList(QList<hoststruct>,QString);
+    void getUserMessage(const usermessage u);
+    void getScheme(QString,QString);
+    void readProcess();
+    void ircConnected();
+    void ircDisconnected();
 
 //    void getmywormnethost(hoststruct);
-    void getmywormnethost(QString id);
+    void getMyWormnetHost(QString id);
 
     friend class userstruct;
 
