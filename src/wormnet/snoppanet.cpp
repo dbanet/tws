@@ -277,7 +277,7 @@ hoststruct snoppanet::findmyhost(QList<hoststruct> list){
     if(S_S.getbool ("cbwormnat2"))
         ip=S_S.getString ("wormnat2address")+ ":" + lasthostport ();
     else
-        ip=singleton<netcoupler>().getmyhostip();
+        ip=singleton<netcoupler>().getMyHostIP();
     foreach(hoststruct h,list){
         if(startswithCI(h.ip(),ip))
             return h;
@@ -286,7 +286,7 @@ hoststruct snoppanet::findmyhost(QList<hoststruct> list){
 }
 hoststruct snoppanet::findduplicatedhosts(QList<hoststruct> list){
     foreach(hoststruct h,list){
-        if(startswithCI(h.ip(),singleton<netcoupler>().getmyhostip())){
+        if(startswithCI(h.ip(),singleton<netcoupler>().getMyHostIP())){
             return h;
         }
     }

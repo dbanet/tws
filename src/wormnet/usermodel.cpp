@@ -14,7 +14,7 @@
 #include "picturehandler.h"
 
 extern QStringList querylist;
-extern QString GamesourgeChannelName;
+extern QString GamesurgeChannelName;
 QStringList usermodel::buddyarrivedhelper;
 QStringList usermodel::buddylefthelper;
 
@@ -123,8 +123,8 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QHash<QString,QStri
     usermap[tr("Querys")];
     usermap[usermodel::tr("Ignorelist")];
 #ifdef WITH_GAMESURGE_SUPPORT
-        usermap[GamesourgeChannelName];
-        classes.move(classes.indexOf(GamesourgeChannelName), classes.length()-1);
+        usermap[GamesurgeChannelName];
+        classes.move(classes.indexOf(GamesurgeChannelName), classes.length()-1);
 #endif
     sort(sortsection, sortorder);
     if (currentselectedchannel > -1 && currentselectedchannel < classes.size()) {

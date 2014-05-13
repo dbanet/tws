@@ -15,7 +15,7 @@ myDebugClass &myDebugClass::operator<<(const char *msg){
         qDebug()<<msg;
         return *this;
     }
-    qobjectwrapper<mainwindow>::ref().appenddebugmessage(QString(msg).simplified()+"\n");
+    qobjectwrapper<mainwindow>::ref().appendDebugMessage(QString(msg).simplified()+"\n");
     return *this;
 }
 myDebugClass &myDebugClass::operator<<(const QString &msg){
@@ -23,7 +23,7 @@ myDebugClass &myDebugClass::operator<<(const QString &msg){
         qDebug()<<msg;
         return *this;
     }
-    qobjectwrapper<mainwindow>::ref().appenddebugmessage(QString(msg).simplified()+"\n");
+    qobjectwrapper<mainwindow>::ref().appendDebugMessage(QString(msg).simplified()+"\n");
     return *this;
 }
 myDebugClass &myDebugClass::operator<<(const QByteArray &msg){
@@ -31,7 +31,7 @@ myDebugClass &myDebugClass::operator<<(const QByteArray &msg){
         qDebug()<<msg;
         return *this;
     }
-    qobjectwrapper<mainwindow>::ref().appenddebugmessage(QString(msg).simplified()+"\n");
+    qobjectwrapper<mainwindow>::ref().appendDebugMessage(QString(msg).simplified()+"\n");
     return *this;
 }
 myDebugClass &myDebugClass::operator<<(const QStringList &msg){
@@ -39,7 +39,7 @@ myDebugClass &myDebugClass::operator<<(const QStringList &msg){
         qDebug()<<msg;
         return *this;
     }
-    qobjectwrapper<mainwindow>::ref().appenddebugmessage("("+msg.join(",").simplified()+")\n");
+    qobjectwrapper<mainwindow>::ref().appendDebugMessage("("+msg.join(",").simplified()+")\n");
     return *this;
 }
 myDebugClass &myDebugClass::operator<<(const int &i){
@@ -47,7 +47,7 @@ myDebugClass &myDebugClass::operator<<(const int &i){
         qDebug()<<i;
         return *this;
     }
-    qobjectwrapper<mainwindow>::ref().appenddebugmessage(QString::number(i).simplified()+"\n");
+    qobjectwrapper<mainwindow>::ref().appendDebugMessage(QString::number(i).simplified()+"\n");
     return *this;
 }
 myDebugClass &myDebugClass::operator<<(const usermessage &u){
@@ -58,6 +58,6 @@ myDebugClass &myDebugClass::operator<<(const usermessage &u){
         qDebug()<<u.receiver();
         return *this;
     }
-    qobjectwrapper<mainwindow>::ref().appenddebugmessage(u.msg()+"\n"+QString::number(u.type())+"\n"+u.user()+"\n"+u.receiver()+"\n");
+    qobjectwrapper<mainwindow>::ref().appendDebugMessage(u.msg()+"\n"+QString::number(u.type())+"\n"+u.user()+"\n"+u.receiver()+"\n");
     return *this;
 }

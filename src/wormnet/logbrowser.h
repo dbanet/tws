@@ -18,7 +18,7 @@ private slots:
 	void closeclicked();
 	void chatclicked();
 signals:
-	void sigopenchatwindow(const QString&);
+	void sigOpenChatWindow(const QString&);
 };
 
 #endif // LOGBROWSER_H

@@ -23,7 +23,7 @@ bool ctcphandler::getctcp(const usermessage u){
     if (u.msg().startsWith("away")) {
         if (!awayusers.contains(u.user(), Qt::CaseInsensitive)){
             awayusers << u.user();
-            foreach(chatwindow *w, ::window::chatwindows){
+            foreach(chatwindow *w, ::window::chatWindowsList){
                 if(w->chatpartner == u.user()){
                     w->setaway(1,u.msg());
                     break;
@@ -31,7 +31,7 @@ bool ctcphandler::getctcp(const usermessage u){
             }
         }
     } else if (u.msg()=="back") {
-        foreach(chatwindow *w, ::window::chatwindows){
+        foreach(chatwindow *w, ::window::chatWindowsList){
             if(w->chatpartner == u.user()){
                 w->setaway(0);
                 break;
@@ -43,7 +43,7 @@ bool ctcphandler::getctcp(const usermessage u){
             return false;
         QString s =singleton<ctctphandlerwidget>().atomicmap[u.msg()]->ui.textEdit->toPlainText();
         usermessage uu=usermessage::create(s, u.receiver(), u.user());
-        singleton<netcoupler>().sendusermessage(uu);
+        singleton<netcoupler>().sendUserMessage(uu);
     } else
         return false;
     return true;

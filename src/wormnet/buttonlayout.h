@@ -32,7 +32,7 @@ signals:
     void sigchangealpha(int);
     void sigshowme();
     void sighideme();
-    void sigchangeleaguestate();
+    void sigChangeLeagueState();
 protected:
     bool eventFilter(QObject *obj, QEvent *event);
 };

@@ -45,7 +45,7 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);		//for the linedit in ui
     virtual void showEvent ( QShowEvent * event );
 signals:    
-    void sigclosed();
+    void sigClosed();
 };
 
 #endif // CHATWINDOW_H
