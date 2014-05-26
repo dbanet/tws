@@ -644,7 +644,7 @@ void mainwindow::initMenus(){
     stuffMenu->addAction(tr("Scheme maker"));
     stuffMenu->addAction(tr("Select another Textcodec"));
 #ifdef Q_OS_WIN32
-    stuffmenu->addAction(tr("Playername"));
+    stuffMenu->addAction(tr("Playername"));
 #endif
     styleMenu = trayMenu->addMenu(tr("Skins"));
     textSchemeMenu = trayMenu->addMenu(tr("Text Schemes"));
