@@ -15,9 +15,6 @@ UI_DIR += .ui
 OBJECTS_DIR += .lib
 RCC_DIR += .rcc
 
-unix:TARGET = "./TheWheatSnooper/TheWheatSnooper"
-win32:TARGET = "../TheWheatSnooper/TheWheatSnooper"
-
 #     DEFINES += WITH_GAMESURGE_SUPPORT #  not ready yet
 win32:DEFINES += WITH_WORMNAT_SUPPORT   # currently windows-only
 
