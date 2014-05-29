@@ -254,17 +254,9 @@ void mainwindow::join(const QString channel){
     if(joinedChannels.contains(channel))
         return;
     joinedChannels << channel;
-    if (whichUIType == 1) {
-        windowList.push_back(new channelWindow(channel, whichUIType));
-        windowList.last()->setObjectName("channelwindow");
-    } else if (whichUIType == 2) {
-        windowList.push_back(new channelWindow(channel, whichUIType));
-        windowList.last()->setObjectName("channelwindow");
-    } else if (whichUIType == 3) {
-        windowList.push_back(new channelWindow(channel, whichUIType));
-        windowList.last()->setObjectName("channelwindow");
-    } else
-        myDebug() <<QString() + "joinclicked in mainwindow assert";
+    Q_ASSERT_X(whichUIType!=1||whichUIType!=2||whichUIType!=3,"void mainWindow::join(const QString channel)","whichUIType is not equal to 1, 2 or 3");
+    windowList.push_back(new channelWindow(channel,whichUIType));
+    windowList.last()->setObjectName("channelwindow");
     singleton<netcoupler>().joinChannel(channel);
     if(windowList.isEmpty())
         return;
