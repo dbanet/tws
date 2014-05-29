@@ -9,38 +9,42 @@
 #include <QWidget>
 #include <QList>
 #include <QSystemTrayIcon>
+#include <QMainWindow>
 
-class window;
+class channelTab;
 class netcoupler;
 class chatwindow;
 class QMenu;
 
-class mainwindow : public QWidget
+namespace Ui {
+    class MainWindow;
+}
+
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-public:      
+public:
+    explicit MainWindow(QWidget *parent = 0);
     void appenddebugmessage(const QString &);
-    QString debugmsg;    
-    QList< ::window * > windowlist;
-    QList< ::chatwindow*> hiddenchatwindowshelper;    
+    QString debugmsg;
+    QList< ::channelTab * > windowlist;
+    QList< ::chatwindow*> hiddenchatwindowshelper;
     void fillsnpsettings();
     void quit();
-
     static QString toString(){
         return "mainwindow";
     }
+    ~MainWindow();
 
 public slots:
     void returntologintab();
 
 private:
-    mainwindow();
-    ~mainwindow();
-    typedef ::window channelwindow;
-    Ui::mainwindowClass ui;
+    Ui::MainWindow *ui;
+    typedef ::channelTab channelwindow;
     QStringList currentchannellist;	//TODO: dont forget to clear this lists on ------void returntotabsettings(int);
-    QStringList channellist;    
+    QStringList channellist;
 
     QMenu *traymenu;
     QMenu *joinmenu;
@@ -59,7 +63,7 @@ private:
     void get_baseStyleSheet();
     void handleAwayBox();
     QString baseStyleSheet;
-    void joinGameSourge();    
+    void joinGameSourge();
     void connectToNetwork();
     void setleague();
     QStringList lastOpenedWindows;
@@ -69,7 +73,7 @@ private:
     void gotnotice(const usermessage u);
     void gotscriptmsg(const usermessage);
 
-private slots:    
+private slots:
     void on_chbautojoin_clicked(bool checked);
     void on_cbleagueservers_activated(QString );
     void on_pbeditleagueprofile_clicked();
@@ -79,19 +83,19 @@ private slots:
     void openchatwindowraised(const QString &);
     void on_pbabout_clicked();
     void on_pbsettings_clicked();
-    void getchannellist(const QStringList &);   
-    void chooseclicked();        
+    void getchannellist(const QStringList &);
+    void chooseclicked();
     void trayactivation(QSystemTrayIcon::ActivationReason);
     void traymenutriggered(QAction *);
     void pbrememberjoinclicked();
-    void snpsetcontains(const QString&);    
+    void snpsetcontains(const QString&);
     void usesettingswindow(const QString &s="");
-    void chatwinowclosed();    
+    void chatwinowclosed();
     void awayboxok();
     void awaymessagechanged();
     void settextscheme(const QString&);
-    void openchatwindowhidden(const QString &);    
-    void gotusermsg(usermessage u);    
+    void openchatwindowhidden(const QString &);
+    void gotusermsg(usermessage u);
     void connected();
     void disconnected();
     void reconnect();
@@ -100,17 +104,19 @@ private slots:
     void leagueserverconnectionfailed();
     void leagueserverconnectionsuccess();
     void currenttabchanged(int);
-    void leagueserverprofilepage(QString);            
-
-    void windowclosed();   
+    void leagueserverprofilepage(QString);
+    void windowclosed();
+    void on_actionReconnect_triggered();
+    void on_actionClose_triggered();
 
 protected:
-    void closeEvent ( QCloseEvent * event );    
+    void closeEvent ( QCloseEvent * event );
+
 signals:
     void sigopenchatwindow(const QString&);
     void sigdisconnected();
 
-    friend class qobjectwrapper<mainwindow>;
+    friend class qobjectwrapper<MainWindow>;
 };
 
 #endif // MAINWINDOW_H

@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "window.h"
+#include "channelTab.h"
 #include "netcoupler.h"
 #include "buddylist.h"
 #include "ctcphandler.h"
@@ -10,9 +10,6 @@
 #include "about.h"
 #include "settings.h"
 #include "charformatsettings.h"
-#include "ui_window.h"
-#include "ui_window2.h"
-#include "ui_window3.h"
 #include "settingswindow.h"
 #include "volumeslider.h"
 #include "logbrowser.h"
@@ -30,6 +27,7 @@
 #include "qobjectwrapper.h"
 #include "awayhandler.h"
 #include "usermessage.h"
+#include "ui_mainwindow.h"
 
 #ifdef WITH_GAMESURGE_SUPPORT
 #include "src/irc/irc_netcoupler.h"
@@ -54,23 +52,26 @@ extern volumeslider *volume;
 bool fontOrColorHasChanged = 0;
 extern QStringList querylist;
 QString GamesourgeChannelName="#GameSourgeWorms";
-mainwindow::mainwindow() {
+
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
     whichuitype = 1;
-    ui.setupUi(this);
+    ui->setupUi(this);
     bool b=S_S.getbool("righttoleftwriting");
     if(b)
         qApp->setLayoutDirection(Qt::RightToLeft);
     else
         qApp->setLayoutDirection(Qt::LeftToRight);
-    ui.pbrememberjoin->setText(tr("Autojoin:"));
-    ui.pbabout->setText(tr("About"));
-    ui.start->setText(tr("Apply"));
-    ui.tabWidget->setTabEnabled(1, 0);
+    ui->pbrememberjoin->setText(tr("Autojoin:"));
+    ui->start->setText(tr("Apply"));
+    ui->tabWidget->setTabEnabled(1, 0);
 
     init_menus();
     connect(singleton<balloonHandler>().tray, SIGNAL(activated ( QSystemTrayIcon::ActivationReason)),this, SLOT(trayactivation(QSystemTrayIcon::ActivationReason)));
-    singleton<pictureHandler>().fillFlags(ui.flag);
-    singleton<pictureHandler>().fillRanks(ui.rank);
+    singleton<pictureHandler>().fillFlags(ui->flag);
+    singleton<pictureHandler>().fillRanks(ui->rank);
     snpsetcontains("chbminimized");
     snpsetcontains("nickname");
     snpsetcontains("tus_password");
@@ -85,21 +86,21 @@ mainwindow::mainwindow() {
     snpsetcontains("leagueservers");
     snpsetcontains("showinformation");
 
-    ui.cbremember->setChecked(S_S.getbool("chbremember"));
-    if (ui.cbremember->isChecked())
+    ui->cbremember->setChecked(S_S.getbool("chbremember"));
+    if (ui->cbremember->isChecked())
         chooseclicked();
     setWindowTitle(tr("Wheat Snoopers root window."));
     joinonstartup = 0;
-    connect(ui.start, SIGNAL(clicked()),this, SLOT(chooseclicked()));
-    connect(ui.pbrememberjoin, SIGNAL(clicked()),this, SLOT(pbrememberjoinclicked()));
-    connect(ui.tabWidget, SIGNAL(currentChanged ( int )),this, SLOT(currenttabchanged(int)));
+    connect(ui->start, SIGNAL(clicked()),this, SLOT(chooseclicked()));
+    connect(ui->pbrememberjoin, SIGNAL(clicked()),this, SLOT(pbrememberjoinclicked()));
+    connect(ui->tabWidget, SIGNAL(currentChanged ( int )),this, SLOT(currenttabchanged(int)));
 
     connect(&singleton<netcoupler>(), SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
     connect(&singleton<netcoupler>(), SIGNAL(sigGotChanList(const QStringList &)),this, SLOT(getchannellist(const QStringList &)));
     connect(&qobjectwrapper<awayhandler>::ref(), SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));
     connect(&singleton<netcoupler>(), SIGNAL(sigconnected()),this,SLOT(connected()));
     connect(&singleton<netcoupler>(), SIGNAL(sigdisconnected()),this,SLOT(disconnected()));
-    connect(&singleton<netcoupler>(), SIGNAL(siggotusermessage(const usermessage)),this,SLOT(gotusermsg(const usermessage)));    
+    connect(&singleton<netcoupler>(), SIGNAL(siggotusermessage(const usermessage)),this,SLOT(gotusermsg(const usermessage)));
 
     connect(&singleton<leagueserverhandler>(),SIGNAL(sigloginfailed()),this,SLOT(leagueserverconnectionfailed()));
     connect(&singleton<leagueserverhandler>(),SIGNAL(sigloginsuccess()),this,SLOT(leagueserverconnectionsuccess()));
@@ -108,8 +109,8 @@ mainwindow::mainwindow() {
     QRegExp regexp;
     regexp.setPattern("([A-Z]|[a-z]|[0-9]|-|`){1,15}");
     validator = new QRegExpValidator(regexp, 0);
-    ui.lenick->setValidator(validator);
-    ui.clan->setValidator(validator);
+    ui->lenick->setValidator(validator);
+    ui->clan->setValidator(validator);
 
     //    S_S.set("isarrangedbyonetab", false);
     //    S_S.set("isarrangedbytwotabs", false);
@@ -122,9 +123,11 @@ mainwindow::mainwindow() {
         resize(width(),530);
     setWindowFlags (Qt::Dialog);
 }
-mainwindow::~mainwindow() {
+MainWindow::~MainWindow()
+{
+    delete ui;
 }
-void mainwindow::currenttabchanged(int i){
+void MainWindow::currenttabchanged(int i){
     if(i!=0)
         return;
     foreach(channelwindow *w, windowlist){
@@ -133,71 +136,71 @@ void mainwindow::currenttabchanged(int i){
     }
     singleton<netcoupler>().stop();
 }
-void mainwindow::fillsnpsettings(){
-    S_S.set("chbremember", ui.cbremember->isChecked());
-    S_S.set("nickname", ui.lenick->text());
-    S_S.set("chbminimized", ui.chbminimized->isChecked());
-    S_S.set("chbautojoin", ui.chbautojoin->isChecked());
+void MainWindow::fillsnpsettings(){
+    S_S.set("chbremember", ui->cbremember->isChecked());
+    S_S.set("nickname", ui->lenick->text());
+    S_S.set("chbminimized", ui->chbminimized->isChecked());
+    S_S.set("chbautojoin", ui->chbautojoin->isChecked());
     S_S.set("whichuitype", whichuitype);
-    S_S.set("countrycode", ui.flag->currentText());
-    S_S.set("rank", ui.rank->currentText());
+    S_S.set("countrycode", ui->flag->currentText());
+    S_S.set("rank", ui->rank->currentText());
     if (fontOrColorHasChanged == 1) {
         S_S.set("textscheme", "lastedited.textscheme");
         singleton<chatFormatSettings>().safe();
     }
 }
-void mainwindow::get_baseStyleSheet(){
+void MainWindow::get_baseStyleSheet(){
     QFile f(QApplication::applicationDirPath() + "/qss/Skin_Base");
     if(!f.open(QFile::ReadOnly))
         QMessageBox::warning(0,QObject::tr("Warning"),QObject::tr("Cant read the Skinfile:\nSkin_Base"));
     baseStyleSheet = QLatin1String(f.readAll());
 }
-void mainwindow::connectToNetwork(){
-    ui.tabWidget->setCurrentIndex(1);
+void MainWindow::connectToNetwork(){
+    ui->tabWidget->setCurrentIndex(1);
     if(S_S.getbool("enablesecurelogging"))
         singleton<netcoupler>().start(singleton<leagueserverhandler>().nick);
     else
-        singleton<netcoupler>().start(ui.lenick->text());    
-    ui.tabWidget->setTabEnabled(1, 1);
+        singleton<netcoupler>().start(ui->lenick->text());
+    ui->tabWidget->setTabEnabled(1, 1);
 }
-void mainwindow::chooseclicked() {    
-    if(ui.tabWidget->currentIndex()!=0)
+void MainWindow::chooseclicked() {
+    if(ui->tabWidget->currentIndex()!=0)
         return;
-    if (ui.lenick->text().isEmpty() && !ui.cbenabletus->isChecked()){
+    if (ui->lenick->text().isEmpty() && !ui->cbenabletus->isChecked()){
         QMessageBox::warning(this,tr("Nickname field is empty"),tr("Please choose a nickname."),QMessageBox::Ok);
         return;
     }
     S_S.transaction();
-    S_S.set("clan", ui.clan->text());
-    if (ui.clan->text().isEmpty())
+    S_S.set("clan", ui->clan->text());
+    if (ui->clan->text().isEmpty())
         S_S.set("clan", "UserName");
-    S_S.set("nickname", ui.lenick->text());
-    S_S.set("tus_password", ui.letuspassword->text());
-    S_S.set("tus_login", ui.letuslogin->text());
-    S_S.set("countrycode", ui.flag->currentText());
-    S_S.set("rank", ui.rank->currentText());
-    S_S.set("information", ui.client->text());
-    S_S.set("enablesecurelogging", ui.cbenabletus->isChecked());
+    S_S.set("nickname", ui->lenick->text());
+    S_S.set("tus_password", ui->letuspassword->text());
+    S_S.set("tus_login", ui->letuslogin->text());
+    S_S.set("countrycode", ui->flag->currentText());
+    S_S.set("rank", ui->rank->currentText());
+    S_S.set("information", ui->client->text());
+    S_S.set("enablesecurelogging", ui->cbenabletus->isChecked());
 
-    S_S.set("wormnetserverlist", refreshcombobox(ui.cbServerList));
-    S_S.set("leagueservers", refreshcombobox(ui.cbleagueservers));
-    S_S.set("showinformation", ui.cbshowinformation->isChecked());
-    S_S.set("leagueservers"+makeValidColumnName(ui.cbleagueservers->currentText()), QStringList()<<ui.letuslogin->text()<<ui.letuspassword->text());
+    S_S.set("wormnetserverlist", refreshcombobox(ui->cbServerList));
+    S_S.set("leagueservers", refreshcombobox(ui->cbleagueservers));
+    S_S.set("showinformation", ui->cbshowinformation->isChecked());
+    S_S.set("leagueservers"+makeValidColumnName(ui->cbleagueservers->currentText()), QStringList()<<ui->letuslogin->text()<<ui->letuspassword->text());
 
     if(S_S.getbool("enablesecurelogging")){
         S_S.set("spectateleagueserver", true);
         setleague();
-        singleton<leagueserverhandler>().login(ui.letuslogin->text(),ui.letuspassword->text());
-    } else {        
+        singleton<leagueserverhandler>().login(ui->letuslogin->text(),ui->letuspassword->text());
+    } else {
         S_S.set("spectateleagueserver", false);
         connectToNetwork ();
     }
-    ui.start->setEnabled(false);
-    ui.start->setText("");
+    ui->start->setEnabled(false);
+    ui->start->setText("");
     S_S.commit();
 }
-void mainwindow::setleague(){
-    QString item=ui.cbleagueservers->currentText();
+void MainWindow::setleague(){
+    QString item=ui->cbleagueservers->currentText();
     if(!item.endsWith("/"))
         item+="/";
     if(!item.startsWith("http://"))
@@ -210,14 +213,14 @@ void mainwindow::setleague(){
     singleton<leagueserverhandler>().setleague(servicename,item);
 }
 
-void mainwindow::leagueserverconnectionfailed(){
-    ui.start->setText(tr("Apply"));
-    ui.start->setEnabled(true);
+void MainWindow::leagueserverconnectionfailed(){
+    ui->start->setText(tr("Apply"));
+    ui->start->setEnabled(true);
 }
-void mainwindow::leagueserverconnectionsuccess(){
+void MainWindow::leagueserverconnectionsuccess(){
     connectToNetwork();
 }
-void mainwindow::reopenChatWindowsAndChannelWindows(){
+void MainWindow::reopenChatWindowsAndChannelWindows(){
     foreach(QString s,lastOpenedChatWindows)
         openchatwindowraised(s);
     lastOpenedChatWindows.clear();
@@ -225,12 +228,12 @@ void mainwindow::reopenChatWindowsAndChannelWindows(){
         join(s);
     lastOpenedWindows.clear();
 }
-void mainwindow::getchannellist(const QStringList &sl) {
-    ui.cbchannels->clear();
+void MainWindow::getchannellist(const QStringList &sl) {
+    ui->cbchannels->clear();
     foreach(QString s,sl)
-        ui.cbchannels->addItem(s);
+        ui->cbchannels->addItem(s);
     channellist = sl;
-    ui.pbjoin->setEnabled(1);
+    ui->pbjoin->setEnabled(1);
     joinmenu->clear();
     foreach(QString s,channellist) {
         joinmenu->addAction(s);
@@ -243,7 +246,7 @@ void mainwindow::getchannellist(const QStringList &sl) {
         joinonstartup = 1;
     }
 }
-void mainwindow::join(const QString channel){
+void MainWindow::join(const QString channel){
 //    if(channel==GamesourgeChannelName){
 //        joinGameSourge();
 //        return;
@@ -252,9 +255,9 @@ void mainwindow::join(const QString channel){
         return;
     currentchannellist << channel;
 
-    QWidget *chanTab;
-    ui.tabWidget->addTab((chanTab=new QWidget()),channel);
-    windowlist.push_back(new channelwindow(channel,1,chanTab));
+    channelTab *chanTab=new channelwindow(channel,1);
+    ui->tabWidget->addTab(chanTab,channel);
+    windowlist.push_back(chanTab);
 
     singleton<netcoupler>().joinchannel(channel);
     if(windowlist.isEmpty())
@@ -267,19 +270,19 @@ void mainwindow::join(const QString channel){
     connect(windowlist.last(), SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
     connect(this, SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
     connect(windowlist.last(), SIGNAL(sigchangeleaguestate()),this, SLOT(reconnect()));
-    connect(windowlist.last(), SIGNAL(sigclosed()),this, SLOT(windowclosed()));    
+    connect(windowlist.last(), SIGNAL(sigclosed()),this, SLOT(windowclosed()));
 }
-void mainwindow::windowclosed(){
+void MainWindow::windowclosed(){
     channelwindow *w=qobject_cast<channelwindow*> (sender());
     Q_CHECK_PTR(w);
-    w->hiddenchannelwindowshelper.removeAll(w);    
+    w->hiddenchannelwindowshelper.removeAll(w);
     currentchannellist.removeAll(w->currentchannel);
     windowlist.removeAll(w);
 }
-void mainwindow::quit() {
+void MainWindow::quit(){
     foreach(chatwindow *w,channelwindow::chatwindows) {
         Q_ASSERT(w!=0);
-        w->close();        
+        w->close();
     }
     foreach(channelwindow *w, windowlist) {
         Q_ASSERT(w!=0);
@@ -287,22 +290,22 @@ void mainwindow::quit() {
     }
     fillsnpsettings();
 }
-void mainwindow::closeEvent(QCloseEvent * e) {
+void MainWindow::closeEvent(QCloseEvent * e) {
     QVariantList windowstates;
     windowstates << saveGeometry();
     S_S.set("MainWindowGeometry", windowstates);
     e->ignore ();
     hide();
 }
-void mainwindow::returntologintab() {    
+void MainWindow::returntologintab() {
     joinonstartup = 0;
-    S_S.set("chbautojoin", ui.chbautojoin->isChecked());
+    S_S.set("chbautojoin", ui->chbautojoin->isChecked());
     joinmenu->clear();
     currentchannellist.clear();
-    ui.cbchannels->clear();
-    ui.pbjoin->setEnabled(0);
-    ui.tabWidget->setTabEnabled(1, 0);
-    ui.pbjoin->setEnabled(0);
+    ui->cbchannels->clear();
+    ui->pbjoin->setEnabled(0);
+    ui->tabWidget->setTabEnabled(1, 0);
+    ui->pbjoin->setEnabled(0);
     foreach(chatwindow *w,channelwindow::chatwindows) {
         Q_ASSERT(w);
         w->close();
@@ -310,86 +313,86 @@ void mainwindow::returntologintab() {
     channelwindow::chatwindows.clear();
     foreach(channelwindow *w,windowlist)
         w->close();
-    ui.tabWidget->setTabEnabled(1, 0);
+    ui->tabWidget->setTabEnabled(1, 0);
 }
-void mainwindow::pbrememberjoinclicked() {
-    S_S.set("joinonstartup", ui.cbchannels->currentText());
-    ui.pbrememberjoin->setText(tr("Autojoin:") + "\n" + S_S.getString("joinonstartup"));
+void MainWindow::pbrememberjoinclicked() {
+    S_S.set("joinonstartup", ui->cbchannels->currentText());
+    ui->pbrememberjoin->setText(tr("Autojoin:") + "\n" + S_S.getString("joinonstartup"));
 }
-void mainwindow::snpsetcontains(const QString &s) {
+void MainWindow::snpsetcontains(const QString &s) {
     if (s == "chbautojoin" && S_S.contains(s))
-        ui.chbautojoin->setChecked(S_S.getbool("chbautojoin"));
+        ui->chbautojoin->setChecked(S_S.getbool("chbautojoin"));
     else if (s == "qss_file") {
         QFile f(QApplication::applicationDirPath() + "/qss/" + S_S.getString("qss_file"));
         if(!f.open(QFile::ReadOnly))
             QMessageBox::warning(this,QObject::tr("Warning"),tr("Cant read the Skinfile:\n")+S_S.getString("qss_file"));
         QString stylesheet = QLatin1String(f.readAll());
     } else if (s == "joinonstartup" && S_S.contains(s) && S_S.contains("chbautojoin")) {
-        ui.pbrememberjoin->setText(ui.pbrememberjoin->text().split("\n").first() + "\n" + S_S.getString("joinonstartup"));
+        ui->pbrememberjoin->setText(ui->pbrememberjoin->text().split("\n").first() + "\n" + S_S.getString("joinonstartup"));
         if (S_S.getbool("chbautojoin"))
             join(S_S.getString("joinonstartup"));
     } else if (s == "chbminimized")
-        ui.chbminimized->setChecked(S_S.getbool("chbminimized"));
+        ui->chbminimized->setChecked(S_S.getbool("chbminimized"));
     else if (s == "nickname" && S_S.contains(s))
-        ui.lenick->setText(S_S.getString("nickname"));
+        ui->lenick->setText(S_S.getString("nickname"));
     else if (s == "tus_password" && S_S.contains("tus_password"))
-        ui.letuspassword->setText(S_S.getString("tus_password"));
+        ui->letuspassword->setText(S_S.getString("tus_password"));
     else if (s == "tus_login" && S_S.contains("tus_login"))
-        ui.letuslogin->setText(S_S.getString("tus_login"));
+        ui->letuslogin->setText(S_S.getString("tus_login"));
     else if (s == "countrycode"){
         QString language=QLocale::system().name().left(2);
-        int i=ui.flag->findText(S_S.getString("countrycode"));
+        int i=ui->flag->findText(S_S.getString("countrycode"));
         if(i==-1)
-            i=ui.flag->findText(language);
-        ui.flag->setCurrentIndex(i);
+            i=ui->flag->findText(language);
+        ui->flag->setCurrentIndex(i);
     }else if (s == "rank"){
-        ui.rank->setCurrentIndex(S_S.getint("rank"));
+        ui->rank->setCurrentIndex(S_S.getint("rank"));
     }
     else if (s == "information" && S_S.contains(s))
-        ui.client->setText(S_S.getString(s));
+        ui->client->setText(S_S.getString(s));
     else if (s == "clan" && S_S.contains(s)){
         QString clanstring=S_S.getString(s);
         if(clanstring.toLower()=="username")
-            ui.clan->setText("");
+            ui->clan->setText("");
         else
-            ui.clan->setText(clanstring);
+            ui->clan->setText(clanstring);
     }
     else if (s == "whichuitype" && S_S.contains(s))
         whichuitype = S_S.getint("whichuitype");
     else if (s == "wormnetserverlist")
-        ui.cbServerList->addItems(S_S.getStringList("wormnetserverlist"));
+        ui->cbServerList->addItems(S_S.getStringList("wormnetserverlist"));
     else if (s == "leagueservers"){
-        ui.cbleagueservers->addItems(S_S.getStringList("leagueservers"));
+        ui->cbleagueservers->addItems(S_S.getStringList("leagueservers"));
     }
     else if(s=="enablesecurelogging"){
         bool b=S_S.getbool("enablesecurelogging");
-        ui.cbenabletus->setChecked(b);
+        ui->cbenabletus->setChecked(b);
         on_cbenabletus_toggled(b);
     } else if(s=="showinformation"){
         bool b=S_S.getbool("showinformation");
-        ui.cbshowinformation->setChecked(b);
+        ui->cbshowinformation->setChecked(b);
     }
 }
-void mainwindow::usesettingswindow(const QString&) {
+void MainWindow::usesettingswindow(const QString&) {
 }
-void mainwindow::chatwinowclosed() {
+void MainWindow::chatwinowclosed() {
     chatwindow *w = qobject_cast<chatwindow*> (sender());
     Q_CHECK_PTR(w);
     w->disconnect();
     hiddenchatwindowshelper.removeAll(w);
-    window::chatwindowstringlist.removeAll(w->chatpartner);
-    window::chatwindows.removeAll(w);
+    channelTab::chatwindowstringlist.removeAll(w->chatpartner);
+    channelTab::chatwindows.removeAll(w);
 }
-void mainwindow::appenddebugmessage(const QString &msg) {
+void MainWindow::appenddebugmessage(const QString &msg) {
     debugmsg.append(msg);
-    ui.labeltraydescription->insertPlainText(debugmsg);
+    ui->labeltraydescription->insertPlainText(debugmsg);
     if(!S_S.cbservermessageinchannelwindows)
         return;
     foreach( channelwindow *w,windowlist)
         w->gotdebugmsg(debugmsg);
     debugmsg.clear();
 }
-void mainwindow::setlanguage(const QString &langfile) {
+void MainWindow::setlanguage(const QString &langfile) {
     S_S.set("language_file", langfile);
     myDebug() << S_S.getString("language_file");
     QMessageBox::StandardButton button = QMessageBox::question(this, tr(
@@ -407,13 +410,13 @@ void mainwindow::setlanguage(const QString &langfile) {
         singleton<quithandler>().inducequit();
     }
 }
-void mainwindow::awayboxok() {
+void MainWindow::awayboxok() {
     foreach(channelwindow *w,windowlist) {
         w->windowtitleaway = " " + tr("<away>:") +" "+ qobjectwrapper<awayhandler>::ref().message();
         w->mysetwindowtitle();
     }
 }
-void mainwindow::awaymessagechanged() {
+void MainWindow::awaymessagechanged() {
     if (qobjectwrapper<awayhandler>::ref().away()) {
         foreach(channelwindow *w,windowlist) {
             w->windowtitleaway = " " + tr("<away>:") + " "+qobjectwrapper<awayhandler>::ref().message();
@@ -426,28 +429,28 @@ void mainwindow::awaymessagechanged() {
         }
     }
 }
-void mainwindow::settextscheme(const QString &file) {
+void MainWindow::settextscheme(const QString &file) {
     myDebug() << tr("trying to apply new textscheme: ") + file;
     S_S.set("textscheme", file);
     singleton<chatFormatSettings>().load();
     chatHandler::initialFormatStarter();
 }
-void mainwindow::openchatwindow(QString user){
-    window::chatwindowstringlist << user;
-    window::chatwindows.push_back(new chatwindow(user));
-    connect(window::chatwindows.last(), SIGNAL(sigclosed()),this, SLOT(chatwinowclosed()));
+void MainWindow::openchatwindow(QString user){
+    channelTab::chatwindowstringlist << user;
+    channelTab::chatwindows.push_back(new chatwindow(user));
+    connect(channelTab::chatwindows.last(), SIGNAL(sigclosed()),this, SLOT(chatwinowclosed()));
 }
-void mainwindow::openchatwindowraised(const QString &user) {
+void MainWindow::openchatwindowraised(const QString &user) {
     openchatwindow(user);
-    window::chatwindows.last()->show();
-    window::chatwindows.last()->raise();
+    channelTab::chatwindows.last()->show();
+    channelTab::chatwindows.last()->raise();
 }
-void mainwindow::openchatwindowhidden(const QString &user) {
+void MainWindow::openchatwindowhidden(const QString &user) {
     openchatwindow(user);
-    hiddenchatwindowshelper << window::chatwindows.last();
+    hiddenchatwindowshelper << channelTab::chatwindows.last();
 }
-void mainwindow::gotscriptmsg(const usermessage u){
-    QString msg=u.msg();    
+void MainWindow::gotscriptmsg(const usermessage u){
+    QString msg=u.msg();
     if(startswithCI(msg, "away")){
         msg.remove(0,5);
         qobjectwrapper<awayhandler>::ref().setaway(msg);
@@ -460,17 +463,17 @@ void mainwindow::gotscriptmsg(const usermessage u){
         awaymessagechanged();
     } else if(startswithCI(msg, "nick")) {
         msg.remove(0,5);
-        if(ui.cbenabletus->isChecked()){
+        if(ui->cbenabletus->isChecked()){
             myDebug()<<tr("Its not possible to change the nick while using secure logging. Go to the profile page at your secure logging server to change the nick.");
             return;
         }
         int pos;
-        int i=ui.lenick->validator()->validate(msg,pos);
+        int i=ui->lenick->validator()->validate(msg,pos);
         if(i != QValidator::Acceptable){
             myDebug()<<tr("This nickname is not allowed!");
             return;
         }
-        ui.lenick->setText(msg);
+        ui->lenick->setText(msg);
         reconnect();
     } else if(startswithCI(msg, "help")) {
         myDebug()<< tr("    Supported commands are:")<<
@@ -483,7 +486,7 @@ void mainwindow::gotscriptmsg(const usermessage u){
 
                     tr("    $quit to quit with this message")<<
                     tr("    $help to see this help");
-    } else if(startswithCI(msg, "quit")) {        
+    } else if(startswithCI(msg, "quit")) {
         msg.remove(0,5);
         singleton<quithandler>().inducequit(msg);
     } else if(startswithCI(msg, "codec")) {
@@ -503,7 +506,7 @@ void mainwindow::gotscriptmsg(const usermessage u){
     } else
         myDebug()<<tr("Unknown command, write $help to get a list of available commands");
 }
-void mainwindow::gotnotice(usermessage u) {
+void MainWindow::gotnotice(usermessage u) {
     const QString &user=u.user();
     if(containsCI(S_S.ignorelist, user))
         return;
@@ -513,7 +516,7 @@ void mainwindow::gotnotice(usermessage u) {
     foreach(chatwindow *w, channelwindow::chatwindows)
         w->getusermessage(u.add_type(e_CHANNELMSGTOCHAT));
 }
-void mainwindow::gotusermsg(const usermessage u){
+void MainWindow::gotusermsg(const usermessage u){
     const QString &user=u.user();
     if(u.has_type(e_SCRIPTCOMMAND)) {
         gotscriptmsg(u);
@@ -532,7 +535,7 @@ void mainwindow::gotusermsg(const usermessage u){
         qobjectwrapper<awayhandler>::ref().sendaway(user);
     }
 
-    if (containsCI(window::chatwindowstringlist, user)) {
+    if (containsCI(channelTab::chatwindowstringlist, user)) {
         foreach(chatwindow *w,channelwindow::chatwindows)
             w->getusermessage(u);
         if(u.receiver() == singleton<netcoupler>().nick)
@@ -543,14 +546,14 @@ void mainwindow::gotusermsg(const usermessage u){
             openchatwindowhidden(user);
         else
             openchatwindowraised(user);
-        window::chatwindows.last()->getusermessage(u);
+        channelTab::chatwindows.last()->getusermessage(u);
         return;
     } else if(u.receiver() == singleton<netcoupler>().nick){
         if(containsCI(S_S.buddylist, user)) {
             if (S_S.getbool("chbstartchatsminimized"))
                 openchatwindowhidden(user);
             else openchatwindowraised(user);
-            window::chatwindows.last()->getusermessage(u);
+            channelTab::chatwindows.last()->getusermessage(u);
             singleton<balloonHandler>().gotPrivmsg(u);
 #ifdef PHONON
             singleton<soundHandler>().play_buddymsgsound(user);
@@ -576,16 +579,14 @@ void mainwindow::gotusermsg(const usermessage u){
                 if(w->currentchannel.toLower()==channelTheQuittedUserWasBeingOn.toLower())
                     w->getusermessage(u);
 }
-void mainwindow::connected(){
-    ui.start->setEnabled(false);
-    ui.start->setText("");
-    ui.connectlabel->setText(tr("Connected"));
+void MainWindow::connected(){
+    ui->start->setEnabled(false);
+    ui->start->setText("");
     reopenChatWindowsAndChannelWindows();
 }
-void mainwindow::disconnected(){
-    ui.start->setText(tr("Apply"));
-    ui.start->setEnabled(true);   
-    ui.connectlabel->setText(tr("Disconnected"));
+void MainWindow::disconnected(){
+    ui->start->setText(tr("Apply"));
+    ui->start->setEnabled(true);
     returntologintab();
     emit sigdisconnected ();
 }
@@ -616,10 +617,10 @@ void mainwindow::disconnected(){
 //************************************************************************************************************************
 //************************************************************************************************************************
 //************************************************************************************************************************
-void mainwindow::init_menus(){
+void MainWindow::init_menus(){
     traymenu = new QMenu;
     connect(traymenu,SIGNAL(triggered(QAction*)),this,SLOT(traymenutriggered(QAction*)));
-    ui.pbtraymenu->setMenu(traymenu);
+    ui->pbtraymenu->setMenu(traymenu);
     singleton<balloonHandler>().tray->setContextMenu(traymenu);
     QAction *a0;
     stuffmenu = traymenu->addMenu(tr("Stuff"));
@@ -687,7 +688,7 @@ void mainwindow::init_menus(){
     a0->setIcon(QIcon("snppictures/closeicon.png"));
 }
 
-void mainwindow::trayactivation(QSystemTrayIcon::ActivationReason reason) {
+void MainWindow::trayactivation(QSystemTrayIcon::ActivationReason reason) {
     if (reason == QSystemTrayIcon::Trigger) {
         if (!channelwindow::hiddenchannelwindowshelper.isEmpty()) {
             channelwindow *w = channelwindow::hiddenchannelwindowshelper.takeLast();
@@ -708,7 +709,7 @@ void mainwindow::trayactivation(QSystemTrayIcon::ActivationReason reason) {
         }
     }
 }
-void mainwindow::traymenutriggered(QAction *a) {
+void MainWindow::traymenutriggered(QAction *a) {
     if (a->text() == QDialogButtonBox::tr("&Close")) {
         singleton<quithandler>().inducequit();
         return;
@@ -727,7 +728,7 @@ void mainwindow::traymenutriggered(QAction *a) {
             S_S.set("qss_file", a->text());
             safeusergarbage();
             safequerylist();
-            try{
+            /* removed skin support temprarily *//*try{
                 QMessageBox::StandardButton button=QMessageBox::warning(this,QObject::tr("Warning"),
                                                                         tr("Changing the skin crashes sometimes, but The Wheat Snooper\n" \
                                                                            "will keep the settings for the next Start.\nDo you want to proceed?"),
@@ -735,7 +736,7 @@ void mainwindow::traymenutriggered(QAction *a) {
             }
             catch(...){
                 myDebug()<<tr("Skinchanging failed, please try again.");
-            }
+            }*/
         }
         return;
     } else if (a->text() == "1") {
@@ -802,7 +803,7 @@ void mainwindow::traymenutriggered(QAction *a) {
         pl->show();
     }
 }
-void mainwindow::handleAwayBox(){
+void MainWindow::handleAwayBox(){
     if (qobjectwrapper<awayhandler>::ref().away()) {
         if (!awaybox::ison) {
             qobjectwrapper<awayhandler>::ref().back();
@@ -816,92 +817,98 @@ void mainwindow::handleAwayBox(){
         }
     }
 }
-void mainwindow::reconnect(){
+void MainWindow::reconnect(){
     lastOpenedWindows.clear ();
     lastOpenedChatWindows.clear ();
-    foreach(channelwindow *w, windowlist)        
+    foreach(channelwindow *w, windowlist)
         lastOpenedWindows<<w->currentchannel;
     foreach(chatwindow *w,channelwindow::chatwindows)
         lastOpenedChatWindows<<w->chatpartner;
     if(singleton<netcoupler>().ircstate()==QAbstractSocket::ConnectedState)
         connect(this,SIGNAL(sigdisconnected()),this,SLOT(reconnect2()));
     else reconnect2 ();
-    returntologintab();    
+    returntologintab();
     singleton<netcoupler>().stop();
 }
-void mainwindow::reconnect2(){
+void MainWindow::reconnect2(){
     disconnect(this,SIGNAL(sigdisconnected()),this,SLOT(reconnect2()));
     chooseclicked();
 }
-void mainwindow::on_pbsettings_clicked(){
+void MainWindow::on_pbsettings_clicked(){
     singleton<settingswindow>().show();
 }
-void mainwindow::on_pbabout_clicked(){
+void MainWindow::on_pbabout_clicked(){
     about *ab = new about;
     ab->show();
 }
-void mainwindow::joinGameSourge(){
+void MainWindow::joinGameSourge(){
     //    ircJoinDia dia;
     //    if(!dia.exec())
     //        return;
-    //    static irc_netcoupler *net=new irc_netcoupler(ui.lenick->text(), this, dia.getChannel());
+    //    static irc_netcoupler *net=new irc_netcoupler(ui->lenick->text(), this, dia.getChannel());
     //    static irc_window *window=new irc_window(net,GamesourgeChannelName);
     //    window->show();
     //    window->raise();
 }
 
-void mainwindow::on_pbjoin_clicked(){
-    join(ui.cbchannels->currentText());
+void MainWindow::on_pbjoin_clicked(){
+    join(ui->cbchannels->currentText());
 }
 
-void mainwindow::on_cbenabletus_toggled(bool checked){
+void MainWindow::on_cbenabletus_toggled(bool checked){
     if(checked) {
-        ui.lenick->setEnabled(false);
-        ui.rank->setEnabled(false);
-        ui.clan->setEnabled(false);
-        int i=ui.cbServerList->findText("http://wormnet1.team17.com");
+        ui->lenick->setEnabled(false);
+        ui->rank->setEnabled(false);
+        ui->clan->setEnabled(false);
+        int i=ui->cbServerList->findText("http://wormnet1.team17.com");
         if(i==-1)
-            ui.cbServerList->addItem("http://wormnet1.team17.com");
-        i=ui.cbServerList->findText("http://wormnet1.team17.com");
-        ui.cbServerList->setCurrentIndex(i);
-        ui.cbServerList->setEnabled(false);
-        ui.flag->setEnabled(false);
-        ui.letuspassword->setEnabled(true);
-        ui.letuslogin->setEnabled(true);
-        ui.cbleagueservers->setEnabled(true);
+            ui->cbServerList->addItem("http://wormnet1.team17.com");
+        i=ui->cbServerList->findText("http://wormnet1.team17.com");
+        ui->cbServerList->setCurrentIndex(i);
+        ui->cbServerList->setEnabled(false);
+        ui->flag->setEnabled(false);
+        ui->letuspassword->setEnabled(true);
+        ui->letuslogin->setEnabled(true);
+        ui->cbleagueservers->setEnabled(true);
     } else {
-        ui.flag->setEnabled(true);
-        ui.lenick->setEnabled(true);
-        ui.rank->setEnabled(true);
-        ui.clan->setEnabled(true);
-        ui.cbServerList->setEnabled(true);;
-        ui.letuspassword->setEnabled(false);
-        ui.letuslogin->setEnabled(false);
-        ui.cbleagueservers->setEnabled(false);
+        ui->flag->setEnabled(true);
+        ui->lenick->setEnabled(true);
+        ui->rank->setEnabled(true);
+        ui->clan->setEnabled(true);
+        ui->cbServerList->setEnabled(true);;
+        ui->letuspassword->setEnabled(false);
+        ui->letuslogin->setEnabled(false);
+        ui->cbleagueservers->setEnabled(false);
     }
 }
 
-void mainwindow::on_pbeditleagueprofile_clicked(){
+void MainWindow::on_pbeditleagueprofile_clicked(){
     setleague();
-    if(ui.letuslogin->text().isEmpty()){
+    if(ui->letuslogin->text().isEmpty()){
         QMessageBox::information(0,QObject::tr("Information"),tr("Before you can view your profile, you must fill in a loginname."));
-        ui.letuslogin->setFocus(Qt::MouseFocusReason);
+        ui->letuslogin->setFocus(Qt::MouseFocusReason);
         return;
     }
-    singleton<leagueserverhandler>().profile(ui.letuslogin->text());
+    singleton<leagueserverhandler>().profile(ui->letuslogin->text());
 }
-void mainwindow::leagueserverprofilepage(QString url){
+void MainWindow::leagueserverprofilepage(QString url){
     QDesktopServices::openUrl(QUrl(url));
 }
-void mainwindow::on_cbleagueservers_activated(QString s){
+void MainWindow::on_cbleagueservers_activated(QString s){
     QStringList sl=S_S.getStringList("leagueservers"+s);
     if(sl.size()<2)
         return;
-    ui.letuslogin->setText(sl.takeFirst());
-    ui.letuspassword->setText(sl.takeFirst());
+    ui->letuslogin->setText(sl.takeFirst());
+    ui->letuspassword->setText(sl.takeFirst());
 }
 
-void mainwindow::on_chbautojoin_clicked(bool checked){
+void MainWindow::on_chbautojoin_clicked(bool checked){
     if(checked)
         pbrememberjoinclicked();
+}
+void MainWindow::on_actionReconnect_triggered(){
+    this->reconnect();
+}
+void MainWindow::on_actionClose_triggered(){
+    singleton<quithandler>().inducequit();
 }

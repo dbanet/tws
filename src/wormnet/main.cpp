@@ -1,4 +1,4 @@
-#include "window.h"
+#include "channelTab.h"
 #include "mainwindow.h"
 #include "settings.h"
 #include "charformatsettings.h"
@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
     singleton<soundHandler>().init();
 #endif
     qobjectwrapper<awayhandler>();
-    qobjectwrapper<mainwindow> w;
+    qobjectwrapper<MainWindow> w;
     volume->setvalue(S_S.getint("volumeslidervalue"));
     if (!S_S.getbool("chbminimized"))
         w.ref().show();

@@ -12,7 +12,7 @@
 #include "qobjectwrapper.h"
 #include "awayhandler.h"
 #include "usermessage.h"
-#include "window.h"
+#include "channelTab.h"
 
 extern QMap<QString, QString> ctcpcontainer;
 QStringList ctcphandler::awayusers;
@@ -23,7 +23,7 @@ bool ctcphandler::getctcp(const usermessage u){
     if (u.msg().startsWith("away")) {
         if (!awayusers.contains(u.user(), Qt::CaseInsensitive)){
             awayusers << u.user();
-            foreach(chatwindow *w, ::window::chatwindows){
+            foreach(chatwindow *w, ::channelTab::chatwindows){
                 if(w->chatpartner == u.user()){
                     w->setaway(1,u.msg());
                     break;
@@ -31,7 +31,7 @@ bool ctcphandler::getctcp(const usermessage u){
             }
         }
     } else if (u.msg()=="back") {
-        foreach(chatwindow *w, ::window::chatwindows){
+        foreach(chatwindow *w, ::channelTab::chatwindows){
             if(w->chatpartner == u.user()){
                 w->setaway(0);
                 break;

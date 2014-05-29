@@ -50,7 +50,6 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/joinprvgame.h \
     src/wormnet/logbrowser.h \
     src/wormnet/maintoolbox.h \
-    src/wormnet/mainwindow.h \
     src/wormnet/mytabwidget.h \
     src/wormnet/netcoupler.h \
     src/wormnet/settingswindow.h \
@@ -61,7 +60,6 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/usermodel.h \
     src/wormnet/userstruct.h \
     src/wormnet/volumeslider.h \
-    src/wormnet/window.h \
     src/wormnet/global_macros.h \
     src/wormnet/singleton.h \
     src/wormnet/global_functions.h \
@@ -86,7 +84,9 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/emoticonsdialog.h \
     src/wormnet/wa_textcodec.h \
     src/wormnet/playername.h \
-    src/wormnet/ircmessage.h
+    src/wormnet/ircmessage.h \
+    src/wormnet/channeltab.h \
+    src/wormnet/mainwindow.h
 
 FORMS += src/wormnet/about.ui \
     src/wormnet/awaybox.ui \
@@ -101,18 +101,16 @@ FORMS += src/wormnet/about.ui \
     src/wormnet/joinprvgame.ui \
     src/wormnet/logbrowser.ui \
     src/wormnet/maintoolbox.ui \
-    src/wormnet/mainwindow.ui \
     src/wormnet/settingswindow.ui \
     src/wormnet/textschemehandler.ui \
     src/wormnet/volumeslider.ui \
-    src/wormnet/window.ui \
-    src/wormnet/window2.ui \
-    src/wormnet/window3.ui \
     src/wormnet/combobox_wrapper.ui \
     src/wormnet/codecselectdia.ui \
     src/wormnet/progressdialog.ui \
     src/wormnet/emoticonsdialog.ui \
-    src/wormnet/playername.ui
+    src/wormnet/playername.ui \
+    src/wormnet/channeltab.ui \
+    src/wormnet/mainwindow.ui
 
 SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/awaybox.cpp \
@@ -135,7 +133,6 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/logbrowser.cpp \
     src/wormnet/main.cpp \
     src/wormnet/maintoolbox.cpp \
-    src/wormnet/mainwindow.cpp \
     src/wormnet/mytabwidget.cpp \
     src/wormnet/netcoupler.cpp \
     src/wormnet/settingswindow.cpp \
@@ -146,7 +143,6 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/usermodel.cpp \
     src/wormnet/userstruct.cpp \
     src/wormnet/volumeslider.cpp \
-    src/wormnet/window.cpp \
     src/wormnet/combobox_wrapper.cpp \
     src/wormnet/balloon_handler.cpp \
     src/wormnet/codecselectdia.cpp \
@@ -167,7 +163,9 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/emoticonsdialog.cpp \
     src/wormnet/wa_textcodec.cpp \
     src/wormnet/playername.cpp \
-    src/wormnet/ircmessage.cpp
+    src/wormnet/ircmessage.cpp \
+    src/wormnet/channeltab.cpp \
+    src/wormnet/mainwindow.cpp
 
 win32:RC_FILE += src/wormnet/myapp.rc
 TRANSLATIONS += \

@@ -48,15 +48,15 @@ void leagueserverhandler::loginFinished(){
     loggingstate=false;
     if(sl.isEmpty () || !loginreply->isFinished () || loginreply->error() != QNetworkReply::NoError){
         QMessageBox::information(0,QObject::tr("Warning"),tr("The Server %1 doesnt seem to support the secure logging feature.\n errormessage: %2").arg(servicename).arg(loginreply->errorString()));        
-        qobjectwrapper<mainwindow>::ref().show();
-        qobjectwrapper<mainwindow>::ref().raise();
+        qobjectwrapper<MainWindow>::ref().show();
+        qobjectwrapper<MainWindow>::ref().raise();
         emit sigloginfailed();        
         return;
     }               
     if(sl.takeFirst()=="0"){
         QMessageBox::information(0,QObject::tr("Warning"),tr("Your %1 Account seems to be wrong, please try again.").arg(servicename));
-        qobjectwrapper<mainwindow>::ref().show();
-        qobjectwrapper<mainwindow>::ref().raise();
+        qobjectwrapper<MainWindow>::ref().show();
+        qobjectwrapper<MainWindow>::ref().raise();
         emit sigloginfailed();
         return;
     }
@@ -66,8 +66,8 @@ void leagueserverhandler::loginFinished(){
     regexp.setPattern("([A-Z]|[a-z]|[0-9]|-|`){1,15}");
     if(!regexp.exactMatch(nick)){
         QMessageBox::warning(0,QObject::tr("Warning"),tr("The server responses with an invalid nickname: '%1'\nIts not possible to login, please contact the server admin.").arg(nick));
-        qobjectwrapper<mainwindow>::ref().show();
-        qobjectwrapper<mainwindow>::ref().raise();
+        qobjectwrapper<MainWindow>::ref().show();
+        qobjectwrapper<MainWindow>::ref().raise();
         return;
     }
     startrefresh();

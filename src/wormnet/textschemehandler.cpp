@@ -4,7 +4,7 @@
 #include "chathandler.h"
 #include "charformatsettings.h"
 #include "mainwindow.h"
-#include "window.h"
+#include "channelTab.h"
 extern bool fontOrColorHasChanged;
 textschemehandler::textschemehandler(QWidget *parent) :
     QWidget(parent) {
@@ -66,7 +66,7 @@ void textschemehandler::colorclicked() {
 }
 void textschemehandler::showclicked() {
     if (!ui.listWidget->selectedItems().isEmpty()) {
-        foreach(::window *w,qobjectwrapper<mainwindow>::ref().windowlist)
+        foreach(::channelTab *w,qobjectwrapper<MainWindow>::ref().windowlist)
             w->chat->insertText(tr("This is a teststring > ? ! < @ THIS IS A TESTSTRING! 0123456789 xD ,) :) ;P :P :E :D :C ;o :o o0 o_0 ,0.0,"),*map[ui.listWidget->selectedItems().first()->text()]);
     }
 }

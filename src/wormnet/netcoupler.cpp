@@ -9,7 +9,7 @@
 #include "snoppanet.h"
 #include "inihandlerclass.h"
 #include "settings.h"
-#include "window.h"
+#include "channelTab.h"
 #include "joinprvgame.h"
 #include "settingswindow.h"
 #include "volumeslider.h"
@@ -320,11 +320,11 @@ void netcoupler::refreshhostlist() {
 }
 void netcoupler::startprocess(const QString &s){    
     if(S_S.getbool("chbhidechannelwindowsongame")){
-        foreach(window *w,qobjectwrapper<mainwindow>::ref().windowlist)
+        foreach(channelTab *w,qobjectwrapper<MainWindow>::ref().windowlist)
             w->minimize();       
     }
     if(S_S.getbool("chbdisconnectongame"))
-        qobjectwrapper<mainwindow>::ref().returntologintab();
+        qobjectwrapper<MainWindow>::ref().returntologintab();
     if(S_S.getbool("cbsetawaywhilegaming")){
         qobjectwrapper<awayhandler>::ref().setawaywhilegameing();
     }

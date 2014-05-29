@@ -31,7 +31,7 @@ void quithandler::inducequit(QString s){
         quit();
 }
 void quithandler::beforequit(){    
-    qobjectwrapper<mainwindow>::ref().quit();            
+    qobjectwrapper<MainWindow>::ref().quit();            
     safeusergarbage();
     safequerylist();
     singleton<balloonHandler>().hideTray();
