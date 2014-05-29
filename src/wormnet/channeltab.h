@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QMenu>
 #include <QPointer>
+#include <QDockWidget>
 
 #include "netcoupler.h"
 #include "userstruct.h"
@@ -34,6 +35,8 @@ public:
     QString windowtitleaway;
     void mysetwindowtitle();
     void getusermessage(usermessage u);
+    void lockUI();
+    void unlockUI();
 public slots:
     void minimize();
     void sendmsg();
@@ -80,6 +83,10 @@ private:
 
     QString windowtitletime;
     QString windowtitlechannel;
+
+    QWidget *hostsDockTitleBar;
+    QWidget *usersDockTitleBar;
+    QWidget *chatDockTitleBar;
 
 signals:
     void sigclosed();

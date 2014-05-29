@@ -5,12 +5,12 @@
 #include "ui_textschemehandler.h"
 #include <QTextCharFormat>
 
-class textschemehandler: public QWidget {
+class TextSchemeHandler: public QWidget {
 Q_OBJECT
 
 public:
-	textschemehandler(QWidget *parent = 0);
-	~textschemehandler();
+	TextSchemeHandler(QWidget *parent = 0);
+	~TextSchemeHandler();
 
 private:
 	Ui::textschemehandlerClass ui;

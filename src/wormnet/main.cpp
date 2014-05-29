@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
     new WA_textcodec1252;
     new WA_textcodec1251;
     QApplication a(argc, argv);
-    a.setApplicationVersion(about::version);
+    a.setApplicationVersion(About::version);
     a.setApplicationName("The Wheat Snooper");
 
     QDir::setCurrent(qPrintable(QApplication::applicationDirPath()));

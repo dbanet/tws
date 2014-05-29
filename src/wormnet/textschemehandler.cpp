@@ -6,7 +6,7 @@
 #include "mainwindow.h"
 #include "channelTab.h"
 extern bool fontOrColorHasChanged;
-textschemehandler::textschemehandler(QWidget *parent) :
+TextSchemeHandler::TextSchemeHandler(QWidget *parent) :
     QWidget(parent) {
     setObjectName("normalwidget");
     setAttribute(Qt::WA_DeleteOnClose);
@@ -36,10 +36,10 @@ textschemehandler::textschemehandler(QWidget *parent) :
     map["rawformat"] = &chatHandler::hash[e_hash_raw];        
     ui.listWidget->addItems(map.keys());
 }
-void textschemehandler::closeclicked() {
+void TextSchemeHandler::closeclicked() {
     close();
 }
-void textschemehandler::fontclicked() {
+void TextSchemeHandler::fontclicked() {
     if (!ui.listWidget->selectedItems().isEmpty()) {
         bool b;
         QFont f = QFontDialog::getFont(&b,
@@ -51,7 +51,7 @@ void textschemehandler::fontclicked() {
     }
     fontOrColorHasChanged=1;
 }
-void textschemehandler::colorclicked() {
+void TextSchemeHandler::colorclicked() {
     if (!ui.listWidget->selectedItems().isEmpty()) {
         QColor c;
         c = QColorDialog::getColor(
@@ -64,11 +64,11 @@ void textschemehandler::colorclicked() {
     }
     fontOrColorHasChanged=1;
 }
-void textschemehandler::showclicked() {
+void TextSchemeHandler::showclicked() {
     if (!ui.listWidget->selectedItems().isEmpty()) {
         foreach(::channelTab *w,qobjectwrapper<MainWindow>::ref().windowlist)
             w->chat->insertText(tr("This is a teststring > ? ! < @ THIS IS A TESTSTRING! 0123456789 xD ,) :) ;P :P :E :D :C ;o :o o0 o_0 ,0.0,"),*map[ui.listWidget->selectedItems().first()->text()]);
     }
 }
-textschemehandler::~textschemehandler() {
+TextSchemeHandler::~TextSchemeHandler() {
 }

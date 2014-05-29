@@ -12,12 +12,12 @@
 
 balloonHandler::balloonHandler() {
     tray=new QSystemTrayIcon;
-    tray->setToolTip(QObject::tr("The Wheat Snooper version ")+about::version);
+    tray->setToolTip(QObject::tr("The Wheat Snooper version ")+About::version);
     tray->setIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/tray.png"));
     tray->setObjectName("normalwidget");
     tray->show();
     balloonHelper << "[" + QTime::currentTime().toString("hh:mm") + "] "
-            + QObject::tr("The Wheat Snooper version ")+about::version+QObject::tr(" started!");
+            + QObject::tr("The Wheat Snooper version ")+About::version+QObject::tr(" started!");
     if(S_S.getbool("cbshowballoons"))
         tray->showMessage(tr("Notifications."), balloonHelper.join("\n"));
 }

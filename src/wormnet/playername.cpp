@@ -4,8 +4,8 @@
 #include <QFile>
 #include <QProcess>
 #include <QTextStream>
-QString playername::nick = "";
-playername::playername(QWidget *parent) :
+QString PlayerName::nick = "";
+PlayerName::PlayerName(QWidget *parent) :
 	QWidget(parent) {
     setObjectName("normalwidget");
     ui.setupUi(this);
@@ -24,7 +24,7 @@ playername::playername(QWidget *parent) :
     ui.lineEdit->setValidator (validator);
     connect(ui.ok, SIGNAL(clicked()),this, SLOT(okclicked()));
 }
-void playername::okclicked() {
+void PlayerName::okclicked() {
     nick = ui.lineEdit->text ();
 #ifdef Q_OS_WIN32
     if(!nick.isEmpty ())
@@ -32,5 +32,5 @@ void playername::okclicked() {
 #endif
     close();
 }
-playername::~playername() {
+PlayerName::~PlayerName() {
 }

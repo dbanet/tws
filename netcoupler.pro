@@ -1,4 +1,4 @@
-DEFINES += TWS_VERSION=\\\"2.9\\\"
+DEFINES += TWS_VERSION=\\\"3.0-alpha\\\"
 BUILD_WITH_PHONON = NO
 
 TEMPLATE += app
@@ -183,6 +183,8 @@ TRANSLATIONS += \
     translations/_lt.Lithuanian_by_K4Tsis.ts
 
 RESOURCES += \
-    res/pictureResource.qrc
+    res/pictureResource.qrc \
+    res/about.qrc
 
-OTHER_FILES +=
+OTHER_FILES += \
+    res/about.html

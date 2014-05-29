@@ -2,7 +2,7 @@
 #include "settings.h"
 #include "global_functions.h"
 
-buddylist::buddylist(QWidget *parent) :
+BuddyList::BuddyList(QWidget *parent) :
 	QWidget(parent) {
     setObjectName("normalwidget");
     setAttribute(Qt::WA_DeleteOnClose);
@@ -12,7 +12,7 @@ buddylist::buddylist(QWidget *parent) :
     connect(ui.remove, SIGNAL(clicked()),this, SLOT(remove()));
     ui.list->addItems(S_S.buddylist);
 }
-void buddylist::add() {
+void BuddyList::add() {
     QStringList sl = S_S.buddylist;
     if (!containsCI(sl, ui.le->text()) && !ui.le->text().isEmpty()) {
         sl << ui.le->text();
@@ -21,7 +21,7 @@ void buddylist::add() {
         ui.list->addItems(S_S.buddylist);
     }
 }
-void buddylist::remove() {
+void BuddyList::remove() {
     QList<QListWidgetItem*> il = ui.list->selectedItems();
     if (il.size() > 0) {
         QString s = il.first()->text();

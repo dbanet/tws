@@ -4,12 +4,12 @@
 #include <QWidget>
 #include "ui_buddylist.h"
 
-class buddylist : public QWidget
+class BuddyList : public QWidget
 {
     Q_OBJECT
 
 public:
-    buddylist(QWidget *parent = 0);
+    BuddyList(QWidget *parent = 0);
 
 private:
     Ui::buddylistClass ui;

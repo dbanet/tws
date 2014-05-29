@@ -4,13 +4,13 @@
 #include <QWidget>
 #include "ui_logbrowser.h"
 
-class logbrowser : public QWidget
+class LogBrowser : public QWidget
 {
     Q_OBJECT
 
 public:
-    logbrowser(QWidget *parent = 0);
-    ~logbrowser();
+    LogBrowser(QWidget *parent = 0);
+    ~LogBrowser();
 
 private:
     Ui::logbrowserClass ui;

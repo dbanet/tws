@@ -104,9 +104,9 @@ void leagueserverhandler::reset(){
 void leagueserverhandler::refresh(){
     QUrl url;
     if(singleton<leagueserverhandler>().islogged())
-        url=serveraddress+"userlist.php?update="+leagueloginnick+"&v="+about::version;
+        url=serveraddress+"userlist.php?update="+leagueloginnick+"&v="+About::version;
     else
-        url=serveraddress+"userlist.php?v="+about::version;
+        url=serveraddress+"userlist.php?v="+About::version;
     refreshreply=qnam.get(QNetworkRequest(url));
     connect(refreshreply, SIGNAL(finished()),this, SLOT(refreshFinished()));    
     connect(refreshreply, SIGNAL(finished()),refreshreply, SLOT(deleteLater()));

@@ -100,7 +100,7 @@ channelTab::channelTab(QString s,int i,QWidget *parent) :
     connect(ui->users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
     connect(ui->hosts, SIGNAL(pressed(const QModelIndex&)),this, SLOT(hostitempressed(const QModelIndex&)));
     connect(ui->hosts, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(hostitemdblclicked(const QModelIndex&)));
-    connect(ui->pbsmiley,SIGNAL(clicked()),this,SLOT(pbemotclicked()));
+    //connect(ui->pbsmiley,SIGNAL(clicked()),this,SLOT(pbemotclicked()));
     connect(&singleton<netcoupler>(),SIGNAL(sigJoinedChannel(QString,int)),this,SLOT(setupWindowTitleOnJoin(QString,int)));
     connect(&singleton<netcoupler>(),SIGNAL(sigUpdatedAmountOfUsers(QString,int)),this,SLOT(setupWindowTitleOnChangeOfUserAmount(QString,int)));
     connect(ui->msg, SIGNAL(returnPressed()),this, SLOT(sendmsg()));
@@ -120,6 +120,10 @@ channelTab::channelTab(QString s,int i,QWidget *parent) :
 
     qDebug()<<"Setting up the top right corner to belong to the right docking widget area...";
     this->setCorner(Qt::TopRightCorner,Qt::RightDockWidgetArea);
+    this->setCorner(Qt::BottomRightCorner,Qt::RightDockWidgetArea);
+
+    qDebug()<<"Locking the UI...";
+    this->lockUI();
 
     windowtitlechannel =  currentchannel;
     qDebug()<<"///channelTab::window(QString s,int i)";
@@ -547,6 +551,45 @@ void channelTab::setupWindowTitleOnChangeOfUserAmount(QString channel,int amount
 }
 void channelTab::showInformationAboutClan(QString clan){
     clan=clan.toLower();
+}
+void channelTab::lockUI(){
+    /* we're going to completely detach the dock's title bar using setTitleBarWidget to save the */
+    /* space it occupies (setting NoDockWidgetFeatuers doesn't free that space), so now we save  */
+    /* the dock's original title bar widgets to restore later (in unlockUI)                      */
+    hostsDockTitleBar=ui->hostsDock->titleBarWidget();
+    usersDockTitleBar=ui->usersDock->titleBarWidget();
+    chatDockTitleBar=ui->chatDock->titleBarWidget();
+
+    /* setting the dock behave like a plain splitter (no docking/undocking features enabled)     */
+    ui->hostsDock->setFeatures(QDockWidget::NoDockWidgetFeatures);
+    ui->usersDock->setFeatures(QDockWidget::NoDockWidgetFeatures);
+    ui->chatDock->setFeatures(QDockWidget::NoDockWidgetFeatures);
+
+    /* a fix for when the UI gets unlocked and then locked again, the minimumHeight increases by */
+    /* the dock's title bar. I set the minimumHeight back to the height of the chat input box    */
+    //ui->chatDock->setMinimumHeight(27);
+
+    /* setting an empty QWidget as the dock's title bar to save the space                        */
+    ui->hostsDock->setTitleBarWidget(new QWidget(this));
+    ui->usersDock->setTitleBarWidget(new QWidget(this));
+    ui->chatDock->setTitleBarWidget(new QWidget(this));
+
+    /* locking the toolbar                                                                       */
+    ui->toolBar->setMovable(false);
+}
+void channelTab::unlockUI(){
+    /* restoring the docks' original title bars                                                  */
+    ui->hostsDock->setTitleBarWidget(hostsDockTitleBar);
+    ui->usersDock->setTitleBarWidget(usersDockTitleBar);
+    ui->chatDock->setTitleBarWidget(chatDockTitleBar);
+
+    /* enabling the docking/undocking features                                                   */
+    ui->hostsDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
+    ui->usersDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
+    ui->chatDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
+
+    /* unlocking the toolbar                                                                     */
+    ui->toolBar->setMovable(true);
 }
 channelTab::~channelTab()
 {

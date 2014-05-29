@@ -4,12 +4,12 @@
 #include <QFrame>
 #include "ui_about.h"
 
-class about : public QFrame
+class About : public QFrame
 {
     Q_OBJECT
 
 public:
-    about(QFrame *parent = 0);
+    About(QFrame *parent = 0);
 
     static QString version;
 private:

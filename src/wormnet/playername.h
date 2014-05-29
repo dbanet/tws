@@ -4,13 +4,13 @@
 #include <QWidget>
 #include "ui_playername.h"
 
-class playername : public QWidget
+class PlayerName : public QWidget
 {
     Q_OBJECT
 
 public:
-    playername(QWidget *parent = 0);
-    ~playername();
+    PlayerName(QWidget *parent = 0);
+    ~PlayerName();
     static QString nick;
 private:
     Ui::playernameClass ui;

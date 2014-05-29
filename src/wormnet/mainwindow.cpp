@@ -89,7 +89,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->cbremember->setChecked(S_S.getbool("chbremember"));
     if (ui->cbremember->isChecked())
         chooseclicked();
-    setWindowTitle(tr("Wheat Snoopers root window."));
+    setWindowTitle(tr("The Wheat Snooper"));
     joinonstartup = 0;
     connect(ui->start, SIGNAL(clicked()),this, SLOT(chooseclicked()));
     connect(ui->pbrememberjoin, SIGNAL(clicked()),this, SLOT(pbrememberjoinclicked()));
@@ -121,7 +121,6 @@ MainWindow::MainWindow(QWidget *parent) :
         restoreGeometry(windowstates.takeFirst().toByteArray());
     if(height()<530)
         resize(width(),530);
-    setWindowFlags (Qt::Dialog);
 }
 MainWindow::~MainWindow()
 {
@@ -759,7 +758,7 @@ void MainWindow::traymenutriggered(QAction *a) {
         return;
 
     } else if (a->text() == tr("About")) {
-        about *ab = new about;
+        About *ab = new About;
         ab->show();
         return;
     } else if (a->text() == tr("Settings")) {
@@ -769,7 +768,7 @@ void MainWindow::traymenutriggered(QAction *a) {
         reconnect();
         return;
     } else if (a->text() == usermodel::tr("Buddylist")) {
-        buddylist *buddy = new buddylist;
+        BuddyList *buddy = new BuddyList;
         buddy->show();
     }
     if (a->text() == tr("Volume")) {
@@ -778,7 +777,7 @@ void MainWindow::traymenutriggered(QAction *a) {
     } else if (a->text().contains(".qm", Qt::CaseInsensitive)) {
         setlanguage(a->text());
     } else if (a->text() == tr("Open Log Browser")) {
-        logbrowser *l = new logbrowser;
+        LogBrowser *l = new LogBrowser;
         l->show();
         connect(l, SIGNAL(sigopenchatwindow(const QString&)),this, SLOT(openchatwindowraised(const QString&)));
     } else if (a->text().contains(".textscheme", Qt::CaseInsensitive)) {
@@ -796,10 +795,10 @@ void MainWindow::traymenutriggered(QAction *a) {
             textschememenu->addAction(file_name);
         }
     } else if (a->text() == tr("Scheme maker")) {
-        textschemehandler *h = new textschemehandler;
+        TextSchemeHandler *h = new TextSchemeHandler;
         h->show();
     } else if (a->text() == tr("Playername")) {
-        playername *pl = new playername;
+        PlayerName *pl = new PlayerName;
         pl->show();
     }
 }
@@ -838,7 +837,7 @@ void MainWindow::on_pbsettings_clicked(){
     singleton<settingswindow>().show();
 }
 void MainWindow::on_pbabout_clicked(){
-    about *ab = new about;
+    About *ab = new About;
     ab->show();
 }
 void MainWindow::joinGameSourge(){
@@ -901,7 +900,6 @@ void MainWindow::on_cbleagueservers_activated(QString s){
     ui->letuslogin->setText(sl.takeFirst());
     ui->letuspassword->setText(sl.takeFirst());
 }
-
 void MainWindow::on_chbautojoin_clicked(bool checked){
     if(checked)
         pbrememberjoinclicked();
@@ -911,4 +909,44 @@ void MainWindow::on_actionReconnect_triggered(){
 }
 void MainWindow::on_actionClose_triggered(){
     singleton<quithandler>().inducequit();
+}
+void MainWindow::on_actionLock_the_UI_triggered(bool checked){
+    for(int i=0;i<windowlist.length();++i)
+        if(checked)
+            windowlist[i]->lockUI();
+        else
+            windowlist[i]->unlockUI();
+}
+void MainWindow::on_actionSet_away_triggered(){
+    handleAwayBox();
+}
+void MainWindow::on_actionBuddy_list_triggered(){
+    BuddyList *buddyList=new BuddyList();
+    buddyList->show();
+}
+void MainWindow::on_actionLog_browser_triggered(){
+    LogBrowser *logBrowser=new LogBrowser();
+    logBrowser->show();
+}
+void MainWindow::on_actionChange_ingame_nick_triggered(){
+    PlayerName *playerName=new PlayerName();
+    playerName->show();
+}
+void MainWindow::on_actionSelect_encoding_triggered(){
+    CodecSelectDia().exec();
+}
+void MainWindow::on_actionVolume_triggered(){
+    volume->show();
+    volume->move(QCursor::pos());
+}
+void MainWindow::on_actionText_scheme_maker_triggered(){
+    TextSchemeHandler *textSchemeHandler=new TextSchemeHandler();
+    textSchemeHandler->show();
+}
+void MainWindow::on_actionSettings_triggered(){
+    singleton<settingswindow>().show();
+}
+void MainWindow::on_actionAbout_triggered(){
+    About *about=new About();
+    about->show();
 }

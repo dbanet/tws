@@ -268,7 +268,7 @@ void database_base::validate(){
     if(getString("qss_file").isEmpty())
         set("qss_file", QString("black by lookias.qss"));
     if(getString("information").isEmpty() || getString("information").startsWith("The Wheat Snooper"))
-        set("information", "The Wheat Snooper "+about::version);
+        set("information", "The Wheat Snooper "+About::version);
     //if(!contains("showinformation"))
         set("showinformation", true);    
 
