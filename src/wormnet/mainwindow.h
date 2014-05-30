@@ -70,20 +70,20 @@ private:
     void gotScriptMessage(const usermessage);
 
 private slots:    
-    void onPbAutoJoinClicked(bool checked);
-    void onCbLeagueServersActivated(QString );
-    void onPbEditLeaugeProfileClicked();
-    void onCbEnableTusToggled(bool checked);
-    void onPbJoinClicked();
+    void on_chbautojoin_clicked(bool checked);
+    void on_cbleagueservers_activated(QString );
+    void on_pbeditleagueprofile_clicked();
+    void on_cbenabletus_toggled(bool checked);
+    void on_pbjoin_clicked();
     void join(const QString channel);
     void openChatWindowRaised(const QString &);
-    void onPbAboutClicked();
-    void onPbSettingsClicked();
+    void on_pbabout_clicked();
+    void on_pbsettings_clicked();
     void getChannelList(const QStringList &);
     void chooseClicked();
     void trayActivation(QSystemTrayIcon::ActivationReason);
     void trayMenuTriggered(QAction *);
-    void pbRememberJoinClicked();
+    void on_pbrememberjoin_clicked();
     void snpSetContains(const QString&);
     void useSettingsWindow(const QString &s="");
     void chatWindowClosed();
@@ -101,7 +101,6 @@ private slots:
     void leagueServerConnectionSuccess();
     void currentTabChanged(int);
     void leagueServerProfilePage(QString);
-
     void windowClosed();
 
 protected:
