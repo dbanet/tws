@@ -92,7 +92,6 @@ mainwindow::mainwindow() {
     setWindowTitle(tr("Wheat Snoopers root window."));
     joinOnStartUp = 0;
     connect(ui.start, SIGNAL(clicked()),this, SLOT(chooseClicked\()));
-    connect(ui.pbrememberjoin, SIGNAL(clicked()),this, SLOT(pbRememberJoinClicked()));
     connect(ui.tabWidget, SIGNAL(currentChanged ( int )),this, SLOT(currentTabChanged(int)));
 
     connect(&singleton<netcoupler>(), SIGNAL(sigSettingsWindowChanged()),this, SLOT(useSettingsWindow()));
@@ -266,7 +265,7 @@ void mainwindow::join(const QString channel){
         windowList.last()->windowAwayTitle = qobjectwrapper<awayhandler>::ref().message();
         windowList.last()->updateWindowTitle();
     }
-    connect(windowList.last(), SIGNAL(sigjoinChannel(const QString&)),this, SLOT(join(const QString&)));
+    connect(windowList.last(), SIGNAL(sigJoinChannel(const QString&)),this, SLOT(join(const QString&)));
     connect(windowList.last(), SIGNAL(sigOpenChatWindow(const QString &)),this, SLOT(openChatWindowRaised(const QString &)));
     connect(this, SIGNAL(sigOpenChatWindow(const QString &)),this, SLOT(openChatWindowRaised(const QString &)));
     connect(windowList.last(), SIGNAL(sigChangeLeagueState()),this, SLOT(reconnect()));
@@ -315,7 +314,7 @@ void mainwindow::returnToLoginTab() {
         w->close();
     ui.tabWidget->setTabEnabled(1, 0);
 }
-void mainwindow::pbRememberJoinClicked() {
+void mainwindow::on_pbrememberjoin_clicked() {
     S_S.set("joinonstartup", ui.cbchannels->currentText());
     ui.pbrememberjoin->setText(tr("Autojoin:") + "\n" + S_S.getString("joinonstartup"));
 }
@@ -368,7 +367,7 @@ void mainwindow::snpSetContains(const QString &s) {
     else if(s=="enablesecurelogging"){
         bool b=S_S.getbool("enablesecurelogging");
         ui.cbenabletus->setChecked(b);
-        onCbEnableTusToggled(b);
+        on_cbenabletus_toggled(b);
     } else if(s=="showinformation"){
         bool b=S_S.getbool("showinformation");
         ui.cbshowinformation->setChecked(b);
@@ -839,14 +838,15 @@ void mainwindow::reconnect2(){
     disconnect(this,SIGNAL(sigDisconnected()),this,SLOT(reconnect2()));
     chooseClicked();
 }
-void mainwindow::onPbSettingsClicked(){
+void mainwindow::on_pbsettings_clicked(){
     singleton<settingswindow>().show();
 }
-void mainwindow::onPbAboutClicked(){
+void mainwindow::on_pbabout_clicked(){
     about *ab = new about;
     ab->show();
 }
 void mainwindow::joinGameSurge(){
+#ifdef WITH_GAMESURGE_SUPPORT
     //    ircJoinDia dia;
     //    if(!dia.exec())
     //        return;
@@ -854,13 +854,14 @@ void mainwindow::joinGameSurge(){
     //    static irc_window *window=new irc_window(net,GamesurgeChannelName);
     //    window->show();
     //    window->raise();
+#endif
 }
 
-void mainwindow::onPbJoinClicked(){
+void mainwindow::on_pbjoin_clicked(){
     join(ui.cbchannels->currentText());
 }
 
-void mainwindow::onCbEnableTusToggled(bool checked){
+void mainwindow::on_cbenabletus_toggled(bool checked){
     if(checked) {
         ui.lenick->setEnabled(false);
         ui.rank->setEnabled(false);
@@ -886,8 +887,7 @@ void mainwindow::onCbEnableTusToggled(bool checked){
         ui.cbleagueservers->setEnabled(false);
     }
 }
-
-void mainwindow::onPbEditLeaugeProfileClicked(){
+void mainwindow::on_pbeditleagueprofile_clicked(){
     setLeague();
     if(ui.letuslogin->text().isEmpty()){
         QMessageBox::information(0,QObject::tr("Information"),tr("Before you can view your profile, you must fill in a loginname."));
@@ -899,7 +899,7 @@ void mainwindow::onPbEditLeaugeProfileClicked(){
 void mainwindow::leagueServerProfilePage(QString url){
     QDesktopServices::openUrl(QUrl(url));
 }
-void mainwindow::onCbLeagueServersActivated(QString s){
+void mainwindow::on_cbleagueservers_activated(QString s){
     QStringList sl=S_S.getStringList("leagueservers"+s);
     if(sl.size()<2)
         return;
@@ -907,7 +907,7 @@ void mainwindow::onCbLeagueServersActivated(QString s){
     ui.letuspassword->setText(sl.takeFirst());
 }
 
-void mainwindow::onPbAutoJoinClicked(bool checked){
+void mainwindow::on_chbautojoin_clicked(bool checked){
     if(checked)
-        pbRememberJoinClicked();
+        on_pbrememberjoin_clicked();
 }

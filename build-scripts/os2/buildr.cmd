@@ -6,7 +6,7 @@ qtdir=value('qtdir',,os2environment)
 if qtdir='' then qtdir='\usr\lib\qt4'
 
 '"'qtdir'\bin\lupdate" -no-obsolete "'twsdir'\netcoupler.pro"'
-'qmake -config release"'twsdir'\netcoupler.pro"'
+'qmake -config release "'twsdir'\netcoupler.pro"'
 'make -j4'
 
 'xcopy /H /O /T /S /E /R /V "'twsdir'\bld\*" .\'

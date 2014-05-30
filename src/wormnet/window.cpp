@@ -59,7 +59,7 @@ window::window(QString s, int i) :
     ui.hosts->setAlternatingRowColors(1);
     ui.buttonlayout->addWidget(buttons);    
     ui.users->installEventFilter(this);
-    connect(&singleton<netcoupler>().users, SIGNAL(sigSelectItem(const QModelIndex&,const QWidget*)),this, SLOT(setSelection(const QModelIndex&,const QWidget*)));
+    connect(&singleton<netcoupler>().users, SIGNAL(sigselectitem(const QModelIndex&,const QWidget*)),this, SLOT(setSelection(const QModelIndex&,const QWidget*)));
     chat = new chatHandler(this, ui.chat, currentChannel);
     ui.msg->installEventFilter(chat);
     connect(chat, SIGNAL(sigOpenChatWindow(const QString&)),this, SLOT(openChatWindow(const QString&)));
@@ -79,7 +79,7 @@ window::window(QString s, int i) :
     ui.users->header()->setSortIndicator(2, Qt::AscendingOrder);
     ui.users->header()->setSortIndicator(3, Qt::AscendingOrder);
     ui.users->header()->setSortIndicatorShown(1);
-    connect(ui.users->header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),&singleton<netcoupler>().users, SLOT(sortSlot(int, Qt::SortOrder)));
+    connect(ui.users->header(),SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),&singleton<netcoupler>().users,SLOT(sortslot(int, Qt::SortOrder)));
 
     ui.hosts->setModel(&singleton<netcoupler>().hosts);
     ui.hosts->setEnabled(1);
@@ -402,7 +402,7 @@ void window::userItemDoubleClicked(const QModelIndex &index) {
         QString s=singleton<netcoupler>().users.data(index.sibling(index.row(), 0)).value<QString> ();
         if(s==usermodel::tr("Buddylist") || s==usermodel::tr("Ignorelist") || s==usermodel::tr("Querys"))
             return;
-        emit sigjoinChannel(s);
+        emit sigJoinChannel(s);
     }
 }
 void window::hostItemDoubleClicked(const QModelIndex &index) {

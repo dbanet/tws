@@ -86,7 +86,7 @@ private:
 
 signals:
     void sigClosed();
-    void sigjoinChannel(const QString&);
+    void sigJoinChannel(const QString&);
     void sigOpenChatWindow(const QString&);
     void sigChangeLeagueState();
 protected:
