@@ -1,5 +1,5 @@
 #include "maintoolbox.h"
-#include "channelTab.h"
+#include "channel/channeltab.h"
 #include "chatwindow.h"
 #include "mytabwidget.h"
 #include <QVBoxLayout>

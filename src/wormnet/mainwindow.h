@@ -39,6 +39,13 @@ public:
 
 public slots:
     void returntologintab();
+    channelTab* dockTab(channelTab *tab=0);
+    //serverTab* dockTab(serverTab *tab=0);
+    //privateTab* dockTab(privateTab *tab=0);
+
+    channelTab* undockTab(channelTab *tab=0);
+    //serverTab* undockTab(serverTab *tab=0);
+    //privateTab* undockTab(privateTab *tab=0);
 
 private:
     Ui::MainWindow *ui;
@@ -106,27 +113,28 @@ private slots:
     void currenttabchanged(int);
     void leagueserverprofilepage(QString);
     void windowclosed();
+    void actionUndockTabTriggered();
+
     void on_actionReconnect_triggered();
     void on_actionClose_triggered();
     void on_actionLock_the_UI_triggered(bool checked);
-
     void on_actionSet_away_triggered();
-
     void on_actionBuddy_list_triggered();
-
     void on_actionLog_browser_triggered();
-
     void on_actionChange_ingame_nick_triggered();
-
     void on_actionSelect_encoding_triggered();
-
     void on_actionVolume_triggered();
-
     void on_actionText_scheme_maker_triggered();
-
     void on_actionSettings_triggered();
-
     void on_actionAbout_triggered();
+    void on_actionDisconnect_triggered();
+    void on_tabWidget_currentChanged(int index);
+    void on_actionStalk_words_triggered(bool checked);
+    void on_actionSound_triggered(bool checked);
+    void on_actionTray_notifications_triggered(bool checked);
+    void on_actionSort_userlist_triggered(bool checked);
+    void on_menuSpectate_triggered(QAction*);
+    void on_menuLeagueColor_triggered(QAction*);
 
 protected:
     void closeEvent ( QCloseEvent * event );

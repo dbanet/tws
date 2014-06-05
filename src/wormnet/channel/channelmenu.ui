@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ChannelMenu</class>
+ <widget class="QMenu" name="menuChannel">
+  <property name="enabled">
+   <bool>false</bool>
+  </property>
+  <property name="title">
+   <string>Channel</string>
+  </property>
+  <widget class="QMenu" name="menuSpectate">
+   <property name="title">
+    <string>Spectate secure logons</string>
+   </property>
+   <addaction name="actionSpectateOff"/>
+   <addaction name="separator"/>
+   <addaction name="actionSpectateLeagueServer0"/>
+   <addaction name="actionSpectateLeagueServer1"/>
+   <addaction name="actionSpectateLeagueServer2"/>
+  </widget>
+  <addaction name="actionPart"/>
+  <addaction name="actionRejoin"/>
+  <addaction name="menuSpectate"/>
+  <addaction name="separator"/>
+  <addaction name="actionChanOp_commands"/>
+  <action name="actionPart">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Part</string>
+   </property>
+  </action>
+  <action name="actionRejoin">
+   <property name="text">
+    <string>Rejoin</string>
+   </property>
+  </action>
+  <action name="actionChanOp_commands">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>ChanOp commands</string>
+   </property>
+  </action>
+  <action name="actionSpectateOff">
+   <property name="text">
+    <string>Off</string>
+   </property>
+  </action>
+  <action name="actionSpectateLeagueServer0">
+   <property name="text">
+    <string>http://www.tus-wa.com/</string>
+   </property>
+  </action>
+  <action name="actionSpectateLeagueServer1">
+   <property name="text">
+    <string>http://www.normalnonoobs.com/</string>
+   </property>
+  </action>
+  <action name="actionSpectateLeagueServer2">
+   <property name="text">
+    <string>http://lookias.worms2d.info/securelogging/</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -12,21 +12,22 @@
 
 #include "channeltab.h"
 #include "ui_channeltab.h"
-#include "chatwindow.h"
-#include "settings.h"
-#include "mainwindow.h"
-#include "chathandler.h"
-#include "hostbox.h"
-#include "settingswindow.h"
+#include "ui_channelmenu.h"
+#include "../chatwindow.h"
+#include "../settings.h"
+#include "../mainwindow.h"
+#include "../chathandler.h"
+#include "../hostbox.h"
+#include "../settingswindow.h"
 #ifdef PHONON
-#include "sound_handler.h"
+#include "../sound_handler.h"
 #endif
-#include "global_functions.h"
-#include "clantowebpagemapper.h"
-#include "leagueserverhandler.h"
-#include "usermessage.h"
-#include "balloon_handler.h"
-#include "emoticonsdialog.h"
+#include "../global_functions.h"
+#include "../clantowebpagemapper.h"
+#include "../leagueserverhandler.h"
+#include "../usermessage.h"
+#include "../balloon_handler.h"
+#include "../emoticonsdialog.h"
 
 QList<chatwindow*> channelTab::chatwindows;
 QStringList channelTab::chatwindowstringlist;
@@ -39,13 +40,6 @@ channelTab::channelTab(QString s,int i,QWidget *parent) :
     qDebug()<<"channelTab::window(QString s,int i)///";
     setAttribute(Qt::WA_DeleteOnClose);
     setObjectName("channelwindow");
-    /*if (i == 1)
-        ui1.setupUi(this);
-    if (i == 2)
-        ui2.setupUi(this);
-    if (i == 3)
-        ui3.setupUi(this);
-    whichuiison = i;    */
     ui->setupUi(this);
     qDebug()<<"ui->users->setAlternatingRowColors(1)";
     ui->users->setAlternatingRowColors(1);
@@ -101,6 +95,8 @@ channelTab::channelTab(QString s,int i,QWidget *parent) :
     connect(ui->hosts, SIGNAL(pressed(const QModelIndex&)),this, SLOT(hostitempressed(const QModelIndex&)));
     connect(ui->hosts, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(hostitemdblclicked(const QModelIndex&)));
     //connect(ui->pbsmiley,SIGNAL(clicked()),this,SLOT(pbemotclicked()));
+    connect(ui->actionHost,SIGNAL(triggered()),this,SLOT(openHostBox()));
+    connect(ui->actionRefresh,SIGNAL(triggered()),&singleton<netcoupler>(),SLOT(refreshhostlist()));
     connect(&singleton<netcoupler>(),SIGNAL(sigJoinedChannel(QString,int)),this,SLOT(setupWindowTitleOnJoin(QString,int)));
     connect(&singleton<netcoupler>(),SIGNAL(sigUpdatedAmountOfUsers(QString,int)),this,SLOT(setupWindowTitleOnChangeOfUserAmount(QString,int)));
     connect(ui->msg, SIGNAL(returnPressed()),this, SLOT(sendmsg()));
@@ -395,7 +391,7 @@ void channelTab::hostitemdblclicked(const QModelIndex &index) {
         QString gamename = singleton<netcoupler>().hosts.gamename(index);
         singleton<netcoupler>().joingame(hostinfo, currentchannel, gamename);
     } else if (index.internalId() == 999) {
-        openhbox();
+        openHostBox();
     }
 }
 void channelTab::getuserinfo(const QString &s) {
@@ -446,7 +442,7 @@ void channelTab::hostitempressed(const QModelIndex &index) {
                 + singleton<netcoupler>().schememap[currentchannel] + "\"";
         QString gamename = singleton<netcoupler>().hosts.gamename(index);
         if (index.internalId() == 999) {
-            openhbox();
+            openHostBox();
         } else {
             getjoinmenu();
             QAction *a = joinmenu.exec(QCursor::pos());
@@ -508,7 +504,7 @@ void channelTab::getjoinmenu() {
     }
     joinmenu2.addAction(tr("Choose a Program to join this game."));
 }
-void channelTab::openhbox() {
+void channelTab::openHostBox() {
     hbox = new hostbox(currentchannel);
     hbox->show();
     connect(hbox, SIGNAL(sigok()),this, SLOT(hboxok()));
@@ -590,6 +586,17 @@ void channelTab::unlockUI(){
 
     /* unlocking the toolbar                                                                     */
     ui->toolBar->setMovable(true);
+}
+void channelTab::monopolizeMenu(QMenu *channelMenu){
+    ui->menuBar->addActions(channelMenu->actions());
+    ui->menuBar->show();
+}
+QMenu* channelTab::createMenu(){
+    QMenu *channelMenu=new QMenu();
+    Ui_ChannelMenu *uiChannelMenu=new Ui_ChannelMenu();
+    qDebug()<<"a";
+    uiChannelMenu->setupUi(channelMenu);
+    return channelMenu;
 }
 channelTab::~channelTab()
 {

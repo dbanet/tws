@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "channelTab.h"
+#include "channel/channeltab.h"
 #include "netcoupler.h"
 #include "buddylist.h"
 #include "ctcphandler.h"
@@ -35,6 +35,7 @@
 #include "src/irc/ircjoindia.h"
 #endif
 
+#include <QColorDialog>
 #include <QTextCodec>
 #include <QDir>
 #include <QStringList>
@@ -46,6 +47,7 @@
 #include <QTime>
 #include <QFileDialog>
 #include <QDesktopServices>
+#include <QSignalMapper>
 
 inihandlerclass inihandler;
 extern volumeslider *volume;
@@ -245,6 +247,38 @@ void MainWindow::getchannellist(const QStringList &sl) {
         joinonstartup = 1;
     }
 }
+channelTab* MainWindow::dockTab(channelTab *tab){
+    if(0!=(tab=tab==0?(channelTab*)QObject::sender():tab)){
+        ui->tabWidget->addTab(tab,tab->currentchannel);
+        ui->tabWidget->setCurrentWidget(tab);
+
+        QAction *undock=new QAction("Undock",tab);
+        tab->addAction(undock);
+        tab->setContextMenuPolicy(Qt::ActionsContextMenu);
+        connect(undock,SIGNAL(triggered()),this,SLOT(actionUndockTabTriggered()));
+
+        QMenu *menu=tab->createMenu();
+        ui->menuChannel->addActions(menu->actions());
+        ui->menuChannel->setEnabled(true);
+    }
+    return tab;
+}
+void MainWindow::actionUndockTabTriggered(){
+    this->undockTab((channelTab*)(((QAction*)QObject::sender())->parent()));
+}
+channelTab* MainWindow::undockTab(channelTab *tab){
+    if(0!=(tab=tab==0?(channelTab*)QObject::sender():tab)){
+        ui->tabWidget->removeTab(ui->tabWidget->indexOf(tab));
+
+        QMenu *tabMenu=new QMenu();
+        tabMenu->addActions(ui->menuChannel->actions());
+        tab->monopolizeMenu(tabMenu);
+
+        tab->setParent(0);
+        tab->show();
+    }
+    return tab;
+}
 void MainWindow::join(const QString channel){
 //    if(channel==GamesourgeChannelName){
 //        joinGameSourge();
@@ -254,8 +288,7 @@ void MainWindow::join(const QString channel){
         return;
     currentchannellist << channel;
 
-    channelTab *chanTab=new channelwindow(channel,1);
-    ui->tabWidget->addTab(chanTab,channel);
+    channelTab *chanTab=dockTab(new channelTab(channel,1));
     windowlist.push_back(chanTab);
 
     singleton<netcoupler>().joinchannel(channel);
@@ -268,7 +301,6 @@ void MainWindow::join(const QString channel){
     connect(windowlist.last(), SIGNAL(sigjoinchannel(const QString&)),this, SLOT(join(const QString&)));
     connect(windowlist.last(), SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
     connect(this, SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
-    connect(windowlist.last(), SIGNAL(sigchangeleaguestate()),this, SLOT(reconnect()));
     connect(windowlist.last(), SIGNAL(sigclosed()),this, SLOT(windowclosed()));
 }
 void MainWindow::windowclosed(){
@@ -949,4 +981,94 @@ void MainWindow::on_actionSettings_triggered(){
 void MainWindow::on_actionAbout_triggered(){
     About *about=new About();
     about->show();
+}
+void MainWindow::on_actionDisconnect_triggered(){
+    returntologintab();
+}
+void MainWindow::on_tabWidget_currentChanged(int index){
+    QWidget *currentTab=ui->tabWidget->currentWidget();
+    if(index<0)
+        qFatal("No tabs in the tabBar left.");
+    else if(currentTab->objectName()=="loginTab"){
+        /* disabling the "channels" and "server" menus (neither is active) */
+        ui->menuChannel->setEnabled(false);
+        ui->menuServer->setEnabled(false);
+    }
+    else if(ui->tabWidget->currentWidget()->objectName()=="joinChannelsTab"){
+        /* disabling the "channels" menu (no channel tab is active) */
+        ui->menuChannel->setEnabled(false);
+
+        /* enabling the "server" menu (if we're at this tab, then we've successfully connected */
+        ui->menuServer->setEnabled(true);
+    }
+    else if(ui->tabWidget->currentWidget()->objectName()=="channelwindow"){
+        /* enabling the "channels" menu */
+        ui->menuChannel->setEnabled(true);
+    }
+}
+void MainWindow::on_actionStalk_words_triggered(bool checked){
+    singleton<settingswindow>().set("cbcostumword",checked);
+}
+void MainWindow::on_actionSound_triggered(bool checked){
+    singleton<settingswindow>().set("cbdontplaysound",!checked);
+}
+void MainWindow::on_actionTray_notifications_triggered(bool checked){
+    singleton<settingswindow>().set("cbshowballoons",checked);
+}
+void MainWindow::on_actionSort_userlist_triggered(bool checked){
+    singleton<sqlsettings>().set("cbdontsortinchannels",!checked);
+}
+void MainWindow::on_menuSpectate_triggered(QAction *serverMenuItem){
+    if(serverMenuItem==NULL)
+        return;
+
+    if(serverMenuItem->objectName()=="actionSpectateOff"){ /* turning spectation off */
+        singleton<leagueserverhandler>().stoprefresh();
+        S_S.set("spectateleagueserver",false);
+    }
+    else{
+        QString server=serverMenuItem->text();
+        S_S.set("spectateleagueserver",true);
+        singleton<leagueserverhandler>().setleague(server,server);
+        singleton<leagueserverhandler>().startrefresh();
+    }
+}
+void MainWindow::on_menuLeagueColor_triggered(QAction *colorMenuItem){
+    if(colorMenuItem==NULL)
+        return;
+
+    if(colorMenuItem->objectName()=="actionLeagueColorOff"){
+        if(!S_S.getbool("leaguestatecoloron"))
+            return;
+        S_S.set("leaguestatecoloron",false);
+        reconnect();
+    }
+    else{
+        QColor *color;
+        QString colorName=colorMenuItem->objectName();
+
+        if(colorName=="actionLeagueColorReady")
+            color=new QColor(Qt::green); else
+
+        if(colorName=="actionLeagueColorAFK")
+            color=new QColor(Qt::yellow); else
+
+        if(colorName=="actionLeagueColorDND")
+            color=new QColor(Qt::red); else
+
+        if(colorName=="actionLeagueColorCustom"){
+            QColorDialog dia;
+            dia.setOption(QColorDialog::ShowAlphaChannel);
+            color=new QColor(dia.getColor());
+            if(!color->isValid()) return;
+        }
+        else qFatal((const char*)(QString("void MainWindow::on_menuLeagueColor_triggered(QAction *colorMenuItem) has got strange item with the following objectName(): ")+colorName).toLatin1().data());
+
+        if(color->name()==S_S.getString("leaguestatecolorname") && S_S.getbool("leaguestatecoloron"))
+            return;
+
+        S_S.set("leaguestatecolorname",color->name());
+        S_S.set("leaguestatecoloron",true);
+        reconnect();
+    }
 }

@@ -4,7 +4,7 @@
 #include "chathandler.h"
 #include "charformatsettings.h"
 #include "mainwindow.h"
-#include "channelTab.h"
+#include "channel/channeltab.h"
 extern bool fontOrColorHasChanged;
 TextSchemeHandler::TextSchemeHandler(QWidget *parent) :
     QWidget(parent) {

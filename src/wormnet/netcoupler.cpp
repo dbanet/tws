@@ -9,7 +9,7 @@
 #include "snoppanet.h"
 #include "inihandlerclass.h"
 #include "settings.h"
-#include "channelTab.h"
+#include "channel/channeltab.h"
 #include "joinprvgame.h"
 #include "settingswindow.h"
 #include "volumeslider.h"

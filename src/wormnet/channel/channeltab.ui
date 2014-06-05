@@ -46,8 +46,8 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>0</width>
-     <height>0</height>
+     <width>71</width>
+     <height>84</height>
     </size>
    </property>
    <property name="features">
@@ -93,8 +93,8 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>0</width>
-     <height>0</height>
+     <width>131</width>
+     <height>52</height>
     </size>
    </property>
    <property name="maximumSize">
@@ -198,8 +198,8 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>0</width>
-     <height>0</height>
+     <width>71</width>
+     <height>84</height>
     </size>
    </property>
    <property name="features">
@@ -251,6 +251,19 @@
    </attribute>
    <addaction name="actionRefresh"/>
    <addaction name="actionHost"/>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>894</width>
+     <height>22</height>
+    </rect>
+   </property>
   </widget>
   <action name="actionRefresh">
    <property name="text">

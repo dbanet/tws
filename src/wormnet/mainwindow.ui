@@ -57,7 +57,7 @@
           <property name="currentIndex">
            <number>0</number>
           </property>
-          <widget class="QWidget" name="tab">
+          <widget class="QWidget" name="loginTab">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
              <horstretch>0</horstretch>
@@ -496,7 +496,7 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="tab_2">
+          <widget class="QWidget" name="joinChannelsTab">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -712,7 +712,18 @@
     <property name="title">
      <string>The Wheat Snooper</string>
     </property>
+    <widget class="QMenu" name="menuQuick_prefs">
+     <property name="title">
+      <string>Quick prefs</string>
+     </property>
+     <addaction name="actionStalk_words"/>
+     <addaction name="actionSort_userlist"/>
+     <addaction name="actionSound"/>
+     <addaction name="actionTray_notifications"/>
+    </widget>
     <addaction name="actionSet_away"/>
+    <addaction name="separator"/>
+    <addaction name="menuQuick_prefs"/>
     <addaction name="separator"/>
     <addaction name="actionReconnect"/>
     <addaction name="actionClose"/>
@@ -746,22 +757,60 @@
     <addaction name="separator"/>
     <addaction name="actionSettings"/>
    </widget>
+   <widget class="QMenu" name="menuChannel">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>Channel</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuServer">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>Server</string>
+    </property>
+    <widget class="QMenu" name="menuLeagueColor">
+     <property name="title">
+      <string>Change status color</string>
+     </property>
+     <addaction name="actionLeagueColorOff"/>
+     <addaction name="separator"/>
+     <addaction name="actionLeagueColorReady"/>
+     <addaction name="actionLeagueColorAFK"/>
+     <addaction name="actionLeagueColorDND"/>
+     <addaction name="separator"/>
+     <addaction name="actionLeagueColorCustom"/>
+    </widget>
+    <addaction name="actionDisconnect"/>
+    <addaction name="actionReconnect_2"/>
+    <addaction name="menuLeagueColor"/>
+    <addaction name="separator"/>
+    <addaction name="actionIRCOp_commands"/>
+   </widget>
    <addaction name="menuTWS"/>
    <addaction name="menuView"/>
+   <addaction name="menuServer"/>
+   <addaction name="menuChannel"/>
    <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
   </widget>
   <action name="actionReconnect">
    <property name="text">
-    <string>Reconnect</string>
+    <string>Reconnect (all)</string>
    </property>
   </action>
   <action name="actionClose">
    <property name="text">
-    <string>Close</string>
+    <string>Quit</string>
    </property>
   </action>
   <action name="actionLanguage">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Language</string>
    </property>
@@ -807,11 +856,17 @@
    </property>
   </action>
   <action name="actionSkins">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Skins</string>
    </property>
   </action>
   <action name="actionText_schemes">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Text schemes</string>
    </property>
@@ -830,6 +885,121 @@
   <action name="actionSet_away">
    <property name="text">
     <string>Set away</string>
+   </property>
+  </action>
+  <action name="actionReconnect_2">
+   <property name="text">
+    <string>Reconnect</string>
+   </property>
+  </action>
+  <action name="actionDisconnect">
+   <property name="text">
+    <string>Disconnect</string>
+   </property>
+  </action>
+  <action name="actionIRCOp_commands">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>IRCOp commands</string>
+   </property>
+  </action>
+  <action name="actionChanOp_commands">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>ChanOp commands</string>
+   </property>
+  </action>
+  <action name="actionLeagueColorOff">
+   <property name="text">
+    <string>Off</string>
+   </property>
+  </action>
+  <action name="actionLeagueColorReady">
+   <property name="text">
+    <string>Read to play</string>
+   </property>
+  </action>
+  <action name="actionLeagueColorAFK">
+   <property name="text">
+    <string>Away from keyboard</string>
+   </property>
+  </action>
+  <action name="actionLeagueColorDND">
+   <property name="text">
+    <string>Do not disturb</string>
+   </property>
+  </action>
+  <action name="actionLeagueColorCustom">
+   <property name="text">
+    <string>Own colour...</string>
+   </property>
+  </action>
+  <action name="actionSpectateOff">
+   <property name="text">
+    <string>Off</string>
+   </property>
+  </action>
+  <action name="actionSpectateLeagueServer0">
+   <property name="text">
+    <string>http://www.tus-wa.com/</string>
+   </property>
+  </action>
+  <action name="actionSpectateLeagueServer1">
+   <property name="text">
+    <string>http://www.normalnonoobs.com/</string>
+   </property>
+  </action>
+  <action name="actionSpectateLeagueServer2">
+   <property name="text">
+    <string>http://lookias.worms2d.info/securelogging/</string>
+   </property>
+  </action>
+  <action name="actionStalk_words">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Stalk words</string>
+   </property>
+  </action>
+  <action name="actionSort_userlist">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Sort userlist</string>
+   </property>
+  </action>
+  <action name="actionSound">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Sound</string>
+   </property>
+  </action>
+  <action name="actionTray_notifications">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Tray notifications</string>
    </property>
   </action>
  </widget>

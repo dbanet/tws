@@ -12,7 +12,7 @@
 #include "qobjectwrapper.h"
 #include "awayhandler.h"
 #include "usermessage.h"
-#include "channelTab.h"
+#include "channel/channeltab.h"
 
 extern QMap<QString, QString> ctcpcontainer;
 QStringList ctcphandler::awayusers;

@@ -1,4 +1,4 @@
-#include "channelTab.h"
+#include "channel/channeltab.h"
 #include "mainwindow.h"
 #include "settings.h"
 #include "charformatsettings.h"
