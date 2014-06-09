@@ -1067,13 +1067,23 @@ void MainWindow::on_tabWidget_currentChanged(int index){
     showTabMenus();
 }
 void MainWindow::showTabMenus(){
-    if(!this->channelMenu.isNull())
-        (ui->menuChannel=this->channelMenu)->show();
-    else
+    if(!this->channelMenu.isNull()){
+        ui->menuChannel->clear();
+        ui->menuChannel->addActions(this->channelMenu->actions());
+        ui->menuChannel->setEnabled(true);
+    }
+    else{
+        ui->menuChannel->clear();
         ui->menuChannel->setEnabled(false);
+    }
     /*              =====                */
-    if(!this->serverMenu.isNull())
-        (ui->menuServer=this->serverMenu)->show();
-    else
+    if(!this->serverMenu.isNull()){
+        //ui->menuServer->clear();
+        //ui->menuServer->addActions(this->serverMenu->actions());
+        ui->menuServer->setEnabled(true);
+    }
+    else{
+        //ui->menuServer->clear();
         ui->menuServer->setEnabled(false);
+    }
 }
