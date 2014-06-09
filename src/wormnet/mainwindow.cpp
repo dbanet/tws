@@ -95,7 +95,6 @@ MainWindow::MainWindow(QWidget *parent) :
     joinonstartup = 0;
     connect(ui->start, SIGNAL(clicked()),this, SLOT(chooseclicked()));
     connect(ui->pbrememberjoin, SIGNAL(clicked()),this, SLOT(pbrememberjoinclicked()));
-    connect(ui->tabWidget, SIGNAL(currentChanged ( int )),this, SLOT(currenttabchanged(int)));
 
     connect(&singleton<netcoupler>(), SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
     connect(&singleton<netcoupler>(), SIGNAL(sigGotChanList(const QStringList &)),this, SLOT(getchannellist(const QStringList &)));
@@ -127,15 +126,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-void MainWindow::currenttabchanged(int i){
-    if(i!=0)
-        return;
-    foreach(channelwindow *w, windowlist){
-        singleton<netcoupler>().partchannel(w->currentchannel);
-        w->close();
-    }
-    singleton<netcoupler>().stop();
 }
 void MainWindow::fillsnpsettings(){
     S_S.set("chbremember", ui->cbremember->isChecked());
@@ -247,67 +237,11 @@ void MainWindow::getchannellist(const QStringList &sl) {
         joinonstartup = 1;
     }
 }
-channelTab* MainWindow::dockTab(channelTab *tab){
-    if(0!=(tab=tab==0?(channelTab*)QObject::sender():tab)){
-        ui->tabWidget->addTab(tab,tab->currentchannel);
-        ui->tabWidget->setCurrentWidget(tab);
-
-        QAction *undock=new QAction("Undock",tab);
-        tab->addAction(undock);
-        tab->setContextMenuPolicy(Qt::ActionsContextMenu);
-        connect(undock,SIGNAL(triggered()),this,SLOT(actionUndockTabTriggered()));
-
-        QMenu *menu=tab->createMenu();
-        ui->menuChannel->addActions(menu->actions());
-        ui->menuChannel->setEnabled(true);
-    }
-    return tab;
-}
-void MainWindow::actionUndockTabTriggered(){
-    this->undockTab((channelTab*)(((QAction*)QObject::sender())->parent()));
-}
-channelTab* MainWindow::undockTab(channelTab *tab){
-    if(0!=(tab=tab==0?(channelTab*)QObject::sender():tab)){
-        ui->tabWidget->removeTab(ui->tabWidget->indexOf(tab));
-
-        QMenu *tabMenu=new QMenu();
-        tabMenu->addActions(ui->menuChannel->actions());
-        tab->monopolizeMenu(tabMenu);
-
-        tab->setParent(0);
-        tab->show();
-    }
-    return tab;
-}
-void MainWindow::join(const QString channel){
-//    if(channel==GamesourgeChannelName){
-//        joinGameSourge();
-//        return;
-//    }
-    if(currentchannellist.contains(channel))
-        return;
-    currentchannellist << channel;
-
-    channelTab *chanTab=dockTab(new channelTab(channel,1));
-    windowlist.push_back(chanTab);
-
-    singleton<netcoupler>().joinchannel(channel);
-    if(windowlist.isEmpty())
-        return;
-    if (qobjectwrapper<awayhandler>::ref().away()) {
-        windowlist.last()->windowtitleaway = qobjectwrapper<awayhandler>::ref().message();
-        windowlist.last()->mysetwindowtitle();
-    }
-    connect(windowlist.last(), SIGNAL(sigjoinchannel(const QString&)),this, SLOT(join(const QString&)));
-    connect(windowlist.last(), SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
-    connect(this, SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
-    connect(windowlist.last(), SIGNAL(sigclosed()),this, SLOT(windowclosed()));
-}
 void MainWindow::windowclosed(){
     channelwindow *w=qobject_cast<channelwindow*> (sender());
     Q_CHECK_PTR(w);
     w->hiddenchannelwindowshelper.removeAll(w);
-    currentchannellist.removeAll(w->currentchannel);
+    currentchannellist.removeAll(w->currentChannel);
     windowlist.removeAll(w);
 }
 void MainWindow::quit(){
@@ -601,13 +535,13 @@ void MainWindow::gotusermsg(const usermessage u){
     }
     if(!u.has_type(e_GARBAGEQUIT)){
         foreach(channelwindow *w,windowlist)
-            if(w->currentchannel.toLower()==u.receiver().toLower())
+            if(w->currentChannel.toLower()==u.receiver().toLower())
                 w->getusermessage(u);
     }
     else
         foreach(QString channelTheQuittedUserWasBeingOn,u.receiver().split(','))
             foreach(channelwindow *w,windowlist)
-                if(w->currentchannel.toLower()==channelTheQuittedUserWasBeingOn.toLower())
+                if(w->currentChannel.toLower()==channelTheQuittedUserWasBeingOn.toLower())
                     w->getusermessage(u);
 }
 void MainWindow::connected(){
@@ -852,7 +786,7 @@ void MainWindow::reconnect(){
     lastOpenedWindows.clear ();
     lastOpenedChatWindows.clear ();
     foreach(channelwindow *w, windowlist)
-        lastOpenedWindows<<w->currentchannel;
+        lastOpenedWindows<<w->currentChannel;
     foreach(chatwindow *w,channelwindow::chatwindows)
         lastOpenedChatWindows<<w->chatpartner;
     if(singleton<netcoupler>().ircstate()==QAbstractSocket::ConnectedState)
@@ -985,27 +919,6 @@ void MainWindow::on_actionAbout_triggered(){
 void MainWindow::on_actionDisconnect_triggered(){
     returntologintab();
 }
-void MainWindow::on_tabWidget_currentChanged(int index){
-    QWidget *currentTab=ui->tabWidget->currentWidget();
-    if(index<0)
-        qFatal("No tabs in the tabBar left.");
-    else if(currentTab->objectName()=="loginTab"){
-        /* disabling the "channels" and "server" menus (neither is active) */
-        ui->menuChannel->setEnabled(false);
-        ui->menuServer->setEnabled(false);
-    }
-    else if(ui->tabWidget->currentWidget()->objectName()=="joinChannelsTab"){
-        /* disabling the "channels" menu (no channel tab is active) */
-        ui->menuChannel->setEnabled(false);
-
-        /* enabling the "server" menu (if we're at this tab, then we've successfully connected */
-        ui->menuServer->setEnabled(true);
-    }
-    else if(ui->tabWidget->currentWidget()->objectName()=="channelwindow"){
-        /* enabling the "channels" menu */
-        ui->menuChannel->setEnabled(true);
-    }
-}
 void MainWindow::on_actionStalk_words_triggered(bool checked){
     singleton<settingswindow>().set("cbcostumword",checked);
 }
@@ -1062,7 +975,7 @@ void MainWindow::on_menuLeagueColor_triggered(QAction *colorMenuItem){
             color=new QColor(dia.getColor());
             if(!color->isValid()) return;
         }
-        else qFatal((const char*)(QString("void MainWindow::on_menuLeagueColor_triggered(QAction *colorMenuItem) has got strange item with the following objectName(): ")+colorName).toLatin1().data());
+        else return qFatal((const char*)(QString("void MainWindow::on_menuLeagueColor_triggered(QAction *colorMenuItem) has got strange item with the following objectName(): ")+colorName).toLatin1().data());
 
         if(color->name()==S_S.getString("leaguestatecolorname") && S_S.getbool("leaguestatecoloron"))
             return;
@@ -1071,4 +984,96 @@ void MainWindow::on_menuLeagueColor_triggered(QAction *colorMenuItem){
         S_S.set("leaguestatecoloron",true);
         reconnect();
     }
+}
+
+channelTab* MainWindow::dockTab(channelTab *tab){
+    if(0!=(tab=tab==0?(channelTab*)QObject::sender():tab)){
+        tab->dropMenu();
+        ui->tabWidget->addTab(tab,tab->currentChannel);
+        tab->setDocked(true);
+        ui->tabWidget->setCurrentWidget(tab);
+    }
+    return tab;
+}
+void MainWindow::actionUndockTabTriggered(){
+    this->undockTab((channelTab*)(((QAction*)QObject::sender())->parent()));
+}
+channelTab* MainWindow::undockTab(channelTab *tab){
+    if(0!=(tab=tab==0?(channelTab*)QObject::sender():tab)){
+        ui->tabWidget->removeTab(ui->tabWidget->indexOf(tab));
+        tab->monopolizeMenu(tab->objectName()=="channelTab"?channelMenu:serverMenu);
+        tab->setDocked(false);
+        tab->setParent(0);
+        tab->show();
+    }
+    return tab;
+}
+void MainWindow::join(QString channel){
+//    if(channel==GamesourgeChannelName){
+//        joinGameSourge();
+//        return;
+//    }
+    if(currentchannellist.contains(channel))
+        return;
+    currentchannellist << channel;
+
+    channelTab *chanTab=dockTab(new channelTab(channel,new QMenu()));
+    connect(chanTab,SIGNAL(askTabDocking(channelTab*)),this,SLOT(dockTab()));
+    connect(chanTab,SIGNAL(askTabUndocking(channelTab*)),this,SLOT(undockTab()));
+    windowlist.push_back(chanTab);
+
+    singleton<netcoupler>().joinchannel(channel);
+    if(windowlist.isEmpty())
+        return;
+    if (qobjectwrapper<awayhandler>::ref().away()) {
+        windowlist.last()->windowtitleaway = qobjectwrapper<awayhandler>::ref().message();
+        windowlist.last()->mysetwindowtitle();
+    }
+    connect(windowlist.last(), SIGNAL(sigjoinchannel(const QString&)),this, SLOT(join(const QString&)));
+    connect(windowlist.last(), SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
+    connect(this, SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
+    connect(windowlist.last(), SIGNAL(sigclosed()),this, SLOT(windowclosed()));
+}
+void MainWindow::on_tabWidget_currentChanged(int index){
+    QWidget *tab=ui->tabWidget->currentWidget();
+    QString tabType=tab->objectName();
+    if(index<0)
+        qFatal("No tabs left in the tabBar.");
+    else if(0==index || tabType=="loginTab"){
+        /* disabling the "channels" and "server" menus (neither is active) */
+        ui->menuChannel->setEnabled(false);
+        ui->menuServer->setEnabled(false);
+
+        /* resetting everything */
+        foreach(channelwindow *w, windowlist){
+            singleton<netcoupler>().partchannel(w->currentChannel);
+            w->close();
+        }
+        singleton<netcoupler>().stop();
+    }
+    else if(tabType=="serverTab"){
+        //serverTab *servTab=qobject_cast<serverTab*>(tab);
+        this->channelMenu=0;
+        //this->serverMenu=servTab->getMenu();
+        this->serverMenu=ui->menuServer;
+    }
+    else if(tabType=="channelTab"){
+        channelTab *chanTab=qobject_cast<channelTab*>(tab);
+        this->channelMenu=chanTab->getMenu();
+    }
+    else if(tabType=="privateTab"){
+        // maybe invent a private menu also? l8r all l8r...
+    }
+    showTabMenus();
+}
+void MainWindow::showTabMenus(){
+    if(!this->channelMenu.isNull())
+        (ui->menuChannel=this->channelMenu)->show();
+    else
+        ui->menuChannel->setEnabled(false);
+    /*              =====                */
+    if(!this->serverMenu.isNull())
+        (ui->menuServer=this->serverMenu)->show();
+    else
+        ui->menuServer->setEnabled(false);
 }

@@ -10,6 +10,9 @@
     <height>549</height>
    </rect>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::ActionsContextMenu</enum>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -279,6 +282,17 @@
    </property>
    <property name="toolTip">
     <string>Hosts a new game</string>
+   </property>
+  </action>
+  <action name="actionDockUndock">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Docked</string>
    </property>
   </action>
  </widget>

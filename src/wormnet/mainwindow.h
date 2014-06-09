@@ -10,6 +10,7 @@
 #include <QList>
 #include <QSystemTrayIcon>
 #include <QMainWindow>
+#include <QPointer>
 
 class channelTab;
 class netcoupler;
@@ -35,6 +36,8 @@ public:
     static QString toString(){
         return "mainwindow";
     }
+    QPointer<QMenu> serverMenu;
+    QPointer<QMenu> channelMenu;
     ~MainWindow();
 
 public slots:
@@ -86,7 +89,7 @@ private slots:
     void on_pbeditleagueprofile_clicked();
     void on_cbenabletus_toggled(bool checked);
     void on_pbjoin_clicked();
-    void join(const QString channel);
+    void join(QString channel);
     void openchatwindowraised(const QString &);
     void on_pbabout_clicked();
     void on_pbsettings_clicked();
@@ -110,7 +113,7 @@ private slots:
     void reopenChatWindowsAndChannelWindows();
     void leagueserverconnectionfailed();
     void leagueserverconnectionsuccess();
-    void currenttabchanged(int);
+    void showTabMenus();
     void leagueserverprofilepage(QString);
     void windowclosed();
     void actionUndockTabTriggered();

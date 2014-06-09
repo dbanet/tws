@@ -55,7 +55,7 @@
            <enum>QTabWidget::South</enum>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="loginTab">
            <property name="sizePolicy">
@@ -496,7 +496,7 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="joinChannelsTab">
+          <widget class="QWidget" name="serverTab">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
              <horstretch>0</horstretch>

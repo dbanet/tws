@@ -23,9 +23,9 @@ class channelTab : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit channelTab(QString="",int=1,QWidget *parent=0);
+    explicit channelTab(QString,QMenu*,QWidget *parent=0);
     ~channelTab();
-    const QString currentchannel;
+    QString currentChannel;
     static QList<chatwindow*> chatwindows;
     static QStringList chatwindowstringlist;
     void gotdebugmsg(const QString&);
@@ -38,7 +38,10 @@ public:
     void lockUI();
     void unlockUI();
     void monopolizeMenu(QMenu *channelMenu);
-    QMenu* createMenu();
+    void dropMenu();
+    QMenu* getMenu();
+    bool docked;
+    void setDocked(bool);
 
 public slots:
     void minimize();
@@ -76,6 +79,7 @@ private:
     QMenu hostmenu;
     QMenu usermenu;
     QMenu customlistmenu;
+    QMenu *channelMenu;
 
     QPointer<hostbox> hbox;
 
@@ -95,9 +99,13 @@ signals:
     void sigclosed();
     void sigjoinchannel(const QString&);
     void sigopenchatwindow(const QString&);
+    void askTabDocking(channelTab*);
+    void askTabUndocking(channelTab*);
 protected:
     void closeEvent ( QCloseEvent * event );
     bool eventFilter(QObject *obj, QEvent *event);		//for the linedit in ui
+private slots:
+    void on_actionDockUndock_triggered(bool);
 };
 
 #endif // CHANNELTAB_H
