@@ -11,7 +11,7 @@ class QSystemTrayIcon;
 class balloonHandler : public QObject
 {
     Q_OBJECT
-    DECLARE_SINGLETON(balloonHandler);
+    DECLARE_SINGLETON(balloonHandler)
 public:
         QSystemTrayIcon *tray;
 

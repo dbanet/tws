@@ -11,8 +11,10 @@
 #include <QSystemTrayIcon>
 #include <QMainWindow>
 #include <QPointer>
+#include <QCloseEvent>
 
 class channelTab;
+class serverTab;
 class netcoupler;
 class chatwindow;
 class QMenu;
@@ -24,24 +26,30 @@ namespace Ui {
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
 public:
     explicit MainWindow(QWidget *parent = 0);
     void appenddebugmessage(const QString &);
     QString debugmsg;
+    bool joinonstartup;
     QList< ::channelTab * > windowlist;
     QList< ::chatwindow*> hiddenchatwindowshelper;
     void fillsnpsettings();
+    void join(QString channel);
     void quit();
     static QString toString(){
         return "mainwindow";
     }
     QPointer<QMenu> serverMenu;
     QPointer<QMenu> channelMenu;
+
+    /* oh...                    */
+    QPointer<serverTab> servTab;
+
     ~MainWindow();
 
 public slots:
     void returntologintab();
+    void snpsetcontains(const QString&);
     channelTab* dockTab(channelTab *tab=0);
     //serverTab* dockTab(serverTab *tab=0);
     //privateTab* dockTab(privateTab *tab=0);
@@ -54,7 +62,6 @@ private:
     Ui::MainWindow *ui;
     typedef ::channelTab channelwindow;
     QStringList currentchannellist;	//TODO: dont forget to clear this lists on ------void returntotabsettings(int);
-    QStringList channellist;
 
     QMenu *traymenu;
     QMenu *joinmenu;
@@ -66,7 +73,6 @@ private:
     QMenu *arrangementmenu;
 
     int whichuitype;
-    bool joinonstartup;
     QRegExpValidator *validator;
     void setlanguage(const QString&);
     void init_menus();
@@ -84,21 +90,15 @@ private:
     void gotscriptmsg(const usermessage);
 
 private slots:
-    void on_chbautojoin_clicked(bool checked);
     void on_cbleagueservers_activated(QString );
     void on_pbeditleagueprofile_clicked();
     void on_cbenabletus_toggled(bool checked);
-    void on_pbjoin_clicked();
-    void join(QString channel);
     void openchatwindowraised(const QString &);
     void on_pbabout_clicked();
     void on_pbsettings_clicked();
-    void getchannellist(const QStringList &);
     void chooseclicked();
     void trayactivation(QSystemTrayIcon::ActivationReason);
     void traymenutriggered(QAction *);
-    void pbrememberjoinclicked();
-    void snpsetcontains(const QString&);
     void usesettingswindow(const QString &s="");
     void chatwinowclosed();
     void awayboxok();
@@ -140,7 +140,7 @@ private slots:
     void on_menuLeagueColor_triggered(QAction*);
 
 protected:
-    void closeEvent ( QCloseEvent * event );
+    void closeEvent (QCloseEvent*);
 
 signals:
     void sigopenchatwindow(const QString&);

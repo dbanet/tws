@@ -88,7 +88,8 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/playername.h \
     src/wormnet/ircmessage.h \
     src/wormnet/mainwindow.h \
-    src/wormnet/channel/channeltab.h
+    src/wormnet/channel/channeltab.h \
+    src/wormnet/server/servertab.h
 
 FORMS += src/wormnet/about.ui \
     src/wormnet/awaybox.ui \
@@ -113,7 +114,8 @@ FORMS += src/wormnet/about.ui \
     src/wormnet/playername.ui \
     src/wormnet/mainwindow.ui \
     src/wormnet/channel/channeltab.ui \
-    src/wormnet/channel/channelmenu.ui
+    src/wormnet/channel/channelmenu.ui \
+    src/wormnet/server/servertab.ui
 
 SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/awaybox.cpp \
@@ -168,7 +170,8 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/playername.cpp \
     src/wormnet/ircmessage.cpp \
     src/wormnet/mainwindow.cpp \
-    src/wormnet/channel/channeltab.cpp
+    src/wormnet/channel/channeltab.cpp \
+    src/wormnet/server/servertab.cpp
 
 win32:RC_FILE += src/wormnet/myapp.rc
 TRANSLATIONS += \

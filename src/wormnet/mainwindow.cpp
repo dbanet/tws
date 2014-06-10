@@ -27,6 +27,7 @@
 #include "qobjectwrapper.h"
 #include "awayhandler.h"
 #include "usermessage.h"
+#include "server/servertab.h"
 #include "ui_mainwindow.h"
 
 #ifdef WITH_GAMESURGE_SUPPORT
@@ -48,7 +49,6 @@
 #include <QFileDialog>
 #include <QDesktopServices>
 #include <QSignalMapper>
-
 inihandlerclass inihandler;
 extern volumeslider *volume;
 bool fontOrColorHasChanged = 0;
@@ -66,7 +66,6 @@ MainWindow::MainWindow(QWidget *parent) :
         qApp->setLayoutDirection(Qt::RightToLeft);
     else
         qApp->setLayoutDirection(Qt::LeftToRight);
-    ui->pbrememberjoin->setText(tr("Autojoin:"));
     ui->start->setText(tr("Apply"));
     ui->tabWidget->setTabEnabled(1, 0);
 
@@ -94,10 +93,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle(tr("The Wheat Snooper"));
     joinonstartup = 0;
     connect(ui->start, SIGNAL(clicked()),this, SLOT(chooseclicked()));
-    connect(ui->pbrememberjoin, SIGNAL(clicked()),this, SLOT(pbrememberjoinclicked()));
 
     connect(&singleton<netcoupler>(), SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
-    connect(&singleton<netcoupler>(), SIGNAL(sigGotChanList(const QStringList &)),this, SLOT(getchannellist(const QStringList &)));
     connect(&qobjectwrapper<awayhandler>::ref(), SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));
     connect(&singleton<netcoupler>(), SIGNAL(sigconnected()),this,SLOT(connected()));
     connect(&singleton<netcoupler>(), SIGNAL(sigdisconnected()),this,SLOT(disconnected()));
@@ -128,10 +125,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 void MainWindow::fillsnpsettings(){
-    S_S.set("chbremember", ui->cbremember->isChecked());
+    servTab->fillSnpSettings();
     S_S.set("nickname", ui->lenick->text());
-    S_S.set("chbminimized", ui->chbminimized->isChecked());
-    S_S.set("chbautojoin", ui->chbautojoin->isChecked());
+    S_S.set("chbremember", ui->cbremember->isChecked());
     S_S.set("whichuitype", whichuitype);
     S_S.set("countrycode", ui->flag->currentText());
     S_S.set("rank", ui->rank->currentText());
@@ -147,6 +143,9 @@ void MainWindow::get_baseStyleSheet(){
     baseStyleSheet = QLatin1String(f.readAll());
 }
 void MainWindow::connectToNetwork(){
+    serverTab *servTab=new serverTab(this);
+    this->servTab=servTab;
+    ui->tabWidget->addTab(servTab,"Server");
     ui->tabWidget->setCurrentIndex(1);
     if(S_S.getbool("enablesecurelogging"))
         singleton<netcoupler>().start(singleton<leagueserverhandler>().nick);
@@ -219,24 +218,6 @@ void MainWindow::reopenChatWindowsAndChannelWindows(){
         join(s);
     lastOpenedWindows.clear();
 }
-void MainWindow::getchannellist(const QStringList &sl) {
-    ui->cbchannels->clear();
-    foreach(QString s,sl)
-        ui->cbchannels->addItem(s);
-    channellist = sl;
-    ui->pbjoin->setEnabled(1);
-    joinmenu->clear();
-    foreach(QString s,channellist) {
-        joinmenu->addAction(s);
-    }
-#ifdef WITH_GAMESURGE_SUPPORT
-    joinmenu->addAction(GamesourgeChannelName);
-#endif
-    if (joinonstartup == 0) {
-        snpsetcontains("joinonstartup");
-        joinonstartup = 1;
-    }
-}
 void MainWindow::windowclosed(){
     channelwindow *w=qobject_cast<channelwindow*> (sender());
     Q_CHECK_PTR(w);
@@ -255,22 +236,19 @@ void MainWindow::quit(){
     }
     fillsnpsettings();
 }
-void MainWindow::closeEvent(QCloseEvent * e) {
+void MainWindow::closeEvent(QCloseEvent *e) {
     QVariantList windowstates;
     windowstates << saveGeometry();
     S_S.set("MainWindowGeometry", windowstates);
-    e->ignore ();
+    e->ignore();
     hide();
 }
 void MainWindow::returntologintab() {
     joinonstartup = 0;
-    S_S.set("chbautojoin", ui->chbautojoin->isChecked());
     joinmenu->clear();
     currentchannellist.clear();
-    ui->cbchannels->clear();
-    ui->pbjoin->setEnabled(0);
     ui->tabWidget->setTabEnabled(1, 0);
-    ui->pbjoin->setEnabled(0);
+    servTab->returnToLoginTab();
     foreach(chatwindow *w,channelwindow::chatwindows) {
         Q_ASSERT(w);
         w->close();
@@ -280,24 +258,20 @@ void MainWindow::returntologintab() {
         w->close();
     ui->tabWidget->setTabEnabled(1, 0);
 }
-void MainWindow::pbrememberjoinclicked() {
-    S_S.set("joinonstartup", ui->cbchannels->currentText());
-    ui->pbrememberjoin->setText(tr("Autojoin:") + "\n" + S_S.getString("joinonstartup"));
-}
 void MainWindow::snpsetcontains(const QString &s) {
     if (s == "chbautojoin" && S_S.contains(s))
-        ui->chbautojoin->setChecked(S_S.getbool("chbautojoin"));
+        servTab->set_chbautojoin(S_S.getbool("chbautojoin"));
     else if (s == "qss_file") {
         QFile f(QApplication::applicationDirPath() + "/qss/" + S_S.getString("qss_file"));
         if(!f.open(QFile::ReadOnly))
             QMessageBox::warning(this,QObject::tr("Warning"),tr("Cant read the Skinfile:\n")+S_S.getString("qss_file"));
         QString stylesheet = QLatin1String(f.readAll());
     } else if (s == "joinonstartup" && S_S.contains(s) && S_S.contains("chbautojoin")) {
-        ui->pbrememberjoin->setText(ui->pbrememberjoin->text().split("\n").first() + "\n" + S_S.getString("joinonstartup"));
+        //ui->pbrememberjoin->setText(ui->pbrememberjoin->text().split("\n").first() + "\n" + S_S.getString("joinonstartup"));
         if (S_S.getbool("chbautojoin"))
             join(S_S.getString("joinonstartup"));
     } else if (s == "chbminimized")
-        ui->chbminimized->setChecked(S_S.getbool("chbminimized"));
+        servTab->set_chbminimized(S_S.getbool("chbminimized"));
     else if (s == "nickname" && S_S.contains(s))
         ui->lenick->setText(S_S.getString("nickname"));
     else if (s == "tus_password" && S_S.contains("tus_password"))
@@ -350,7 +324,7 @@ void MainWindow::chatwinowclosed() {
 }
 void MainWindow::appenddebugmessage(const QString &msg) {
     debugmsg.append(msg);
-    ui->labeltraydescription->insertPlainText(debugmsg);
+    servTab->addToServInfo(debugmsg);
     if(!S_S.cbservermessageinchannelwindows)
         return;
     foreach( channelwindow *w,windowlist)
@@ -585,7 +559,7 @@ void MainWindow::disconnected(){
 void MainWindow::init_menus(){
     traymenu = new QMenu;
     connect(traymenu,SIGNAL(triggered(QAction*)),this,SLOT(traymenutriggered(QAction*)));
-    ui->pbtraymenu->setMenu(traymenu);
+    //ui->pbtraymenu->setMenu(traymenu);
     singleton<balloonHandler>().tray->setContextMenu(traymenu);
     QAction *a0;
     stuffmenu = traymenu->addMenu(tr("Stuff"));
@@ -815,11 +789,6 @@ void MainWindow::joinGameSourge(){
     //    window->show();
     //    window->raise();
 }
-
-void MainWindow::on_pbjoin_clicked(){
-    join(ui->cbchannels->currentText());
-}
-
 void MainWindow::on_cbenabletus_toggled(bool checked){
     if(checked) {
         ui->lenick->setEnabled(false);
@@ -865,10 +834,6 @@ void MainWindow::on_cbleagueservers_activated(QString s){
         return;
     ui->letuslogin->setText(sl.takeFirst());
     ui->letuspassword->setText(sl.takeFirst());
-}
-void MainWindow::on_chbautojoin_clicked(bool checked){
-    if(checked)
-        pbrememberjoinclicked();
 }
 void MainWindow::on_actionReconnect_triggered(){
     this->reconnect();
