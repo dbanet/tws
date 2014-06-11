@@ -24,17 +24,17 @@ public:
     void set_chbminimized(bool);
     ~serverTab();
 
+public slots:
+    void gotChannelList(const QStringList&);
+
 private slots:
     void on_pbjoin_clicked();
-
     void on_pbrememberjoin_clicked();
-
     void on_chbautojoin_clicked(bool checked);
 
 private:
     Ui::serverTab *ui;
     QPointer<MainWindow> mainWnd;
-    void gotChannelList(const QStringList&);
     QStringList channelList;
 };
 
