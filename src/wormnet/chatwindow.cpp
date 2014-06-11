@@ -89,7 +89,7 @@ chatwindow::chatwindow(const QString &s, QWidget *parent) :
         userisoffline=1;
     }
 }
-void chatwindow::showEvent(QShowEvent * event ){
+void chatwindow::showEvent(){
     querylist.removeAll(chatpartner);
 }
 bool chatwindow::eventFilter(QObject *obj, QEvent *event) {

@@ -15,7 +15,8 @@ UI_DIR += .ui
 OBJECTS_DIR += .lib
 RCC_DIR += .rcc
 
-QMAKE_CXXFLAGS += -std=c++11 -Wall -Werror -O3
+QMAKE_CXXFLAGS += -std=c++11 -Wall
+# -Werror -O3
 
 unix:TARGET = "./TheWheatSnooper/TheWheatSnooper"
 win32:TARGET = "../TheWheatSnooper/TheWheatSnooper"

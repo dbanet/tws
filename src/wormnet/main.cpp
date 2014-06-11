@@ -30,12 +30,12 @@ QStringList querylist;
 void search_for_game_executables();
 void handle_prosnooper_buddys();
 void get_picutres();
-void customMessageHandler(QtMsgType type,const char *msg){
-   QFile *dbgFl=new QFile("debug.out");
-   dbgFl->open(QIODevice::WriteOnly | QIODevice::Append);
-   QTextStream dbg(dbgFl);
-   dbg<<msg<<endl;
-}
+//void customMessageHandler(QtMsgType type,const char *msg){
+//   QFile *dbgFl=new QFile("debug.out");
+//   dbgFl->open(QIODevice::WriteOnly | QIODevice::Append);
+//   QTextStream dbg(dbgFl);
+//   dbg<<msg<<endl;
+//}
 int main(int argc, char *argv[]) {
     //qInstallMsgHandler(customMessageHandler);
     new WA_textcodec1252;

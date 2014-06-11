@@ -61,6 +61,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     whichuitype = 1;
     ui->setupUi(this);
+
+    // creating the second tab...
+    serverTab *x=new serverTab(this);
+    if(x==0) qFatal("wtf???");
+    this->servTab=x;
+
     bool b=S_S.getbool("righttoleftwriting");
     if(b)
         qApp->setLayoutDirection(Qt::RightToLeft);
@@ -143,8 +149,6 @@ void MainWindow::get_baseStyleSheet(){
     baseStyleSheet = QLatin1String(f.readAll());
 }
 void MainWindow::connectToNetwork(){
-    serverTab *servTab=new serverTab(this);
-    this->servTab=servTab;
     ui->tabWidget->addTab(servTab,"Server");
     ui->tabWidget->setCurrentIndex(1);
     if(S_S.getbool("enablesecurelogging"))

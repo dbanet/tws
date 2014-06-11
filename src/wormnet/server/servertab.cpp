@@ -71,6 +71,7 @@ void serverTab::addToServInfo(QString debugmsg){
 }
 
 void serverTab::set_chbautojoin(bool state){
+    qDebug()<<this->height();
     ui->chbautojoin->setChecked(state);
 }
 

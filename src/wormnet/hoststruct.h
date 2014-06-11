@@ -27,7 +27,7 @@ public:
         const QString &id() const{
             return myid;
         }
-        const int flag() const{
+        int flag() const{
             return myflag;
         }
         QString flagstring() const{           
@@ -49,7 +49,7 @@ public:
         const QString &hoststring() const{
             return myhoststring;
         }
-        const int withkey() const{
+        int withkey() const{
             return mywithkey;
         }
         const QString &pwd() const{

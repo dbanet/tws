@@ -60,7 +60,7 @@ void snoppanet::readircip() {
         temp.clear();        
     }
 }
-void snoppanet::httpError(QNetworkReply::NetworkError error) {
+void snoppanet::httpError(QNetworkReply::NetworkError error){
     static bool noErrorYet=true;
     if(noErrorYet)
         myDebug() << tr("Gameserver disonnected!");
