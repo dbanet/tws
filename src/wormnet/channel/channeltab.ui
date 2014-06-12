@@ -76,11 +76,7 @@
      <item>
       <layout class="QVBoxLayout" name="hostsContainer">
        <item>
-        <widget class="QTreeView" name="hosts">
-         <property name="expandsOnDoubleClick">
-          <bool>false</bool>
-         </property>
-        </widget>
+        <widget class="QTreeView" name="hosts"/>
        </item>
       </layout>
      </item>

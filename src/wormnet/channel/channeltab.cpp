@@ -9,6 +9,7 @@
 #include <QDate>
 #include <QScrollBar>
 #include <QDesktopServices>
+#include <QListView>
 
 #include "channeltab.h"
 #include "ui_channeltab.h"

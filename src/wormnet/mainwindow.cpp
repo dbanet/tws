@@ -969,8 +969,8 @@ void MainWindow::actionUndockTabTriggered(){
 }
 channelTab* MainWindow::undockTab(channelTab *tab){
     if(0!=(tab=tab==0?(channelTab*)QObject::sender():tab)){
-        ui->tabWidget->removeTab(ui->tabWidget->indexOf(tab));
         tab->monopolizeMenu(tab->objectName()=="channelTab"?channelMenu:serverMenu);
+        ui->tabWidget->removeTab(ui->tabWidget->indexOf(tab));
         tab->setDocked(false);
         tab->setParent(0);
         tab->show();

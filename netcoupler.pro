@@ -15,7 +15,7 @@ UI_DIR += .ui
 OBJECTS_DIR += .lib
 RCC_DIR += .rcc
 
-QMAKE_CXXFLAGS += -std=c++11 -Wall
+QMAKE_CXXFLAGS += -std=c++11 -Wall -Wno-parentheses
 # -Werror -O3
 
 unix:TARGET = "./TheWheatSnooper/TheWheatSnooper"
@@ -90,7 +90,8 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/ircmessage.h \
     src/wormnet/mainwindow.h \
     src/wormnet/channel/channeltab.h \
-    src/wormnet/server/servertab.h
+    src/wormnet/server/servertab.h \
+    src/wormnet/channel/hostmodel.h
 
 FORMS += src/wormnet/about.ui \
     src/wormnet/awaybox.ui \
@@ -172,7 +173,8 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/ircmessage.cpp \
     src/wormnet/mainwindow.cpp \
     src/wormnet/channel/channeltab.cpp \
-    src/wormnet/server/servertab.cpp
+    src/wormnet/server/servertab.cpp \
+    src/wormnet/channel/hostmodel.cpp
 
 win32:RC_FILE += src/wormnet/myapp.rc
 TRANSLATIONS += \
