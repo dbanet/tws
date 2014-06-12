@@ -11,11 +11,12 @@
 #include "hoststruct.h"
 #include "userstruct.h"
 #include "usermodel.h"
-#include "hostmodel.h"
+#include "channel/hostmodel.h"
 #include "global_macros.h"
 #include "usermessage.h"
 #include "ircnet.h"
 #include "snoppanet.h"
+#include "mainwindow.h"
 
 class netcoupler : public QObject
 {
@@ -26,7 +27,7 @@ public:
         e_started, e_stoped
     };
     QPointer<ircnet> irc;
-    void start(QString nick);
+    void start(QString nick,MainWindow *mainWnd);
     void stop();                
     void sendusermessage(const usermessage u);
     void joinchannel(const QString&);
@@ -36,10 +37,12 @@ public:
     void refreshwho();
     bool buddylistcontains(QString user);
     bool ignorelistcontains(QString user);
+    MainWindow *mainWnd;
+    channelTab* getChannelTabByChannelName(QString channel);
     QString getmyhostip();
     QString nick;
     usermodel users;
-    hostmodel hosts;
+    //hostmodel hosts;
     QMap<QString,QString> schememap;
     QStringList channellist;
 

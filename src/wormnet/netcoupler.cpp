@@ -37,7 +37,8 @@ netcoupler::netcoupler() {
     http=NULL;
     p=NULL;
 }
-void netcoupler::start(QString s){
+void netcoupler::start(QString s,MainWindow *mainWnd){
+    this->mainWnd=mainWnd;
     if(!p){                                                     //indicates first start
         p=new QProcess(this);
         p->setProcessChannelMode(QProcess::MergedChannels);
@@ -128,9 +129,24 @@ void netcoupler::getircip(QString s) {
     irc->start();
     initSoundAndStartWho();
 }
-void netcoupler::gethostlist(QList<hoststruct> l, QString s) {
+void netcoupler::gethostlist(QList<hoststruct> hosts, QString channel){
     refreshlist();
-    hosts.sethoststruct(l, s);
+
+    /* updating each channelTab's QList of hoststructs with the new one */
+    channelTab *chanTab=getChannelTabByChannelName(channel);
+    if(chanTab!=0){
+        QList<hoststruct> newHosts;
+        foreach(hoststruct host,hosts)
+            if(host.chan()==channel)
+                newHosts.append(host);
+        chanTab->setHosts(&newHosts);
+    } else return;
+}
+channelTab* netcoupler::getChannelTabByChannelName(QString channel){
+    foreach(channelTab *chanTab,mainWnd->channelTabs)
+        if(chanTab->currentChannel==channel)
+            return chanTab;
+    return 0;
 }
 void netcoupler::getusermessage(const usermessage u){
     emit siggotusermessage(u);
@@ -320,7 +336,7 @@ void netcoupler::refreshhostlist() {
 }
 void netcoupler::startprocess(const QString &s){    
     if(S_S.getbool("chbhidechannelwindowsongame")){
-        foreach(channelTab *w,qobjectwrapper<MainWindow>::ref().windowlist)
+        foreach(channelTab *w,qobjectwrapper<MainWindow>::ref().channelTabs)
             w->minimize();       
     }
     if(S_S.getbool("chbdisconnectongame"))

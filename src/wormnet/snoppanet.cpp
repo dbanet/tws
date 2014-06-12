@@ -129,11 +129,21 @@ void snoppanet::readgamelist(int i) {
         hostlist.clear();
         QStringList sltemp;
         foreach(QString s,sl) {
-            hostlist.push_back(hoststruct());
+            hostlist.append(hoststruct());
             sltemp = s.split(" ");
             hostlist.last().sethost(sltemp);
+            hostlist.last().sethost(
+                        hostlist.last().name(),
+                        hostlist.last().nick(),
+                        hostlist.last().ip(),
+                        hostlist.last().flag(),
+                        hostlist.last().country(),
+                        hostlist.last().id(),
+                        hostlist.last().pwd(),
+                        channelMap[i]
+            );
         }
-        emit sighostlist(hostlist, channelMap[i]);
+        emit sighostlist(hostlist,channelMap[i]);
     } else if (templist[i].size() > 30000)
         templist[i].clear();
     else if (!templist[i].contains("<GAMELISTSTART>"))

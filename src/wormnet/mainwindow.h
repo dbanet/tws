@@ -31,7 +31,7 @@ public:
     void appenddebugmessage(const QString &);
     QString debugmsg;
     bool joinonstartup;
-    QList< ::channelTab * > windowlist;
+    QList< ::channelTab * > channelTabs;
     QList< ::chatwindow*> hiddenchatwindowshelper;
     void fillsnpsettings();
     void join(QString channel);
@@ -42,7 +42,7 @@ public:
     QPointer<QMenu> serverMenu;
     QPointer<QMenu> channelMenu;
 
-    /* oh...                    */
+    /* oh...                  */
     QPointer<serverTab> servTab;
 
     ~MainWindow();

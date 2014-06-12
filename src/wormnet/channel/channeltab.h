@@ -11,6 +11,7 @@
 #include "../netcoupler.h"
 #include "../userstruct.h"
 #include "../hoststruct.h"
+#include "hostmodel.h"
 
 namespace Ui {
     class channelTab;
@@ -42,6 +43,8 @@ public:
     QMenu* getMenu();
     bool docked;
     void setDocked(bool);
+    QList<hoststruct> *hosts;
+    void setHosts(QList<hoststruct>*);
 
 public slots:
     void minimize();
@@ -94,6 +97,8 @@ private:
     QWidget *hostsDockTitleBar;
     QWidget *usersDockTitleBar;
     QWidget *chatDockTitleBar;
+
+    HostModel *hostModel;
 
 signals:
     void sigclosed();

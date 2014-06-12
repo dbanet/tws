@@ -152,9 +152,9 @@ void MainWindow::connectToNetwork(){
     ui->tabWidget->addTab(servTab,"Server");
     ui->tabWidget->setCurrentIndex(1);
     if(S_S.getbool("enablesecurelogging"))
-        singleton<netcoupler>().start(singleton<leagueserverhandler>().nick);
+        singleton<netcoupler>().start(singleton<leagueserverhandler>().nick,this);
     else
-        singleton<netcoupler>().start(ui->lenick->text());
+        singleton<netcoupler>().start(ui->lenick->text(),this);
     ui->tabWidget->setTabEnabled(1, 1);
 }
 void MainWindow::chooseclicked() {
@@ -227,14 +227,14 @@ void MainWindow::windowclosed(){
     Q_CHECK_PTR(w);
     w->hiddenchannelwindowshelper.removeAll(w);
     currentchannellist.removeAll(w->currentChannel);
-    windowlist.removeAll(w);
+    channelTabs.removeAll(w);
 }
 void MainWindow::quit(){
     foreach(chatwindow *w,channelwindow::chatwindows) {
         Q_ASSERT(w!=0);
         w->close();
     }
-    foreach(channelwindow *w, windowlist) {
+    foreach(channelwindow *w, channelTabs) {
         Q_ASSERT(w!=0);
         w->close();
     }
@@ -258,7 +258,7 @@ void MainWindow::returntologintab() {
         w->close();
     }
     channelwindow::chatwindows.clear();
-    foreach(channelwindow *w,windowlist)
+    foreach(channelwindow *w,channelTabs)
         w->close();
     ui->tabWidget->setTabEnabled(1, 0);
 }
@@ -331,7 +331,7 @@ void MainWindow::appenddebugmessage(const QString &msg) {
     servTab->addToServInfo(debugmsg);
     if(!S_S.cbservermessageinchannelwindows)
         return;
-    foreach( channelwindow *w,windowlist)
+    foreach( channelwindow *w,channelTabs)
         w->gotdebugmsg(debugmsg);
     debugmsg.clear();
 }
@@ -347,26 +347,26 @@ void MainWindow::setlanguage(const QString &langfile) {
         returntologintab();
         singleton<netcoupler>().stop();
         QProcess::startDetached(qApp->applicationFilePath(), QStringList(), QApplication::applicationDirPath());
-        foreach(channelwindow *w,windowlist)
+        foreach(channelwindow *w,channelTabs)
             w->close();
         singleton<balloonHandler>().tray->hide();
         singleton<quithandler>().inducequit();
     }
 }
 void MainWindow::awayboxok() {
-    foreach(channelwindow *w,windowlist) {
+    foreach(channelwindow *w,channelTabs) {
         w->windowtitleaway = " " + tr("<away>:") +" "+ qobjectwrapper<awayhandler>::ref().message();
         w->mysetwindowtitle();
     }
 }
 void MainWindow::awaymessagechanged() {
     if (qobjectwrapper<awayhandler>::ref().away()) {
-        foreach(channelwindow *w,windowlist) {
+        foreach(channelwindow *w,channelTabs) {
             w->windowtitleaway = " " + tr("<away>:") + " "+qobjectwrapper<awayhandler>::ref().message();
             w->mysetwindowtitle();
         }
     } else {
-        foreach(channelwindow *w,windowlist) {
+        foreach(channelwindow *w,channelTabs) {
             w->windowtitleaway = "";
             w->mysetwindowtitle();
         }
@@ -397,7 +397,7 @@ void MainWindow::gotscriptmsg(const usermessage u){
     if(startswithCI(msg, "away")){
         msg.remove(0,5);
         qobjectwrapper<awayhandler>::ref().setaway(msg);
-        foreach(channelwindow *w,windowlist) {
+        foreach(channelwindow *w,channelTabs) {
             w->windowtitleaway = " " + tr("<away>:") +" "+ qobjectwrapper<awayhandler>::ref().message();
             w->mysetwindowtitle();
         }
@@ -454,7 +454,7 @@ void MainWindow::gotnotice(usermessage u) {
     if(containsCI(S_S.ignorelist, user))
         return;
     singleton<balloonHandler>().gotPrivmsg(u);
-    foreach(channelwindow *w, windowlist)
+    foreach(channelwindow *w, channelTabs)
         w->getusermessage(u);
     foreach(chatwindow *w, channelwindow::chatwindows)
         w->getusermessage(u.add_type(e_CHANNELMSGTOCHAT));
@@ -484,7 +484,7 @@ void MainWindow::gotusermsg(const usermessage u){
         if(u.receiver() == singleton<netcoupler>().nick)
             return;
     } else if (!containsCI(S_S.ignorelist, user) && u.receiver()==singleton<netcoupler>().nick
-               && (windowlist.isEmpty() || S_S.getbool("chballwaysopenchatwindows"))) {
+               && (channelTabs.isEmpty() || S_S.getbool("chballwaysopenchatwindows"))) {
         if (S_S.getbool("chbstartchatsminimized"))
             openchatwindowhidden(user);
         else
@@ -507,18 +507,18 @@ void MainWindow::gotusermsg(const usermessage u){
 #ifdef PHONON
         singleton<soundHandler>().play_normalmsgsound(user);
 #endif
-        foreach(channelwindow *w,windowlist)
+        foreach(channelwindow *w,channelTabs)
             w->getusermessage(u);
         return;
     }
     if(!u.has_type(e_GARBAGEQUIT)){
-        foreach(channelwindow *w,windowlist)
+        foreach(channelwindow *w,channelTabs)
             if(w->currentChannel.toLower()==u.receiver().toLower())
                 w->getusermessage(u);
     }
     else
         foreach(QString channelTheQuittedUserWasBeingOn,u.receiver().split(','))
-            foreach(channelwindow *w,windowlist)
+            foreach(channelwindow *w,channelTabs)
                 if(w->currentChannel.toLower()==channelTheQuittedUserWasBeingOn.toLower())
                     w->getusermessage(u);
 }
@@ -763,7 +763,7 @@ void MainWindow::handleAwayBox(){
 void MainWindow::reconnect(){
     lastOpenedWindows.clear ();
     lastOpenedChatWindows.clear ();
-    foreach(channelwindow *w, windowlist)
+    foreach(channelwindow *w, channelTabs)
         lastOpenedWindows<<w->currentChannel;
     foreach(chatwindow *w,channelwindow::chatwindows)
         lastOpenedChatWindows<<w->chatpartner;
@@ -846,11 +846,11 @@ void MainWindow::on_actionClose_triggered(){
     singleton<quithandler>().inducequit();
 }
 void MainWindow::on_actionLock_the_UI_triggered(bool checked){
-    for(int i=0;i<windowlist.length();++i)
+    for(int i=0;i<channelTabs.length();++i)
         if(checked)
-            windowlist[i]->lockUI();
+            channelTabs[i]->lockUI();
         else
-            windowlist[i]->unlockUI();
+            channelTabs[i]->unlockUI();
 }
 void MainWindow::on_actionSet_away_triggered(){
     handleAwayBox();
@@ -989,19 +989,19 @@ void MainWindow::join(QString channel){
     channelTab *chanTab=dockTab(new channelTab(channel,new QMenu()));
     connect(chanTab,SIGNAL(askTabDocking(channelTab*)),this,SLOT(dockTab()));
     connect(chanTab,SIGNAL(askTabUndocking(channelTab*)),this,SLOT(undockTab()));
-    windowlist.push_back(chanTab);
+    channelTabs.push_back(chanTab);
 
     singleton<netcoupler>().joinchannel(channel);
-    if(windowlist.isEmpty())
+    if(channelTabs.isEmpty())
         return;
     if (qobjectwrapper<awayhandler>::ref().away()) {
-        windowlist.last()->windowtitleaway = qobjectwrapper<awayhandler>::ref().message();
-        windowlist.last()->mysetwindowtitle();
+        channelTabs.last()->windowtitleaway = qobjectwrapper<awayhandler>::ref().message();
+        channelTabs.last()->mysetwindowtitle();
     }
-    connect(windowlist.last(), SIGNAL(sigjoinchannel(const QString&)),this, SLOT(join(const QString&)));
-    connect(windowlist.last(), SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
+    connect(channelTabs.last(), SIGNAL(sigjoinchannel(const QString&)),this, SLOT(join(const QString&)));
+    connect(channelTabs.last(), SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
     connect(this, SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
-    connect(windowlist.last(), SIGNAL(sigclosed()),this, SLOT(windowclosed()));
+    connect(channelTabs.last(), SIGNAL(sigclosed()),this, SLOT(windowclosed()));
 }
 void MainWindow::on_tabWidget_currentChanged(int index){
     QWidget *tab=ui->tabWidget->currentWidget();
@@ -1014,7 +1014,7 @@ void MainWindow::on_tabWidget_currentChanged(int index){
         ui->menuServer->setEnabled(false);
 
         /* resetting everything */
-        foreach(channelwindow *w, windowlist){
+        foreach(channelwindow *w, channelTabs){
             singleton<netcoupler>().partchannel(w->currentChannel);
             w->close();
         }

@@ -15,7 +15,7 @@ UI_DIR += .ui
 OBJECTS_DIR += .lib
 RCC_DIR += .rcc
 
-QMAKE_CXXFLAGS += -std=c++11 -Wall -Wno-parentheses
+QMAKE_CXXFLAGS += -std=c++11 -Wall
 # -Werror -O3
 
 unix:TARGET = "./TheWheatSnooper/TheWheatSnooper"
@@ -46,7 +46,6 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/ctctphandlerwidget.h \
     src/wormnet/emoticonhandler.h \
     src/wormnet/hostbox.h \
-    src/wormnet/hostmodel.h \
     src/wormnet/hoststruct.h \
     src/wormnet/inihandlerclass.h \
     src/wormnet/ircnet.h \
@@ -132,7 +131,6 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/ctctphandlerwidget.cpp \
     src/wormnet/emoticonhandler.cpp \
     src/wormnet/hostbox.cpp \
-    src/wormnet/hostmodel.cpp \
     src/wormnet/hoststruct.cpp \
     src/wormnet/inihandlerclass.cpp \
     src/wormnet/ircnet.cpp \

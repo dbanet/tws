@@ -6,7 +6,7 @@
 
 #include "../hoststruct.h"
 
-class HostModel : public QAbstractItemModel{
+class HostModel : public QAbstractListModel{
     Q_OBJECT
 
 public:
@@ -14,21 +14,23 @@ public:
 
     int           rowCount      (const QModelIndex &parent=QModelIndex())            const;
     int           columnCount   (const QModelIndex &parent=QModelIndex())            const;
+    Qt::ItemFlags flags         (const QModelIndex &index)                           const;
     QVariant      headerData    (int section,Qt::Orientation orientation,int role)   const;
     QVariant      data          (const QModelIndex &index,int role=Qt::DisplayRole)  const;
 
-    QModelIndex   parent        (const QModelIndex &child)                           const{
+    void          hostsChanged  (void)                                                    ;
+//  QModelIndex   parent        (const QModelIndex &child)                           const{
         /* Our model is flat, so we return "invalid index" (see       */
         /* http://qt-project.org/doc/qt-4.8/                          */
         /*    model-view-programming.html#model-subclassing-reference */
-        return QModelIndex();
-    }
-    QModelIndex   index         (int row, int column, const QModelIndex &parent)     const{
+//      return QModelIndex();
+//   }
+//  QModelIndex   index         (int row, int column, const QModelIndex &parent)     const{
         /* Our model is flat, so we return "invalid index" (see       */
         /* http://qt-project.org/doc/qt-4.8/                          */
         /*    model-view-programming.html#model-subclassing-reference */
-        return QModelIndex();
-    }
+//      return QModelIndex();
+//   }
 
     ~HostModel();
 

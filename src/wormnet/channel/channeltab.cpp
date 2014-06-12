@@ -46,8 +46,30 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     ui->setupUi(this);
 
     qDebug()<<"ui->users->setAlternatingRowColors(1)";
+
+    /***********************/
+    /* setting up hostview */
+    /***********************/
+    this->hosts=new QList<hoststruct>();                                 // something to initialize the model with...
+    this->hostModel=new HostModel(currentChannel,hosts);                 // model itself (blank for now)
+    ui->hosts->setModel(this->hostModel);                                // setting it
+    ui->hosts->setEnabled(true);
+    ui->hosts->setSortingEnabled(true);
+    ui->hosts->setColumnWidth(0,22);                                     // flag icons width
+    ui->hosts->setColumnWidth(1,16);                                     // locked/unlocked icon width
+    ui->hosts->setColumnWidth(2,15);                                     // buddy/ignore/plain-host icon
+    ui->hosts->setRootIsDecorated(false);                                // that small dots; we don't need them
+    ui->hosts->header()->setStretchLastSection(false);                   // the 'gamename' section will be stretched
+    ui->hosts->header()->setResizeMode(0,QHeaderView::Fixed);            // the user shouldn't be able to resize neither flag,
+    ui->hosts->header()->setResizeMode(1,QHeaderView::Fixed);            // nor locked/unlocked,
+    ui->hosts->header()->setResizeMode(2,QHeaderView::Fixed);            // nor buddy/ignore/plain-host icons columns
+    ui->hosts->header()->setResizeMode(3,QHeaderView::Stretch);          // the gamename section is set to be stretched (the biggest)
+    ui->hosts->header()->setResizeMode(4,QHeaderView::ResizeToContents); // the hoster's nick is always visible fully (it's never too big)
+    //ui->hosts->header()->setResizeMode(5,QHeaderView::Interactive);    // and the default for the IP. Many users won't like it occupying too much space
+    ui->hosts->header()->setResizeMode(5,QHeaderView::ResizeToContents); // but l8r I thought there are lot of space... also I like to see it...
+    ui->hosts->header()->setSortIndicatorShown(true);                    // why not?
+
     ui->users->setAlternatingRowColors(1);
-    ui->hosts->setAlternatingRowColors(1);
     ui->users->installEventFilter(this);
     connect(&singleton<netcoupler>().users, SIGNAL(sigselectitem(const QModelIndex&,const QWidget*)),this, SLOT(setselection(const QModelIndex&,const QWidget*)));
     chat = new chatHandler(this, ui->chat, currentChannel);
@@ -71,16 +93,6 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     ui->users->header()->setSortIndicator(3, Qt::AscendingOrder);
     ui->users->header()->setSortIndicatorShown(1);
     connect(ui->users->header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),&singleton<netcoupler>().users, SLOT(sortslot(int, Qt::SortOrder)));
-
-    qDebug()<<"ui->hosts->setModel(&singleton<netcoupler>().hosts)";
-    ui->hosts->setModel(&singleton<netcoupler>().hosts);
-    ui->hosts->setEnabled(1);
-    ui->hosts->setSortingEnabled(1);
-    ui->hosts->header()->swapSections(1, 3);
-    ui->hosts->header()->swapSections(0, 2);
-    ui->hosts->setColumnWidth(0, 190);
-    ui->hosts->setColumnWidth(1, 120);
-    ui->hosts->header()->setSortIndicatorShown(0);
 
     qDebug()<<"joinmenu2.setTitle(tr(\"Join\"))";
     joinmenu2.setTitle(tr("Join"));
@@ -108,15 +120,10 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     qDebug()<<"ui->msg->setFocus(Qt::MouseFocusReason)";
     ui->msg->setFocus(Qt::MouseFocusReason);
 
-    qDebug()<<"ui->hosts->setColumnWidth(3, 16)";
-    ui->hosts->setColumnWidth(3, 16);
-    ui->hosts->setColumnWidth(2, 22);
     ui->users->setColumnWidth(1, 22);
     ui->users->setColumnWidth(2, 48);
     ui->users->header()->setResizeMode(1, QHeaderView::Fixed);
     ui->users->header()->setResizeMode(2, QHeaderView::Fixed);
-    ui->hosts->header()->setResizeMode(2, QHeaderView::Fixed);
-    ui->hosts->header()->setResizeMode(3, QHeaderView::Fixed);
 
     qDebug()<<"Setting up the top right corner to belong to the right docking widget area...";
     this->setCorner(Qt::TopRightCorner,Qt::RightDockWidgetArea);
@@ -147,18 +154,19 @@ void channelTab::insertemot(QString s){
     ui->msg->setFocus ();
 }
 void channelTab::expandchannels() { //expand on startup
-    ui->hosts->setExpanded(singleton<netcoupler>().hosts.indexbychannelname(currentChannel), 1);
     ui->users->setExpanded(singleton<netcoupler>().users.indexbychannelname(currentChannel), 1);
     ui->users->setExpanded(singleton<netcoupler>().users.indexbychannelname(usermodel::tr("Querys")), 1);
-    if (S_S.getbool("cbopenbuddylistonstartup"))
+    if(S_S.getbool("cbopenbuddylistonstartup"))
         ui->users->setExpanded(singleton<netcoupler>().users.indexbychannelname(usermodel::tr("Buddylist")), 1);
-    if (ui->users->isExpanded(singleton<netcoupler>().users.index(singleton<netcoupler>().users.classes.indexOf(
-                                                                     currentChannel), 0)) && ui->hosts->isExpanded(
-                singleton<netcoupler>().hosts.index(singleton<netcoupler>().hosts.classes.indexOf( currentChannel),
-                                                    0))) {
+    if(ui->users->isExpanded(
+           singleton<netcoupler>().users.index(
+               singleton<netcoupler>().users.classes.indexOf(currentChannel)
+              ,0
+           )
+       )
+    ){
         //disconnect(&singleton<netcoupler>(), SIGNAL(siggotchanellist(QStringList)),this, SLOT(expandchannels(QStringList)));
-    } else
-        QTimer::singleShot(500, this, SLOT(expandchannels()));
+    } else QTimer::singleShot(500, this, SLOT(expandchannels()));
 }
 void channelTab::setselection(const QModelIndex &index, const QWidget *w) {
     if (w == this) {
@@ -392,9 +400,9 @@ void channelTab::useritemdblclicked(const QModelIndex &index) {
 }
 void channelTab::hostitemdblclicked(const QModelIndex &index) {
     if (index.internalId() != 999) {
-        QString hostinfo = " \"" + singleton<netcoupler>().hosts.joininfo(index) + "&scheme="
+        QString hostinfo = " \"" + hosts->at(index.row()).joinstring() + "&scheme="
                 + singleton<netcoupler>().schememap[currentChannel] + "\"";
-        QString gamename = singleton<netcoupler>().hosts.gamename(index);
+        QString gamename = hosts->at(index.row()).name();
         singleton<netcoupler>().joingame(hostinfo, currentChannel, gamename);
     } else if (index.internalId() == 999) {
         openHostBox();
@@ -444,9 +452,9 @@ void channelTab::openchatwindow(const QString &s) {
 }
 void channelTab::hostitempressed(const QModelIndex &index) {
     if (QApplication::mouseButtons() == Qt::RightButton) {
-        QString hostinfo = " \"" + singleton<netcoupler>().hosts.joininfo(index) + "&scheme="
+        QString hostinfo = " \"" + hosts->at(index.row()).joinstring() + "&scheme="
                 + singleton<netcoupler>().schememap[currentChannel] + "\"";
-        QString gamename = singleton<netcoupler>().hosts.gamename(index);
+        QString gamename = hosts->at(index.row()).name();
         if (index.internalId() == 999) {
             openHostBox();
         } else {
@@ -569,7 +577,7 @@ void channelTab::lockUI(){
 
     /* a fix for when the UI gets unlocked and then locked again, the minimumHeight increases by */
     /* the dock's title bar. I set the minimumHeight back to the height of the chat input box    */
-    //ui->chatDock->setMinimumHeight(27);
+    ui->chatDock->setMinimumHeight(27);
 
     /* setting an empty QWidget as the dock's title bar to save the space                        */
     ui->hostsDock->setTitleBarWidget(new QWidget(this));
@@ -619,12 +627,15 @@ void channelTab::on_actionDockUndock_triggered(bool checked){
 void channelTab::setDocked(bool state){
     this->docked=state;
 }
+void channelTab::setHosts(QList<hoststruct> *hosts){
+    this->hosts->clear();
+    this->hosts->append(*hosts);
+    this->hostModel->hostsChanged();
+}
 channelTab::~channelTab()
 {
     singleton<netcoupler>().partchannel(currentChannel);
     QString s = currentChannel;
-    containsCI(singleton<netcoupler>().hosts.hostmap.keys(), s);
-    singleton<netcoupler>().hosts.sethoststruct(QList<hoststruct> (), s);
     emit sigclosed();
     disconnect();
     hiddenchannelwindowshelper.removeAll(this);
