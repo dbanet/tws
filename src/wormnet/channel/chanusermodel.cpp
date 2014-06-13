@@ -42,14 +42,14 @@ int ChanUserModel::rowCount(const QModelIndex &/*parent*/) const{
 }
 
 Qt::ItemFlags ChanUserModel::flags(const QModelIndex &index) const{
-    /*switch(index.column()){
+    switch(index.column()){
         case 0:
         case 1:
             return Qt::ItemIsEnabled;
 
-        default:*/
+        default:
             return Qt::ItemIsEnabled|Qt::ItemIsSelectable;
-    /*}*/
+    }
 }
 
 QVariant ChanUserModel::headerData(int section,Qt::Orientation orientation,int role) const{

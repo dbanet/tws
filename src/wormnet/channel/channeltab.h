@@ -7,6 +7,7 @@
 #include <QMenu>
 #include <QPointer>
 #include <QDockWidget>
+#include <QSortFilterProxyModel>
 
 #include "../netcoupler.h"
 #include "../userstruct.h"
@@ -103,7 +104,9 @@ private:
     QWidget *chatDockTitleBar;
 
     HostModel *hostModel;
+    QSortFilterProxyModel *sortedHostModel;
     ChanUserModel *chanUserModel;
+    QSortFilterProxyModel *sortedChanUserModel;
 
 signals:
     void sigclosed();

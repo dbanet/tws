@@ -50,9 +50,16 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     /***********************/
     this->hosts=new QList<hoststruct>();                                 // something to initialize the model with...
     this->hostModel=new HostModel(currentChannel,hosts);                 // model itself (blank for now)
-    ui->hosts->setModel(this->hostModel);                                // setting it
-    ui->hosts->setEnabled(true);
+
+    sortedHostModel=new QSortFilterProxyModel();                         // to be able to sort...
+    sortedHostModel->setSourceModel(hostModel);                          // ... the hostModel
+    sortedHostModel->setSortCaseSensitivity(Qt::CaseInsensitive);
+    sortedHostModel->setSortRole(hostModel->SortingRole);
     ui->hosts->setSortingEnabled(true);
+    ui->hosts->header()->setSortIndicatorShown(true);
+
+    ui->hosts->setModel(this->sortedHostModel);                          // setting it
+    ui->hosts->setEnabled(true);
     ui->hosts->setColumnWidth(0,22);                                     // flag icons width
     ui->hosts->setColumnWidth(1,16);                                     // locked/unlocked icon width
     ui->hosts->setColumnWidth(2,15);                                     // buddy/ignore/plain-host icon
@@ -65,7 +72,6 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     ui->hosts->header()->setResizeMode(4,QHeaderView::ResizeToContents); // the hoster's nick is always visible fully (it's never too big)
     //ui->hosts->header()->setResizeMode(5,QHeaderView::Interactive);    // and the default for the IP. Many users won't like it occupying too much space
     ui->hosts->header()->setResizeMode(5,QHeaderView::ResizeToContents); // but l8r I thought there are lot of space... also I like to see it...
-    ui->hosts->header()->setSortIndicatorShown(true);                    // why not?
 
     /***********************/
     /* setting up userlist */
@@ -94,11 +100,11 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
 
     connect(ui->users->header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),&singleton<netcoupler>().users, SLOT(sortslot(int, Qt::SortOrder)));
     connect(ui->users, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(useritemdblclicked(const QModelIndex&)));
-    connect(ui->users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
+    //connect(ui->users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
     connect(chat, SIGNAL(sigopenchatwindow(const QString&)),this, SLOT(openchatwindow(const QString&)));
     connect(ui->send, SIGNAL(clicked()),ui->msg, SIGNAL(returnPressed()));
-    connect(ui->users->selectionModel(), SIGNAL(selectionChanged ( const QItemSelection&,const QItemSelection&)),this, SLOT(userselectionchanged(const QItemSelection&,const QItemSelection&)));
-    connect(&singleton<netcoupler>().users, SIGNAL(sigselectitem(const QModelIndex&,const QWidget*)),this, SLOT(setselection(const QModelIndex&,const QWidget*)));
+    //connect(ui->users->selectionModel(), SIGNAL(selectionChanged ( const QItemSelection&,const QItemSelection&)),this, SLOT(userselectionchanged(const QItemSelection&,const QItemSelection&)));
+    //connect(&singleton<netcoupler>().users, SIGNAL(sigselectitem(const QModelIndex&,const QWidget*)),this, SLOT(setselection(const QModelIndex&,const QWidget*)));
 
     qDebug()<<"joinmenu2.setTitle(tr(\"Join\"))";
     joinmenu2.setTitle(tr("Join"));
