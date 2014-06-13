@@ -30,7 +30,7 @@ public:
     void quit(QString s);
     QHash<QString/* channel name */,int/* amount of  users */> channellist;
     int state() const;
-    QList<userstruct> wholist;
+    QList<userstruct> userList;
     QHash<QString,QStringList> joinlist;
     QString nick;
     QString canonizeChannelName(QString);
@@ -46,6 +46,7 @@ signals: //public signals:
     void sigIRCReceivedChanList(QStringList);
     void sigIRCJoinedChannel(QString,int);
     void sigIRCUpdatedAmountOfUsers(QString,int);
+    void sigIRCUpdatedUserList(QList<userstruct>*);
     //private signals:
     void sigconnected();
     void sigdisconnected();   

@@ -45,8 +45,6 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     setObjectName("channelTab");
     ui->setupUi(this);
 
-    qDebug()<<"ui->users->setAlternatingRowColors(1)";
-
     /***********************/
     /* setting up hostview */
     /***********************/
@@ -69,30 +67,38 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     ui->hosts->header()->setResizeMode(5,QHeaderView::ResizeToContents); // but l8r I thought there are lot of space... also I like to see it...
     ui->hosts->header()->setSortIndicatorShown(true);                    // why not?
 
+    /***********************/
+    /* setting up userlist */
+    /***********************/
+    this->users=new QList<userstruct>();
+    this->chanUserModel=new ChanUserModel(currentChannel,users);
+    ui->users->setModel(this->chanUserModel);
+    ui->users->setEnabled(1);
+    ui->users->setSortingEnabled(1);
     ui->users->setAlternatingRowColors(1);
+    ui->users->setRootIsDecorated(false);
     ui->users->installEventFilter(this);
-    connect(&singleton<netcoupler>().users, SIGNAL(sigselectitem(const QModelIndex&,const QWidget*)),this, SLOT(setselection(const QModelIndex&,const QWidget*)));
-    chat = new chatHandler(this, ui->chat, currentChannel);
-    ui->msg->installEventFilter(chat);
+    ui->users->setColumnWidth(0,22);
+    ui->users->setColumnWidth(1,48);
+    ui->users->setColumnWidth(2,18);
+    ui->users->header()->setStretchLastSection(false);
+    ui->users->header()->setResizeMode(0,QHeaderView::Fixed);
+    ui->users->header()->setResizeMode(1,QHeaderView::Fixed);
+    ui->users->header()->setResizeMode(2,QHeaderView::Fixed);
+    ui->users->header()->setResizeMode(3,QHeaderView::Stretch);
+    ui->users->header()->setResizeMode(4,QHeaderView::ResizeToContents);
+    ui->users->header()->setResizeMode(5,QHeaderView::Interactive);
+    ui->users->header()->setSortIndicatorShown(1);
+
+    connect(*(&singleton<netcoupler>().irc),SIGNAL(sigIRCUpdatedUserList(QList<userstruct>*)),this,SLOT(setUsers(QList<userstruct>*)));
+
+    connect(ui->users->header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),&singleton<netcoupler>().users, SLOT(sortslot(int, Qt::SortOrder)));
+    connect(ui->users, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(useritemdblclicked(const QModelIndex&)));
+    connect(ui->users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
     connect(chat, SIGNAL(sigopenchatwindow(const QString&)),this, SLOT(openchatwindow(const QString&)));
     connect(ui->send, SIGNAL(clicked()),ui->msg, SIGNAL(returnPressed()));
-    ui->users->setModel(&singleton<netcoupler>().users);
     connect(ui->users->selectionModel(), SIGNAL(selectionChanged ( const QItemSelection&,const QItemSelection&)),this, SLOT(userselectionchanged(const QItemSelection&,const QItemSelection&)));
-    ui->users->setEnabled(1);
-    ui->users->header()->swapSections(0, 1);
-    ui->users->header()->swapSections(1, 2);
-    ui->users->setColumnWidth(0, 180);
-    ui->users->setColumnWidth(3, 48);
-    ui->users->setColumnWidth(4, 120);
-
-    qDebug()<<"ui->users->setSortingEnabled(1)";
-    ui->users->setSortingEnabled(1);
-    ui->users->header()->setSortIndicator(0, Qt::AscendingOrder);
-    ui->users->header()->setSortIndicator(1, Qt::AscendingOrder);
-    ui->users->header()->setSortIndicator(2, Qt::AscendingOrder);
-    ui->users->header()->setSortIndicator(3, Qt::AscendingOrder);
-    ui->users->header()->setSortIndicatorShown(1);
-    connect(ui->users->header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),&singleton<netcoupler>().users, SLOT(sortslot(int, Qt::SortOrder)));
+    connect(&singleton<netcoupler>().users, SIGNAL(sigselectitem(const QModelIndex&,const QWidget*)),this, SLOT(setselection(const QModelIndex&,const QWidget*)));
 
     qDebug()<<"joinmenu2.setTitle(tr(\"Join\"))";
     joinmenu2.setTitle(tr("Join"));
@@ -104,10 +110,8 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     usermenu.addAction(tr("Show info about this user."))->setIcon(chaticon);
     customlistmenu.addAction(tr("Remove this user from the list."));
     customlistmenu.addAction(tr("Show info about this user."))->setIcon(chaticon);
-
-    qDebug()<<"connect(ui->users, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(useritemdblclicked(const QModelIndex&)))";
-    connect(ui->users, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(useritemdblclicked(const QModelIndex&)));
-    connect(ui->users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
+    chat = new chatHandler(this, ui->chat, currentChannel);
+    ui->msg->installEventFilter(chat);
     connect(ui->hosts, SIGNAL(pressed(const QModelIndex&)),this, SLOT(hostitempressed(const QModelIndex&)));
     connect(ui->hosts, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(hostitemdblclicked(const QModelIndex&)));
     //connect(ui->pbsmiley,SIGNAL(clicked()),this,SLOT(pbemotclicked()));
@@ -119,11 +123,6 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
 
     qDebug()<<"ui->msg->setFocus(Qt::MouseFocusReason)";
     ui->msg->setFocus(Qt::MouseFocusReason);
-
-    ui->users->setColumnWidth(1, 22);
-    ui->users->setColumnWidth(2, 48);
-    ui->users->header()->setResizeMode(1, QHeaderView::Fixed);
-    ui->users->header()->setResizeMode(2, QHeaderView::Fixed);
 
     qDebug()<<"Setting up the top right corner to belong to the right docking widget area...";
     this->setCorner(Qt::TopRightCorner,Qt::RightDockWidgetArea);
@@ -191,7 +190,7 @@ bool channelTab::eventFilter(QObject *obj, QEvent *event) {
             QKeyEvent *keyEvent = static_cast<QKeyEvent*> (event);
             if (keyEvent->key() == Qt::Key_Return) {
                 QModelIndex index=ui->users->currentIndex();
-                if (index.internalId() == usermodel::e_Channel)
+                if (index.internalId() == ChanUserModel::e_Channel)
                     return false;
                 QString s = singleton<netcoupler>().users.data(index.sibling(index.row(), 0)).value<QString> ();
                 if (s != "")
@@ -267,10 +266,12 @@ void channelTab::closeEvent(QCloseEvent * /*event*/) {
     S_S.set(currentChannel + QString::number(whichuiison), windowstates);
 }
 void channelTab::useritempressed(const QModelIndex &index) {
-    if (!index.isValid())
-        return;
-    if (QApplication::mouseButtons() == Qt::LeftButton && index.column()==usermodel::e_Client){
-        QString s=singleton<netcoupler>().users.data(index.sibling(index.row(), usermodel::e_Client)).toString();
+    if  (!index.isValid()) return;
+    int row   =index.row();
+    int column=index.column();
+
+    if (QApplication::mouseButtons() == Qt::LeftButton && index.column()==ChanUserModel::e_Client){
+        QString s=users->at(row).client;
         if(isClickableLink(s)){
             s=s.simplified();
             QUrl u1;
@@ -279,14 +280,14 @@ void channelTab::useritempressed(const QModelIndex &index) {
         }
         return;
     }
-    if (QApplication::mouseButtons() == Qt::LeftButton && index.column()==usermodel::e_Clan){
+    if (QApplication::mouseButtons() == Qt::LeftButton && index.column()==ChanUserModel::e_Clan){
         QString s;
         if(S_S.spectateleagueserver){
-            QString nick=singleton<netcoupler>().users.data(index.sibling(index.row(), 0),Qt::DisplayRole).value<QString> ();
+            QString nick=users->at(row).nick;
             s=singleton<leagueserverhandler>().map_at_toString(nick,leagueserverhandler::e_clan);
         }
         if(s.isEmpty())
-            s=singleton<netcoupler>().users.data(index.sibling(index.row(), usermodel::e_Clan)).toString();
+            s=chanUserModel->getClan(users->at(row)).toString();
         if(singleton<clantowebpagemapper>().contains(s)){
             s=singleton<clantowebpagemapper>().value(s);
             QUrl u1;
@@ -298,44 +299,23 @@ void channelTab::useritempressed(const QModelIndex &index) {
         return;
     QAction *a;
     QMenu menu;
-    QString user = singleton<netcoupler>().users.data(index.sibling(index.row(), 0),Qt::DisplayRole).value<QString> ();
-    if (index.internalId() == usermodel::e_Channel) {
-        if(singleton<netcoupler>().users.data(index.sibling(index.row(), 0)).value<QString> ()==usermodel::tr("Querys")){
-            menu.addAction(tr("Remove Querys"));
-            a = menu.exec(QCursor::pos());
-            if(a && a->text()==tr("Remove Querys")){
-                querylist.clear();
-                safequerylist();
-            }
-        }
-    } else if (index.column() == usermodel::e_Clan) {
+    QString user = users->at(row).nick;
+    if (index.column() == ChanUserModel::e_Clan) {
         QStringList sl = S_S.dissallowedclannames;
-        if (sl.contains(singleton<netcoupler>().users.getuserstructbyindex(index).clan,Qt::CaseInsensitive))
+        if (sl.contains(users->at(row).clan,Qt::CaseInsensitive))
             menu.addAction(tr("Allow this clanname."));
         else
             menu.addAction(tr("Dissallow this clanname."));
         a = menu.exec(QCursor::pos());
         if (!a) return;
         if (a->text() == tr("Allow this clanname."))
-            removeCI(sl,singleton<netcoupler>().users.getuserstructbyindex(index).clan);
+            removeCI(sl,users->at(row).clan);
         else if(a->text() == tr("Dissallow this clanname."))
-            sl<< singleton<netcoupler>().users.getuserstructbyindex(index).clan;
+            sl<< users->at(row).clan;
         else
-            showInformationAboutClan(singleton<netcoupler>().users.getuserstructbyindex(index).clan);
+            showInformationAboutClan(users->at(row).clan);
         S_S.set("dissallowedclannames", sl);
-    } else if (singleton<netcoupler>().users.classes[index.internalId()] == usermodel::tr("Querys")) {
-        QMenu menu;
-        menu.addAction(tr("Remove this Query."));
-        menu.addSeparator();
-        menu.addAction(tr("Show info about this user."))->setIcon(chaticon);
-        a = menu.exec(QCursor::pos());
-        if (a) {
-            if (a->text() == tr("Remove this Query."))
-                querylist.removeAll(user);
-            else if (a->text() == tr("Show info about this user."))
-                getuserinfo(user);
-        }
-    } else if (singleton<netcoupler>().users.classes[index.internalId()] != usermodel::tr("Buddylist")
+    }/* else if (singleton<netcoupler>().users.classes[index.internalId()] != usermodel::tr("Buddylist")
                && singleton<netcoupler>().users.classes[index.internalId()] != usermodel::tr("Ignorelist")) {
         QMenu menu;
         if (containsCI(S_S.buddylist, user)) {
@@ -383,20 +363,10 @@ void channelTab::useritempressed(const QModelIndex &index) {
                 getuserinfo(user);
             }
         }
-    }
+    }*/
 }
 void channelTab::useritemdblclicked(const QModelIndex &index) {
-
-    if (index.internalId() != usermodel::e_Channel
-            && singleton<netcoupler>().users.classes[index.internalId()]!= usermodel::tr("Ignorelist")) {
-        QString s = singleton<netcoupler>().users.data(index.sibling(index.row(), 0), Qt::DisplayRole).value<QString> ();
-        openchatwindow(s);
-    } else if (index.internalId() == usermodel::e_Channel){
-        QString s=singleton<netcoupler>().users.data(index.sibling(index.row(), 0)).value<QString> ();
-        if(s==usermodel::tr("Buddylist") || s==usermodel::tr("Ignorelist") || s==usermodel::tr("Querys"))
-            return;
-        emit sigjoinchannel(s);
-    }
+    openchatwindow(users->at(index.row()).nick);
 }
 void channelTab::hostitemdblclicked(const QModelIndex &index) {
     if (index.internalId() != 999) {
@@ -631,6 +601,11 @@ void channelTab::setHosts(QList<hoststruct> *hosts){
     this->hosts->clear();
     this->hosts->append(*hosts);
     this->hostModel->hostsChanged();
+}
+void channelTab::setUsers(QList<userstruct> *users){
+    this->users->clear();
+    this->users->append(*users);
+    this->chanUserModel->usersChanged();
 }
 channelTab::~channelTab()
 {

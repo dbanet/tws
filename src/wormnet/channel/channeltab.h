@@ -12,6 +12,7 @@
 #include "../userstruct.h"
 #include "../hoststruct.h"
 #include "hostmodel.h"
+#include "chanusermodel.h"
 
 namespace Ui {
     class channelTab;
@@ -44,7 +45,7 @@ public:
     bool docked;
     void setDocked(bool);
     QList<hoststruct> *hosts;
-    void setHosts(QList<hoststruct>*);
+    QList<userstruct> *users;
 
 public slots:
     void minimize();
@@ -74,6 +75,9 @@ public slots:
 
     void insertemot(QString s);
 
+    void setHosts(QList<hoststruct>*);
+    void setUsers(QList<userstruct>*);
+
 private:
     Ui::channelTab *ui;
 
@@ -99,6 +103,7 @@ private:
     QWidget *chatDockTitleBar;
 
     HostModel *hostModel;
+    ChanUserModel *chanUserModel;
 
 signals:
     void sigclosed();

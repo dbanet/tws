@@ -1,25 +1,37 @@
-#ifndef HOSTMODEL_H
-#define HOSTMODEL_H
+#ifndef CHANUSERMODEL_H
+#define CHANUSERMODEL_H
 #include <QList>
 #include <QModelIndex>
 #include <QPixmap>
 
-#include "../hoststruct.h"
+#include "../userstruct.h"
 
-class HostModel : public QAbstractListModel{
+class ChanUserModel : public QAbstractListModel{
     Q_OBJECT
 
 public:
-    HostModel                   (QString channel,QList<hoststruct> *hosts,QObject *parent=0);
+    ChanUserModel               (QString channel,QList<userstruct> *users,QObject *parent=0);
 
-    int           rowCount      (const QModelIndex &parent=QModelIndex())            const;
-    int           columnCount   (const QModelIndex &parent=QModelIndex())            const;
-    Qt::ItemFlags flags         (const QModelIndex &index)                           const;
-    QVariant      headerData    (int section,Qt::Orientation orientation,int role)   const;
-    QVariant      data          (const QModelIndex &index,int role=Qt::DisplayRole)  const;
+    int           rowCount      (const QModelIndex &parent=QModelIndex())              const;
+    int           columnCount   (const QModelIndex &parent=QModelIndex())              const;
+    Qt::ItemFlags flags         (const QModelIndex &index)                             const;
+    QVariant      headerData    (int section,Qt::Orientation orientation,int role)     const;
+    QVariant      data          (const QModelIndex &index,int role=Qt::DisplayRole)    const;
 
-    void          hostsChanged  (void)                                                    ;
-    ~HostModel();
+    enum{ /* types of columns */
+        e_Flag=0
+        ,e_Rank=1
+        ,e_Icon=2
+        ,e_Nick=3
+        ,e_Clan=4
+        ,e_Client=5
+        ,e_Channel=6 // obsolete
+    };
+
+    QVariant      getClan       (const userstruct &user)                               const;
+    QVariant      getRank       (const userstruct &user)                               const;
+    void          usersChanged  (void)                                                      ;
+    ~ChanUserModel();
 
 private:
     /* _data is an internal private pointer to a QList of hoststructs */
@@ -39,7 +51,7 @@ private:
     /* that the correspoinding View updates the visible information.  */
     /* The whole view gets updated in this case (emit dataChagned(    */
     /* createIndex(0,0),createIndex(rowCount(),columnCount());).      */
-    QList<hoststruct> *_data;
+    QList<userstruct> *_data;
 
     /* The Model displays those hoststructs only, whose chan() public */
     /* method returns a QString that equals to the following private  */
@@ -48,9 +60,13 @@ private:
 
     /* Miscellaneous thingies: icons                                  */
     QPixmap channelIcon;
-    QPixmap hostIcon;
-    QPixmap buddyHostIcon;
-    QPixmap ignoreHostIcon;
+    QPixmap userIcon;
+    QPixmap buddyIcon;
+    QPixmap ignoreIcon;
+    QPixmap offlineIcon;
+    QPixmap awayUserIcon;
+    QPixmap awayBuddyIcon;
+    QPixmap awayIgnoreIcon;
 };
 
-#endif // HOSTMODEL_H
+#endif // CHANUSERMODEL_H

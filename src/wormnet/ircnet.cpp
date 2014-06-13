@@ -83,10 +83,7 @@ void ircnet::connected() {
     emit sigconnected();
 }
 void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
-
-    /* have no idea what actually happens in this define, but it somehow updates the userlist with              */
-    /* QList of userstructs this->wholist. I don't know WTF is the second argument... ;)                        */
-    #define updateuserlist singleton<netcoupler>().users.setuserstruct(this->wholist,QHash<QString,QStringList>())
+    #define updateuserlist emit sigIRCUpdatedUserList(&this->userList);
 
     ircreadstring.append(CodecSelectDia::codec->toUnicode(tcp->readAll()));
     QStringList messages = ircreadstring.split("\n");
@@ -168,7 +165,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
 
                 QStringList names=ircMsg->trailing.split(' ');
                 foreach(QString nick,names)
-                    this->wholist<<userstruct(QStringList()
+                    this->userList<<userstruct(QStringList()
                                               <<ircMsg->paramList[2]
                                               <<"Username"            /* these values do mean no-*/
                                               <<"no.address.for.you"  /* thing, are here just to */
@@ -184,7 +181,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 /* Updating the channel window title with the newest amount of users...          */
                 int amountOfUsers=0;
                 QString channel=ircMsg->paramList[1];
-                foreach(userstruct user,this->wholist)
+                foreach(userstruct user,this->userList)
                     if(user.chan==channel)
                         amountOfUsers++;
                 emit sigIRCUpdatedAmountOfUsers(channel,channellist[channel]=amountOfUsers);
@@ -225,18 +222,18 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 /* Now we iterate through all userstructs with matching nick, and replacing them */
                 /* with an updated userstruct filled with the rankflag information...            */
                 bool foundAndUpdated=false;
-                for(int i=0;i<this->wholist.length();i++)
-                    if(this->wholist[i].nick==ircMsg->paramList[5] &&
-                       this->wholist[i].chan.toLower()==ircMsg->paramList[1].toLower()){
+                for(int i=0;i<this->userList.length();i++)
+                    if(this->userList[i].nick==ircMsg->paramList[5] &&
+                       this->userList[i].chan.toLower()==ircMsg->paramList[1].toLower()){
                         /* replacing the old userstruct with a fully populated one */
-                        this->wholist[i]=userstruct(userstructSetupQSL);
+                        this->userList[i]=userstruct(userstructSetupQSL);
                         foundAndUpdated=true;
                     }
 
                 /* OOPS! If !foundAndUpdated, it seems that someone has joined on the channel    */
                 /* AFTER the NAMES reply has been sent, but BEFORE the WHO reply has been sent.  */
                 if(!foundAndUpdated){ /* So we just add a new userstruct to the end...           */
-                    this->wholist<<userstruct(userstructSetupQSL);
+                    this->userList<<userstruct(userstructSetupQSL);
                 }
             } else if(ircMsg->command==
             "315"){
@@ -250,10 +247,10 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
             "QUIT"){
                 QString nick=ircMsg->prefix.split("!")[0];
                 QStringList channelsTheQuittedUserWasBeingOn;
-                for(QList<userstruct>::iterator i=this->wholist.begin();i!=this->wholist.end();)
+                for(QList<userstruct>::iterator i=this->userList.begin();i!=this->userList.end();)
                     if(i->nick==nick){
                         channelsTheQuittedUserWasBeingOn<<i->chan;
-                        i=this->wholist.erase(i);
+                        i=this->userList.erase(i);
                     } else ++i;
                 updateuserlist;
 
@@ -272,10 +269,10 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
             "PART"){
                 QString nick=ircMsg->prefix.split("!")[0];
                 QString channel=ircMsg->paramList[0];
-                for(QList<userstruct>::iterator i=this->wholist.begin();i<this->wholist.end();)
+                for(QList<userstruct>::iterator i=this->userList.begin();i<this->userList.end();)
                     if(i->nick==nick &&
                        i->chan.toLower()==channel.toLower())
-                        i=this->wholist.erase(i);
+                        i=this->userList.erase(i);
                     else ++i;
                 updateuserlist;
 
@@ -291,7 +288,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 QString nick=ircMsg->prefix.split("!")[0];
                 QString channel=ircMsg->trailing;
                 if(nick==this->nick) continue; /* We already know we've joined a channel ;)    */
-                this->wholist<<userstruct(QStringList()
+                this->userList<<userstruct(QStringList()
                                           <<channel
                                           <<"Username"            /* these values do mean no-*/
                                           <<"no.address.for.you"  /* thing, are here just to */
@@ -392,6 +389,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                                          <<"Received message: "<<ircMsg->getFancy()+" || RAW: "+ircMsg->getRaw();
         }
     }
+#undef updateuserlist
 }
 QString ircnet::canonizeChannelName(QString channelArg){
     foreach(QString channel,this->channellist.keys())
