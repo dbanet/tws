@@ -78,9 +78,16 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     /***********************/
     this->users=new QList<userstruct>();
     this->chanUserModel=new ChanUserModel(currentChannel,users);
-    ui->users->setModel(this->chanUserModel);
+
+    sortedChanUserModel=new QSortFilterProxyModel();
+    sortedChanUserModel->setSourceModel(chanUserModel);
+    sortedChanUserModel->setSortCaseSensitivity(Qt::CaseInsensitive);
+    //sortedChanUserModel->setSortRole(hostModel->SortingRole);
+    ui->users->setSortingEnabled(true);
+    ui->users->header()->setSortIndicatorShown(true);
+
+    ui->users->setModel(this->sortedChanUserModel);
     ui->users->setEnabled(1);
-    ui->users->setSortingEnabled(1);
     ui->users->setAlternatingRowColors(1);
     ui->users->setRootIsDecorated(false);
     ui->users->installEventFilter(this);
@@ -94,11 +101,10 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     ui->users->header()->setResizeMode(3,QHeaderView::Stretch);
     ui->users->header()->setResizeMode(4,QHeaderView::ResizeToContents);
     ui->users->header()->setResizeMode(5,QHeaderView::Interactive);
-    ui->users->header()->setSortIndicatorShown(1);
 
     connect(*(&singleton<netcoupler>().irc),SIGNAL(sigIRCUpdatedUserList(QList<userstruct>*)),this,SLOT(setUsers(QList<userstruct>*)));
 
-    connect(ui->users->header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),&singleton<netcoupler>().users, SLOT(sortslot(int, Qt::SortOrder)));
+    //connect(ui->users->header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),&singleton<netcoupler>().users, SLOT(sortslot(int, Qt::SortOrder)));
     connect(ui->users, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(useritemdblclicked(const QModelIndex&)));
     //connect(ui->users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
     connect(chat, SIGNAL(sigopenchatwindow(const QString&)),this, SLOT(openchatwindow(const QString&)));
