@@ -16,8 +16,9 @@
 bool userstruct::addressischecked=0;
 userstruct::userstruct():flag(49),rank(12) {
 }
-userstruct::userstruct(QStringList sl){
-    Q_ASSERT(sl.size()>=5); // sl example: #AnythingGoes Username no.address.for.you wormnet1.team17.com Scal H :0 48 0 US The Wheat Snooper 2.9
+userstruct::userstruct(QStringList sl){ // sl example: #AnythingGoes Username no.address.for.you wormnet1.team17.com Scal H :0 48 0 US The Wheat Snooper 2.9
+    Q_ASSERT_X(sl.size()>=7,"userstruct::userstruct(QStringList)",
+               "WormNET server has returned a bad reply for a WHO request");
 
     this->channel=sl.takeFirst();                      // the channel the user is being on
     this->clan=sl.takeFirst().remove("~");             // username of the user (ident or ~nick)
@@ -30,23 +31,30 @@ userstruct::userstruct(QStringList sl){
     bool rc; // return code
 
     /* parsing the flag */
-    int flagNumber=sl.takeFirst().toInt(&rc);
-    if (rc && flagNumber>=0) this->flag=flagNumber;
-    else this->flag=49; // the red "q" flag with a question mark
+    this->flag=49; // the red "q" flag with a question mark
+    if(!sl.isEmpty()){
+        int flagNumber=sl.takeFirst().toInt(&rc);
+        if(rc && flagNumber>=0)
+            this->flag=flagNumber;
+    }
 
     /* parsing the rank*/
-    int rankNumber=sl.takeFirst().toInt(&rc);
-    if(rc && rankNumber<singleton<pictureHandler>().ranklistsize() && rankNumber>=0)
-        this->rank=rankNumber;
-    else this->rank=12;
+    this->rank=12; // the rank with three question marks
+    if(!sl.isEmpty()){
+        int rankNumber=sl.takeFirst().toInt(&rc);
+        if(rc && rankNumber<singleton<pictureHandler>().ranklistsize() && rankNumber>=0)
+            this->rank=rankNumber;
+    }
 
     /* parsing the additional country code (two letters) */
-    QString countryString=sl.takeFirst();
-    this->country=(flag<53 && flag!=49)? // if we understand the flag number, don't take the additional country string into account
-                       singleton<pictureHandler>().mapNumberToCountryCode(flag):
-                       countryString.isEmpty()? // if the country string is empty (space space in the input), set it to "??"
-                           "??":
-                           countryString;
+    this->country="??";
+    if(!sl.isEmpty()){
+        QString countryString=sl.takeFirst();
+        if(flag<53 && flag!=49) // if we understand the flag number, don't take the additional country string into account
+            this->country=singleton<pictureHandler>().mapNumberToCountryCode(flag);
+        else if(!countryString.isEmpty())
+            this->country=countryString;;
+    }
 
     /* setting the client information to what is left in the input QStringList */
     this->client=sl.join(" ").remove("\r").remove("\n");

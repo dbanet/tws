@@ -18,8 +18,8 @@ RCC_DIR += .rcc
 QMAKE_CXXFLAGS += -std=c++11 -Wall
 # -Werror -O3
 
-unix:TARGET = "./TheWheatSnooper/TheWheatSnooper"
-win32:TARGET = "../TheWheatSnooper/TheWheatSnooper"
+#unix:TARGET = "./TheWheatSnooper/TheWheatSnooper"
+#win32:TARGET = "../TheWheatSnooper/TheWheatSnooper"
 
 #     DEFINES += WITH_GAMESURGE_SUPPORT #  not ready yet
 win32:DEFINES += WITH_WORMNAT_SUPPORT   # currently windows-only

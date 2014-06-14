@@ -108,7 +108,7 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
 
     //connect(ui->users->header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),&singleton<netcoupler>().users, SLOT(sortslot(int, Qt::SortOrder)));
     connect(ui->users,SIGNAL(doubleClicked(const QModelIndex &)),this,SLOT(useritemdblclicked(const QModelIndex&)));
-    //connect(ui->users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
+    connect(ui->users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
     connect(chat, SIGNAL(sigopenchatwindow(const QString&)),this, SLOT(openchatwindow(const QString&)));
     connect(ui->send, SIGNAL(clicked()),ui->msg, SIGNAL(returnPressed()));
     //connect(ui->users->selectionModel(), SIGNAL(selectionChanged ( const QItemSelection&,const QItemSelection&)),this, SLOT(userselectionchanged(const QItemSelection&,const QItemSelection&)));
