@@ -10,13 +10,19 @@ class ChanUserModel : public QAbstractListModel{
     Q_OBJECT
 
 public:
-    ChanUserModel               (QString channel,QList<userstruct> *users,QObject *parent=0);
+    ChanUserModel                (QString channel,QList<userstruct> *users,QObject *parent=0);
 
-    int           rowCount      (const QModelIndex &parent=QModelIndex())              const;
-    int           columnCount   (const QModelIndex &parent=QModelIndex())              const;
-    Qt::ItemFlags flags         (const QModelIndex &index)                             const;
-    QVariant      headerData    (int section,Qt::Orientation orientation,int role)     const;
-    QVariant      data          (const QModelIndex &index,int role=Qt::DisplayRole)    const;
+    enum{                          /* this role is used to assign small pieces of text to  */
+        SortingRole=Qt::UserRole+1 /* items for the sorter proxy model to be able to sort  */
+    };                             /* items with no DisplayRole (e. g. flags and ranks)    */
+
+    int            rowCount      (const QModelIndex &parent=QModelIndex())              const;
+    int            columnCount   (const QModelIndex &parent=QModelIndex())              const;
+    Qt::ItemFlags  flags         (const QModelIndex &index)                             const;
+    QMap<int
+        ,QVariant> itemData      (const QModelIndex &index)                             const;
+    QVariant       headerData    (int section,Qt::Orientation orientation,int role)     const;
+    QVariant       data          (const QModelIndex &index,int role=Qt::DisplayRole)    const;
 
     enum{ /* types of columns */
         e_Flag=0

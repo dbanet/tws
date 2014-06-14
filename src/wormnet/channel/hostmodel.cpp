@@ -37,14 +37,14 @@ int HostModel::rowCount(const QModelIndex &/*parent*/) const{
 }
 
 Qt::ItemFlags HostModel::flags(const QModelIndex &index) const{
-    switch(index.column()){
+    /*switch(index.column()){
         case 0:
         case 1:
             return Qt::ItemIsEnabled;
 
-        default:
+        default:*/
             return Qt::ItemIsEnabled|Qt::ItemIsSelectable;
-    }
+    //}
 }
 
 QVariant HostModel::headerData(int section,Qt::Orientation orientation,int role) const{
@@ -71,14 +71,14 @@ QVariant HostModel::data(const QModelIndex &index,int role) const{
 
     switch(column){
         case 0: // Hoster's flag
-            if(role==Qt::BackgroundRole)
+            if(role==Qt::DecorationRole)
                 return *singleton<pictureHandler>().getFlag(_data->at(row).country());
             else if(role==SortingRole)
                 return _data->at(row).country();
             break;
 
         case 1: // Host's status (open or private)
-            if(role==Qt::BackgroundRole)
+            if(role==Qt::DecorationRole)
                 return _data->at(row).withkey()?
                     *singleton<pictureHandler>().locked:
                     *singleton<pictureHandler>().unlocked;
@@ -93,7 +93,7 @@ QVariant HostModel::data(const QModelIndex &index,int role) const{
             break;
 
         case 2: // Nothing but just that decorative ignoreHost/buddyHost/host-icon
-            if(role==Qt::BackgroundRole){
+            if(role==Qt::DecorationRole){
                 if(S_S.buddylist.contains(_data->at(row).nick()))
                     return buddyHostIcon;
                 else if (S_S.ignorelist.contains(_data->at(row).nick()))

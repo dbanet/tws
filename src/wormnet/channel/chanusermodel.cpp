@@ -42,14 +42,7 @@ int ChanUserModel::rowCount(const QModelIndex &/*parent*/) const{
 }
 
 Qt::ItemFlags ChanUserModel::flags(const QModelIndex &index) const{
-    switch(index.column()){
-        case 0:
-        case 1:
-            return Qt::ItemIsEnabled;
-
-        default:
-            return Qt::ItemIsEnabled|Qt::ItemIsSelectable;
-    }
+    return Qt::ItemIsEnabled|Qt::ItemIsSelectable;
 }
 
 QVariant ChanUserModel::headerData(int section,Qt::Orientation orientation,int role) const{
@@ -74,48 +67,71 @@ QVariant ChanUserModel::data(const QModelIndex &index,int role) const{
     if (role==Qt::TextAlignmentRole)
         return int(Qt::AlignLeft|Qt::AlignVCenter);
 
-    if (role==Qt::DecorationRole)
-        if(column==2){
-            if (S_S.buddylist.contains(_data->at(row).nick))
-                return buddyIcon;
-            else if (S_S.ignorelist.contains(_data->at(row).nick))
-                return ignoreIcon;
-            else
-                return userIcon;
-        }
+    switch(column){
+        case e_Flag:
+            if(role==Qt::DecorationRole)
+                return *singleton<pictureHandler>().getFlag(_data->at(row).country);
+            else if(role==SortingRole)
+                return _data->at(row).country;
+            break;
 
-    if (role==Qt::DisplayRole || role==Qt::BackgroundRole)
-        switch(column){
-            case e_Flag:
-                if(role==Qt::BackgroundRole)
-                    return *singleton<pictureHandler>().getFlag(_data->at(row).country);
-                break;
+        case e_Rank:
+            if(role==Qt::DecorationRole)
+                return getRank(_data->at(row));
+            else if(role==Qt::ToolTipRole)
+                return _data->at(row).rankstring;
+            else if(role==SortingRole)
+                return _data->at(row).rank;
+            break;
 
-            case e_Rank:
-                if(role==Qt::BackgroundRole)
-                    return getRank(_data->at(row));
-                break;
+        case e_Icon: // Nothing but just that decorative ignore/buddy/plain-user icon
+            if(role==Qt::DecorationRole){
+                if(S_S.buddylist.contains(_data->at(row).nick))
+                    return buddyIcon;
+                else if (S_S.ignorelist.contains(_data->at(row).nick))
+                    return ignoreIcon;
+                else
+                    return userIcon;
+            } else if(role==Qt::ToolTipRole){
+                if(S_S.buddylist.contains(_data->at(row).nick))
+                    return tr("Your buddy");
+                else if (S_S.ignorelist.contains(_data->at(row).nick))
+                    return tr("You ignore this badass");
+                else
+                    return tr("This user is neither in your Buddies list, nor in your Ignore list");
+            } else if(role==SortingRole){
+                if(S_S.buddylist.contains(_data->at(row).nick))
+                    return "a"; // first go buddies
+                else if (S_S.ignorelist.contains(_data->at(row).nick))
+                    return "c"; // enemies ;) go last
+                else
+                    return "b"; // all others go in the middle ;)
+            }
+            break;
 
-            case e_Icon: // Nothing but just that decorative ignore/buddy/plain-user icon
-                break;
+        case e_Nick:
+            if(role==Qt::DisplayRole || role==SortingRole)
+                return _data->at(row).nick;
+            break;
 
-            case e_Nick:
-                if(role==Qt::DisplayRole)
-                    return _data->at(row).nick;
-                break;
+        case e_Clan:
+            if(role==Qt::DisplayRole || role==SortingRole)
+                return getClan(_data->at(row));
+            break;
 
-            case e_Clan:
-                if(role==Qt::DisplayRole)
-                    return getClan(_data->at(row));
-                break;
-
-            case e_Client: // User's client information
-                if(role==Qt::DisplayRole)
-                    return _data->at(row).client;
-                break;
-        }
+        case e_Client: // User's client information
+            if(role==Qt::DisplayRole || role==SortingRole)
+                return _data->at(row).client;
+            break;
+    }
 
     return QVariant();
+}
+
+QMap<int,QVariant> ChanUserModel::itemData (const QModelIndex &index) const{
+    QMap<int,QVariant> map=QAbstractItemModel::itemData(index);
+    map[SortingRole]=data(index,SortingRole); /* adding our custom role SortingRole to */
+    return map;       /* be able to sort both icon- (#0,1,2) and text-columns (#3,4,5) */
 }
 
 void ChanUserModel::usersChanged(void){

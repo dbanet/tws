@@ -82,7 +82,7 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     sortedChanUserModel=new QSortFilterProxyModel();
     sortedChanUserModel->setSourceModel(chanUserModel);
     sortedChanUserModel->setSortCaseSensitivity(Qt::CaseInsensitive);
-    //sortedChanUserModel->setSortRole(hostModel->SortingRole);
+    sortedChanUserModel->setSortRole(hostModel->SortingRole);
     ui->users->setSortingEnabled(true);
     ui->users->header()->setSortIndicatorShown(true);
 
@@ -99,13 +99,13 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     ui->users->header()->setResizeMode(1,QHeaderView::Fixed);
     ui->users->header()->setResizeMode(2,QHeaderView::Fixed);
     ui->users->header()->setResizeMode(3,QHeaderView::Stretch);
-    ui->users->header()->setResizeMode(4,QHeaderView::ResizeToContents);
+    ui->users->header()->setResizeMode(4,QHeaderView::Interactive);
     ui->users->header()->setResizeMode(5,QHeaderView::Interactive);
 
     connect(*(&singleton<netcoupler>().irc),SIGNAL(sigIRCUpdatedUserList(QList<userstruct>*)),this,SLOT(setUsers(QList<userstruct>*)));
 
     //connect(ui->users->header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),&singleton<netcoupler>().users, SLOT(sortslot(int, Qt::SortOrder)));
-    connect(ui->users, SIGNAL(doubleClicked ( const QModelIndex &)),this, SLOT(useritemdblclicked(const QModelIndex&)));
+    connect(ui->users,SIGNAL(doubleClicked(const QModelIndex &)),this,SLOT(useritemdblclicked(const QModelIndex&)));
     //connect(ui->users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
     connect(chat, SIGNAL(sigopenchatwindow(const QString&)),this, SLOT(openchatwindow(const QString&)));
     connect(ui->send, SIGNAL(clicked()),ui->msg, SIGNAL(returnPressed()));
@@ -378,7 +378,10 @@ void channelTab::useritempressed(const QModelIndex &index) {
     }*/
 }
 void channelTab::useritemdblclicked(const QModelIndex &index) {
-    openchatwindow(users->at(index.row()).nick);
+    openchatwindow(users->at(
+                       this->sortedChanUserModel->mapToSource(index).row()
+                   ).nick
+    );
 }
 void channelTab::hostitemdblclicked(const QModelIndex &index) {
     if (index.internalId() != 999) {
@@ -416,7 +419,7 @@ void channelTab::getuserinfo(const QString &s) {
     chatwindows.last()->getgamerwho();
 }
 void channelTab::openchatwindow(const QString &s) {
-    /*Q_ASSERT(s!="");
+    Q_ASSERT(s!="");
     if (containsCI(chatwindowstringlist, s)){
         foreach(chatwindow *w,chatwindows){
             if(w->chatpartner==s && w->isHidden())
@@ -430,7 +433,7 @@ void channelTab::openchatwindow(const QString &s) {
         }
         return;
     }emit sigopenchatwindow(s);
-    QApplication::processEvents();*/
+    QApplication::processEvents();
 }
 void channelTab::hostitempressed(const QModelIndex &index) {
     if (QApplication::mouseButtons() == Qt::RightButton) {
