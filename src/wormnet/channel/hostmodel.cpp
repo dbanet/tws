@@ -52,9 +52,8 @@ QModelIndex HostModel::parent(const QModelIndex &child) const{
 }
 
 QModelIndex HostModel::index(int row,int column,const QModelIndex &parent) const{
-    if(row<_data->length() && column<COLUMNS
-    && row>=0              && column>=0)
-        return this->createIndex(row,column);
+    if(!parent.isValid()) // we should return a valid QModelIndex for root elements (their parent
+        return this->createIndex(row,column); // is invalid) only, because or model is flat
     else
         return QModelIndex();
 }
@@ -164,7 +163,7 @@ QMap<int,QVariant> HostModel::itemData (const QModelIndex &index) const{
 void HostModel::hostsChanged(void){
     emit layoutAboutToBeChanged();
     QModelIndex topLeft    =createIndex(0,0);
-    QModelIndex bottomRight=createIndex(rowCount(),columnCount());
+    QModelIndex bottomRight=createIndex(rowCount()-1,columnCount()-1);
     emit layoutChanged();
     emit dataChanged(topLeft,bottomRight); // update the whole view :)
 }
