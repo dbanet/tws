@@ -142,7 +142,7 @@ void chatwindow::getgamerwho(QString prefix) {
     int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(chatpartner));
     if (i > -1) {
         userstruct u = singleton<netcoupler>().users.users[i];
-        QString s=prefix+" GAMERWHO:\n"+ u.returnwho().join(" | ");
+        QString s=prefix+" GAMERWHO:\n"+ u.gamerWho().join(" | ");
         chat->append(usermessage(s, e_PRIVMSG, chatpartner));
     }
 }

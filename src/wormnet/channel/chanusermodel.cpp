@@ -79,7 +79,7 @@ QVariant ChanUserModel::data(const QModelIndex &index,int role) const{
             if(role==Qt::DecorationRole)
                 return getRank(_data->at(row));
             else if(role==Qt::ToolTipRole)
-                return _data->at(row).rankstring;
+                return _data->at(row).rank;
             else if(role==SortingRole)
                 return _data->at(row).rank;
             break;

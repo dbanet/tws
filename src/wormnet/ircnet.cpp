@@ -165,13 +165,12 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
 
                 QStringList names=ircMsg->trailing.split(' ');
                 foreach(QString nick,names)
-                    this->userList<<userstruct(QStringList()
-                                              <<ircMsg->paramList[2]
-                                              <<"Username"            /* these values do mean no-*/
-                                              <<"no.address.for.you"  /* thing, are here just to */
-                                              <<"wormnet1.team17.com" /* satisfy userstruct      */
-                                              <<(nick[0]=='@'?
-                                                 nick.remove(0,1):nick));   /* removing @ prefix */
+                    this->userList<<userstruct(ircMsg->paramList[2],
+                                               "Username",            /* these values do mean no-*/
+                                               "no.address.for.you",  /* thing, are here just to */
+                                               "wormnet1.team17.com", /* satisfy userstruct      */
+                                               (nick[0]=='@'?
+                                                nick.remove(0,1):nick));    /* removing @ prefix */
 
             } else if(ircMsg->command==
             "366"){
@@ -182,7 +181,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 int amountOfUsers=0;
                 QString channel=ircMsg->paramList[1];
                 foreach(userstruct user,this->userList)
-                    if(user.chan==channel)
+                    if(user.channel==channel)
                         amountOfUsers++;
                 emit sigIRCUpdatedAmountOfUsers(channel,channellist[channel]=amountOfUsers);
             } else if(ircMsg->command==
@@ -198,6 +197,9 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 //            the server the user is currently being on,
                 //            the nick of the user,
                 //            the mode of the user.
+                //
+                // An example of WHOing a user with nickname "Scal":
+                // :wormnet1.team17.com 352 dba-telnet #AnythingGoes Username no.address.for.you wormnet1.team17.com Scal H :0 48 0 US 3.7.2.1
                 //
                 // The sequence of 352 messages ends with a message with numeric 315.
                 //
@@ -217,14 +219,14 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                            :userstructSetupQSL[5];
                 userstructSetupQSL.
                      removeFirst(); /* the snooper's nick. Shouldn't be supplied to userstruct() */
-                userstructSetupQSL<<ircMsg->trailing.split(' ');     /* adding the nickrang info */
+                userstructSetupQSL<<ircMsg->trailing.split(' ');     /* adding the flagrang info */
 
                 /* Now we iterate through all userstructs with matching nick, and replacing them */
                 /* with an updated userstruct filled with the rankflag information...            */
                 bool foundAndUpdated=false;
                 for(int i=0;i<this->userList.length();i++)
                     if(this->userList[i].nick==ircMsg->paramList[5] &&
-                       this->userList[i].chan.toLower()==ircMsg->paramList[1].toLower()){
+                       this->userList[i].channel.toLower()==ircMsg->paramList[1].toLower()){
                         /* replacing the old userstruct with a fully populated one */
                         this->userList[i]=userstruct(userstructSetupQSL);
                         foundAndUpdated=true;
@@ -249,7 +251,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 QStringList channelsTheQuittedUserWasBeingOn;
                 for(QList<userstruct>::iterator i=this->userList.begin();i!=this->userList.end();)
                     if(i->nick==nick){
-                        channelsTheQuittedUserWasBeingOn<<i->chan;
+                        channelsTheQuittedUserWasBeingOn<<i->channel;
                         i=this->userList.erase(i);
                     } else ++i;
                 updateuserlist;
@@ -271,7 +273,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 QString channel=ircMsg->paramList[0];
                 for(QList<userstruct>::iterator i=this->userList.begin();i<this->userList.end();)
                     if(i->nick==nick &&
-                       i->chan.toLower()==channel.toLower())
+                       i->channel.toLower()==channel.toLower())
                         i=this->userList.erase(i);
                     else ++i;
                 updateuserlist;

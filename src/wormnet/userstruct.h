@@ -12,23 +12,36 @@ class userstruct {
 public:
 	userstruct();
 	userstruct(QStringList);
+        userstruct(
+            QString channel,
+            QString clan,
+            QString address,
+            QString server,
+            QString nick,
+            QString userMode="H",
+            int hopCount=0,
+            int flag=49,
+            int rank=12,
+            QString country="??",
+            QString client="Unknown"
+        );
 	virtual ~userstruct();
 	bool operator==(const userstruct&);
-	QStringList returnwho();
+        QStringList gamerWho();
 	static userstruct whoami(const QString &,const QString &s="");
-//private:
-	QString chan;
+
+	QString channel;
         QString clan;
 	QString address;
 	QString server;
 	QString nick;
-	QString unknown;
-	QString commandstart;
+        QString userMode;
+        int hopCount;
 	int flag;
-        QString rankstring;
         int rank;
 	QString country;
 	QString client;
+
 	bool wnvalid;		//this nick is to 80% a valid wn user
 	static bool addressischecked;
 };

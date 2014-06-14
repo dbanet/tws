@@ -103,13 +103,13 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QHash<QString,QStri
     users = upar;
 
     /* Fix for when a user joins #cHAnNeLL while the channel's name (returned by NAMES) is #Channel. ~~dbanet */
-    for(int i=0;i<users.length();i++) users[i].chan=singleton<netcoupler>().irc->canonizeChannelName(users[i].chan);
+    for(int i=0;i<users.length();i++) users[i].channel=singleton<netcoupler>().irc->canonizeChannelName(users[i].channel);
 
     usermap.clear();
     foreach(QString s,usermap_channellist_helper)
         usermap[s];
     foreach(userstruct u,users)
-        usermap[u.chan].push_back(u);
+        usermap[u.channel].push_back(u);
 
     checkBuddysIgnoresQuerys();
     classes.clear();
@@ -322,7 +322,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
                 if(singleton<leagueserverhandler>().contains_key(usermap[classes[index.internalId()]][index.row()].nick)){
                     if(S_S.cbdontshowagradientonverifiedusers)
                         return QVariant();
-                    QString rank = '#' + usermap[classes[index.internalId()]][index.row()].rankstring;
+                    QString rank = '#' + QString::number(usermap[classes[index.internalId()]][index.row()].rank);
                     rank=rank.left(7);
                     if(!QColor::isValidColor(rank) || S_S.cbonlywhitegradient)
                         return QBrush(leagueuserstandardgradient);
