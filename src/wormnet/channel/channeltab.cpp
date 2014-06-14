@@ -60,10 +60,11 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
 
     ui->hosts->setModel(this->sortedHostModel);                          // setting it
     ui->hosts->setEnabled(true);
-    ui->hosts->setColumnWidth(0,22);                                     // flag icons width
-    ui->hosts->setColumnWidth(1,16);                                     // locked/unlocked icon width
-    ui->hosts->setColumnWidth(2,15);                                     // buddy/ignore/plain-host icon
+    ui->hosts->setColumnWidth(0,22+3);                                   // flag icons width
+    ui->hosts->setColumnWidth(1,16+3);                                   // locked/unlocked icon width
+    ui->hosts->setColumnWidth(2,15+3);                                   // buddy/ignore/plain-host icon
     ui->hosts->setRootIsDecorated(false);                                // that small dots; we don't need them
+    ui->users->setIndentation(0);
     ui->hosts->header()->setStretchLastSection(false);                   // the 'gamename' section will be stretched
     ui->hosts->header()->setResizeMode(0,QHeaderView::Fixed);            // the user shouldn't be able to resize neither flag,
     ui->hosts->header()->setResizeMode(1,QHeaderView::Fixed);            // nor locked/unlocked,
@@ -90,10 +91,11 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     ui->users->setEnabled(1);
     ui->users->setAlternatingRowColors(1);
     ui->users->setRootIsDecorated(false);
+    ui->users->setIndentation(0);
     ui->users->installEventFilter(this);
-    ui->users->setColumnWidth(0,22);
-    ui->users->setColumnWidth(1,48);
-    ui->users->setColumnWidth(2,18);
+    ui->users->setColumnWidth(0,22+3);
+    ui->users->setColumnWidth(1,48+3);
+    ui->users->setColumnWidth(2,18+3);
     ui->users->header()->setStretchLastSection(false);
     ui->users->header()->setResizeMode(0,QHeaderView::Fixed);
     ui->users->header()->setResizeMode(1,QHeaderView::Fixed);
@@ -279,10 +281,10 @@ void channelTab::closeEvent(QCloseEvent * /*event*/) {
 }
 void channelTab::useritempressed(const QModelIndex &index) {
     if  (!index.isValid()) return;
-    int row   =index.row();
-    int column=index.column();
+    int row   =sortedChanUserModel->mapToSource(index).row();
+    int column=sortedChanUserModel->mapToSource(index).column();
 
-    if (QApplication::mouseButtons() == Qt::LeftButton && index.column()==ChanUserModel::e_Client){
+    if (QApplication::mouseButtons() == Qt::LeftButton && column==ChanUserModel::e_Client){
         QString s=users->at(row).client;
         if(isClickableLink(s)){
             s=s.simplified();
@@ -292,7 +294,7 @@ void channelTab::useritempressed(const QModelIndex &index) {
         }
         return;
     }
-    if (QApplication::mouseButtons() == Qt::LeftButton && index.column()==ChanUserModel::e_Clan){
+    if (QApplication::mouseButtons() == Qt::LeftButton && column==ChanUserModel::e_Clan){
         QString s;
         if(S_S.spectateleagueserver){
             QString nick=users->at(row).nick;
@@ -312,7 +314,7 @@ void channelTab::useritempressed(const QModelIndex &index) {
     QAction *a;
     QMenu menu;
     QString user = users->at(row).nick;
-    if (index.column() == ChanUserModel::e_Clan) {
+    if (column == ChanUserModel::e_Clan) {
         QStringList sl = S_S.dissallowedclannames;
         if (sl.contains(users->at(row).clan,Qt::CaseInsensitive))
             menu.addAction(tr("Allow this clanname."));
@@ -384,14 +386,11 @@ void channelTab::useritemdblclicked(const QModelIndex &index) {
     );
 }
 void channelTab::hostitemdblclicked(const QModelIndex &index) {
-    if (index.internalId() != 999) {
-        QString hostinfo = " \"" + hosts->at(index.row()).joinstring() + "&scheme="
-                + singleton<netcoupler>().schememap[currentChannel] + "\"";
-        QString gamename = hosts->at(index.row()).name();
-        singleton<netcoupler>().joingame(hostinfo, currentChannel, gamename);
-    } else if (index.internalId() == 999) {
-        openHostBox();
-    }
+    int row=sortedHostModel->mapToSource(index).row();
+    QString hostinfo = " \"" + hosts->at(row).joinstring() + "&scheme="
+            + singleton<netcoupler>().schememap[currentChannel] + "\"";
+    QString gamename = hosts->at(row).name();
+    singleton<netcoupler>().joingame(hostinfo, currentChannel, gamename);
 }
 void channelTab::getuserinfo(const QString &s) {
     QString msg;
@@ -436,53 +435,50 @@ void channelTab::openchatwindow(const QString &s) {
     QApplication::processEvents();
 }
 void channelTab::hostitempressed(const QModelIndex &index) {
+    int row=sortedHostModel->mapToSource(index).row();
     if (QApplication::mouseButtons() == Qt::RightButton) {
-        QString hostinfo = " \"" + hosts->at(index.row()).joinstring() + "&scheme="
+        QString hostinfo = " \"" + hosts->at(row).joinstring() + "&scheme="
                 + singleton<netcoupler>().schememap[currentChannel] + "\"";
-        QString gamename = hosts->at(index.row()).name();
-        if (index.internalId() == 999) {
-            openHostBox();
-        } else {
-            getjoinmenu();
-            QAction *a = joinmenu.exec(QCursor::pos());
-            if (a != 0) {
-                if (a->text() == tr("Choose a Program to join this game.")) {
-                    QStringList sl = S_S.getStringList("joinstrings");
+        QString gamename = hosts->at(row).name();
+        getjoinmenu();
+        QAction *a = joinmenu.exec(QCursor::pos());
+        if (a != 0) {
+            if (a->text() == tr("Choose a Program to join this game.")) {
+                QStringList sl = S_S.getStringList("joinstrings");
 #ifdef Q_OS_UNIX
-                    QString file = QFileDialog::getOpenFileName(this, tr(
-                                                                    "Choose a desktop icon."), "/home", "Linux Desktop Icon (*.desktop);;WINE Executable File (*.exe *.cmd)");
+                QString file = QFileDialog::getOpenFileName(this, tr(
+                                                                "Choose a desktop icon."), "/home", "Linux Desktop Icon (*.desktop);;WINE Executable File (*.exe *.cmd)");
 #elif defined(Q_OS_WIN32) | defined(Q_OS_OS2)
-                    QString file = QFileDialog::getOpenFileName(this, tr("Choose a Program."), "c:/", "*.exe *.com");
+                QString file = QFileDialog::getOpenFileName(this, tr("Choose a Program."), "c:/", "*.exe *.com");
 #else
-                    QString file = QFileDialog::getOpenFileName(this, tr("Choose a Program."));
+                QString file = QFileDialog::getOpenFileName(this, tr("Choose a Program."));
 #endif
-                    if (!sl.contains(file) && file != "") {
-                        sl.insert(0, file);
-                        S_S.set("joinstrings", sl);
-                        joinmenu2.clear();
-                        foreach(QString s,S_S.getStringList("joinstrings")) {
-                            joinmenu2.addAction(s);
-                        }
-                        joinmenu2.addAction(tr(
-                                                "Choose a Program to join this game."));
-                    } else if (sl.contains(file) && file != "") {
-                        sl.move(sl.indexOf(file), 0);
-                        S_S.set("joinstrings", sl);
-                    }
-                    QFile f(file);
-                    if (f.open(QFile::ReadOnly)) {
-                        QTextStream ts(&f);
-                        QString s = ts.readLine();
-                        while (!s.startsWith("Exec=") && !ts.atEnd())
-                            QString s = ts.readLine();
-                        myDebug() << s;
-                    }
-                } else {
-                    QStringList sl = S_S.getStringList("joinstrings");
-                    sl.move(sl.indexOf(a->text()), 0);
+                if (!sl.contains(file) && file != "") {
+                    sl.insert(0, file);
                     S_S.set("joinstrings", sl);
-                    singleton<netcoupler>().joingame(hostinfo, currentChannel, gamename);
+                    joinmenu2.clear();
+                    foreach(QString s,S_S.getStringList("joinstrings")) {
+                        joinmenu2.addAction(s);
+                    }
+                    joinmenu2.addAction(tr(
+                                            "Choose a Program to join this game."));
+                } else if (sl.contains(file) && file != "") {
+                    sl.move(sl.indexOf(file), 0);
+                    S_S.set("joinstrings", sl);
                 }
+                QFile f(file);
+                if (f.open(QFile::ReadOnly)) {
+                    QTextStream ts(&f);
+                    QString s = ts.readLine();
+                    while (!s.startsWith("Exec=") && !ts.atEnd())
+                        QString s = ts.readLine();
+                    myDebug() << s;
+                }
+            } else {
+                QStringList sl = S_S.getStringList("joinstrings");
+                sl.move(sl.indexOf(a->text()), 0);
+                S_S.set("joinstrings", sl);
+                singleton<netcoupler>().joingame(hostinfo, currentChannel, gamename);
             }
         }
     }
