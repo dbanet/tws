@@ -6,7 +6,7 @@
 
 #include "../userstruct.h"
 
-class ChanUserModel : public QAbstractListModel{
+class ChanUserModel : public QAbstractItemModel{
     Q_OBJECT
 
 public:
@@ -19,6 +19,9 @@ public:
     int            rowCount      (const QModelIndex &parent=QModelIndex())              const;
     int            columnCount   (const QModelIndex &parent=QModelIndex())              const;
     Qt::ItemFlags  flags         (const QModelIndex &index)                             const;
+    QModelIndex    parent        (const QModelIndex &child)                             const;
+    QModelIndex    index         (int row,int column,const QModelIndex &parent)         const;
+    bool           hasChildren   (const QModelIndex &parent)                            const;
     QMap<int
         ,QVariant> itemData      (const QModelIndex &index)                             const;
     QVariant       headerData    (int section,Qt::Orientation orientation,int role)     const;

@@ -47,6 +47,25 @@ Qt::ItemFlags HostModel::flags(const QModelIndex &index) const{
     //}
 }
 
+QModelIndex HostModel::parent(const QModelIndex &child) const{
+    return QModelIndex();
+}
+
+QModelIndex HostModel::index(int row,int column,const QModelIndex &parent) const{
+    if(row<_data->length() && column<COLUMNS
+    && row>=0              && column>=0)
+        return this->createIndex(row,column);
+    else
+        return QModelIndex();
+}
+
+bool HostModel::hasChildren(const QModelIndex &parent) const{
+    if(parent.isValid())
+        return false;
+    else
+        return true;
+}
+
 QVariant HostModel::headerData(int section,Qt::Orientation orientation,int role) const{
     if(role==Qt::DisplayRole)
         if(orientation==Qt::Horizontal)
@@ -134,14 +153,6 @@ QVariant HostModel::data(const QModelIndex &index,int role) const{
     }
 
     return QVariant();
-}
-
-QModelIndex HostModel::parent(const QModelIndex &child) const{
-    return QModelIndex();
-}
-
-QModelIndex HostModel::index(int row, int column, const QModelIndex &parent) const{
-    return this->createIndex(row,column);
 }
 
 QMap<int,QVariant> HostModel::itemData (const QModelIndex &index) const{

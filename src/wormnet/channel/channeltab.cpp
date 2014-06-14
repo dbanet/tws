@@ -80,19 +80,19 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     this->users=new QList<userstruct>();
     this->chanUserModel=new ChanUserModel(currentChannel,users);
 
-    sortedChanUserModel=new QSortFilterProxyModel();
+    /*sortedChanUserModel=new QSortFilterProxyModel();
     sortedChanUserModel->setSourceModel(chanUserModel);
     sortedChanUserModel->setSortCaseSensitivity(Qt::CaseInsensitive);
-    sortedChanUserModel->setSortRole(hostModel->SortingRole);
+    sortedChanUserModel->setSortRole(hostModel->SortingRole);*/
     ui->users->setSortingEnabled(true);
     ui->users->header()->setSortIndicatorShown(true);
 
-    ui->users->setModel(this->sortedChanUserModel);
+    ui->users->setModel(this->chanUserModel);
     ui->users->setEnabled(1);
     ui->users->setAlternatingRowColors(1);
     ui->users->setRootIsDecorated(false);
     ui->users->setIndentation(0);
-    ui->users->installEventFilter(this);
+    //ui->users->installEventFilter(this);
     ui->users->setColumnWidth(0,22+3);
     ui->users->setColumnWidth(1,48+3);
     ui->users->setColumnWidth(2,18+3);
@@ -107,8 +107,8 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     connect(*(&singleton<netcoupler>().irc),SIGNAL(sigIRCUpdatedUserList(QList<userstruct>*)),this,SLOT(setUsers(QList<userstruct>*)));
 
     //connect(ui->users->header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),&singleton<netcoupler>().users, SLOT(sortslot(int, Qt::SortOrder)));
-    connect(ui->users,SIGNAL(doubleClicked(const QModelIndex &)),this,SLOT(useritemdblclicked(const QModelIndex&)));
-    connect(ui->users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
+    //connect(ui->users,SIGNAL(doubleClicked(const QModelIndex &)),this,SLOT(useritemdblclicked(const QModelIndex&)));
+    //connect(ui->users, SIGNAL(pressed(const QModelIndex&)),this, SLOT(useritempressed(const QModelIndex&)));
     connect(chat, SIGNAL(sigopenchatwindow(const QString&)),this, SLOT(openchatwindow(const QString&)));
     connect(ui->send, SIGNAL(clicked()),ui->msg, SIGNAL(returnPressed()));
     //connect(ui->users->selectionModel(), SIGNAL(selectionChanged ( const QItemSelection&,const QItemSelection&)),this, SLOT(userselectionchanged(const QItemSelection&,const QItemSelection&)));
@@ -167,7 +167,7 @@ void channelTab::insertemot(QString s){
     ui->msg->setFocus ();
 }
 void channelTab::expandchannels() { //expand on startup
-    ui->users->setExpanded(singleton<netcoupler>().users.indexbychannelname(currentChannel), 1);
+    /*ui->users->setExpanded(singleton<netcoupler>().users.indexbychannelname(currentChannel), 1);
     ui->users->setExpanded(singleton<netcoupler>().users.indexbychannelname(usermodel::tr("Querys")), 1);
     if(S_S.getbool("cbopenbuddylistonstartup"))
         ui->users->setExpanded(singleton<netcoupler>().users.indexbychannelname(usermodel::tr("Buddylist")), 1);
@@ -179,7 +179,7 @@ void channelTab::expandchannels() { //expand on startup
        )
     ){
         //disconnect(&singleton<netcoupler>(), SIGNAL(siggotchanellist(QStringList)),this, SLOT(expandchannels(QStringList)));
-    } else QTimer::singleShot(500, this, SLOT(expandchannels()));
+    } else QTimer::singleShot(500, this, SLOT(expandchannels()));*/
 }
 void channelTab::setselection(const QModelIndex &index, const QWidget *w) {
     if (w == this) {
@@ -380,12 +380,14 @@ void channelTab::useritempressed(const QModelIndex &index) {
     }*/
 }
 void channelTab::useritemdblclicked(const QModelIndex &index) {
+    if(!index.isValid()) return;
     openchatwindow(users->at(
                        this->sortedChanUserModel->mapToSource(index).row()
                    ).nick
     );
 }
 void channelTab::hostitemdblclicked(const QModelIndex &index) {
+    if(!index.isValid()) return;
     int row=sortedHostModel->mapToSource(index).row();
     QString hostinfo = " \"" + hosts->at(row).joinstring() + "&scheme="
             + singleton<netcoupler>().schememap[currentChannel] + "\"";
@@ -435,6 +437,7 @@ void channelTab::openchatwindow(const QString &s) {
     QApplication::processEvents();
 }
 void channelTab::hostitempressed(const QModelIndex &index) {
+    if(!index.isValid()) return;
     int row=sortedHostModel->mapToSource(index).row();
     if (QApplication::mouseButtons() == Qt::RightButton) {
         QString hostinfo = " \"" + hosts->at(row).joinstring() + "&scheme="

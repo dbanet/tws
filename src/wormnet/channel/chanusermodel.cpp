@@ -17,7 +17,7 @@
 #define COLUMNS 6
 
 ChanUserModel::ChanUserModel(QString channel,QList<userstruct> *hosts,QObject *parent) :
-    QAbstractListModel(parent),
+    QAbstractItemModel(parent),
     _data(hosts),
     channel(channel){
 
@@ -43,6 +43,25 @@ int ChanUserModel::rowCount(const QModelIndex &/*parent*/) const{
 
 Qt::ItemFlags ChanUserModel::flags(const QModelIndex &index) const{
     return Qt::ItemIsEnabled|Qt::ItemIsSelectable;
+}
+
+QModelIndex ChanUserModel::parent(const QModelIndex &child) const{
+    return QModelIndex();
+}
+
+QModelIndex ChanUserModel::index(int row,int column,const QModelIndex &parent) const{
+    if(row<_data->length() && column<COLUMNS
+    && row>=0              && column>=0)
+        return this->createIndex(row,column);
+    else
+        return QModelIndex();
+}
+
+bool ChanUserModel::hasChildren(const QModelIndex &parent) const{
+    if(parent.isValid())
+        return false;
+    else
+        return true;
 }
 
 QVariant ChanUserModel::headerData(int section,Qt::Orientation orientation,int role) const{

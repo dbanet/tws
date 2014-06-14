@@ -76,7 +76,11 @@
      <item>
       <layout class="QVBoxLayout" name="hostsContainer">
        <item>
-        <widget class="QTreeView" name="hosts"/>
+        <widget class="QTreeView" name="hosts">
+         <attribute name="headerMinimumSectionSize">
+          <number>0</number>
+         </attribute>
+        </widget>
        </item>
       </layout>
      </item>
@@ -225,6 +229,9 @@
          <property name="expandsOnDoubleClick">
           <bool>false</bool>
          </property>
+         <attribute name="headerMinimumSectionSize">
+          <number>0</number>
+         </attribute>
         </widget>
        </item>
       </layout>
