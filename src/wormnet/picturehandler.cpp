@@ -11,6 +11,7 @@
 #include <QComboBox>
 #include <QIcon>
 #include <QApplication>
+#include <QSortFilterProxyModel>
 
 pictureHandler::pictureHandler(){
     QDir dir(":/flags");
@@ -45,11 +46,16 @@ QPixmap *pictureHandler::getFlag(QString country){
 }
 //----------------------------------------------------------------------------------------------
 void pictureHandler::fillFlags(QComboBox *cb){
+    QSortFilterProxyModel *sorter=new QSortFilterProxyModel(cb);
+    sorter->setSourceModel(cb->model());
+    cb->model()->setParent(sorter);
+    cb->setModel(sorter);
     QHash<QString,QPixmap*>::ConstIterator it=flaglist.begin();
     while(it!=flaglist.end()){
         cb->addItem(**it,it.key());
         it++;
     }
+    sorter->sort(0);
 }
 //----------------------------------------------------------------------------------------------
 void pictureHandler::fillRanks(QComboBox *cb){
