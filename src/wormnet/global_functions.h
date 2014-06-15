@@ -64,12 +64,14 @@ namespace {
         return false;
     }
     //----------------------------------------------------------------------------------------------
-    QStringList removeCI(QStringList &sl, const QString &s) {
-        foreach(QString str,sl) {
-            if (compareCI(s, str))
-                sl.removeAt(sl.indexOf(str));
-        }
-        return sl;
+    QStringList removeCI(QStringList &haystack,const QString &needle){
+        QStringList newHaystack;
+        foreach(QString straw,haystack)
+            if(!compareCI(needle,straw))
+                newHaystack<<straw;
+        haystack.clear();
+        haystack<<newHaystack;
+        return haystack;
     }
     //----------------------------------------------------------------------------------------------
     bool containsClickableLink(const QString &s){

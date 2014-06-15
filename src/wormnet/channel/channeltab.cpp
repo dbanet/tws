@@ -550,13 +550,10 @@ void channelTab::setHosts(QList<hoststruct> *hosts){
     this->hostModel->hostsChanged();
 }
 void channelTab::setUsers(QList<userstruct> *users){
-    qDebug()<<"void channelTab::setUsers(QList<userstruct> *users){";
     this->users->clear();
-    foreach(userstruct user,*users){
+    foreach(userstruct user,*users)
         if(user.channel.toLower()==this->currentChannel.toLower())
-            this->users->append(*users);
-        qDebug()<<"User"<<user.nick<<"has got channel"<<user.channel;
-    }
+            this->users->append(user);
     this->chanUserModel->usersChanged();
 }
 channelTab::~channelTab()
@@ -633,9 +630,11 @@ void channelTab::on_users_customContextMenuRequested(const QPoint &pos)
 
     connect(uiUserListContextMenu->actionInclInBuddyList,SIGNAL(triggered(bool)),this,SLOT(userListContextMenu_inclInBuddyList(bool)));
     uiUserListContextMenu->actionInclInBuddyList->setData(pos); // now when the slot gets called, it will be easier to figure out what's the item clicked
+    uiUserListContextMenu->actionInclInBuddyList->setChecked(S_S.buddylist.contains(user.nick,Qt::CaseInsensitive));
 
     connect(uiUserListContextMenu->actionInclInIgnrList,SIGNAL(triggered(bool)),this,SLOT(userListContextMenu_inclInIgnrList(bool)));
     uiUserListContextMenu->actionInclInIgnrList->setData(pos);
+    uiUserListContextMenu->actionInclInIgnrList->setChecked(S_S.ignorelist.contains(user.nick,Qt::CaseInsensitive));
 
     connect(uiUserListContextMenu->actionStartPrvTalk,SIGNAL(triggered()),this,SLOT(userListContextMenu_startPrvTalk()));
     uiUserListContextMenu->actionStartPrvTalk->setData(pos);
@@ -648,15 +647,57 @@ void channelTab::on_users_customContextMenuRequested(const QPoint &pos)
 }
 
 void channelTab::userListContextMenu_inclInBuddyList(bool checked){
+    QAction *clickedAction=qobject_cast<QAction*>(QObject::sender());
+    QPoint   clickedPos=clickedAction->data().toPoint();
+    QModelIndex index=this->sortedChanUserModel->mapToSource(ui->users->indexAt(clickedPos));
+    if  (!index.isValid()) return;
+    int row   =index.row();
+    int column=index.column();
+    userstruct user=users->at(row);
 
+    if(checked){
+        S_S.set("buddylist",S_S.buddylist<<user.nick);
+        if(containsCI(S_S.ignorelist,user.nick))
+            S_S.set("ignorelist",removeCI(S_S.ignorelist,user.nick));
+    }
+    else
+        S_S.set("buddylist",removeCI(S_S.buddylist,user.nick));
+
+    /* updating the model so the change will be displayed */
+    this->chanUserModel->usersChanged();
 }
 
 void channelTab::userListContextMenu_inclInIgnrList(bool checked){
+    QAction *clickedAction=qobject_cast<QAction*>(QObject::sender());
+    QPoint   clickedPos=clickedAction->data().toPoint();
+    QModelIndex index=this->sortedChanUserModel->mapToSource(ui->users->indexAt(clickedPos));
+    if  (!index.isValid()) return;
+    int row   =index.row();
+    int column=index.column();
+    userstruct user=users->at(row);
 
+    if(checked){
+        S_S.set("ignorelist",S_S.ignorelist<<user.nick);
+        if(containsCI(S_S.buddylist,user.nick))
+            S_S.set("buddylist",removeCI(S_S.buddylist,user.nick));
+    }
+    else
+        S_S.set("ignorelist",removeCI(S_S.ignorelist,user.nick));
+
+    /* updating the model so the change will be displayed */
+    this->chanUserModel->usersChanged();
 }
 
 void channelTab::userListContextMenu_startPrvTalk(){
+    QAction *clickedAction=qobject_cast<QAction*>(QObject::sender());
+    QPoint   clickedPos=clickedAction->data().toPoint();
+    QModelIndex index=this->sortedChanUserModel->mapToSource(ui->users->indexAt(clickedPos));
+    if  (!index.isValid()) return;
+    int row   =index.row();
+    int column=index.column();
+    userstruct user=users->at(row);
 
+    openchatwindow(user.nick);
 }
 
 void channelTab::userListContextMenu_actionInclInDisallowedClanNames(bool checked){
@@ -677,6 +718,5 @@ void channelTab::userListContextMenu_actionInclInDisallowedClanNames(bool checke
                 disallowedClanNames<<disallowedClanName;
     S_S.set("dissallowedclannames",disallowedClanNames);
 
-    /* updating the model so the clanname will be hidden/shown on the screen */
     this->chanUserModel->usersChanged();
 }
