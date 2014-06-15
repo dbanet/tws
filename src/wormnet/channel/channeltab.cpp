@@ -10,10 +10,12 @@
 #include <QScrollBar>
 #include <QDesktopServices>
 #include <QListView>
+#include <QSignalMapper>
 
 #include "channeltab.h"
 #include "ui_channeltab.h"
 #include "ui_channelmenu.h"
+#include "ui_chanUserListMenu.h"
 #include "../chatwindow.h"
 #include "../settings.h"
 #include "../mainwindow.h"
@@ -309,75 +311,6 @@ void channelTab::useritempressed(const QModelIndex &index) {
             QDesktopServices::openUrl(u1);
         }
     }
-    if (QApplication::mouseButtons() != Qt::RightButton)
-        return;
-    QAction *a;
-    QMenu menu;
-    QString user = users->at(row).nick;
-    if (column == ChanUserModel::e_Clan) {
-        QStringList sl = S_S.dissallowedclannames;
-        if (sl.contains(users->at(row).clan,Qt::CaseInsensitive))
-            menu.addAction(tr("Allow this clanname."));
-        else
-            menu.addAction(tr("Dissallow this clanname."));
-        a = menu.exec(QCursor::pos());
-        if (!a) return;
-        if (a->text() == tr("Allow this clanname."))
-            removeCI(sl,users->at(row).clan);
-        else if(a->text() == tr("Dissallow this clanname."))
-            sl<< users->at(row).clan;
-        else
-            showInformationAboutClan(users->at(row).clan);
-        S_S.set("dissallowedclannames", sl);
-    }/* else if (singleton<netcoupler>().users.classes[index.internalId()] != usermodel::tr("Buddylist")
-               && singleton<netcoupler>().users.classes[index.internalId()] != usermodel::tr("Ignorelist")) {
-        QMenu menu;
-        if (containsCI(S_S.buddylist, user)) {
-            menu.addAction(tr("Remove this user from Buddylist."));
-            menu.addSeparator();
-            menu.addAction(tr("Show info about this user."))->setIcon(
-                        chaticon);
-            a = menu.exec(QCursor::pos());
-        } else if (containsCI(S_S.ignorelist, user)) {
-            menu.addAction(tr("Remove this user from Ignorelist."));
-            menu.addSeparator();
-            menu.addAction(tr("Show info about this user."))->setIcon(chaticon);
-            a = menu.exec(QCursor::pos());
-        } else
-            a = usermenu.exec(QCursor::pos());
-        if (a) {
-            if (a->text() == tr("Add this user to Buddylist.")) {
-                singleton<netcoupler>().users.addbuddy(user);
-            } else if (a->text() == tr("Add this user to Ignorelist.")) {
-                singleton<netcoupler>().users.addignore(user);
-            } else if (a->text() == tr("Show info about this user.")) {
-                getuserinfo(user);
-            } else if (a->text() == tr("Remove this user from Buddylist.")) {
-                singleton<netcoupler>().users.deletebuddy(user);
-            } else if (a->text() == tr("Remove this user from Ignorelist.")) {
-                singleton<netcoupler>().users.deleteignore(user);
-            }
-        } else
-            return;
-    } else if (singleton<netcoupler>().users.classes[index.internalId()] == usermodel::tr("Buddylist")) {
-        QAction *a = customlistmenu.exec(QCursor::pos());
-        if (a) {
-            if (a->text() == tr("Remove this user from the list.")) {
-                singleton<netcoupler>().users.deletebuddy(user);
-            } else if (a->text() == tr("Show info about this user.")) {
-                getuserinfo(user);
-            }
-        }
-    } else if (singleton<netcoupler>().users.classes[index.internalId()] == usermodel::tr("Ignorelist")) {
-        a = customlistmenu.exec(QCursor::pos());
-        if (a) {
-            if (a->text() == tr("Remove this user from the list.")) {
-                singleton<netcoupler>().users.deleteignore(user);
-            } else if (a->text() == tr("Show info about this user.")) {
-                getuserinfo(user);
-            }
-        }
-    }*/
 }
 void channelTab::useritemdblclicked(const QModelIndex &index) {
     if(!index.isValid()) return;
@@ -617,8 +550,13 @@ void channelTab::setHosts(QList<hoststruct> *hosts){
     this->hostModel->hostsChanged();
 }
 void channelTab::setUsers(QList<userstruct> *users){
+    qDebug()<<"void channelTab::setUsers(QList<userstruct> *users){";
     this->users->clear();
-    this->users->append(*users);
+    foreach(userstruct user,*users){
+        if(user.channel.toLower()==this->currentChannel.toLower())
+            this->users->append(*users);
+        qDebug()<<"User"<<user.nick<<"has got channel"<<user.channel;
+    }
     this->chanUserModel->usersChanged();
 }
 channelTab::~channelTab()
@@ -628,4 +566,117 @@ channelTab::~channelTab()
     emit sigclosed();
     disconnect();
     hiddenchannelwindowshelper.removeAll(this);
+}
+
+void channelTab::on_users_customContextMenuRequested(const QPoint &pos)
+{
+    QModelIndex index=this->sortedChanUserModel->mapToSource(ui->users->indexAt(pos));
+    if  (!index.isValid()) return;
+    int row   =index.row();
+    int column=index.column();
+    userstruct user=users->at(row);
+
+    /* else if (singleton<netcoupler>().users.classes[index.internalId()] != usermodel::tr("Buddylist")
+               && singleton<netcoupler>().users.classes[index.internalId()] != usermodel::tr("Ignorelist")) {
+        QMenu menu;
+        if (containsCI(S_S.buddylist, user)) {
+            menu.addAction(tr("Remove this user from Buddylist."));
+            menu.addSeparator();
+            menu.addAction(tr("Show info about this user."))->setIcon(
+                        chaticon);
+            a = menu.exec(QCursor::pos());
+        } else if (containsCI(S_S.ignorelist, user)) {
+            menu.addAction(tr("Remove this user from Ignorelist."));
+            menu.addSeparator();
+            menu.addAction(tr("Show info about this user."))->setIcon(chaticon);
+            a = menu.exec(QCursor::pos());
+        } else
+            a = usermenu.exec(QCursor::pos());
+        if (a) {
+            if (a->text() == tr("Add this user to Buddylist.")) {
+                singleton<netcoupler>().users.addbuddy(user);
+            } else if (a->text() == tr("Add this user to Ignorelist.")) {
+                singleton<netcoupler>().users.addignore(user);
+            } else if (a->text() == tr("Show info about this user.")) {
+                getuserinfo(user);
+            } else if (a->text() == tr("Remove this user from Buddylist.")) {
+                singleton<netcoupler>().users.deletebuddy(user);
+            } else if (a->text() == tr("Remove this user from Ignorelist.")) {
+                singleton<netcoupler>().users.deleteignore(user);
+            }
+        } else
+            return;
+    } else if (singleton<netcoupler>().users.classes[index.internalId()] == usermodel::tr("Buddylist")) {
+        QAction *a = customlistmenu.exec(QCursor::pos());
+        if (a) {
+            if (a->text() == tr("Remove this user from the list.")) {
+                singleton<netcoupler>().users.deletebuddy(user);
+            } else if (a->text() == tr("Show info about this user.")) {
+                getuserinfo(user);
+            }
+        }
+    } else if (singleton<netcoupler>().users.classes[index.internalId()] == usermodel::tr("Ignorelist")) {
+        a = customlistmenu.exec(QCursor::pos());
+        if (a) {
+            if (a->text() == tr("Remove this user from the list.")) {
+                singleton<netcoupler>().users.deleteignore(user);
+            } else if (a->text() == tr("Show info about this user.")) {
+                getuserinfo(user);
+            }
+        }
+    }*/
+
+
+    QMenu *userListContextMenu=new QMenu();
+    Ui_UserListContextMenu *uiUserListContextMenu=new Ui_UserListContextMenu();
+    uiUserListContextMenu->setupUi(userListContextMenu);
+
+    connect(uiUserListContextMenu->actionInclInBuddyList,SIGNAL(triggered(bool)),this,SLOT(userListContextMenu_inclInBuddyList(bool)));
+    uiUserListContextMenu->actionInclInBuddyList->setData(pos); // now when the slot gets called, it will be easier to figure out what's the item clicked
+
+    connect(uiUserListContextMenu->actionInclInIgnrList,SIGNAL(triggered(bool)),this,SLOT(userListContextMenu_inclInIgnrList(bool)));
+    uiUserListContextMenu->actionInclInIgnrList->setData(pos);
+
+    connect(uiUserListContextMenu->actionStartPrvTalk,SIGNAL(triggered()),this,SLOT(userListContextMenu_startPrvTalk()));
+    uiUserListContextMenu->actionStartPrvTalk->setData(pos);
+
+    connect(uiUserListContextMenu->actionInclInDisallowedClanNames,SIGNAL(triggered(bool)),this,SLOT(userListContextMenu_actionInclInDisallowedClanNames(bool)));
+    uiUserListContextMenu->actionInclInDisallowedClanNames->setData(pos);
+    uiUserListContextMenu->actionInclInDisallowedClanNames->setChecked(S_S.dissallowedclannames.contains(user.clan,Qt::CaseInsensitive));
+
+    userListContextMenu->exec(ui->users->mapToGlobal(pos));
+}
+
+void channelTab::userListContextMenu_inclInBuddyList(bool checked){
+
+}
+
+void channelTab::userListContextMenu_inclInIgnrList(bool checked){
+
+}
+
+void channelTab::userListContextMenu_startPrvTalk(){
+
+}
+
+void channelTab::userListContextMenu_actionInclInDisallowedClanNames(bool checked){
+    QAction *clickedAction=qobject_cast<QAction*>(QObject::sender());
+    QPoint   clickedPos=clickedAction->data().toPoint();
+    QModelIndex index=this->sortedChanUserModel->mapToSource(ui->users->indexAt(clickedPos));
+    if  (!index.isValid()) return;
+    int row   =index.row();
+    int column=index.column();
+    userstruct user=users->at(row);
+
+    QStringList disallowedClanNames;
+    if(checked)
+        disallowedClanNames<<S_S.dissallowedclannames<<user.clan;
+    else
+        foreach(QString disallowedClanName,S_S.dissallowedclannames)
+            if(disallowedClanName.toLower()!=user.clan.toLower())
+                disallowedClanNames<<disallowedClanName;
+    S_S.set("dissallowedclannames",disallowedClanNames);
+
+    /* updating the model so the clanname will be hidden/shown on the screen */
+    this->chanUserModel->usersChanged();
 }

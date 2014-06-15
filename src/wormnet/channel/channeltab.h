@@ -119,6 +119,11 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);		//for the linedit in ui
 private slots:
     void on_actionDockUndock_triggered(bool);
+    void on_users_customContextMenuRequested(const QPoint &pos);
+    void userListContextMenu_inclInBuddyList(bool);
+    void userListContextMenu_inclInIgnrList(bool);
+    void userListContextMenu_startPrvTalk();
+    void userListContextMenu_actionInclInDisallowedClanNames(bool);
 };
 
 #endif // CHANNELTAB_H

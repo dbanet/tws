@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>UserListContextMenu</class>
+ <widget class="QMenu" name="UserListContextMenu">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="title">
+   <string>User</string>
+  </property>
+  <widget class="QMenu" name="menuChanOp_commands">
+   <property name="title">
+    <string>ChanOp commands</string>
+   </property>
+   <addaction name="actionKickUser"/>
+   <addaction name="actionBanUser"/>
+  </widget>
+  <action name="actionInclInBuddyList">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Include this user in my buddy list</string>
+   </property>
+  </action>
+  <action name="actionInclInIgnrList">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Ignore this user</string>
+   </property>
+  </action>
+  <action name="actionStartPrvTalk">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Start private talk</string>
+   </property>
+  </action>
+  <action name="actionKickUser">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Kick this user</string>
+   </property>
+  </action>
+  <action name="actionBanUser">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Ban this user</string>
+   </property>
+  </action>
+  <action name="actionInclInDisallowedClanNames">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide this user's clan name</string>
+   </property>
+  </action>
+  <addaction name="actionInclInBuddyList"/>
+  <addaction name="actionInclInIgnrList"/>
+  <addaction name="actionStartPrvTalk"/>
+  <addaction name="separator"/>
+  <addaction name="menuChanOp_commands"/>
+  <addaction name="actionInclInDisallowedClanNames"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -117,7 +117,8 @@ FORMS += src/wormnet/about.ui \
     src/wormnet/mainwindow.ui \
     src/wormnet/channel/channeltab.ui \
     src/wormnet/channel/channelmenu.ui \
-    src/wormnet/server/servertab.ui
+    src/wormnet/server/servertab.ui \
+    src/wormnet/channel/chanUserListMenu.ui
 
 SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/awaybox.cpp \

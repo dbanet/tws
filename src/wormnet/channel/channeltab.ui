@@ -223,6 +223,9 @@
       <layout class="QVBoxLayout" name="usersContainer">
        <item>
         <widget class="QTreeView" name="users">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="sortingEnabled">
           <bool>true</bool>
          </property>
