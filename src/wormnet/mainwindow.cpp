@@ -121,10 +121,10 @@ MainWindow::MainWindow(QWidget *parent) :
     debugmsg.clear();
 
     QVariantList windowstates = S_S.getlist("MainWindowGeometry");
-    if (!windowstates.isEmpty())
-        restoreGeometry(windowstates.takeFirst().toByteArray());
-    if(height()<530)
-        resize(width(),530);
+    //if (!windowstates.isEmpty())
+    //    restoreGeometry(windowstates.takeFirst().toByteArray());
+    //if(height()<530)
+    //    resize(width(),530);
 }
 MainWindow::~MainWindow()
 {

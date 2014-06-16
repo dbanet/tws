@@ -2,11 +2,7 @@ DEFINES += TWS_VERSION=\\\"3.0-alpha\\\"
 BUILD_WITH_PHONON = NO
 
 TEMPLATE += app
-QT += gui \
-    network \
-    svg \
-    sql
-
+QT += gui network svg sql webkit
 DEPENDPATH += . \    
     translations
 INCLUDEPATH += .

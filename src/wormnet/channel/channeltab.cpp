@@ -85,7 +85,7 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     sortedChanUserModel=new QSortFilterProxyModel();
     sortedChanUserModel->setSourceModel(chanUserModel);
     sortedChanUserModel->setSortCaseSensitivity(Qt::CaseInsensitive);
-    sortedChanUserModel->setSortRole(hostModel->SortingRole);
+    sortedChanUserModel->setSortRole(chanUserModel->SortingRole);
     ui->users->setSortingEnabled(true);
     ui->users->header()->setSortIndicatorShown(true);
 
