@@ -153,7 +153,11 @@ void ircnet::tcpRead() {    //arrives like this msg\nmsg\n...\n...\n
                 // Each message has exactly three arguments:
                 // Arguments: your (snooper's) nick,
                 //            the "equal" sign (=),
-                //            the channel, that is being listed for users.
+                //            the channel, that is being listed for users,
+                //            OR, IF LISTING USERS NOT JOINED TO ANY CHANNEL,
+                //            your (snooper's) nick,
+                //            the "asterisk" sign (*),
+                //            the "astersik" sign (*).
                 //
                 // The list of users on the channel (the second argument) is sent in the trailing
                 // part of the message. The list is separated by spaces.
@@ -162,19 +166,31 @@ void ircnet::tcpRead() {    //arrives like this msg\nmsg\n...\n...\n
                 // It denotes that all users has been listed.
                 //
                 // I parse this to fill the list of the users as soon as possible.
-                // Later, the /WHO #channel command is issued, and the list is substituted by the
+                // Later the /WHO #channel command is issued, and the list is substituted by the
                 // fully populated one, with flags, ranks, etc.                            ~~dbanet
 
                 QStringList names=ircMsg->trailing.split(' ');
-                foreach(QString nick,names)
-                    this->userList<<userstruct(QStringList()
-                                              <<ircMsg->paramList[2]
-                                              <<"Username"            /* these values do mean no-*/
-                                              <<"no.address.for.you"  /* thing, are here just to */
-                                              <<"wormnet1.team17.com" /* satisfy userstruct      */
-                                              <<(nick[0]=='@'?
-                                                 nick.remove(0,1):nick));   /* removing @ prefix */
-
+                foreach(QString nick,names){
+                    userstruct *newUser=
+                                new userstruct(QStringList()
+                                             <<ircMsg->paramList[2]
+                                             <<"Username"             /* these values do mean no-*/
+                                             <<"no.address.for.you"   /* thing, are here just to */
+                                             <<"wormnet1.team17.com"  /* satisfy userstruct      */
+                                             <<(nick[0]=='@'?
+                                                nick.remove(0,1):nick));    /* removing @ prefix */
+                    /* If a user with such a nick and a channel already exists (for example, the */
+                    /* NAMES command was issued manually not in order), do nothing. No real need */
+                    /* to check if our userList contains a user not listed in the NAMES reply,   */
+                    /* cuz we track all quits, kicks, bans, et cetera, anyway. This check is     */
+                    /* just be sure the NAMES command was not issued manually.          ~~dbanet */
+                    bool userAlreadyExists=false;
+                    foreach(userstruct user,this->userList)
+                        if(user.nick==newUser->nick && user.chan==newUser->chan)
+                            userAlreadyExists=true;
+                    if(!userAlreadyExists)
+                        this->userList<<*newUser;
+                }
             } else if(ircMsg->command==
             "366"){
                 // end of the /NAMES command

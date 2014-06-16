@@ -341,13 +341,13 @@ void mainwindow::snpSetContains(const QString &s) {
         ui.letuslogin->setText(S_S.getString("tus_login"));
     else if (s == "countrycode"){
         QString language=QLocale::system().name().left(2); int i;
-        if(-1==(i=ui->flag->findText(S_S.getString("countrycode"))))
-            if(-1==(i=ui->flag->findText(language)))
-                ui->flag->setCurrentIndex(ui->flag->findText("q"));
+        if(-1==(i=ui.flag->findText(S_S.getString("countrycode"))))
+            if(-1==(i=ui.flag->findText(language)))
+                ui.flag->setCurrentIndex(ui.flag->findText("q"));
             else
-                ui->flag->setCurrentIndex(i);
+                ui.flag->setCurrentIndex(i);
         else
-            ui->flag->setCurrentIndex(i);
+            ui.flag->setCurrentIndex(i);
     }else if (s == "rank"){
         ui.rank->setCurrentIndex(S_S.getint("rank"));
     }
