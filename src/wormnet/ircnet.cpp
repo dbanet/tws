@@ -188,7 +188,6 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                     if(!userAlreadyExists)
                         this->userList<<*newUser;
                 }
-
             } else if(ircMsg->command==
             "366"){
                 // end of the /NAMES command

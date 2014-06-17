@@ -52,8 +52,8 @@ QModelIndex HostModel::parent(const QModelIndex &child) const{
 }
 
 QModelIndex HostModel::index(int row,int column,const QModelIndex &parent) const{
-    if(!parent.isValid()) // we should return a valid QModelIndex for root elements (their parent
-        return this->createIndex(row,column); // is invalid) only, because or model is flat
+    if(!parent.isValid()) // we should return a valid QModelIndex for root elements (whose parent
+        return this->createIndex(row,column); // is invalid) only, because our model is flat
     else
         return QModelIndex();
 }
