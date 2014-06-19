@@ -467,9 +467,14 @@ void ircnet::disconnected() {
     myDebug() << tr("disconnected from irc server.");
     emit sigdisconnected();
 }
-void ircnet::joinchannel(const QString &chan) {
-    tcp_write("JOIN "+chan       +"\n"+
-              "WHO " +chan       +"\n");
+void ircnet::joinchannel(const QString &chan){
+    /* removing everyone whose channel is the one we're joining from userList */
+    for(QList<userstruct>::iterator it=userList.begin();it!=userList.end();++it)
+        if(it->channel==chan)
+            it=userList.erase(it);
+
+    tcp_write("JOIN "+chan+"\n"+
+               "WHO "+chan+"\n");
     this->joinedchannellist<<this->canonizeChannelName(chan);
     emit sigIRCJoinedChannel(this->canonizeChannelName(chan),channellist[this->canonizeChannelName(chan)]);
 }
