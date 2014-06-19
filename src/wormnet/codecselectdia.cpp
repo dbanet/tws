@@ -22,24 +22,6 @@ CodecSelectDia::~CodecSelectDia()
     delete ui;
 }
 
-void CodecSelectDia::on_pblatin_clicked()
-{
-    codec=QTextCodec::codecForName("windows-1252");     //latin
-    S_S.set("textcodecsince263", "windows-1252");
-    qApp->setLayoutDirection(Qt::LeftToRight);
-    S_S.set("righttoleftwriting", false);
-    accept();
-}
-
-void CodecSelectDia::on_pbcyrillic_clicked()
-{
-    codec=QTextCodec::codecForName("windows-1251");     //cyrillic
-    S_S.set("textcodecsince263", "windows-1251");
-    S_S.set("righttoleftwriting", false);
-    qApp->setLayoutDirection(Qt::LeftToRight);
-    accept();
-}
-
 void CodecSelectDia::on_pbOk_clicked()
 {
     codec=QTextCodec::codecForName(qPrintable(ui->comboBox->currentText()));

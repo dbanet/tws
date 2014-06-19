@@ -23,8 +23,6 @@ private:
 
 private slots:
     void on_pbOk_clicked();
-    void on_pbcyrillic_clicked();
-    void on_pblatin_clicked();
 };
 
 #endif // CODECSELECTDIA_H
