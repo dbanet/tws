@@ -125,6 +125,20 @@ void ircnet::tcpRead() {    //arrives like this msg\nmsg\n...\n...\n
                 QString text=ircMsg->trailing;
                 emit sigGotUserMessage(usermessage(text,e_NOTICE,from,to));
             } else if(ircMsg->command==
+            "MODE"){
+                QString from     =ircMsg->prefix.split("!")[0];
+                QString toChannel=ircMsg->paramList[0];
+                QChar side       =ircMsg->paramList[1][0];
+                QChar mode       =ircMsg->paramList[1][1];
+                QString toUser   =ircMsg->paramList[2];
+                if (mode == 'o')
+                    if (side == '+')
+                        myDebug()<<tr("%1 gives channel operator status to %2").arg(from, toUser);
+                    else
+                        myDebug()<<tr("%1 removes channel operator status from %2").arg(from, toUser);
+                else
+                    myDebug()<<tr("%1 sets mode %2%3 on %4 %5").arg(from, side, mode, toChannel, toUser);
+            } else if(ircMsg->command==
 
             /**********************************/
             /*  startup/join thingies here... */
@@ -327,10 +341,14 @@ void ircnet::tcpRead() {    //arrives like this msg\nmsg\n...\n...\n
             /*******************************************************/
             /*                    other shiet                      */
             /*******************************************************/
-            "TOPIC"||ircMsg->command==
-            "332"){ /*   TOPIC. TWS doesn't use it anyhow yet.  */ } else if(ircMsg->command==
-            "333"){ /* This one is not declared in RFC, however */ } else if(ircMsg->command==
-                    /* WormNet sends it just after the TOPIC.   */
+            "TOPIC"){
+                QString nick=ircMsg->prefix.split("!")[0];
+                QString newTopic=ircMsg->trailing;
+                myDebug()<<tr("%1 has changed the topic to \"%2\"").arg(nick,newTopic);
+             } else if(ircMsg->command==
+            "332"){ /* TOPIC response. */ } else if(ircMsg->command==
+            "333"){ /* Who set the topic at which time */ } else if(ircMsg->command==
+            "303"){ /* ISON response. No use for it currently. */ } else if(ircMsg->command==
             "001"){
                 /* Welcome message. Sent by server automatically on connect.  */
                 /* Here I output it decently to the main window.     ~~dbanet */
@@ -344,11 +362,12 @@ void ircnet::tcpRead() {    //arrives like this msg\nmsg\n...\n...\n
             "004"){
                 /* Server info. Sent by server automatically on connect.  */
                 /* Here I output it decently to the main window. ~~dbanet */
-                myDebug()<<"Server Info: "<<ircMsg->paramList.join(" ").section(" ",1);
+                myDebug()<<tr("Server Info:")<<ircMsg->paramList.join(" ").section(" ",1);
             } else if(
             ircMsg->command=="003" ||
             ircMsg->command=="376" ||
             ircMsg->command=="372" ||
+            ircMsg->command=="371" ||
             ircMsg->command=="375" ||
             ircMsg->command=="250" ||
             ircMsg->command=="260" ||
@@ -363,6 +382,10 @@ void ircnet::tcpRead() {    //arrives like this msg\nmsg\n...\n...\n
                 /* upon connection I'm tired to describe separately.             */
                 /* Here I output it to the main window.                ~~dbanet  */
                 myDebug()<<ircMsg->trailing;
+            } else if(ircMsg->command==
+            "391"){
+                /* Server time. Sent by requesting /TIME from the server.  */
+                myDebug()<<tr("Server time: %1").arg(ircMsg->trailing);
             } else if(
             ircMsg->command=="311" ||
             ircMsg->command=="312" ||
