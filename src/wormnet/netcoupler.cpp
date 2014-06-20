@@ -26,6 +26,7 @@
 #include "chatwindow.h"
 #include "ctcphandler.h"
 
+extern qint64 waProcessID;
 extern volumeslider *volume;
 extern inihandlerclass inihandler;
 namespace looki {
@@ -173,16 +174,14 @@ void netcoupler::joinGameLink(const QString &gamelink) {
     QString temp = getProcessString();
     if (temp == QString())
         return;
-    temp = temp + " \"" + gamelink + "\"";
-    startProcess(temp);
+    startProcess(temp, QStringList(gamelink));
 }
 void netcoupler::joinGame(const QString &hostinfo, const QString &channel, const QString &gamename) {
     looki::currentchannel = channel;
     QString temp = getProcessString();
     if (temp == QString())
         return;
-    temp = temp + hostinfo;
-    startProcess(temp);
+    startProcess(temp, QStringList(hostinfo));
     if (S_S.getbool("chbactionwhenjoining"))
         sendInfoToChan(channel, "joined a game: " + gamename);
 }
@@ -194,15 +193,16 @@ void netcoupler::createHost(QString id){
     QString temp = getProcessString();
     if (temp == QString())
         return;
-    QString s;
+    QStringList args;
+    QString sLink = "wa://" + "?gameid="+ id + "&scheme=" + schemeMap[looki::currentchannel];
     if(!http->lasthost.pwd().isEmpty())
-        s="&password="+http->lasthost.pwd();
-    temp = temp + " \"" + "wa://" + "?gameid="+ id + "&scheme=" + schemeMap[looki::currentchannel] + s+"\"";
+        sLink += "&password=" + http->lasthost.pwd();
+    args << sLink;
 #ifdef WITH_WORMNAT_SUPPORT
     if(S_S.getbool ("cbwormnat2"))
-        temp += getwormnat2commandline();
+        args << getwormnat2commandline();
 #endif
-    startProcess(temp);
+    startProcess(temp, args);
 }
 //void netcoupler::createhost(hoststruct h) {
 //    if(!http)
@@ -318,7 +318,7 @@ void netcoupler::settingsWindowEmitFunction() { //signals are protected?!
 void netcoupler::refreshHostList() {
     http->refreshHostList();
 }
-void netcoupler::startProcess(const QString &s){
+void netcoupler::startProcess(const QString &filePath, const QStringList &args){
     if(S_S.getbool("chbhidechannelwindowsongame")){
         foreach(window *w,qobjectwrapper<mainwindow>::ref().windowList)
             w->minimize();       
@@ -328,7 +328,7 @@ void netcoupler::startProcess(const QString &s){
     if(S_S.getbool("cbsetawaywhilegaming")){
         qobjectwrapper<awayhandler>::ref().setawaywhilegameing();
     }
-    p->startDetached(s);
+    p->startDetached(filePath, args, QFileInfo(filePath).dir().canonicalPath(), &waProcessID);
 }
 int netcoupler::ircState(){
     if(irc)

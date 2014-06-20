@@ -80,7 +80,7 @@ private:
     QTimer loopTimer;           //to safe usergarbage every 30sec    
 
     QString getProcessString();
-    void startProcess(const QString&);
+    void startProcess(const QString&, const QStringList&);
 //  void createHost(hoststruct);
     void createHost(QString);
     QString myIP;

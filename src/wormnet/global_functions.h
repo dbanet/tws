@@ -16,7 +16,7 @@ void sethostport(QString port);
 QString gethostportbyini();
 QString getwormnatport();
 QString lasthostport();
-QString getwormnat2commandline();
+QStringList getwormnat2commandline();
 QString get_winini_key(QString key);
 bool set_winini_key(QString key, QString value);
 void appendtoquerylist(QString user);
