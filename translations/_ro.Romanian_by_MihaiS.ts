@@ -760,22 +760,22 @@ Skin_Base</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="73"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="80"/>
         <source>Connection WSAStartup failed %1 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="78"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="85"/>
         <source>Connection Failed to resolve %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="89"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="96"/>
         <source>Connection Failed to connect (Error %1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="97"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="104"/>
         <source>Connection Failed to read initial port (Error %1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2067,7 +2067,7 @@ Pentru a reporni acum da click pe Ok, altfel pe cancel.</translation>
 <context>
     <name>netcoupler</name>
     <message>
-        <location filename="../src/wormnet/netcoupler.cpp" line="268"/>
+        <location filename="../src/wormnet/netcoupler.cpp" line="274"/>
         <source>No executables are given.
 you must choose a game executable,
 for example wa.exe, to join a game.

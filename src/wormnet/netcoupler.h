@@ -18,6 +18,8 @@
 #include "ircnet.h"
 #include "snoppanet.h"
 
+extern qint64 waProcessID;
+
 class netcoupler : public QObject
 {
     Q_OBJECT

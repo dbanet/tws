@@ -26,7 +26,7 @@
 #include "chatwindow.h"
 #include "ctcphandler.h"
 
-extern qint64 waProcessID;
+qint64 waProcessID;
 extern volumeslider *volume;
 extern inihandlerclass inihandler;
 namespace looki {
@@ -200,9 +200,9 @@ void netcoupler::createHost(QString id){
     if (temp == QString())
         return;
     QStringList args;
-    QString sLink = "wa://" + "?gameid="+ id + "&scheme=" + schemeMap[looki::currentchannel];
+    QString sLink = QString("wa://?gameid=%1&scheme=%2").arg(id, schemeMap[looki::currentchannel]);
     if(!http->lasthost.pwd().isEmpty())
-        sLink += "&password=" + http->lasthost.pwd();
+        sLink += QString("&password=%1").arg(http->lasthost.pwd());
     args << sLink;
 #ifdef WITH_WORMNAT_SUPPORT
     if(S_S.getbool ("cbwormnat2"))
@@ -242,7 +242,7 @@ void netcoupler::sendHostInfoToServerAndHost(const QString &name,const QString &
 void netcoupler::getMyWormnetHost(QString id){
     QString ip=getMyHostIP();
 //    disconnect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));    
-    QString host = QString("wa://%1?gameid="+id + "&scheme=%2").arg(ip + ":" + lasthostport ()).arg(schemeMap[looki::currentchannel]);
+    QString host = QString("wa://%1:%2?gameid=%3&scheme=%4").arg(ip, lasthostport(), id, schemeMap[looki::currentchannel]);
     QString msg = QString("hosted a game: %1, %2").arg(S_S.getString("legamename")).arg(host);
     if (S_S.getbool("chbsendhostinfotochan"))
         sendInfoToChan(looki::currentchannel, msg);
