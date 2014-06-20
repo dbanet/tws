@@ -288,14 +288,16 @@ void appendtoquerylist(QString user){
         querylist << user;
 }
 //----------------------------------------------------------------------------------------------
-bool isProcessRunning(int pid){
+bool isProcessRunning(qint64 pid){
     bool result;
 
 #ifdef Q_OS_WIN32
     HANDLE process=OpenProcess(SYNCHRONIZE,FALSE,pid);
-    DWORD ret=WaitForSingleObject(process,0);
-    CloseHandle(process);
-    result=(ret==WAIT_TIMEOUT);
+        if (process != NULL) {
+        result = true;
+        CloseHandle(process);
+    }
+
 #else
     kill(pid,0);
     result=(ESRCH==errno);
