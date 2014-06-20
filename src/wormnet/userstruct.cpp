@@ -43,7 +43,18 @@ userstruct::userstruct(QStringList sl) {
     if (b && clannumber < singleton<pictureHandler>().ranklistsize() && clannumber >= 0)
         rank = clannumber;
     else rank=12;
-    if(nick==singleton<netcoupler>().nick) singleton<netcoupler>().myIP=address;
+    if(address != "no.address.for.you" && addressischecked==0 && nick==singleton<netcoupler>().nick){
+        QList<QHostAddress> a=QHostInfo::fromName(address).addresses();
+        QString ip;
+        if(!a.isEmpty()){
+            ip=a.first().toString();
+        }
+        if(!ip.isEmpty())
+            singleton<netcoupler>().myIP=ip;
+        else
+            singleton<netcoupler>().myIP=address;
+        addressischecked=1;
+    }
 }
 QStringList userstruct::returnwho() {
     QStringList modellist;
