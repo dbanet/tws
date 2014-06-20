@@ -768,22 +768,22 @@ Skin_Base</translation>
         <translation>Chuchotement</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="73"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="80"/>
         <source>Connection WSAStartup failed %1 </source>
         <translation>Connexion : échec lors de l&apos;éxécution du WSAStartup ; l&apos;erreur est la suivante : %1 </translation>
     </message>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="78"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="85"/>
         <source>Connection Failed to resolve %1</source>
         <translation>Connexion : échec lors de la résolution du problème %1</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="89"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="96"/>
         <source>Connection Failed to connect (Error %1)</source>
         <translation>Connexion : échec lors de la connexion (Erreur %1)</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="97"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="104"/>
         <source>Connection Failed to read initial port (Error %1)</source>
         <translation>Connexion : échec lors de la lecture du port initial (Erreur %1)</translation>
     </message>
@@ -2095,7 +2095,7 @@ Voulez-vous continuer ?</translation>
 <context>
     <name>netcoupler</name>
     <message>
-        <location filename="../src/wormnet/netcoupler.cpp" line="268"/>
+        <location filename="../src/wormnet/netcoupler.cpp" line="274"/>
         <source>No executables are given.
 you must choose a game executable,
 for example wa.exe, to join a game.

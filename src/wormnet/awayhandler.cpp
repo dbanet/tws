@@ -86,9 +86,8 @@ void awayhandler::setawaywhilegameing() {
 #endif
 }
 void awayhandler::gameTimerTimeout(){
-#ifdef Q_OS_WIN32
-    HWND h = FindWindow(NULL,"Worms Armageddon");
-    if(h)
+#ifndef Q_OS_OS2
+    if (!isProcessRunning(waProcessID))
         return;    
     lookingForGameTimer.stop();
     emit siggameended();
