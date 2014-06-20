@@ -407,8 +407,8 @@ void window::userItemDoubleClicked(const QModelIndex &index) {
 }
 void window::hostItemDoubleClicked(const QModelIndex &index) {
     if (index.internalId() != 999) {
-        QString hostinfo = " \"" + singleton<netcoupler>().hosts.joininfo(index) + "&scheme="
-                + singleton<netcoupler>().schemeMap[currentChannel] + "\"";
+        QString hostinfo = singleton<netcoupler>().hosts.joininfo(index) + "&scheme="
+                + singleton<netcoupler>().schemeMap[currentChannel];
         QString gamename = singleton<netcoupler>().hosts.gamename(index);
         singleton<netcoupler>().joinGame(hostinfo, currentChannel, gamename);
     } else if (index.internalId() == 999) {
@@ -459,8 +459,8 @@ void window::openChatWindow(const QString &s) {
 }
 void window::hostItemPressed(const QModelIndex &index) {
     if (QApplication::mouseButtons() == Qt::RightButton) {
-        QString hostinfo = " \"" + singleton<netcoupler>().hosts.joininfo(index) + "&scheme="
-                + singleton<netcoupler>().schemeMap[currentChannel] + "\"";
+        QString hostinfo = singleton<netcoupler>().hosts.joininfo(index) + "&scheme="
+                + singleton<netcoupler>().schemeMap[currentChannel];
         QString gamename = singleton<netcoupler>().hosts.gamename(index);
         if (index.internalId() == 999) {
             openHostBox();
