@@ -12,8 +12,12 @@
 #include <windows.h>
 #include <conio.h>
 #endif
+
 #include <cstdio>
 #include <cstdlib>
+#include <cerrno>
+#include <csignal>
+#include <sys/types.h>
 
 #include "global_functions.h"
 #include "settings.h"
@@ -284,6 +288,21 @@ void appendtoquerylist(QString user){
         querylist << user;
 }
 //----------------------------------------------------------------------------------------------
+bool isProcessRunning(int pid){
+    bool result;
+
+#ifdef Q_OS_WIN32
+    HANDLE process=OpenProcess(SYNCHRONIZE,FALSE,pid);
+    DWORD ret=WaitForSingleObject(process,0);
+    CloseHandle(process);
+    result=(ret==WAIT_TIMEOUT);
+#else
+    kill(pid,0);
+    result=(ESRCH==errno);
+#endif
+
+    return result;
+}
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------

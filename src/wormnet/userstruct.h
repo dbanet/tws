@@ -8,6 +8,7 @@
 #ifndef USERSTRUCT_H_
 #define USERSTRUCT_H_
 #include <QStringList>
+#include <QHostInfo>
 class userstruct {
 public:
 	userstruct();
@@ -30,6 +31,6 @@ public:
 	QString country;
 	QString client;
 	bool wnvalid;		//this nick is to 80% a valid wn user
-	static bool addressischecked;
+
 };
 #endif /* USERSTRUCT_H_ */

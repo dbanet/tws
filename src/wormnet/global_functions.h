@@ -35,6 +35,7 @@ void info(const QByteArray &);
 void info(const QStringList &);
 void info(int);
 void fillString(QString &s, QString ss, int length);
+bool isProcessRunning(int pid);
 
 namespace {
     bool compareCI(const QString &s1, const QString &s2) {
@@ -64,12 +65,10 @@ namespace {
         return false;
     }
     //----------------------------------------------------------------------------------------------
-    QStringList removeCI(QStringList &sl, const QString &s) {
-        foreach(QString str,sl) {
-            if (compareCI(s, str))
-                sl.removeAt(sl.indexOf(str));
-        }
-        return sl;
+    QStringList removeCI(QStringList &haystack,const QString &needle){
+        for(QStringList::iterator it=haystack.begin();it!=haystack.end();++it)
+            if(compareCI(needle,*it))
+                it=haystack.erase(it);
     }
     //----------------------------------------------------------------------------------------------
     bool containsClickableLink(const QString &s){
@@ -90,7 +89,6 @@ namespace {
     }
     //----------------------------------------------------------------------------------------------    
     //----------------------------------------------------------------------------------------------
-
 }
 //----------------------------------------------------------------------------------------------
 #endif // GLOBAL_FUNCTIONS_H
