@@ -7,6 +7,7 @@
 #include <QHostInfo>
 #include <QPointer>
 #include <QProcess>
+#include <QHostInfo>
 
 #include "hoststruct.h"
 #include "userstruct.h"
@@ -89,6 +90,9 @@ public slots:
     void joinGame(const QString &,const QString&,const QString&);
     void sendInfoToChan(const QString &,const QString &);
     void refreshHostList();
+    void lookedUpSnoopersIPAddress(const QHostInfo&);
+    void lookedUpSnoopersIPAddress(QString);
+
 private slots:    
     void initSoundAndStartWho();
     void emitSigGotChanList(QStringList);
