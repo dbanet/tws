@@ -95,7 +95,6 @@ netcoupler::~netcoupler() {
 }
 void netcoupler::stop(){
     connectstate=e_stoped;
-    userstruct::addressischecked=0;
     sendquit(S_S.getString("information"));
 }
 void netcoupler::joinchannel(const QString &s) {
@@ -201,6 +200,13 @@ void netcoupler::joingame(const QString &hostinfo, const QString &channel, const
     startprocess(temp);
     if (S_S.getbool("chbactionwhenjoining"))
         sendinfotochan(channel, "joined a game: " + gamename);
+}
+void netcoupler::lookedUpSnoopersIPAddress(const QHostInfo &host){
+    if(host.error()==QHostInfo::NoError)
+        myip=host.addresses().first().toString();
+}
+void netcoupler::lookedUpSnoopersIPAddress(QString address){
+    myip=address;
 }
 void netcoupler::createhost(QString id){
     if(!http)

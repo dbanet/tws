@@ -11,11 +11,8 @@
 #include "global_functions.h"
 #include "singleton.h"
 #include "picturehandler.h"
-#include <QHostInfo>
 #include <QPointer>
-bool userstruct::addressischecked=0;
-userstruct::userstruct():flag(49),rank(12) {
-}
+
 userstruct::userstruct(QStringList sl){ // sl example: #AnythingGoes Username no.address.for.you wormnet1.team17.com Scal H :0 48 0 US The Wheat Snooper 2.9
     Q_ASSERT_X(sl.size()>=7,"userstruct::userstruct(QStringList)",
                "WormNET server has returned a bad reply for a WHO request");
@@ -60,8 +57,12 @@ userstruct::userstruct(QStringList sl){ // sl example: #AnythingGoes Username no
     this->client=sl.join(" ").remove("\r").remove("\n");
 
     /* WormNET returns the real, non-masked IP address only for the client itself. We take this address and use it globally */
-    if(nick==singleton<netcoupler>().nick)
-        singleton<netcoupler>().myip=this->address;
+    if(nick==singleton<netcoupler>().nick && address!="no.address.for.you"){
+        if(address.length()>34) // a W:A bug: if the game's IP/hostname length is > 34, W:A fails to display the host at all in the hostlist
+            QHostInfo::lookupHost(address,&singleton<netcoupler>(),SLOT(lookedUpSnoopersIPAddress(QHostInfo))); // so we resolve the hostname to an IP address
+        else
+            singleton<netcoupler>().lookedUpSnoopersIPAddress(address);
+    }
 }
 userstruct::userstruct(
      QString channel,

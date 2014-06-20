@@ -10,14 +10,13 @@
 #include <QStringList>
 class userstruct {
 public:
-	userstruct();
 	userstruct(QStringList);
         userstruct(
-            QString channel,
-            QString clan,
-            QString address,
-            QString server,
-            QString nick,
+            QString channel="",
+            QString clan="",
+            QString address="",
+            QString server="",
+            QString nick="",
             QString userMode="H",
             int hopCount=0,
             int flag=49,
@@ -43,6 +42,5 @@ public:
 	QString client;
 
 	bool wnvalid;		//this nick is to 80% a valid wn user
-	static bool addressischecked;
 };
 #endif /* USERSTRUCT_H_ */
