@@ -35,7 +35,7 @@ void info(const QByteArray &);
 void info(const QStringList &);
 void info(int);
 void fillString(QString &s, QString ss, int length);
-bool isProcessRunning(int pid);
+bool isProcessRunning(qint64 pid);
 
 namespace {
     bool compareCI(const QString &s1, const QString &s2) {
