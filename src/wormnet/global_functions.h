@@ -16,7 +16,7 @@ void sethostport(QString port);
 QString gethostportbyini();
 QString getwormnatport();
 QString lasthostport();
-QString getwormnat2commandline();
+QStringList getwormnat2commandline();
 QString get_winini_key(QString key);
 bool set_winini_key(QString key, QString value);
 void appendtoquerylist(QString user);
@@ -35,6 +35,7 @@ void info(const QByteArray &);
 void info(const QStringList &);
 void info(int);
 void fillString(QString &s, QString ss, int length);
+bool isProcessRunning(qint64 pid);
 
 namespace {
     bool compareCI(const QString &s1, const QString &s2) {
@@ -65,12 +66,11 @@ namespace {
     }
     //----------------------------------------------------------------------------------------------
     QStringList removeCI(QStringList &haystack,const QString &needle){
-        QStringList newHaystack;
-        foreach(QString straw,haystack)
-            if(!compareCI(needle,straw))
-                newHaystack<<straw;
-        haystack.clear();
-        haystack<<newHaystack;
+        for(QStringList::iterator it=haystack.begin();it!=haystack.end();)
+            if(compareCI(needle,*it))
+                it=haystack.erase(it);
+            else
+                ++it;
         return haystack;
     }
     //----------------------------------------------------------------------------------------------
@@ -92,7 +92,6 @@ namespace {
     }
     //----------------------------------------------------------------------------------------------    
     //----------------------------------------------------------------------------------------------
-
 }
 //----------------------------------------------------------------------------------------------
 #endif // GLOBAL_FUNCTIONS_H

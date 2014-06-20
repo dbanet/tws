@@ -26,6 +26,7 @@
 #include "chatwindow.h"
 #include "ctcphandler.h"
 
+qint64 waProcessId;
 extern volumeslider *volume;
 extern inihandlerclass inihandler;
 namespace looki {
@@ -188,16 +189,14 @@ void netcoupler::joingamelink(const QString &gamelink) {
     QString temp = getprocessstring();    
     if (temp == QString())
         return;
-    temp = temp + " \"" + gamelink + "\"";
-    startprocess(temp);
+    startprocess(temp,QStringList(gamelink));
 }
 void netcoupler::joingame(const QString &hostinfo, const QString &channel, const QString &gamename) {
     looki::currentchannel = channel;
     QString temp = getprocessstring();
     if (temp == QString())
         return;
-    temp = temp + hostinfo;
-    startprocess(temp);
+    startprocess(temp,QStringList(hostinfo));
     if (S_S.getbool("chbactionwhenjoining"))
         sendinfotochan(channel, "joined a game: " + gamename);
 }
@@ -216,15 +215,16 @@ void netcoupler::createhost(QString id){
     QString temp = getprocessstring();
     if (temp == QString())
         return;
-    QString s;
+    QStringList args;
+    QString sLink=QString("wa://?gameid=%1&scheme=%2").arg(id,schememap[looki::currentchannel]);
     if(!http->lasthost.pwd().isEmpty())
-        s="&password="+http->lasthost.pwd();
-    temp = temp + " \"" + "wa://" + "?gameid="+ id + "&scheme=" + schememap[looki::currentchannel] + s+"\"";
+        sLink+=QString("&password=%1").arg(http->lasthost.pwd());
+    args<<sLink;
 #ifdef WITH_WORMNAT_SUPPORT
-    if(S_S.getbool ("cbwormnat2"))
-        temp += getwormnat2commandline();
+    if(S_S.getbool("cbwormnat2"))
+        args<<getwormnat2commandline();
 #endif
-    startprocess(temp);
+    startprocess(temp,args);
 }
 //void netcoupler::createhost(hoststruct h) {
 //    if(!http)
@@ -258,8 +258,8 @@ void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &
 void netcoupler::getmywormnethost(QString id){
     QString ip=getmyhostip();
 //    disconnect(http,SIGNAL(sighoststarts(hoststruct)),this,SLOT(getmywormnethost(hoststruct)));    
-    QString host = QString("wa://%1?gameid="+id + "&scheme=%2").arg(ip + ":" + lasthostport ()).arg(schememap[looki::currentchannel]);
-    QString msg = QString("hosted a game: %1, %2").arg(S_S.getString("legamename")).arg(host);
+    QString host=QString("wa://%1:%2?gameid=%3&scheme=%4").arg(ip,lasthostport(),id,schememap[looki::currentchannel]);
+    QString msg=QString("hosted a game: %1, %2").arg(S_S.getString("legamename")).arg(host);
     if (S_S.getbool("chbsendhostinfotochan"))
         sendinfotochan(looki::currentchannel, msg);
     createhost(id);
@@ -340,7 +340,7 @@ void netcoupler::settingswindowemitfunktion() { //signals are protected?!
 void netcoupler::refreshhostlist() {
     http->refreshHostList();
 }
-void netcoupler::startprocess(const QString &s){    
+void netcoupler::startprocess(const QString &filePath,const QStringList &args){
     if(S_S.getbool("chbhidechannelwindowsongame")){
         foreach(channelTab *w,qobjectwrapper<MainWindow>::ref().channelTabs)
             w->minimize();       
@@ -350,7 +350,7 @@ void netcoupler::startprocess(const QString &s){
     if(S_S.getbool("cbsetawaywhilegaming")){
         qobjectwrapper<awayhandler>::ref().setawaywhilegameing();
     }
-    p->startDetached(s);
+    p->startDetached(filePath,args,QFileInfo(filePath).dir().canonicalPath(),(waProcessId!=0 && isProcessRunning(waProcessId))?0:&waProcessId);
 }
 int netcoupler::ircstate(){
     if(irc)

@@ -12,8 +12,12 @@
 #include <windows.h>
 #include <conio.h>
 #endif
+
 #include <cstdio>
 #include <cstdlib>
+#include <cerrno>
+#include <csignal>
+#include <sys/types.h>
 
 #include "global_functions.h"
 #include "settings.h"
@@ -38,22 +42,24 @@ QStringList refreshcombobox(QComboBox *cb){
 //----------------------------------------------------------------------------------------------
 #ifdef WITH_WORMNAT_SUPPORT
 SOCKET ControlSocket;
-QString getwormnat2commandline(){
-    STARTUPINFOA si;
-    PROCESS_INFORMATION pi;
-    memset(&si, 0,sizeof(si));
-    si.cb = sizeof(si);
-    memset( &pi,0, sizeof(pi));
+QStringList getwormnat2commandline(){
     SECURITY_ATTRIBUTES SecAttr;
     SecAttr.nLength=sizeof(SecAttr);
     SecAttr.bInheritHandle=TRUE;
     SecAttr.lpSecurityDescriptor=0;
     HANDLE WaitEvent=CreateEvent(&SecAttr,0,0,0);
-    QString s=QString(" /wkargs /wnat2 %1-%2-%3").arg(GetCurrentProcessId()).arg(ControlSocket).arg((u_int)WaitEvent);
+    return QStringList() << "/wkargs" << "/wnat2" << QString("%1-%2-%3").arg(GetCurrentProcessId(), (DWORD)ControlSocket, (DWORD)WaitEvent);
+    //QString s=QString(" /wkargs /wnat2 %1-%2-%3").arg(GetCurrentProcessId()).arg(ControlSocket).arg((u_int)WaitEvent);
+    /*
+    STARTUPINFOA si;
+    PROCESS_INFORMATION pi;
+    memset(&si, 0,sizeof(si));
+    si.cb = sizeof(si);
+    memset( &pi,0, sizeof(pi));
     char str1[1024];
     sprintf(str1,"wa.exe /wkargs /wnat2 %u-%u-%u",(u_int)GetCurrentProcessId(),(u_int)ControlSocket,(u_int)WaitEvent);
-    CreateProcessA(0,str1,0,0,0,0,0,0,&si,&pi);
-    return s;
+    CreateProcessA(0,str1,0,0,0,0,0,0,&si,&pi); // lol wat
+    */
 }
 #endif
 //----------------------------------------------------------------------------------------------
@@ -279,6 +285,24 @@ void appendtoquerylist(QString user){
         return;
     if (!containsCI(querylist, user))
         querylist << user;
+}
+//----------------------------------------------------------------------------------------------
+bool isProcessRunning(qint64 pid){
+    bool result=false;
+
+#ifdef Q_OS_WIN32
+    HANDLE process=OpenProcess(SYNCHRONIZE,FALSE,pid);
+    if(process!=NULL){
+        DWORD ret=WaitForSingleObject(process,0);
+        CloseHandle(process);
+        result=(ret==WAIT_TIMEOUT);
+    }
+#else
+    kill((int)pid,0);
+    result=(ESRCH==errno);
+#endif
+
+    return result;
 }
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------

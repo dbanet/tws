@@ -322,8 +322,8 @@ void channelTab::useritemdblclicked(const QModelIndex &index) {
 void channelTab::hostitemdblclicked(const QModelIndex &index) {
     if(!index.isValid()) return;
     int row=sortedHostModel->mapToSource(index).row();
-    QString hostinfo = " \"" + hosts->at(row).joinstring() + "&scheme="
-            + singleton<netcoupler>().schememap[currentChannel] + "\"";
+    QString hostinfo = hosts->at(row).joinstring() + "&scheme="
+            + singleton<netcoupler>().schememap[currentChannel];
     QString gamename = hosts->at(row).name();
     singleton<netcoupler>().joingame(hostinfo, currentChannel, gamename);
 }
@@ -373,8 +373,8 @@ void channelTab::hostitempressed(const QModelIndex &index) {
     if(!index.isValid()) return;
     int row=sortedHostModel->mapToSource(index).row();
     if (QApplication::mouseButtons() == Qt::RightButton) {
-        QString hostinfo = " \"" + hosts->at(row).joinstring() + "&scheme="
-                + singleton<netcoupler>().schememap[currentChannel] + "\"";
+        QString hostinfo = hosts->at(row).joinstring() + "&scheme="
+                + singleton<netcoupler>().schememap[currentChannel];
         QString gamename = hosts->at(row).name();
         getjoinmenu();
         QAction *a = joinmenu.exec(QCursor::pos());

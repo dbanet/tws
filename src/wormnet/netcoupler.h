@@ -19,6 +19,8 @@
 #include "snoppanet.h"
 #include "mainwindow.h"
 
+extern qint64 waProcessId;
+
 class netcoupler : public QObject
 {
     Q_OBJECT
@@ -85,7 +87,7 @@ private:
     QTimer loopTimer;           //to safe usergarbage every 30sec    
 
     QString getprocessstring();
-    void startprocess(const QString&);
+    void startprocess(const QString&,const QStringList&);
 //    void createhost(hoststruct);
     void createhost(QString);
     QString myip;
