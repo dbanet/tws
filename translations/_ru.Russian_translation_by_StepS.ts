@@ -17,12 +17,18 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Since version 2.0, Wheat Snooper supports different text codecs.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Since version 2.6.3, a built-in W:A codec is supported as well. &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Change this here if you need to talk in an unsupported language.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;С версии 2.0 поддерживаются различные кодировки текста.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;С версии 2.6.3 также поддерживается кодировка самой игры. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Здесь вы сможете изменить кодировку, если вам требуется.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/wormnet/codecselectdia.ui" line="50"/>
         <source>Enable writing from right to left (e.g. for hebrew and arabic)</source>
-        <translation type="unfinished"></translation>
+        <translation>Писать справа налево (для арабского, еврейского и т.д.)</translation>
     </message>
     <message>
         <location filename="../src/wormnet/codecselectdia.ui" line="96"/>
@@ -892,38 +898,38 @@ Skin_Base</translation>
         <location filename="../src/wormnet/balloon_handler.cpp" line="22"/>
         <location filename="../src/wormnet/balloon_handler.cpp" line="29"/>
         <source>Notifications.</source>
-        <translation type="unfinished">Оповещения</translation>
+        <translation>Оповещения</translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="36"/>
         <source>Disconnected from Wormnet</source>
-        <translation type="unfinished">Отключено от WormNET</translation>
+        <translation>Отсоединено от WormNET</translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="40"/>
         <source>Connected to Wormnet</source>
-        <translation type="unfinished">Подключено к WormNET</translation>
+        <translation>Подключено к WormNET</translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="44"/>
         <source>Connected to %1</source>
-        <translation type="unfinished">Подключено к %1</translation>
+        <translation>Подключено к %1</translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="68"/>
         <source> said: </source>
-        <translation type="unfinished"> сказал(а): </translation>
+        <translation> пишет: </translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="75"/>
         <location filename="../src/wormnet/balloon_handler.cpp" line="78"/>
         <source>is Hosting: </source>
-        <translation type="unfinished">захостил: </translation>
+        <translation>захостил: </translation>
     </message>
     <message>
         <location filename="../src/wormnet/balloon_handler.cpp" line="87"/>
         <source>was highlighted by </source>
-        <translation type="unfinished">было сказано </translation>
+        <translation>было сказано </translation>
     </message>
 </context>
 <context>
@@ -1062,7 +1068,7 @@ Skin_Base</translation>
         <location filename="../src/wormnet/chathandler.cpp" line="404"/>
         <location filename="../src/wormnet/chathandler.cpp" line="419"/>
         <source>Set the font for this texttype</source>
-        <translation type="unfinished">Задать шрифт для этого текста</translation>
+        <translation>Задать шрифт для этого текста</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="62"/>
@@ -1072,40 +1078,40 @@ Skin_Base</translation>
         <location filename="../src/wormnet/chathandler.cpp" line="409"/>
         <location filename="../src/wormnet/chathandler.cpp" line="424"/>
         <source>Set the color for this texttype</source>
-        <translation type="unfinished">Задать цвет для этого текста</translation>
+        <translation>Задать цвет для этого текста</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="64"/>
         <source>Chat with this user</source>
-        <translation type="unfinished">Поговорить с этим игроком</translation>
+        <translation>Пообщаться с этим игроком</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="70"/>
         <source>Play this game.</source>
-        <translation type="unfinished">Сыграть в эту игру</translation>
+        <translation>Сыграть в эту игру</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="71"/>
         <location filename="../src/wormnet/chathandler.cpp" line="427"/>
         <source>Show game info.</source>
-        <translation type="unfinished">Показать ссылку игры</translation>
+        <translation>Показать ссылку игры</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="146"/>
         <location filename="../src/wormnet/chathandler.cpp" line="197"/>
         <source>to </source>
-        <translation type="unfinished"> </translation>
+        <translation> </translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="273"/>
         <location filename="../src/wormnet/chathandler.cpp" line="321"/>
         <source>GAMELINK</source>
-        <translation type="unfinished">ссылка на игру</translation>
+        <translation>ссылка на игру</translation>
     </message>
     <message>
         <location filename="../src/wormnet/chathandler.cpp" line="428"/>
         <source>Info about this gamelink.</source>
-        <translation type="unfinished">Информация об этой ссылке</translation>
+        <translation>Информация об этой ссылке</translation>
     </message>
 </context>
 <context>
@@ -1142,7 +1148,7 @@ Skin_Base</translation>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="191"/>
         <source>online since </source>
-        <translation type="unfinished"></translation>
+        <translation>в сети с </translation>
     </message>
     <message>
         <location filename="../src/wormnet/chatwindow.cpp" line="195"/>
@@ -1527,12 +1533,12 @@ Are you sure?</source>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="365"/>
         <source>Server Info:</source>
-        <translation type="unfinished"></translation>
+        <translation>Информация сервера:</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="388"/>
         <source>Server time: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Время сервера: %1</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="490"/>
@@ -1548,22 +1554,22 @@ Are you sure?</source>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="136"/>
         <source>%1 gives channel operator status to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 присвоил права оператора пользователю %2</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="138"/>
         <source>%1 removes channel operator status from %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 снял права оператора с пользователя %2</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="140"/>
         <source>%1 sets mode %2%3 on %4 %5</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 задал режим %2%3 на %4 %5</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="347"/>
         <source>%1 has changed the topic to &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 поменял тему канала на &quot;%2&quot;</translation>
     </message>
     <message>
         <location filename="../src/wormnet/ircnet.cpp" line="420"/>
@@ -2026,7 +2032,7 @@ The Wheat Snooper сохранит настройки на следующий з
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="574"/>
         <source>join</source>
-        <translation type="unfinished">Войти на канал</translation>
+        <translation>Войти на канал</translation>
     </message>
     <message>
         <location filename="../src/wormnet/mainwindow.ui" line="627"/>
