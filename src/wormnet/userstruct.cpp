@@ -11,9 +11,7 @@
 #include "global_functions.h"
 #include "singleton.h"
 #include "picturehandler.h"
-#include <QHostInfo>
 #include <QPointer>
-bool userstruct::addressischecked=0;
 userstruct::userstruct():flag(49),rank(12) {
 }
 userstruct::userstruct(QStringList sl) {
@@ -43,17 +41,12 @@ userstruct::userstruct(QStringList sl) {
     if (b && clannumber < singleton<pictureHandler>().ranklistsize() && clannumber >= 0)
         rank = clannumber;
     else rank=12;
-    if(address != "no.address.for.you" && addressischecked==0 && nick==singleton<netcoupler>().nick){
-        QList<QHostAddress> a=QHostInfo::fromName(address).addresses();
-        QString ip;
-        if(!a.isEmpty()){
-            ip=a.first().toString();
-        }
-        if(!ip.isEmpty())
-            singleton<netcoupler>().myIP=ip;
+
+    if(nick==singleton<netcoupler>().nick && address!="no.address.for.you"){
+        if(address.length()>34) // a W:A bug: if the game's IP/hostname length is > 34, W:A fails to display the host at all in the hostlist
+            QHostInfo::lookupHost(address,&singleton<netcoupler>(),SLOT(lookedUpSnoopersIPAddress(QHostInfo)));
         else
-            singleton<netcoupler>().myIP=address;
-        addressischecked=1;
+            singleton<netcoupler>().lookedUpSnoopersIPAddress(address);
     }
 }
 QStringList userstruct::returnwho() {
