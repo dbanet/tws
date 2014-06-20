@@ -334,7 +334,7 @@ void netcoupler::startProcess(const QString &filePath, const QStringList &args){
     if(S_S.getbool("cbsetawaywhilegaming")){
         qobjectwrapper<awayhandler>::ref().setawaywhilegameing();
     }
-    p->startDetached(filePath, args, QFileInfo(filePath).dir().canonicalPath(), &waProcessID);
+    p->startDetached(filePath, args, QFileInfo(filePath).dir().canonicalPath(), (waProcessID!=0 && isProcessRunning(waProcessID))?0:&waProcessID);
 }
 int netcoupler::ircState(){
     if(irc)
