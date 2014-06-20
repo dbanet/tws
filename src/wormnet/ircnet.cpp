@@ -492,9 +492,11 @@ void ircnet::disconnected() {
 }
 void ircnet::joinChannel(const QString &chan) {
     /* removing everyone whose channel is the one we're joining from userList */
-    for(QList<userstruct>::iterator it=userList.begin();it!=userList.end();++it)
+    for(QList<userstruct>::iterator it=userList.begin();it!=userList.end();)
         if(it->chan==chan)
             it=userList.erase(it);
+        else
+            ++it;
 
     tcpWrite("JOIN "+chan+"\n"+
               "WHO "+chan+"\n");

@@ -66,9 +66,12 @@ namespace {
     }
     //----------------------------------------------------------------------------------------------
     QStringList removeCI(QStringList &haystack,const QString &needle){
-        for(QStringList::iterator it=haystack.begin();it!=haystack.end();++it)
+        for(QStringList::iterator it=haystack.begin();it!=haystack.end();)
             if(compareCI(needle,*it))
                 it=haystack.erase(it);
+            else
+                ++it;
+        return haystack;
     }
     //----------------------------------------------------------------------------------------------
     bool containsClickableLink(const QString &s){
