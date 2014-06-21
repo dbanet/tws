@@ -93,8 +93,7 @@ void ircnet::tcpRead() {    //arrives like this msg\nmsg\n...\n...\n
                                                                 // but if it doesn't, then the part after
                                                                 // the last \n is not received completely,
                                                                 // so save it for the next time. ~~dbanet
-    foreach(QString msg,messages) {
-        msg=msg.simplified();
+    foreach(QString msg,messages){
         ircMessage *ircMsg;
         try{ ircMsg=new ircMessage(msg); }
         catch(...){ continue; }
