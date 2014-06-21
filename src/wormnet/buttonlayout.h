@@ -19,10 +19,10 @@ private:
     QMenu *leaguemenu;
     QMenu *leaguestatemenu;
 private slots:
-    void onPbSortClicked();
-    void onPbBalloonClicked();
-    void onPbSoundClicked();
-    void onPbcustomwordsClicked();
+    void on_pbsort_clicked();
+    void on_pbballoon_clicked();
+    void on_pbsound_clicked();
+    void on_pbcustomwords_clicked();
     void leaguemenutriggered(QAction *action);
     void leaguestatemenutriggered(QAction*);
 signals:
