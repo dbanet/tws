@@ -319,12 +319,17 @@ void ircnet::tcpRead() {    //arrives like this msg\nmsg\n...\n...\n
                 QString nick=ircMsg->prefix.split("!")[0];
                 QString channel=ircMsg->trailing;
                 if(nick==this->nick) continue; /* We already know we've joined a channel ;)    */
-                this->userList<<userstruct(QStringList()
-                                          <<channel
-                                          <<"Username"            /* these values do mean no-*/
-                                          <<"no.address.for.you"  /* thing, are here just to */
-                                          <<"wormnet1.team17.com" /* satisfy userstruct      */
-                                          <<nick);
+                this->userList.prepend(
+                    userstruct(
+                        QStringList()
+                        <<channel
+                        <<"Username"            /* these values do mean no-*/
+                        <<"no.address.for.you"  /* thing, are here just to */
+                        <<"wormnet1.team17.com" /* satisfy userstruct      */
+                        <<nick
+                    )
+                );
+
                 updateuserlist;
                 tcpWrite("WHO "+nick+"\n");
 
