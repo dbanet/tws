@@ -70,6 +70,12 @@ int hostmodel::rowCount(const QModelIndex & parent) const {
     else
         return 0;
 }
+hoststruct hostmodel::getHostStructByIndex(const QModelIndex &index){
+    if(!index.isValid())
+        return hoststruct();
+    else
+        return hostmap[classes[index.internalId()]][index.row()];
+}
 QVariant hostmodel::data(const QModelIndex & index, int role) const {
 
     if (!index.isValid())

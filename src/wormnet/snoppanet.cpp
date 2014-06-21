@@ -169,7 +169,7 @@ void snoppanet::sendhost(hoststruct h) {
     lasthost=h;
     closehostandstartlasthost(findduplicatedhosts (hostlist));
 }
-void snoppanet::closehostandstartlasthost(hoststruct h) {
+void snoppanet::closehostandstartlasthost(hoststruct h,bool startLastHost) {
     if (!h.isvalid()){
         sendHostRequest();
         return;
@@ -179,7 +179,8 @@ void snoppanet::closehostandstartlasthost(hoststruct h) {
             + "&Name=" + h.name() + "&HostID=&GuestID=&GameType=0";
     hostrequest.setUrl(s);
     closehostreply = manager.get(hostrequest);
-    connect(closehostreply,SIGNAL(finished()),this,SLOT(closeHostReplyFinished()));
+    if(startLastHost)
+        connect(closehostreply,SIGNAL(finished()),this,SLOT(closeHostReplyFinished()));
     connect(closehostreply,SIGNAL(finished()),closehostreply,SLOT(deleteLater()));
 }
 void snoppanet::sendHostRequest(){
