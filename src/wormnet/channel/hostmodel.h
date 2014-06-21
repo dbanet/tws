@@ -55,11 +55,29 @@ private:
     /* field (which is set during instantiation).                     */
     QString channel;
 
+    /* This is the id of the currently selected host. Whenever the    */
+    /* the _data changes, and the hostsChanged gets called, the Model */
+    /* tries to find a host with this id, and if there is such a      */
+    /* host, it gets selected via view->selectionModel->select(). But */
+    /* the Model iteself couldn't and shouldn't operate on the view   */
+    /* directly, taking in mind there may be even several views with  */
+    /* one model set, so it emits the selectHost(QModelIndex) signal, */
+    /* which someone should catch and select a host with the given    */
+    /* QModelIndex. But if the Model is unable to find such a host,   */
+    /* then the signal gets emitted with an invalid model index       */
+    /* QModelIndex(), which means that the current selection should   */
+    /* be cleared and no host should be currently selected.           */
+    int selectedHostId;
+
     /* Miscellaneous thingies: icons                                  */
     QPixmap channelIcon;
     QPixmap hostIcon;
     QPixmap buddyHostIcon;
     QPixmap ignoreHostIcon;
+
+signals:
+    void selectHost(QModelIndex);
+
 };
 
 #endif // HOSTMODEL_H
