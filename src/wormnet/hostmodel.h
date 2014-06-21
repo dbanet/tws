@@ -22,6 +22,7 @@ public:
 	Qt::ItemFlags flags(const QModelIndex & index) const;
 
 	QModelIndex indexbychannelname(QString);
+        hoststruct getHostStructByIndex(const QModelIndex&);
 
 	QString joininfo(const QModelIndex &);
 	QString gamename(const QModelIndex &index);
