@@ -87,7 +87,7 @@ void awayhandler::setawaywhilegameing() {
 }
 void awayhandler::gameTimerTimeout(){
 #ifndef Q_OS_OS2
-    if (isProcessRunning(waProcessID))
+    if (isProcessRunning(waProcessId))
         return;
     lookingForGameTimer.stop();
     emit siggameended();
