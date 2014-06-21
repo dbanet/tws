@@ -8,6 +8,10 @@
 ircMessage::ircMessage(QString message){
     if(message.isEmpty()) throw new QString("The message was empty.");
 
+    /* it appears, that the message should be trimmed from whitespaces on the left */
+    /* and on the right, because otherwise very strange glitches happen... no idea */
+    message=message.trimmed();
+
     /***********************************************/
     /* check if the message is issued by a user,   */
     /* e. g. ":uname!ident@uhost QUIT..."          */
