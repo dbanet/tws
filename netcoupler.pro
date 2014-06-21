@@ -176,7 +176,7 @@ TRANSLATIONS += \
     translations/_pt.Portugues.ts \
     translations/_ro.Romanian_by_MihaiS.ts \
     translations/_ru.Russian_translation_by_StepS.ts \
-    translations/_pl.Polish_by_CzAjNiK.ts \
+    translations/_pl.Polish_by_CzAjNiK_and_ZexorZ.ts \
     translations/_en.Standard.ts \
     translations/es.Spanish_(Spain)_by_WowwoW.ts \
     translations/_lt.Lithuanian_by_K4Tsis.ts
