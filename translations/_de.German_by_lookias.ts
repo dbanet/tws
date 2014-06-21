@@ -1519,53 +1519,53 @@ Are you sure?</source>
         <translation>Es gibt ein Problm mit der Verbindung zum Wormnet.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="365"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="364"/>
         <source>Server Info:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="388"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="387"/>
         <source>Server time: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="490"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="489"/>
         <source>disconnected from irc server.</source>
         <translation>Vom IRC Server getrennt</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="419"/>
-        <location filename="../src/wormnet/ircnet.cpp" line="423"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="418"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="422"/>
         <source>Nickname collision!</source>
         <translation>Namens Kollision</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="136"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="135"/>
         <source>%1 gives channel operator status to %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="138"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="137"/>
         <source>%1 removes channel operator status from %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="140"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="139"/>
         <source>%1 sets mode %2%3 on %4 %5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="347"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="346"/>
         <source>%1 has changed the topic to &quot;%2&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="420"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="419"/>
         <source>Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again.</source>
         <translation>Dein Nick wird bereits benutzt. Das Problem ergibt sich normalerweise von selbst in ein paar Minuten. Wenn nicht dann klicke bei sichere Verbindung auf Profil und ändere dort deinen Wormnet Nick.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="424"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="423"/>
         <source>Your nickname is already in use. You can wait some minutes or change your nickname and try again.</source>
         <translation>Dein Nick wird bereits benutzt. Das Problem ergibt sich normalerweise von selbst in ein paar Minuten. Wenn nicht ändere deinen Wormnet Nick und versuche es erneut.</translation>
     </message>
