@@ -26,7 +26,7 @@
 #include "chatwindow.h"
 #include "ctcphandler.h"
 
-qint64 waProcessID;
+qint64 waProcessId;
 extern volumeslider *volume;
 extern inihandlerclass inihandler;
 namespace looki {
@@ -334,7 +334,7 @@ void netcoupler::startProcess(const QString &filePath, const QStringList &args){
     if(S_S.getbool("cbsetawaywhilegaming")){
         qobjectwrapper<awayhandler>::ref().setawaywhilegameing();
     }
-    p->startDetached(filePath, args, QFileInfo(filePath).dir().canonicalPath(), (waProcessID!=0 && isProcessRunning(waProcessID))?0:&waProcessID);
+    p->startDetached(filePath, args, QFileInfo(filePath).dir().canonicalPath(), (waProcessId!=0 && isProcessRunning(waProcessId))?0:&waProcessId);
 }
 int netcoupler::ircState(){
     if(irc)
