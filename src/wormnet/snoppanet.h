@@ -20,6 +20,7 @@ public:
     void setChannelList(const QStringList&);
     void getscheme(QString);
     void sendhost(hoststruct h);
+    void closehostandstartlasthost(hoststruct h,bool startLastHost=true);
     hoststruct lasthost;
 
 public slots:
@@ -35,7 +36,6 @@ signals: //public signals:
     void sigloginfailed();
 private:
 //    void inithosting(QString url);
-    void closehostandstartlasthost(hoststruct h);
     void closeLastHost();
 
     hoststruct findduplicatedhosts(QList<hoststruct> list);

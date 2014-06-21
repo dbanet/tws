@@ -30,6 +30,7 @@ public:
         e_started, e_stoped
     };
     QPointer<ircnet> irc;
+    QPointer<snoppanet> http;
     void start(QString nick,MainWindow *mainWnd);
     void stop();                
     void sendusermessage(const usermessage u);
@@ -73,7 +74,6 @@ signals:
     void sighoststarts(hoststruct);   
 
 private:
-    QPointer<snoppanet> http;
     QString ircip;
     QStringList listofjoinedchannels;
 

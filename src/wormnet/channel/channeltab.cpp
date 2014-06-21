@@ -120,6 +120,8 @@ channelTab::channelTab(QString currentChannel,QMenu *serverMenu,QWidget *parent)
     joinmenu2.setTitle(tr("Join"));
     hostmenu.addAction(tr("Host a game in ") + currentChannel);
     joinmenu.addMenu(&joinmenu2);
+    joinmenu.addSeparator();
+    joinmenu.addAction(tr("Close this game now"));
     usermenu.addAction(tr("Add this user to Buddylist."));
     usermenu.addAction(tr("Add this user to Ignorelist."));
     usermenu.addSeparator();
@@ -379,7 +381,11 @@ void channelTab::hostitempressed(const QModelIndex &index) {
         getjoinmenu();
         QAction *a = joinmenu.exec(QCursor::pos());
         if (a != 0) {
-            if (a->text() == tr("Choose a Program to join this game.")) {
+            if(a->text()==tr("Close this game now")){
+                singleton<netcoupler>().http->closehostandstartlasthost(hosts->at(row),false);
+                QTimer::singleShot(200,&singleton<netcoupler>(),SLOT(refreshhostlist()));
+            }
+            else if(a->text()==tr("Choose a Program to join this game.")){
                 QStringList sl = S_S.getStringList("joinstrings");
 #ifdef Q_OS_UNIX
                 QString file = QFileDialog::getOpenFileName(this, tr(
@@ -426,6 +432,7 @@ void channelTab::hboxok() {
             flag = u.flag;
     }
     singleton<netcoupler>().sendhostinfotoserverandhost(hbox->gamename, hbox->pwd, currentChannel, flag);
+    QTimer::singleShot(200,&singleton<netcoupler>(),SLOT(refreshhostlist()));
 }
 void channelTab::getjoinmenu() {
     joinmenu2.clear();
