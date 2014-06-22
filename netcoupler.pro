@@ -1,4 +1,4 @@
-DEFINES += TWS_VERSION=\\\"2.9.1-pre-alpha\\\"
+DEFINES += TWS_VERSION=\\\"2.9.2-pre-alpha\\\"
 BUILD_WITH_PHONON = NO
 
 TEMPLATE += app
