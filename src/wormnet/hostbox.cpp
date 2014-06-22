@@ -96,11 +96,11 @@ void hostbox::okclicked() {
     S_S.set("chbsendhostinfotochan", ui.chbsendhostinfotochan->isChecked());
     S_S.set("useacostumipforhosting", ui.cbip->isChecked());
     S_S.set("costumipforhosting", ui.leip->text());
-    S_S.set("legamename", ui.legamename->text().replace(" ","_"));
+    S_S.set("legamename", ui.legamename->text().replace(" ","\xA0"));
     S_S.set("lehostport", ui.lehostport->text());
     S_S.set("cbwormnat2",ui.cbwormnat2->isChecked ());    
     gamename = ui.legamename->text();
-    gamename.replace(" ", "_");
+    gamename.replace(" ", "\xA0");
     pwd = ui.lepassword->text();
     icon = ui.icons->currentText();    
     S_S.commit();
@@ -135,13 +135,14 @@ void hostbox::okclicked() {
 bool hostbox::verifywormnat(){
     QString s=S_S.getstringlist("joinstrings").first ();
     s=QFileInfo(s).path ();
-    QString msg=tr("Using Wormnat2 hosting requieres some wk files to be moved to you Worms Armageddon folder, these files may replace old files."
-                   "Do you want that?");
+    QString msg=tr("Using Wormnat2 hosting requires some wk files to be moved to your Worms Armageddon folder, these files may replace old files. "
+                   "Also make sure you have enabled \"Load WormKit modules\" in game settings (3.7.0.0 and newer).\n"
+                   "Are you sure?");
     if(!QFile::exists (s+ "/madCHook.dll")) {
         int button=QMessageBox::question (0, QObject::tr("Warning"), msg);
         if(button!=QMessageBox::Ok)
             return false;
-        QFile::copy ("Wkfiles/dsound.dll", s + "/dsound.dll");
+        QFile::copy ("Wkfiles/DelphiStringA.dll", s + "/DelphiStringA.dll");
         QFile::copy ("Wkfiles/wkPackets.dll", s + "/wkPackets.dll");
         QFile::copy ("Wkfiles/borlndmm.dll", s + "/borlndmm.dll");
         QFile::copy ("Wkfiles/madCHook.dll", s + "/madCHook.dll");
@@ -149,16 +150,23 @@ bool hostbox::verifywormnat(){
         int button=QMessageBox::question (0, QObject::tr("Warning"), msg);
         if(button!=QMessageBox::Ok)
             return false;
+        QFile::copy ("Wkfiles/DelphiStringA.dll", s + "/DelphiStringA.dll");
         QFile::copy ("Wkfiles/wkPackets.dll", s + "/wkPackets.dll");
         QFile::copy ("Wkfiles/borlndmm.dll", s + "/borlndmm.dll");
     }
-    if(QFile::exists (s + "/wkWormNAT2Ex.dll"))
+    if(!QFile::exists (s+ "/borlndmm.dll"))
+        QFile::copy ("Wkfiles/borlndmm.dll", s + "/borlndmm.dll");
+    if(QFile::exists (s + "/wkWormNAT2Ex.dll")) {
+        if (!QFile::exists (s + "/DelphiStringA.dll"))
+            QFile::copy ("Wkfiles/DelphiStringA.dll", s + "/DelphiStringA.dll");
         return true;
-    int button=QMessageBox::question (0, QObject::tr("Warning"), msg);
-    if(button!=QMessageBox::Ok)
-        return false;
-    QFile::remove (s+ "/wkWormNAT2.dll");
-    QFile::copy ("Wkfiles/wkWormNAT2Ex.dll", s + "/wkWormNAT2Ex.dll");
+    } else QFile::copy ("Wkfiles/wkWormNAT2Ex.dll", s + "/wkWormNAT2Ex.dll");
+    if(QFile::exists (s + "/wkWormNAT2.dll")) {
+        int button=QMessageBox::question (0, QObject::tr("Warning"), msg);
+        if(button!=QMessageBox::Ok)
+            return false;
+          QFile::remove (s+ "/wkWormNAT2.dll");
+    }
     return true;
 }
 void hostbox::cancelclicked() {

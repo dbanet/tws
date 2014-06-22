@@ -27,9 +27,9 @@ buttonlayout::buttonlayout(QWidget *parent) :
     ui.chatwindowbuttonscrollArea->installEventFilter(this);
     setMaximumHeight(23);
     if(S_S.getbool("cbcostumword"))
-        ui.pbcostumwords->setText(QObject::tr("Costum words")+" "+QObject::tr("on"));
+        ui.pbcostumwords->setText(QObject::tr("Custom words")+" "+QObject::tr("on"));
     else
-        ui.pbcostumwords->setText(QObject::tr("Costum words") +" "+QObject::tr("off"));
+        ui.pbcostumwords->setText(QObject::tr("Custom words") +" "+QObject::tr("off"));
 
     if(S_S.getbool("cbdontplaysound"))
         ui.pbsound->setText(QObject::tr("Sound")+" "+QObject::tr("off"));
@@ -79,9 +79,9 @@ void buttonlayout::on_pbcostumwords_clicked()
     bool b=S_S.getbool("cbcostumword");
     singleton<settingswindow>().set("cbcostumword",!b);
     if(!b)
-        ui.pbcostumwords->setText(QObject::tr("Costum words")+" "+QObject::tr("on"));
+        ui.pbcostumwords->setText(QObject::tr("Custom words")+" "+QObject::tr("on"));
     else
-        ui.pbcostumwords->setText(QObject::tr("Costum words")+" "+QObject::tr("off"));
+        ui.pbcostumwords->setText(QObject::tr("Custom words")+" "+QObject::tr("off"));
 }
 void buttonlayout::on_pbsound_clicked()
 {

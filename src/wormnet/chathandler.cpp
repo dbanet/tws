@@ -125,7 +125,7 @@ void chathandler::appendgarbage(usermessage u){
     typedef QPair<QVariant, QTextCharFormat> pair;
     QList<pair> text;
     QTextCharFormat format=getRightFormat(u);
-    text<<makepair(u.time() + ":", hash[e_hash_time]);
+    text<<makepair("[" + u.time() + "]", hash[e_hash_time]);
     if(u.has_type(e_GARBAGEJOIN)){
         if(!S_S.chbjoininfo && !isprv)
             return;
@@ -149,14 +149,14 @@ void chathandler::appendgarbage(usermessage u){
         text<<makepair(u.user() + " RAW:",format);
     else if (u.has_type(e_PRIVMSG)){
         if(u.has_type(e_ACTION)){
-            text<<makepair("< " + u.user() + ":",format);
-            suffix=">";
+            text<<makepair("* " + u.user(),format);
+            suffix="";
         }
         else
             text<<makepair(u.user()+">",format);
     } else if(u.has_type(e_NOTICE)){
         if(u.has_type(e_ACTION)){
-            text<<makepair("<<< " + u.user() + ":",format);
+            text<<makepair("<<< " + u.user(),format);
             suffix=">>>";
         }
         else{
@@ -189,7 +189,7 @@ void chathandler::append(const usermessage u){
         return;
     }
     QString time = QTime::currentTime().toString("hh:mm");
-    text<<makepair(time + ":", hash[e_hash_time]);
+    text<<makepair("[" + time + "]", hash[e_hash_time]);
     QTextCharFormat format=getRightFormat(u);
     if(u.has_type(e_CHANNELMSGTOCHAT))
         text<<makepair(tr("to ")+u.receiver()+ ": ", format);
@@ -208,14 +208,14 @@ void chathandler::append(const usermessage u){
         text<<makepair(u.user() + " SCRIPT: ",hash[e_hash_nick]);
     else if (u.has_type(e_PRIVMSG)){
         if(u.has_type(e_ACTION)){
-            text<<makepair("< " + u.user() + ": ",format);
-            suffix=">";
+            text<<makepair("* " + u.user(),format);
+            suffix="";
         }
         else
             text<<makepair(u.user()+">",hash[e_hash_nick]);
     } else if(u.has_type(e_NOTICE)){
         if(u.has_type(e_ACTION)){
-            text<<makepair("<<< " + u.user() + ": ",format);
+            text<<makepair("<<< " + u.user(),format);
             suffix=">>>";
         }
         else{
@@ -262,7 +262,7 @@ QList<QPair<QVariant, QTextCharFormat> > chathandler::getSegmentation(QString s,
         } else if(startswithCI(s, "wa://")){
             hash[e_hash_wa].setAnchorHref(s);
             hash[e_hash_wa].setProperty(linkpropertyId, s);
-            text<<makepair(tr("GAMELINK"), hash[e_hash_wa]);
+            text<<makepair("[" + tr("GAMELINK") + "]", hash[e_hash_wa]);
         } else {
             if(S_S.showsmileysinchannels)
                 text<<makepair(emot->contains(s),format);

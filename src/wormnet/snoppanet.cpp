@@ -153,9 +153,13 @@ void snoppanet::getscheme(QString s) {
 }
 void snoppanet::getscheme() {
     scheme.append(schemereply->readAll());
-    if (scheme.startsWith("<") && scheme.endsWith("\n")) {
-        scheme.remove("<SCHEME=");
-        scheme.remove(">\n");emit
+    scheme = scheme.trimmed();
+    if (scheme.startsWith("<SCHEME=",Qt::CaseInsensitive)) {
+        scheme.remove("<SCHEME=",Qt::CaseInsensitive);
+        int fin = scheme.indexOf(">");
+        if (fin != -1)
+            scheme.truncate(fin);
+        emit
                 sigchannelscheme(schemechannel, scheme);
         scheme.clear();
         schemereply->disconnect();
@@ -225,9 +229,17 @@ void snoppanet::refreshhostlist() {
 void snoppanet::hostreplyfinished() {
     QString s=hostreply->rawHeader ("SetGameId");
     QString gameid=s.remove (':').simplified ();
+
+    if(gameid.isEmpty ()) {
+        myDebug() << tr("WormNET has refused to add your host to the list, please try again later.");
+        emit sighostwontstart();
+    } else
+        emit sigstarthost(gameid);
+
+    /*
     if(gameid.isEmpty ())
         gameid="999";
-    
+
     s=hostreply->readAll();
     if(containsCI(s,"Object moved")){
         int start=s.indexOf("href=\"");
@@ -244,6 +256,7 @@ void snoppanet::hostreplyfinished() {
         emit sighostwontstart();
     } else
         myDebug()<<tr("No target for hostreply\n")<<s<<tr("Error: ") + hostreply->errorString();
+    */
 }
 hoststruct snoppanet::findmyhost(QList<hoststruct> list){
     QString ip;

@@ -149,7 +149,8 @@ void ircnet::readservermassege(QString s) {
     }
     int command = sl.first().toInt(&b);
     if(!b)
-        myDebug()<<sl<<"|"+servermessageindicator+"|";
+        if (sl.first() != "NOTICE")
+            myDebug()<<sl<<"|"+servermessageindicator+"|";
     sl.takeFirst();
     sl.takeFirst();
     QString channel;    
@@ -185,6 +186,10 @@ void ircnet::readservermassege(QString s) {
     case 366: //end of /NAME list happens after join
         break;
     case 321: //Users  Name
+        break;
+    case 332: //Channel topic
+        break;
+    case 333: //Channel created
         break;
     case 311: //311 loOkias`twsnp ```MihaiS`sW` ~sW no.address.for.you * :40 0 ?? The Wheat Snooper
         break;

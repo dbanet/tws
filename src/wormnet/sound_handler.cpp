@@ -172,7 +172,8 @@ void sound_handler::verify_if_played(const QString user) throw(dont_play_sound_e
         return;
     if(S_S.getbool("cbdontplaysound"))
         throw dont_play_sound_exception();    
-    if (S_S.getstringlist("mutedusers").contains(user, Qt::CaseInsensitive))
+    if (S_S.getstringlist("mutedusers").contains(user, Qt::CaseInsensitive)
+    || (S_S.ignorelist.contains(user, Qt::CaseInsensitive)))
         throw dont_play_sound_exception();
 }
 sound_handler::~sound_handler(){

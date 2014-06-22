@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>996</width>
-    <height>568</height>
+    <width>1158</width>
+    <height>640</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>7</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -41,8 +41,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>948</width>
-                <height>469</height>
+                <width>1102</width>
+                <height>490</height>
                </rect>
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_28">
@@ -223,8 +223,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>365</width>
-              <height>443</height>
+              <width>1070</width>
+              <height>574</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -483,8 +483,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>303</width>
-              <height>123</height>
+              <width>1096</width>
+              <height>506</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -681,8 +681,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>373</width>
-              <height>668</height>
+              <width>1070</width>
+              <height>714</height>
              </rect>
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -1272,6 +1272,13 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLabel" name="label">
            <property name="maximumSize">
             <size>
@@ -1282,13 +1289,6 @@
            <property name="text">
             <string>Better dont touch anything else then &quot;Maximum of textblocks in a chat&quot;.
 Note: A reconnect is required to apply these settings.</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="Line" name="line">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
            </property>
           </widget>
          </item>

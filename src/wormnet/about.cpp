@@ -1,5 +1,5 @@
 #include "about.h"
-QString about::version="2.81";
+QString about::version="2.8.4";
 about::about(QFrame *parent)
     : QFrame(parent)
 {
@@ -8,7 +8,7 @@ about::about(QFrame *parent)
     setAttribute(Qt::WA_DeleteOnClose);
     ui.textBrowser->setOpenExternalLinks(1);
     QString s=QString("<p>"+tr("Version")+" %1<br>" +
-                      tr("This Program was completely written by Lookias.")+"<br>"+
+                      tr("This Program was written by Lookias with some fixes from StepS.")+"<br>"+
                       tr("It was written in C++, with the eclipse ide.")+"<br>"+
                       tr("The framework in use was Qt.")+"<br>"+
                       tr("The license of the program is GPLv2.")+"<br>"+

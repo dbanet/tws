@@ -159,7 +159,11 @@ void usermodel::deletebuddy(const QString &s) {
 }
 void usermodel::addignore(const QString &s) {
     emit layoutAboutToBeChanged();
-    if (!containsCI(S_S.ignorelist, s) && !containsCI(S_S.buddylist, s))
+    if (containsCI(S_S.buddylist, s)) {
+        removeCI (S_S.buddylist,s);
+        S_S.set("buddylist", S_S.buddylist);
+    }
+    if (!containsCI(S_S.ignorelist, s))
         S_S.set("ignorelist", S_S.ignorelist << s);
     emit layoutChanged();
     emit dataChanged(createIndex(0, 0), createIndex(classes.count() - 1, 3));

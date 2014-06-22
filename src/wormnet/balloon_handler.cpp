@@ -16,7 +16,7 @@ balloon_handler::balloon_handler() {
     tray->setIcon(QIcon(QApplication::applicationDirPath() + "/snppictures/tray.png"));
     tray->setObjectName("normalwidget");
     tray->show();
-    balloonhelper << QTime::currentTime().toString("hh:mm") + ":"
+    balloonhelper << "[" + QTime::currentTime().toString("hh:mm") + "] "
             + QObject::tr("The Wheat Snooper version ")+about::version+QObject::tr(" started!");
     if(S_S.getbool("cbshowballoons"))
         tray->showMessage(tr("Notifications."), balloonhelper.join("\n"));
@@ -33,15 +33,15 @@ void balloon_handler::showballoon( ){
     balloonhelper = balloonhelper.mid(balloonhelper.size()- max_size);
 }
 void balloon_handler::disconnected() {
-    balloonhelper << QTime::currentTime().toString("hh:mm") + ":" + tr("Disconnected from Wormnet");
+    balloonhelper << "[" + QTime::currentTime().toString("hh:mm") + "] " + tr("Disconnected from Wormnet");
     showballoon();
 }
 void balloon_handler::connected(){
-    balloonhelper << QTime::currentTime().toString("hh:mm") + ":" + tr("Connected to Wormnet");
+    balloonhelper << "[" + QTime::currentTime().toString("hh:mm") + "] " + tr("Connected to Wormnet");
     showballoon();
 }
 void balloon_handler::connectedtoleagueserver(QString servicename){
-    balloonhelper << QTime::currentTime().toString("hh:mm") + ":" + tr("Connected to %1").arg(servicename);
+    balloonhelper << "[" + QTime::currentTime().toString("hh:mm") + "] " + tr("Connected to %1").arg(servicename);
     showballoon();
 }
 
@@ -60,18 +60,21 @@ void balloon_handler::buddyarrived() {
     showballoon();
 }
 void balloon_handler::got_privmsg(const usermessage &u){
-    if(!S_S.getbool("cbshowballoons"))
+    if (!S_S.getbool("cbshowballoons"))
         return;
-    balloonhelper << QTime::currentTime().toString("hh:mm") + ":" + u.user() + tr(" said: ") + u.msg();
+    if (containsCI(S_S.getstringlist("mutedusers"), u.user())
+    || (containsCI(S_S.ignorelist, u.user())))
+        return;
+    balloonhelper << "[" + QTime::currentTime().toString("hh:mm") + "] " + u.user() + tr(" said: ") + u.msg();
     showballoon();
 }
 void balloon_handler::got_game(const QString playername, const QString gamename) {
     if (gamename.size() > 5) {
         balloonhelper
-                << QTime::currentTime().toString("hh:mm") + ":"
+                << "[" + QTime::currentTime().toString("hh:mm") + "] "
                 + playername + " " + tr("is Hosting: ") + gamename.left(5) + "...";
     } else
-        balloonhelper<< QTime::currentTime().toString("hh:mm") + ":"
+        balloonhelper<< "[" + QTime::currentTime().toString("hh:mm") + "] "
                 + playername + " " + tr("is Hosting: ") + gamename.left(5);
     showballoon();
 }
@@ -80,7 +83,7 @@ void balloon_handler::got_costum_word(const QString word, const QString user) {
         return;
     if (!S_S.getbool("cbcostumword"))
         return;
-    balloonhelper<< QTime::currentTime().toString("hh:mm") + ":"
+    balloonhelper<< "[" + QTime::currentTime().toString("hh:mm") + "] "
             +"... " +  word + " ..." + tr("was highlighted by ")+ user;
     showballoon();
 }

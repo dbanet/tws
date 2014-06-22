@@ -49,7 +49,7 @@ chatwindow::chatwindow(const QString &s, QWidget *parent) :
     ui.lineEdit->setFocus(Qt::MouseFocusReason);                
 
     singleton<sound_handler>().play_chatwindowopensound();    
-    if (S_S.getstringlist("mutedusers").contains( chatpartner, Qt::CaseInsensitive))
+    if (containsCI(S_S.getstringlist("mutedusers"), chatpartner))
         ui.pbmute->setIcon(QIcon("snppictures/buttons/nomutebutton.png"));
     else
         ui.pbmute->setIcon(QIcon("snppictures/buttons/mutebutton.png"));
@@ -105,6 +105,8 @@ bool chatwindow::eventFilter(QObject *obj, QEvent *event) {
     return false;
 }
 void chatwindow::getusermessage(usermessage u_arg){
+    if (containsCI(S_S.ignorelist, u_arg.user()))
+        return;
     if(u_arg.receiver() == singleton<netcoupler>().nick && u_arg.user() == chatpartner){
         chat->append(u_arg);
         singleton<balloon_handler>().alert(u_arg.user(), this);

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>351</width>
-    <height>528</height>
+    <width>496</width>
+    <height>643</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -130,7 +130,7 @@
        <item>
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
@@ -660,7 +660,6 @@
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
   <tabstop>pbsettings</tabstop>
-  <tabstop>pbabout</tabstop>
   <tabstop>cbServerList</tabstop>
   <tabstop>lenick</tabstop>
   <tabstop>cbremember</tabstop>

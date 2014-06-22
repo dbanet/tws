@@ -97,7 +97,7 @@ void sqlsettings::importOldini(QString folder){
 void sqlsettings::loadsnpiniDefaults(){    
     set("volumeslidervalue",5);
     set("chbminimized", 0);
-    set("dissallowedclannames", QStringList()<<"Username"<<"cybershadow"<<"WebSnoop"<<"HostingBuddy"<<"SheriffBot"<<"muzer"<<"Help"<<"Miranda"<<"Mirc"<<"wormatty"<<"simon"<<"darkone"<<"noclan"<<"baleegames"<<"Green"<<"lexlexlex"<<"mattribbins");
+    set("dissallowedclannames", QStringList()<<"Username"<<"cybershadow"<<"WebSnoop"<<"HostingBuddy"<<"SheriffBot"<<"muzer"<<"Help"<<"Miranda"<<"Mirc"<<"wormatty"<<"simon"<<"darkone"<<"noclan"<<"baleegames"<<"Green"<<"lexlexlex"<<"mattribbins"<<"krd"<<"Paperfold"<<"StepS"<<"ChanServ"<<"wormiverse"<<"none"<<"unknown");
     set("textscheme", "wood by lookias.textscheme");
     set("chbsendhostinfotochan", true);
     set("language_file", "_en.Standard.qm");
