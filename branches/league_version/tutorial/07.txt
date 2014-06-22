@@ -1,5 +1,0 @@
-here you can see a chatwindow, it logs the chat and also the server events from this user. this log will be safed to querys/logs.
-in settings you can disable that it safes the log.
-the log for every user cannot be longer then 50 messages.
-
-the chatwindows provide the same functionality as channelchats.

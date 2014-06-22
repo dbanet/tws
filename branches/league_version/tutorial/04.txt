@@ -1,4 +1,0 @@
-if you rightclick a game you can choose a program to join this game, for example wormkit or wa.exe and others.
-if you choose a game the program will remember your decision and if you choose a second program it will show both, but the last 
-program you have choosen to join a game will be on top of the programs list here.
-so if you double click a game the snooper will join this game with the uppest program in this list.

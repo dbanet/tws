@@ -1,8 +1,0 @@
-This picture shows the menu which opens when you rightclick the trayicon on your controlpanel.
-under stuff you can open an about windows and the settingswindow. 
-the skins can be choosen on runtime. you can choose several layouts which affect the channelwindows.
-a leftclick to the trayicon will hide the root window.
-
-If you dont join a channel, you can still receive private messages, when the snooper is connected to wormnet. 
-so if you havent joint a channel and you only see the tray icon, the snooper will open a chatwindow,
-for every private messages attempt from all users except users in the ignorelist.
