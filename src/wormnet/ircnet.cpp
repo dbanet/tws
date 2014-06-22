@@ -426,6 +426,21 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                                              tr("Your nickname is already in use. You can wait some minutes or change your nickname and try again."),
                                              QMessageBox::Ok);
                 quit("");
+            } else if(ircMsg->command==
+            "471"){
+                myDebug()<<tr("Channel %1 is full: %2").arg(ircMsg->paramList[1], ircMsg->trailing);
+            } else if(ircMsg->command==
+            "473"){
+                myDebug()<<tr("Channel %1 is invite-only: %2").arg(ircMsg->paramList[1], ircMsg->trailing);
+            } else if(ircMsg->command==
+            "474"){
+                myDebug()<<tr("You are banned from talking in %1: %2").arg(ircMsg->paramList[1], ircMsg->trailing);
+            } else if(ircMsg->command==
+            "475"){
+                myDebug()<<tr("Incorrect password for %1: %2").arg(ircMsg->paramList[1], ircMsg->trailing);
+            } else if(ircMsg->command==
+            "476"){
+                myDebug()<<tr("Invalid channel mask for %1: %2").arg(ircMsg->paramList[1], ircMsg->trailing);
             }
             else /* FINALLY! */ myDebug()<<"The server has sent a message TWS is unable to handle. Please open an issue: \n"
                                          <<"  https://github.com/dbanet/tws/issues\n"
