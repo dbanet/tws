@@ -6,6 +6,7 @@
 #include <QStringList>
 #include <QFile>
 #include <QTextStream>
+#include <QTimer>
 
 #include "userstruct.h"
 #include "usermessage.h"
@@ -65,11 +66,9 @@ private:
     QString wnip;
     QString servermessageindicator;
     QTcpSocket *tcp;
-    void readservermassege(QString);
-    void readusermessage(QString &);        
-
-    bool whoreceivedcompletely;
-    void tcp_write(const QString &msg);    
+    QTimer *disconnectionTimeout;
+    void disconnectionTimedOut();
+    void tcp_write(const QString &msg);
 
 private slots:
     void tcpError(QAbstractSocket::SocketError);
