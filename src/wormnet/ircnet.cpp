@@ -23,9 +23,12 @@
 extern inihandlerclass inihandler;
 
 ircnet::ircnet(QString s, QObject *parent) :
-    QObject(parent), tcp(new QTcpSocket(this)) {
-    nick = s;
+    QObject(parent),tcp(new QTcpSocket(this)){
+    nick=s;
+    this->disconnectionTimeout=new QTimer();
     connect(tcp, SIGNAL(readyRead()),this, SLOT(tcpRead()));
+    connect(disconnectionTimeout,SIGNAL(timeout()),this,SLOT(disconnectionTimedOut()));
+    disconnectionTimeout->setSingleShot(true);
 }
 void ircnet::setIP(const QString &ip) {
     wnip = ip;
@@ -505,8 +508,9 @@ void ircnet::readusermessage(QString &s) {
 }
 *********************************************************/
 
-void ircnet::disconnected() {                   
-    myDebug() << tr("disconnected from irc server.");
+void ircnet::disconnected(){
+    disconnectionTimeout->stop();
+    myDebug()<<tr("disconnected from irc server.");
     emit sigDisconnected();
 }
 void ircnet::joinChannel(const QString &chan) {
@@ -551,8 +555,14 @@ void ircnet::refreshList() {
         justGotList = true;
     }
 }
-void ircnet::quit(QString s){
-    tcpWrite("QUIT : [The Wheat Snooper] "+ s);
+void ircnet::quit(QString reason){
+    tcpWrite(QString()+"QUIT : ["+TWS_VERSION+"] "+reason);
+    myDebug()<<"Waiting for the server to gracefully disconnect...";
+    disconnectionTimeout->start(5000);
+}
+void ircnet::disconnectionTimedOut(){
+    myDebug()<<"disconnection timeout, forcing...";
+    tcp->abort();
 }
 void ircnet::tcpWrite(const QString &msg){
     tcp->write(CodecSelectDia::codec->fromUnicode(msg)+"\n");

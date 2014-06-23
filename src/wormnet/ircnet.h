@@ -6,6 +6,7 @@
 #include <QStringList>
 #include <QFile>
 #include <QTextStream>
+#include <QTimer>
 
 #include "userstruct.h"
 #include "usermessage.h"
@@ -58,6 +59,8 @@ private:
     QString ircReadString;
     QString wnip;
     QTcpSocket *tcp;
+    QTimer *disconnectionTimeout;
+    void disconnectionTimedOut();
     void tcpWrite(const QString &msg);
 
 private slots:
