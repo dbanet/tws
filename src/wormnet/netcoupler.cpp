@@ -341,16 +341,17 @@ void netcoupler::refreshhostlist() {
     http->refreshHostList();
 }
 void netcoupler::startprocess(const QString &filePath,const QStringList &args){
+    bool alreadyRunning = waProcessId!=0 && isProcessRunning(waProcessId);
     if(S_S.getbool("chbhidechannelwindowsongame")){
         foreach(channelTab *w,qobjectwrapper<MainWindow>::ref().channelTabs)
             w->minimize();       
     }
     if(S_S.getbool("chbdisconnectongame"))
         qobjectwrapper<MainWindow>::ref().returntologintab();
-    if(S_S.getbool("cbsetawaywhilegaming")){
+    if(S_S.getbool("cbsetawaywhilegaming") && !alreadyRunning){
         qobjectwrapper<awayhandler>::ref().setawaywhilegameing();
     }
-    p->startDetached(filePath,args,QFileInfo(filePath).dir().canonicalPath(),(waProcessId!=0 && isProcessRunning(waProcessId))?0:&waProcessId);
+    p->startDetached(filePath,args,QFileInfo(filePath).dir().canonicalPath(),alreadyRunning?0:&waProcessId);
 }
 int netcoupler::ircstate(){
     if(irc)
