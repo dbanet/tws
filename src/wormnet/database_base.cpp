@@ -315,8 +315,7 @@ void database_base::checkifexistsinstringlist(QString key,QString value){
     set(key, sl);
 }
 bool database_base::transaction(){
-    bool b=db().transaction();    
-    ontransaction=true;
+    bool b=db().transaction(); 
     return b;
 }
 void database_base::commit(){
