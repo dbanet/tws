@@ -1,12 +1,14 @@
 #include "ctctphandlerwidget.h"
 #include "ctcphandleratomic.h"
 #include <QFile>
+#include <QDir>
 #include <QDataStream>
+#include <QDesktopServices>
 ctctphandlerwidget::ctctphandlerwidget(){
      setObjectName("ctcphandler");
     ui.setupUi(this);
      setWindowTitle(ctctphandlerwidget::tr("CTCP handler"));
-    QFile file("snpini/ctcp.ini");
+    QFile file(QDir(QDesktopServices::storageLocation(QDesktopServices::DataLocation)).absoluteFilePath("ctcp.ini"));
 
     QString line;
     QString command;

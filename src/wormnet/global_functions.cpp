@@ -7,6 +7,7 @@
 #include <QDir>
 #include <QDate>
 #include <QTextCodec>
+#include <QDesktopServices>
 
 #ifdef Q_OS_WIN32
 #include <windows.h>
@@ -167,7 +168,7 @@ QDataStream &operator>>(QDataStream &ds, usermessage &u){
 void safeusergarbage() {
     if(!S_S.getbool("cbsafequerys"))
         return;
-    QFile f(QApplication::applicationDirPath() + "/query/log2");
+    QFile f(QDir(QDesktopServices::storageLocation(QDesktopServices::DataLocation)).absoluteFilePath("log2"));
     if (!f.open(QFile::WriteOnly | QFile::Truncate))
         return;
     QDataStream ds(&f);
@@ -178,7 +179,7 @@ void safeusergarbage() {
 void loadusergarbage() {
     if(!S_S.getbool("cbsafequerys"))
         return;
-    QFile f(QApplication::applicationDirPath() + "/query/log2");
+    QFile f(QDir(QDesktopServices::storageLocation(QDesktopServices::DataLocation)).absoluteFilePath("log2"));
     QString s;
     history_type::mapped_type sl;
     if (!f.open(QFile::ReadOnly))
@@ -231,7 +232,7 @@ const QList<usermessage> history(QString user){
 void safequerylist() {
     if(!S_S.getbool("cbsafequerys"))
         return;
-    QFile f(QApplication::applicationDirPath() + "/query/querylist");
+    QFile f(QDir(QDesktopServices::storageLocation(QDesktopServices::DataLocation)).absoluteFilePath("querylist"));
     if (!f.open(QFile::WriteOnly | QFile::Truncate))
         return;
     QDataStream ds(&f);
@@ -242,7 +243,7 @@ void safequerylist() {
 void loadquerylist() {
     if(!S_S.getbool("cbsafequerys"))
         return;
-    QFile f(QApplication::applicationDirPath() + "/query/querylist");
+    QFile f(QDir(QDesktopServices::storageLocation(QDesktopServices::DataLocation)).absoluteFilePath("querylist"));
     if (!f.open(QFile::ReadOnly))
         return;
     QDataStream ds(&f);

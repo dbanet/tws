@@ -67,11 +67,12 @@ private:
     QString servermessageindicator;
     QTcpSocket *tcp;
     QTimer *disconnectionTimeout;
-    void disconnectionTimedOut();
     void tcp_write(const QString &msg);
 
 private slots:
     void tcpError(QAbstractSocket::SocketError);
+    void disconnectionTimedOut();
+
 };
 
 #endif // IRCNET_H
