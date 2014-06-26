@@ -447,13 +447,13 @@ void usermodel::sort(int column, Qt::SortOrder order) {
             QHash<QString, QList<userstruct> >::iterator i = usermap.begin();
             while (i != usermap.end()) {
                 qStableSort(i->begin(), i->end());
-                i++;
+                ++i;
             }
         } else if (order == Qt::DescendingOrder) {
             QHash<QString, QList<userstruct> >::iterator i = usermap.begin();
             while (i != usermap.end()) {
                 qStableSort(i->begin(), i->end(), qGreater<userstruct> ());
-                i++;
+                ++i;
             }
         }
     }

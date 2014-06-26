@@ -37,7 +37,7 @@ void hostmodel::sethoststruct(QList<hoststruct> l, QString chan) {
     QList<hoststruct>::const_iterator i = l.end();
     QStringList sl;
     while (i != l.begin()) {
-        i--;
+        --i;
         hostmap[chan].push_back(*i);
         if (!S_S.chbshowbaloonwhenbuddyhosts)
             continue;
