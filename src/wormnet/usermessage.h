@@ -54,10 +54,6 @@ public:
             msg.remove(0, 2);
             usermessage u(msg, e_CTCP, me, chatpartner);
             return u;
-        } else if (msg.startsWith("/")) {
-            msg.remove(0, 1);
-            usermessage u(msg, e_RAWCOMMAND, me, chatpartner);
-            return u;
         } else if (msg.startsWith(">>>")){
             msg.remove(0, 3);
             usermessage u(msg, e_NOTICE, me, chatpartner);
@@ -71,6 +67,20 @@ public:
             msg.remove(0, 1);
             usermessage u(msg, e_PRIVMSG, me, chatpartner);
             u.add_type(e_ACTION);
+            return u;
+        } else if (msg.startsWith("/me ")) {
+            msg.remove(0, 4);
+            usermessage u(msg, e_PRIVMSG, me, chatpartner);
+            u.add_type(e_ACTION);
+            return u;
+        } else if (msg.startsWith("/msg ")) {
+            msg.remove(0, 4);
+            msg.prepend("privmsg");
+            usermessage u(msg, e_RAWCOMMAND, me, chatpartner);
+            return u;
+        } else if (msg.startsWith("/")) {
+            msg.remove(0, 1);
+            usermessage u(msg, e_RAWCOMMAND, me, chatpartner);
             return u;
         }
         return usermessage(msg, e_PRIVMSG, me, chatpartner);;
