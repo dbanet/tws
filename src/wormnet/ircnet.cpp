@@ -449,6 +449,10 @@ void ircnet::tcpRead() {    //arrives like this msg\nmsg\n...\n...\n
             "476"){
                 myDebug()<<tr("Invalid channel mask for %1: %2").arg(ircMsg->paramList[1], ircMsg->trailing);
             } else if(ircMsg->command==
+            "412"){
+                /* No text to send */
+                myDebug()<<QString("%1 %2 - %3").arg(tr("Server Info:"), ircMsg->paramList[1], ircMsg->trailing);
+            } else if(ircMsg->command==
             "421"){
                 /* Unknown command */
                 myDebug()<<QString("%1 %2 - %3").arg(tr("Server Info:"), ircMsg->paramList[1], ircMsg->trailing);

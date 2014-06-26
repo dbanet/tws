@@ -75,19 +75,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="45"/>
-        <source>If you like to keep the settings from an older Snooper installation click yes.
-If you use The Wheat Snooper at the first time just click No.</source>
-        <translation>Если вы хотите импортировать старые настройки, нажмите Да.
-Если вы используете Wheat Snooper в первый раз, нажмите Нет.</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="57"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="43"/>
         <source>Please choose the folder from the old Snooper.</source>
         <translation>Пожалуйста, выберите старую папку программы</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="63"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="49"/>
         <source>This folder doesnt seem to hold a valid installation of The Wheat Snooper. Do you want to keep searching?</source>
         <translation>Эта папка, возможно, не является правильной папкой установки The Wheat Snooper. Продолжить?</translation>
     </message>
@@ -649,17 +642,12 @@ Skin_Base</translation>
         <translation>Не хватает некоторых картинок!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="44"/>
-        <source>Question</source>
-        <translation>Вопрос</translation>
-    </message>
-    <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="63"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="49"/>
         <source>Warning!</source>
         <translation>Внимание!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/sqlsettings.cpp" line="30"/>
+        <location filename="../src/wormnet/sqlsettings.cpp" line="26"/>
         <source>The translationfile cannot be loaded! it might be corrupt.</source>
         <translation>Невозможно загрузить файл языка интерфейса! Возможно, он поврежден.</translation>
     </message>
@@ -775,22 +763,22 @@ Skin_Base</translation>
         <translation>Шепот</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="80"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="81"/>
         <source>Connection WSAStartup failed %1 </source>
         <translation>Подключение WSAStartup завершилось неудачей %1 </translation>
     </message>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="85"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="86"/>
         <source>Connection Failed to resolve %1</source>
         <translation>Ошибка получения ответа при подключении %1</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="96"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="97"/>
         <source>Connection Failed to connect (Error %1)</source>
         <translation>Не удалось подключиться (Ошибка %1)</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/global_functions.cpp" line="104"/>
+        <location filename="../src/wormnet/global_functions.cpp" line="105"/>
         <source>Connection Failed to read initial port (Error %1)</source>
         <translation>Не удалось прочитать стартовый порт (Ошибка %1)</translation>
     </message>
@@ -1273,12 +1261,12 @@ Skin_Base</translation>
 <context>
     <name>ctctphandlerwidget</name>
     <message>
-        <location filename="../src/wormnet/ctctphandlerwidget.cpp" line="8"/>
+        <location filename="../src/wormnet/ctctphandlerwidget.cpp" line="10"/>
         <source>CTCP handler</source>
         <translation>Обработчик CTCP</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ctctphandlerwidget.cpp" line="81"/>
+        <location filename="../src/wormnet/ctctphandlerwidget.cpp" line="83"/>
         <source>CTCP commands are simple messages, that are bounded with ASCII 0x01 signs.
 These signs cannot be written directly into a textline.
 If you want to send a ctcp command you must prefix the message with &gt;!
@@ -1521,63 +1509,110 @@ Are you sure?</source>
 <context>
     <name>ircnet</name>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="42"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="45"/>
         <source>Reconnecting</source>
         <translation>Переподключение...</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="48"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="51"/>
         <source>There was an error with the connection to Wormnet.</source>
         <translation>Ошибка при подключении к серверу.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="364"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="374"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="454"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="458"/>
         <source>Server Info:</source>
         <translation>Информация сервера:</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="387"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="397"/>
         <source>Server time: %1</source>
         <translation>Время сервера: %1</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="489"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="438"/>
+        <source>Channel %1 is full: %2</source>
+        <translation>Канал %1 переполнен: %2</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/ircnet.cpp" line="441"/>
+        <source>Channel %1 is invite-only: %2</source>
+        <translation>Зайти на %1 можно только по приглашениям: %2</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/ircnet.cpp" line="444"/>
+        <source>You are banned from talking in %1: %2</source>
+        <translation>Вы забанены на канале %1: %2</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/ircnet.cpp" line="447"/>
+        <source>Incorrect password for %1: %2</source>
+        <translation>Неверный пароль для %1: %2</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/ircnet.cpp" line="450"/>
+        <source>Invalid channel mask for %1: %2</source>
+        <translation>Неверная маска канала для %1: %2</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/ircnet.cpp" line="523"/>
         <source>disconnected from irc server.</source>
         <translation>Потеряна связь с IRC-сервером!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="418"/>
-        <location filename="../src/wormnet/ircnet.cpp" line="422"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="428"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="432"/>
         <source>Nickname collision!</source>
         <translation>Никнейм уже занят!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="135"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="138"/>
         <source>%1 gives channel operator status to %2</source>
         <translation>%1 присвоил права оператора пользователю %2</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="137"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="140"/>
         <source>%1 removes channel operator status from %2</source>
         <translation>%1 снял права оператора с пользователя %2</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="139"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="142"/>
         <source>%1 sets mode %2%3 on %4 %5</source>
         <translation>%1 задал режим %2%3 на %4 %5</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="346"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="292"/>
+        <source>has quit (%1)</source>
+        <translation>вышел (%1)</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/ircnet.cpp" line="315"/>
+        <source>has left %1</source>
+        <translation>покинул %1</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/ircnet.cpp" line="316"/>
+        <source>has left %1 (%2)</source>
+        <translation>покинул %1 (%2)</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/ircnet.cpp" line="342"/>
+        <source>has joined %1</source>
+        <translation>зашёл на %1</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/ircnet.cpp" line="356"/>
         <source>%1 has changed the topic to &quot;%2&quot;</source>
         <translation>%1 поменял тему канала на &quot;%2&quot;</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="419"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="429"/>
         <source>Your nickname is already in use. You can wait some minutes or click on the profile button in secure logging section to change your nickname and try again.</source>
         <translation>Ваш никнейм уже используется. Вы можете подождать несколько минут либо нажать на кнопке &quot;Профиль&quot; в секции безопасного логина для смены никнейма и повторной попытки.</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/ircnet.cpp" line="423"/>
+        <location filename="../src/wormnet/ircnet.cpp" line="433"/>
         <source>Your nickname is already in use. You can wait some minutes or change your nickname and try again.</source>
         <translation>Ваш никнейм уже используется. Вы можете подождать несколько минут или изменить никнейм и попробовать снова.</translation>
     </message>
@@ -2548,7 +2583,7 @@ Note: A reconnect is required to apply these settings.</source>
         <translation>Потеряна связь с игровым сервером!</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/snoppanet.cpp" line="248"/>
+        <location filename="../src/wormnet/snoppanet.cpp" line="249"/>
         <source>WormNET has refused to add your host to the list, please try again later.</source>
         <translation>WormNET отказался добавлять ваш хост в список; пожалуйста, попробуйте чуть позже.</translation>
     </message>
@@ -2601,18 +2636,18 @@ Note: A reconnect is required to apply these settings.</source>
         <location filename="../src/wormnet/mainwindow.cpp" line="778"/>
         <location filename="../src/wormnet/usermodel.cpp" line="116"/>
         <location filename="../src/wormnet/usermodel.cpp" line="248"/>
-        <location filename="../src/wormnet/window.cpp" line="167"/>
-        <location filename="../src/wormnet/window.cpp" line="345"/>
-        <location filename="../src/wormnet/window.cpp" line="375"/>
-        <location filename="../src/wormnet/window.cpp" line="403"/>
+        <location filename="../src/wormnet/window.cpp" line="169"/>
+        <location filename="../src/wormnet/window.cpp" line="347"/>
+        <location filename="../src/wormnet/window.cpp" line="377"/>
+        <location filename="../src/wormnet/window.cpp" line="405"/>
         <source>Buddylist</source>
         <translation>Список друзей</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="346"/>
-        <location filename="../src/wormnet/window.cpp" line="384"/>
-        <location filename="../src/wormnet/window.cpp" line="398"/>
-        <location filename="../src/wormnet/window.cpp" line="403"/>
+        <location filename="../src/wormnet/window.cpp" line="348"/>
+        <location filename="../src/wormnet/window.cpp" line="386"/>
+        <location filename="../src/wormnet/window.cpp" line="400"/>
+        <location filename="../src/wormnet/window.cpp" line="405"/>
         <source>Ignorelist</source>
         <translation>Список игнорируемых</translation>
     </message>
@@ -2634,10 +2669,10 @@ Note: A reconnect is required to apply these settings.</source>
     <message>
         <location filename="../src/wormnet/usermodel.cpp" line="117"/>
         <location filename="../src/wormnet/usermodel.cpp" line="220"/>
-        <location filename="../src/wormnet/window.cpp" line="165"/>
-        <location filename="../src/wormnet/window.cpp" line="310"/>
-        <location filename="../src/wormnet/window.cpp" line="333"/>
-        <location filename="../src/wormnet/window.cpp" line="403"/>
+        <location filename="../src/wormnet/window.cpp" line="167"/>
+        <location filename="../src/wormnet/window.cpp" line="312"/>
+        <location filename="../src/wormnet/window.cpp" line="335"/>
+        <location filename="../src/wormnet/window.cpp" line="405"/>
         <source>Querys</source>
         <translation>Разговоры</translation>
     </message>
@@ -2691,98 +2726,104 @@ Note: A reconnect is required to apply these settings.</source>
         <translation>Создать игру на </translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="471"/>
-        <location filename="../src/wormnet/window.cpp" line="488"/>
-        <location filename="../src/wormnet/window.cpp" line="526"/>
+        <location filename="../src/wormnet/window.cpp" line="477"/>
+        <location filename="../src/wormnet/window.cpp" line="494"/>
+        <location filename="../src/wormnet/window.cpp" line="533"/>
         <source>Choose a Program to join this game.</source>
         <translation>Выбрать программу для входа в эту игру</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="96"/>
-        <location filename="../src/wormnet/window.cpp" line="362"/>
+        <location filename="../src/wormnet/window.cpp" line="98"/>
+        <location filename="../src/wormnet/window.cpp" line="364"/>
         <source>Add this user to Buddylist.</source>
         <translation>Добавить этого игрока в список друзей</translation>
     </message>
     <message>
         <location filename="../src/wormnet/window.cpp" line="97"/>
-        <location filename="../src/wormnet/window.cpp" line="364"/>
+        <location filename="../src/wormnet/window.cpp" line="473"/>
+        <source>Close this game now</source>
+        <translation>Закрыть эту игру сейчас</translation>
+    </message>
+    <message>
+        <location filename="../src/wormnet/window.cpp" line="99"/>
+        <location filename="../src/wormnet/window.cpp" line="366"/>
         <source>Add this user to Ignorelist.</source>
         <translation>Добавить этого игрока в список игнорируемых</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="99"/>
         <location filename="../src/wormnet/window.cpp" line="101"/>
-        <location filename="../src/wormnet/window.cpp" line="337"/>
-        <location filename="../src/wormnet/window.cpp" line="342"/>
-        <location filename="../src/wormnet/window.cpp" line="351"/>
-        <location filename="../src/wormnet/window.cpp" line="357"/>
-        <location filename="../src/wormnet/window.cpp" line="366"/>
-        <location filename="../src/wormnet/window.cpp" line="380"/>
-        <location filename="../src/wormnet/window.cpp" line="389"/>
+        <location filename="../src/wormnet/window.cpp" line="103"/>
+        <location filename="../src/wormnet/window.cpp" line="339"/>
+        <location filename="../src/wormnet/window.cpp" line="344"/>
+        <location filename="../src/wormnet/window.cpp" line="353"/>
+        <location filename="../src/wormnet/window.cpp" line="359"/>
+        <location filename="../src/wormnet/window.cpp" line="368"/>
+        <location filename="../src/wormnet/window.cpp" line="382"/>
+        <location filename="../src/wormnet/window.cpp" line="391"/>
         <source>Show info about this user.</source>
         <translation>Показать информацию об этом игроке</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="100"/>
-        <location filename="../src/wormnet/window.cpp" line="378"/>
-        <location filename="../src/wormnet/window.cpp" line="387"/>
+        <location filename="../src/wormnet/window.cpp" line="102"/>
+        <location filename="../src/wormnet/window.cpp" line="380"/>
+        <location filename="../src/wormnet/window.cpp" line="389"/>
         <source>Remove this user from the list.</source>
         <translation>Удалить этого игрока из списка</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="321"/>
-        <location filename="../src/wormnet/window.cpp" line="326"/>
+        <location filename="../src/wormnet/window.cpp" line="323"/>
+        <location filename="../src/wormnet/window.cpp" line="328"/>
         <source>Allow this clanname.</source>
         <translation>Разрешить это имя клана</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="323"/>
-        <location filename="../src/wormnet/window.cpp" line="328"/>
+        <location filename="../src/wormnet/window.cpp" line="325"/>
+        <location filename="../src/wormnet/window.cpp" line="330"/>
         <source>Dissallow this clanname.</source>
         <translation>Запретить это имя клана</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="335"/>
-        <location filename="../src/wormnet/window.cpp" line="340"/>
+        <location filename="../src/wormnet/window.cpp" line="337"/>
+        <location filename="../src/wormnet/window.cpp" line="342"/>
         <source>Remove this Query.</source>
         <translation>Удалить этот разговор</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="349"/>
-        <location filename="../src/wormnet/window.cpp" line="368"/>
+        <location filename="../src/wormnet/window.cpp" line="351"/>
+        <location filename="../src/wormnet/window.cpp" line="370"/>
         <source>Remove this user from Buddylist.</source>
         <translation>Удалить этого игрока из списка друзей</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="355"/>
-        <location filename="../src/wormnet/window.cpp" line="370"/>
+        <location filename="../src/wormnet/window.cpp" line="357"/>
+        <location filename="../src/wormnet/window.cpp" line="372"/>
         <source>Remove this user from Ignorelist.</source>
         <translation>Удалить этого игрока из списка игнорируемых</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="427"/>
+        <location filename="../src/wormnet/window.cpp" line="429"/>
         <source>Sry but there is no webside for this user available, at </source>
         <translation>Извините, но профиль пользователя не найден на </translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="474"/>
+        <location filename="../src/wormnet/window.cpp" line="480"/>
         <source>Choose a desktop icon.</source>
         <translation>Выбрать программу</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="477"/>
-        <location filename="../src/wormnet/window.cpp" line="479"/>
+        <location filename="../src/wormnet/window.cpp" line="483"/>
+        <location filename="../src/wormnet/window.cpp" line="485"/>
         <source>Choose a Program.</source>
         <translation>Выбрать программу</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="552"/>
+        <location filename="../src/wormnet/window.cpp" line="559"/>
         <source>Users online</source>
         <translation>пользователей в сети</translation>
     </message>
     <message>
-        <location filename="../src/wormnet/window.cpp" line="311"/>
         <location filename="../src/wormnet/window.cpp" line="313"/>
+        <location filename="../src/wormnet/window.cpp" line="315"/>
         <source>Remove Querys</source>
         <translation>Удалить разговоры</translation>
     </message>
