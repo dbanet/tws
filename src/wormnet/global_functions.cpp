@@ -49,7 +49,8 @@ QStringList getwormnat2commandline(){
     SecAttr.bInheritHandle=TRUE;
     SecAttr.lpSecurityDescriptor=0;
     HANDLE WaitEvent=CreateEvent(&SecAttr,0,0,0);
-    return QStringList() << "/wkargs" << "/wnat2" << QString("%1-%2-%3").arg(GetCurrentProcessId(), (DWORD)ControlSocket, (DWORD)WaitEvent);
+    return QStringList() << "/wkargs" << "/wnat2" << QString("%1-%2-%3").arg(GetCurrentProcessId()).arg(ControlSocket).arg((u_int)WaitEvent);
+    
     //QString s=QString(" /wkargs /wnat2 %1-%2-%3").arg(GetCurrentProcessId()).arg(ControlSocket).arg((u_int)WaitEvent);
     /*
     STARTUPINFOA si;
