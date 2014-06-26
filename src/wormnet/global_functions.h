@@ -26,6 +26,7 @@ void appendhistory(usermessage u);
 const QHash<QString, QList<usermessage> > history();
 const QList<usermessage> history(usermessage u);
 const QList<usermessage> history(QString user);
+QString dateTime();
 QString time();
 void safequerylist();
 void loadquerylist();

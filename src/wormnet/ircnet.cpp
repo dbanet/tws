@@ -265,8 +265,8 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
 
                 /* OOPS! If !foundAndUpdated, it seems that someone has joined on the channel    */
                 /* AFTER the NAMES reply has been sent, but BEFORE the WHO reply has been sent.  */
-                if(!foundAndUpdated){ /* So we just add a new userstruct to the end...           */
-                    this->userList<<userstruct(userstructSetupQSL);
+                if(!foundAndUpdated){ /* So we just prepend a new userstruct...                  */
+                    this->userList.prepend(userstruct(userstructSetupQSL));
                 }
             } else if(ircMsg->command==
             "315"){
@@ -288,7 +288,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 updateuserlist;
 
                 /* Lookias code. Write in chatwindow, store in history, etc. */
-                usermessage u("QUIT :"+ircMsg->trailing /* reason */,
+                usermessage u(tr("has quit (%1)").arg(ircMsg->trailing), /* reason */
                               usermessage_type(e_GARBAGE | e_GARBAGEQUIT),
                               nick,
                               channelsTheQuittedUserWasBeingOn.join(",")
@@ -310,7 +310,9 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 updateuserlist;
 
                 /* Lookias code. Write in chatwindow, store in history, etc. */
-                usermessage u("PART "+channel+" :"+ircMsg->trailing,
+                usermessage u(ircMsg->trailing.isEmpty() ?
+                              tr("has left %1").arg(channel) :
+                              tr("has left %1 (%2)").arg(channel, ircMsg->trailing),
                               usermessage_type(e_GARBAGE | e_GARBAGEPART),nick,channel);
                 u.settime(time());
                 appendhistory(u);
@@ -334,7 +336,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 tcp_write("WHO "+nick+"\n");
 
                 /* Lookias code. Write in chatwindow, store in history, etc. */
-                usermessage u("JOIN "+channel,
+                usermessage u(tr("has joined %1").arg(channel),
                               usermessage_type(e_GARBAGE | e_GARBAGEJOIN),nick,channel);
                 u.settime(time());
                 appendhistory(u);
@@ -443,6 +445,10 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
             } else if(ircMsg->command==
             "476"){
                 myDebug()<<tr("Invalid channel mask for %1: %2").arg(ircMsg->paramList[1], ircMsg->trailing);
+            } else if(ircMsg->command==
+            "421"){
+                /* Unknown command */
+                myDebug()<<QString("%1 %2 - %3").arg(tr("Server Info:"), ircMsg->paramList[1], ircMsg->trailing);
             }
             else /* FINALLY! */ myDebug()<<"The server has sent a message TWS is unable to handle. Please open an issue: \n"
                                          <<"  https://github.com/dbanet/tws/issues\n"

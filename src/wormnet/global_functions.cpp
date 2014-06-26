@@ -203,7 +203,7 @@ void appendhistory(usermessage u){
 
     if (my_history[user].size() > S_S.sbmaximumoftextblocksinlog)
         my_history[user] = my_history[user].mid(S_S.sbmaximumoftextblocksinlog * 2/ 3);;
-    u.settime(time());
+    u.settime(dateTime());
     u.add_type(e_GARBAGE);
     if (my_history[user].size() < S_S.sbmaximumoftextblocksinlog)
         my_history[user.toLower()] << u;
@@ -213,8 +213,12 @@ void appendhistory(usermessage u){
     }
 }
 //----------------------------------------------------------------------------------------------
+QString dateTime(){
+    return QDate::currentDate().toString("dd.MM.yyyy") + " "+ QTime::currentTime().toString("hh:mm:ss");
+}
+//----------------------------------------------------------------------------------------------
 QString time(){
-    return QDate::currentDate().toString("dd.MM") + " "+ QTime::currentTime().toString("hh:mm");
+    return QTime::currentTime().toString("hh:mm:ss");
 }
 //----------------------------------------------------------------------------------------------
 const QHash<QString, QList<usermessage> > history(){

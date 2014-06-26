@@ -166,7 +166,7 @@ void chatHandler::appendGarbage(usermessage u){
             suffix=">>";
         }
     } else
-        text<<makePair(u.user() + ":",format);
+        text<<makePair("* " + u.user(),format);
     text<<getSegmentation(u.msg(), format);
     text<<makePair(suffix,format);
 
@@ -190,7 +190,7 @@ void chatHandler::append(const usermessage u){
         appendGarbage(u);
         return;
     }
-    QString time = QTime::currentTime().toString("hh:mm");
+    QString time = QTime::currentTime().toString("hh:mm:ss");
     text<<makePair("[" + time + "]", hash[e_hash_time]);
     QTextCharFormat format=getRightFormat(u);
     if(u.has_type(e_CHANNELMSGTOCHAT))
