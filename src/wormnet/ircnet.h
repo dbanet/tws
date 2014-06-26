@@ -60,11 +60,12 @@ private:
     QString wnip;
     QTcpSocket *tcp;
     QTimer *disconnectionTimeout;
-    void disconnectionTimedOut();
     void tcpWrite(const QString &msg);
 
 private slots:
     void tcpError(QAbstractSocket::SocketError);
+    void disconnectionTimedOut();
+
 };
 
 #endif // IRCNET_H

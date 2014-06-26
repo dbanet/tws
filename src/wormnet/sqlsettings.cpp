@@ -13,10 +13,6 @@ sqlsettings::sqlsettings(){
 void sqlsettings::start(QDir databaseDir,QString databaseName){
     databasename=databaseDir.absoluteFilePath(databaseName);
     bool b=databasexists(databaseDir,databaseName);
-    if(!QDir().exists("query"))
-        QDir().mkdir("query");
-    if(!QDir().exists("snpini"))
-        QDir().mkdir("snpini");
     db().transaction();
     if(!b){
         loadsnpiniDefaults();
@@ -39,17 +35,7 @@ bool sqlsettings::databasexists(QDir databaseDir,QString databaseName){
     QDir().mkpath(databaseDir.absolutePath());
     installTranslationBySystemLocale();
     db().transaction();
-    if(QFile::exists("snpini/snpini"))
-        return importOldini(), true;
-    int button=QMessageBox::question(0,QObject::tr("Question")
-                                     ,QApplication::tr("If you like to keep the settings from an older Snooper installation click yes.\n"
-                                                       "If you use The Wheat Snooper at the first time just click No.")
-                                     ,QMessageBox::Yes | QMessageBox::No);
-    if(button==QMessageBox::Yes)
-        keepSettings();
-    else
-        return false;
-    return true;
+    return false;
 }
 void sqlsettings::keepSettings(){
     QString folder;
