@@ -253,7 +253,7 @@ void mainwindow::join(const QString channel){
     if(joinedChannels.contains(channel))
         return;
     joinedChannels << channel;
-    Q_ASSERT_X(whichUIType!=1 && whichUIType!=2 && whichUIType!=3,"void mainWindow::join(const QString channel)","whichUIType is not equal to 1, 2 or 3");
+    Q_ASSERT_X(whichUIType==1 || whichUIType==2 || whichUIType==3,"void mainWindow::join(const QString channel)","whichUIType is not equal to 1, 2 or 3");
     windowList.push_back(new channelWindow(channel,whichUIType));
     windowList.last()->setObjectName("channelwindow");
     singleton<netcoupler>().joinChannel(channel);
