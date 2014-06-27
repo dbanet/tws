@@ -8,13 +8,17 @@ mingw32-make -j4
 
 xcopy /H /O /T /S /E /R /V "%twsdir%\bld\*" .\
 
-copy %MINGW%\bin\mingwm10.dll   .\
-copy %QTDIR%\bin\libgcc*        .\
-copy %QTDIR%\bin\QtCore4.dll    .\
-copy %QTDIR%\bin\QtGui4.dll     .\
-copy %QTDIR%\bin\QtNetwork4.dll .\
-copy %QTDIR%\bin\phonon4.dll    .\
-copy %QTDIR%\bin\QtSql4.dll     .\
+copy %MINGW%\bin\mingwm10.dll        .\
+copy %QTDIR%\bin\libgcc*             .\
+copy %QTDIR%\bin\QtCore4.dll         .\
+copy %QTDIR%\bin\QtGui4.dll          .\
+copy %QTDIR%\bin\QtNetwork4.dll      .\
+copy %QTDIR%\bin\phonon4.dll         .\
+copy %QTDIR%\bin\QtSql4.dll          .\
+copy %QTDIR%\bin\libwinpthread-1.dll .\
+copy %QTDIR%\bin\libstdc++-6.dll     .\
+copy %QTDIR%\bin\QtDBus4.dll         .\
+copy %QTDIR%\bin\QtXml4.dll          .\
 
 mkdir iconengines
 copy %QTDIR%\plugins\iconengines\qsvgicon4.dll .\iconengines\
