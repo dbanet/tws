@@ -445,13 +445,10 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
             } else if(ircMsg->command==
             "476"){
                 myDebug()<<tr("Invalid channel mask for %1: %2").arg(ircMsg->paramList[1], ircMsg->trailing);
-            } else if(ircMsg->command==
-            "412"){
-                /* No text to send */
-                myDebug()<<QString("%1 %2 - %3").arg(tr("Server Info:"), ircMsg->paramList[1], ircMsg->trailing);
-            } else if(ircMsg->command==
-            "421"){
-                /* Unknown command */
+            } else if(
+            ircMsg->command=="421" || // Unknown command
+            ircMsg->command=="412" || // No text to send
+            ircMsg->command=="451" ){ // Unregistered
                 myDebug()<<QString("%1 %2 - %3").arg(tr("Server Info:"), ircMsg->paramList[1], ircMsg->trailing);
             }
             else /* FINALLY! */ myDebug()<<"The server has sent a message TWS is unable to handle. Please open an issue: \n"
