@@ -45,7 +45,7 @@ hostbox::hostbox(QString c, QWidget *parent) :
     ui.legamename->installEventFilter(this);
     ui.lehostport->installEventFilter(this);
     ui.leplayername->installEventFilter(this);
-    resize(9,9);
+//  resize(9,9);
 }
 bool hostbox::eventFilter(QObject *obj, QEvent *event){
     QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
