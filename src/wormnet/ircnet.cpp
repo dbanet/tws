@@ -85,7 +85,6 @@ void ircnet::connected() {
     emit sigConnected();
 }
 void ircnet::tcpRead() {    //arrives like this msg\nmsg\n...\n...\n
-
     /* have no idea what actually happens in this define, but it somehow updates the userlist with              */
     /* QList of userstructs this->wholist. I don't know WTF is the second argument... ;)                        */
     #define updateuserlist singleton<netcoupler>().users.setuserstruct(this->userList,QHash<QString,QStringList>())
@@ -150,7 +149,7 @@ void ircnet::tcpRead() {    //arrives like this msg\nmsg\n...\n...\n
             /*******************************************************/
             /* updating the userlist on quit, part, kick, join...  */
             /*******************************************************/
-              else if(ircMsg->command==
+            else if(ircMsg->command==
             "JOIN"){
                 QString nick=ircMsg->prefix.split("!")[0];
                 QString channel=ircMsg->trailing;
@@ -223,7 +222,7 @@ void ircnet::tcpRead() {    //arrives like this msg\nmsg\n...\n...\n
             /**********************************/
             /*  startup/join thingies here... */
             /**********************************/
-              else if(ircMsg->command==
+            else if(ircMsg->command==
             "315"){
                 // end of the /WHO command
                 updateuserlist;
@@ -473,6 +472,7 @@ void ircnet::tcpRead() {    //arrives like this msg\nmsg\n...\n...\n
                                          <<"Received message: "<<ircMsg->getFancy()+" || RAW: "+ircMsg->getRaw();
         }
     }
+    #undef updateuserlist
 }
 QString ircnet::canonizeChannelName(QString channelArg){
     foreach(QString channel,this->channellist.keys())
