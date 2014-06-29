@@ -178,7 +178,7 @@ TRANSLATIONS += \
     translations/_de.German_by_lookias.ts \
     translations/_es.Spanish_by_eViL.ts \
     translations/_fr.French_by_LeTotalKiller.ts \
-    translations/_pt.Portugues.ts \
+    translations/_pt.Portugues_by_Kaleu.ts \
     translations/_ro.Romanian_by_MihaiS.ts \
     translations/_ru.Russian_translation_by_StepS.ts \
     translations/_pl.Polish_by_CzAjNiK.ts \
