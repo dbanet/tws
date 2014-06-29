@@ -196,6 +196,25 @@ void ircnet::tcpRead() {    //arrives like this msg\nmsg\n...\n...\n
                 emit sigGotUserMessage(u);
                 emit sigIRCUpdatedAmountOfUsers(channel,--channellist[this->canonizeChannelName(channel)]);
             } else if(ircMsg->command==
+            "KICK"){
+                QString master=ircMsg->prefix.split("!")[0];
+                QString nick=ircMsg->paramList[1];
+                QString channel=ircMsg->paramList[0];
+                for(QList<userstruct>::iterator i=this->userList.begin();i<this->userList.end();)
+                    if(i->nick==nick &&
+                       i->chan.toLower()==channel.toLower())
+                        i=this->userList.erase(i);
+                    else ++i;
+                updateuserlist;
+
+                /* Lookias code. Write in chatwindow, store in history, etc. */
+                usermessage u(tr("has been kicked from %1 by %2 (%3)").arg(channel, master, ircMsg->trailing),
+                              usermessage_type(e_GARBAGE | e_GARBAGEPART),nick,channel);
+                u.settime(time());
+                appendhistory(u);
+                emit sigGotUserMessage(u);
+                emit sigIRCUpdatedAmountOfUsers(channel,--channellist[this->canonizeChannelName(channel)]);
+            } else if(ircMsg->command==
             "QUIT"){
                 QString nick=ircMsg->prefix.split("!")[0];
                 QStringList channelsTheQuittedUserWasBeingOn;
