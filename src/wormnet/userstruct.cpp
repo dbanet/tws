@@ -1,10 +1,3 @@
-/*
- * userstruct.cpp
- *
- *  Created on: 16.10.2008
- *      Author: looki
- */
-
 #include "userstruct.h"
 #include "netcoupler.h"
 #include "myDebug.h"
