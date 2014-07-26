@@ -16,3 +16,18 @@ Later I was interested in writing my own snooper, but just after I said I was go
 I immediately have got interested in this, so I've asked StepS to share TWS's sources with me, because the old sources location was down. The sources given me by StepS already contained some fixes made by him. Then I've created this repository, compiled TWS for my platform, taken the maintainance of this software and continued the development.
 
 That's all.
+
+Screenshots (v3.0)
+------------------
+
+![](http://i.imgur.com/s8U0XRM.png)
+
+**Tabs for servers, channels and users:**
+![](http://i.imgur.com/jqsytGV.png)
+
+**The GUI is highly customizable on the fly:**
+![](http://i.imgur.com/thbrgpH.png)
+![](http://i.imgur.com/ES9AM1k.png)
+
+**Running on Microsoft Windows 7:**
+![](http://i.imgur.com/xPlg6tk.png)
