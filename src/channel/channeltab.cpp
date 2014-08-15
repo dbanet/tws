@@ -577,7 +577,6 @@ void channelTab::on_users_customContextMenuRequested(const QPoint &pos)
     QModelIndex index=this->sortedChanUserModel->mapToSource(ui->users->indexAt(pos));
     if  (!index.isValid()) return;
     int row   =index.row();
-    int column=index.column();
     userstruct user=users->at(row);
 
     /* else if (singleton<netcoupler>().users.classes[index.internalId()] != usermodel::tr("Buddylist")
@@ -659,7 +658,6 @@ void channelTab::userListContextMenu_inclInBuddyList(bool checked){
     QModelIndex index=this->sortedChanUserModel->mapToSource(ui->users->indexAt(clickedPos));
     if  (!index.isValid()) return;
     int row   =index.row();
-    int column=index.column();
     userstruct user=users->at(row);
 
     if(checked){
@@ -680,7 +678,6 @@ void channelTab::userListContextMenu_inclInIgnrList(bool checked){
     QModelIndex index=this->sortedChanUserModel->mapToSource(ui->users->indexAt(clickedPos));
     if  (!index.isValid()) return;
     int row   =index.row();
-    int column=index.column();
     userstruct user=users->at(row);
 
     if(checked){
@@ -701,7 +698,6 @@ void channelTab::userListContextMenu_startPrvTalk(){
     QModelIndex index=this->sortedChanUserModel->mapToSource(ui->users->indexAt(clickedPos));
     if  (!index.isValid()) return;
     int row   =index.row();
-    int column=index.column();
     userstruct user=users->at(row);
 
     openchatwindow(user.nick);
@@ -713,7 +709,6 @@ void channelTab::userListContextMenu_actionInclInDisallowedClanNames(bool checke
     QModelIndex index=this->sortedChanUserModel->mapToSource(ui->users->indexAt(clickedPos));
     if  (!index.isValid()) return;
     int row   =index.row();
-    int column=index.column();
     userstruct user=users->at(row);
 
     QStringList disallowedClanNames;

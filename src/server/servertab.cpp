@@ -124,7 +124,6 @@ void serverTab::on_noChannelUsersView_customContextMenuRequested(const QPoint &p
     QModelIndex index=this->sortedNoChannelUserModel->mapToSource(ui->noChannelUsersView->indexAt(pos));
     if  (!index.isValid()) return;
     int row   =index.row();
-    int column=index.column();
     userstruct user=noChannelUsers->at(row);
 
     QMenu *userListContextMenu=new QMenu();
@@ -155,7 +154,6 @@ void serverTab::userListContextMenu_inclInBuddyList(bool checked){
     QModelIndex index=this->sortedNoChannelUserModel->mapToSource(ui->noChannelUsersView->indexAt(clickedPos));
     if  (!index.isValid()) return;
     int row   =index.row();
-    int column=index.column();
     userstruct user=noChannelUsers->at(row);
 
     if(checked){
@@ -176,7 +174,6 @@ void serverTab::userListContextMenu_inclInIgnrList(bool checked){
     QModelIndex index=this->sortedNoChannelUserModel->mapToSource(ui->noChannelUsersView->indexAt(clickedPos));
     if  (!index.isValid()) return;
     int row   =index.row();
-    int column=index.column();
     userstruct user=noChannelUsers->at(row);
 
     if(checked){
@@ -209,7 +206,6 @@ void serverTab::userListContextMenu_actionInclInDisallowedClanNames(bool checked
     QModelIndex index=this->sortedNoChannelUserModel->mapToSource(ui->noChannelUsersView->indexAt(clickedPos));
     if  (!index.isValid()) return;
     int row   =index.row();
-    int column=index.column();
     userstruct user=noChannelUsers->at(row);
 
     QStringList disallowedClanNames;

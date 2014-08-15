@@ -11,7 +11,9 @@ SET (PROJECT netcoupler)
 
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 CMAKE_POLICY (VERSION 2.8)
-CMAKE_POLICY(SET CMP0037 OLD)
+IF (CMAKE_MAJOR_VERSION GREATER 2)
+    CMAKE_POLICY (SET CMP0037 OLD)
+ENDIF ()
 
 ADD_DEFINITIONS (-DTWS_VERSION="3.0-alpha")
 PROJECT (${PROJECT})
@@ -40,7 +42,7 @@ SET (HEADERS
     src/awaybox.h 
     src/buddylist.h
     src/buttonlayout.h
-    src/charformatsettings.h
+    #src/charformatsettings.h
     src/chathandler.h
     src/chathandlerprv.h
     src/chatwindow.h
@@ -49,8 +51,8 @@ SET (HEADERS
     src/ctctphandlerwidget.h
     src/emoticonhandler.h
     src/hostbox.h
-    src/hoststruct.h
-    src/inihandlerclass.h
+    #src/hoststruct.h
+    #src/inihandlerclass.h
     src/ircnet.h
     src/joinprvgame.h
     src/logbrowser.h
@@ -59,37 +61,37 @@ SET (HEADERS
     src/netcoupler.h
     src/settingswindow.h
     src/snoppanet.h
-    src/snpsettings.h
+    #src/snpsettings.h
     src/textschemehandler.h
-    src/uihelper.h
+    #src/uihelper.h
     src/usermodel.h
-    src/userstruct.h
+    #src/userstruct.h
     src/volumeslider.h
-    src/global_macros.h
-    src/singleton.h
-    src/global_functions.h
+    #src/global_macros.h
+    #src/singleton.h
+    #src/global_functions.h
     src/combobox_wrapper.h
     src/balloon_handler.h    
     src/codecselectdia.h
     src/clantowebpagemapper.h
-    src/mydebugclass.h
-    src/myDebug.h
+    #src/mydebugclass.h
+    #src/myDebug.h
     src/leagueserverhandler.h
-    src/picturehandler.h
+    #src/picturehandler.h
     src/quithandler.h
     src/mynetworkreply.h
-    src/qobjectwrapper.h
+    #src/qobjectwrapper.h
     src/awayhandler.h
-    src/sqlsettings.h
-    src/settings.h
-    src/settingshelper.h
-    src/database_base.h
+    #src/sqlsettings.h
+    #src/settings.h
+    #src/settingshelper.h
+    #src/database_base.h
     src/progressdialog.h
-    src/usermessage.h
+    #src/usermessage.h
     src/emoticonsdialog.h
-    src/wa_textcodec.h
+    #src/wa_textcodec.h
     src/playername.h
-    src/ircmessage.h
+    #src/ircmessage.h
     src/mainwindow.h
     src/channel/channeltab.h
     src/server/servertab.h
@@ -212,14 +214,14 @@ SET (QT_USE_QTWEBKIT TRUE)
 
 # in order to build a Qt application, the Qt include directories
 # needs to be added as well as a range of defines need to be set
-INCLUDE(${QT_USE_FILE})
-ADD_DEFINITIONS(${QT_DEFINITIONS})
+INCLUDE (${QT_USE_FILE})
+ADD_DEFINITIONS (${QT_DEFINITIONS})
 
 IF (NOT OS2 AND NOT BUILD_WITH_PHONON)
     # turning on sound support
     SET (QT_USE_PHONON TRUE)
     ADD_DEFINITIONS (-DPHONON)
-    FIND_LIBRARY(PHONON_LIBRARY phonon4)
+    FIND_LIBRARY (PHONON_LIBRARY phonon4)
     APPEND (LIBRARIES ${PHONON_LIBRARY})
 
     SET (HEADERS ${HEADERS} src/sound_handler.h)
