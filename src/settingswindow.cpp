@@ -13,7 +13,7 @@
 #include <QPointer>
 #include <stdexcept>
 
-settingswindow::settingswindow() {
+settingswindow::settingswindow(){
     setObjectName("normalwidget");
     ui=new Ui::settingswindowClass;
     ui->setupUi(this);
@@ -77,7 +77,7 @@ void settingswindow::ok() {
             S_S.set(s, qobject_cast<combobox_wrapper*> (o)->get());
     }
     close();
-    singleton<netcoupler>().settingswindowemitfunktion();
+    /* netc->settingswindowemitfunktion(); */ qFatal("fix this");
     S_S.commit();
 }
 void settingswindow::cancel() {

@@ -6,7 +6,8 @@
 #include "picturehandler.h"
 #include <QPointer>
 
-userstruct::userstruct(QStringList sl){ // sl example: #AnythingGoes Username no.address.for.you wormnet1.team17.com Scal H :0 48 0 US The Wheat Snooper 2.9
+userstruct::userstruct // sl example: #AnythingGoes Username no.address.for.you wormnet1.team17.com Scal H :0 48 0 US The Wheat Snooper 2.9
+    (netcoupler *netc,QStringList sl):netc(netc){
     Q_ASSERT_X(sl.size()>=7,"userstruct::userstruct(QStringList)",
                "WormNET server has returned a bad reply for a WHO request");
 
@@ -50,14 +51,15 @@ userstruct::userstruct(QStringList sl){ // sl example: #AnythingGoes Username no
     this->client=sl.join(" ").remove("\r").remove("\n");
 
     /* WormNET returns the real, non-masked IP address only for the client itself. We take this address and use it globally */
-    if(nick==singleton<netcoupler>().nick && address!="no.address.for.you"){
+    if(nick==netc->nick && address!="no.address.for.you"){
         if(address.length()>34) // a W:A bug: if the game's IP/hostname length is > 34, W:A fails to display the host at all in the hostlist
             QHostInfo::lookupHost(address,&singleton<netcoupler>(),SLOT(lookedUpSnoopersIPAddress(QHostInfo))); // so we resolve the hostname to an IP address
         else
-            singleton<netcoupler>().lookedUpSnoopersIPAddress(address);
+            netc->lookedUpSnoopersIPAddress(address);
     }
 }
 userstruct::userstruct(
+     netcoupler *netc,
      QString channel,
      QString clan,
      QString address,
@@ -70,6 +72,7 @@ userstruct::userstruct(
      QString country,
      QString client)
     :
+     netc(netc),
      channel(channel),
      clan(clan),
      address(address),
@@ -89,8 +92,8 @@ QStringList userstruct::gamerWho() {
              << country << client;
     return gamerWho;
 }
-userstruct userstruct::whoami(const QString &s, const QString &t) {
-    userstruct u;
+userstruct userstruct::whoami(netcoupler *netc,const QString &s, const QString &t) {
+    userstruct u(netc);
     u.nick = s;
     u.channel = t;
     return u;

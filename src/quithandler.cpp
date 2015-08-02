@@ -22,12 +22,12 @@ void quithandler::inducequit(QString s){
     S_S.transaction();
     beforequit();    
     S_S.commit();
-    int state=singleton<netcoupler>().ircstate();        
+    /*int state=netc->ircstate();
     if(state==QAbstractSocket::ConnectedState) {
         connect(&singleton<netcoupler>(),SIGNAL(sigdisconnected()),this,SLOT(quit()));
-        singleton<netcoupler>().sendquit(s);
+        netc->sendquit(s);
     }
-    else
+    else*/
         quit();
 }
 void quithandler::beforequit(){    

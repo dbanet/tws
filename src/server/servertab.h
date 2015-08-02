@@ -21,7 +21,7 @@ class serverTab : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit serverTab(MainWindow *mainWnd,QWidget *parent = 0);
+    explicit serverTab(netcoupler *netc,MainWindow *mainWnd,QWidget *parent = 0);
     QList<userstruct> *noChannelUsers;
 
     void fillSnpSettings();
@@ -51,6 +51,7 @@ private:
     QStringList channelList;
     ChanUserModel *noChannelUserModel;
     QSortFilterProxyModel *sortedNoChannelUserModel;
+    netcoupler *netc;
 };
 
 #endif // SERVERTAB_H

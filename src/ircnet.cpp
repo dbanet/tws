@@ -20,9 +20,11 @@
 #include "leagueserverhandler.h"
 #include "ircmessage.h"
 #include "singleton.h"
+#include "usermessage.h"
 extern inihandlerclass inihandler;
 
-ircnet::ircnet(QString s, QObject *parent) :
+ircnet::ircnet(netcoupler *netc,QString s, QObject *parent) :
+    netc(netc),
     QObject(parent),tcp(new QTcpSocket(this)){
     nick=s;
     this->disconnectionTimeout=new QTimer();
@@ -116,13 +118,13 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                     tcp_write("NOTICE "+from+" :"+(char)0x01+"VERSION The Wheat Snooper "+TWS_VERSION+(char)0x01);
                     return;
                 }
-                emit siggotusermessage(usermessage(text,e_PRIVMSG,from,to));
+                emit siggotusermessage(usermessage(netc,text,e_PRIVMSG,from,to));
             } else if(ircMsg->command==
             "NOTICE"){
                 QString from=ircMsg->prefix.split("!")[0];
                 QString to  =ircMsg->paramList[0];
                 QString text=ircMsg->trailing;
-                emit siggotusermessage(usermessage(text,e_NOTICE,from,to));
+                emit siggotusermessage(usermessage(netc,text,e_NOTICE,from,to));
             } else if(ircMsg->command==
             "MODE"){
                 QString from     =ircMsg->prefix.split("!")[0];
@@ -154,6 +156,7 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 if(nick==this->nick) continue; /* We already know we've joined a channel ;)    */
                 this->userList.prepend(
                     userstruct(
+                        netc,
                         channel,
                         "Username",            /* these values do mean no-*/
                         "no.address.for.you",  /* thing, are here just to */
@@ -166,10 +169,10 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 tcp_write("WHO "+nick+"\n");
 
                 /* Lookias code. Write in chatwindow, store in history, etc. */
-                usermessage u(tr("has joined %1").arg(channel),
+                usermessage u(netc,tr("has joined %1").arg(channel),
                               usermessage_type(e_GARBAGE | e_GARBAGEJOIN),nick,channel);
                 u.settime(time());
-                appendhistory(u);
+                appendhistory(netc,u);
                 emit siggotusermessage(u);
                 emit sigIRCUpdatedAmountOfUsers(channel,++channellist[this->canonizeChannelName(channel)]);
             } else if(ircMsg->command==
@@ -184,12 +187,12 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 updateuserlist;
 
                 /* Lookias code. Write in chatwindow, store in history, etc. */
-                usermessage u(ircMsg->trailing.isEmpty() ?
+                usermessage u(netc,ircMsg->trailing.isEmpty() ?
                               tr("has left %1").arg(channel) :
                               tr("has left %1 (%2)").arg(channel, ircMsg->trailing),
                               usermessage_type(e_GARBAGE | e_GARBAGEPART),nick,channel);
                 u.settime(time());
-                appendhistory(u);
+                appendhistory(netc,u);
                 emit siggotusermessage(u);
                 emit sigIRCUpdatedAmountOfUsers(channel,--channellist[this->canonizeChannelName(channel)]);
             } else if(ircMsg->command==
@@ -205,10 +208,10 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 updateuserlist;
 
                 /* Lookias code. Write in chatwindow, store in history, etc. */
-                usermessage u(tr("has been kicked from %1 by %2 (%3)").arg(channel, master, ircMsg->trailing),
+                usermessage u(netc,tr("has been kicked from %1 by %2 (%3)").arg(channel, master, ircMsg->trailing),
                               usermessage_type(e_GARBAGE | e_GARBAGEPART),nick,channel);
                 u.settime(time());
-                appendhistory(u);
+                appendhistory(netc,u);
                 emit siggotusermessage(u);
                 emit sigIRCUpdatedAmountOfUsers(channel,--channellist[this->canonizeChannelName(channel)]);
             } else if(ircMsg->command==
@@ -223,13 +226,13 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 updateuserlist;
 
                 /* Lookias code. Write in chatwindow, store in history, etc. */
-                usermessage u(tr("has quit (%1)").arg(ircMsg->trailing), /* reason */
+                usermessage u(netc,tr("has quit (%1)").arg(ircMsg->trailing), /* reason */
                               usermessage_type(e_GARBAGE | e_GARBAGEQUIT),
                               nick,
                               channelsTheQuittedUserWasBeingOn.join(",")
                 );
                 u.settime(time());
-                appendhistory(u);
+                appendhistory(netc,u);
                 emit siggotusermessage(u);
                 foreach(QString channel,channelsTheQuittedUserWasBeingOn)
                     emit sigIRCUpdatedAmountOfUsers(channel,--channellist[this->canonizeChannelName(channel)]);
@@ -256,8 +259,8 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
             "323"){
                 // end of the channel listing
                 foreach(QString channel,channellist.keys())
-                    if(!singleton<netcoupler>().users.usermap_channellist_helper.contains(channel,Qt::CaseInsensitive))
-                        singleton<netcoupler>().users.usermap_channellist_helper.push_back(channel);
+                    if(!netc->users.usermap_channellist_helper.contains(channel,Qt::CaseInsensitive))
+                        netc->users.usermap_channellist_helper.push_back(channel);
 
                 emit sigIRCReceivedChanList(QStringList(channellist.keys()));
             } else if(ircMsg->command==
@@ -301,14 +304,14 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                     if(this->userList[i].nick==ircMsg->paramList[5] &&
                        this->userList[i].channel.toLower()==ircMsg->paramList[1].toLower()){
                         /* replacing the old userstruct with a fully populated one */
-                        this->userList[i]=userstruct(userstructSetupQSL);
+                        this->userList[i]=userstruct(netc,userstructSetupQSL);
                         foundAndUpdated=true;
                     }
 
                 /* OOPS! If !foundAndUpdated, it seems that someone has joined on the channel    */
                 /* AFTER the NAMES reply has been sent, but BEFORE the WHO reply has been sent.  */
                 if(!foundAndUpdated){ /* So we just prepend a new userstruct...                  */
-                    this->userList.prepend(userstruct(userstructSetupQSL));
+                    this->userList.prepend(userstruct(netc,userstructSetupQSL));
                 }
             } else if(ircMsg->command==
             "353"){
@@ -336,7 +339,8 @@ void ircnet::tcpread() {    //arrives like this msg\nmsg\n...\n...\n
                 QStringList names=ircMsg->trailing.split(' ');
                 foreach(QString nick,names){
                     userstruct *newUser=
-                                new userstruct(ircMsg->paramList[2],
+                                new userstruct(netc,
+                                               ircMsg->paramList[2],
                                                "Username",            /* these values do mean no-*/
                                                "no.address.for.you",  /* thing, are here just to */
                                                "wormnet1.team17.com", /* satisfy userstruct      */

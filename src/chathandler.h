@@ -19,11 +19,13 @@ class QTextBrowser;
 class QTextDocument;
 class usermessage;
 class emoticonhandler;
+class netcoupler;
 
 class chatHandler: public QObject {
 	Q_OBJECT
 public:
-	chatHandler(QObject*,QTextBrowser*,QString);
+        netcoupler *netc;
+	chatHandler(netcoupler *netc,QTextBrowser*,QString,QObject*parent=0);
 	virtual ~chatHandler();        
         void append(const usermessage u);        
 	void appenddebug(const QString&);	

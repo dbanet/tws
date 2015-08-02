@@ -13,7 +13,7 @@ class chatwindow : public QWidget
 {
     Q_OBJECT
 public:
-    chatwindow(const QString&, QWidget *parent = 0);
+    chatwindow(netcoupler *netc,const QString&, QWidget *parent = 0);
     ~chatwindow();
     QString chatpartner;
     void getgamerwho(QString prefix=QString());
@@ -37,7 +37,7 @@ private slots:
 private:
     QPointer<chathandlerprv> chat;		//handles the whole textbrowser
     Ui::chatwindowClass ui;
-
+netcoupler *netc;
     QStatusBar *statusbar;    
     bool userisoffline;
 protected:

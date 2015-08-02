@@ -10,13 +10,13 @@
 #include "ctcphandleratomic.h"
 #include "global_functions.h"
 #include "qobjectwrapper.h"
-#include "awayhandler.h"
+//#include "awayhandler.h"
 #include "usermessage.h"
 #include "channel/channeltab.h"
 
 extern QMap<QString, QString> ctcpcontainer;
 QStringList ctcphandler::awayusers;
-ctcphandler::ctcphandler(){
+ctcphandler::ctcphandler(netcoupler *netc):netc(netc){
     bookedcommands << "away" << "back";
 }
 bool ctcphandler::getctcp(const usermessage u){
@@ -42,8 +42,8 @@ bool ctcphandler::getctcp(const usermessage u){
         if(!singleton<ctctphandlerwidget>().atomicmap[u.msg()]->ui.cbenable->isChecked())
             return false;
         QString s =singleton<ctctphandlerwidget>().atomicmap[u.msg()]->ui.textEdit->toPlainText();
-        usermessage uu=usermessage::create(s, u.receiver(), u.user());
-        singleton<netcoupler>().sendusermessage(uu);
+        usermessage uu=usermessage::create(netc,s, u.receiver(), u.user());
+        netc->sendusermessage(uu);
     } else
         return false;
     return true;

@@ -23,7 +23,7 @@ class usermessage;
 class chathandlerprv: public chatHandler {
     Q_OBJECT
 public:
-    chathandlerprv(QObject*,QTextBrowser*,QString);
+    chathandlerprv(netcoupler *netc,QTextBrowser*,QString,QObject*);
     virtual ~chathandlerprv();    
 private slots:
     void opencontextmenu(const QPoint &);

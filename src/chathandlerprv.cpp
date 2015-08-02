@@ -22,8 +22,8 @@
 #include "global_functions.h"
 #include "usermessage.h"
 
-chathandlerprv::chathandlerprv(QObject *parent, QTextBrowser *t, QString chan) :
-    chatHandler(parent, t, chan) {
+chathandlerprv::chathandlerprv(netcoupler *netc,QTextBrowser *t, QString chan,QObject *parent) :
+    chatHandler(netc,t,chan,parent) {
     isprv=1;
     disconnect(tb, SIGNAL(customContextMenuRequested ( const QPoint &)),this, SLOT(contextrequest(const QPoint&)));
     connect(tb, SIGNAL(customContextMenuRequested ( const QPoint &)),this, SLOT(opencontextmenu(const QPoint&)));
@@ -62,7 +62,7 @@ QTextCharFormat chathandlerprv::getRightFormat(const usermessage u){
         format = hash[e_hash_chat];
     else
         format = hash[e_hash_buddy];
-    if(u.user()==singleton<netcoupler>().nick)
+    if(u.user()==netc->nick)
         format=hash[e_hash_myself];
     if(u.has_type(e_PRIVMSG) && u.has_type(e_ACTION))
         format=hash[e_hash_action];

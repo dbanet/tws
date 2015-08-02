@@ -20,7 +20,8 @@
 #include <QDesktopWidget>
 
 extern QStringList querylist;
-chatwindow::chatwindow(const QString &s, QWidget *parent) :
+chatwindow::chatwindow(netcoupler *netc,const QString &s, QWidget *parent) :
+    netc(netc),
     QWidget(parent), chatpartner(s){
     setAttribute(Qt::WA_DeleteOnClose);
     setObjectName("chatwindow");
@@ -33,7 +34,7 @@ chatwindow::chatwindow(const QString &s, QWidget *parent) :
     //ui.pbfilter->setObjectName("chatwindowbutton");
     ui.chatwindowbuttonscrollArea->installEventFilter(this);
     update();    
-    chat = new chathandlerprv(this, ui.chat, chatpartner);
+    chat = new chathandlerprv(netc,ui.chat,chatpartner,this);
     ui.lineEdit->installEventFilter(chat);
     foreach(usermessage u,history()[chatpartner.toLower()])
         chat->append(u);
@@ -80,7 +81,7 @@ chatwindow::chatwindow(const QString &s, QWidget *parent) :
     statusbar = new QStatusBar(this);
     ui.verticalLayout_2->addWidget(statusbar);
     statusbar->setMaximumHeight(20);
-    if (singleton<netcoupler>().users.users.contains(userstruct::whoami(chatpartner))){
+    if (netc->users.users.contains(userstruct::whoami(netc,chatpartner))){
         statusbar->showMessage(QObject::tr("Online"));
         userisoffline=0;
     }
@@ -109,11 +110,11 @@ bool chatwindow::eventFilter(QObject *obj, QEvent *event) {
 void chatwindow::getusermessage(usermessage u_arg){
     if (containsCI(S_S.ignorelist, u_arg.user()))
         return;
-    if(u_arg.receiver() == singleton<netcoupler>().nick && u_arg.user() == chatpartner){
+    if(u_arg.receiver() == netc->nick && u_arg.user() == chatpartner){
         chat->append(u_arg);
         singleton<balloonHandler>().alert(u_arg.user(), this);
 #ifdef PHONON
-        if (singleton<netcoupler>().buddylistcontains(u_arg.user()))
+        if (netc->buddylistcontains(u_arg.user()))
             singleton<soundHandler>().play_buddymsgsound(u_arg.user());
         else
             singleton<soundHandler>().play_normalmsgsound(u_arg.user());
@@ -129,9 +130,9 @@ void chatwindow::sendmsg() {
     QString s = ui.lineEdit->text();
     if (s.isEmpty())
         return;
-    usermessage u=usermessage::create(s, chatpartner);
+    usermessage u=usermessage::create(netc,s, chatpartner);
     chat->append(u);    
-    singleton<netcoupler>().sendusermessage(u);
+    netc->sendusermessage(u);
 
     ui.lineEdit->clear();
     chat->moveSliderToMaximum();
@@ -139,11 +140,11 @@ void chatwindow::sendmsg() {
 void chatwindow::closeEvent(QCloseEvent *) {
 }
 void chatwindow::getgamerwho(QString prefix) {
-    int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(chatpartner));
+    int i = netc->users.users.indexOf(userstruct::whoami(netc,chatpartner));
     if (i > -1) {
-        userstruct u = singleton<netcoupler>().users.users[i];
+        userstruct u = netc->users.users[i];
         QString s=prefix+" GAMERWHO:\n"+ u.gamerWho().join(" | ");
-        chat->append(usermessage(s, e_PRIVMSG, chatpartner));
+        chat->append(usermessage(netc,s, e_PRIVMSG, chatpartner));
     }
 }
 void chatwindow::pbmuteclicked() {
@@ -181,7 +182,7 @@ void chatwindow::pblogclicked() {
     }
 }
 void chatwindow::pbidleclicked() {
-    singleton<netcoupler>().sendusermessage(usermessage("whois " + chatpartner, e_RAWCOMMAND, chatpartner));
+    netc->sendusermessage(usermessage(netc,"whois " + chatpartner, e_RAWCOMMAND, chatpartner));
 }
 void chatwindow::gotidletime(const QString &user,int idlePeriod,int logonTime) {
     QTime time(0,0,0); time=time.addSecs(idlePeriod);

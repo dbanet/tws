@@ -1,7 +1,7 @@
 #include "awaybox.h"
 #include "settings.h"
 #include "qobjectwrapper.h"
-#include "awayhandler.h"
+//#include "awayhandler.h"
 #include "global_functions.h"
 #include <QPointer>
 #include <QKeyEvent>
@@ -28,7 +28,7 @@ awaybox::awaybox(QWidget *parent):QWidget(parent) {
     //connect(ui.cancel,SIGNAL(clicked()),this,SLOT(cancelclicked()));
 }
 void awaybox::okclicked() {
-    qobjectwrapper<awayhandler>::ref().setaway(ui.textEdit->toPlainText());
+    //qobjectwrapper<awayhandler>::ref().setaway(ui.textEdit->toPlainText());
     if(!sl.contains(ui.textEdit->toPlainText()))
         sl<<ui.textEdit->toPlainText();
     else

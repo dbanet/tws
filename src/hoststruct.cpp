@@ -12,7 +12,7 @@
 #include "netcoupler.h"
 #include <QStringList>
 #include <QPixmap>
-hoststruct::hoststruct() {
+hoststruct::hoststruct(netcoupler *netc):netc(netc){
     // TODO Auto-generated constructor stub
     valid=false;
 }
@@ -98,7 +98,7 @@ QList<hoststruct> hoststruct::extracthostlist(QString s){
     QList<hoststruct> list;
     foreach(QString s,sl){
         QStringList temp=s.split(" ");
-        hoststruct h;
+        hoststruct h(netc);
         h.valid=true;
         h.myname=temp.takeFirst();
         h.mynick=temp.takeFirst();
@@ -110,7 +110,7 @@ QList<hoststruct> hoststruct::extracthostlist(QString s){
     return list;
 }
 bool hoststruct::compare(const hoststruct &h) const{
-    if(startswithCI(myip,singleton<netcoupler>().getmyhostip()) && containsCI(myname,h.myname) && containsCI(mynick,h.mynick))
+    if(startswithCI(myip,netc->getmyhostip()) && containsCI(myname,h.myname) && containsCI(mynick,h.mynick))
         return true;
     return false;
 }

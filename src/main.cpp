@@ -11,7 +11,7 @@
 #include "codecselectdia.h"
 #include "clantowebpagemapper.h"
 #include "picturehandler.h"
-#include "awayhandler.h"
+//#include "awayhandler.h"
 #include "about.h"
 #include "wa_textcodec.h"
 #include "playername.h"
@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
 #ifdef PHONON
     singleton<soundHandler>().init();
 #endif
-    qobjectwrapper<awayhandler>();
+    //qobjectwrapper<awayhandler>();
     qobjectwrapper<MainWindow> w;
     volume->setvalue(S_S.getint("volumeslidervalue"));
     if (!S_S.getbool("chbminimized"))

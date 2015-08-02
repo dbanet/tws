@@ -1,4 +1,4 @@
-#include "awayhandler.h"
+/*//#include "awayhandler.h"
 #include "global_functions.h"
 #include "global_macros.h"
 #include "settings.h"
@@ -16,8 +16,8 @@
 #include <windows.h>
 #endif
 
-awayhandler::awayhandler(QObject *parent) :
-    QObject(parent)
+awayhandler::awayhandler(netcoupler *netc,QObject *parent) :
+    QObject(parent),netc(netc)
 {
     connect(&lookingForGameTimer,SIGNAL(timeout()),this,SLOT(gameTimerTimeout()));
     connect(this,SIGNAL(siggameended()),this,SLOT(gamefinished()));
@@ -55,16 +55,16 @@ void awayhandler::gamefinished() {
 void awayhandler::sendBack(){
     foreach(QString user,rememberwhogotaway.keys()) {
         if (S_S.getbool("chbbacktonormals") && !containsCI(S_S.getStringList("ignorelist"), user)) {
-            singleton<netcoupler>().sendusermessage(usermessage(S_S.getString("lebackmessage"), e_NOTICE, user));
-            int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(user));
-            if (i != -1 && singleton<netcoupler>().users.users[i].clan != "Username")
-                singleton<netcoupler>().sendusermessage(usermessage("back", e_CTCP, user));
+            netc->sendusermessage(usermessage(S_S.getString("lebackmessage"), e_NOTICE, user));
+            int i = netc->users.users.indexOf(userstruct::whoami(netc,user));
+            if (i != -1 && netc->users.users[i].clan != "Username")
+                netc->sendusermessage(usermessage("back", e_CTCP, user));
         } else if (S_S.getbool("chbbacktobuddys")) {
             if (containsCI(S_S.getStringList("buddylist"), user)){
-                singleton<netcoupler>().sendusermessage(usermessage(S_S.getString("lebackmessage"), e_NOTICE, user));
-                int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(user));
-                if (i != -1 && singleton<netcoupler>().users.users[i].clan != "Username")
-                    singleton<netcoupler>().sendusermessage(usermessage("back", e_CTCP, user));
+                netc->sendusermessage(usermessage(S_S.getString("lebackmessage"), e_NOTICE, user));
+                int i = netc->users.users.indexOf(userstruct::whoami(netc,user));
+                if (i != -1 && netc->users.users[i].clan != "Username")
+                    netc->sendusermessage(usermessage("back", e_CTCP, user));
             }
         }
     }
@@ -122,10 +122,11 @@ void awayhandler::sendaway(const QString &user){
     if(!away())
         return;
     if (rememberwhogotaway[user] != message()) {
-        singleton<netcoupler>().sendusermessage(usermessage::create(message(), user));
-        int i = singleton<netcoupler>().users.users.indexOf(userstruct::whoami(user));
-        if (i != -1 && singleton<netcoupler>().users.users[i].clan != "Username")
-            singleton<netcoupler>().sendusermessage(usermessage("away " + trim(message()), e_CTCP, user));
+        netc->sendusermessage(usermessage::create(message(), user));
+        int i = netc->users.users.indexOf(userstruct::whoami(netc,user));
+        if (i != -1 && netc->users.users[i].clan != "Username")
+            netc->sendusermessage(usermessage("away " + trim(message()), e_CTCP, user));
         qobjectwrapper<awayhandler>::ref().rememberwhogotaway[user] = message();
     }    
 }
+*/

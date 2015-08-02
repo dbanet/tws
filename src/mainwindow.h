@@ -4,7 +4,6 @@
 #include "ui_mainwindow.h"
 #include "maintoolbox.h"
 #include "qobjectwrapper.h"
-#include "usermessage.h"
 
 #include <QWidget>
 #include <QList>
@@ -18,6 +17,7 @@ class serverTab;
 class netcoupler;
 class chatwindow;
 class QMenu;
+#include "usermessage.h"
 
 namespace Ui {
     class MainWindow;
@@ -33,6 +33,7 @@ public:
     bool joinonstartup;
     QList< ::channelTab * > channelTabs;
     QList< ::chatwindow*> hiddenchatwindowshelper;
+    QList<netcoupler*> netcs;
     void fillsnpsettings();
     void join(QString channel);
     void quit();
@@ -41,9 +42,6 @@ public:
     }
     QPointer<QMenu> serverMenu;
     QPointer<QMenu> channelMenu;
-
-    /* oh...                  */
-    QPointer<serverTab> servTab;
 
     ~MainWindow();
 
@@ -138,6 +136,8 @@ private slots:
     void on_actionSort_userlist_triggered(bool checked);
     void on_menuSpectate_triggered(QAction*);
     void on_menuLeagueColor_triggered(QAction*);
+
+    void on_start_clicked();
 
 protected:
     void closeEvent (QCloseEvent*);

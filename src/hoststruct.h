@@ -9,9 +9,10 @@
 #define HOSTSTRUCT_H_
 #include <QString>
 #include "picturehandler.h"
+class netcoupler;
 class hoststruct {
 public:
-	hoststruct();
+	hoststruct(netcoupler *netc);
 	virtual ~hoststruct();
         void sethost(QStringList&);
         void sethost(QString name,QString nick,QString ip,int flag,QString country,QString id="",QString pwd="",QString chan="", QString countrynumber="1");
@@ -61,9 +62,10 @@ public:
         void setpwd(QString s);
         void setchan(QString s);
         bool isvalid();
-        static QList<hoststruct> extracthostlist(QString s);
+        QList<hoststruct> extracthostlist(QString s);
         bool compare(const hoststruct &h) const;
 private:
+        netcoupler *netc;
         QString myname;
         QString mynick;
         QString myip;		//ip:port

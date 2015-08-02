@@ -1,11 +1,11 @@
-#ifndef AWAYHANDLER_H
+/*#ifndef AWAYHANDLER_H
 #define AWAYHANDLER_H
 
 #include <QObject>
 #include <QTimer>
 #include <QMap>
 #include "qobjectwrapper.h"
-
+class netcoupler;
 class awayhandler : public QObject
 {
     Q_OBJECT
@@ -20,10 +20,11 @@ public:
 public slots:
     void setawaywhilegameing();
 private:
-    explicit awayhandler(QObject *parent = 0);
+    explicit awayhandler(netcoupler *netc,QObject *parent = 0);
     ~awayhandler();
     QTimer lookingForGameTimer;
     void startLookingForGame();
+    netcoupler *netc;
 
 signals:
     void siggameended();
@@ -42,3 +43,4 @@ private:
 };
 
 #endif // AWAYHANDLER_H
+*/

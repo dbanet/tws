@@ -8,10 +8,12 @@
 #ifndef USERSTRUCT_H_
 #define USERSTRUCT_H_
 #include <QStringList>
+class netcoupler;
 class userstruct {
 public:
-	userstruct(QStringList);
+	userstruct(netcoupler *netc,QStringList);
         userstruct(
+            netcoupler *netc,
             QString channel="",
             QString clan="",
             QString address="",
@@ -27,7 +29,7 @@ public:
 	virtual ~userstruct();
 	bool operator==(const userstruct&);
         QStringList gamerWho();
-	static userstruct whoami(const QString &,const QString &s="");
+	static userstruct whoami(netcoupler *netc,const QString &,const QString &s="");
 
 	QString channel;
         QString clan;
@@ -42,5 +44,9 @@ public:
 	QString client;
 
 	bool wnvalid;		//this nick is to 80% a valid wn user
+
+private:
+	netcoupler *netc;
+
 };
 #endif /* USERSTRUCT_H_ */

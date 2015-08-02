@@ -3,19 +3,20 @@
 
 #include <QWidget>
 #include "ui_hostbox.h"
-
+class netcoupler;
 class hostbox : public QWidget
 {
     Q_OBJECT
 
 public:
-    hostbox(QString,QWidget *parent = 0);
+    hostbox(netcoupler *netc,QString,QWidget *parent = 0);
     ~hostbox();
     QString gamename;
     QString pwd;
     QString icon;
     const QString channel;
 private:
+    netcoupler *netc;
     Ui::hostboxClass ui;
     QRegExpValidator *validator;
 

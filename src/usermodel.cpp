@@ -18,8 +18,8 @@ extern QString GamesourgeChannelName;
 QStringList usermodel::buddyarrivedhelper;
 QStringList usermodel::buddylefthelper;
 
-usermodel::usermodel(QObject * parent) :
-    QAbstractItemModel(parent),leagueuserstandardgradient(0,0,0,17), leagueusercustomgradient(0,0,0,17) {
+usermodel::usermodel(netcoupler *netc,QObject * parent) :
+    QAbstractItemModel(parent),leagueuserstandardgradient(0,0,0,17), leagueusercustomgradient(0,0,0,17),netc(netc){
     stringnamelist << tr("Nick") << "" << tr("Rank") << tr("Clan") << tr("Information");
 
     sortorder = Qt::AscendingOrder;
@@ -72,8 +72,8 @@ void usermodel::selectionchanged(const QModelIndex &index, const QWidget *w) {
 void usermodel::checkBuddysIgnoresQuerys(){
     QStringList sl;
     foreach(QString s,S_S.buddylist) {
-        if (users.contains(userstruct(userstruct::whoami(s)))) {
-            usermap[tr("Buddylist")].push_back(users[users.indexOf(userstruct::whoami(s))]);
+        if (users.contains(userstruct(userstruct::whoami(netc,s)))) {
+            usermap[tr("Buddylist")].push_back(users[users.indexOf(userstruct::whoami(netc,s))]);
             sl << s;
             if (currentbuddylist.removeAll(s) == 0) { //a buddy arrived
                 buddyarrivedhelper<< QTime::currentTime().toString("hh:mm") + ":" + s+tr(" connected to wormnet.");
@@ -90,20 +90,20 @@ void usermodel::checkBuddysIgnoresQuerys(){
     }
     currentbuddylist = sl;
     foreach(QString s,querylist) {
-        if (users.contains(userstruct(userstruct::whoami(s))) )
-            usermap[tr("Querys")].push_back(users[users.indexOf(userstruct::whoami(s))]);
+        if (users.contains(userstruct(userstruct::whoami(netc,s))) )
+            usermap[tr("Querys")].push_back(users[users.indexOf(userstruct::whoami(netc,s))]);
         else
-            usermap[tr("Querys")].push_back(userstruct(QStringList() << ""<< "" << "" << "" << s));
+            usermap[tr("Querys")].push_back(userstruct(netc,QStringList() << ""<< "" << "" << "" << s));
     }
     foreach(QString s,S_S.ignorelist)
-        usermap[usermodel::tr("Ignorelist")].push_back(userstruct(QStringList() << "" << "" << "" << "" << s));
+        usermap[usermodel::tr("Ignorelist")].push_back(userstruct(netc,QStringList() << "" << "" << "" << "" << s));
 }
 void usermodel::setuserstruct(const QList<userstruct> &upar, QHash<QString,QStringList> joinlist) {
     emit layoutAboutToBeChanged();
     users = upar;
 
     /* Fix for when a user joins #cHAnNeLL while the channel's name (returned by NAMES) is #Channel. ~~dbanet */
-    for(int i=0;i<users.length();i++) users[i].channel=singleton<netcoupler>().irc->canonizeChannelName(users[i].channel);
+    for(int i=0;i<users.length();i++) users[i].channel=netc->irc->canonizeChannelName(users[i].channel);
 
     usermap.clear();
     foreach(QString s,usermap_channellist_helper)
@@ -128,7 +128,7 @@ void usermodel::setuserstruct(const QList<userstruct> &upar, QHash<QString,QStri
 #endif
     sort(sortsection, sortorder);
     if (currentselectedchannel > -1 && currentselectedchannel < classes.size()) {
-        int row = usermap[classes[currentselectedchannel]].indexOf(userstruct::whoami(currentselecteduser));
+        int row = usermap[classes[currentselectedchannel]].indexOf(userstruct::whoami(netc,currentselecteduser));
         if (row == -1) {
             currentselectedchannel = -1;
             emit sigselectitem(QModelIndex(),selectionwidgetmap[currentselecteduser]);
@@ -218,7 +218,7 @@ QVariant usermodel::data(const QModelIndex & index, int role) const {
             QString nick =usermap[classes[index.internalId()]][index.row()].nick;
 
             if (classes[index.internalId()] == tr("Querys") && !users.contains(
-                        userstruct::whoami(nick)))
+                        userstruct::whoami(netc,nick)))
                 return offlineicon;
             else if (containsCI(S_S.buddylist, nick)) {
                 if (containsCI(ctcphandler::awayusers, nick))
@@ -481,8 +481,8 @@ void usermodel::buddyleft() {
 void usermodel::usesettingswindow(const QString&) {
 }
 userstruct usermodel::getuserstructbyindex(const QModelIndex &index) {
-    userstruct u;
-    u = users[users.indexOf(userstruct::whoami(data(index.sibling(index.row(),
+    userstruct u(netc);
+    u = users[users.indexOf(userstruct::whoami(netc,data(index.sibling(index.row(),
                                                                   0), Qt::DisplayRole).value<QString> ()))];
     return u;
 }

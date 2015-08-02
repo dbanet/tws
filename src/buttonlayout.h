@@ -3,13 +3,14 @@
 
 #include <QWidget>
 #include "ui_buttonlayout.h"
+#include "netcoupler.h"
 
 class buttonlayout : public QWidget
 {
     Q_OBJECT
 
 public:
-    buttonlayout(QWidget *parent = 0);
+    buttonlayout(netcoupler *netc,QWidget *parent = 0);
     ~buttonlayout();
     void hidebuttons();
     void showbuttons();
@@ -18,6 +19,7 @@ private:
     Ui::buttonlayoutClass ui;
     QMenu *leaguemenu;
     QMenu *leaguestatemenu;
+    netcoupler *netc;
 private slots:
     void onPbSortClicked();
     void onPbBalloonClicked();

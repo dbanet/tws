@@ -22,7 +22,7 @@
 #include "global_functions.h"
 #include "balloon_handler.h"
 #include "hostbox.h"
-#include "awayhandler.h"
+//#include "awayhandler.h"
 #include "chatwindow.h"
 #include "ctcphandler.h"
 
@@ -32,7 +32,7 @@ extern inihandlerclass inihandler;
 namespace looki {
     QString currentchannel;
 }
-netcoupler::netcoupler() {
+netcoupler::netcoupler():users(this){
     connectstate=e_stoped;
     irc=NULL;
     http=NULL;
@@ -58,7 +58,7 @@ void netcoupler::start(QString s,MainWindow *mainWnd){
     connectstate=e_started;
     nick=s;
     S_S.append("mutedusers", nick);
-    irc = new ircnet(s, this);
+    irc = new ircnet(this,s, this);
     connect(irc,SIGNAL(sigconnected()),this,SLOT(ircconnected()));
     connect(irc,SIGNAL(sigdisconnected()),this,SLOT(ircdisconnected()));
     http = new snoppanet(this);
@@ -210,7 +210,7 @@ void netcoupler::lookedUpSnoopersIPAddress(QString address){
 void netcoupler::createhost(QString id){
     if(!http)
         return;
-    if (users.users.indexOf(userstruct::whoami(nick)) == -1)
+    if (users.users.indexOf(userstruct::whoami(this,nick)) == -1)
         return;
     QString temp = getprocessstring();
     if (temp == QString())
@@ -249,7 +249,7 @@ void netcoupler::sendhostinfotoserverandhost(const QString &name,const QString &
     QString s=nick;
     if (!S_S.getString("leplayername").isEmpty())
         s=S_S.getString("leplayername");
-    hoststruct h;
+    hoststruct h(this);
     QString hostcountrynumber=singleton<pictureHandler>().mapHostCountryCodeToNumber(singleton<pictureHandler>().mapNumberToCountryCode(flag));
     h.sethost(name,s,getmyhostip(),flag,"??","",pwd,chan,hostcountrynumber);
     http->sendhost(h);
@@ -325,7 +325,7 @@ QString netcoupler::getprocessstring() {
     return "";
 }
 void netcoupler::sendinfotochan(const QString &chan, const QString &msg) {    
-    usermessage u(msg, usermessage_type(e_PRIVMSG | e_ACTION) , chan);
+    usermessage u(this,msg, usermessage_type(e_PRIVMSG | e_ACTION) , chan);
     sendusermessage(u);
     emit siggotusermessage(u);
 }
@@ -349,7 +349,7 @@ void netcoupler::startprocess(const QString &filePath,const QStringList &args){
     if(S_S.getbool("chbdisconnectongame"))
         qobjectwrapper<MainWindow>::ref().returntologintab();
     if(S_S.getbool("cbsetawaywhilegaming") && !alreadyRunning){
-        qobjectwrapper<awayhandler>::ref().setawaywhilegameing();
+        //qobjectwrapper<awayhandler>::ref().setawaywhilegameing();
     }
     p->startDetached(filePath,args,QFileInfo(filePath).dir().canonicalPath(),alreadyRunning?0:&waProcessId);
 }
@@ -364,8 +364,8 @@ void netcoupler::loopTimerTimeout(){
     safeusergarbage();
 }
 bool netcoupler::buddylistcontains(QString user){
-    return users.usermap[usermodel::tr("Buddylist")].count(userstruct::whoami(user));
+    return users.usermap[usermodel::tr("Buddylist")].count(userstruct::whoami(this,user));
 }
 bool netcoupler::ignorelistcontains(QString user){
-    return users.usermap[usermodel::tr("Ignorelist")].count(userstruct::whoami(user));
+    return users.usermap[usermodel::tr("Ignorelist")].count(userstruct::whoami(this,user));
 }

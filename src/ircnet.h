@@ -10,12 +10,13 @@
 
 #include "userstruct.h"
 #include "usermessage.h"
+class netcoupler;
 class ircnet : public QObject
 {
     Q_OBJECT
 
 public:
-    ircnet(QString s, QObject *parent = 0);
+    ircnet(netcoupler *netc,QString s, QObject *parent = 0);
 //    enum {
 //        QUIT=1,PRIVMSG,PART,JOIN,NOTICE
 //    };
@@ -56,6 +57,7 @@ signals: //public signals:
     void sigconnectingfailed();
 
 private:
+    netcoupler *netc;
     bool justgetlist;
 
     QList<userstruct> templist;

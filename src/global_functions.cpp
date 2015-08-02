@@ -190,11 +190,11 @@ void loadusergarbage() {
     ds >> my_history;
 }
 //----------------------------------------------------------------------------------------------
-void appendhistory(usermessage u){
-    if(u.receiver() != singleton<netcoupler>().nick && !S_S.chbshowchannelchatinchatwindows)
+void appendhistory(netcoupler *netc,usermessage u){
+    if(u.receiver() != netc->nick && !S_S.chbshowchannelchatinchatwindows)
         return;
     QString user;
-    if(u.user()==singleton<netcoupler>().nick)
+    if(u.user()==netc->nick)
         user=u.receiver();
     else
         user=u.user();

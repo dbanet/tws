@@ -25,7 +25,7 @@
 #include "picturehandler.h"
 #include "quithandler.h"
 #include "qobjectwrapper.h"
-#include "awayhandler.h"
+//#include "awayhandler.h"
 #include "usermessage.h"
 #include "server/servertab.h"
 #include "ui_mainwindow.h"
@@ -49,6 +49,7 @@
 #include <QFileDialog>
 #include <QDesktopServices>
 #include <QSignalMapper>
+#include "usermessage.h"
 inihandlerclass inihandler;
 extern volumeslider *volume;
 bool fontOrColorHasChanged = 0;
@@ -61,11 +62,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     whichuitype = 1;
     ui->setupUi(this);
-
-    // creating the second tab...
-    serverTab *x=new serverTab(this);
-    if(x==0) qFatal("wtf???");
-    this->servTab=x;
 
     bool b=S_S.getbool("righttoleftwriting");
     if(b)
@@ -101,7 +97,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->start, SIGNAL(clicked()),this, SLOT(chooseclicked()));
 
     connect(&singleton<netcoupler>(), SIGNAL(sigsettingswindowchanged()),this, SLOT(usesettingswindow()));
-    connect(&qobjectwrapper<awayhandler>::ref(), SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));
+    //connect(&qobjectwrapper<awayhandler>::ref(), SIGNAL(sigawaystringchanged()),this, SLOT(awaymessagechanged()));
     connect(&singleton<netcoupler>(), SIGNAL(sigconnected()),this,SLOT(connected()));
     connect(&singleton<netcoupler>(), SIGNAL(sigdisconnected()),this,SLOT(disconnected()));
     connect(&singleton<netcoupler>(), SIGNAL(siggotusermessage(const usermessage)),this,SLOT(gotusermsg(const usermessage)));
@@ -131,7 +127,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 void MainWindow::fillsnpsettings(){
-    servTab->fillSnpSettings();
+    //servTab->fillSnpSettings();
     S_S.set("nickname", ui->lenick->text());
     S_S.set("chbremember", ui->cbremember->isChecked());
     S_S.set("whichuitype", whichuitype);
@@ -149,12 +145,14 @@ void MainWindow::get_baseStyleSheet(){
     baseStyleSheet = QLatin1String(f.readAll());
 }
 void MainWindow::connectToNetwork(){
-    ui->tabWidget->addTab(servTab,"Server");
+    auto netc=new netcoupler();
+    ui->tabWidget->addTab(new serverTab(netc,this),"Server");
     ui->tabWidget->setCurrentIndex(1);
+    netcs<<netc;
     if(S_S.getbool("enablesecurelogging"))
-        singleton<netcoupler>().start(singleton<leagueserverhandler>().nick,this);
+        netc->start(singleton<leagueserverhandler>().nick,this);
     else
-        singleton<netcoupler>().start(ui->lenick->text(),this);
+        netc->start(ui->lenick->text(),this);
     ui->tabWidget->setTabEnabled(1, 1);
 }
 void MainWindow::chooseclicked() {
@@ -219,7 +217,7 @@ void MainWindow::reopenChatWindowsAndChannelWindows(){
         openchatwindowraised(s);
     lastOpenedChatWindows.clear();
     foreach(QString s,lastOpenedWindows)
-        join(s);
+        ;//join(s);
     lastOpenedWindows.clear();
 }
 void MainWindow::windowclosed(){
@@ -248,7 +246,7 @@ void MainWindow::closeEvent(QCloseEvent *e) {
     hide();
 }
 void MainWindow::returntologintab() {
-    joinonstartup = 0;
+    /*joinonstartup = 0;
     joinmenu->clear();
     currentchannellist.clear();
     ui->tabWidget->setTabEnabled(1, 0);
@@ -261,10 +259,10 @@ void MainWindow::returntologintab() {
     foreach(channelwindow *w,channelTabs)
         w->close();
     ui->tabWidget->setTabEnabled(1, 0);
-}
+*/}
 void MainWindow::snpsetcontains(const QString &s) {
     if (s == "chbautojoin" && S_S.contains(s))
-        servTab->set_chbautojoin(S_S.getbool("chbautojoin"));
+        ;//servTab->set_chbautojoin(S_S.getbool("chbautojoin"));
     else if (s == "qss_file") {
         QFile f(QApplication::applicationDirPath() + "/qss/" + S_S.getString("qss_file"));
         if(!f.open(QFile::ReadOnly))
@@ -275,7 +273,7 @@ void MainWindow::snpsetcontains(const QString &s) {
         if (S_S.getbool("chbautojoin"))
             join(S_S.getString("joinonstartup"));
     } else if (s == "chbminimized")
-        servTab->set_chbminimized(S_S.getbool("chbminimized"));
+        ;//servTab->set_chbminimized(S_S.getbool("chbminimized"));
     else if (s == "nickname" && S_S.contains(s))
         ui->lenick->setText(S_S.getString("nickname"));
     else if (s == "tus_password" && S_S.contains("tus_password"))
@@ -331,7 +329,7 @@ void MainWindow::chatwinowclosed() {
 }
 void MainWindow::appenddebugmessage(const QString &msg) {
     debugmsg.append(msg);
-    servTab->addToServInfo(debugmsg);
+    //servTab->addToServInfo(debugmsg);
     if(!S_S.cbservermessageinchannelwindows)
         return;
     foreach( channelwindow *w,channelTabs)
@@ -348,7 +346,7 @@ void MainWindow::setlanguage(const QString &langfile) {
                                                                | QMessageBox::Cancel);
     if (button == QMessageBox::Ok) {
         returntologintab();
-        singleton<netcoupler>().stop();
+        foreach(auto netc,netcs) netc->stop();
         QProcess::startDetached(qApp->applicationFilePath(), QStringList(), QApplication::applicationDirPath());
         foreach(channelwindow *w,channelTabs)
             w->close();
@@ -358,17 +356,17 @@ void MainWindow::setlanguage(const QString &langfile) {
 }
 void MainWindow::awayboxok() {
     foreach(channelwindow *w,channelTabs) {
-        w->windowtitleaway = " " + tr("<away>:") +" "+ qobjectwrapper<awayhandler>::ref().message();
+        //w->windowtitleaway = " " + tr("<away>:") +" "+ qobjectwrapper<awayhandler>::ref().message();
         w->mysetwindowtitle();
     }
 }
 void MainWindow::awaymessagechanged() {
-    if (qobjectwrapper<awayhandler>::ref().away()) {
+    /*if (qobjectwrapper<awayhandler>::ref().away()) {
         foreach(channelwindow *w,channelTabs) {
             w->windowtitleaway = " " + tr("<away>:") + " "+qobjectwrapper<awayhandler>::ref().message();
             w->mysetwindowtitle();
         }
-    } else {
+    } else */{
         foreach(channelwindow *w,channelTabs) {
             w->windowtitleaway = "";
             w->mysetwindowtitle();
@@ -381,10 +379,10 @@ void MainWindow::settextscheme(const QString &file) {
     singleton<chatFormatSettings>().load();
     chatHandler::initialFormatStarter();
 }
-void MainWindow::openchatwindow(QString user){
-    channelTab::chatwindowstringlist << user;
+void MainWindow::openchatwindow(QString user){qFatal("not implemented");
+    /*channelTab::chatwindowstringlist << user;
     channelTab::chatwindows.push_back(new chatwindow(user));
-    connect(channelTab::chatwindows.last(), SIGNAL(sigclosed()),this, SLOT(chatwinowclosed()));
+    connect(channelTab::chatwindows.last(), SIGNAL(sigclosed()),this, SLOT(chatwinowclosed()));*/
 }
 void MainWindow::openchatwindowraised(const QString &user) {
     openchatwindow(user);
@@ -399,13 +397,13 @@ void MainWindow::gotscriptmsg(const usermessage u){
     QString msg=u.msg();
     if(startswithCI(msg, "away")){
         msg.remove(0,5);
-        qobjectwrapper<awayhandler>::ref().setaway(msg);
+        //qobjectwrapper<awayhandler>::ref().setaway(msg);
         foreach(channelwindow *w,channelTabs) {
-            w->windowtitleaway = " " + tr("<away>:") +" "+ qobjectwrapper<awayhandler>::ref().message();
+            //w->windowtitleaway = " " + tr("<away>:") +" "+ qobjectwrapper<awayhandler>::ref().message();
             w->mysetwindowtitle();
         }
     } else if(startswithCI(msg, "back")) {
-        qobjectwrapper<awayhandler>::ref().back();
+        //qobjectwrapper<awayhandler>::ref().back();
         awaymessagechanged();
     } else if(startswithCI(msg, "nick")) {
         msg.remove(0,5);
@@ -468,25 +466,25 @@ void MainWindow::gotusermsg(const usermessage u){
         gotscriptmsg(u);
         return;
     }
-
-    if(u.has_type(e_CTCP) && singleton<ctcphandler>().getctcp(u))
+/*
+    if(u.has_type(e_CTCP) singleton<ctcphandler>().getctcp(u))
         return;
-
+*/
     if(u.has_type(e_NOTICE))
         return gotnotice(u);
 
-    if(u.receiver() == singleton<netcoupler>().nick) {
+    if(u.receiver() == u.netc->nick) {
         if(!containsCI(channelwindow::chatwindowstringlist,user))
             appendtoquerylist(user);
-        qobjectwrapper<awayhandler>::ref().sendaway(user);
+        //qobjectwrapper<awayhandler>::ref().sendaway(user);
     }
 
     if (containsCI(channelTab::chatwindowstringlist, user)) {
         foreach(chatwindow *w,channelwindow::chatwindows)
             w->getusermessage(u);
-        if(u.receiver() == singleton<netcoupler>().nick)
+        if(u.receiver() == u.netc->nick)
             return;
-    } else if (!containsCI(S_S.ignorelist, user) && u.receiver()==singleton<netcoupler>().nick
+    } else if (!containsCI(S_S.ignorelist, user) && u.receiver()==u.netc->nick
                && (channelTabs.isEmpty() || S_S.getbool("chballwaysopenchatwindows"))) {
         if (S_S.getbool("chbstartchatsminimized"))
             openchatwindowhidden(user);
@@ -494,7 +492,7 @@ void MainWindow::gotusermsg(const usermessage u){
             openchatwindowraised(user);
         channelTab::chatwindows.last()->getusermessage(u);
         return;
-    } else if(u.receiver() == singleton<netcoupler>().nick){
+    } else if(u.receiver() == u.netc->nick){
         if(containsCI(S_S.buddylist, user)) {
             if (S_S.getbool("chbstartchatsminimized"))
                 openchatwindowhidden(user);
@@ -662,7 +660,7 @@ void MainWindow::traymenutriggered(QAction *a) {
     } else if (a->text() ==  tr("Select another Textcodec")){
         CodecSelectDia().exec();
     } else if (a->text().startsWith("#")) {
-        join(a->text().split(" ").first());
+        //join(a->text().split(" ").first());
         return;
     } else if (a->text().contains(".qss")) {
         QFile f(QApplication::applicationDirPath() + "/qss/" + a->text());
@@ -750,12 +748,12 @@ void MainWindow::traymenutriggered(QAction *a) {
     }
 }
 void MainWindow::handleAwayBox(){
-    if (qobjectwrapper<awayhandler>::ref().away()) {
+    /*if (qobjectwrapper<awayhandler>::ref().away()) {
         if (!awaybox::ison) {
             qobjectwrapper<awayhandler>::ref().back();
             awaymessagechanged();
         }
-    } else {
+    } else */{
         if (!awaybox::ison) {
             awaybox *away = new awaybox;
             away->show();
@@ -764,17 +762,17 @@ void MainWindow::handleAwayBox(){
     }
 }
 void MainWindow::reconnect(){
-    lastOpenedWindows.clear ();
+    /*lastOpenedWindows.clear ();
     lastOpenedChatWindows.clear ();
     foreach(channelwindow *w, channelTabs)
         lastOpenedWindows<<w->currentChannel;
     foreach(chatwindow *w,channelwindow::chatwindows)
         lastOpenedChatWindows<<w->chatpartner;
-    if(singleton<netcoupler>().ircstate()==QAbstractSocket::ConnectedState)
+    if(netc->ircstate()==QAbstractSocket::ConnectedState)
         connect(this,SIGNAL(sigdisconnected()),this,SLOT(reconnect2()));
     else reconnect2 ();
     returntologintab();
-    singleton<netcoupler>().stop();
+    netc->stop();*/
 }
 void MainWindow::reconnect2(){
     disconnect(this,SIGNAL(sigdisconnected()),this,SLOT(reconnect2()));
@@ -985,7 +983,8 @@ void MainWindow::join(QString channel){
 //        joinGameSourge();
 //        return;
 //    }
-    if(currentchannellist.contains(channel))
+qFatal("not implemented");
+    /*if(currentchannellist.contains(channel))
         return;
     currentchannellist << channel;
 
@@ -994,17 +993,17 @@ void MainWindow::join(QString channel){
     connect(chanTab,SIGNAL(askTabUndocking(channelTab*)),this,SLOT(undockTab()));
     channelTabs.push_back(chanTab);
 
-    singleton<netcoupler>().joinchannel(channel);
+    netc->joinchannel(channel);
     if(channelTabs.isEmpty())
         return;
-    if (qobjectwrapper<awayhandler>::ref().away()) {
+    /*if (qobjectwrapper<awayhandler>::ref().away()) {
         channelTabs.last()->windowtitleaway = qobjectwrapper<awayhandler>::ref().message();
         channelTabs.last()->mysetwindowtitle();
-    }
+    }*//*
     connect(channelTabs.last(), SIGNAL(sigjoinchannel(const QString&)),this, SLOT(join(const QString&)));
     connect(channelTabs.last(), SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
     connect(this, SIGNAL(sigopenchatwindow(const QString &)),this, SLOT(openchatwindowraised(const QString &)));
-    connect(channelTabs.last(), SIGNAL(sigclosed()),this, SLOT(windowclosed()));
+    connect(channelTabs.last(), SIGNAL(sigclosed()),this, SLOT(windowclosed()));*/
 }
 void MainWindow::on_tabWidget_currentChanged(int index){
     QWidget *tab=ui->tabWidget->currentWidget();
@@ -1013,16 +1012,16 @@ void MainWindow::on_tabWidget_currentChanged(int index){
         qFatal("No tabs left in the tabBar.");
     else if(0==index || tabType=="loginTab"){
         /* disabling the "channels" and "server" menus (neither is active) */
-        ui->menuChannel->setEnabled(false);
+/*        ui->menuChannel->setEnabled(false);
         ui->menuServer->setEnabled(false);
-
+*/
         /* resetting everything */
-        foreach(channelwindow *w, channelTabs){
-            singleton<netcoupler>().partchannel(w->currentChannel);
+  /*      foreach(channelwindow *w, channelTabs){
+            netc->partchannel(w->currentChannel);
             w->close();
         }
-        singleton<netcoupler>().stop();
-    }
+        netc->stop();
+    */}
     else if(tabType=="serverTab"){
         //serverTab *servTab=qobject_cast<serverTab*>(tab);
         this->channelMenu=0;
@@ -1058,4 +1057,9 @@ void MainWindow::showTabMenus(){
         //ui->menuServer->clear();
         ui->menuServer->setEnabled(false);
     }
+}
+
+void MainWindow::on_start_clicked()
+{
+
 }

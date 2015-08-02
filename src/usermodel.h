@@ -5,6 +5,7 @@
 #include <QLinearGradient>
 
 #include "userstruct.h"
+class netcoupler;
 class usermodel: public QAbstractItemModel {
     Q_OBJECT
 public:
@@ -12,7 +13,7 @@ public:
     enum {
         e_Nick=0,e_Flag,e_Rank,e_Clan,e_Client, e_Channel=999
     };
-    usermodel(QObject * parent = 0);
+    usermodel(netcoupler *netc,QObject * parent = 0);
     ~usermodel();
 
     void setuserstruct(const QList<userstruct>&, QHash<QString,QStringList>);
@@ -44,6 +45,7 @@ public:
     static QStringList buddylefthelper;
     void clear();
 private:
+    netcoupler *netc;
     QString currentselecteduser;
     int currentselectedchannel;
     QMap<QString,const QWidget*> selectionwidgetmap;

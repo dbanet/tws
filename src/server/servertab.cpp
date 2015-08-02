@@ -6,10 +6,10 @@
 #include "ui_chanUserListMenu.h"
 #include "../global_functions.h"
 
-serverTab::serverTab(MainWindow *mainWnd,QWidget *parent) :
+serverTab::serverTab(netcoupler *netc,MainWindow *mainWnd,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::serverTab),
-    mainWnd(mainWnd)
+    mainWnd(mainWnd),netc(netc)
 {
     ui->setupUi(this);
     connect(&singleton<netcoupler>(),SIGNAL(sigGotChanList(const QStringList &)),this,SLOT(gotChannelList(const QStringList &)));
@@ -69,7 +69,7 @@ void serverTab::on_chbautojoin_clicked(bool checked)
 }
 
 void serverTab::gotChannelList(const QStringList &sl) {
-    connect(*(&singleton<netcoupler>().irc),SIGNAL(sigIRCUpdatedUserList(QList<userstruct>*)),this,SLOT(gotUserList(QList<userstruct>*)));
+    connect(netc->irc,SIGNAL(sigIRCUpdatedUserList(QList<userstruct>*)),this,SLOT(gotUserList(QList<userstruct>*)));
     ui->cbchannels->clear();
     foreach(QString s,sl)
         ui->cbchannels->addItem(s);

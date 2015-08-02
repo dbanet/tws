@@ -7,14 +7,15 @@
 #include <QMenu>
 #include <QPointer>
 #include <QColorDialog>
-buttonlayout::buttonlayout(QWidget *parent) :
+buttonlayout::buttonlayout(netcoupler *netc,QWidget *parent) :
+    netc(netc),
     QWidget(parent) {
     ui.setupUi(this);    
     leaguemenu=new QMenu;
     leaguestatemenu=new QMenu;
     ui.horizontalLayout->setAlignment(Qt::AlignLeft);
     setObjectName("buttoenlayout");
-    connect(ui.pbrefresh, SIGNAL(clicked()),&singleton<netcoupler>(), SLOT(refreshhostlist()));
+    connect(ui.pbrefresh, SIGNAL(clicked()),netc, SLOT(refreshhostlist()));
     connect(ui.pbhost, SIGNAL(clicked()),this, SIGNAL(pbhostclicked()));
     connect(ui.pbminimize, SIGNAL(clicked()),this, SIGNAL(pbminimizedclicked()));
     connect(ui.slideralpha,SIGNAL(valueChanged ( int )),this,SIGNAL(sigchangealpha(int)));

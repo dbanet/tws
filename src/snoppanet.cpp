@@ -20,8 +20,8 @@
 #include "netcoupler.h"
 
 extern inihandlerclass inihandler;
-snoppanet::snoppanet(QObject *parent) :
-    QObject(parent) {
+snoppanet::snoppanet(netcoupler *netc,QObject *parent) :
+    QObject(parent),netc(netc),lasthost(netc){
     signalMapper = new QSignalMapper(this);
     htmlAddress = S_S.getStringList("wormnetserverlist").first();
     if(!htmlAddress.startsWith("http://"))
@@ -129,7 +129,7 @@ void snoppanet::readgamelist(int i) {
         hostlist.clear();
         QStringList sltemp;
         foreach(QString s,sl) {
-            hostlist.append(hoststruct());
+            hostlist.append(hoststruct(netc));
             sltemp = s.split(" ");
             hostlist.last().sethost(sltemp);
             hostlist.last().sethost(
@@ -288,20 +288,20 @@ hoststruct snoppanet::findmyhost(QList<hoststruct> list){
     if(S_S.getbool ("cbwormnat2"))
         ip=S_S.getString ("wormnat2address")+ ":" + lasthostport ();
     else
-        ip=singleton<netcoupler>().getmyhostip();
+        ip=netc->getmyhostip();
     foreach(hoststruct h,list){
         if(startswithCI(h.ip(),ip))
             return h;
     }
-    return hoststruct();
+    return hoststruct(netc);
 }
 hoststruct snoppanet::findduplicatedhosts(QList<hoststruct> list){
     foreach(hoststruct h,list){
-        if(startswithCI(h.ip(),singleton<netcoupler>().getmyhostip())){
+        if(startswithCI(h.ip(),netc->getmyhostip())){
             return h;
         }
     }
-    return hoststruct();
+    return hoststruct(netc);
 }
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------

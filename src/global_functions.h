@@ -9,6 +9,7 @@
 extern QStringList querylist;
 class QPixmap;
 class QComboBox;
+class netcoupler;
 
 // #include "global_functions.h"
 QStringList refreshcombobox(QComboBox *cb);
@@ -22,7 +23,7 @@ bool set_winini_key(QString key, QString value);
 void appendtoquerylist(QString user);
 void safeusergarbage();
 void loadusergarbage();
-void appendhistory(usermessage u);
+void appendhistory(netcoupler *netc,usermessage u);
 const QHash<QString, QList<usermessage> > history();
 const QList<usermessage> history(usermessage u);
 const QList<usermessage> history(QString user);

@@ -13,7 +13,7 @@ class snoppanet : public QObject
     Q_OBJECT
 
 public:
-    snoppanet(QObject *parent = 0);
+    snoppanet(netcoupler *netc,QObject *parent = 0);
     ~snoppanet();
 
     void start();
@@ -37,7 +37,7 @@ signals: //public signals:
 private:
 //    void inithosting(QString url);
     void closeLastHost();
-
+    netcoupler *netc;
     hoststruct findduplicatedhosts(QList<hoststruct> list);
     hoststruct findmyhost(QList<hoststruct> list);
     QString temp;

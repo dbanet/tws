@@ -40,7 +40,8 @@ QPointer<emoticonhandler> chatHandler::emot;
 QHash<int, QTextCharFormat> chatHandler::hash;
 
 extern bool fontOrColorHasChanged;
-chatHandler::chatHandler(QObject *parent, QTextBrowser *t, QString chan) :
+chatHandler::chatHandler(netcoupler *netc,QTextBrowser *t, QString chan,QObject *parent) :
+    netc(netc),
     QObject(parent), sliderAtMaximum(true), gotFirstMessage(false), tb(t), chatpartner(chan) {
     isprv=0;
     emot = new emoticonhandler;
@@ -142,7 +143,7 @@ void chatHandler::appendGarbage(usermessage u){
         if(!S_S.chbquitinfo && !isprv)
             return;
         format=hash[e_hash_garbagequit];
-    } else if(u.receiver() != singleton<netcoupler>().nick && u.user() != singleton<netcoupler>().nick)
+    } else if(u.receiver() != netc->nick && u.user() != netc->nick)
         text<<makePair(tr("to ")+u.receiver()+ ": ", format);
     QString suffix;
     if(u.has_type(e_CTCP))
@@ -196,7 +197,7 @@ void chatHandler::append(const usermessage u){
     if(u.has_type(e_CHANNELMSGTOCHAT))
         text<<makePair(tr("to ")+u.receiver()+ ": ", format);
     else
-        appendhistory(u);        
+        appendhistory(netc,u);
     format.setProperty(userpropertyId,u.user());
     if(u.has_type(e_CHATMSGTOCHANNEL))
         text<<makePair(S_S.getString("leprvmsgprefix")+ ": ", format);
@@ -243,7 +244,7 @@ void chatHandler::append(const usermessage u){
         tb->verticalScrollBar()->setValue(tb->verticalScrollBar()->maximum());
 
     QString temp;
-    if(containsCI(u.msg(), singleton<netcoupler>().nick)){
+    if(containsCI(u.msg(), netc->nick)){
 #ifdef PHONON
         singleton<soundHandler>().play_highlightningsound(u.user(),qobject_cast<QWidget*> ( parent()));
 #endif
@@ -289,7 +290,7 @@ QTextCharFormat chatHandler::getRightFormat(const usermessage u){
     else
         format = hash[e_hash_buddy];
 
-    if(u.user()==singleton<netcoupler>().nick)
+    if(u.user()==netc->nick)
         format=hash[e_hash_myself];
 
     if(u.has_type(e_PRIVMSG) && u.has_type(e_ACTION))
@@ -323,7 +324,7 @@ void chatHandler::insertText(const QString &s, QTextCharFormat &t,QString user) 
                 cursor->insertText(str, t);
             }
         }
-    } else if (containsCI(s, singleton<netcoupler>().nick)) {
+    } else if (containsCI(s, netc->nick)) {
         if (!t.anchorHref().startsWith("<notice>") && t.anchorHref() != "action")
 #ifdef PHONON
             singleton<soundHandler>().play_highlightningsound(user,qobject_cast<QWidget*> ( parent()));

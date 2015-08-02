@@ -14,15 +14,19 @@
 
 class chatwindow;
 class usermessage;
+class netcoupler;
 class ctcphandler:public QObject {
     Q_OBJECT
-    DECLARE_SINGLETON(ctcphandler);
 public:
+    ctcphandler(netcoupler *netc);
+    ~ctcphandler();
     bool getctcp(const usermessage u);
     static QStringList awayusers;
     static QMap<QString,QString>  ctcpcontainer;
     QStringList bookedcommands;
     QMap<QString,bool> typingmap;
+private:
+    netcoupler *netc;
 public slots:
 signals:
     void sigctcpcommand(const QString&,const QString&);

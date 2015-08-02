@@ -11,7 +11,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 
-hostbox::hostbox(QString c, QWidget *parent) :
+hostbox::hostbox(netcoupler *netc,QString c, QWidget *parent) :netc(netc),
     QWidget(parent),channel(c) {
     ui.setupUi(this);
     setObjectName("normalwidget");
@@ -25,7 +25,7 @@ hostbox::hostbox(QString c, QWidget *parent) :
     ui.leip->setText(S_S.getString("costumipforhosting"));
     ui.cbwormnat2->setChecked (S_S.getbool ("cbwormnat2"));
 
-    ui.legamename->setText(singleton<netcoupler>().nick);
+    ui.legamename->setText(netc->nick);
     QString gamename=S_S.getString("legamename");
     if(!gamename.isEmpty())
         ui.legamename->setText(gamename);

@@ -26,7 +26,7 @@ class channelTab : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit channelTab(QString,QMenu*,QWidget *parent=0);
+    explicit channelTab(netcoupler *netc,QString,QMenu*,QWidget *parent=0);
     ~channelTab();
     QString currentChannel;
     static QList<chatwindow*> chatwindows;
@@ -80,6 +80,7 @@ public slots:
     void setUsers(QList<userstruct>*);
 
 private:
+    netcoupler *netc;
     Ui::channelTab *ui;
 
     QMenu joinmenu;

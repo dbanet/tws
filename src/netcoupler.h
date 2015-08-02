@@ -18,6 +18,7 @@
 #include "ircnet.h"
 #include "snoppanet.h"
 #include "mainwindow.h"
+#include "channel/channeltab.h"
 
 extern qint64 waProcessId;
 
@@ -25,7 +26,9 @@ class netcoupler : public QObject
 {
     Q_OBJECT
 
-public:    
+public:
+    netcoupler();
+    ~netcoupler();
     enum state{
         e_started, e_stoped
     };
@@ -57,7 +60,6 @@ public:
 
     state connectstate;
 
-    DECLARE_SINGLETON(netcoupler);
 signals:
     void signewwholist(QList<userstruct>);
     void siggotusermessage(const usermessage u);
