@@ -14,6 +14,7 @@
 #include "leagueserverhandler.h"
 #include "usermessage.h"
 #include "balloon_handler.h"
+#include "quithandler.h"
 #include "emoticonsdialog.h"
 
 #include <QHBoxLayout>
@@ -91,7 +92,8 @@ window::window(QString s, int i) :
     ui.hosts->header()->setSortIndicatorShown(0);
 
     joinMenu2.setTitle(tr("Join"));
-    hostMenu.addAction(tr("Host a game in ") + currentChannel);    
+    joinMenu.addAction(tr("Join the game and quit"));
+    hostMenu.addAction(tr("Host a game in ") + currentChannel);
     joinMenu.addMenu(&joinMenu2);
     joinMenu.addSeparator();
     joinMenu.addAction(tr("Close this game now"));
@@ -473,6 +475,10 @@ void window::hostItemPressed(const QModelIndex &index) {
                 if(a->text()==tr("Close this game now")){
                     singleton<netcoupler>().http->closehostandstartlasthost(singleton<netcoupler>().hosts.getHostStructByIndex(index),false);
                     QTimer::singleShot(200,&singleton<netcoupler>(),SLOT(refreshHostList()));
+                }
+                else if(a->text()==tr("Join the game and quit")){
+                     singleton<netcoupler>().joinGame(hostinfo,currentChannel,gamename);
+                     singleton<quithandler>().inducequit("Joined Game");
                 }
                 else if(a->text()==tr("Choose a Program to join this game.")) {
                     QStringList sl = S_S.getStringList("joinstrings");
