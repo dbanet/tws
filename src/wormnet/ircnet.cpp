@@ -596,8 +596,8 @@ void ircnet::refreshList() {
     }
 }
 void ircnet::quit(QString reason){
-    tcpWrite(QString()+"QUIT : ["+TWS_VERSION+"] "+reason);
-    myDebug()<<"Waiting for the server to gracefully disconnect...";
+    tcpWrite(QString()+"QUIT :[TWS "+TWS_VERSION+"] "+reason);
+    myDebug()<<"Waiting for the server to disconnect gracefully...";
     disconnectionTimeout->start(5000);
 }
 void ircnet::disconnectionTimedOut(){
