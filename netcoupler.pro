@@ -29,7 +29,7 @@ win32:DEFINES += WITH_WORMNAT_SUPPORT   # currently windows-only
     SOURCES += src/wormnet/sound_handler.cpp
 }
 
-win32:LIBS += -lwsock32
+win32:LIBS += -lwsock32 -lversion
 # Input
 HEADERS += src/wormnet/about.h \
     src/wormnet/awaybox.h \
@@ -87,7 +87,8 @@ HEADERS += src/wormnet/about.h \
     src/wormnet/emoticonsdialog.h \
     src/wormnet/wa_textcodec.h \
     src/wormnet/playername.h \
-    src/wormnet/ircmessage.h
+    src/wormnet/ircmessage.h \
+    src/wormnet/versioninfo.h
 
 FORMS += src/wormnet/about.ui \
     src/wormnet/awaybox.ui \
@@ -168,7 +169,8 @@ SOURCES +=  src/wormnet/about.cpp \
     src/wormnet/emoticonsdialog.cpp \
     src/wormnet/wa_textcodec.cpp \
     src/wormnet/playername.cpp \
-    src/wormnet/ircmessage.cpp
+    src/wormnet/ircmessage.cpp \
+    src/wormnet/versioninfo.cpp
 
 win32:RC_FILE += src/wormnet/myapp.rc
 TRANSLATIONS += \

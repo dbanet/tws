@@ -205,8 +205,11 @@ void netcoupler::createHost(QString id){
         sLink += QString("&password=%1").arg(http->lasthost.pwd());
     args << sLink;
 #ifdef WITH_WORMNAT_SUPPORT
-    if(S_S.getbool ("cbwormnat2"))
+    if(S_S.getbool ("cbwormnat2")){
+        if (getFileVersion(temp) >= "3.7.0.0")
+            args << "/wk" << "/wkargs";
         args << getwormnat2commandline();
+    }
 #endif
     startProcess(temp, args);
 }

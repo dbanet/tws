@@ -1,5 +1,6 @@
 #include "hostbox.h"
 #include "settings.h"
+#include "versioninfo.h"
 #include "netcoupler.h"
 #include "global_functions.h"
 
@@ -104,18 +105,6 @@ void hostbox::okclicked() {
         S_S.set("joinstrings", sl);
 
         if( (ui.cbwormnat2->isChecked () && verifywormnat())){
-            //            if(verifywormnat()){
-            //                QMessageBox::information (this,QObject::tr("Information"), tr("Sorry for inconvenience but CyberShadow adviced me to post this: \n"
-            //                                                                              "This is a reminder message to remind you that WormNAT2\n"
-            //                                                                              "is a free service. Using WormNAT2 tunnels all data\n"
-            //                                                                              "through a proxy server hosted by the community, thus\n"
-            //                                                                              "consuming bandwidth and other resources. Therefore,\n"
-            //                                                                              "we'd like to ask you to only use WormNAT2 when you\n"
-            //                                                                              "have already tried configuring hosting the proper way.\n"
-            //                                                                              "Don't forget that you can find instructions on how\n"
-            //                                                                              "to set up hosting here\n"
-            //                                                                              "http://worms2d.info/Hosting"));
-            //            }
             emit sigok();
             close();
         }
@@ -127,39 +116,57 @@ void hostbox::okclicked() {
         QMessageBox::warning (this,QObject::tr("Warning"),tr("Please add a Game executable!"));
 }
 bool hostbox::verifywormnat(){
-    QString s=S_S.getStringList("joinstrings").first ();
-    s=QFileInfo(s).path ();
-    QString msg=tr("Using Wormnat2 hosting requires some wk files to be moved to your Worms Armageddon folder, these files may replace old files. "
-                   "Also make sure you have enabled \"Load WormKit modules\" in game settings (3.7.0.0 and newer).\n"
-                   "Are you sure?");
-    if(!QFile::exists (s+ "/madCHook.dll")) {
-        int button=QMessageBox::question (0, QObject::tr("Warning"), msg);
-        if(button!=QMessageBox::Ok)
+    QString s = S_S.getStringList("joinstrings").first();
+    auto gv = getFileVersion(s);
+    s = QFileInfo(s).path();
+    if(!QFile::exists(s+ "/wkWormNAT2.dll")) {
+        int button = QMessageBox::question(0, QObject::tr("Warning"), tr(
+            "Hosting via WormNAT2 requires installing two DLL files "
+            "into your Worms Armageddon folder: wkWormNAT2.dll and "
+            "madCHook.dll. Older components of WormNAT2(Ex) will be "
+            "removed, if found.\n"
+            "WormKit module loading (/wk) will be temporarily enabled each "
+            "time you host a game with WormNAT2 on W:A 3.7.0.0 and newer.\n"
+            "Are you sure you want to continue?"
+        ));
+        if (button != QMessageBox::Ok)
             return false;
-        QFile::copy ("Wkfiles/DelphiStringA.dll", s + "/DelphiStringA.dll");
-        QFile::copy ("Wkfiles/wkPackets.dll", s + "/wkPackets.dll");
-        QFile::copy ("Wkfiles/borlndmm.dll", s + "/borlndmm.dll");
-        QFile::copy ("Wkfiles/madCHook.dll", s + "/madCHook.dll");
-    } else if(!QFile::exists (s+ "/wkPackets.dll")) {
-        int button=QMessageBox::question (0, QObject::tr("Warning"), msg);
-        if(button!=QMessageBox::Ok)
-            return false;
-        QFile::copy ("Wkfiles/DelphiStringA.dll", s + "/DelphiStringA.dll");
-        QFile::copy ("Wkfiles/wkPackets.dll", s + "/wkPackets.dll");
-        QFile::copy ("Wkfiles/borlndmm.dll", s + "/borlndmm.dll");
+        QFile::copy("Wkfiles/wkWormNAT2.dll", s + "/wkWormNAT2.dll");
+        if (gv && gv < "3.7.0.0")
+            QMessageBox::warning(0, QObject::tr("Warning"), tr(
+                "Your version of the game (%1) is outdated. You might "
+                "see some \"unrecognized command-line parameter\" warnings "
+                "when hosting a game with WormNAT2. In order to get rid of "
+                "them, you need to upgrade Worms Armageddon to version 3.7 "
+                "or newer, or ask WormNAT2's authors to implement a workaround "
+                "for you. This dialog box is only shown once during installation."
+            ).arg(gv.str()));
     }
-    if(!QFile::exists (s+ "/borlndmm.dll"))
-        QFile::copy ("Wkfiles/borlndmm.dll", s + "/borlndmm.dll");
+    else {
+        auto nv = getFileVersion("Wkfiles/wkWormNAT2.dll");
+        auto ov = getFileVersion(s+ "/wkWormNAT2.dll");
+        if (nv > ov) {
+            int button = QMessageBox::information(0, QObject::tr("Information"), tr(
+                "An older version of WormNAT2 (%1) was detected in your game's "
+                "directory. It will now be upgraded to version %2 for "
+                "improved stability and enhanced feature set, and might be required for "
+                "snooper hosting to work at all. This is a required step, and you must "
+                "agree in order to keep using WormNAT2."
+            ).arg(ov.str(), nv.str()));
+            if (button != QMessageBox::Ok)
+                return false;
+            QFile::remove(s+ "/wkWormNAT2.dll");
+            QFile::copy("Wkfiles/wkWormNAT2.dll", s + "/wkWormNAT2.dll");
+        }
+    }
+    if(!QFile::exists (s+ "/madCHook.dll")) {
+        QFile::copy ("Wkfiles/madCHook.dll", s + "/madCHook.dll");
+    }
     if(QFile::exists (s + "/wkWormNAT2Ex.dll")) {
-        if (!QFile::exists (s + "/DelphiStringA.dll"))
-            QFile::copy ("Wkfiles/DelphiStringA.dll", s + "/DelphiStringA.dll");
-        return true;
-    } else QFile::copy ("Wkfiles/wkWormNAT2Ex.dll", s + "/wkWormNAT2Ex.dll");
-    if(QFile::exists (s + "/wkWormNAT2.dll")) {
-        int button=QMessageBox::question (0, QObject::tr("Warning"), msg);
-        if(button!=QMessageBox::Ok)
-            return false;
-          QFile::remove (s+ "/wkWormNAT2.dll");
+        QFile::remove (s + "/wkWormNAT2Ex.dll");
+    }
+    if(QFile::exists (s + "/wkPackets.dll")) {
+        QFile::remove (s + "/wkPackets.dll");
     }
     return true;
 }

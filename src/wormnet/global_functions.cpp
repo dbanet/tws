@@ -21,6 +21,7 @@
 #include <sys/types.h>
 
 #include "global_functions.h"
+#include "versioninfo.h"
 #include "settings.h"
 #include "usermessage.h"
 #include "netcoupler.h"
@@ -42,6 +43,34 @@ QStringList refreshcombobox(QComboBox *cb){
 }
 //----------------------------------------------------------------------------------------------
 #ifdef WITH_WORMNAT_SUPPORT
+UVersion getFileVersion(QString filepath)
+{
+    DWORD h; quint16 V[4];
+    V[0] = 0; V[1] = 0; V[2] = 0; V[3] = 0;
+    filepath = filepath.replace('"', "");
+    DWORD vsize = GetFileVersionInfoSize((const wchar_t*)filepath.utf16(),&h);
+    if (vsize)
+    {
+        void* Buf=malloc(vsize);
+        GetFileVersionInfo((const wchar_t*)filepath.utf16(),h,vsize,Buf);
+        VS_FIXEDFILEINFO *Info; DWORD Is;
+        if (VerQueryValue(Buf,(const wchar_t*)L"\\",(LPVOID*)&Info,(PUINT)&Is))
+        {
+            if (Info->dwSignature==0xFEEF04BD)
+            {
+                V[0]=HIWORD(Info->dwFileVersionMS);
+                V[1]=LOWORD(Info->dwFileVersionMS);
+                V[2]=HIWORD(Info->dwFileVersionLS);
+                V[3]=LOWORD(Info->dwFileVersionLS);
+            }
+        }
+        free(Buf);
+    }
+    return UVersion() << V[0] << V[1] << V[2] << V[3];
+}
+#endif
+//----------------------------------------------------------------------------------------------
+#ifdef WITH_WORMNAT_SUPPORT
 SOCKET ControlSocket;
 QStringList getwormnat2commandline(){
     SECURITY_ATTRIBUTES SecAttr;
@@ -49,7 +78,7 @@ QStringList getwormnat2commandline(){
     SecAttr.bInheritHandle=TRUE;
     SecAttr.lpSecurityDescriptor=0;
     HANDLE WaitEvent=CreateEvent(&SecAttr,0,0,0);
-    return QStringList() << "/wkargs" << "/wnat2" << QString("%1-%2-%3").arg(GetCurrentProcessId()).arg(ControlSocket).arg((u_int)WaitEvent);
+    return QStringList() << "/wnat2" << QString("%1-%2-%3").arg(GetCurrentProcessId()).arg(ControlSocket).arg((u_int)WaitEvent);
     
     //QString s=QString(" /wkargs /wnat2 %1-%2-%3").arg(GetCurrentProcessId()).arg(ControlSocket).arg((u_int)WaitEvent);
     /*
@@ -74,7 +103,7 @@ QString getwormnatport(){
     WORD Input;
     WSADATA wsaData;
     WORD ExternalPort=0;
-    WORD ControlPort=17018;
+    WORD ControlPort=S_S.getint("wormnat2controlport");
     WORD PortError=0xFFFF;
 
     if (WSAStartup(MAKEWORD(2,2),&wsaData))

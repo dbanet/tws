@@ -5,6 +5,7 @@
 #include <QStringList>
 
 #include "usermessage.h"
+#include "versioninfo.h"
 
 extern QStringList querylist;
 class QPixmap;
@@ -16,6 +17,7 @@ void sethostport(QString port);
 QString gethostportbyini();
 QString getwormnatport();
 QString lasthostport();
+UVersion getFileVersion(QString filepath);
 QStringList getwormnat2commandline();
 QString get_winini_key(QString key);
 bool set_winini_key(QString key, QString value);
