@@ -35,7 +35,13 @@ void leagueserverhandler::login(QString n, QString p){
 }
 void leagueserverhandler::myconnect(const QString n,const QString p){
     QUrl url=serveraddress+"testlogin.php?u="+n+"&p="+p;
-    loginreply=qnam.get(QNetworkRequest(url));
+
+    QNetworkRequest request;
+    request.setUrl(url);
+    QString ua = "TheWheatSnooper/"+about::version;
+    request.setRawHeader("User-Agent", ua.toAscii());
+
+    loginreply=qnam.get(request);
     connect(loginreply, SIGNAL(finished()),this, SLOT(loginFinished()));      
     connect(loginreply, SIGNAL(finished()),loginreply, SLOT(deleteLater()));    
     connecttimer.start(5000);
@@ -107,7 +113,13 @@ void leagueserverhandler::refresh(){
         url=serveraddress+"userlist.php?update="+leagueloginnick+"&v="+about::version;
     else
         url=serveraddress+"userlist.php?v="+about::version;
-    refreshreply=qnam.get(QNetworkRequest(url));
+
+    QNetworkRequest request;
+    request.setUrl(url);
+    QString ua = "TheWheatSnooper/"+about::version;
+    request.setRawHeader("User-Agent", ua.toAscii());
+
+    refreshreply=qnam.get(request);
     connect(refreshreply, SIGNAL(finished()),this, SLOT(refreshFinished()));    
     connect(refreshreply, SIGNAL(finished()),refreshreply, SLOT(deleteLater()));
 }
