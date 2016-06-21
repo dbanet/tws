@@ -204,6 +204,11 @@ void mainwindow::setLeague(){
         item="http://"+item;
     QString servicename=item;
     servicename=servicename.remove("http://");
+
+    //Lazy way
+    servicename=servicename.remove("https://");
+    item=item.remove("https://");
+
     int i=servicename.indexOf("/");
     if(i!=-1)
         servicename=servicename.left(i);
